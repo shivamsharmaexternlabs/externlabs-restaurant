@@ -6,6 +6,7 @@ import "./loadingSpinner.css"
 
 const LodingSpiner = ({ loadspiner }) => {
     return (
+        
         <div className=" ">
             <Popup open={loadspiner} position="" model className="loader">
                 <div className="loader">
