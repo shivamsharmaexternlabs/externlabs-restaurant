@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -23,11 +23,10 @@ const Signup = () => {
   const [showconfirmPassword, setShowconfirmPassword] = useState(false);
 
 
-  const SignUpSelectorData = useSelector((state) => state.signup);
-  console.log("SignUpSelectorData", SignUpSelectorData)
+  const SignUpSelectorData = useSelector((state) => state.signup); 
 
   useEffect(() => {
-    if (SignUpSelectorData?.data[0]?.status == 201) {
+    if (SignUpSelectorData?.data[0]?.status === 201) {
       setLoadSpiner(false);
       navigate("/emailotpverification");
       window.location.reload(true);
@@ -35,7 +34,7 @@ const Signup = () => {
   }, [SignUpSelectorData]);
 
   useEffect(() => {
-    if (SignUpSelectorData?.error == "Rejected") {
+    if (SignUpSelectorData?.error === "Rejected") {
       setLoadSpiner(false);
     }
   }, [SignUpSelectorData]);
@@ -51,12 +50,13 @@ const Signup = () => {
   };
 
   const Validate = yup.object({
-    email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid"),
-    first_name: yup.string().required("first name is required"),
-    last_name: yup.string().required("last name is required"),
-    password: yup.string().required("Password is required"),
-    confirm_password: yup.string().required("Confirm Password is required"),
-    phone_number: yup.string().required("Phone Number   is required")
+    email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'First name must not contain spaces'),
+    first_name: yup.string().required("first name is required").matches(/^\S*$/, 'First name must not contain spaces'),
+    last_name: yup.string().required("last name is required").matches(/^\S*$/, 'Last name must not contain spaces'),
+    password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
+    confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
+    // phone_number: yup.string().required("Phone Number   is required")
+    phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces')
 
 
   });
@@ -72,7 +72,7 @@ const Signup = () => {
   return (
     <>
       <div className="signuppage">
-        <Formik 
+        <Formik
           initialValues={defaultValue}
           validationSchema={Validate}
           onSubmit={handleSubmit}
