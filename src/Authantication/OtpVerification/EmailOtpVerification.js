@@ -15,8 +15,8 @@ const EmailOtpVerification = () => {
     // const products = useSelector(state => state.productReducer.products)
     let navigate = useNavigate();
 
-    let EmailVerificationValue = reactLocalStorage.get('EmailVerification', true); 
-    
+    let EmailVerificationValue = reactLocalStorage.get('EmailVerification', true);
+
     const VerifyOtp = async () => {
 
         //     await axios
@@ -43,56 +43,59 @@ const EmailOtpVerification = () => {
     const handleChange = (otpvalue) => setOtpValue(otpvalue);
 
     const SendOtpFun = () => {
-            axios
-                .post(`${process.env.REACT_APP_BASE_URL}/resendotp`,
-                    {
-                        number: EmailVerificationValue,
-                    }
-                )
-                .then((response) => {
-                    toast.success("Please check your sms");
+        axios
+            .post(`${process.env.REACT_APP_BASE_URL}/resendotp`,
+                {
+                    number: EmailVerificationValue,
+                }
+            )
+            .then((response) => {
+                toast.success("Please check your sms");
 
 
-                })
-                .catch((err) => {
-                    toast.warn(err.response.data.message);
+            })
+            .catch((err) => {
+                toast.warn(err.response.data.message);
 
 
 
-                });
+            });
     }
 
     return (
-        <div className="conatiner-fluid">
-            <div className="row m-0 p-0">
-                <div className='col-md-7  carosel_bg d-md-block d-none' >
-                    <div className="accountslider-part">
-                        {/* <Carosel /> */}
+        <div className="otppage">
+            <div className="loginpage">
+                <div className="otpbox">
+                    <div className="title">
+                        <h2>One Time Password</h2>
+                        <p>Enter the 6 digit code you received on mobile number</p>
                     </div>
-                </div>
-                <div className="col-md-5 col-sm-12 col-12 account-part">
-                    <div className="right_part verifyphone-part ">
-                        <div className="sign_up ">Verification Code</div>
-                        <div className="sign_up_ ">Please type verification code send to</div>
-                        <div className="email_number">
-                            {EmailVerificationValue}  </div>
+                    <div className="email_number"> {EmailVerificationValue}  </div>
+                    <div className="otp_container">
+                        <OtpInput
+                            value={otpvalue}
+                            onChange={handleChange}
+                            numInputs={4}
+                            renderSeparator={<span>-</span>}
+                            renderInput={(props) => <input {...props} />} />
+                    </div>
 
-                        <div className="otp_container">
-                            <OtpInput
-                                value={otpvalue}
-                                onChange={handleChange}
-                                numInputs={4}
-                                renderSeparator={<span>-</span>}
-                                renderInput={(props) => <input {...props} />}
-                            />
-                        </div>
-                        <div className="send_otp"> <a href="#" onClick={() => SendOtpFun()}> Resend OTP </a> </div>
-                        <div className="button_login_div"> <button className="button_otp" onClick={(e) => VerifyOtp(e)}> Verify OTP </button>
-                        </div>
-                    </div>
+                    {/* 
+                        <div className="send_otp"> 
+                            <a href="#" onClick={() => SendOtpFun()}> Resend OTP </a> 
+                        </div> 
+                                            
+                        <div className="button_login_div">
+                            <button className="button_otp" onClick={(e) => VerifyOtp(e)}> Verify OTP </button> 
+                        </div> 
+                    */}
+
+                    <div className="resendtext">Resend OTP in<span> 00:50 </span> </div>
+
                 </div>
             </div>
         </div>
+
     );
 };
 

@@ -1,40 +1,67 @@
-.otp_container>div>div+div {
-    margin-left: 20px;
-  }
- 
-  .otp_container>div input {
-    justify-content: center;
-    margin-left: 20px;
-    background: #FFFFFF !important;
-    border: 1px solid rgba(225, 225, 225, 0.7);
-    border-radius: 12px;
-    width: 56px !important;
-    height: 56px !important;
-    outline-color: #FFC900;
-  }
- 
-  .otp_container>div .veryfy_code {
-    display: flex;
-    justify-content: center;
- 
-  }
+.otpbox {
+  width: 100%;
+  max-width: 550px;
+  text-align: center;
+}
 
-  
-.account-part {
-    background-color: #F5F5F5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    overflow-y: auto;
-  }
-  
-  .account-part .right_part {
-    padding: 15px 5px;
-    overflow-y: auto;
-  }
-  
-  .account-part .login-part {
-    height: 460px;
-  }
-  
+
+.otpbox .title h2 {
+  color: #07143B;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.otpbox .title p {
+  color: #959895;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.otpbox .otp_container {
+  margin: 20px 0;
+}
+
+.otpbox .otp_container input {
+  width: 70px !important;
+  height: 70px;
+  border-radius: 10px;
+  border: 1px solid #EA6A12;
+  background-color: #fff;
+  display: inline-block;
+}
+
+.otpbox .otp_container input:not(:last-child) {
+  margin-right: 10px;
+}
+
+.otpbox .otp_container > div {
+  justify-content: center;
+}
+
+.otpbox .otp_container > div > span {
+  display: none;
+}
+
+
+
+.email_number {
+  font-size: 16px;
+  font-weight: 400;
+  color: #111;
+}
+
+.resendtext  {
+  font-size: 16px;
+  font-weight: 400;
+  color: #111;
+  text-align: right;
+  max-width: 310px;
+  margin: 0 auto;
+}
+
+.resendtext span {
+  color: #EA6A12;
+
+}
+
+

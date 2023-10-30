@@ -9,6 +9,9 @@ import Signup from './Authantication/SignUp/Signup';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import EmailOtpVerification from './Authantication/OtpVerification/EmailOtpVerification';
+import Success from './Authantication/Success /Success';
+import Menu from './Components/Menu/Menu';
+
 
 function App() {
   return (
@@ -18,6 +21,11 @@ function App() {
     <Route path="/" element={<Login />}></Route>
     <Route path="/emailotpverification" element={<EmailOtpVerification />}></Route>
     <Route path="/signup" element={<Signup />}></Route>
+    <Route path='/Success' element={<Success/>}></Route>
+
+
+    <Route path="/menu" element={<Menu />}></Route>
+    
   </Routes>
   );
 }
