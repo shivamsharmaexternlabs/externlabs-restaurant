@@ -1,7 +1,7 @@
-.logo p{
 
-    font-size: 30px !important;
-    font-weight: 600 !important;
-    color: rgb(82, 82, 217) !important;
 
+.signuppage .loginpage {
+    background: url(../../images/signupbg.png) top center no-repeat;
+    background-size: 100% 100%;
 }
+

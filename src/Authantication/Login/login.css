@@ -1,62 +1,72 @@
 .loginpage {
-    background: rgba(1, 22, 14, 1);
+    background: url(../../images/signupbg.png) top center no-repeat;
+    background-size: 100% 100%;
     padding: 15px;
     width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    overflow: auto;
 }
 
+
 .login-box {
-    overflow: auto;
-    background: rgba(255, 255, 255, 1);
-    border-radius: 20px;
     padding: 35px;
     max-width: 639px;
     width: 90%;
-    height: 90%;
-    max-height:680px;
 }
 
-
-.login-box .logo {
+.login-box .title {
     text-align: center;
-    margin-bottom: 80px;
-}
-.login-box .logo p {
-   
-  margin:20px 0 0;  
 }
 
-
-
-.login-box .logo  p {
-    text-decoration: none;
-    color: #000;
-    text-align: center; 
-    margin: 20px 0 0;      
+.login-box .title h2 {
+    color: #07143B;
+    font-family: Playfair Display;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.8px;
 }
 
-
-.login-box h2 {
-    line-height: 32px;
-    line-height: 32px;
-    color: rgba(1, 22, 14, 1);
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-
-.login-box form .form-control { 
-    background: rgba(44, 58, 51, 0.07);
-    border-radius: 10px;
-    font-size: 18px;
-    box-shadow: none;
+.login-box .title p {
+    color: #3F3F3F;
+    font-family: Poppins;
     font-size: 16px;
-    padding: 16px 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.32px;
+    margin-bottom: 16px;
 }
+
+
+
+.login-box form .formbox {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.login-box form .formbox label {
+    color: #3F3F3F;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
+.login-box form .form-control {
+    padding: 8px 16px;
+    border-radius: 24px;
+    border: 1px solid #EA6A12;
+    background: #FFF;
+}
+
+
+
 
 .imgsms {
     position: absolute;
@@ -71,47 +81,79 @@
     cursor: pointer;
 }
 
-.imglock{
+.imglock {
     position: absolute;
     top: 17px;
     left: 21px;
 }
 
-
-
-.login-box form .formbox {
-    position: relative;
-    margin: 0 0 30px;
+.login-box form .btn {
+    display: block;
+    border: 1px solid #EA6A12;
+    background: #EA6A12;
+    padding: 8px 24px;
+    margin: 32px auto 0;
+    border: 1px solid #EA6A12;
+    border-radius: 44px;
+    width: 140px;
+    color: #fff;
 }
 
-.login-box form .btn {
-    width: 211px;
-    margin: 50px auto 0;
-    background: rgba(1, 22, 14, 1);
+.login-box form .text-danger {
+    margin-bottom: 0;
+}
+
+.agreetxt {
     text-align: center;
-    color: #fff;
-    font-size: 21px;
-    line-height: 26px;
-    display: block;
-    height: 48px;
+    color: #959895;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.alreadytext {
+    color: #07143B;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    margin: 50px 0 0;
+}
+
+.alreadytext a {
+    color: #EA6A12;
+    text-decoration: none;
+}
+
+.forgortext {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.forgortext {
+    color: #3F3F3F;
+    font-size: 16px;
+
+}
+.forgortext a{
+    color: #EA6A12;
+    font-size: 16px;
+    text-decoration: none;
 }
 
 
 
 .loginpage::-webkit-scrollbar,
 .login-box::-webkit-scrollbar {
-  width: 5px;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background: rgba(0, 0, 0, 0.3);
+    width: 5px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .loginpage::-webkit-scrollbar-thumb,
 .login-box::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background: linear-gradient(90.18deg, #8EC22C 2.36%, #379640 99.96%);
+    border-radius: 5px;
+    background: linear-gradient(90.18deg, #8EC22C 2.36%, #379640 99.96%);
 }
-
-
-
-
-
