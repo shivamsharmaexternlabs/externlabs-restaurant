@@ -45,7 +45,8 @@ const Signup = () => {
     last_name: "sams",
     password: "Demo@123",
     confirm_password: "Demo@123",
-    phone_number: "9087365441"
+    phone_number: "9087365441",
+    type:"owner"
 
   };
 
