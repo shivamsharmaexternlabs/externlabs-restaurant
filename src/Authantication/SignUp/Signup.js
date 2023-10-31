@@ -99,7 +99,7 @@ const Signup = () => {
                   </p>
                 </div>
                 <div className="formbox col-md-6">
-                  <label> First Name </label>
+                  <label> Last Name </label>
                   <Field
                     name="last_name"
                     type="text"
@@ -113,7 +113,7 @@ const Signup = () => {
                 </div>
 
                 <div className="formbox col-md-6">
-                  <label> First Name </label>
+                  <label> Email </label>
                   <Field
                     name="email"
                     type="email"
@@ -127,7 +127,7 @@ const Signup = () => {
                 </div>
 
                 <div className="formbox col-md-6">
-                  <label> First Name </label>
+                  <label> Phone No. </label>
                   <Field
                     name="phone_number"
                     type="number"
@@ -144,7 +144,7 @@ const Signup = () => {
 
 
                 <div className="formbox col-md-6">
-                  <label> First Name </label>
+                  <label> Password </label>
                   <Field
                     name="password"
                     type={showPassword ? "text" : "password"}
@@ -169,7 +169,7 @@ const Signup = () => {
                 </div>
 
                 <div className="formbox col-md-6">
-                  <label> First Name </label>
+                  <label> Confirm Password </label>
                   <Field
                     name="confirm_password"
                     type={showconfirmPassword ? "text" : "confirmPassword"}
@@ -199,7 +199,7 @@ const Signup = () => {
                   <button type="submit" className="btn"> SignUp  </button>
                 </div>
               </Form>
-              <div className="alreadytext"> Already have an Account <a href="#">Sign in</a></div>
+              <div className="alreadytext"> Already have an Account <a href="javascript:void(0)" onClick={(e)=>navigate("/")}>Sign in</a></div>
             </div>
           </div>
         </Formik>

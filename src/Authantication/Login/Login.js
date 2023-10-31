@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [loadspiner, setLoadSpiner] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -64,7 +64,7 @@ const Login = () => {
           <div className="loginpage">
             <div className="login-box">
               <div className="title">
-                <h2>Sign Up</h2>
+                <h2>Sign In</h2>
                 <p>Sign in to stay connected.</p>
               </div>
               <Form>
@@ -114,7 +114,7 @@ const Login = () => {
                 </div>
                 <button type="submit" className="btn"> Sign in </button> 
               </Form>
-              <div className="alreadytext"> Don’t have an account?  <a href="#">Click here to sign up.</a></div>
+              <div className="alreadytext"> Don’t have an account?  <a href="javascript:void(0)" onClick={(e)=>navigate("/signup")}>Click here to sign up.</a></div>
             </div>
           </div>
         </Formik>
