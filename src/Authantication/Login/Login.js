@@ -40,8 +40,8 @@ const Login = () => {
   };
 
   const Validate = yup.object({
-    email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid"),
-    password: yup.string().required("Password is required")
+    email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'Email Number must not contain spaces'),
+    password: yup.string().required("Password is required").matches(/^\S*$/, 'Password Number must not contain spaces')
     // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "Password must contain 8 character, at least one lowercase, one uppercase,one digit and one special character"),
   });
 
