@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { reactLocalStorage } from 'reactjs-localstorage';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,8 @@ const EmailOtpVerification = () => {
     const [otpvalue, setOtpValue] = useState('')
     // const products = useSelector(state => state.productReducer.products)
     let navigate = useNavigate();
+    const [timer, setTimer] = useState(60);
+    const [isTimerRunning, setIsTimerRunning] = useState(false);
 
     let EmailVerificationValue = reactLocalStorage.get('EmailVerification', true);
 
@@ -39,6 +41,30 @@ const EmailOtpVerification = () => {
         //         });
     };
 
+    useEffect(() => {
+        let interval;
+    
+        if (isTimerRunning) {
+          interval = setInterval(() => {
+            setTimer((prevTimer) => {
+              if (prevTimer === 1) {
+                clearInterval(interval);
+                setIsTimerRunning(false);
+                return 0;
+              }
+              return prevTimer - 1;
+            });
+          }, 1000);
+        }
+    
+        return () => clearInterval(interval);
+      }, [isTimerRunning]);
+
+      const handleResendOTP = () => {
+        console.log('Resending OTP==>');
+        setTimer(60);
+        setIsTimerRunning(true);
+      };
 
     const handleChange = (otpvalue) => setOtpValue(otpvalue);
 
@@ -90,7 +116,7 @@ const EmailOtpVerification = () => {
                         </div> 
                     */}
 
-                    <div className="resendtext">Resend OTP in<span> 00:50 </span> </div>
+                    <div className="resendtext">Resend OTP in <span>{isTimerRunning ? <span>{timer == 60 ? '01:00' : `00:${timer}`}</span> : <span onClick={handleResendOTP}>Resend</span>}</span></div>
 
                 </div>
             </div>

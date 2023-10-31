@@ -11,6 +11,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import EmailOtpVerification from './Authantication/OtpVerification/EmailOtpVerification';
 import Success from './Authantication/Success /Success';
 import Menu from './Components/Menu/Menu';
+import ResetPassword from './Authantication/ResetPassword/ResetPassword';
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
     <Route path="/emailotpverification" element={<EmailOtpVerification />}></Route>
     <Route path="/signup" element={<Signup />}></Route>
     <Route path='/Success' element={<Success/>}></Route>
+    <Route path="/resetpassword" element={<ResetPassword />}></Route>
+
 
 
     <Route path="/menu" element={<Menu />}></Route>

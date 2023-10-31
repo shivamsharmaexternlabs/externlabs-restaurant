@@ -200,7 +200,7 @@ const Signup = () => {
                   <button type="submit" className="btn"> SignUp  </button>
                 </div>
               </Form>
-              <div className="alreadytext"> Already have an Account <a href="javascript:void(0)" onClick={(e)=>navigate("/")}>Sign in</a></div>
+              <div className="alreadytext"> Already have an Account <span onClick={(e)=>navigate("/")}>Sign in</span></div>
             </div>
           </div>
         </Formik>
