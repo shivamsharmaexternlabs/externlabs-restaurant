@@ -110,7 +110,7 @@ const Login = () => {
                 </div>
                 <div className="forgortext">                     
                     <div className=""> <input type="checkbox" />  Remember me? </div>
-                    <span> Forgot Password </span>
+                    <span onClick={(e)=>navigate("/forgotpassword")}> Forgot Password </span>
                 </div>
                 <button type="submit" className="btn"> Sign in </button> 
               </Form>

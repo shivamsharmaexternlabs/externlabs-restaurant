@@ -144,6 +144,10 @@
     text-decoration: none;
 }
 
+.forgortext span {
+    cursor: pointer;
+}
+
 
 
 .loginpage::-webkit-scrollbar,

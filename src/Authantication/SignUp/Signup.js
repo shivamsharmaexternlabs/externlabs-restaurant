@@ -26,18 +26,22 @@ const Signup = () => {
   const SignUpSelectorData = useSelector((state) => state.signup); 
 
   useEffect(() => {
+    console.log("SignUpSelectorData", SignUpSelectorData)
     if (SignUpSelectorData?.data[0]?.status === 201) {
       setLoadSpiner(false);
       navigate("/emailotpverification");
-      window.location.reload(true);
+      // window.location.reload(true);
     }
-  }, [SignUpSelectorData]);
-
-  useEffect(() => {
-    if (SignUpSelectorData?.error === "Rejected") {
+   else if (SignUpSelectorData?.error === "Rejected") {
       setLoadSpiner(false);
     }
   }, [SignUpSelectorData]);
+
+  // useEffect(() => {
+  //   if (SignUpSelectorData?.error === "Rejected") {
+  //     setLoadSpiner(false);
+  //   }
+  // }, [SignUpSelectorData]);
 
   const defaultValue = {
     email: "sa21m@gmail.com",
@@ -200,7 +204,7 @@ const Signup = () => {
                   <button type="submit" className="btn"> SignUp  </button>
                 </div>
               </Form>
-              <div className="alreadytext"> Already have an Account <span onClick={(e)=>navigate("/")}>Sign in</span></div>
+              <div className="alreadytext"> Already have an Account <span className="type-btn" onClick={(e)=>navigate("/")}>Sign in</span></div>
             </div>
           </div>
         </Formik>

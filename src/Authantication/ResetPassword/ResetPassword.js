@@ -1,48 +1,109 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from 'react-router';
+import * as yup from "yup";
 import './resetPassword.css'
+// import {Forgotpassword} from '../../Redux/slices/forgotPassword';
+import { useDispatch, useSelector } from 'react-redux';
+import LodingSpiner from '../../Components/LoadingSpinner/LoadingSpinner';
+import { toast } from 'react-toastify';
+import { Resetpassword } from '../../Redux/slices/resetPassword';
 
 const ResetPassword = () => {
 
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    // const navigate = useNavigate();
+    // const [loadspiner, setLoadSpiner] = useState(false);
+    // const ForgotPasswordSelectorData = useSelector((state) => state?.Forgotpassword); 
+    // console.log("ForgotPasswordSelectorData",ForgotPasswordSelectorData);
+
+    // useEffect(() => {
+    //     if (ForgotPasswordSelectorData?.data[0]?.status === 201) {
+    //       setLoadSpiner(false);
+    //       navigate("/emailotpverification");
+    //       window.location.reload(true);
+    //     }
+    //    else if (ForgotPasswordSelectorData?.error === "Rejected") {
+    //       setLoadSpiner(false);
+    //     }
+    //   }, [ForgotPasswordSelectorData]);
+
+    const defaultValue = {
+        new_pass: "",
+        confirm_pass: ""
+      };
+    
+      const Validate = yup.object({
+        new_pass: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
+        confirm_pass: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
+      });
+
+
+
+    const handleSubmit = (values) => {
+        console.log("values", values); 
+        if(values.new_pass == values.confirm_pass){
+            dispatch(Resetpassword(values));
+        }
+        else{
+            toast.error("Password not matched");
+        }
+        
+        // setLoadSpiner(true);
+      };
+
     return (
         <>
             <div className='resetpasswordpage'>
                 <Formik
-                //   initialValues={defaultValue}
-                //   validationSchema={Validate}
-                //   onSubmit={handleSubmit}
+                  initialValues={defaultValue}
+                  validationSchema={Validate}
+                  onSubmit={handleSubmit}
                 >
                     <div className="loginpage">
                         <div className="login-box">
                             <div className="title">
                                 <h2>Reset Password</h2>
-                                <p>Enter your email address and we’ll send you an email with instructions to reset your password</p>
+                                <p>Enter your new password</p>
                             </div>
                             <Form>
                                 <div className="formbox">
-                                    <label>Email </label>
+                                    <label>Password </label>
                                     <Field
-                                        name="email"
-                                        type="email"
+                                        name="new_pass"
+                                        type="text"
                                         className={`form-control `}
                                         autoComplete="off"
-                                        placeholder="Email"
+                                        placeholder="**********"
                                     />
                                     {/* <img src={sms} alt="sms img" className="imgsms" /> */}
                                     <p className="text-danger">
-                                        <ErrorMessage name="email" />
+                                        <ErrorMessage name="new_pass" />
+                                    </p>
+                                </div>
+                                <div className="formbox">
+                                    <label>Confirm Password </label>
+                                    <Field
+                                        name="confirm_pass"
+                                        type="text"
+                                        className={`form-control `}
+                                        autoComplete="off"
+                                        placeholder="***********"
+                                    />
+                                    {/* <img src={sms} alt="sms img" className="imgsms" /> */}
+                                    <p className="text-danger">
+                                        <ErrorMessage name="confirm_pass" />
                                     </p>
                                 </div>
 
 
-                                <button type="submit" className="btn"> Sign in </button>
+                                <button type="submit" className="btn"> Reset </button>
                             </Form>
 
                         </div>
                     </div>
                 </Formik>
+                {/* <LodingSpiner loadspiner={loadspiner} /> */}
 
 
             </div>

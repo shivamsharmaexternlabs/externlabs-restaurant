@@ -10,6 +10,8 @@ import dashboardSlice from "./slices/dashboardSlice";
 import  MapManagement  from "./slices/MapSlice";
 import updatedGetSlices from "./slices/updatedGetSlices";
 import  signUp  from "./slices/SignUp";
+import Forgotpassword from "./slices/forgotPassword";
+import  Resetpassword  from "./slices/resetPassword";
 // import { signUp } from "./slices/signup";
 // import  signUp  from "./slices/signup";
 
@@ -26,5 +28,7 @@ export const store = configureStore({
     dashboard: dashboardSlice,
     map :MapManagement,
     updatedgetApi :updatedGetSlices,
+    Forgotpassword :Forgotpassword,
+    Resetpassword:Resetpassword
   },
 });

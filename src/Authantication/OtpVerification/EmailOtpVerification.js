@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { reactLocalStorage } from 'reactjs-localstorage';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -21,67 +21,75 @@ const EmailOtpVerification = () => {
 
     const VerifyOtp = async () => {
 
-        //     await axios
-        //         .post(`${process.env.REACT_APP_BASE_URL}/verifyemailphoneotp`,
-        //             {
-        //                 phone_number: localStorageDetails.phoneNumber,
-        //                 mobile_otp: otpvalue
-        //             }
-        //         )
-        //         .then((response) => {
-        //             toast.success("Verified Phone successfully");
+            await axios
+                .post(`${process.env.REACT_APP_BASE_URL}user_auth/verify_otp/`,
+                    {
+                        email: EmailVerificationValue,
+                        otp: otpvalue
+                    }
+                )
+                .then((response) => {
+                    console.log("response ===>", response)
+                    reactLocalStorage.set("Token",response?.data?.token);
+                    toast.success("Verified Phone successfully");
+                    navigate("/success")
+                })
+                .catch((err) => {
+                    toast.warn(err.response.data.message);
 
-        //             navigate('/login')
-        //         })
-        //         .catch((err) => {
-        //             toast.warn(err.response.data.message);
 
 
-
-        //         });
+                });
     };
 
     useEffect(() => {
         let interval;
-    
-        if (isTimerRunning) {
-          interval = setInterval(() => {
-            setTimer((prevTimer) => {
-              if (prevTimer === 1) {
-                clearInterval(interval);
-                setIsTimerRunning(false);
-                return 0;
-              }
-              return prevTimer - 1;
-            });
-          }, 1000);
-        }
-    
-        return () => clearInterval(interval);
-      }, [isTimerRunning]);
 
-      const handleResendOTP = () => {
+        if (isTimerRunning) {
+            interval = setInterval(() => {
+                setTimer((prevTimer) => {
+                    if (prevTimer === 1) {
+                        clearInterval(interval);
+                        setIsTimerRunning(false);
+                        return 0;
+                    }
+                    return prevTimer - 1;
+                });
+            }, 1000);
+        }
+
+        return () => clearInterval(interval);
+    }, [isTimerRunning]);
+
+    const handleResendOTP = () => {
         console.log('Resending OTP==>');
         setTimer(60);
         setIsTimerRunning(true);
-      };
+    };
 
-    const handleChange = (otpvalue) => setOtpValue(otpvalue);
+    const handleChange = (otpvalue) => {
+        // console.log("otp Value", otpvalue)
+        setOtpValue(otpvalue);
+    }
 
     const SendOtpFun = () => {
         axios
-            .post(`${process.env.REACT_APP_BASE_URL}/resendotp`,
+            .post(`${process.env.REACT_APP_BASE_URL}user_auth/resend_otp/`,
                 {
-                    number: EmailVerificationValue,
-                }
+                    email: EmailVerificationValue,
+                 }
             )
             .then((response) => {
-                toast.success("Please check your sms");
+                
+
+                toast.success(response.data.message);
 
 
             })
             .catch((err) => {
-                toast.warn(err.response.data.message);
+
+                console.log(err?.response.data.error.non_field_errors[0]);
+                toast.warn(err?.response.data.error.non_field_errors[0]);
 
 
 
@@ -94,29 +102,30 @@ const EmailOtpVerification = () => {
                 <div className="otpbox">
                     <div className="title">
                         <h2>One Time Password</h2>
-                        <p>Enter the 6 digit code you received on mobile number</p>
+                        <p>Enter the 6 digit code you received on Mail</p>
                     </div>
                     <div className="email_number"> {EmailVerificationValue}  </div>
                     <div className="otp_container">
                         <OtpInput
                             value={otpvalue}
                             onChange={handleChange}
-                            numInputs={4}
+                            numInputs={6}
                             renderSeparator={<span>-</span>}
                             renderInput={(props) => <input {...props} />} />
                     </div>
 
-                    {/* 
-                        <div className="send_otp"> 
-                            <a href="#" onClick={() => SendOtpFun()}> Resend OTP </a> 
-                        </div> 
-                                            
-                        <div className="button_login_div">
-                            <button className="button_otp" onClick={(e) => VerifyOtp(e)}> Verify OTP </button> 
-                        </div> 
-                    */}
 
-                    <div className="resendtext">Resend OTP in <span>{isTimerRunning ? <span>{timer == 60 ? '01:00' : `00:${timer}`}</span> : <span onClick={handleResendOTP}>Resend</span>}</span></div>
+ 
+                    {/* <div className="button_login_div">
+                        <button className="button_otp" onClick={(e) => VerifyOtp(e)}> Verify OTP </button>
+                    </div> */}
+
+<div className="col-12">
+                   
+                  <button type="submit" className="btn" onClick={(e) => VerifyOtp(e)}> Submit </button>
+                </div>
+
+                    <div className="resendtext">Resend OTP in <span>{isTimerRunning ? <span>{timer == 60 ? '01:00' : `00:${timer}`}</span> : <span onClick={SendOtpFun}>Resend</span>}</span></div>
 
                 </div>
             </div>

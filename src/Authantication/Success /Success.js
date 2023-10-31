@@ -1,8 +1,10 @@
 import React from 'react'
 import imgs from '../../images/suce.svg'
 import './Success.css'
+import { useNavigate } from 'react-router-dom';
  
 const Success = () => {
+    let navigate = useNavigate();
     return (
         <>
             <div className='successpage'>
@@ -11,7 +13,7 @@ const Success = () => {
                         <figure> <img src={imgs} alt='imgs' /> </figure>
                         <h2>Success !</h2>
                         <p>A email has been send to your email@domain.com. Please check for an email from company and click on the included link to reset your password.</p>
-                        <button className='btn'>Back to home</button>
+                        <button onClick = {(e)=>navigate("/success")} className='btn'>Back to home</button>
                     </div>  
 
                 </div>
