@@ -6,7 +6,6 @@ const Success = () => {
     return (
         <>
             <div className='successpage'>
-
                 <div className="loginpage">
                     <div className='success-box'>
                         <figure> <img src={imgs} alt='imgs' /> </figure>

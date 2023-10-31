@@ -110,11 +110,11 @@ const Login = () => {
                 </div>
                 <div className="forgortext">                     
                     <div className=""> <input type="checkbox" />  Remember me? </div>
-                    <a href=""> Forgot Password </a>
+                    <span> Forgot Password </span>
                 </div>
                 <button type="submit" className="btn"> Sign in </button> 
               </Form>
-              <div className="alreadytext"> Don’t have an account?  <a href="javascript:void(0)" onClick={(e)=>navigate("/signup")}>Click here to sign up.</a></div>
+              <div className="alreadytext"> Don’t have an account?  <span onClick={(e)=>navigate("/signup")}>Click here to sign up. </span></div>
             </div>
           </div>
         </Formik>
