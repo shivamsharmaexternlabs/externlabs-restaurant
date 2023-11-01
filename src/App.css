@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins&display=swap');
 
+
 body {
   padding: 0;
   margin: 0;
@@ -10,3 +11,16 @@ body {
   margin: 0;
   box-sizing: border-box;
 }
+
+ul {
+  padding-left: 0 !important;
+}
+
+ul,li,ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+
