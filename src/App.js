@@ -13,6 +13,7 @@ import Success from './Authantication/Success /Success';
 import Menu from './Components/Menu/Menu';
 import ForgotPassword from './Authantication/ForgotPassword/ForgotPassword';
 import ResetPassword from './Authantication/ResetPassword/ResetPassword';
+import Dashboard from './Components/DashboardComponents/Dashboard/Dashboard';
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
     <Route path='/success' element={<Success/>}></Route>
     <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
     <Route path="/user_auth/resetpassword/:id" element={<ResetPassword />}></Route>
-
+    <Route path="/dashboard" element={<Dashboard />}></Route>
 
 
     <Route path="/menu" element={<Menu />}></Route>

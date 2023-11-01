@@ -4,15 +4,9 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import "./signup.css";
 import { useDispatch, useSelector } from "react-redux";
-import { SignUp } from "../../Redux/slices/SignUp";
 import { reactLocalStorage } from "reactjs-localstorage";
 import LodingSpiner from "../../Components/LoadingSpinner/LoadingSpinner";
-// import logo from "../../Assets/logo.svg";
-// import sms from "../../Assets/sms.svg";
-// import closeeye from "../../Assets/closeeye.svg";
-// import lock from "../../Assets/lock.svg";
-// import { useDispatch, useSelector } from "react-redux";
-// import LodingSpiner from "../LoadinSpinner";
+import {SignUpSlice} from "../../Redux/slices/SignUpSlice";
 
 const Signup = () => {
 
@@ -23,7 +17,7 @@ const Signup = () => {
   const [showconfirmPassword, setShowconfirmPassword] = useState(false);
 
 
-  const SignUpSelectorData = useSelector((state) => state.signup); 
+  const SignUpSelectorData = useSelector((state) => state.SignUpApiData); 
 
   useEffect(() => {
     console.log("SignUpSelectorData", SignUpSelectorData)
@@ -32,7 +26,7 @@ const Signup = () => {
       navigate("/emailotpverification");
       // window.location.reload(true);
     }
-   else if (SignUpSelectorData?.error === "Rejected") {
+   else if(SignUpSelectorData?.error == "Rejected"){
       setLoadSpiner(false);
     }
   }, [SignUpSelectorData]);
@@ -69,7 +63,7 @@ const Signup = () => {
   const handleSubmit = (values) => {
     // console.log("values", values);
     // setShowPassword(false)
-    dispatch(SignUp(values))
+    dispatch(SignUpSlice(values))
     reactLocalStorage.set("EmailVerification", values.email);
     setLoadSpiner(true);
   };

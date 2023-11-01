@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { SignIn } from "../../Redux/slices/SignIn";
 import "./login.css";
-// import logo from "../../Assets/logo.svg";
-// import sms from "../../Assets/sms.svg";
-// import closeeye from "../../Assets/closeeye.svg";
-// import lock from "../../Assets/lock.svg";
 import { useDispatch, useSelector } from "react-redux";
+import {SignInSlice} from "../../Redux/slices/SignInSlice";
 // import LodingSpiner from "../LoadinSpinner";
 
 const Login = () => {
@@ -17,7 +13,7 @@ const Login = () => {
   const [loadspiner, setLoadSpiner] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const User = useSelector((state) => state.signIn);
+  const User = useSelector((state) => state.SignInApiData);
   // console.log("User", User)
 
   // useEffect(() => {
@@ -49,7 +45,7 @@ const Login = () => {
     console.log("values", values);
     // setShowPassword(false);
 
-    dispatch(SignIn(values));
+    dispatch(SignInSlice(values));
     setLoadSpiner(true);
   };
 

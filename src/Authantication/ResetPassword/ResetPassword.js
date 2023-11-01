@@ -5,9 +5,8 @@ import * as yup from "yup";
 import './resetPassword.css'
 // import {Forgotpassword} from '../../Redux/slices/forgotPassword';
 import { useDispatch, useSelector } from 'react-redux';
-import LodingSpiner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { toast } from 'react-toastify';
-import { Resetpassword } from '../../Redux/slices/resetPassword';
+import { ResetPasswordSlice } from '../../Redux/slices/resetPasswordSlice';
 
 const ResetPassword = () => {
 
@@ -43,7 +42,7 @@ const ResetPassword = () => {
     const handleSubmit = (values) => {
         console.log("values", values); 
         if(values.new_pass == values.confirm_pass){
-            dispatch(Resetpassword(values));
+            dispatch(ResetPasswordSlice(values));
         }
         else{
             toast.error("Password not matched");

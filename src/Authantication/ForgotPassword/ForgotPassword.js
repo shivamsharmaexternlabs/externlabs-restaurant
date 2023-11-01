@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useNavigate } from 'react-router';
 import * as yup from "yup";
 import './forgotPassword.css'
-import {Forgotpassword} from '../../Redux/slices/forgotPassword';
 import { useDispatch, useSelector } from 'react-redux';
 import LodingSpiner from '../../Components/LoadingSpinner/LoadingSpinner';
-import { toast } from 'react-toastify';
+import { ForgotPasswordSlice } from '../../Redux/slices/forgotPasswordSlice';
 
 const ForgotPassword = () => {
 
     const dispatch = useDispatch();
     // const navigate = useNavigate();
     const [loadspiner, setLoadSpiner] = useState(false);
-    const ForgotPasswordSelectorData = useSelector((state) => state?.Forgotpassword); 
+    const ForgotPasswordSelectorData = useSelector((state) => state?.ForgotPasswordApiData); 
     console.log("ForgotPasswordSelectorData",ForgotPasswordSelectorData);
 
     useEffect(() => {
@@ -41,7 +39,7 @@ const ForgotPassword = () => {
 
     const handleSubmit = (values) => {
         console.log("values", values); 
-        dispatch(Forgotpassword(values));
+        dispatch(ForgotPasswordSlice(values));
         setLoadSpiner(true);
       };
 

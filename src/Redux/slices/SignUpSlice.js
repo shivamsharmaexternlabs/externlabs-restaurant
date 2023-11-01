@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { reactLocalStorage } from "reactjs-localstorage";
+// import { reactLocalStorage } from "reactjs-localstorage";
 
-let BearerToken = reactLocalStorage.get("Token", false)
+// let BearerToken = reactLocalStorage.get("Token", false)
     
 // SignUp
 
-export const SignUp = createAsyncThunk("SignUp",async (body, { rejectWithValue }) => {
+export const SignUpSlice = createAsyncThunk("SignUp",async (body, { rejectWithValue }) => {
   console.log("nbxjdx")
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signup/`,body);
@@ -29,8 +29,8 @@ export const SignUp = createAsyncThunk("SignUp",async (body, { rejectWithValue }
 
 // Reducer
 
-export const signUp = createSlice({
-  name: "signUp",
+export const signUpReducer = createSlice({
+  name: "signUpReducer",
   initialState: {
     data: [],  
     loading: false,
@@ -40,16 +40,16 @@ export const signUp = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(SignUp.pending, (state) => {
+      .addCase(SignUpSlice.pending, (state) => {
         state.loading = true;
       })
 
-      .addCase(SignUp.fulfilled, (state, action) => {
+      .addCase(SignUpSlice.fulfilled, (state, action) => {
         state.loading = false;
         state.data.push(action.payload);
       })
 
-      .addCase(SignUp.rejected, (state, action) => {
+      .addCase(SignUpSlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       }) 
@@ -59,4 +59,4 @@ export const signUp = createSlice({
 
 });
 
-export default signUp.reducer;
+export default signUpReducer.reducer;
