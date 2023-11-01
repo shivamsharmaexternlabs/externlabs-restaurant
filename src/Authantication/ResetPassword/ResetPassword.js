@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useNavigate } from 'react-router';
+import { useNavigate,useLocation } from 'react-router';
 import * as yup from "yup";
 import './resetPassword.css'
 // import {Forgotpassword} from '../../Redux/slices/forgotPassword';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { ResetPasswordSlice } from '../../Redux/slices/resetPasswordSlice';
+import { reactLocalStorage } from 'reactjs-localstorage';
 
 const ResetPassword = () => {
 
+
+ 
     const dispatch = useDispatch();
+    const  params = useLocation();
+    console.log("params ===",params);
+
+    if(params?.pathname){
+
+        let splitdata =params?.pathname.split("/")[3] 
+        reactLocalStorage.set("Token",splitdata);
+    }
+    useEffect(() => {
+
+    }, [params])
+    
     // const navigate = useNavigate();
     // const [loadspiner, setLoadSpiner] = useState(false);
     // const ForgotPasswordSelectorData = useSelector((state) => state?.Forgotpassword); 

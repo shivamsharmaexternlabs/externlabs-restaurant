@@ -5,9 +5,10 @@ import { reactLocalStorage } from "reactjs-localstorage";
 
 // Reset password
 let BearerToken = reactLocalStorage.get("Token", false);
-export const ResetPasswordSlice = createAsyncThunk("Resetpassword",async (body, { rejectWithValue }) => {
+export const MenuSlice = createAsyncThunk("Resetpassword",async (body, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/forgot_password/`,body,
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=f5297be5-299f-44bc-bc1e-03809f8b66f0`, 
+
       {
         headers: {
           Authorization: `Bearer ${BearerToken}`,
@@ -32,8 +33,8 @@ export const ResetPasswordSlice = createAsyncThunk("Resetpassword",async (body, 
 
 // Reducer
 
-export const resetPasswordReducer = createSlice({
-  name: "resetPasswordReducer",
+export const menuReducer = createSlice({
+  name: "menuReducer",
   initialState: {
     data: [],  
     loading: false,
@@ -43,17 +44,17 @@ export const resetPasswordReducer = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(ResetPasswordSlice.pending, (state) => {
+      .addCase(MenuSlice.pending, (state) => {
         state.loading = true;
       })
 
-      .addCase(ResetPasswordSlice.fulfilled, (state, action) => {
+      .addCase(MenuSlice.fulfilled, (state, action) => {
         state.loading = false;
         state.data.push(action.payload);
       }
       )
 
-      .addCase(ResetPasswordSlice.rejected, (state, action) => {
+      .addCase(MenuSlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
@@ -65,4 +66,4 @@ export const resetPasswordReducer = createSlice({
 
 });
 
-export default resetPasswordReducer.reducer;
+export default menuReducer.reducer;

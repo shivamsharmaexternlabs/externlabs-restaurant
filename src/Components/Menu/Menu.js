@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './menu.css'
 import logo from '../../images/logo.svg'
 import icon1 from '../../images/icon1.svg'
@@ -9,10 +9,41 @@ import pizza from '../../images/pizza.png'
 import icon4 from '../../images/icon4.svg'
 import icon5 from '../../images/icon5.svg'
 import star from '../../images/star.svg'
-
+import { MenuSlice } from '../../Redux/slices/menuSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const Menu = () => {
+
+
+  const [ActiveCategory, setActiveCategory] = useState(null)
+
+  const dispatch = useDispatch();
+  const MenuApiSelectorData = useSelector((state) => state.MenuApiData?.data[0]?.data?.results);
+
+  console.log("MenuApiSelectorData===", MenuApiSelectorData);
+
+
+
+
+  useEffect(() => {
+
+    dispatch(MenuSlice());
+
+
+  }, []);
+
+
+  const MenuCategoryFun = (e, itemsData) => {
+
+    setActiveCategory(itemsData?.menu_id)
+
+
+  }
+
+
+
+
   return (
     <>
       <div className='hungerbox'>
@@ -33,14 +64,19 @@ const Menu = () => {
           <div className='categorylist'>
             <h2>Categories</h2>
             <ul>
-              <li className='active'> <span>X</span> Pizza </li>
+              {MenuApiSelectorData?.map((items, id) => {
+                console.log("chhasas", items)
+                return <li key={id} className={ActiveCategory == null ? id === 0 ? "active" : "" : items?.menu_id === ActiveCategory ? 'active' : ""} onClick={(e) => MenuCategoryFun(e, items)}>  {items?.category} </li>
+              })}
+              {/* <li className='active'> <span>X</span> Pizza </li> */}
+              {/* <li className='active'>  Pizza </li>
               <li > <span>X</span> Rolls </li>
               <li > <span>X</span> South Indian </li>
               <li> <span>X</span> Cakes </li>
               <li> <span>X</span> Juices </li>
               <li> <span>X</span> North Indian </li>
               <li> <span>X</span> Burgers </li>
-              <li> <span>X</span> Pasta </li>
+              <li> <span>X</span> Pasta </li> */}
             </ul>
           </div>
 
@@ -54,7 +90,29 @@ const Menu = () => {
               <li> Offer </li>
             </ul>
 
+
+
             <ul className='menuitemlist'>
+              {/* {MenuApiSelectorData?.map((items, id) => {
+                console.log("chhasas", items)
+                // return <li key={id} className={ActiveCategory ==null? id===0 ?"active": "": items?.menu_id === ActiveCategory?'active':"" } onClick={(e)=>MenuCategoryFun(e,items)}>  {items?.category} </li> 
+                return <li>
+                  <div className='leftpart'>
+                    <div className='spbtn'>
+                      <img src={icon4} alt='img' />
+                      <span style={{ background: '#42B856' }}>Bestseller</span>
+                    </div>
+                    <h3> Lorem Ipsum dolor </h3>
+                    <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                    <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div>
+                  </div>
+                  <div className='rightpart'>
+                    <span className='pricetext'> Rs.400 </span>
+                  </div>
+
+                </li>
+              })} */}
+
               <li>
                 <div className='leftpart'>
                   <div className='spbtn'>
@@ -66,7 +124,7 @@ const Menu = () => {
                   <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div>
                 </div>
                 <div className='rightpart'>
-                  <span className='pricetext'> Rs.400 </span> 
+                  <span className='pricetext'> Rs.400 </span>
                 </div>
 
               </li>
@@ -117,7 +175,7 @@ const Menu = () => {
                 </div>
 
               </li>
-              
+
             </ul>
 
           </div>

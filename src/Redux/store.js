@@ -3,12 +3,14 @@ import    signInReducer   from "./slices/SignInSlice";
 import  signUpReducer    from "./slices/SignUpSlice";
 import forgotPasswordReducer from "./slices/forgotPasswordSlice";
 import  resetPasswordReducer   from "./slices/resetPasswordSlice";
+import  menuReducer  from "./slices/menuSlice";
 
 export const store = configureStore({
   reducer: {
     SignInApiData: signInReducer,
     SignUpApiData:signUpReducer ,
     ForgotPasswordApiData :forgotPasswordReducer,
-    ResetPasswordApiData:resetPasswordReducer
+    ResetPasswordApiData:resetPasswordReducer,
+    MenuApiData:menuReducer
   },
 });
