@@ -1,0 +1,78 @@
+.dasboardbody {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar {
+    width: 70px;
+    margin-top: -63px;
+    height: calc(100vh);
+    padding: 10px 4px;
+    background-color: #fff;
+    margin-bottom: 0;
+}
+
+.sidebar > .logo{
+    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #E9ECEF;
+}
+
+.navmenu li + li {
+    margin-top: 15px;
+}
+
+.navmenu li {
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.navmenu li:hover,
+.navmenu li.active{
+    background-color: #EA6A12;
+    transition: all .3s;
+}
+
+.navmenu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.navmenu li {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navmenu li svg {
+    fill: #fff;
+}
+
+
+.dasboardbody .contentpart {
+    width: calc(100% - 70px);
+    height: calc(100vh - 63px);
+    overflow: auto;
+    padding: 20px 40px;
+}
+
+
+.dasboardbody .contentpart::-webkit-scrollbar {
+    width: 5px;
+    background-color: #EF9456B2;
+    border-radius: 100px;
+}
+
+.dasboardbody .contentpart::-webkit-scrollbar-thumb {
+    width: 5px;
+    background-color: #c65b13b2;
+    border-radius: 100px;
+}
+

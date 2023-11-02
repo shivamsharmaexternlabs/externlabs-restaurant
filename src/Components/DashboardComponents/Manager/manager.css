@@ -1,0 +1,275 @@
+.managerpage {
+    padding: 15px;
+}
+
+.managertitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+
+.managertitle h2 {
+    color: #000;
+    font-size: 32px;
+    margin-bottom: 0px;
+    font-weight: 700;
+}
+
+.managertitle .mangerbtn {
+    border-radius: 100px;
+    color: #FFF;
+    background: #EA6A12;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    outline: none;
+    transition: all .3s;
+    padding: 5px 10px;
+}
+
+.managertable {
+    width: 100%;
+    overflow: auto;
+}
+
+.managertable table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 950px;
+    margin-bottom: 10px;
+}
+
+.managertable table th {
+    font-size: 18px;
+    color: #000;
+    font-weight: 400;
+    padding: 10px;
+    line-height: 1.2;
+}
+
+.managertable table th:first-child,
+.managertable table td:first-child {
+    width: 50px;
+}
+
+.managertable table th:nth-child(2),
+.managertable table td:nth-child(2) {
+    width: 150px;
+}
+
+
+.managertable table th:nth-child(3),
+.managertable table td:nth-child(3) {
+    width: 240px;
+}
+
+.managertable table th:nth-child(4),
+.managertable table td:nth-child(4) {
+    width: 200px;
+}
+
+
+.managertable table th:nth-child(5),
+.managertable table td:nth-child(5) {
+    width: 400px;
+}
+
+.managertable table th:last-child,
+.managertable table td:last-child {
+    width: 190px;
+}
+
+.managertable table th:last-child {
+    text-align: center;
+}
+
+.managertable table tr+tr {
+    margin-top: 15px;
+}
+
+
+.managertable table .userimg {
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+}
+
+.managertable table .userimg img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.managertable table td {
+    font-size: 16px;
+    color: #000;
+    font-weight: 400;
+    line-height: 1.2;
+    padding: 10px;
+}
+
+.managertable table tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 12px;
+}
+
+.managertable table tr:first-child {
+    background-color: rgba(239, 148, 86, 0.70);
+}
+
+.managertable table tr:not(:first-child) {
+    background: rgba(255, 255, 255, 0.60);
+}
+
+
+.asbtn {
+    border: none;
+    outline: none;
+    border: 1px solid #CDCDCD;
+    border-radius: 100px;
+    padding: 5px 10px;
+    font-size: 16px;
+    background: transparent;
+    font-weight: 400;
+    transition: all .3s ease;
+}
+
+.asbtn:hover {
+    transition: all .3s ease;
+    border: 1px solid #EA6A12;
+    color: #EA6A12;
+}
+
+.asbtn+.asbtn {
+    margin-left: 10px;
+}
+
+/* popup css */
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addmanagerpopup .popupinner {
+    border-radius: 12px;
+    padding: 30px;
+    width: 90%;
+    max-width: 700px;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.addmanagerpopup .popuptitle h2 {
+    color: #000;
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 25px;
+}
+
+.addmanagerpopup .popupinner .popupbody form {
+    position: relative;
+}
+
+.addmanagerpopup .popupinner .popupbody .managerimg {
+    position: absolute;
+    top: -85px;
+    right: 20px;
+}
+
+.addmanagerpopup .popupinner .formbox label {
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 5px;
+}
+
+.addmanagerpopup .popupinner .formbox .form-control {
+    font-size: 16px;
+    padding: 10px 15px;
+    color: #000;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
+
+.addmanagerpopup .popupinner button {
+    background: rgba(205, 205, 205, 0.80);
+    padding: 5px 25px;
+    border: none;
+    outline: none;
+    color: #fff;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all .3s ease;
+}
+
+.addmanagerpopup .popupinner button:hover {
+    background: #EA6A12;
+    transition: all .3s ease;
+}
+
+
+.wantmanager .popupinner {
+    max-width: 400px;
+    padding:30px 15px;
+    background-color: #fff;
+    border-radius: 20px;
+}
+
+.wantmanager .popupbody {
+    text-align: center;
+}
+
+.wantmanager .popupbody h2 {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 20px 0;
+}
+
+.wantmanager .popupbody button {
+    border: none;
+    outline: none;
+    color: #fff;
+    padding: 5px 25px;
+    border-radius: 100px;
+    transition: all .3s ease;
+    background: rgba(205, 205, 205, 0.80);
+}
+
+.wantmanager .popupbody button:hover {
+    transition: all .3s ease;
+    background: #EA6A12;
+}
+
+
+
+/* scrollbar css  */
+
+.managertable::-webkit-scrollbar {
+    height: 5px;
+    width: 3px;
+    background-color: #EF9456B2;
+    border-radius: 100px;
+}
+
+.managertable::-webkit-scrollbar-thumb {
+    height: 5px;
+    width: 3px;
+    background-color: #c65b13b2;
+    border-radius: 100px;
+}

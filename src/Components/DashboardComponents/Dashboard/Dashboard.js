@@ -1,21 +1,17 @@
 import React from 'react'
-import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
+import DashboardHeader from '../DashboardHeader/DashboardHeader'
 
 const Dashboard = () => {
   return (
-    <div>
+    <>
+      <DashboardHeader />
+      <div>
+        <DashboardSidebar />
 
-        <DashboardLayout>
-            <div>
-                <DashboardSidebar/>
-            </div>
+      </div>
 
- 
-
-
-        </DashboardLayout>
-    </div>
+    </>
   )
 }
 

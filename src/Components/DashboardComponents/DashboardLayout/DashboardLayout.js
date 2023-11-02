@@ -1,16 +1,13 @@
 import React from 'react'
-import DashboardHeader from '../DashboardHeader/DashboardHeader'
-import DashboardFooter from '../DashboardFooter/DashboardFooter'
+import './dashboardLayout.css'
+import DashboardHeader from '../DashboardHeader/DashboardHeader'  
 
 
 const DashboardLayout = ({children}) => {
   return (
-    <div>
+    <div className='dasboardpageouter'>
         <DashboardHeader/>
         {children}
-        <DashboardFooter/>
-        
-
     </div>
   )
 }
