@@ -11,7 +11,10 @@ export const SignInSlice = createAsyncThunk("SignIn",async (body, { rejectWithVa
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signin/`,body);
       toast.success("Successful");
-      reactLocalStorage.set("Token",response?.data?.token?.original?.access_token);
+      reactLocalStorage.set("Token",response?.data?.token);
+      // console.log("Tokendfgsrdfryhe",response?.data?.token);
+
+
       // reactLocalStorage.set("id",response?.data?.currentUser?.user_id);
       // reactLocalStorage.set("name",response?.data?.currentUser?.user_name);
       // reactLocalStorage.set("email",response?.data?.currentUser?.user_email);

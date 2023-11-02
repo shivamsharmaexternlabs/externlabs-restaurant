@@ -24,18 +24,12 @@ const Signup = () => {
     if (SignUpSelectorData?.data[0]?.status === 201) {
       setLoadSpiner(false);
       navigate("/emailotpverification");
-      // window.location.reload(true);
     }
    else if(SignUpSelectorData?.error == "Rejected"){
       setLoadSpiner(false);
     }
   }, [SignUpSelectorData]);
 
-  // useEffect(() => {
-  //   if (SignUpSelectorData?.error === "Rejected") {
-  //     setLoadSpiner(false);
-  //   }
-  // }, [SignUpSelectorData]);
 
   const defaultValue = {
     email: "sa21m@gmail.com",
@@ -54,15 +48,12 @@ const Signup = () => {
     last_name: yup.string().required("last name is required").matches(/^\S*$/, 'Last name must not contain spaces'),
     password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
     confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-    // phone_number: yup.string().required("Phone Number   is required")
-    phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces')
+     phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces')
 
 
   });
 
   const handleSubmit = (values) => {
-    // console.log("values", values);
-    // setShowPassword(false)
     dispatch(SignUpSlice(values))
     reactLocalStorage.set("EmailVerification", values.email);
     setLoadSpiner(true);
@@ -177,7 +168,7 @@ const Signup = () => {
                   />
                   <p className="text-danger">
                     <ErrorMessage name="confirm_password" />
-                  </p>
+                  </p>loadspiner
                   {showconfirmPassword ? (
                     <span className="imgcloseeye" onClick={() => setShowconfirmPassword(false)} >
                       <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">

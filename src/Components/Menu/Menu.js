@@ -33,11 +33,17 @@ const Menu = () => {
 
   }, []);
 
+  useEffect(() => {
+    if(MenuApiSelectorData){
+      setActiveCategory(MenuApiSelectorData[0])
+    }
+
+  }, [MenuApiSelectorData]);
+
 
   const MenuCategoryFun = (e, itemsData) => {
 
-    setActiveCategory(itemsData?.menu_id)
-
+    setActiveCategory(itemsData)
 
   }
 
@@ -66,23 +72,14 @@ const Menu = () => {
             <ul>
               {MenuApiSelectorData?.map((items, id) => {
                 console.log("chhasas", items)
-                return <li key={id} className={ActiveCategory == null ? id === 0 ? "active" : "" : items?.menu_id === ActiveCategory ? 'active' : ""} onClick={(e) => MenuCategoryFun(e, items)}>  {items?.category} </li>
+                return <li key={id} className={items === ActiveCategory ? "active" : "" } onClick={(e) => MenuCategoryFun(e, items)}>  {items?.category} </li>
               })}
-              {/* <li className='active'> <span>X</span> Pizza </li> */}
-              {/* <li className='active'>  Pizza </li>
-              <li > <span>X</span> Rolls </li>
-              <li > <span>X</span> South Indian </li>
-              <li> <span>X</span> Cakes </li>
-              <li> <span>X</span> Juices </li>
-              <li> <span>X</span> North Indian </li>
-              <li> <span>X</span> Burgers </li>
-              <li> <span>X</span> Pasta </li> */}
             </ul>
           </div>
 
 
           <div className='itemmenu'>
-            <h2> <img src={pizza} alt=' pizza img' /> Pizza </h2>
+            <h2> <img src={pizza} alt=' pizza img' /> {ActiveCategory?.category} </h2>
             <ul className='itemlistbtn'>
               <li> <span> <img src={icon4} alt='img' /> </span> Veg </li>
               <li> <span> <img src={icon5} alt='img' /> </span> Non-Veg </li>
@@ -93,95 +90,30 @@ const Menu = () => {
 
 
             <ul className='menuitemlist'>
-              {/* {MenuApiSelectorData?.map((items, id) => {
-                console.log("chhasas", items)
-                // return <li key={id} className={ActiveCategory ==null? id===0 ?"active": "": items?.menu_id === ActiveCategory?'active':"" } onClick={(e)=>MenuCategoryFun(e,items)}>  {items?.category} </li> 
-                return <li>
+              {ActiveCategory?.item_id?.map((items, id) => {
+
+                console.log("inside map", items)
+                return <li key={id}>
                   <div className='leftpart'>
                     <div className='spbtn'>
-                      <img src={icon4} alt='img' />
+                      <img src={items[4] === "VEG"? icon4 : icon5} alt='img' />
                       <span style={{ background: '#42B856' }}>Bestseller</span>
                     </div>
-                    <h3> Lorem Ipsum dolor </h3>
+                    <h3> {items[1]}</h3>
                     <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
                     <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div>
                   </div>
                   <div className='rightpart'>
-                    <span className='pricetext'> Rs.400 </span>
+                    <span className='pricetext'> Rs.{items[2]} </span>
+                    <figure> <img src={item1} alt='img' /> </figure>
                   </div>
 
                 </li>
-              })} */}
-
-              <li>
-                <div className='leftpart'>
-                  <div className='spbtn'>
-                    <img src={icon4} alt='img' />
-                    <span style={{ background: '#42B856' }}>Bestseller</span>
-                  </div>
-                  <h3> Lorem Ipsum dolor </h3>
-                  <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
-                  <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div>
-                </div>
-                <div className='rightpart'>
-                  <span className='pricetext'> Rs.400 </span>
-                </div>
-
-              </li>
-              <li>
-                <div className='leftpart'>
-                  <div className='spbtn'>
-                    <img src={icon5} alt='img' />
-                    <span style={{ background: '#EC4646' }}>Bestseller</span>
-                  </div>
-                  <h3> Lorem Ipsum dolor </h3>
-                  <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
-                  <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div>
-                </div>
-                <div className='rightpart'>
-                  <span className='pricetext'> Rs.400 </span>
-                  <figure> <img src={item1} alt='img' /> </figure>
-                </div>
-
-              </li>
-              <li>
-                <div className='leftpart'>
-                  <div className='spbtn'>
-                    <img src={icon4} alt='img' />
-                    <span style={{ background: '#42B856' }}>Bestseller</span>
-                  </div>
-                  <h3> Lorem Ipsum dolor </h3>
-                  <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
-                  <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div>
-                </div>
-                <div className='rightpart'>
-                  <span className='pricetext'> Rs.400 </span>
-                </div>
-
-              </li>
-              <li>
-                <div className='leftpart'>
-                  <div className='spbtn'>
-                    <img src={icon5} alt='img' />
-                    <span style={{ background: '#42B856' }}>Bestseller</span>
-                  </div>
-                  <h3> Lorem Ipsum dolor </h3>
-                  <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
-                  <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div>
-                </div>
-                <div className='rightpart'>
-                  <span className='pricetext'> Rs.400 </span>
-                  <figure> <img src={item1} alt='img' /> </figure>
-                </div>
-
-              </li>
+              })}
 
             </ul>
 
           </div>
-
-
-
 
         </div>
       </div>

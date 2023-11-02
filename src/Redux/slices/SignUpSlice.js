@@ -10,12 +10,8 @@ import { toast } from "react-toastify";
 export const SignUpSlice = createAsyncThunk("SignUp",async (body, { rejectWithValue }) => {
   console.log("nbxjdx")
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signup/`,body);
-      toast.success("Successful");
-    //   reactLocalStorage.set("Token",response?.data?.token?.original?.access_token);
-    
-      console.log("Permissions",response)
-
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signup/`,body); 
+      toast.success(response?.data?.detail);  
       return response;
 
     } catch (err) {
@@ -46,7 +42,7 @@ export const signUpReducer = createSlice({
 
       .addCase(SignUpSlice.fulfilled, (state, action) => {
         state.loading = false;
-        state.data.push(action.payload);
+        state.data =action.payload;
       })
 
       .addCase(SignUpSlice.rejected, (state, action) => {
