@@ -5,9 +5,9 @@ import { reactLocalStorage } from "reactjs-localstorage";
 
 // Reset password
 let BearerToken = reactLocalStorage.get("Token", false);
-export const ResetPasswordSlice = createAsyncThunk("ResetPasswordSlice",async (body, { rejectWithValue }) => {
+export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/forgot_password/`,body,
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/?page=1`,
       {
         headers: {
           Authorization: `Bearer ${BearerToken}`,
@@ -15,7 +15,7 @@ export const ResetPasswordSlice = createAsyncThunk("ResetPasswordSlice",async (b
       }
       
       );
-      console.log("response",response);
+      console.log("ManagerSlice response -> ",response);
       toast.success("Successful");
 
       return response;
@@ -32,8 +32,8 @@ export const ResetPasswordSlice = createAsyncThunk("ResetPasswordSlice",async (b
 
 // Reducer
 
-export const resetPasswordReducer = createSlice({
-  name: "resetPasswordReducer",
+export const managerReducer = createSlice({
+  name: "managerReducer",
   initialState: {
     data: [],  
     loading: false,
@@ -43,26 +43,23 @@ export const resetPasswordReducer = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(ResetPasswordSlice.pending, (state) => {
+      .addCase(ManagerSlice.pending, (state) => {
         state.loading = true;
       })
 
-      .addCase(ResetPasswordSlice.fulfilled, (state, action) => {
+      .addCase(ManagerSlice.fulfilled, (state, action) => {
         state.loading = false;
-        state.data.push(action.payload);
+        state.data = action.payload;
       }
       )
 
-      .addCase(ResetPasswordSlice.rejected, (state, action) => {
+      .addCase(ManagerSlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
 
-       
-
-       
   },
 
 });
 
-export default resetPasswordReducer.reducer;
+export default managerReducer.reducer;

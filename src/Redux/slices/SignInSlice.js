@@ -7,7 +7,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
     
 // SignIn
 
-export const SignInSlice = createAsyncThunk("SignIn",async (body, { rejectWithValue }) => {
+export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signin/`,body);
       toast.success("Successful");

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 // Forgot password
 
-export const ForgotPasswordSlice = createAsyncThunk("Forgotpassword",async (body, { rejectWithValue }) => {
+export const ForgotPasswordSlice = createAsyncThunk("ForgotPasswordSlice",async (body, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/forgot_password_mail/`,body);
       console.log("response",response);

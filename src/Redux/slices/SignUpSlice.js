@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
     
 // SignUp
 
-export const SignUpSlice = createAsyncThunk("SignUp",async (body, { rejectWithValue }) => {
+export const SignUpSlice = createAsyncThunk("SignUpSlice",async (body, { rejectWithValue }) => {
   console.log("nbxjdx")
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signup/`,body); 

@@ -15,12 +15,11 @@ import { reactLocalStorage } from 'reactjs-localstorage'
 import { SignUpSlice } from '../../../Redux/slices/SignUpSlice'
 import { useNavigate } from 'react-router-dom'
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
+import { ManagerSlice } from '../../../Redux/slices/managerSlice'
 
 
 const Manager = () => {
 
-
-    const navigate = useNavigate();
     const [loadspiner, setLoadSpiner] = useState(false);
 
     const dispatch = useDispatch();
@@ -28,6 +27,21 @@ const Manager = () => {
     const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
     let BearerToken = reactLocalStorage.get("Token", false);
     console.log("SignUpSelectorData : ", SignUpSelectorData)
+
+
+    const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data.data);
+
+    console.log("ManagerApiSelectorData===>>>", ManagerApiSelectorData);
+
+
+    useEffect(() => {
+
+        dispatch(ManagerSlice());
+
+    }, []);
+
+
+
     const PopUpToggleFun = () => {
         popUpHookFun(o => !o)
     }
@@ -77,6 +91,7 @@ const Manager = () => {
     };
 
 
+
     return (
 
         <>
@@ -99,7 +114,28 @@ const Manager = () => {
                                     <th>Assigned to</th>
                                 </tr>
 
-                                <tr>
+
+
+                                {ManagerApiSelectorData?.map((items, id) => {
+                                    console.log("ManagerApiSelectorData items ", id, items)
+                                    return <tr>
+                                        <td> <img src={user} alt='img' /> </td>
+                                        <td>{`${items?.first_name} ${items?.last_name} `}</td>
+                                        <td>{items?.email}</td>
+                                        <td>{items?.phone_number}</td>
+                                        <td>Lorem ipsum dolor sit amet consetur dign....</td>
+                                        <td>
+                                            <button className='asbtn'> Transfer </button>
+                                            <button className='asbtn'> Delete </button>
+                                        </td>
+                                    </tr>
+                                })}
+
+
+
+
+
+                                {/* <tr>
                                     <td> <img src={user} alt='img' /> </td>
                                     <td>Landon Kirby</td>
                                     <td>Landonkirby@gmail.com</td>
@@ -181,7 +217,7 @@ const Manager = () => {
                                         <button className='asbtn'> Transfer </button>
                                         <button className='asbtn'> Delete </button>
                                     </td>
-                                </tr>
+                                </tr> */}
 
                             </table>
                         </div>
