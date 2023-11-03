@@ -16,12 +16,13 @@ import { SignUpSlice } from '../../../Redux/slices/SignUpSlice'
 import { useNavigate } from 'react-router-dom'
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 import { ManagerSlice } from '../../../Redux/slices/managerSlice'
-
+import ReactPaginate from 'react-paginate';
 
 const Manager = () => {
-
+    const itemsPerPage = 5;
     const [loadspiner, setLoadSpiner] = useState(false);
-
+    const [data, setData] = useState({ results: [] })
+    const [CurrentPage, setCurrentPage] = useState(0)
     const dispatch = useDispatch();
     const [popUpHook, popUpHookFun] = usePopUpHook("")
     const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
@@ -29,18 +30,18 @@ const Manager = () => {
     console.log("SignUpSelectorData : ", SignUpSelectorData)
 
 
-    const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data.data);
+    const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data);
 
-    console.log("ManagerApiSelectorData===>>>", ManagerApiSelectorData);
+    console.log("ManagerApiSelectorData======>>>", data);
 
 
     useEffect(() => {
+        setData(ManagerApiSelectorData?.data)
+    }, [ManagerApiSelectorData]);
 
-        dispatch(ManagerSlice());
-
-    }, []);
-
-
+    useEffect(() => {
+        dispatch(ManagerSlice(1));
+    }, [])
 
     const PopUpToggleFun = () => {
         popUpHookFun(o => !o)
@@ -52,6 +53,7 @@ const Manager = () => {
         if (SignUpSelectorData?.data?.status === 201) {
             setLoadSpiner(false);
             popUpHookFun(false);
+            dispatch(ManagerSlice(1));
         }
         else if (SignUpSelectorData?.error === "Rejected") {
             setLoadSpiner(false);
@@ -87,9 +89,14 @@ const Manager = () => {
         console.log("kkkkkkkkkkk", values)
         dispatch(SignUpSlice(values))
         // reactLocalStorage.set("EmailVerification", values.email);
-        // setLoadSpiner(true);
+        setLoadSpiner(true);
     };
 
+    const handlePageClick = (selectedPage) => {
+        const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.
+        dispatch(ManagerSlice(page));
+        setCurrentPage(page - 1);
+    }
 
 
     return (
@@ -116,7 +123,7 @@ const Manager = () => {
 
 
 
-                                {ManagerApiSelectorData?.map((items, id) => {
+                                {data?.results?.map((items, id) => {
                                     console.log("ManagerApiSelectorData items ", id, items)
                                     return <tr>
                                         <td> <img src={user} alt='img' /> </td>
@@ -220,6 +227,26 @@ const Manager = () => {
                                 </tr> */}
 
                             </table>
+                            <ReactPaginate
+                                previousLabel={"Previous"}
+                                nextLabel={"Next"}
+                                pageCount={Math.ceil(data?.count / itemsPerPage)}
+                                onPageChange={handlePageClick}
+                                forcePage={CurrentPage}
+                                disabledClassName={"disabled"}
+                                pageClassName="page-item"
+                                pageLinkClassName="page-link"
+                                previousClassName="page-item"
+                                previousLinkClassName="page-link"
+                                nextClassName="page-item"
+                                nextLinkClassName="page-link"
+                                breakLabel="..."
+                                breakClassName="page-item"
+                                breakLinkClassName="page-link"
+                                containerClassName="pagination"
+                                activeClassName="active"
+                                renderOnZeroPageCount={null}
+                            />
                         </div>
                     </div>
                 </div>
