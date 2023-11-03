@@ -23,8 +23,7 @@ const Menu = () => {
   const [ActiveCategory, setActiveCategory] = useState("")
   const [MenuToggleBookData, setMenuToggleBookData] = useState(false)
   const [CategoryTabToggleData, setCategoryTabToggleData] = useState("")
-  const [MenuItemTypeToggleData, setMenuItemTypeToggleData] = useState(null)
-
+  const [MenuItemTypeToggleData, setMenuItemTypeToggleData] = useState(null) 
   const [MenuItemTypeValue, setMenuItemTypeValue] = useState("")
   const [MenuItemSearchValue, setMenuItemSearchValue] = useState("")
 
@@ -35,7 +34,7 @@ const Menu = () => {
 
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
 
-  console.log("MenuApiSelectorData===", MenuApiSelectorData);
+  console.log("MenuApiSelectorData===", MenuItemTypeToggleData);
 
 
 
@@ -50,9 +49,14 @@ const Menu = () => {
   }, []);
 
   useEffect(() => {
-    if (MenuApiSelectorData?.GetMenuCategoryReducerData?.data) {
+    if (MenuApiSelectorData?.GetMenuCategoryReducerData?.data ) {
+
+      // MenuApiSelectorData?.MenuSliceReducerData?.data?.results?.map((item,)=>{
+
+
+      // })
       console.log("hgsfhafgss");
-      // setActiveCategory(MenuApiSelectorData?.GetMenuCategoryReducerData?.data[0].menu_id)
+      // setActiveCategory(MenuApiSelectorData?.MenuSliceReducerData?.data[0].menu_id)
     }
 
 
@@ -71,6 +75,7 @@ const Menu = () => {
 
   const MenuCategoryIteamFun = (e, itemsData, indexId) => {
     setMenuToggleBookData(o => !o) // After select the category off the book
+    setActiveCategory(itemsData?.menu_id)
   }
 
 
@@ -82,22 +87,26 @@ const Menu = () => {
     setMenuItemSearchValue(e.target.value)
     let MenuSlicePayload = {
       "searchValue": e.target.value,
-      "itemTypeValue":MenuItemTypeValue
+      "itemTypeValue": MenuItemTypeValue
 
     }
     dispatch(MenuSlice(MenuSlicePayload));
   }
 
-  const MenuItemTypeToggleFun = (e, itemType,indexId) => {
-    setMenuItemTypeToggleData( indexId )
+  const MenuItemTypeToggleFun = (e, itemType, indexId) => {
+    setMenuItemTypeToggleData(indexId)
     setMenuItemTypeValue(itemType?.type_value)
     let MenuSlicePayload = {
       "searchValue": MenuItemSearchValue,
-      "itemTypeValue":itemType?.type_value
+      "itemTypeValue": itemType?.type_value
 
     }
     dispatch(MenuSlice(MenuSlicePayload));
 
+  }
+
+  const toggleOffFun =()=>{
+    setMenuItemTypeToggleData("")
   }
 
   const MenuItemType = [
@@ -126,153 +135,890 @@ const Menu = () => {
 
 
 
+
+
+
   return (
     <>
       <div className='menupage'>
-        <div className='headerbox'>
-          <div className='logo'>
-            <a href='#'> <img src={logo} className='' alt='logoimg' /> </a>
+        <div className='hadertopbar'>
+          <div className='headerbox'>
+            <div className='logo'>
+              <a href='#'> <img src={logo} className='' alt='logoimg' /> </a>
+            </div>
+            <ul className=''>
+              <li> <a href='javascript:void()'> <img src={icon1} alt='img' /> </a> </li>
+              <li> <a href='javascript:void()'> <img src={icon2} alt='img' /> </a> </li>
+            </ul>
           </div>
-          <ul className=''>
-            <li> <a href='javascript:void()'> <img src={icon1} alt='img' /> </a> </li>
-            <li> <a href='javascript:void()'> <img src={icon2} alt='img' /> </a> </li>
+
+
+          {/* SEARCH BOX MANAGEMENT */}
+
+          <div className='searchbox'>
+            <input type="search" placeholder='Search a food.....' onChange={(e) => MenuSearchFun(e)} />
+            <button className='' type='submit'> <img src={icon3} alt='img' />  </button>
+          </div>
+          <ul className='itemlistbtn'>
+            {MenuItemType?.map((itemType, id) => {
+              return <li key={id} onClick={(e) => MenuItemTypeToggleFun(e, itemType, id)}
+                className={`${id === MenuItemTypeToggleData ? 'MenuItemActive' : ""}`}
+              >
+                <span className='icon'>  {itemType?.type_img} </span> 
+                
+                {itemType?.type_name} 
+                
+                {/* <span className='crossbtn' onClick={()=>toggleOffFun()} >  x</span> */}
+                </li>
+            })}
           </ul>
         </div>
-
-
-        {/* SEARCH BOX MANAGEMENT */}
-        <div className='searchbox'>
-          <input type="search" placeholder='Search a food.....' onChange={(e) => MenuSearchFun(e)} />
-          <button className='' type='submit'> <img src={icon3} alt='img' />  </button>
-        </div>
+        <div className='specialbox'></div>
 
 
         {/* ITEM TYPE MANAGEMENT */}
-        <div className='itemmenu'>
-          <ul className='itemlistbtn'>
-            {MenuItemType?.map((itemType, id) => {
-              return <li key={id} onClick={(e) => MenuItemTypeToggleFun(e, itemType ,id)}
-                className={`${id === MenuItemTypeToggleData ? 'MenuItemActive' : ""} `}
-              >
-                <span> {itemType?.type_img} </span> {itemType?.type_name} </li>
-            })}
-          </ul>
 
-          {/* <li> <span> <img src={icon4} alt='img' /> </span> Veg </li>
+
+
+        {/* <li> <span> <img src={icon4} alt='img' /> </span> Veg </li>
             <li> <span> <img src={icon5} alt='img' /> </span> Non-Veg </li>
             <li> Bestseller </li>
             <li> Offer </li> */}
+        {/* <div className='menuitemtabsection'>
 
-
-          <div className=''>
-            <div className="accordion menuitemtab" id="accordionPanelsStayOpenExample">
-              <div className="accordion-item">
-                {
-                  MenuApiSelectorData?.MenuSliceReducerData?.data?.map((items, id) => {
-
-                    return <div id={items?.menu_id} key={id} >
-                      <div className="accordion-header">
-                        <button className="accordion-button" type="button" data-bs-toggle="collapse"
-                          data-bs-target={`#toggle${id}`} aria-expanded="true" aria-controls={`toggle${id}`}>
-                          <div className='menuitem-title' >
-                            <h2> {items?.category} </h2>
-                            <span onClick={(e) => CategoryTabToggleFun(e, items)}><img src={arrow} alt='img' /></span>
-
-                          </div>
-                        </button>
+          <div class="accordion menuitemtab" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
+                  aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                  <div className='menuitem-title' >
+                    <h2> shivam </h2>
+                    <span ><img src={arrow} alt='img' /></span>
+                  </div>
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                  <ul class="menuitemlist">
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
                       </div>
-
-                      <div id={`toggle${id}`} className="accordion-collapse collapse show">
-                        <div className="accordion-body">
-                          <ul className='menuitemlist'   >
-                            {items?.item_id?.map((CategoryItem, ids) => {
-
-                              return <li key={ids} >
-                                <div className='leftpart'>
-                                  <div className='spbtn'>
-                                    <img src={icon4} alt='img' />
-                                    <span style={{ background: '#42B856' }}>Bestseller</span>
-                                  </div>
-                                  <h3> {CategoryItem?.item_name}</h3>
-                                  <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
-                                  <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div>
-                                </div>
-                                <div className='rightpart'>
-                                  <span className='pricetext'> Rs.1212 </span>
-                                  <figure> <img src={item1} alt='img' /> </figure>
-                                </div>
-
-                              </li>
-                            })}
-                          </ul>
-                        </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
                       </div>
-                    </div>
-                  })
-                }
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
+            <div class="accordion-item" id="1">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
+                  aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                  <div className='menuitem-title' >
+                    <h2> shivam1</h2>
+                    <span ><img src={arrow} alt='img' /></span>
+                  </div>
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                  <ul class="menuitemlist">
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item" id="2">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
+                  aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                  <div className='menuitem-title' >
+                    <h2> shivam2 </h2>
+                    <span ><img src={arrow} alt='img' /></span>
+                  </div>
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                  <ul class="menuitemlist">
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item" id="3">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
+                  aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                  <div className='menuitem-title' >
+                    <h2> shivam3 </h2>
+                    <span ><img src={arrow} alt='img' /></span>
+                  </div>
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body" id="5">
+                  <ul class="menuitemlist">
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="accordion-item" id="4">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
+                  aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                  <div className='menuitem-title' >
+                    <h2> shivam4 </h2>
+                    <span ><img src={arrow} alt='img' /></span>
+                  </div>
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                  <ul class="menuitemlist">
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item" id="5">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
+                  aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                  <div className='menuitem-title' >
+                    <h2> shivam 5</h2>
+                    <span ><img src={arrow} alt='img' /></span>
+                  </div>
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                  <ul class="menuitemlist">
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item" id="6">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"
+                  aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                  <div className='menuitem-title' >
+                    <h2> shivam 6</h2>
+                    <span ><img src={arrow} alt='img' /></span>
+                  </div>
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body" id="5">
+                  <ul class="menuitemlist">
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="leftpart"><div class="spbtn">
+                        <img src={icon4} alt="img" />
+                        <span style={{ background: "rgb(66, 184, 86);" }}>Bestseller</span>
+                      </div>
+                        <h3> mushroom pizza</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                        <div class="startxt">
+                          <img src={star} alt="img" />  4.5 (100+) </div>
+                      </div>
+                      <div class="rightpart">
+                        <span class="pricetext"> Rs.1212 </span>
+                        <figure>
+                          <img src={item1} alt="img" />
+                        </figure>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          {/* <div className='menuitemtab'>
 
+        </div> */}
+
+
+        <div className='menuitemtabsection  '>
+          <div className="accordion menuitemtab" id="accordionPanelsStayOpenExample">
+             
             {
               MenuApiSelectorData?.MenuSliceReducerData?.data?.map((items, id) => {
-                console.log("aschgasa", items.menu_id)
-                return <div id={items?.menu_id} >
-                  <div className='menuitem-title' key={id}  >
-                    <h2> {items?.category} </h2>
-                    <span onClick={(e) => CategoryTabToggleFun(e, items)}><img src={arrow} alt='img' /></span>
 
+                return <div id={items?.menu_id} key={id} className='accordion-item' >
+                  <div className="accordion-header">
+                    <button className="accordion-button" type="button" data-bs-toggle="collapse"
+                      data-bs-target={`#toggle${id}`} aria-expanded="true" aria-controls={`toggle${id}`}>
+                      <div className='menuitem-title' >
+                        <h2> {items?.category} </h2>
+                        <span onClick={(e) => CategoryTabToggleFun(e, items)}><img src={arrow} alt='img' /></span>
+
+                      </div>
+                    </button>
                   </div>
 
-                 {CategoryTabToggleData==items.menu_id && <ul className='menuitemlist'   >
-                    {items?.item_id?.map((CategoryItem, ids) => {
+                  <div id={`toggle${id}`} className="accordion-collapse collapse show">
+                    <div className="accordion-body">
+                      <ul className='menuitemlist'   >
+                        {items?.item_id?.map((CategoryItem, ids) => {
 
-                      return <li key={ids} >
-                        <div className='leftpart'>
-                          <div className='spbtn'>
-                            <img src={icon4} alt='img' />
-                            <span style={{ background: '#42B856' }}>Bestseller</span>
-                          </div>
-                          <h3> {CategoryItem?.item_name}</h3>
-                          <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
-                          <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div>
-                        </div>
-                        <div className='rightpart'>
-                          <span className='pricetext'> Rs.1212 </span>
-                          <figure> <img src={item1} alt='img' /> </figure>
-                        </div>
+                          return <li key={ids} >
+                            <div className='leftpart'>
+                              <div className='spbtn'>
+                                <img src={icon4} alt='img' />
+                                <span style={{ background: '#42B856' }}>Bestseller</span>
+                              </div>
+                              <h3> {CategoryItem?.item_name}</h3>
+                              <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
+                              <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div>
+                            </div>
+                            <div className='rightpart'>
+                              <span className='pricetext'> Rs.1212 </span>
+                              <figure> <img src={item1} alt='img' /> </figure>
+                            </div>
 
-                      </li>
-                    })}
-                  </ul>}
+                          </li>
+                        })}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
+              })
+            }
+            
+          </div>
 
-              })}
-          </div>   */}
 
         </div>
         <div className='menulist'>
-          <span onClick={(e) => MenuToggleBookFun(e)}> <img src={menu} alt='img' /> </span>
-          {MenuToggleBookData && <ul>
-            {MenuApiSelectorData?.GetMenuCategoryReducerData.data?.map((item, id) => {
-              console.log("jgafasa", item)
-              return <li key={id} onClick={(e) => MenuCategoryIteamFun(e, item, id)}>
+          {MenuItemSearchValue ==="" &&<span onClick={(e) => MenuToggleBookFun(e)}> <img src={menu} alt='img' /> </span>}
+          {MenuItemSearchValue ==="" && MenuToggleBookData &&<ul>
+            {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map((item, id) => {
+                console.log("jgafasa", item)
+                return  <li li key={id} onClick={(e) => MenuCategoryIteamFun(e, item, id)}>  
+              <a href={`#${item?.menu_id}`} className={`${item?.menu_id === ActiveCategory ? 'active' : ""} ,${item?.menu_id ? 'active' : ""} ` }>    
+               {item?.category}
+                  </a> 
+            </li>
 
-                {/* <AnchorLink href={"#a6f08bd6-58e9-4a93-8d39-f640ae0ff01f"}> */}
+            {/* <li  > 
+            
+              <a href={`#2`}  >   shvam2
+              </a>
 
-                <a href={`#${item?.menu_id}`}>     {item?.category}
-                </a>
+            </li>
+            <li    >
+ 
+              <a href={`#3`}  >   shvam3
+              </a>
 
-                {/* </AnchorLink> */}
+            </li>
+            <li    >
 
-              </li>
 
-            })}
+ 
+
+              <a href={`#4`}  >   shvam4
+              </a>
+
+            </li>
+            <li    >
+ 
+              <a href={`#5`}  >   shvam5
+              </a>
+
+            </li>
+            <li >
+ 
+              <a href={`#6`}  >   shvam6
+              </a>
+
+            </li>
+            <li    >
+ 
+              <a href={`#7`}  >   shvam7
+              </a>
+
+            </li> */}
+
+           })}  
 
           </ul>}
         </div>
+
       </div>
     </>
   )
