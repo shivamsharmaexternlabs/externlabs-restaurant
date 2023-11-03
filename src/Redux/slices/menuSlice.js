@@ -4,11 +4,13 @@ import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 let BearerToken = reactLocalStorage.get("Token", false);
+let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
+
 
 // get menu category 
 export const GetMenuCategorySlice = createAsyncThunk("GetMenuCategorySlice",async (body, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=f5297be5-299f-44bc-bc1e-03809f8b66f0`, 
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${RestaurantIdLocalData}`, 
 
     {
       headers: {
@@ -34,7 +36,7 @@ export const GetMenuCategorySlice = createAsyncThunk("GetMenuCategorySlice",asyn
 
 export const MenuSlice = createAsyncThunk("MenuSlice",async (body, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=f5297be5-299f-44bc-bc1e-03809f8b66f0`, 
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${RestaurantIdLocalData}&search=${body?.searchValue===undefined?"":body?.searchValue}&item_type=${body?.itemTypeValue===undefined?"":body?.itemTypeValue}`, 
 
       {
         headers: {
@@ -43,14 +45,13 @@ export const MenuSlice = createAsyncThunk("MenuSlice",async (body, { rejectWithV
       }
       
       );
-      console.log("response",response);
-      toast.success("Successful");
+      
 
       return response;
 
     } catch (err) {
-        console.log("err++++++++",err.response.data.message);
-      toast.error(err?.response?.data?.message);
+        // console.log("err++++++++",err.response.data.message);
+      // toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }
   }

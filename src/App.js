@@ -5,7 +5,6 @@ import './App.css';
 import { Route, Routes } from "react-router-dom";
 import Login from "../src/Authantication/Login/Login";
 import Signup from './Authantication/SignUp/Signup';
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import EmailOtpVerification from './Authantication/OtpVerification/EmailOtpVerification';
@@ -15,6 +14,7 @@ import ForgotPassword from './Authantication/ForgotPassword/ForgotPassword';
 import ResetPassword from './Authantication/ResetPassword/ResetPassword';
 import Dashboard from './Components/DashboardComponents/Dashboard/Dashboard';
 import Manager from './Components/DashboardComponents/Manager/Manager';
+
 
 
 function App() {

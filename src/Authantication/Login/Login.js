@@ -20,7 +20,7 @@ const Login = () => {
     if (User?.data[0]?.status === 200) {
       setLoadSpiner(false);
       navigate("/menu");
-      window.location.reload(true);
+      // window.location.reload(true);
     }
 
     if (User?.error?.response?.status === 400) {
