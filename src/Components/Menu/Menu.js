@@ -9,7 +9,7 @@ import pizza from '../../images/pizza.png'
 import icon4 from '../../images/icon4.svg'
 import icon5 from '../../images/icon5.svg'
 import star from '../../images/star.svg'
-import { MenuSlice } from '../../Redux/slices/menuSlice'
+import { GetMenuCategorySlice, MenuSlice } from '../../Redux/slices/menuSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 
@@ -19,7 +19,7 @@ const Menu = () => {
   const [ActiveCategory, setActiveCategory] = useState(null)
 
   const dispatch = useDispatch();
-  const MenuApiSelectorData = useSelector((state) => state.MenuApiData?.data[0]?.data?.results);
+  const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
 
   console.log("MenuApiSelectorData===", MenuApiSelectorData);
 
@@ -28,25 +28,29 @@ const Menu = () => {
 
   useEffect(() => {
 
-    dispatch(MenuSlice());
+    dispatch(MenuSlice(ActiveCategory?.menu_id));
+
+    dispatch(GetMenuCategorySlice( ));
 
 
   }, []);
 
   useEffect(() => {
-    if(MenuApiSelectorData){
-      setActiveCategory(MenuApiSelectorData[0])
+    if(MenuApiSelectorData?.GetMenuCategoryReducerData?.data){
+      console.log("hgsfhafgss");
+      setActiveCategory(MenuApiSelectorData?.GetMenuCategoryReducerData?.data[0].menu_id)
     }
+
 
   }, [MenuApiSelectorData]);
 
 
   const MenuCategoryFun = (e, itemsData) => {
 
-    setActiveCategory(itemsData)
+    setActiveCategory(itemsData?.menu_id)
 
   }
-
+console.log("hgasfvd", );
 
 
 
@@ -70,9 +74,9 @@ const Menu = () => {
           <div className='categorylist'>
             <h2>Categories</h2>
             <ul>
-              {MenuApiSelectorData?.map((items, id) => {
+              {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map((items, id) => {
                 console.log("chhasas", items)
-                return <li key={id} className={items === ActiveCategory ? "active" : "" } onClick={(e) => MenuCategoryFun(e, items)}>  {items?.category} </li>
+                return <li key={id} className={items?.menu_id === ActiveCategory ? "active" : "" } onClick={(e) => MenuCategoryFun(e, items)}>  {items?.category} </li>
               })}
             </ul>
           </div>
@@ -90,7 +94,7 @@ const Menu = () => {
 
 
             <ul className='menuitemlist'>
-              {ActiveCategory?.item_id?.map((items, id) => {
+              {/* {ActiveCategory?.item_id?.map((items, id) => {
 
                 console.log("inside map", items)
                 return <li key={id}>
@@ -109,7 +113,7 @@ const Menu = () => {
                   </div>
 
                 </li>
-              })}
+              })} */}
 
             </ul>
 

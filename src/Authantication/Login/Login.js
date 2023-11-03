@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -14,18 +14,22 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const User = useSelector((state) => state.SignInApiData);
-  // console.log("User", User)
+  console.log("User", User)
+
+  useEffect(() => {
+    if (User?.data[0]?.status === 200) {
+      setLoadSpiner(false);
+      navigate("/menu");
+      window.location.reload(true);
+    }
+
+    if (User?.error?.response?.status === 400) {
+      setLoadSpiner(false);
+    }
+  }, [User]);
 
   // useEffect(() => {
-  //   if (User?.data[0]?.status == 200) {
-  //     setLoadSpiner(false);
-  //     navigate("/");
-  //     window.location.reload(true);
-  //   }
-  // }, [User]);
-
-  // useEffect(() => {
-  //   if (User?.error == "Rejected") {
+  //   if (User?.error.response.status === 400) {
   //     setLoadSpiner(false);
   //   }
   // }, [User]);

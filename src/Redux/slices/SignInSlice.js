@@ -10,8 +10,9 @@ import { reactLocalStorage } from "reactjs-localstorage";
 export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signin/`,body);
-      toast.success("Successful");
+      toast.success("Successfully Loged In");
       reactLocalStorage.set("Token",response?.data?.token);
+      reactLocalStorage.set("Token",response?.data?.restaurant_id[0]?.restaurant_id);
       // console.log("Tokendfgsrdfryhe",response?.data?.token);
 
 
@@ -30,7 +31,9 @@ export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectW
       return response;
 
     } catch (err) {
-      toast.error(err?.response?.data?.message);
+
+      console.log("shfjjerr", err)
+      toast.error(err?.response?.data?.error[0]);
       return rejectWithValue(err);
     }
   }
@@ -69,7 +72,8 @@ export const signInReducer = createSlice({
 
       .addCase(SignInSlice.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload;
+        // state.error = action.error.message;
       })
 
        

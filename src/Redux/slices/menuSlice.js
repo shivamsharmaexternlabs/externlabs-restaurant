@@ -3,8 +3,35 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
-// Reset password
 let BearerToken = reactLocalStorage.get("Token", false);
+
+// get menu category 
+export const GetMenuCategorySlice = createAsyncThunk("GetMenuCategorySlice",async (body, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=f5297be5-299f-44bc-bc1e-03809f8b66f0`, 
+
+    {
+      headers: {
+        Authorization: `Bearer ${BearerToken}`,
+      },
+    }
+    
+    );
+    console.log("GetMenuCategorySlice",response);
+    // toast.success("Successful");
+
+    return response;
+
+  } catch (err) {
+      console.log("GetMenuCategorySlice error",err );
+    // toast.error(err?.response?.data?.message);
+    return rejectWithValue(err);
+  }
+}
+);
+
+
+
 export const MenuSlice = createAsyncThunk("MenuSlice",async (body, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=f5297be5-299f-44bc-bc1e-03809f8b66f0`, 
@@ -31,12 +58,14 @@ export const MenuSlice = createAsyncThunk("MenuSlice",async (body, { rejectWithV
 
 
 
+
 // Reducer
 
 export const menuReducer = createSlice({
   name: "menuReducer",
   initialState: {
-    data: [],  
+    GetMenuCategoryReducerData : [],
+    MenuSliceReducerData: [],  
     loading: false,
     error: null,
   },
@@ -44,13 +73,28 @@ export const menuReducer = createSlice({
 
   extraReducers: (builder) => {
     builder
+      .addCase(GetMenuCategorySlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(GetMenuCategorySlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.GetMenuCategoryReducerData = action.payload;
+      }
+      )
+
+      .addCase(GetMenuCategorySlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
       .addCase(MenuSlice.pending, (state) => {
         state.loading = true;
       })
 
       .addCase(MenuSlice.fulfilled, (state, action) => {
         state.loading = false;
-        state.data.push(action.payload);
+        state.MenuSliceReducerData = action.payload;
       }
       )
 
@@ -59,9 +103,6 @@ export const menuReducer = createSlice({
         state.error = action.error.message;
       })
 
-       
-
-       
   },
 
 });
