@@ -20,7 +20,6 @@ import Manager from './Components/DashboardComponents/Manager/Manager';
 function App() {
   return (
     <>
-
       <Routes>
         <Route path="/" element={<Login />}></Route>
         <Route path="/emailotpverification" element={<EmailOtpVerification />}></Route>
@@ -31,9 +30,9 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/manager" element={<Manager />}></Route>
         <Route path="/menu" element={<Menu />}></Route>
-      </Routes>
-      
+      </Routes>      
       <ToastContainer autoClose={2000} />
+
     </>
   );
 

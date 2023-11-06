@@ -12,6 +12,8 @@ header {
     height: 63px;
     padding: 15px 15px 15px 90px;
     background-color: #fff;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
 }
 
 header .leftpart {
@@ -30,12 +32,7 @@ header .leftpart form input {
     outline: none;
     -webkit-appearance:none;
     background: url(../../../images/icon12.svg) top 14px left 10px no-repeat;
-
 }
-
-
-
-
 
 header .rightpart {
     display: flex;
@@ -77,3 +74,9 @@ header .rightpart .user p {
     margin: 0;
 }
 
+
+.fullsidebar header {
+    padding-left: 275px;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
