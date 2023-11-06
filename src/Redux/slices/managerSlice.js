@@ -6,8 +6,9 @@ import { reactLocalStorage } from "reactjs-localstorage";
 // Reset password
 let BearerToken = reactLocalStorage.get("Token", false);
 export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejectWithValue }) => {
+  console.log("sdffas",body)
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/?page=1`,
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/?page=${body}`,
       {
         headers: {
           Authorization: `Bearer ${BearerToken}`,
@@ -16,7 +17,7 @@ export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejec
       
       );
       console.log("ManagerSlice response -> ",response);
-      toast.success("Successful");
+      // toast.success("Successful");
 
       return response;
 

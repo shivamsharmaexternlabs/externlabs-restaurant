@@ -1,5 +1,48 @@
 
 
+.bannerbox{
+    background:url(../../../images/bannerbg.png) top center no-repeat;
+    background-size: 105% 100%;
+    padding: 35px;
+    border-radius: 25px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
+}
+
+.bannerbox h2 {
+    color: #EA6A12;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.bannerbox h3 {
+    color: #07143B;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 0.96px;
+    margin-bottom: 10px;
+}
+
+.bannerbox .btn {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.325px;
+    padding: 10px 16px;
+    border-radius: 563.025px;
+    background: #EA6A12;
+    border: 1px solid #EA6A12;
+    transition: all .3s ease;
+}
+
+.bannerbox .btn:hover { 
+    border: 1px solid #EA6A12;
+    color: #EA6A12;
+    background: #fff;
+    transition: all .3s ease;
+}
 
 
 
