@@ -34,7 +34,7 @@ const Menu = () => {
   }, []);
 
   useEffect(() => {
-    if(MenuApiSelectorData){
+    if (MenuApiSelectorData) {
       setActiveCategory(MenuApiSelectorData[0])
     }
 
@@ -72,7 +72,7 @@ const Menu = () => {
             <ul>
               {MenuApiSelectorData?.map((items, id) => {
                 console.log("chhasas", items)
-                return <li key={id} className={items === ActiveCategory ? "active" : "" } onClick={(e) => MenuCategoryFun(e, items)}>  {items?.category} </li>
+                return <li key={id} className={items === ActiveCategory ? "active" : ""} onClick={(e) => MenuCategoryFun(e, items)}>  {items?.category} </li>
               })}
             </ul>
           </div>
@@ -86,17 +86,13 @@ const Menu = () => {
               <li> Bestseller </li>
               <li> Offer </li>
             </ul>
-
-
-
             <ul className='menuitemlist'>
               {ActiveCategory?.item_id?.map((items, id) => {
-
                 console.log("inside map", items)
                 return <li key={id}>
                   <div className='leftpart'>
                     <div className='spbtn'>
-                      <img src={items[4] === "VEG"? icon4 : icon5} alt='img' />
+                      <img src={items[4] === "VEG" ? icon4 : icon5} alt='img' />
                       <span style={{ background: '#42B856' }}>Bestseller</span>
                     </div>
                     <h3> {items[1]}</h3>
