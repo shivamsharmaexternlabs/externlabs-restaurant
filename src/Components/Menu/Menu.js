@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { reactLocalStorage } from 'reactjs-localstorage'
+import LodingSpiner from '../LoadingSpinner/LoadingSpinner'
 
 
 const Menu = () => {
@@ -27,7 +28,7 @@ const Menu = () => {
   const [MenuItemTypeToggleData, setMenuItemTypeToggleData] = useState(null) 
   const [MenuItemTypeValue, setMenuItemTypeValue] = useState("")
   const [MenuItemSearchValue, setMenuItemSearchValue] = useState("")
-
+  const [loadspiner, setLoadSpiner] = useState(false);
   const  params = useLocation();
   
 
@@ -36,8 +37,25 @@ const Menu = () => {
 
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
 
-  console.log("MenuApiSelectorData===", params);
+  console.log("MenuApiSelec22torData", MenuApiSelectorData);
 
+
+  useEffect(() => { 
+    if (MenuApiSelectorData?.GetMenuCategoryReducerData.status === 200) {
+      setLoadSpiner(false);
+      
+    }
+   else if(MenuApiSelectorData?.GetMenuCategoryReducerData?.error == "Rejected"){
+      setLoadSpiner(false);
+    }
+    if (MenuApiSelectorData?.MenuSliceReducerData.status === 200) {
+      setLoadSpiner(false);
+       
+    }
+   else if(MenuApiSelectorData?.MenuSliceReducerData?.error == "Rejected"){
+      setLoadSpiner(false);
+    }
+  }, [MenuApiSelectorData?.GetMenuCategoryReducerData,MenuApiSelectorData?.MenuSliceReducerData]);
 
   useEffect(() => {
     if(params?.pathname){
@@ -47,15 +65,15 @@ const Menu = () => {
     }
 }, [params])
 
-  useEffect(() => {
-
-    dispatch(MenuSlice());
+useEffect(() => {
+    
+    dispatch(MenuSlice()); 
 
     dispatch(GetMenuCategorySlice());
 
 
   }, []);
-
+   
   useEffect(() => {
     if (MenuApiSelectorData?.GetMenuCategoryReducerData?.data ) {
 
@@ -1028,6 +1046,7 @@ const Menu = () => {
         </div>
 
       </div>
+      <LodingSpiner loadspiner={loadspiner} />
     </>
   )
 }
