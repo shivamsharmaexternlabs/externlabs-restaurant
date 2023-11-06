@@ -3,7 +3,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
-// Reset password
 let BearerToken = reactLocalStorage.get("Token", false);
 export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejectWithValue }) => {
   console.log("sdffas",body)
@@ -29,7 +28,29 @@ export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejec
   }
 );
 
+export const ManagerDeleteSlice = createAsyncThunk("ManagerDeleteSlice",async (body, { rejectWithValue }) => {
+  console.log("sdffas",body)
+    try {
+      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/?user_id=${body}`,
+      {
+        headers: {
+          Authorization: `Bearer ${BearerToken}`,
+        },
+      }
+      
+      );
+      console.log("ManagerDeleteSlice response -> ",response);
+      // toast.success("Successful");
 
+      return response;
+
+    } catch (err) {
+        console.log("err++++++++",err.response.data.message);
+      toast.error(err?.response?.data?.message);
+      return rejectWithValue(err);
+    }
+  }
+);
 
 // Reducer
 
@@ -37,6 +58,7 @@ export const managerReducer = createSlice({
   name: "managerReducer",
   initialState: {
     data: [],  
+    managerDeleteReducer:[],
     loading: false,
     error: null,
   },
@@ -58,6 +80,22 @@ export const managerReducer = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
+
+      .addCase(ManagerDeleteSlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(ManagerDeleteSlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      }
+      )
+
+      .addCase(ManagerDeleteSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
 
   },
 

@@ -15,7 +15,8 @@ import { reactLocalStorage } from 'reactjs-localstorage'
 import { SignUpSlice } from '../../../Redux/slices/SignUpSlice'
 import { useNavigate } from 'react-router-dom'
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
-import { ManagerSlice } from '../../../Redux/slices/managerSlice'
+import { ManagerSlice,ManagerDeleteSlice} from '../../../Redux/slices/managerSlice'
+// import {ManagerDeleteSlice} from "../../../Redux/slices/managerDeleteSlice"
 import ReactPaginate from 'react-paginate';
 
 const Manager = () => {
@@ -25,6 +26,8 @@ const Manager = () => {
     const [CurrentPage, setCurrentPage] = useState(0)
     const dispatch = useDispatch();
     const [popUpHook, popUpHookFun] = usePopUpHook("")
+    const [deletePopup,deletePopUpFun]=usePopUpHook("")
+    const [UserId,setUserId]=useState("")
     const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
     let BearerToken = reactLocalStorage.get("Token", false);
     console.log("SignUpSelectorData : ", SignUpSelectorData)
@@ -98,7 +101,15 @@ const Manager = () => {
         setCurrentPage(page - 1);
     }
 
-
+    const handleDelete=(e,item)=>{
+        console.log("dsfahg",item.user_id)
+        setUserId(item.user_id)
+        deletePopUpFun(true)
+    }
+    const confirmDelete=(e,item)=>{
+       dispatch(ManagerDeleteSlice(item))
+       deletePopUpFun(false)
+    }
     return (
 
         <>
@@ -133,7 +144,7 @@ const Manager = () => {
                                         <td>Lorem ipsum dolor sit amet consetur dign....</td>
                                         <td>
                                             <button className='asbtn'> Transfer </button>
-                                            <button className='asbtn'> Delete </button>
+                                            <button className='asbtn' onClick={(e)=>handleDelete(e,items)}> Delete </button>
                                         </td>
                                     </tr>
                                 })}
@@ -483,7 +494,31 @@ const Manager = () => {
                     </PopUpComponent>
                 }
 
-                {/* <div className='popup wantmanager d-none '>
+                {
+                    deletePopup&&
+                    <PopUpComponent
+                        classNameValue={"popup wantmanager"}
+                        PopUpToggleFun={PopUpToggleFun}
+                        popUpHookFun={popUpHookFun}
+                    >
+                        {/* children part start */}
+
+                        <div className='popupinner'>
+                        <div className='popupbody'>
+                            <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
+                            <h2>Do you want to Delete this Manager?</h2>
+                                <div className='text-center'>
+                                    <button type="button" onClick={(e)=>deletePopUpFun(false)}>Cancel </button>
+                                    <button type="button" className='ms-4' onClick={(e)=>confirmDelete(e,UserId)}>Yes, I’m Sure</button>
+                                </div>
+                        </div>
+                        </div>
+
+                        {/* children part end */}
+
+                    </PopUpComponent>
+                }
+                {/* <div className='popup wantmanager  '>
                     <div className='popupinner'>
                         <div className='popupbody'>
                             <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>

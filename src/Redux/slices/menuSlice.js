@@ -26,7 +26,7 @@ let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
 }
 );
 
-
+// get menu category data 
 
 export const MenuSlice = createAsyncThunk("MenuSlice",async (body, { rejectWithValue }) => {
     try {
