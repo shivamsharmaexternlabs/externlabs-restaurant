@@ -29,9 +29,9 @@ const Menu = () => {
   const [MenuItemTypeValue, setMenuItemTypeValue] = useState("")
   const [MenuItemSearchValue, setMenuItemSearchValue] = useState("")
   const [loadspiner, setLoadSpiner] = useState(false);
-  const  params = useLocation();
-  
 
+
+  const  params = useLocation(); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -39,6 +39,8 @@ const Menu = () => {
 
   console.log("MenuApiSelec22torData", MenuApiSelectorData);
 
+  let splitdata =params?.pathname.split("/")[1] 
+  reactLocalStorage.set("RestaurantId",splitdata); 
 
   useEffect(() => { 
     if (MenuApiSelectorData?.GetMenuCategoryReducerData.status === 200) {
@@ -58,25 +60,25 @@ const Menu = () => {
   }, [MenuApiSelectorData?.GetMenuCategoryReducerData,MenuApiSelectorData?.MenuSliceReducerData]);
 
   useEffect(() => {
-    if(params?.pathname){
-      console.log("njnjnfddb")
+    if(params?.pathname){ 
       setLoadSpiner(true); 
-        let splitdata =params?.pathname.split("/")[1] 
-        reactLocalStorage.set("RestaurantId",splitdata); 
-        dispatch(MenuSlice());  
-      dispatch(GetMenuCategorySlice());
+        
+         
+
+        let MenuSlicePayload = {
+          "searchValue": undefined,
+          "itemTypeValue": undefined,
+          "RestaurantId":splitdata
+    
+        }
+
+
+        dispatch(MenuSlice(MenuSlicePayload));  
+      dispatch(GetMenuCategorySlice(MenuSlicePayload));
     }
 }, [params])
 
-// useEffect(() => {
-    
-//   setLoadSpiner(true);
-//     dispatch(MenuSlice()); 
-
-//     dispatch(GetMenuCategorySlice());
-
-
-//   }, []);
+ 
    
   useEffect(() => {
     if (MenuApiSelectorData?.GetMenuCategoryReducerData?.data ) {
@@ -117,7 +119,8 @@ const Menu = () => {
     setMenuItemSearchValue(e.target.value)
     let MenuSlicePayload = {
       "searchValue": e.target.value,
-      "itemTypeValue": MenuItemTypeValue
+      "itemTypeValue": MenuItemTypeValue, 
+      "RestaurantId":splitdata
 
     }
     dispatch(MenuSlice(MenuSlicePayload));
@@ -128,7 +131,8 @@ const Menu = () => {
     setMenuItemTypeValue(itemType?.type_value)
     let MenuSlicePayload = {
       "searchValue": MenuItemSearchValue,
-      "itemTypeValue": itemType?.type_value
+      "itemTypeValue": itemType?.type_value, 
+      "RestaurantId":splitdata
 
     }
     dispatch(MenuSlice(MenuSlicePayload));
