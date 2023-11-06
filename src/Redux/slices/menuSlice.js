@@ -8,15 +8,10 @@ let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
 
 
 // get menu category 
+console.log("hjsvdjsds",RestaurantIdLocalData)
 export const GetMenuCategorySlice = createAsyncThunk("GetMenuCategorySlice",async (body, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${RestaurantIdLocalData}`, 
-
-    {
-      headers: {
-        Authorization: `Bearer ${BearerToken}`,
-      },
-    }
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${RestaurantIdLocalData}`,
     
     );
     console.log("GetMenuCategorySlice",response);
@@ -38,11 +33,7 @@ export const MenuSlice = createAsyncThunk("MenuSlice",async (body, { rejectWithV
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${RestaurantIdLocalData}&search=${body?.searchValue===undefined?"":body?.searchValue}&item_type=${body?.itemTypeValue===undefined?"":body?.itemTypeValue}`, 
 
-      {
-        headers: {
-          Authorization: `Bearer ${BearerToken}`,
-        },
-      }
+       
       
       );
       

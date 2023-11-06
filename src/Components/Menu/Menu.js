@@ -13,8 +13,9 @@ import { GetMenuCategorySlice, MenuSlice } from '../../Redux/slices/menuSlice'
 import menu from '../../images/menu.svg'
 import arrow from '../../images/arrow.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import { reactLocalStorage } from 'reactjs-localstorage'
 
 
 const Menu = () => {
@@ -27,17 +28,24 @@ const Menu = () => {
   const [MenuItemTypeValue, setMenuItemTypeValue] = useState("")
   const [MenuItemSearchValue, setMenuItemSearchValue] = useState("")
 
-
+  const  params = useLocation();
+  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
 
-  console.log("MenuApiSelectorData===", MenuItemTypeToggleData);
+  console.log("MenuApiSelectorData===", params);
 
 
+  useEffect(() => {
+    if(params?.pathname){
 
+        let splitdata =params?.pathname.split("/")[1] 
+        reactLocalStorage.set("RestaurantId",splitdata);
+    }
+}, [params])
 
   useEffect(() => {
 

@@ -19,7 +19,7 @@ const Login = () => {
   useEffect(() => {
     if (User?.data[0]?.status === 200) {
       setLoadSpiner(false);
-      navigate("/menu");
+      navigate("/:id/menu");
       // window.location.reload(true);
     }
 

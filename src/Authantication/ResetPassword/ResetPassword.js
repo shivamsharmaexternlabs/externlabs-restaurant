@@ -15,15 +15,14 @@ const ResetPassword = () => {
  
     const dispatch = useDispatch();
     const  params = useLocation();
-    console.log("params ===",params);
 
-    if(params?.pathname){
 
-        let splitdata =params?.pathname.split("/")[3] 
-        reactLocalStorage.set("Token",splitdata);
-    }
     useEffect(() => {
+        if(params?.pathname){
 
+            let splitdata =params?.pathname.split("/")[3] 
+            reactLocalStorage.set("Token",splitdata);
+        }
     }, [params])
     
     // const navigate = useNavigate();
