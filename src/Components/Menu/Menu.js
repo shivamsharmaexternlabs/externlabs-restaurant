@@ -45,35 +45,38 @@ const Menu = () => {
       setLoadSpiner(false);
       
     }
-   else if(MenuApiSelectorData?.GetMenuCategoryReducerData?.error == "Rejected"){
+   else if(MenuApiSelectorData?.error == "Rejected"){
       setLoadSpiner(false);
     }
     if (MenuApiSelectorData?.MenuSliceReducerData.status === 200) {
       setLoadSpiner(false);
        
     }
-   else if(MenuApiSelectorData?.MenuSliceReducerData?.error == "Rejected"){
+   else if(MenuApiSelectorData?.error == "Rejected"){
       setLoadSpiner(false);
     }
   }, [MenuApiSelectorData?.GetMenuCategoryReducerData,MenuApiSelectorData?.MenuSliceReducerData]);
 
   useEffect(() => {
     if(params?.pathname){
-
+      console.log("njnjnfddb")
+      setLoadSpiner(true); 
         let splitdata =params?.pathname.split("/")[1] 
-        reactLocalStorage.set("RestaurantId",splitdata);
+        reactLocalStorage.set("RestaurantId",splitdata); 
+        dispatch(MenuSlice());  
+      dispatch(GetMenuCategorySlice());
     }
 }, [params])
 
-useEffect(() => {
+// useEffect(() => {
     
-  setLoadSpiner(true);
-    dispatch(MenuSlice()); 
+//   setLoadSpiner(true);
+//     dispatch(MenuSlice()); 
 
-    dispatch(GetMenuCategorySlice());
+//     dispatch(GetMenuCategorySlice());
 
 
-  }, []);
+//   }, []);
    
   useEffect(() => {
     if (MenuApiSelectorData?.GetMenuCategoryReducerData?.data ) {
