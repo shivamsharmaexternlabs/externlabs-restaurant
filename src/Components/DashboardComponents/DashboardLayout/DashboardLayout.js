@@ -3,9 +3,9 @@ import './dashboardLayout.css'
 import DashboardHeader from '../DashboardHeader/DashboardHeader'  
 
 
-const DashboardLayout = ({children}) => {
+const DashboardLayout = ({children,isFullScreen}) => {
   return (
-    <div className='dasboardpageouter fullsidebar'>
+    <div className={`dasboardpageouter ${isFullScreen?'fullsidebar':""}`}>
         <DashboardHeader/>
         {children}
     </div>

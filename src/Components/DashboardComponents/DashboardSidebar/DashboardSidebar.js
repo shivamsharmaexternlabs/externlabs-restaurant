@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './dashboardSidebar.css'
 import logo from '../../../images/logo2.svg'
 import fulllogo from '../../../images/fulllogo.svg'
@@ -9,12 +9,17 @@ import icon10 from '../../../images/icon10.svg'
 import icon11 from '../../../images/icon11.svg'
 import plus from '../../../images/plus.svg'
 
-const DashboardSidebar = () => {
+const DashboardSidebar = ({updateClassState,handleImageClick}) => {
+  // const [isFullScreen,setIsFullScreen]=useState(true)
+  // const handleImageClick=()=>{
+  //   setIsFullScreen(isFullScreen)
+  //   updateClassState(!isFullScreen)
+  // }
   return (
     <>
       <div className='sidebar'>
         <figure className='logo'>
-          <img src={logo} alt='logoimg' className='smalllogo' />
+          <img src={logo} alt='logoimg' className='smalllogo' onClick={updateClassState}/>
           <img src={fulllogo} alt='logoimg' className='fulllogo' />
         </figure>
         <ul className='navmenu'>

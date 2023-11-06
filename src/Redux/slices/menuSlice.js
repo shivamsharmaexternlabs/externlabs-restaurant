@@ -33,7 +33,11 @@ export const MenuSlice = createAsyncThunk("MenuSlice",async (body, { rejectWithV
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&search=${body?.searchValue===undefined?"":body?.searchValue}&item_type=${body?.itemTypeValue===undefined?"":body?.itemTypeValue}`, 
 
-       
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${BearerToken}`,
+      //   },
+      // }
       
       )   
         return response;
