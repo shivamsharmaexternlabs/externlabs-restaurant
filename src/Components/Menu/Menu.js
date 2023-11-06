@@ -67,6 +67,7 @@ const Menu = () => {
 
 useEffect(() => {
     
+  setLoadSpiner(true);
     dispatch(MenuSlice()); 
 
     dispatch(GetMenuCategorySlice());
