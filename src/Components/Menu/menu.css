@@ -242,6 +242,13 @@ font-size: 15px;
     color: #fff !important;
     cursor: pointer;
 }
+.bestcallerBackgrounveg{
+    background-color: #42B856;
+}
+
+.bestcallerBackgrounNonveg{
+    background-color: #EC4646;
+}
 
 .menuitemtab {
     margin: 20px 0 0;

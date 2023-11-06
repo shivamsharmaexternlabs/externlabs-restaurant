@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './dashboardSidebar.css'
 import logo from '../../../images/logo2.svg'
 import fulllogo from '../../../images/fulllogo.svg'
@@ -8,18 +8,35 @@ import icon9 from '../../../images/icon9.svg'
 import icon10 from '../../../images/icon10.svg'
 import icon11 from '../../../images/icon11.svg'
 import plus from '../../../images/plus.svg'
+import usePopUpHook from '../../../CustomHooks/usePopUpHook/usePopUpHook'
+import { ToggleBar } from '../../../Redux/slices/sideBarToggle'
+import { useDispatch, useSelector } from 'react-redux'
 
-const DashboardSidebar = ({updateClassState,handleImageClick}) => {
-  // const [isFullScreen,setIsFullScreen]=useState(true)
-  // const handleImageClick=()=>{
-  //   setIsFullScreen(isFullScreen)
-  //   updateClassState(!isFullScreen)
-  // }
+const DashboardSidebar = () => {
+  
+  const dispatch = useDispatch();
+
+  const [ToggleHeader,setToggleHeader]=useState()
+
+
+  const ToggleBarSelectorData = useSelector((state) => state?.ToggleBarData?.toggle);
+
+  console.log("sfgdfgdf",ToggleBarSelectorData)
+
+  const PopUpToggleFun =()=>{
+    setToggleHeader(o=>!o) 
+    // dispatch( ToggleBar(true))
+  } 
+
+  useEffect(()=>{
+    dispatch(ToggleBar(ToggleHeader))
+  },[ToggleHeader])
+
   return (
     <>
       <div className='sidebar'>
-        <figure className='logo'>
-          <img src={logo} alt='logoimg' className='smalllogo' onClick={updateClassState}/>
+        <figure className='logo' onClick={(e)=>PopUpToggleFun(e,o=>!o)}>
+          <img src={logo} alt='logoimg' className='smalllogo'  />
           <img src={fulllogo} alt='logoimg' className='fulllogo' />
         </figure>
         <ul className='navmenu'>

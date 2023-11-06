@@ -8,8 +8,7 @@ let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
 
 
 // get menu category 
-console.log("hjsvdjsds",RestaurantIdLocalData)
-export const GetMenuCategorySlice = createAsyncThunk("GetMenuCategorySlice",async (body, { rejectWithValue }) => {
+ export const GetMenuCategorySlice = createAsyncThunk("GetMenuCategorySlice",async (body, { rejectWithValue }) => {
   try {
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${body?.RestaurantId}`,
     

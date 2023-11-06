@@ -1,25 +1,20 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import './dashboard.css'
-import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
-import DashboardHeader from '../DashboardHeader/DashboardHeader'
-import DashboardLayout from '../DashboardLayout/DashboardLayout'
+import DashboardSidebar from '../DashboardSidebar/DashboardSidebar' 
+import DashboardLayout from '../DashboardLayout/DashboardLayout' 
 
 const Dashboard = () => {
-  // const [isFullScreen,setIsFullScreen]=useState(true)
-  // const updateClassState=(value)=>{
-  //   setIsFullScreen(value)
-  // }
-  const [isFullScreen,setIsFullScreen]=useState(false)
-  const handleImageClick=()=>{
-    console.log("gfsdgh",isFullScreen)
-    setIsFullScreen(isFullScreen)
-    // updateClassState(!isFullScreen)
-  }
+
+ 
+ 
+
+    
+ 
   return (
     <>
-      <DashboardLayout isFullScreen={isFullScreen}>
+      <DashboardLayout  >
         <div className='dasboardbody'>
-          <DashboardSidebar updateClassState={handleImageClick} />
+          <DashboardSidebar   />
           <div className='contentpart dashboardpage'>
             <div className='bannerbox'>
               <h2> Good Morning</h2>

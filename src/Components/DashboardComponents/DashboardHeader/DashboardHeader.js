@@ -3,24 +3,29 @@ import './dashboardHeader.css'
 import user from '../../../images/user.png'
 import notify from '../../../images/icon6.svg' 
 
-const DashboardHeader = () => {
+const DashboardHeader = ({popUpHookFun}) => {
+
+
+   
+  
+
   return (
     <>
-        <header>
-          <div className='leftpart'>  <form> <input type='search' placeholder='Search…' /> </form> </div>
-          <div className='rightpart'>
-            <span className='notifyimg'> <img src={notify} alt='notify img' /> </span>
-            <div className='user'>
-              <figure> <img src={user} alt='user img' />  </figure>
-              <div className='userinfo'>
-                <h3>Austin Robertson</h3>
-                <p>Admin</p>
-              </div>
+      <header>
+        <div className='leftpart'>  <form> <input type='search' placeholder='Search…' /> </form> </div>
+        <div className='rightpart'>
+          <span className='notifyimg'> <img src={notify} alt='notify img' /> </span>
+          <div className='user'  >
+            <figure> <img src={user} alt='user img' />  </figure>
+            <div className='userinfo'>
+              <h3>Austin Robertson</h3>
+              <p>Admin</p>
             </div>
           </div>
-        </header>
+        </div>
+      </header>
 
-        {/* <div className='dasboardbody'>
+      {/* <div className='dasboardbody'>
           <div className='sidebar'>
             <figure className='logo'>
               <img src={logo} alt='logoimg' />
@@ -43,7 +48,7 @@ const DashboardHeader = () => {
 
         </div> */}
 
-      
+
     </>
   )
 }
