@@ -30,7 +30,7 @@ function App() {
         <Route path="/user_auth/resetpassword/:id" element={<ResetPassword />}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/manager" element={<Manager />}></Route>
-        <Route path="/menu" element={<Menu />}></Route>
+        <Route path="/:id/menu" element={<Menu />}></Route>
       </Routes>
       
       <ToastContainer autoClose={2000} />
