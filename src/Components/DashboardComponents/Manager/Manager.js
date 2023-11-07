@@ -293,10 +293,7 @@ const Manager = () => {
                             <h2> Add New Manager  </h2>
                         </div>
                         <div className='popupbody'>
-
-                            <Formik
-                            
-                            >
+                            <Formik>
                                 <Form>
                                     <img src={manager} alt='manager img' className='managerimg' />
                                     <div className="formbox mb-3">
@@ -356,8 +353,8 @@ const Manager = () => {
                                     </div>
 
                                     <div className='text-end mt-5'>
-                                        <button type="submit" className="cancelbtn"> Cancel </button>
-                                        <button type="submit" className="submit mx-3"> Submit </button>
+                                        <button type="submit" className="btn2"> Cancel </button>
+                                        <button type="submit" className="btn2 mx-3"> Submit </button>
                                     </div>
 
                                 </Form>
@@ -397,7 +394,6 @@ const Manager = () => {
                                             autoComplete="off"
                                             placeholder="Enter your First Name"
                                         />
-
                                         <p className="text-danger small">
                                             <ErrorMessage name="first_name" />
                                         </p>
@@ -412,11 +408,11 @@ const Manager = () => {
                                             autoComplete="off"
                                             placeholder="Enter your Last Name"
                                         />
-
                                         <p className="text-danger small">
                                             <ErrorMessage name="last_name" />
                                         </p>
                                     </div>
+                                    
                                     <div className="formbox mb-3">
                                         <label>Email </label>
                                         <Field
@@ -472,9 +468,6 @@ const Manager = () => {
                                             <ErrorMessage name="confirm_password" />
                                         </p>
                                     </div>
-
-
-
                                     <div className="formbox">
                                         <label>Assign to Restaurant (optional) </label>
                                         <select className={`form-control `}>
@@ -490,8 +483,8 @@ const Manager = () => {
                                     </div>
 
                                     <div className='text-end mt-5'>
-                                        <button type="btn" className="cancelbtn" onClick={(e) => CancelBtnFun(e)} > Cancel </button>
-                                        <button type="submit" className="submit mx-3"> Submit </button>
+                                        <button type="btn" className="btn2" onClick={(e) => CancelBtnFun(e)} > Cancel </button>
+                                        <button type="submit" className="btn2 mx-3"> Submit </button>
                                     </div>
                                 </Form>
                             </Formik>
@@ -500,14 +493,10 @@ const Manager = () => {
                         {/* children part end */}
 
                     </PopUpComponent>}
+                    
 
 
-                {
-
-                    false && <PopUpComponent
-                        classNameValue={"wantmanager"}
-
-                    >
+                {false && <PopUpComponent classNameValue={"wantmanager"}>
                         <div className='popupbody'>
                             <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
                             <h2>Do you want to Delete this Manager?</h2>
@@ -520,7 +509,7 @@ const Manager = () => {
                 {
                     deletePopup &&
                     <PopUpComponent
-                        classNameValue={"popup wantmanager"}
+                        classNameValue={"popup wantmanager "}
                         PopUpToggleFun={PopUpToggleFun}
                         popUpHookFun={popUpHookFun}
                     >
@@ -541,7 +530,7 @@ const Manager = () => {
 
                     </PopUpComponent>
                 }
-                {/* <div className='popup wantmanager  '>
+                {/* <div className='popup wantmanager'>
                     <div className='popupinner'>
                         <div className='popupbody'>
                             <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
