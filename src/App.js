@@ -14,6 +14,7 @@ import ForgotPassword from './Authantication/ForgotPassword/ForgotPassword';
 import ResetPassword from './Authantication/ResetPassword/ResetPassword';
 import Dashboard from './Components/DashboardComponents/Dashboard/Dashboard';
 import Manager from './Components/DashboardComponents/Manager/Manager';
+import Categories from './Components/DashboardComponents/Categories/Categories';
 
 
 
@@ -28,7 +29,8 @@ function App() {
         <Route path='/success' element={<Success />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
         <Route path="/user_auth/resetpassword/:id" element={<ResetPassword />}></Route>
-        <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/admin/dashboard" element={<Dashboard />}></Route>
+        <Route path="/admin/categories" element={<Categories />}></Route>
         <Route path="/manager" element={<Manager />}></Route>
         <Route path="/:id/menu" element={<Menu />}></Route>
       </Routes>

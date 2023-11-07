@@ -19,7 +19,7 @@ const Login = () => {
   useEffect(() => {
     if (User?.data[0]?.status === 200) {
       setLoadSpiner(false);
-      navigate("/dashboard");
+      navigate("/admin/dashboard");
       // window.location.reload(true);
     }
 

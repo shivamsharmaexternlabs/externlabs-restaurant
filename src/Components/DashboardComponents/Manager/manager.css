@@ -273,3 +273,21 @@
     background-color: #c65b13b2;
     border-radius: 100px;
 }
+
+.managertable .pagination {
+    margin-top: 20px;
+    float: right;
+}
+.managertable .pagination .page-item a{
+
+    color: #000;
+
+}
+
+.managertable .pagination .active>.page-link {
+
+    border: 1px solid #c65b13b2;
+    background-color: #c65b13b2;
+    color: white;
+
+}

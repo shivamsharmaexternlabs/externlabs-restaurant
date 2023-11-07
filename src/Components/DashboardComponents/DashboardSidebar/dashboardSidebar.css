@@ -38,8 +38,8 @@
     transition: all .3s;
 }
 
-.navmenu li:hover,
-.navmenu li.active{
+.navmenu li a:hover,
+.navmenu li a.active{
     background-color: #EA6A12;
     -webkit-transition: all.3s ease;
     transition: all .3s ease;
@@ -55,7 +55,7 @@
     transition: all .3s ease;
 }
 
-.navmenu li {
+.navmenu li a {
     width: 42px;
     height: 42px;
     border-radius: 50%;
@@ -67,7 +67,7 @@
     transition: all .3s ease;
 }
 
-.navmenu li > .text {
+.navmenu li a > .text {
     display: none;
     -webkit-transition: all.3s ease;
     transition: all .3s ease;
@@ -114,7 +114,7 @@
     margin: 0 auto;
 }
 
-.fullsidebar .sidebar .navmenu li {
+.fullsidebar .sidebar .navmenu li a {
 width: auto;
 text-align: left;
 justify-content: flex-start;
@@ -125,16 +125,17 @@ border-radius: 1000px;
 background-color: #fff;
 margin-bottom: 15px;
 position: relative;
+text-decoration: none;
 
 }
 
-.fullsidebar .navmenu li > .text {
+.fullsidebar .navmenu li > a > .text {
     -webkit-transition: all.3s ease;
     transition: all .3s ease;
     display: inline-block;
 }
   
-.fullsidebar .sidebar .navmenu li::after{
+.fullsidebar .sidebar .navmenu li a::after{
     content: "";
     position: absolute;
     bottom: -15px;
@@ -145,20 +146,20 @@ position: relative;
     display: block
 }
 
-.fullsidebar .sidebar .navmenu li:hover ,
-.fullsidebar .sidebar .navmenu li.active {
+.fullsidebar .sidebar .navmenu li a:hover ,
+.fullsidebar .sidebar .navmenu li a.active {
     background-color: #EA6A12;
 }
 
-.fullsidebar .sidebar .navmenu li > .text {
+.fullsidebar .sidebar .navmenu li > a > .text {
     color: #aaa;
     font-size: 16px;
     margin-left: 10px;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
 }
-.fullsidebar .sidebar .navmenu li:hover > .text,
-.fullsidebar .sidebar .navmenu li.active > .text { 
+.fullsidebar .sidebar .navmenu li a:hover > .text,
+.fullsidebar .sidebar .navmenu li a.active > .text { 
     color: #fff;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
