@@ -8,26 +8,20 @@ import dish1 from '../../../images/dish1.png'
 import dish2 from '../../../images/dish2.png'
 import dish3 from '../../../images/dish3.png'
 import user from '../../../images/user.png'
-
-
-
+ 
 
 const Dashboard = () => {
-  // const [isFullScreen,setIsFullScreen]=useState(true)
-  // const updateClassState=(value)=>{
-  //   setIsFullScreen(value)
-  // }
-  const [isFullScreen,setIsFullScreen]=useState(false)
-  const handleImageClick=()=>{
-    console.log("gfsdgh",isFullScreen)
-    setIsFullScreen(isFullScreen)
-    // updateClassState(!isFullScreen)
-  }
+
+ 
+ 
+
+    
+ 
   return (
     <>
-      <DashboardLayout isFullScreen={isFullScreen}>
+      <DashboardLayout  >
         <div className='dasboardbody'>
-          <DashboardSidebar updateClassState={handleImageClick} />
+          <DashboardSidebar   />
           <div className='contentpart dashboardpage'>
             <div className='bannerbox'>
               <h2> Good Morning</h2>
