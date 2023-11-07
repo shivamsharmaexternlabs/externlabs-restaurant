@@ -68,11 +68,20 @@ const DashboardSidebar = () => {
 
           <li>
             <NavLink
-              to="#/admin/qrcodes"
-              className={` ${param.pathname === "/admin/qrcodes" ? "active" : ""
+              to="/admin/leads"
+              className={` ${param.pathname === "/admin/leads" ? "active" : ""
                 } `}
 
-            ><img src={icon10} alt='img' /> <span className='text'>QR Codes</span>
+            ><img src={icon10} alt='img' /> <span className='text'>Leads</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/admin/menucategories"
+              className={` ${param.pathname === "/admin/menucategories" ? "active" : ""
+                } `}
+
+            ><img src={icon10} alt='img' /> <span className='text'>Menu Categories</span>
             </NavLink>
           </li>
           <li>
