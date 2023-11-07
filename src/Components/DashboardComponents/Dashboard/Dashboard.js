@@ -17,13 +17,13 @@ import { useNavigate } from 'react-router-dom'
 import { reactLocalStorage } from 'reactjs-localstorage'  
  
 
-let BearerToken = reactLocalStorage.get("Token", false);
-const Dashboard = () => {
+ const Dashboard = () => {
    const dispatch=useDispatch();
    const navigate=useNavigate();
    const [data,setData]=useState({results:[]});
    const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data);
- 
+   let BearerToken = reactLocalStorage.get("Token", false);
+
  
    useEffect(() => {
     setData(ManagerApiSelectorData?.data)
