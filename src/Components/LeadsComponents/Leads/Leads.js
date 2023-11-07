@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import './leads.css'
+import './leads.css' 
 import DashboardLayout from "../../DashboardComponents/DashboardLayout/DashboardLayout";
 import DashboardSidebar from "../../DashboardComponents/DashboardSidebar/DashboardSidebar";
 import LodingSpiner from "../../LoadingSpinner/LoadingSpinner";
