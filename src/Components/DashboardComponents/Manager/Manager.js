@@ -43,20 +43,32 @@ const Manager = () => {
     }, [ManagerApiSelectorData]);
 
     useEffect(() => {
-        dispatch(ManagerSlice(1));
-    }, [])
+
+        let ManagerSlicePayload={
+            Token:BearerToken,
+            pageination:1
+        }
+        
+            dispatch(ManagerSlice(ManagerSlicePayload))
+        
+         
+    }, [BearerToken])
 
     const PopUpToggleFun = () => {
         popUpHookFun(o => !o)
     }
 
 
-    useEffect(() => {
-        console.log("SignUpSelectorData", SignUpSelectorData)
+    useEffect(() => { 
         if (SignUpSelectorData?.data?.status === 201) {
             setLoadSpiner(false);
             popUpHookFun(false);
-            dispatch(ManagerSlice(1));
+
+            let ManagerSlicePayload={
+                Token:BearerToken,
+                pageination:1
+            }
+            dispatch(ManagerSlice(ManagerSlicePayload));
         }
         else if (SignUpSelectorData?.error === "Rejected") {
             setLoadSpiner(false);
@@ -97,7 +109,12 @@ const Manager = () => {
 
     const handlePageClick = (selectedPage) => {
         const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.
-        dispatch(ManagerSlice(page));
+
+        let ManagerSlicePayload={
+            Token:BearerToken,
+            pageination:page
+        }
+        dispatch(ManagerSlice(ManagerSlicePayload));
         setCurrentPage(page - 1);
     }
 

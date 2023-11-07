@@ -4,13 +4,13 @@ import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 let BearerToken = reactLocalStorage.get("Token", false);
-export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejectWithValue }) => {
-  console.log("sdffas",body)
+
+export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejectWithValue }) => { 
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/?page=${body}`,
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/?page=${body?.pageination}`,
       {
         headers: {
-          Authorization: `Bearer ${BearerToken}`,
+          Authorization: `Bearer ${body?.Token}`,
         },
       }
       

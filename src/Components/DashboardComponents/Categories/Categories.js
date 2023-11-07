@@ -7,12 +7,8 @@ import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 import plus from '../../../images/plus.svg'
 
-const Categories = () => {
-
-
-
-    const [popUpHook, popUpHookFun] = usePopUpHook("")
-
+const Categories = () => { 
+    const [popUpHook, popUpHookFun] = usePopUpHook("") 
     const [loadspiner, setLoadSpiner] = useState(false);
 
     const PopUpToggleFun = () => {
