@@ -8,15 +8,11 @@ import dish1 from '../../../images/dish1.png'
 import dish2 from '../../../images/dish2.png'
 import dish3 from '../../../images/dish3.png'
 import user from '../../../images/user.png'
+import item2 from '../../../images/item2.svg'
+import qrimg from '../../../images/qr.png'  
  
 
 const Dashboard = () => {
-
- 
- 
-
-    
- 
   return (
     <>
       <DashboardLayout  >
@@ -26,10 +22,6 @@ const Dashboard = () => {
             <div className='bannerbox'>
               <h2> Good Morning</h2>
               <h3> Austine Robertson</h3>
-              {/* <div className='text-end'>
-                <button type='button' className='btn me-3'>Add Manager </button>
-                <button type='button' className='btn'>Add Menu </button>
-              </div> */}
             </div>
 
             <div className='viewall-part'>
@@ -227,11 +219,36 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
+
               <div className='rightpart'>
+
+                <div className='subplanbox'>
+                  <div className='title'>
+                    <h3>Subscription Plan</h3>
+                    <button type='button'> View Details <img src={arrow2} alt='arrow img' />  </button>
+                  </div>
+                  <div className='info'>
+                    <div className='leftpart'>
+                      <p>Basic Plan</p>
+                      <p>Start Date: 24/10/23</p>
+                      <p>End Date: 24/10/23</p>
+                    </div>
+                    <div className='rightpart'>
+                      <img src={item2} alt='img' />
+                    </div>
+                  </div>
+
+                </div>
+                <div className='qrbox'>
+                    <img src={qrimg} alt='img' />
+                    <div className='info'>
+                      <span>Date: 1/11/23</span>
+                      <button type='button'>Download </button>
+                    </div>
+                </div>
 
               </div>
             </div>
-
           </div>
         </div>
 

@@ -15,6 +15,7 @@ import ResetPassword from './Authantication/ResetPassword/ResetPassword';
 import Dashboard from './Components/DashboardComponents/Dashboard/Dashboard';
 import Manager from './Components/DashboardComponents/Manager/Manager';
 import Categories from './Components/DashboardComponents/Categories/Categories';
+import QrCode from './Components/DashboardComponents/QrCode/QrCode';
 
 
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/admin/categories" element={<Categories />}></Route>
         <Route path="/manager" element={<Manager />}></Route>
         <Route path="/:id/menu" element={<Menu />}></Route>
+        <Route path="/admin/qrcode" element={<QrCode />}></Route>
       </Routes>
       
       <ToastContainer autoClose={2000} />

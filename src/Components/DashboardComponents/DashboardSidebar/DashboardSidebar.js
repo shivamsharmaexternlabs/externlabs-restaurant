@@ -68,8 +68,8 @@ const DashboardSidebar = () => {
 
           <li>
             <NavLink
-              to="#/admin/qrcodes"
-              className={` ${param.pathname === "/admin/qrcodes" ? "active" : ""
+              to="/admin/qrcode"
+              className={` ${param.pathname === "/admin/qrcode" ? "active" : ""
                 } `}
 
             ><img src={icon10} alt='img' /> <span className='text'>QR Codes</span>
