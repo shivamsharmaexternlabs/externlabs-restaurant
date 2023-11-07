@@ -16,7 +16,8 @@ import qrimg from '../../../images/qr.png'
  
 import { useNavigate } from 'react-router-dom'
 import { reactLocalStorage } from 'reactjs-localstorage'  
-  
+ 
+
  const Dashboard = () => {
    const dispatch=useDispatch();
    const navigate=useNavigate();
