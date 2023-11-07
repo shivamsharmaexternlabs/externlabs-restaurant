@@ -14,9 +14,7 @@ import item2 from '../../../images/item2.svg'
 import qrimg from '../../../images/qr.png'  
  
 import { useNavigate } from 'react-router-dom'
-import { reactLocalStorage } from 'reactjs-localstorage'
-import item2 from '../../../images/item2.svg'
-import qrimg from '../../../images/qr.png'  
+import { reactLocalStorage } from 'reactjs-localstorage'  
  
 
 let BearerToken = reactLocalStorage.get("Token", false);
