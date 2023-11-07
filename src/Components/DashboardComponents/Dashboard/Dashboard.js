@@ -1,8 +1,10 @@
 import React,{useEffect, useState} from 'react' 
+import { useDispatch,useSelector } from 'react-redux'
 import './dashboard.css'
 import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
 import DashboardHeader from '../DashboardHeader/DashboardHeader'
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
+import {ManagerSlice} from "../../../Redux/slices/managerSlice"
 import arrow2 from '../../../images/arrow2.svg'
 import dish1 from '../../../images/dish1.png'
 import dish2 from '../../../images/dish2.png'
@@ -11,8 +13,32 @@ import user from '../../../images/user.png'
 import item2 from '../../../images/item2.svg'
 import qrimg from '../../../images/qr.png'  
  
+import { useNavigate } from 'react-router-dom'
+import { reactLocalStorage } from 'reactjs-localstorage'
 
+let BearerToken = reactLocalStorage.get("Token", false);
 const Dashboard = () => {
+   const dispatch=useDispatch();
+   const navigate=useNavigate();
+   const [data,setData]=useState({results:[]});
+   const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data);
+ 
+ 
+   useEffect(() => {
+    setData(ManagerApiSelectorData?.data)
+}, [ManagerApiSelectorData]);
+
+useEffect(() => {
+
+  let ManagerSlicePayload={
+      Token:BearerToken,
+      pageination:1
+  }
+  dispatch(ManagerSlice(ManagerSlicePayload))
+    
+}, [BearerToken])
+    
+ 
   return (
     <>
       <DashboardLayout  >
@@ -193,7 +219,7 @@ const Dashboard = () => {
                 <div className='managerstablepart'>
                   <div className='title'>
                     <h2>Managers</h2>
-                    <button type='button'> View All <img src={arrow2} alt='img' /> </button>
+                    <button type='button' onClick={(e)=>navigate("/manager")}> View All <img src={arrow2} alt='img' /> </button>
                   </div>
                   <div class="managerstable">
                     <table className='table'>
@@ -203,18 +229,15 @@ const Dashboard = () => {
                         <th> E-mail </th>
                         <th> Assigned to </th>
                       </tr>
-                      <tr>
-                        <td> <img src={user} alt='img' /> </td>
-                        <td> Landon Kirby </td>
-                        <td> Landonkirby@gmail.com </td>
-                        <td> Lorem ipsum dolor sit amet consetur dign.... </td>
-                      </tr>
-                      <tr>
-                        <td> <img src={user} alt='img' /> </td>
-                        <td> Landon Kirby </td>
-                        <td> Landonkirby@gmail.com </td>
-                        <td> Lorem ipsum dolor sit amet consetur dign.... </td>
-                      </tr>
+                      {data?.results?.map((items, id) => {
+                        return <tr>
+                                 <td> <img src={user} alt='img' /> </td>
+                                 <td>{`${items?.first_name} ${items?.last_name} `}</td>
+                                 <td>{items?.email}</td>
+                                 <td>Lorem ipsum dolor sit amet consetur dign....</td>    
+                                </tr>
+                       })}
+
                     </table>
                   </div>
                 </div>

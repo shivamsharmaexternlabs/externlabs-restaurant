@@ -17,10 +17,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { reactLocalStorage } from 'reactjs-localstorage'
 import LodingSpiner from '../LoadingSpinner/LoadingSpinner'
 
-
 const Menu = () => {
-
-
   const [ActiveCategory, setActiveCategory] = useState("")
   const [MenuToggleBookData, setMenuToggleBookData] = useState(false)
   const [CategoryTabToggleData, setCategoryTabToggleData] = useState(false)

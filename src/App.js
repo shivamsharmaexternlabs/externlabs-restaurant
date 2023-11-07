@@ -17,6 +17,8 @@ import Manager from './Components/DashboardComponents/Manager/Manager';
 import Categories from './Components/DashboardComponents/Categories/Categories';
 import QrCode from './Components/DashboardComponents/QrCode/QrCode';
 
+import Leads from './Components/LeadsComponents/Leads/Leads';
+import Menucategories from './Components/LeadsComponents/MenuCategories/Menucategories';
 
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
         <Route path="/manager" element={<Manager />}></Route>
         <Route path="/:id/menu" element={<Menu />}></Route>
         <Route path="/admin/qrcode" element={<QrCode />}></Route>
+        <Route path='/admin/leads' element={<Leads />}></Route>
+        <Route path='/admin/menucategories' element={<Menucategories />}></Route>
       </Routes>
       
       <ToastContainer autoClose={2000} />
