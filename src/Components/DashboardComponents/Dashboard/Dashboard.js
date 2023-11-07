@@ -11,12 +11,10 @@ import dish2 from '../../../images/dish2.png'
 import dish3 from '../../../images/dish3.png'
 import user from '../../../images/user.png'
 import item2 from '../../../images/item2.svg'
-import qrimg from '../../../images/qr.png'  
- 
+import qrimg from '../../../images/qr.png'   
 import { useNavigate } from 'react-router-dom'
 import { reactLocalStorage } from 'reactjs-localstorage'  
- 
-
+   
  const Dashboard = () => {
    const dispatch=useDispatch();
    const navigate=useNavigate();
