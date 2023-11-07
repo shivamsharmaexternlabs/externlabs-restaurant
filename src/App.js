@@ -35,7 +35,8 @@ function App() {
         <Route path="/manager" element={<Manager />}></Route>
         <Route path="/:id/menu" element={<Menu />}></Route> 
         <Route path='/admin/leads' element={<Leads />}></Route>
-        <Route path='/admin/menucategories' element={<Menucategories />}></Route>
+        <Route path='/admin/menucategories' element={<Menucategories />}></Route> 
+        <Route path="/admin/qrcode" element={<QrCode />}></Route>
       </Routes>
       
       <ToastContainer autoClose={2000} />
