@@ -5,10 +5,6 @@ import notify from '../../../images/icon6.svg'
 
 const DashboardHeader = ({popUpHookFun}) => {
 
-
-   
-  
-
   return (
     <>
       <header>

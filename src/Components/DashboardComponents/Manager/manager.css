@@ -1,7 +1,3 @@
-.managerpage {
-    padding: 15px;
-}
-
 .managertitle {
     display: flex;
     align-items: center;
@@ -258,7 +254,25 @@
 
 
 
-/* scrollbar css  */
+.managertable .pagination {
+    margin-top: 20px;
+    float: right;
+}
+.managertable .pagination .page-item a{
+    color: #000;
+    box-shadow: none;
+}
+
+.managertable .pagination .active>.page-link {
+
+    border: 1px solid #c65b13b2;
+    background-color: #c65b13b2;
+    color: white;
+
+}
+
+
+/* scrollbar css start  */
 
 .managertable::-webkit-scrollbar {
     height: 5px;
@@ -274,20 +288,4 @@
     border-radius: 100px;
 }
 
-.managertable .pagination {
-    margin-top: 20px;
-    float: right;
-}
-.managertable .pagination .page-item a{
-
-    color: #000;
-
-}
-
-.managertable .pagination .active>.page-link {
-
-    border: 1px solid #c65b13b2;
-    background-color: #c65b13b2;
-    color: white;
-
-}
+/* scrollbar css end  */

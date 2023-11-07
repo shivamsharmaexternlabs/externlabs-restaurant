@@ -176,11 +176,13 @@
     border-radius: 20px;
     padding: 20px 10px;
     transition: all .3s ease;
-    max-width: 197px;
+    width: calc(100%/4 - 10px);
+    margin-bottom: 20px;
+    margin-right: 10px;
 }
 
-.topdishestabpart .tab-content ul li + li {
-    margin-left: 10px;
+.topdishestabpart .tab-content ul li:nth-child(4n+4) {
+   margin-right: 0;
 }
 
 .topdishestabpart .tab-content ul li h4 { 
@@ -236,6 +238,10 @@
 .topdishestabpart .tab-content ul li .tabinfo > .rightpart { 
     width: 40%;
     padding-left: 5px;
+}
+
+.topdishestabpart .tab-content ul li .tabinfo > .rightpart > img {
+    width: 100%;
 }
 
 

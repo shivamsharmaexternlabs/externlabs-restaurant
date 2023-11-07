@@ -53,34 +53,36 @@ const DashboardSidebar = () => {
 
             </NavLink>
           </li>
-          <li> 
+          <li>
             <NavLink to="/manager"
               className={` ${param.pathname === "/manager" ? "active" : ""
                 } `}
             >   <img src={icon8} alt='img' /> <span className='text'>Managers</span>
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/admin/categories" className={` ${param.pathname === "/admin/categories" ? "active" : ""
+              } `}> <img src={icon9} alt='img' /> <span className='text'>Menu Categories</span>
+            </NavLink>
+          </li>
 
+          <li>
+            <NavLink
+              to="#/admin/qrcodes"
+              className={` ${param.pathname === "/admin/qrcodes" ? "active" : ""
+                } `}
 
-
-          <li>  <NavLink
-          to="/admin/categories"
-          className={` ${param.pathname === "/admin/categories" ? "active" : ""
-            } `} >
-              
-              <img src={icon9} alt='img' /> <span className='text'>Menu Categories</span> </NavLink> </li>
-          <li>  <NavLink
-          to="#/admin/qrcodes"
-          className={` ${param.pathname === "/admin/qrcodes" ? "active" : ""
-            } `}
-          
-          ><img src={icon10} alt='img' /> <span className='text'>QR Codes</span> </NavLink> </li>
-          <li>  <NavLink
-          to="#/admin/categories"
-          className={` ${param.pathname === "/admin/categories" ? "active" : ""
-            } `}
-          
-          ><img src={icon11} alt='img' /> <span className='text'>Dashboard</span> </NavLink> </li>
+            ><img src={icon10} alt='img' /> <span className='text'>QR Codes</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="#/admin/categories"
+              className={` ${param.pathname === "/admin/categories" ? "active" : ""
+                } `}>
+              <img src={icon11} alt='img' /> <span className='text'>Dashboard</span>
+            </NavLink>
+          </li>
         </ul>
       </div>
 
