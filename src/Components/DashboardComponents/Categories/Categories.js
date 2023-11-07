@@ -8,8 +8,8 @@ import dish1 from '../../../images/dish1.png'
 import dish2 from '../../../images/dish2.png'
 import dish3 from '../../../images/dish3.png'
 
-const Categories = () => {
-    const [popUpHook, popUpHookFun] = usePopUpHook("")
+const Categories = () => { 
+    const [popUpHook, popUpHookFun] = usePopUpHook("") 
     const [loadspiner, setLoadSpiner] = useState(false);
     const PopUpToggleFun = () => {
         popUpHookFun(o => !o)
