@@ -1,8 +1,8 @@
 import React,{useEffect, useState} from 'react' 
 import { useDispatch,useSelector } from 'react-redux'
 import './dashboard.css'
-import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
-import DashboardHeader from '../DashboardHeader/DashboardHeader'
+import { saveAs } from "file-saver";
+import DashboardSidebar from '../DashboardSidebar/DashboardSidebar' 
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import {ManagerSlice} from "../../../Redux/slices/managerSlice"
 import arrow2 from '../../../images/arrow2.svg'
@@ -38,6 +38,12 @@ useEffect(() => {
   dispatch(ManagerSlice(ManagerSlicePayload))
     
 }, [BearerToken])
+
+const QrCodeDownloadFun = () => { 
+  let url = qrimg
+  saveAs(url, "Twitter-logo");
+
+}
     
  
   return (
@@ -267,7 +273,7 @@ useEffect(() => {
                     <img src={qrimg} alt='img' />
                     <div className='info'>
                       <span>Date: 1/11/23</span>
-                      <button type='button'>Download </button>
+                      <button type='button'  onClick={(e) => QrCodeDownloadFun()}>Download </button>
                     </div>
                 </div>
 
