@@ -13,7 +13,7 @@ import Menu from './Components/Menu/Menu';
 import ForgotPassword from './Authantication/ForgotPassword/ForgotPassword';
 import ResetPassword from './Authantication/ResetPassword/ResetPassword';
 import Dashboard from './Components/DashboardComponents/Dashboard/Dashboard';
-import Manager from './Components/DashboardComponents/Manager/Manager'; 
+import Manager from './Components/DashboardComponents/Manager/Manager';
 import Categories from './Components/DashboardComponents/Categories/Categories'; 
 import Leads from './Components/LeadsComponents/Leads/Leads';
 import Menucategories from './Components/LeadsComponents/MenuCategories/Menucategories';
