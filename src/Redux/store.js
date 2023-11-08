@@ -6,6 +6,9 @@ import  resetPasswordReducer   from "./slices/resetPasswordSlice";
 import  menuReducer  from "./slices/menuSlice";
 import  managerReducer  from "./slices/managerSlice";
 import  toggleBarReducer  from "./slices/sideBarToggle";
+import uploadMenuReducer from "./slices/uploadMenuSlice"
+import  qrcodeReducer  from "./slices/qrCodeSlice";
+import  leadsReducer  from "./slices/leadsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +18,9 @@ export const store = configureStore({
     ResetPasswordApiData:resetPasswordReducer,
     MenuApiData:menuReducer,
     ManagerApiData:managerReducer,
-    ToggleBarData:toggleBarReducer
+    ToggleBarData:toggleBarReducer,
+    UploadMenuData:uploadMenuReducer,
+    QrCodeApiData:qrcodeReducer,
+    LeadsApiData:leadsReducer
   },
 });

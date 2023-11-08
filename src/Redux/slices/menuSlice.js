@@ -13,8 +13,7 @@ let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${body?.RestaurantId}`,
     
     );
-    console.log("GetMenuCategorySlice",response);
-    // toast.success("Successful");
+     // toast.success("Successful");
 
     return response;
 
@@ -27,10 +26,14 @@ let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
 );
 
 // get menu category data 
+      // ${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&menu_id=${body?.MenuId===undefined?"":body?.MenuId}&search=${body?.searchValue===undefined?"":body?.searchValue}&item_type=${body?.itemTypeValue===undefined?"":body?.itemTypeValue}
+
 
 export const MenuSlice = createAsyncThunk("MenuSlice",async (body, { rejectWithValue }) => {
+  console.log("GetMenuCatdsdsdegorySlice",body);
+
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&search=${body?.searchValue===undefined?"":body?.searchValue}&item_type=${body?.itemTypeValue===undefined?"":body?.itemTypeValue}`, 
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&menu_id=${body?.MenuId===undefined?"":body?.MenuId}&search=${body?.searchValue===undefined?"":body?.searchValue}&item_type=${body?.itemTypeValue===undefined?"":body?.itemTypeValue}`,
 
       // {
       //   headers: {
@@ -38,7 +41,10 @@ export const MenuSlice = createAsyncThunk("MenuSlice",async (body, { rejectWithV
       //   },
       // }
       
+
       )   
+      console.log("GetMenuCatdsdsdegorySlice11",response);
+
         return response;
     
 
@@ -51,7 +57,24 @@ export const MenuSlice = createAsyncThunk("MenuSlice",async (body, { rejectWithV
 );
 
 
+// get favorite dishes Slice
+export const favoriteMenuSlice = createAsyncThunk("favoriteMenuSlice",async (body, { rejectWithValue }) => {
+  // console.log("GetMenuCatdsdsdegorySlice",body);
 
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&is_favorite=True`, 
+
+      )   
+        return response;
+    
+
+    } catch (err) {
+        // console.log("err++++++++",err.response.data.message);
+      // toast.error(err?.response?.data?.message);
+      return rejectWithValue(err);
+    }
+  }
+);
 
 // Reducer
 
@@ -59,7 +82,8 @@ export const menuReducer = createSlice({
   name: "menuReducer",
   initialState: {
     GetMenuCategoryReducerData : [],
-    MenuSliceReducerData: [],  
+    MenuSliceReducerData: [],
+    favoriteMenuSliceReducerData: [],
     loading: false,
     error: null,
   },
@@ -87,12 +111,28 @@ export const menuReducer = createSlice({
       })
 
       .addCase(MenuSlice.fulfilled, (state, action) => {
+        console.log("hjvjheee", action.payload)
         state.loading = false;
         state.MenuSliceReducerData = action.payload;
       }
       )
 
       .addCase(MenuSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(favoriteMenuSlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(favoriteMenuSlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.favoriteMenuSliceReducerData = action.payload;
+      }
+      )
+
+      .addCase(favoriteMenuSlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

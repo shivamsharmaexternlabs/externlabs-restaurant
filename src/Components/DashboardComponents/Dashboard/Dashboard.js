@@ -1,32 +1,39 @@
 import React,{useEffect, useState} from 'react' 
 import { useDispatch,useSelector } from 'react-redux'
 import './dashboard.css'
-import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
-import DashboardHeader from '../DashboardHeader/DashboardHeader'
+import { saveAs } from "file-saver";
+import DashboardSidebar from '../DashboardSidebar/DashboardSidebar' 
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import {ManagerSlice} from "../../../Redux/slices/managerSlice"
+import {GetQrCodeSlice} from "../../../Redux/slices/qrCodeSlice"
 import arrow2 from '../../../images/arrow2.svg'
 import dish1 from '../../../images/dish1.png'
 import dish2 from '../../../images/dish2.png'
 import dish3 from '../../../images/dish3.png'
 import user from '../../../images/user.png'
 import item2 from '../../../images/item2.svg'
-import qrimg from '../../../images/qr.png'  
- 
+import qrimg from '../../../images/qr.png'   
 import { useNavigate } from 'react-router-dom'
-import { reactLocalStorage } from 'reactjs-localstorage'
+import { reactLocalStorage } from 'reactjs-localstorage'  
+   
+ 
 
-let BearerToken = reactLocalStorage.get("Token", false);
-const Dashboard = () => {
+ const Dashboard = () => {
    const dispatch=useDispatch();
    const navigate=useNavigate();
    const [data,setData]=useState({results:[]});
+   const [QrImage,setQrImage]=useState("")
    const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data);
- 
+   const QrApiSelectorData=useSelector((state) => state.QrCodeApiData?.data)
+   let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false); 
+   console.log("dfsagh",QrImage)
+   let BearerToken = reactLocalStorage.get("Token", false);
+
  
    useEffect(() => {
     setData(ManagerApiSelectorData?.data)
-}, [ManagerApiSelectorData]);
+    setQrImage(QrApiSelectorData?.data?.results[0]?.qrcode)
+}, [ManagerApiSelectorData,QrApiSelectorData]);
 
 useEffect(() => {
 
@@ -37,7 +44,15 @@ useEffect(() => {
   dispatch(ManagerSlice(ManagerSlicePayload))
     
 }, [BearerToken])
-    
+
+const QrCodeDownloadFun = () => { 
+  let url = QrImage
+  saveAs(url, "Twitter-logo");
+}
+useEffect(()=>{
+  let resturantid=RestaurantIdLocalData
+  dispatch(GetQrCodeSlice(resturantid)) 
+},[])    
  
   return (
     <>
@@ -263,10 +278,10 @@ useEffect(() => {
 
                 </div>
                 <div className='qrbox'>
-                    <img src={qrimg} alt='img' />
+                    <img src={QrImage} alt='img' />
                     <div className='info'>
                       <span>Date: 1/11/23</span>
-                      <button type='button'>Download </button>
+                      <button type='button'  onClick={(e) => QrCodeDownloadFun()}>Download </button>
                     </div>
                 </div>
 
