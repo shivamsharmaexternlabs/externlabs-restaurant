@@ -6,17 +6,11 @@ import  resetPasswordReducer   from "./slices/resetPasswordSlice";
 import  menuReducer  from "./slices/menuSlice";
 import  managerReducer  from "./slices/managerSlice";
 import  toggleBarReducer  from "./slices/sideBarToggle";
-import uploadMenuReducer from "./slices/uploadMenuSlice"
-<<<<<<< HEAD
-<<<<<<< HEAD
+import uploadMenuReducer from "./slices/uploadMenuSlice" 
 import  qrcodeReducer  from "./slices/qrCodeSlice";
 import  leadsReducer  from "./slices/leadsSlice";
 
-=======
->>>>>>> 072b7909 (upload menu integration)
-=======
-import  qrcodeReducer  from "./slices/qrCodeSlice";
->>>>>>> 9423fda2 (qr code done)
+import  qrcodeReducer  from "./slices/qrCodeSlice"; 
 export const store = configureStore({
   reducer: {
     SignInApiData: signInReducer,
@@ -25,18 +19,9 @@ export const store = configureStore({
     ResetPasswordApiData:resetPasswordReducer,
     MenuApiData:menuReducer,
     ManagerApiData:managerReducer,
-    ToggleBarData:toggleBarReducer,
-<<<<<<< HEAD
-<<<<<<< HEAD
-    UploadMenuData:uploadMenuReducer,
-    QrCodeApiData:qrcodeReducer,
-    LeadsApiData:leadsReducer
-=======
-    UploadMenuData:uploadMenuReducer
->>>>>>> 072b7909 (upload menu integration)
-=======
-    UploadMenuData:uploadMenuReducer,
-    QrCodeApiData:qrcodeReducer
->>>>>>> 9423fda2 (qr code done)
+    ToggleBarData:toggleBarReducer, 
+       UploadMenuData:uploadMenuReducer, 
+     QrCodeApiData:qrcodeReducer,
+    LeadsApiData:leadsReducer 
   },
 });
