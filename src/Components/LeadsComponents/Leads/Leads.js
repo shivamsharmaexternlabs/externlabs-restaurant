@@ -91,11 +91,10 @@ const Leads = () => {
               <table>
                 <tr>
                   <th></th>
-                  <th>User Name </th>
+                  <th>Restaurant Name </th>
                   <th>Email</th>
                   <th>Mobile No.</th>
-                  <th>Assigned to </th>
-                  <th>Assigned to</th>
+                  <th>E-mail </th>
                 </tr>
 
 
@@ -107,10 +106,7 @@ const Leads = () => {
                     <td>{items?.email}</td>
                     <td>{items?.phone_number}</td>
                     <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                    <td>
-                      {/* <button className='asbtn'> Transfer </button> */}
-                      <button className='asbtn' onClick={(e) => handleDelete(e, items)}> Delete </button>
-                    </td>
+                    
                   </tr>
                 })} 
                  
