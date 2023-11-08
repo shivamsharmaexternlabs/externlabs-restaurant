@@ -6,7 +6,7 @@ import  resetPasswordReducer   from "./slices/resetPasswordSlice";
 import  menuReducer  from "./slices/menuSlice";
 import  managerReducer  from "./slices/managerSlice";
 import  toggleBarReducer  from "./slices/sideBarToggle";
-
+import uploadMenuReducer from "./slices/uploadMenuSlice"
 export const store = configureStore({
   reducer: {
     SignInApiData: signInReducer,
@@ -15,6 +15,7 @@ export const store = configureStore({
     ResetPasswordApiData:resetPasswordReducer,
     MenuApiData:menuReducer,
     ManagerApiData:managerReducer,
-    ToggleBarData:toggleBarReducer
+    ToggleBarData:toggleBarReducer,
+    UploadMenuData:uploadMenuReducer
   },
 });

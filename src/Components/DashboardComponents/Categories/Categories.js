@@ -11,12 +11,22 @@ import category from "../../../images/category.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComponent";
 import manager from "../../../images/manager.png";
+import {UploadMenuSlice} from "../../../Redux/slices/uploadMenuSlice"
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const Categories = () => {
+    const dispatch = useDispatch();
+    const  params = useLocation(); 
+
+
   const [popUpHook, popUpHookFun] = usePopUpHook("");
   const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
 
   const [loadspiner, setLoadSpiner] = useState(false);
+  const UploadMenuData = useSelector((state) => state.UploadMenuData);
+  let splitdata =params?.pathname.split("/")[1] 
+console.log("splitdata",splitdata)
   const PopUpToggleFun = () => {
     popUpHookFun((o) => !o);
   };
@@ -30,7 +40,18 @@ const Categories = () => {
     popUpCategoriesHookFun(false);
   };
   const UploadMenuFile = (e) => {
-    console.log("hjgsdh", e?.target);
+    console.log("hjgsdh", e?.target?.files[0]);
+    const formData = new FormData();
+    let payload={
+        file:e?.target?.files[0],
+        restaurant_id:"e3a6a60b-a6c5-467a-9b0e-364a160ff8fc"
+        // restaurant_id:RestaurantIdLocalStorageData
+    }
+  formData.append("file", payload?.file);
+  formData.append("restaurant_id", payload?.restaurant_id);
+  console.log("shgdah",payload,formData)
+
+    dispatch(UploadMenuSlice(formData))
   };
   return (
     <>
