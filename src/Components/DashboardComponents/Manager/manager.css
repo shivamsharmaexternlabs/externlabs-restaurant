@@ -175,10 +175,10 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    -webkit-transform: translate(-50% , -40%);
-    -o-transform: translate(-50% , -40%);
-    -ms-transform: translate(-50% , -40%);
-    transform: translate(-50% , -40%);   
+    -webkit-transform: translate(-50%, -40%);
+    -o-transform: translate(-50%, -40%);
+    -ms-transform: translate(-50%, -40%);
+    transform: translate(-50%, -40%);
 }
 
 
@@ -198,7 +198,7 @@
     position: relative;
 }
 
-.addmanagerpopup  .popupbody .managerimg {
+.addmanagerpopup .popupbody .managerimg {
     position: absolute;
     top: -85px;
     right: 20px;
@@ -211,7 +211,8 @@
     line-height: 1.2;
     margin-bottom: 8px;
 }
- .formbox .form-control {
+
+.formbox .form-control {
     font-size: 16px;
     padding: 10px 15px;
     color: #000;
@@ -222,13 +223,13 @@
 }
 
 .addmanagerpopup .popupinner button {
-    padding: 8px 25px;    
+    padding: 8px 25px;
 }
 
 
 .wantmanager .popupinner {
     max-width: 400px;
-    padding:30px 15px;
+    padding: 30px 15px;
     background-color: #fff;
     border-radius: 20px;
 }
@@ -263,26 +264,57 @@
 
 .managertable .pagination {
     margin-top: 20px;
-    float: right;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.managertable .pagination .page-item a{
+
+.managertable .pagination .page-item a {
     color: #000;
     box-shadow: none;
+    cursor: pointer;
 }
 
-.managertable .pagination .active>.page-link {
 
+.managertable .pagination .active>.page-link {
     border: 1px solid #c65b13b2;
     background-color: #c65b13b2;
     color: white;
-
 }
+
+
+.managertable .pagination .page-item:first-child a,
+.managertable .pagination .page-item:last-child a {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border-radius: 8px;
+    border: 1px solid #EA6A12;
+    background-color: #fff;
+}
+
+.managertable .pagination .page-item:first-child {
+    position: absolute;
+    left: 0;
+}
+
+.managertable .pagination .page-item:last-child {
+    position: absolute;
+    right: 0;
+}
+
+.managertable .pagination .page-item.disabled a{
+    border: 1px solid #e8e8e8;
+    color: #787878;
+}
+
+
 
 
 /* scrollbar css start  */
 
 .managertable::-webkit-scrollbar,
-.addmanagerpopup  .popupbody::-webkit-scrollbar {
+.addmanagerpopup .popupbody::-webkit-scrollbar {
     height: 5px;
     width: 3px;
     background-color: #EF9456B2;

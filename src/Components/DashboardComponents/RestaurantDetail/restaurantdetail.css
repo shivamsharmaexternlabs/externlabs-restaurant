@@ -1,0 +1,65 @@
+
+.restaurantdetailpage {
+    position: relative;
+    z-index: 1;
+}
+
+.editprofileform {
+    position: relative;
+    z-index: 9;
+}
+ .burgerimg{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.editprofilebanner {
+    position: relative;
+}
+
+.editprofilebanner {
+    position: relative;
+    border-radius: 16px 16px 0px 0px;
+    overflow: hidden;
+}
+
+.editprofilebanner>.info {
+    background: rgba(255, 255, 255, 0.60);
+    backdrop-filter: blur(11.975000381469727px);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.editprofilebanner  figure {
+    margin: 0 0;
+}
+
+.editprofilebanner .info button{
+    border-radius: 8px;
+    padding: 13px 15px;
+    font-size: 14px;
+}
+
+.editprofilebanner .info > img {
+    margin: -55px 0 0;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+
+
+
+
+
+
+
+
+

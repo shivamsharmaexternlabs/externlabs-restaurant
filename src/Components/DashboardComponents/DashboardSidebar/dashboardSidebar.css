@@ -12,7 +12,7 @@
     margin-bottom: 0;
 }
 
-.sidebar > .logo{
+.sidebar>.logo {
     text-align: center;
     padding-bottom: 12px;
     border-bottom: 1px solid #E9ECEF;
@@ -21,7 +21,7 @@
     transition: all .3s ease;
 }
 
-.sidebar > .logo .fulllogo{
+.sidebar>.logo .fulllogo {
     display: none;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
@@ -29,7 +29,7 @@
 
 
 
-.navmenu li + li {
+.navmenu li+li {
     margin-top: 15px;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .navmenu li a:hover,
-.navmenu li a.active{
+.navmenu li a.active {
     background-color: #EA6A12;
     -webkit-transition: all.3s ease;
     transition: all .3s ease;
@@ -67,7 +67,7 @@
     transition: all .3s ease;
 }
 
-.navmenu li a > .text {
+.navmenu li a>.text {
     display: none;
     -webkit-transition: all.3s ease;
     transition: all .3s ease;
@@ -97,17 +97,17 @@
 }
 
 
-.fullsidebar .sidebar{
+.fullsidebar .sidebar {
     width: 260px;
 }
 
-.fullsidebar .sidebar > .logo .smalllogo {
+.fullsidebar .sidebar>.logo .smalllogo {
     display: none;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
 }
 
-.fullsidebar .sidebar > .logo .fulllogo {
+.fullsidebar .sidebar>.logo .fulllogo {
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
     display: block;
@@ -115,27 +115,27 @@
 }
 
 .fullsidebar .sidebar .navmenu li a {
-width: auto;
-text-align: left;
-justify-content: flex-start;
-min-width: 220px;
-height: auto;
-padding: 10px 20px;
-border-radius: 1000px;
-background-color: #fff;
-margin-bottom: 15px;
-position: relative;
-text-decoration: none;
+    width: auto;
+    text-align: left;
+    justify-content: flex-start;
+    min-width: 220px;
+    height: auto;
+    padding: 10px 20px;
+    border-radius: 1000px;
+    background-color: #f8f8f8;
+    margin-bottom: 15px;
+    position: relative;
+    text-decoration: none;
 
 }
 
-.fullsidebar .navmenu li > a > .text {
+.fullsidebar .navmenu li>a>.text {
     -webkit-transition: all.3s ease;
     transition: all .3s ease;
     display: inline-block;
 }
-  
-.fullsidebar .sidebar .navmenu li a::after{
+
+.fullsidebar .sidebar .navmenu li a::after {
     content: "";
     position: absolute;
     bottom: -15px;
@@ -146,20 +146,21 @@ text-decoration: none;
     display: block
 }
 
-.fullsidebar .sidebar .navmenu li a:hover ,
+.fullsidebar .sidebar .navmenu li a:hover,
 .fullsidebar .sidebar .navmenu li a.active {
     background-color: #EA6A12;
 }
 
-.fullsidebar .sidebar .navmenu li > a > .text {
+.fullsidebar .sidebar .navmenu li>a>.text {
     color: #aaa;
     font-size: 16px;
     margin-left: 10px;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
 }
-.fullsidebar .sidebar .navmenu li a:hover > .text,
-.fullsidebar .sidebar .navmenu li a.active > .text { 
+
+.fullsidebar .sidebar .navmenu li a:hover>.text,
+.fullsidebar .sidebar .navmenu li a.active>.text {
     color: #fff;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
@@ -170,5 +171,59 @@ text-decoration: none;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
 }
+
+
+@media (max-width:1199px) {
+    .fullsidebar .sidebar {
+        width: 240px;
+    }
+
+    .fullsidebar .contentpart {
+        width: calc(100% - 240px);
+    }
+
+    .dasboardbody .contentpart {
+        padding: 20px;
+    }    
+}
+
+@media (max-width: 767px) { 
+    .fullsidebar .sidebar>.logo .fulllogo,
+    .fullsidebar .sidebar .navmenu li a:hover>.text, 
+    .fullsidebar .sidebar .navmenu li a.active>.text,
+    .fullsidebar .sidebar .navmenu li>a>.text,
+    .fullsidebar .sidebar .navmenu li a::after {
+        display: none;
+    }
+    .fullsidebar .sidebar>.logo .smalllogo {
+        display: block;
+        margin: 0 auto;
+    }
+    .fullsidebar .sidebar .navmenu li a {
+        min-width: auto;
+        width: 42px;
+        height: 42px;
+        padding: 5px;
+        justify-content: center;
+        margin-bottom: 0;
+    }
+
+    .fullsidebar .sidebar {
+        width: 70px;    
+    }
+    
+    .navmenu li+li {
+        margin-top: 5px;
+    }
+
+    .fullsidebar .contentpart {
+        width: calc(100% - 70px);
+    }
+
+}
+
+
+
+
 
 

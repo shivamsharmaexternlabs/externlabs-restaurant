@@ -5,7 +5,7 @@
     background-size: 100% 100%;
 }
 
-.notifyimg{
+.notifyimg {
     cursor: pointer;
 }
 
@@ -34,7 +34,7 @@ header .leftpart form input {
     border: 1px solid rgba(218, 218, 218);
     padding: 7px 10px 7px 28px;
     outline: none;
-    -webkit-appearance:none;
+    -webkit-appearance: none;
     background: url(../../../images/icon12.svg) top 14px left 10px no-repeat;
 }
 
@@ -83,4 +83,12 @@ header .rightpart .user p {
     padding-left: 275px;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
+}
+
+
+@media (max-width: 767px) {
+    .fullsidebar header {
+        padding-left: 90px;
+    }
+
 }

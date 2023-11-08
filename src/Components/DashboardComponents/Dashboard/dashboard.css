@@ -196,7 +196,6 @@
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
 }
 
@@ -205,7 +204,7 @@
     border-radius: 20px;
     padding: 20px 10px;
     transition: all .3s ease;
-    width: calc(100%/4 - 10px);
+    width: calc(100%/4 - 8px);
     margin-bottom: 20px;
     margin-right: 10px;
 }
@@ -308,6 +307,17 @@
     margin-left: 10px;
 }
 
+.managerstablepart .managerstable{
+    overflow: auto;
+}
+
+.managerstablepart table {
+    overflow: auto;    
+    width: 100%;
+    min-width: 650px;
+    margin-bottom: 10px;
+}
+
 .managerstable tr {
     display: flex;
     align-items: center;
@@ -327,18 +337,16 @@
 
 .managerstable th {
     color: #000;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     letter-spacing: normal;
     padding: 9px 5px;
 }
 
-
 .managerstable th:first-child,
-.managerstable td:first-child{
+.managerstable td:first-child {
     width: 50px;
 }
-
 
 .managerstable th:nth-child(2),
 .managerstable td:nth-child(2) {
@@ -353,11 +361,11 @@
 .managerstable th:last-child ,
 .managerstable td:last-child  {
     width: 340px;
-}
+}  
 
 .managerstable td {
     color: #000;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     letter-spacing: normal;
     padding: 9px;
@@ -412,7 +420,6 @@
 }
 
 .subplanbox > .info > .leftpart {
-    width: 50%;
     padding-right: 10px;
 }
 
@@ -460,7 +467,74 @@
 }
 
 
+/* scrollbar css start  */
 
+.managerstable::-webkit-scrollbar {
+    height: 5px;
+    width: 3px;
+    background-color: #EF9456B2;
+    border-radius: 100px;
+}
+
+.managerstable::-webkit-scrollbar-thumb {
+    height: 5px;
+    width: 3px;
+    background-color: #c65b13b2;
+    border-radius: 100px;
+}
+
+/* scrollbar css end  */
+
+
+@media(max-width:1199px){
+
+    .topdishestabpart .tab-content ul li {
+        width: calc(100%/3 - 7px);
+    }
+
+    .topdishestabpart .tab-content ul li:nth-child(3n+3) {
+        margin-right: 0;
+    }
+    .topdishestabpart .tab-content ul li:nth-child(4n+4) {
+        margin-right: 10px;
+    }
+
+    .subplanbox > .info > .leftpart p {
+        font-size: 18px;
+    }
+    .subplanbox > .title h3,
+    .topdishespart>.title>h2,
+    .managerstablepart>.title>h2 {
+        font-size: 22px;
+    }
+    .bannerbox h2 {
+        font-size: 30px;   
+    }
+
+    .bannerbox h3 {
+        font-size: 38px;    
+    }
+
+    .viewall-part {
+        flex-wrap: wrap;
+    }
+
+    .viewall-part>.leftpart {
+        width: 100%;
+    }
+
+    .viewall-part>.rightpart {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .managerstablepart {
+        margin: 20px 0 0;
+    }   
+
+ 
+
+}
 
 
 
