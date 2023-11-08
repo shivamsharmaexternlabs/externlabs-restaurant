@@ -190,15 +190,15 @@
     margin-bottom: 50px;
 }
 
-.addmanagerpopup .popupinner .popupbody {
+.addmanagerpopup .popupbody {
     background-color: rgba(255, 255, 255, 1);
 }
 
-.addmanagerpopup .popupinner .popupbody form {
+.addmanagerpopup .popupbody form {
     position: relative;
 }
 
-.addmanagerpopup .popupinner .popupbody .managerimg {
+.addmanagerpopup  .popupbody .managerimg {
     position: absolute;
     top: -85px;
     right: 20px;
@@ -282,7 +282,7 @@
 /* scrollbar css start  */
 
 .managertable::-webkit-scrollbar,
-.addmanagerpopup .popupinner .popupbody::-webkit-scrollbar {
+.addmanagerpopup  .popupbody::-webkit-scrollbar {
     height: 5px;
     width: 3px;
     background-color: #EF9456B2;
@@ -290,7 +290,7 @@
 }
 
 .managertable::-webkit-scrollbar-thumb,
-.addmanagerpopup .popupinner .popupbody::-webkit-scrollbar-thumb {
+.addmanagerpopup .popupbody::-webkit-scrollbar-thumb {
     height: 5px;
     width: 3px;
     background-color: #c65b13b2;
