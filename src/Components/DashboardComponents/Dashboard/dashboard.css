@@ -85,9 +85,15 @@
     margin-left: 10px;
 }
 
-
-.topdishestabpart {
+.topdishestabpart > nav {
+    overflow: auto;
     width: 100%;
+}
+
+.topdishestabpart > nav > .nav { 
+    width: 100%;
+    min-width: 915px;
+    margin: 1px 0;
 }
 
 .topdishestabpart .nav-tabs {
@@ -103,10 +109,6 @@
     margin-right: 20px;
 }
 
-.topdishestabpart .nav-tabs .nav-link:hover,
-.topdishestabpart .nav-tabs .nav-link.active {
-    background: rgba(234, 106, 18, 0.70);
-}
 
 .topdishestabpart .nav-tabs .nav-link figure {
     width: 50px;
@@ -123,12 +125,23 @@
 }
 
 .topdishestabpart .nav-tabs .nav-link h3 {
-    color: #FFF;
-    font-size: 12px;
+    color: #000;
+    font-size: 13px;
     font-style: normal;
     font-weight: 400;
     line-height: 1.2;
     letter-spacing: 0.235px;
+    position: relative;
+    text-transform: capitalize;
+}
+
+.topdishestabpart .nav-tabs .nav-link h3::after{
+    content: "";
+    display: block;
+    width: 25px;
+    height: 1px;
+    background-color: #000;
+    margin: 5px auto 0;
 }
 
 .topdishestabpart .nav-tabs .nav-link .buttonbox {
@@ -147,11 +160,27 @@
     stroke: #fff;
 }
 
+.topdishestabpart .nav-tabs .nav-link:hover,
+.topdishestabpart .nav-tabs .nav-link.active {
+    background: rgba(234, 106, 18, 0.70);
+}
+
+
 .topdishestabpart .nav-tabs .nav-link:hover .buttonbox,
 .topdishestabpart .nav-tabs .nav-link.active .buttonbox {
     background-color: #fff;
 }
 
+.topdishestabpart .nav-tabs .nav-link:hover h3,
+.topdishestabpart .nav-tabs .nav-link.active h3 {
+    color: #FFF;
+}
+
+
+.topdishestabpart .nav-tabs .nav-link:hover h3::after,
+.topdishestabpart .nav-tabs .nav-link.active h3::after {
+    background-color: #fff;
+}
 
 .topdishestabpart .nav-tabs .nav-link:hover .buttonbox svg,
 .topdishestabpart .nav-tabs .nav-link.active .buttonbox svg {  
