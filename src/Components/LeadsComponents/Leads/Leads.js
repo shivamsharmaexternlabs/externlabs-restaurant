@@ -5,8 +5,7 @@ import DashboardLayout from "../../DashboardComponents/DashboardLayout/Dashboard
 import DashboardSidebar from "../../DashboardComponents/DashboardSidebar/DashboardSidebar";
 import LodingSpiner from "../../LoadingSpinner/LoadingSpinner";
 import usePopUpHook from "../../../CustomHooks/usePopUpHook/usePopUpHook";
-import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComponent";
-import manager from "../../../images/manager.png";
+import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComponent"; 
 import { useDispatch, useSelector } from "react-redux";
 import { reactLocalStorage } from "reactjs-localstorage";
 import { ManagerSlice } from "../../../Redux/slices/managerSlice";
@@ -21,12 +20,13 @@ import imgicon from '../../../images/imgicon.svg'
 
 
 const Leads = () => {
+
   const itemsPerPage = 5;
   const [data, setData] = useState({ results: [] })
   const [loadspiner, setLoadSpiner] = useState(false);
   const [popUpHook, popUpHookFun] = usePopUpHook("")
   const [deletePopup, deletePopUpFun] = usePopUpHook("")
-  const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
+  const LeadsSelectorData = useSelector((state) => state.LeadsApiData);
   let BearerToken = reactLocalStorage.get("Token", false);
   const dispatch = useDispatch();
   const [CurrentPage, setCurrentPage] = useState(0)
@@ -57,7 +57,7 @@ const Leads = () => {
   }
   const [UserId, setUserId] = useState("")
   useEffect(() => {
-    if (SignUpSelectorData?.data?.status === 201) {
+    if (LeadsSelectorData?.data?.status === 201) {
       setLoadSpiner(false);
       popUpHookFun(false);
 
@@ -66,11 +66,11 @@ const Leads = () => {
         pageination: 1,
       };
       dispatch(ManagerSlice(ManagerSlicePayload));
-    } else if (SignUpSelectorData?.error === "Rejected") {
+    } else if (LeadsSelectorData?.error === "Rejected") {
       setLoadSpiner(false);
       popUpHookFun(true);
     }
-  }, [SignUpSelectorData]);
+  }, [LeadsSelectorData]);
   return (
     <>
       <DashboardLayout>
@@ -100,8 +100,7 @@ const Leads = () => {
 
 
 
-                {data?.results?.map((items, id) => {
-                  console.log("ManagerApiSelectorData items ", id, items)
+                {data?.results?.map((items, id) => { 
                   return <tr>
                     <td> <img src={user} alt='img' /> </td>
                     <td>{`${items?.first_name} ${items?.last_name} `}</td>
@@ -113,96 +112,8 @@ const Leads = () => {
                       <button className='asbtn' onClick={(e) => handleDelete(e, items)}> Delete </button>
                     </td>
                   </tr>
-                })}
-
-
-
-
-
-                {/* <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr> */}
-
+                })} 
+                 
               </table>
               <ReactPaginate
                 previousLabel={"Previous"}
