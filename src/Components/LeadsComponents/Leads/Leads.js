@@ -20,6 +20,7 @@ import imgicon from '../../../images/imgicon.svg'
 
 
 const Leads = () => {
+
   const itemsPerPage = 5;
   const [data, setData] = useState({ results: [] })
   const [loadspiner, setLoadSpiner] = useState(false);
