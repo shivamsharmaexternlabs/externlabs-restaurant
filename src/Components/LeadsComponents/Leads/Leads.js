@@ -10,6 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { reactLocalStorage } from "reactjs-localstorage";
 import { ManagerSlice } from "../../../Redux/slices/managerSlice";
 import user from '../../../images/user.png'
+import share from '../../../images/share.svg'
+import copy from '../../../images/copy.svg'
+import share2 from '../../../images/share2.svg'
 import ReactPaginate from 'react-paginate';
 
 import imgicon from '../../../images/imgicon.svg'
@@ -143,7 +146,7 @@ const Leads = () => {
 
       {popUpHook && (
         <PopUpComponent
-          classNameValue={"leadpopup d-none"}
+          classNameValue={"leadpopup "}
           PopUpToggleFun={PopUpToggleFun}
           popUpHookFun={popUpHookFun}
         >
@@ -556,8 +559,7 @@ const Leads = () => {
         <PopUpComponent
           classNameValue={"onboardingpopup d-none"}
           PopUpToggleFun={PopUpToggleFun}
-          popUpHookFun={popUpHookFun}
-        >
+          popUpHookFun={popUpHookFun} >
           {/* children part start */}
 
           <div className="popuptitle">
@@ -627,7 +629,6 @@ const Leads = () => {
               </Form>
             </Formik>
           </div>
-
           {/* children part end */}
         </PopUpComponent>
       )}
@@ -636,7 +637,14 @@ const Leads = () => {
         <div className="innerpopup">
           <img src={imgicon} alt="img" />
           <h3> Success !</h3>
-          <p>[user name] is successfully registered</p>
+          <p>[Restaurant name] is successfully registered</p>
+          <div className="sharebtnbox">
+            <span> <img src={share} alt="img" /> Link </span>  
+            <input type="text" placeholder="link" />
+            <button type="button" className="copybtn"> <img src={copy} alt="img" /> </button>
+            <button type="button" className="sharebtn"> <img src={share2} alt="img" /> </button>
+            
+          </div>
           <button className="btn2"> Back to home </button>
         </div>
       </div>

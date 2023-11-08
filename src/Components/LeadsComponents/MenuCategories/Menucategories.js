@@ -7,6 +7,7 @@ import LodingSpiner from "../../LoadingSpinner/LoadingSpinner";
 import usePopUpHook from "../../../CustomHooks/usePopUpHook/usePopUpHook";
 import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComponent";
 import manager from "../../../images/manager.png";
+
 import { useDispatch, useSelector } from "react-redux";
 import { reactLocalStorage } from "reactjs-localstorage";
 import { ManagerSlice } from "../../../Redux/slices/managerSlice";
