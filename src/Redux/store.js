@@ -7,6 +7,7 @@ import  menuReducer  from "./slices/menuSlice";
 import  managerReducer  from "./slices/managerSlice";
 import  toggleBarReducer  from "./slices/sideBarToggle";
 import uploadMenuReducer from "./slices/uploadMenuSlice"
+import  qrcodeReducer  from "./slices/qrCodeSlice";
 export const store = configureStore({
   reducer: {
     SignInApiData: signInReducer,
@@ -16,6 +17,7 @@ export const store = configureStore({
     MenuApiData:menuReducer,
     ManagerApiData:managerReducer,
     ToggleBarData:toggleBarReducer,
-    UploadMenuData:uploadMenuReducer
+    UploadMenuData:uploadMenuReducer,
+    QrCodeApiData:qrcodeReducer
   },
 });
