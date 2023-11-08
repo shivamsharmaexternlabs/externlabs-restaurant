@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./categories.css";
 import usePopUpHook from "../../../CustomHooks/usePopUpHook/usePopUpHook";
 import DashboardLayout from "../DashboardLayout/DashboardLayout";
@@ -11,25 +11,27 @@ import category from "../../../images/category.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComponent";
 import manager from "../../../images/manager.png";
-import {UploadMenuSlice} from "../../../Redux/slices/uploadMenuSlice"
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { UploadMenuSlice } from "../../../Redux/slices/uploadMenuSlice"
+import { GetMenuCategorySlice, MenuSlice, favoriteMenuSlice } from '../../../Redux/slices/menuSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
+import { reactLocalStorage } from 'reactjs-localstorage'
 
 const Categories = () => {
-    const dispatch = useDispatch();
-    const  params = useLocation(); 
-
-
-  const [popUpHook, popUpHookFun] = usePopUpHook("");
-  const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
-
+  const [popUpHook, popUpHookFun] = usePopUpHook("")
   const [loadspiner, setLoadSpiner] = useState(false);
-  const UploadMenuData = useSelector((state) => state.UploadMenuData);
-  let splitdata =params?.pathname.split("/")[1] 
-console.log("splitdata",splitdata)
+  const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
+  const [ActiveCategory, setActiveCategory] = useState(undefined);
+
+  const dispatch = useDispatch();
+  const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
+  const RestaurantIdLocalStorageData = reactLocalStorage.get("RestaurantId", false);
+
+  console.log("RestaurantIdLocalStorageData", RestaurantIdLocalStorageData);
   const PopUpToggleFun = () => {
-    popUpHookFun((o) => !o);
-  };
+    popUpHookFun(o => !o)
+  }
+
   const PopUpCategoriesToggleFun = () => {
     popUpCategoriesHookFun((o) => !o);
   };
@@ -42,24 +44,95 @@ console.log("splitdata",splitdata)
   const UploadMenuFile = (e) => {
     console.log("hjgsdh", e?.target?.files[0]);
     const formData = new FormData();
-    let payload={
-        file:e?.target?.files[0],
-        restaurant_id:"e3a6a60b-a6c5-467a-9b0e-364a160ff8fc"
-        // restaurant_id:RestaurantIdLocalStorageData
+    let payload = {
+      file: e?.target?.files[0],
+      restaurant_id: RestaurantIdLocalStorageData
     }
-  formData.append("file", payload?.file);
-  formData.append("restaurant_id", payload?.restaurant_id);
-  console.log("shgdah",payload,formData)
+    formData.append("file", payload?.file);
+    formData.append("restaurant_id", payload?.restaurant_id);
+    console.log("shgdah", payload, formData)
 
     dispatch(UploadMenuSlice(formData))
   };
+  console.log("MenuApiSelectorDATAINSIDECATEGORYsirjgkwhkwjb :", MenuApiSelectorData);
+
+  useEffect(() => {
+    if (MenuApiSelectorData?.GetMenuCategoryReducerData.status === 200) {
+      setLoadSpiner(false);
+
+    }
+    else if (MenuApiSelectorData?.error == "Rejected") {
+      setLoadSpiner(false);
+    }
+    if (MenuApiSelectorData?.MenuSliceReducerData.status === 200) {
+      setLoadSpiner(false);
+
+    }
+    else if (MenuApiSelectorData?.error == "Rejected") {
+      setLoadSpiner(false);
+    }
+    if (MenuApiSelectorData?.favoriteMenuSliceReducerData.status === 200) {
+      setLoadSpiner(false);
+
+    }
+    else if (MenuApiSelectorData?.error == "Rejected") {
+      setLoadSpiner(false);
+    }
+  }, [MenuApiSelectorData?.GetMenuCategoryReducerData, MenuApiSelectorData?.MenuSliceReducerData, MenuApiSelectorData?.favoriteMenuSliceReducerData]);
+
+  useEffect(() => {
+
+    let MenuSlicePayload = {
+      "RestaurantId": RestaurantIdLocalStorageData
+    }
+
+    dispatch(GetMenuCategorySlice(MenuSlicePayload));
+    dispatch(favoriteMenuSlice(MenuSlicePayload));
+
+  }, [])
+
+
+
+  // console.log("nchgsddsdsd", MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0])
+  console.log("ActiveCategory", ActiveCategory)
+
+
+
+  useEffect(() => {
+    setActiveCategory(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0]?.menu_id)
+
+    let MenuSlicePayload = {
+      "searchValue": undefined,
+      "itemTypeValue": undefined,
+      "RestaurantId": RestaurantIdLocalStorageData,
+      "MenuId": MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0]?.menu_id,
+    }
+
+    dispatch(MenuSlice(MenuSlicePayload));
+
+  }, [MenuApiSelectorData?.GetMenuCategoryReducerData])
+
+  const CategoryTabFun = (e, categoryItem) => {
+
+    let MenuSlicePayload = {
+      "searchValue": "",
+      "itemTypeValue": "",
+      "RestaurantId": RestaurantIdLocalStorageData,
+      "MenuId": categoryItem?.menu_id
+    }
+
+    dispatch(MenuSlice(MenuSlicePayload));
+    setActiveCategory(categoryItem?.menu_id);
+    console.log("hgvujvjvhjvvhv", ActiveCategory)
+  }
+
   return (
     <>
       <DashboardLayout>
-        <div className="dasboardbody">
+        <div className='dasboardbody'>
           <DashboardSidebar />
-          <div className="contentpart categorypage">
-            <div className="title">
+          <div className='contentpart categorypage'>
+            <div className='title'>
               <h2>Categories</h2>
               <div className="btnbox">
 
@@ -107,430 +180,134 @@ console.log("splitdata",splitdata)
               </div>
             </div>
 
-            <div className="categorycontent">
-              <div className="leftpart">
-                <div className="topdishestabpart">
+            <div className='categorycontent'>
+              <div className='leftpart'>
+                <div className='topdishestabpart'>
                   <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                      <button
-                        class="nav-link active"
-                        id="nav-dishes1-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-dishes1"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-dishes1"
-                        aria-selected="true"
-                      >
-                        <div>
-                          <figure>
-                            <img src={dish1} alt="img" />
-                          </figure>
-                          <h3>Pizza</h3>
-                          <div className="buttonbox">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="5"
-                              height="7"
-                              viewBox="0 0 5 7"
-                              fill="none"
-                            >
-                              <path
-                                d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768"
-                                stroke-width="1.10009"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
+                      {/* CATEGORY MANAGEMENT */}
+                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map((item, id) => {
+                        return <button onClick={(e) => CategoryTabFun(e, item)} class="nav-link active" key={id} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
+                          <div>
+                            <figure>
+                              <img src={dish1} alt="img" />
+                            </figure>
+                            <h3>{item?.category}</h3>
+                            <div className='buttonbox'>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="5" height="7" viewBox="0 0 5 7" fill="none">
+                                <path d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768" stroke-width="1.10009" stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                            </div>
                           </div>
-                        </div>
-                      </button>
+                        </button>
+                      })}
 
-                      <button
-                        class="nav-link "
-                        id="nav-dishes2-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-dishes2"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-dishes2"
-                        aria-selected="true"
-                      >
-                        <div>
-                          <figure>
-                            <img src={dish2} alt="img" />
-                          </figure>
-                          <h3>Pizza</h3>
-                          <div className="buttonbox">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="5"
-                              height="7"
-                              viewBox="0 0 5 7"
-                              fill="none"
-                            >
-                              <path
-                                d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768"
-                                stroke-width="1.10009"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </div>
-                        </div>
-                      </button>
-
-                      <button
-                        class="nav-link "
-                        id="nav-dishes3-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-dishes3"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-dishes3"
-                        aria-selected="true"
-                      >
-                        <div>
-                          <figure>
-                            <img src={dish2} alt="img" />
-                          </figure>
-                          <h3>Pizza</h3>
-                          <div className="buttonbox">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="5"
-                              height="7"
-                              viewBox="0 0 5 7"
-                              fill="none"
-                            >
-                              <path
-                                d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768"
-                                stroke-width="1.10009"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </div>
-                        </div>
-                      </button>
                     </div>
                   </nav>
 
                   <div class="tab-content" id="nav-tabContent">
-                    <div
-                      class="tab-pane fade show active"
-                      id="nav-dishes1"
-                      role="tabpanel"
-                      aria-labelledby="nav-dishes1-tab"
-                      tabindex="0"
-                    >
+                    <div class="tab-pane fade show active" id="nav-dishes1" role="tabpanel" aria-labelledby="nav-dishes1-tab" tabindex="0">
                       <ul>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              <img src={dish3} alt="img" />
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              {/*    <img src={dish3} alt='img' /> */}
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              <img src={dish3} alt="img" />
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              {/* <img src={dish3} alt='img' /> */}
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              <img src={dish3} alt="img" />
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              {/*    <img src={dish3} alt='img' /> */}
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              <img src={dish3} alt="img" />
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              {/* <img src={dish3} alt='img' /> */}
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              <img src={dish3} alt="img" />
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              {/*    <img src={dish3} alt='img' /> */}
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              <img src={dish3} alt="img" />
-                            </div>
-                          </div>
-                        </li>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <div className="tabinfo">
-                            <div className="leftpart">
-                              <p>Lorem ipsum dolor sit amet consectetur.</p>
-                              <span className="price">$7.29</span>
-                            </div>
-                            <div className="rightpart">
-                              {/* <img src={dish3} alt='img' /> */}
-                            </div>
-                          </div>
-                        </li>
+
+                        {/* CATEGORY ITEMS DATA MANAGEMENT */}
+                        {
+                          MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.item_id?.map((items, ids) => {
+
+                            return <li key={ids}>
+                              <h4>{items?.item_name}</h4>
+                              <div className='tabinfo'>
+                                <div className='leftpart'>
+                                  <p>Lorem ipsum dolor sit amet consectetur.</p>
+                                  <span className='price'>{`$${items?.item_price}`}</span>
+                                </div>
+                                <div className='rightpart'>
+                                  <img src={dish3} alt='img' />
+                                </div>
+                              </div>
+                            </li>
+                          })
+                        }
                       </ul>
                     </div>
 
-                    <div
-                      class="tab-pane fade"
-                      id="nav-dishes2"
-                      role="tabpanel"
-                      aria-labelledby="nav-dishes2-tab"
-                      tabindex="0"
-                    >
-                      <ul>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                          <span className="price">$7.29</span>
-                        </li>
-                        <li>
-                          <h4>Vegetable Pizza</h4>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                          <span className="price">$7.29</span>
-                        </li>
-                        <li>
-                          <h4>Mushroom Pizza</h4>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                          <span className="price">$7.29</span>
-                        </li>
-                        <li>
-                          <h4>OTC Pizza</h4>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                          <span className="price">$7.29</span>
-                        </li>
-                      </ul>
-                    </div>
+                    {/* <div class="tab-pane fade" id="nav-dishes2" role="tabpanel" aria-labelledby="nav-dishes2-tab" tabindex="0">
+                                            <ul>
+                                                <li>
+                                                    <h4>Spaghetti</h4>
+                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                                                    <span className='price'>$7.29</span>
+                                                </li>
+                                                <li>
+                                                    <h4>Vegetable Pizza</h4>
+                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                                                    <span className='price'>$7.29</span>
+                                                </li>
+                                                <li>
+                                                    <h4>Mushroom Pizza</h4>
+                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                                                    <span className='price'>$7.29</span>
+                                                </li>
+                                                <li>
+                                                    <h4>OTC Pizza</h4>
+                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                                                    <span className='price'>$7.29</span>
+                                                </li>
+                                            </ul>
+                                        </div> 
 
-                    <div
-                      class="tab-pane fade"
-                      id="nav-dishes3"
-                      role="tabpanel"
-                      aria-labelledby="nav-dishes3-tab"
-                      tabindex="0"
-                    >
-                      <ul>
-                        <li>
-                          <h4>Spaghetti</h4>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                          <span className="price">$7.29</span>
-                        </li>
-                        <li>
-                          <h4>Vegetable Pizza</h4>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                          <span className="price">$7.29</span>
-                        </li>
-                        <li>
-                          <h4>Mushroom Pizza</h4>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                          <span className="price">$7.29</span>
-                        </li>
-                        <li>
-                          <h4>OTC Pizza</h4>
-                          <p>Lorem ipsum dolor sit amet consectetur.</p>
-                          <span className="price">$7.29</span>
-                        </li>
-                      </ul>
-                    </div>
+                                         <div class="tab-pane fade" id="nav-dishes3" role="tabpanel" aria-labelledby="nav-dishes3-tab" tabindex="0">
+                                            <ul>
+                                                <li>
+                                                    <h4>Spaghetti</h4>
+                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                                                    <span className='price'>$7.29</span>
+                                                </li>
+                                                <li>
+                                                    <h4>Vegetable Pizza</h4>
+                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                                                    <span className='price'>$7.29</span>
+                                                </li>
+                                                <li>
+                                                    <h4>Mushroom Pizza</h4>
+                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                                                    <span className='price'>$7.29</span>
+                                                </li>
+                                                <li>
+                                                    <h4>OTC Pizza</h4>
+                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                                                    <span className='price'>$7.29</span>
+                                                </li>
+                                            </ul>
+                                        </div>  */}
+
                   </div>
                 </div>
               </div>
-              <div className="rightpart">
-                <div className="bestsellerpart">
+              <div className='rightpart'>
+                <div className='bestsellerpart'>
                   <h2>Bestseller</h2>
                   <ul>
-                    <li>
-                      <div className="leftpart">
-                        <img src={dish1} alt="img" />
-                      </div>
-                      <div className="rightpart">
-                        <h3>OTC Pizza</h3>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur. Blandit sapien
-                          eget non vivamus leo tellus a. Accumsan euismod{" "}
-                        </p>
-                        <span className="price"> $7.29 </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="leftpart">
-                        <img src={dish1} alt="img" />
-                      </div>
-                      <div className="rightpart">
-                        <h3>OTC Pizza</h3>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur. Blandit sapien
-                          eget non vivamus leo tellus a. Accumsan euismod{" "}
-                        </p>
-                        <span className="price"> $7.29 </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="leftpart">
-                        <img src={dish1} alt="img" />
-                      </div>
-                      <div className="rightpart">
-                        <h3>OTC Pizza</h3>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur. Blandit sapien
-                          eget non vivamus leo tellus a. Accumsan euismod{" "}
-                        </p>
-                        <span className="price"> $7.29 </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="leftpart">
-                        <img src={dish1} alt="img" />
-                      </div>
-                      <div className="rightpart">
-                        <h3>OTC Pizza</h3>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur. Blandit sapien
-                          eget non vivamus leo tellus a. Accumsan euismod{" "}
-                        </p>
-                        <span className="price"> $7.29 </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="leftpart">
-                        <img src={dish1} alt="img" />
-                      </div>
-                      <div className="rightpart">
-                        <h3>OTC Pizza</h3>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur. Blandit sapien
-                          eget non vivamus leo tellus a. Accumsan euismod{" "}
-                        </p>
-                        <span className="price"> $7.29 </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="leftpart">
-                        <img src={dish1} alt="img" />
-                      </div>
-                      <div className="rightpart">
-                        <h3>OTC Pizza</h3>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur. Blandit sapien
-                          eget non vivamus leo tellus a. Accumsan euismod{" "}
-                        </p>
-                        <span className="price"> $7.29 </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="leftpart">
-                        <img src={dish1} alt="img" />
-                      </div>
-                      <div className="rightpart">
-                        <h3>OTC Pizza</h3>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur. Blandit sapien
-                          eget non vivamus leo tellus a. Accumsan euismod{" "}
-                        </p>
-                        <span className="price"> $7.29 </span>
-                      </div>
-                    </li>
+
+                    {/* FAVORITE DISHES MANAGEMENT */}
+                    {
+                      MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map((items, favoriteId) => {
+
+                        return items?.item_id?.map((item, favoriteDishId) => {
+                          return <li key={favoriteDishId}>
+                            <div className='leftpart'>
+                              <img src={dish1} alt='img' />
+                            </div>
+                            <div className='rightpart'>
+                              <h3>{item?.item_name}</h3>
+                              <p>Lorem ipsum dolor sit amet consectetur. Blandit sapien eget non vivamus leo tellus a. Accumsan euismod </p>
+                              <span className='price'> {`$${item?.item_price}`} </span>
+                            </div>
+                          </li>
+                        })
+
+                      })
+                    }
+
                   </ul>
                 </div>
               </div>
@@ -707,8 +484,9 @@ console.log("splitdata",splitdata)
         </PopUpComponent>
       )}
       <LodingSpiner loadspiner={loadspiner} />
-    </>
-  );
-};
 
-export default Categories;
+    </>
+  )
+}
+
+export default Categories
