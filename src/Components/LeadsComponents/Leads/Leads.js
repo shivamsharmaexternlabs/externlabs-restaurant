@@ -633,7 +633,7 @@ const Leads = () => {
         </PopUpComponent>
       )}
 
-      <div className="popup successpopup">
+      <div className="popup successpopup d-none">
         <div className="innerpopup">
           <img src={imgicon} alt="img" />
           <h3> Success !</h3>
