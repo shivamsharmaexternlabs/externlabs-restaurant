@@ -6,7 +6,45 @@ import { reactLocalStorage } from "reactjs-localstorage";
 let BearerToken = reactLocalStorage.get("Token", false);
 let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
 
+// create menu
+export const CreateMenuSlice = createAsyncThunk("CreateMenuSlice",async (body, { rejectWithValue }) => {
+  console.log("nbxjdx")
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}restaurant_app/menuitems/`,body,
+      {
+        headers: {
+          Authorization: `Bearer ${BearerToken}`,
+        },
+      }
+      ); 
+      toast.success(response?.data?.detail);  
+      return response;
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+      return rejectWithValue(err);
+    }
+  }
+); 
 
+// create category
+export const CreateCategorySlice = createAsyncThunk("CreateCategorySlice",async (body, { rejectWithValue }) => {
+  console.log("nbxjdx")
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu/`,body,
+      {
+        headers: {
+          Authorization: `Bearer ${BearerToken}`,
+        },
+      }
+      ); 
+      toast.success(response?.data?.detail);  
+      return response;
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+      return rejectWithValue(err);
+    }
+  }
+); 
 // get menu category 
  export const GetMenuCategorySlice = createAsyncThunk("GetMenuCategorySlice",async (body, { rejectWithValue }) => {
   try {
@@ -76,6 +114,80 @@ export const favoriteMenuSlice = createAsyncThunk("favoriteMenuSlice",async (bod
   }
 );
 
+export const GetSampleUploadSlice = createAsyncThunk("GetSampleUploadSlice",async (body, { rejectWithValue }) => {
+  // console.log("GetMenuCatdsdsdegorySlice",body);
+
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/sample_excel/`, 
+
+      )   
+        return response;
+    
+
+    } catch (err) {
+        // console.log("err++++++++",err.response.data.message);
+      // toast.error(err?.response?.data?.message);
+      return rejectWithValue(err);
+    }
+  }
+);
+
+// edit menu
+export const EditMenuItemSlice = createAsyncThunk("EditMenuItemSlice",async (body,{ rejectWithValue }) => {
+  console.log("shdgah",body)  
+  try {
+    const formData = new FormData();
+    formData.append("restaurant_id",body?.restaurant_id);
+    formData.append("description",body?.description);
+    // let imageValue = body?.image.split(":")
+//  console.log(   "dsafsdfd",imageValue[0] )
+    formData.append("image",body?.image); 
+    formData.append("item_name",body?.item_name);
+    formData.append("item_price",body?.item_price);
+    formData.append("calories",body?.calories);
+    formData.append("menu_id",body?.menu_id);
+    formData.append("item_type",body?.item_type);
+    formData.append("currency",body?.currency)
+    formData.append("calories_unit",body?.caloriesunit)
+      const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}restaurant_app/menuitems/${body?.item_id}/`,formData,
+      {
+        headers: {
+          Authorization: `Bearer ${BearerToken}`,
+        },
+      }
+      ); 
+      toast.success(response?.data?.detail);  
+      return response;
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+      return rejectWithValue(err);
+    }
+  }
+); 
+
+// restaurant_app/menu/
+export const EditCategorySlice = createAsyncThunk("EditCategorySlice",async (body,{ rejectWithValue }) => {
+  console.log("shdgah",body)  
+  try {
+    const formData = new FormData();
+    formData.append("restaurant_id", body?.restaurant_id);
+    formData.append("category_image", body?.category_image);
+    formData.append("category", body?.category)
+      const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu/${body?.menu_id}/`,formData,
+      {
+        headers: {
+          Authorization: `Bearer ${BearerToken}`,
+        },
+      }
+      ); 
+      toast.success(response?.data?.detail);  
+      return response;
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+      return rejectWithValue(err);
+    }
+  }
+); 
 // Reducer
 
 export const menuReducer = createSlice({
@@ -84,6 +196,11 @@ export const menuReducer = createSlice({
     GetMenuCategoryReducerData : [],
     MenuSliceReducerData: [],
     favoriteMenuSliceReducerData: [],
+    CreateMenuSliceReducerData:[],
+    CreateCategoryReducerData:[],
+    EditMenuSliceReducerData:[],
+    EditCategoryReducerData:[],
+    GetSampleUploadReducerData:[],
     loading: false,
     error: null,
   },
@@ -136,7 +253,73 @@ export const menuReducer = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
+      
+      .addCase(CreateMenuSlice.pending, (state) => {
+        state.loading = true;
+      })
 
+      .addCase(CreateMenuSlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.CreateMenuSliceReducerData =action.payload;
+      })
+
+      .addCase(CreateMenuSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(CreateCategorySlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(CreateCategorySlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.CreateCategoryReducerData =action.payload;
+      })
+
+      .addCase(CreateCategorySlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(GetSampleUploadSlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(GetSampleUploadSlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.GetSampleUploadReducerData =action.payload;
+      })
+
+      .addCase(GetSampleUploadSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(EditMenuItemSlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(EditMenuItemSlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.EditMenuSliceReducerData =action.payload;
+      })
+
+      .addCase(EditMenuItemSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(EditCategorySlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(EditCategorySlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.EditCategoryReducerData =action.payload;
+      })
+
+      .addCase(EditCategorySlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
   },
 
 });

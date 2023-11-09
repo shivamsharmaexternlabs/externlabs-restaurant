@@ -250,10 +250,10 @@
     justify-content: center;
 }
 
-.sarbox::after {
+/* .sarbox::after {
     content: "Sar";
     width: 37px;
-}
+} */
 
 .caloriesbox::after{
     content: "kcal";
