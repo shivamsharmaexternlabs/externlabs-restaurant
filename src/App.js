@@ -37,7 +37,7 @@ function App() {
         <Route path="/:id/menu" element={<Menu />}></Route> 
         <Route path='/admin/leads' element={<Leads />}></Route>
         <Route path='/admin/menucategories' element={<Menucategories />}></Route>
-        <Route path='/admin/restaurantdetail' element={<RestaurantDetail />}></Route>
+        <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail />}></Route>
       </Routes>
       
       <ToastContainer autoClose={2000} />

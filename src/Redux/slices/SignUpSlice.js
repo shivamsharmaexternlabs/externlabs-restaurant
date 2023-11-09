@@ -8,11 +8,17 @@ import { toast } from "react-toastify";
 // SignUp
 
 export const SignUpSlice = createAsyncThunk("SignUpSlice",async (body, { rejectWithValue }) => {
-  console.log("nbxjdx")
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signup/`,body); 
-      toast.success(response?.data?.detail);  
-      return response;
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signup/`,body,
+    {
+      headers: {
+        Authorization: `Bearer ${body?.token}`,
+      },
+    }); 
+
+    toast.success(response?.data?.detail);  
+    console.log("nbxjdxghgggggg", response)
+    return response;
 
     } catch (err) {
       toast.error(err?.response?.data?.message);
