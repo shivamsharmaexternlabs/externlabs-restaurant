@@ -5,6 +5,7 @@ import * as yup from "yup";
 import "./login.css";
 import { useDispatch, useSelector } from "react-redux";
 import {SignInSlice} from "../../Redux/slices/SignInSlice";
+import { reactLocalStorage } from "reactjs-localstorage";
 // import LodingSpiner from "../LoadinSpinner";
 
 const Login = () => {
@@ -16,10 +17,23 @@ const Login = () => {
   const User = useSelector((state) => state.SignInApiData);
   console.log("User", User)
 
+  let  RestaurantId= reactLocalStorage.get("RestaurantId",false);
+
+
   useEffect(() => {
     if (User?.data[0]?.status === 200) {
+      console.log("jhjdajvhah",User)
       setLoadSpiner(false);
-      navigate("/admin/dashboard");
+      if(User?.data[0]?.data?.type==="sales"){
+
+        // navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
+
+        navigate(`/${User?.data[0]?.data?.restaurants[0]?.restaurant_id}/admin/leads`);
+      }
+      else{
+        navigate("/admin/dashboard");
+      }
+       
       // window.location.reload(true);
     }
 
@@ -35,8 +49,8 @@ const Login = () => {
   // }, [User]);
 
   const defaultValue = {
-    email: "",
-    password: "",
+    email: "shivam@yopmail.com",
+    password: "System@123",
   };
 
   const Validate = yup.object({
