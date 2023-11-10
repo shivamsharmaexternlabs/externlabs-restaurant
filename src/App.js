@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import './App.css';
 import { Route, Routes } from "react-router-dom";
 import Login from "../src/Authantication/Login/Login";
 import Signup from './Authantication/SignUp/Signup';
+import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import EmailOtpVerification from './Authantication/OtpVerification/EmailOtpVerification';

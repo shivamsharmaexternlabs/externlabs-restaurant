@@ -32,7 +32,7 @@ const Dashboard = () => {
 
   let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
 
-  console.log("dfsagh", QrImage)
+  console.log("dfsagh", QrApiSelectorData)
   let BearerToken = reactLocalStorage.get("Token", false);
 
   console.log("MenuApiSelectorDatauuuuuuuu", MenuApiSelectorData)
@@ -109,7 +109,7 @@ const Dashboard = () => {
                             return <button key={favoriteId} onClick={(e) => FavoriteCategoryTabFun(e, items)} class={`nav-link ${items?.menu_id==ActiveFavoriteCategory?.menu_id?"active":""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
                               <div>
                                 <figure>
-                                  <img src={dish1} alt="img" />
+                                  <img src={items?.category_image} alt="img" className="catg-img"/>
                                 </figure>
                                 <h3>{items?.category}</h3>
                                 <div className='buttonbox'>
@@ -159,7 +159,7 @@ const Dashboard = () => {
                         <ul>
                         {
                           ActiveFavoriteCategory?.item_id?.map((favoriteItem, favoriteDishesId) => {
-                            {/* console.log("favoriteItem", favoriteItem) */}
+                            console.log("favoriteItem", favoriteItem) 
                             return <li>
                             <h4>{favoriteItem?.item_name}</h4>
                             <div className='tabinfo'>
@@ -168,7 +168,7 @@ const Dashboard = () => {
                                 <span className='price'>{`$${favoriteItem?.item_price}`}</span>
                               </div>
                               <div className='rightpart'>
-                                <img src={dish3} alt='img' />
+                                <img src={favoriteItem?.image} alt='img' />
                               </div>
                             </div>
                           </li>
@@ -261,6 +261,7 @@ const Dashboard = () => {
                         <th> Assigned to </th>
                       </tr>
                       {data?.results?.map((items, id) => {
+                        console.log("dhgah",items)
                         return <tr>
                           <td> <img src={user} alt='img' /> </td>
                           <td>{`${items?.first_name} ${items?.last_name} `}</td>

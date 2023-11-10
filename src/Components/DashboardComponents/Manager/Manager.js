@@ -158,7 +158,7 @@ const Manager = () => {
 
 
                                 {data?.results?.map((items, id) => {
-                                    console.log("ManagerApiSelectorData items ", id, items)
+                                    console.log("ManagerApiSelectorData items", id, items)
                                     return <tr>
                                         <td> <img src={user} alt='img' /> </td>
                                         <td>{`${items?.first_name} ${items?.last_name} `}</td>

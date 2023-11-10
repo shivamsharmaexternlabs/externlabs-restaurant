@@ -215,6 +215,11 @@
     color: #fff;
 }
 
+.catg-img{
+    height: 40px;
+    width: 40px;
+}
+
 .uploadbtn-wrapper input[type=file] {
     font-size: 100px;
     width: auto;
@@ -235,6 +240,12 @@
     position: relative;
 }
 
+.No-active h3{
+    color: #000 !important;
+}
+ 
+
+
 .sarbox::after,
 .caloriesbox::after  {
     position: absolute;   
@@ -250,10 +261,10 @@
     justify-content: center;
 }
 
-.sarbox::after {
+/* .sarbox::after {
     content: "Sar";
     width: 37px;
-}
+} */
 
 .caloriesbox::after{
     content: "kcal";
