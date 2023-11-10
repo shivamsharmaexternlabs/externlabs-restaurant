@@ -62,7 +62,6 @@ export const GetMenuCategorySlice = createAsyncThunk(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${body?.RestaurantId}`
       );
       // toast.success("Successful");
-
       return response;
     } catch (err) {
       console.log("GetMenuCategorySlice error", err);
@@ -167,7 +166,7 @@ export const EditMenuItemSlice = createAsyncThunk(
       formData.append("menu_id", body?.menu_id);
       formData.append("item_type", body?.item_type);
       formData.append("currency", body?.currency);
-      formData.append("calories_unit", body?.caloriesunit);
+      formData.append("calories_unit", body?.calories_unit);
       const response = await axios.patch(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/menuitems/${body?.item_id}/`,
         formData,
