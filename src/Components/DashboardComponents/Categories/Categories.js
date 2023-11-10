@@ -17,42 +17,62 @@ import * as yup from "yup";
 import { saveAs } from "file-saver";
 import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComponent";
 import manager from "../../../images/manager.png";
+import deleteicon from "../../../images/delete.svg";
+
 import { UploadMenuSlice } from "../../../Redux/slices/uploadMenuSlice";
 import {
   GetMenuCategorySlice,
   MenuSlice,
   favoriteMenuSlice,
-  CreateMenuSlice,CreateCategorySlice,GetSampleUploadSlice,EditMenuItemSlice,EditCategorySlice
+  CreateMenuSlice,
+  CreateCategorySlice,
+  GetSampleUploadSlice,
+  EditMenuItemSlice,
+  EditCategorySlice,
+  DeleteMenuItemSlice,
+  DeleteMenuCategorySlice,
 } from "../../../Redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { reactLocalStorage } from "reactjs-localstorage";
+import { favoriteMenuItemSlice } from "../../../Redux/slices/favouriteSlice";
+import { toast } from "react-toastify";
 
 const Categories = () => {
   const dispatch = useDispatch();
   const [popUpHook, popUpHookFun] = usePopUpHook("");
-  const [popUpEditHook,popUpEditHookFun]=usePopUpHook("")
+  const [popUpEditHook, popUpEditHookFun] = usePopUpHook("");
   const [loadspiner, setLoadSpiner] = useState(false);
   const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
-  const [popUpEditcategoriesHook,popUpEditcategoriesHookFun]=usePopUpHook("")
-  const [EditCategory,setEditCategory]=usePopUpHook("")
+  const [popUpEditcategoriesHook, popUpEditcategoriesHookFun] =
+    usePopUpHook("");
+  const [EditCategory, setEditCategory] = useState("");
   const [ActiveCategory, setActiveCategory] = useState(undefined);
   const [Description, setDescription] = useState("");
   const [uploadImage, setuploadImage] = useState("");
-  const [caloriesunit,setCaloriesUnit]=useState("kcal")
-  const [QrSampleImage,setQrSampleImage]=useState("")
-  const [uploadCategoryImage,setuploadCategoryImage]=useState("")
-  const [EditMenuData,setEditMenuData]=useState("")
+  const [caloriesunit, setCaloriesUnit] = useState("kcal");
+  const [QrSampleImage, setQrSampleImage] = useState("");
+  const [uploadCategoryImage, setuploadCategoryImage] = useState(null);
+  const [EditMenuData, setEditMenuData] = useState("");
+  const [DeleteCategory, setDeleteCategory] = useState();
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
   const CreateApiSelectorData = useSelector(
     (state) => state.CreateApiSelectorData
   );
+  const MenuItemFavouriteApiSelectorData = useSelector(
+    (state) => state.MenuItemFavouriteApiData
+  );
+
   const RestaurantIdLocalStorageData = reactLocalStorage.get(
     "RestaurantId",
     false
   );
 
-  console.log("RestaurantIdLocalStorageData",EditCategory);
+  console.log(
+    "RestaurantIdLocalStorageData",
+    MenuApiSelectorData?.DeleteMenucategoryReducerData
+  );
+
   const PopUpToggleFun = () => {
     popUpHookFun((o) => !o);
   };
@@ -1051,11 +1071,8 @@ const Categories = () => {
     console.log("shgdah", payload, formData);
     dispatch(UploadMenuSlice(formData));
   };
-  console.log(
-    "MenuApiSelectorDATAINSIDECATEGORYsirjgkwhkwjb :",
-    MenuApiSelectorData
-  );
-console.log("MenuApiSelectorData",MenuApiSelectorData)
+
+  console.log("MenuApiSelectorData", MenuApiSelectorData);
   useEffect(() => {
     if (MenuApiSelectorData?.GetMenuCategoryReducerData.status === 200) {
       setLoadSpiner(false);
@@ -1085,8 +1102,16 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
 
     dispatch(GetMenuCategorySlice(MenuSlicePayload));
     dispatch(favoriteMenuSlice(MenuSlicePayload));
+    dispatch(GetSampleUploadSlice());
   }, []);
 
+  useEffect(() => {
+    console.log(
+      "hagsha",
+      MenuApiSelectorData?.GetSampleUploadReducerData?.data
+    );
+    setQrSampleImage(MenuApiSelectorData?.GetSampleUploadReducerData?.data);
+  }, [MenuApiSelectorData?.GetSampleUploadReducerData]);
   // console.log("nchgsddsdsd", MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0])
   console.log("ActiveCategory", ActiveCategory);
 
@@ -1126,9 +1151,9 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
     item_price: "",
     calories: "",
     menu_id: "",
-    item_type:"",
-    currency:"INR",
-    calories_unit:""
+    item_type: "",
+    currency: "INR",
+    calories_unit: "",
   };
   console.log("sjgjah", defaultValue);
   const Validatemenu = yup.object({
@@ -1136,8 +1161,8 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
     item_price: yup.string().required("Please Enter Price"),
     calories: yup.string().required("Please Enter Calories"),
     menu_id: yup.string().required("Please Enter Menu"),
-    item_type:yup.string().required("Please Enter Item"),
-    currency: yup.string().required("Please Enter Currency")
+    item_type: yup.string().required("Please Enter Item"),
+    currency: yup.string().required("Please Enter Currency"),
   });
   const handleMenuSubmit = (values) => {
     const formData = new FormData();
@@ -1149,123 +1174,232 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
     formData.append("item_price", values?.item_price);
     formData.append("calories", values?.calories);
     formData.append("menu_id", values?.menu_id);
-    formData.append("item_type",values?.item_type);
-    formData.append("currency",values?.currency)
-    formData.append("calories_unit",caloriesunit)
-    console.log("ashd",formData)
+    formData.append("item_type", values?.item_type);
+    formData.append("currency", values?.currency);
+    formData.append("calories_unit", caloriesunit);
+    console.log("ashd", formData);
     dispatch(CreateMenuSlice(formData));
     popUpHookFun(false);
+    let MenuSlicePayload = {
+      searchValue: undefined,
+      itemTypeValue: undefined,
+      RestaurantId: RestaurantIdLocalStorageData,
+      MenuId:
+        MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0]?.menu_id,
+    };
+
+    dispatch(MenuSlice(MenuSlicePayload));
   };
-  console.log("hjgsjh",MenuApiSelectorData?.GetMenuCategoryReducerData?.data)
+
   const handleUploadImage = (e) => {
-    console.log("hjgsdh", e?.target?.files[0]);
     setuploadImage(e?.target?.files[0]);
     // const formData = new FormData()
     // formData.append("file", payload?.file);
   };
-  const defaultValueCategory={
-    category:"soup"
-  }
-  
-  const ValidateCategory=yup.object({
+
+  const defaultValueCategory = {
+    category: "",
+  };
+
+  const ValidateCategory = yup.object({
     category: yup.string().required("Please Create Category"),
-  })
-  const handleCategorySubmit=(values)=>{
+  });
+  const handleCategorySubmit = (values) => {
     const formData = new FormData();
     formData.append("restaurant_id", RestaurantIdLocalStorageData);
     formData.append("category_image", uploadCategoryImage);
     formData.append("category", values?.category);
-    dispatch(CreateCategorySlice(formData))
-  }
+
+    dispatch(CreateCategorySlice(formData));
+    popUpCategoriesHookFun(false);
+    let MenuSlicePayload = {
+      RestaurantId: RestaurantIdLocalStorageData,
+    };
+    dispatch(GetMenuCategorySlice(MenuSlicePayload));
+  };
   const handleUploadCategoryImage = (e) => {
     console.log("hjgsdh", e?.target?.files[0]);
     setuploadCategoryImage(e?.target?.files[0]);
     // const formData = new FormData()
     // formData.append("file", payload?.file);
   };
-  const PopUpToggleEditFun = (e,itemData) => {
-    console.log("jhdfshfd",itemData)
-    setEditMenuData(itemData)
+
+  // edit menu items
+  const PopUpToggleEditFun = (e, itemData) => {
+    console.log("jhdfshfd", itemData);
+    setEditMenuData(itemData);
+    setuploadImage(itemData?.image);
     popUpEditHookFun((o) => !o);
   };
+
   const CancelEditBtnFun = () => {
-    popUpEditHookFun(false)
+    popUpEditHookFun(false);
   };
-  const QrCodeSampleDownloadFun=()=>{
-    let url = QrSampleImage
+  const QrCodeSampleDownloadFun = () => {
+    let url = QrSampleImage;
     saveAs(url, "Twitter-logo");
-  }
-  console.log("EditMenuData",EditMenuData)
-  useEffect(()=>{
-    console.log("ahsgdjah",MenuApiSelectorData?.GetSampleUploadReducerData)
-    // setQrSampleImage(MenuApiSelectorData?.GetSampleUploadReducerData)
-  },[MenuApiSelectorData?.GetSampleUploadReducerData])
+  };
+  console.log("EditMensadfsdfuData", uploadImage);
+
+  useEffect(() => {}, [MenuApiSelectorData?.GetSampleUploadReducerData]);
   const defaultEditValue = {
     restaurant_id: EditMenuData?.restaurant_id,
     description: EditMenuData?.description,
-    image: EditMenuData?.image,
+    image: uploadImage,
     item_name: EditMenuData?.item_name,
     item_price: EditMenuData?.item_price,
     calories: EditMenuData?.calories,
     menu_id: EditMenuData?.menu_id,
-    item_type:EditMenuData?.item_type,
-    currency:EditMenuData?.currency,
-    calories_unit:EditMenuData?.calories_unit
+    item_type: EditMenuData?.item_type,
+    currency: EditMenuData?.currency,
+    calories_unit: EditMenuData?.calories_unit,
   };
   const Validateditemenu = yup.object({
     item_name: yup.string().required("Please Enter Item"),
     item_price: yup.string().required("Please Enter Price"),
     calories: yup.string().required("Please Enter Calories"),
     menu_id: yup.string().required("Please Enter Menu"),
-    item_type:yup.string().required("Please Enter Item"),
-    currency: yup.string().required("Please Enter Currency")
+    item_type: yup.string().required("Please Enter Item"),
+    currency: yup.string().required("Please Enter Currency"),
   });
-  const handleEditMenuSubmit=(values)=>{
-    console.log("djsbdjk",values);
-    let payload={
-     item_id: EditMenuData?.item_id,
-     restaurant_id: values?.restaurant_id,
-     description: values?.description,
-     image: values?.image,
-     item_name: values?.item_name,
-     item_price: values?.item_price,
-     calories: values?.calories,
-     menu_id: values?.menu_id,
-     item_type:values?.item_type,
-     currency:values?.currency,
-     calories_unit:values?.calories_unit
-    }
+  const handleEditMenuSubmit = (values) => {
+    console.log("djsbdjk", values);
+    let payload = {
+      item_id: EditMenuData?.item_id,
+      restaurant_id: values?.restaurant_id,
+      description: values?.description,
+      image: uploadImage,
+      item_name: values?.item_name,
+      item_price: values?.item_price,
+      calories: values?.calories,
+      menu_id: values?.menu_id,
+      item_type: values?.item_type,
+      currency: values?.currency,
+      calories_unit: values?.calories_unit,
+    };
     dispatch(EditMenuItemSlice(payload));
-  }
-  const PopUpEditCategoriesToggleFun = (e,itemdata) => {
-    console.log("jhagdjsah",itemdata)
-    setEditCategory(itemdata)
+    popUpEditHookFun(false);
+    let MenuSlicePayload = {
+      searchValue: undefined,
+      itemTypeValue: undefined,
+      RestaurantId: RestaurantIdLocalStorageData,
+      MenuId:
+        MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0]?.menu_id,
+    };
+
+    dispatch(MenuSlice(MenuSlicePayload));
+  };
+  const PopUpEditCategoriesToggleFun = (e, itemdata) => {
+    setEditCategory(itemdata);
+    setuploadCategoryImage(itemdata?.category_image);
     popUpEditcategoriesHookFun((o) => !o);
   };
-  const ValidateEditCategory=yup.object({
+
+  const ValidateEditCategory = yup.object({
     category: yup.string().required("Please Create Category"),
-  })
-  const defaultValueEditCategory={
-    category:"soup"
-  }
+  });
+  const defaultValueEditCategory = {
+    category: EditCategory?.category,
+  };
   const handleUploadEditCategoryImage = (e) => {
-    console.log("hjgsdh", e?.target?.files[0]);
     setuploadCategoryImage(e?.target?.files[0]);
   };
-  const handleCategoryeditSubmit=(values)=>{
-    console.log("sdagja",values)
-    let payload={
-      menu_id:EditCategory?.menu_id,
+
+  // edit  Category Function
+
+  const handleCategoryeditSubmit = (values) => {
+    // console.log("jkaghjas", uploadCategoryImage);
+
+    // console.log("ajghdjhas", image, EditCategory);
+
+    // if (uploadCategoryImage !== null) {
+    //   let image = uploadCategoryImage?.split(":");
+
+    //   if (image[0] !== "https") {
+    //     let payload = {
+    //       menu_id: EditCategory?.menu_id,
+    //       restaurant_id: RestaurantIdLocalStorageData,
+    //       category: values?.category,
+    //     };
+    //     console.log("jnazgshs", payload);
+    //   } else {
+    //     let payload = {
+    //       menu_id: EditCategory?.menu_id,
+    //       restaurant_id: RestaurantIdLocalStorageData,
+    //       category_image: uploadCategoryImage,
+    //       category: values?.category,
+    //     };
+    //     console.log("jnazgshs1111", payload);
+    //   }
+    // } else {
+    //   let payload = {
+    //     menu_id: EditCategory?.menu_id,
+    //     restaurant_id: RestaurantIdLocalStorageData,
+    //     category: values?.category,
+    //   };
+
+    // }
+    let payload = {
+      menu_id: EditCategory?.menu_id,
       restaurant_id: RestaurantIdLocalStorageData,
-      category_image:uploadCategoryImage,
-      category: values?.category
+      category_image: uploadCategoryImage,
+      category: values?.category,
+    };
+
+    if (
+      typeof payload.category_image === "string" ||
+      payload.category_image === null
+    ) {
+      delete payload.category_image;
     }
-    console.log("dhsagjh",payload)
-    dispatch(EditCategorySlice(payload))
-  }
+
+    dispatch(EditCategorySlice(payload));
+    let MenuSlicePayload = {
+      searchValue: undefined,
+      itemTypeValue: undefined,
+      RestaurantId: RestaurantIdLocalStorageData,
+      MenuId:
+        MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0]?.menu_id,
+    };
+
+    dispatch(MenuSlice(MenuSlicePayload));
+  };
+
   const CancelCategoryEditBtnFun = () => {
     popUpEditcategoriesHookFun(false);
   };
+
+  const DeleteCategoryfun = (e, item) => {
+    setDeleteCategory(item?.menu_id);
+    dispatch(DeleteMenuCategorySlice(item?.menu_id));
+  };
+  useEffect(() => {
+    if (
+      MenuApiSelectorData?.DeleteMenucategoryReducerData.status === 204
+    ) {
+      toast.success("Delete Successfully");
+    }
+  }, [MenuApiSelectorData?.DeleteMenucategoryReducerData]);
+
+  const DeleteItemfun = (e, item) => {
+    dispatch(DeleteMenuItemSlice(item?.item_id));
+  };
+
+  const FavoriteFun = (e, itemData) => {
+    console.log("fgjhjjha", MenuApiSelectorData?.MenuSliceReducerData?.data[0]);
+    dispatch(favoriteMenuItemSlice(itemData?.item_id));
+    window.location.reload(false);
+    // let MenuSlicePayload = {
+    //   searchValue: unde    fined,
+    //   itemTypeValue: undefined,
+    //   RestaurantId: RestaurantIdLocalStorageData,
+    //   MenuId:
+    //     MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0]?.menu_id,
+    // };
+
+    // dispatch(MenuSlice(MenuSlicePayload));
+  };
+
   return (
     <>
       <DashboardLayout>
@@ -1330,12 +1464,15 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                   </svg>
                   Add Categories
                 </button>
-                <div className='qrbox'>
-                  {/* <img src={QrSampleImage} alt='img' /> */}
-                  <div className='info'>
-                    <button type='button' onClick={(e) => QrCodeSampleDownloadFun()}>Download </button>
-                  </div>
-                </div>
+
+                <button
+                  type="button"
+                  className="categorybtn btn2"
+                  onClick={(e) => QrCodeSampleDownloadFun()}
+                >
+                  Download Sample
+                </button>
+
                 {/* <div className="btn1 uploadbtn-wrapper">
                 <img src={QrSampleImage} alt='img' />
                   <div className='info'>
@@ -1365,7 +1502,9 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                           return (
                             <button
                               onClick={(e) => CategoryTabFun(e, item)}
-                              class="nav-link active"
+                              className={`${
+                                ActiveCategory == item?.menu_id ? "active" : "No-active"
+                              } nav-link`}
                               key={id}
                               id="nav-dishes1-tab"
                               data-bs-toggle="tab"
@@ -1377,18 +1516,36 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                             >
                               <div>
                                 <figure>
-                                  <img src={dish1} alt="img" />
+                                  <img
+                                    src={item?.category_image}
+                                    alt="img"
+                                    className="catg-img"
+                                  />
                                 </figure>
-                                <div className="">
+                                <div className=""></div>
 
-                                </div>
-                               
                                 <h3>{item?.category}</h3>
+
                                 <button className="editbtn">
-                                  <img src={edit1} alt="editbtn" className="editactive " onClick={(e) => PopUpEditCategoriesToggleFun(e,item)}/>    
+                                  <img
+                                    src={edit1}
+                                    alt="editbtn"
+                                    className="editactive "
+                                    onClick={(e) =>
+                                      PopUpEditCategoriesToggleFun(e, item)
+                                    }
+                                  />
                                   {/* <img src={editw} alt="" className="edithover"/> */}
                                 </button>
-
+                                <button className="deletebtn ms-1">
+                                  <img
+                                    src={deleteicon}
+                                    alt="deleteicon"
+                                    className=" "
+                                    onClick={(e) => DeleteCategoryfun(e, item)}
+                                  />
+                                  {/* <img src={editw} alt="" className="edithover"/> */}
+                                </button>
                                 <div className="buttonbox">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -1423,34 +1580,74 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                     >
                       <ul>
                         {/* CATEGORY ITEMS DATA MANAGEMENT */}
-                        {MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.item_id?.map(
-                          (items, ids) => {
-                            console.log("shgdah",items,ids)
-                            return (
-                              <li key={ids}>
-                                <div className="title">
-                                  <h4>{items?.item_name}</h4>
-                                  <div className="btnbox">
-                                    <button type="button" onClick={(e)=>PopUpToggleEditFun(e,items)} className="editbtn" > <img src={edit1} alt="img" /> </button>
-                                    <button type="button"> <img src={starfill} alt="img" />  <img src={star} alt="img" />  </button>
+                        {MenuApiSelectorData?.MenuSliceReducerData?.data &&
+                          MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id?.map(
+                            (items, ids) => {
+                              console.log("jafhaja", items);
+                              return (
+                                <li key={ids} className="active">
+                                  <div className="title">
+                                    <div className="">
+                                      <h4>
+                                        {items?.item_name}{" "}
+                                        <button
+                                          type="button"
+                                          onClick={(e) => FavoriteFun(e, items)}
+                                        >
+                                          {" "}
+                                          <img
+                                            src={
+                                              items?.is_favorite === true
+                                                ? starfill
+                                                : star
+                                            }
+                                            alt="img"
+                                            className="ms-1"
+                                          />{" "}
+                                          {/* <img src={star} alt="img" />{" "} */}
+                                        </button>{" "}
+                                      </h4>
+                                    </div>
+                                    <div className="btnbox">
+                                      <button
+                                        type="button"
+                                        onClick={(e) =>
+                                          PopUpToggleEditFun(e, items)
+                                        }
+                                        className="editbtn"
+                                      >
+                                        {" "}
+                                        <img src={edit1} alt="img" />{" "}
+                                      </button>
+
+                                      <button className="deletbtn">
+                                        <img
+                                          src={deleteicon}
+                                          alt="delete icon "
+                                          // className="editactive "
+                                          onClick={(e) =>
+                                            DeleteItemfun(e, items)
+                                          }
+                                        />
+                                      </button>
+                                    </div>
                                   </div>
-                                </div>
-                               
-                                <div className="tabinfo">
-                                  <div className="leftpart">
-                                    <p>
-                                      Lorem ipsum dolor sit amet consectetur.
-                                    </p>
-                                    <span className="price">{`$${items?.item_price}`}</span>
+
+                                  <div className="tabinfo">
+                                    <div className="leftpart">
+                                      <p>
+                                        Lorem ipsum dolor sit amet consectetur.
+                                      </p>
+                                      <span className="price">{`$${items?.item_price}`}</span>
+                                    </div>
+                                    <div className="rightpart">
+                                      <img src={items?.image} alt="img" />
+                                    </div>
                                   </div>
-                                  <div className="rightpart">
-                                    <img src={dish3} alt="img" />
-                                  </div>
-                                </div>
-                              </li>
-                            );
-                          }
-                        )}
+                                </li>
+                              );
+                            }
+                          )}
                       </ul>
                     </div>
 
@@ -1514,10 +1711,11 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                     {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map(
                       (items, favoriteId) => {
                         return items?.item_id?.map((item, favoriteDishId) => {
+                          console.log("hgjhdg", item);
                           return (
                             <li key={favoriteDishId}>
                               <div className="leftpart">
-                                <img src={dish1} alt="img" />
+                                <img src={item?.image} alt="img" />
                               </div>
                               <div className="rightpart">
                                 <h3>{item?.item_name}</h3>
@@ -1586,15 +1784,19 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                         autoComplete="off"
                         placeholder="Enter the amount"
                       />
-                       <Field
-                      as="select"
-                      name="currency"
-                      className={`form-control `}
-                    >
+                      <Field
+                        as="select"
+                        name="currency"
+                        className={`form-control `}
+                      >
                         {currencyData?.map((item, id) => {
-                          return <option value={item.currency_code}>{item.currency_code}</option>;
+                          return (
+                            <option value={item.currency_code}>
+                              {item.currency_code}
+                            </option>
+                          );
                         })}
-                    </Field>
+                      </Field>
                     </div>
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="item_price" />
@@ -1628,10 +1830,16 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                       name="menu_id"
                       className={`form-control `}
                     >
-                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map((item,id)=>{
-                        console.log("sjdhaj",item?.category)
-                        return  <option value={item?.menu_id}>{item?.category}</option>
-                      })}
+                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
+                        (item, id) => {
+                          console.log("sjdhaj", item?.category);
+                          return (
+                            <option value={item?.menu_id}>
+                              {item?.category}
+                            </option>
+                          );
+                        }
+                      )}
                       {/* <option value="red">Red</option>
                       <option value="green">Green</option>
                       <option value="blue">Blue</option> */}
@@ -1656,7 +1864,9 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                       name="item_type"
                       className={`form-control `}
                     >
-                      <option value="select">Please Select Item Type .....</option>
+                      <option value="select">
+                        Please Select Item Type .....
+                      </option>
                       <option value="VEG">Veg</option>
                       <option value="NON_VEG">Non Veg</option>
                     </Field>
@@ -1703,7 +1913,8 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                         Upload{" "}
                       </button>
                       <input
-                        type="file" accept=".png"
+                        type="file"
+                        accept=".png"
                         onChange={(e) => handleUploadImage(e)}
                       />
                     </div>
@@ -1747,9 +1958,9 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
           </div>
           <div className="popupbody">
             <Formik
-            initialValues={defaultValueCategory}
-            validationSchema={ValidateCategory}
-            onSubmit={handleCategorySubmit}
+              initialValues={defaultValueCategory}
+              validationSchema={ValidateCategory}
+              onSubmit={handleCategorySubmit}
             >
               <Form className="row">
                 <img src={category} alt="manager img" class="categoryimg" />
@@ -1787,7 +1998,11 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                         </svg>{" "}
                         Upload{" "}
                       </button>
-                      <input type="file"  accept=".png" onChange={(e) => handleUploadCategoryImage(e)} />
+                      <input
+                        type="file"
+                        accept=".png"
+                        onChange={(e) => handleUploadCategoryImage(e)}
+                      />
                     </div>
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="first_name" />
@@ -1858,15 +2073,19 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                         autoComplete="off"
                         placeholder="Enter the amount"
                       />
-                       <Field
-                      as="select"
-                      name="currency"
-                      className={`form-control `}
-                    >
+                      <Field
+                        as="select"
+                        name="currency"
+                        className={`form-control `}
+                      >
                         {currencyData?.map((item, id) => {
-                          return <option value={item.currency_code}>{item.currency_code}</option>;
+                          return (
+                            <option value={item.currency_code}>
+                              {item.currency_code}
+                            </option>
+                          );
                         })}
-                    </Field>
+                      </Field>
                     </div>
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="item_price" />
@@ -1900,19 +2119,27 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                       name="menu_id"
                       className={`form-control `}
                     >
-                      {/* <option
-                        // selected={ EditMenuData?.menu_id ? "selected" : "select category"}
-                        ></option> */}
-                     
+                      <option
+                      // selected={ EditMenuData?.menu_id ? "selected" : "select category"}
+                      >
+                        {EditMenuData?.category}
+                      </option>
 
-                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map((item,id)=>{ 
-                        return  <option  name="menu_id"
-                        // selected={item?.menu_id ==  EditMenuData?.menu_id ? "selected" : ""}
-                        value={item?.menu_id}>{item?.category}</option>
-                      })}
-                      
+                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
+                        (item, id) => {
+                          return (
+                            <option
+                              // name="menu_id"
+                              // selected={item?.menu_id ==  EditMenuData?.menu_id ? "selected" : ""}
+                              value={item?.menu_id}
+                            >
+                              {item?.category}
+                            </option>
+                          );
+                        }
+                      )}
                     </Field>
-                    
+
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="menu_id" />
                     </p>
@@ -1926,7 +2153,9 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                       name="item_type"
                       className={`form-control `}
                     >
-                      <option value="select">Please Select Item Type .....</option>
+                      <option value="select">
+                        Please Select Item Type .....
+                      </option>
                       <option value="VEG">Veg</option>
                       <option value="NON_VEG">Non Veg</option>
                     </Field>
@@ -1972,7 +2201,8 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                         Upload{" "}
                       </button>
                       <input
-                        type="file" accept=".png"
+                        type="file"
+                        accept=".png"
                         onChange={(e) => handleUploadImage(e)}
                       />
                     </div>
@@ -2003,7 +2233,7 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
           {/* children part end */}
         </PopUpComponent>
       )}
-       {popUpEditcategoriesHook && (
+      {popUpEditcategoriesHook && (
         <PopUpComponent
           classNameValue={"addcategorypopup"}
           PopUpToggleFun={PopUpEditCategoriesToggleFun}
@@ -2016,9 +2246,9 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
           </div>
           <div className="popupbody">
             <Formik
-            initialValues={defaultValueEditCategory}
-            validationSchema={ValidateEditCategory}
-            onSubmit={handleCategoryeditSubmit}
+              initialValues={defaultValueEditCategory}
+              validationSchema={ValidateEditCategory}
+              onSubmit={handleCategoryeditSubmit}
             >
               <Form className="row">
                 <img src={category} alt="manager img" class="categoryimg" />
@@ -2056,7 +2286,11 @@ console.log("MenuApiSelectorData",MenuApiSelectorData)
                         </svg>{" "}
                         Upload{" "}
                       </button>
-                      <input type="file"  accept=".png" onChange={(e) => handleUploadEditCategoryImage(e)} />
+                      <input
+                        type="file"
+                        accept=".png"
+                        onChange={(e) => handleUploadEditCategoryImage(e)}
+                      />
                     </div>
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="category_image" />

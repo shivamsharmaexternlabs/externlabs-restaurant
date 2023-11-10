@@ -215,6 +215,11 @@
     color: #fff;
 }
 
+.catg-img{
+    height: 40px;
+    width: 40px;
+}
+
 .uploadbtn-wrapper input[type=file] {
     font-size: 100px;
     width: auto;
@@ -234,6 +239,12 @@
 .caloriesbox{
     position: relative;
 }
+
+.No-active h3{
+    color: #000 !important;
+}
+ 
+
 
 .sarbox::after,
 .caloriesbox::after  {

@@ -9,6 +9,7 @@ import  toggleBarReducer  from "./slices/sideBarToggle";
 import uploadMenuReducer from "./slices/uploadMenuSlice"
 import  qrcodeReducer  from "./slices/qrCodeSlice";
 import  leadsReducer  from "./slices/leadsSlice";
+import  menuItemFavouriteReducer  from "./slices/favouriteSlice";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     ToggleBarData:toggleBarReducer,
     UploadMenuData:uploadMenuReducer,
     QrCodeApiData:qrcodeReducer,
-    LeadsApiData:leadsReducer
+    LeadsApiData:leadsReducer,
+    MenuItemFavouriteApiData:menuItemFavouriteReducer
   },
 });

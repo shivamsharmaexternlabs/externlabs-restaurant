@@ -93,6 +93,20 @@
 .topdishestabpart .nav-tabs {
     border: none;
 }
+ 
+.topdishestabpart > nav {
+    overflow: auto;
+    width: 100%;
+    padding-bottom: 2px;
+}
+ 
+.topdishestabpart > nav > .nav {
+    width: 100%;
+    min-width: 915px;
+    margin: 1px 0;
+    flex-wrap: nowrap;
+}
+
 
 .topdishestabpart .nav-tabs .nav-link {
     background-color: transparent;
@@ -101,6 +115,7 @@
     padding: 10px;
     border-radius: 19px;
     margin-right: 20px;
+    min-width: 105px;
 }
 
 .topdishestabpart .nav-tabs .nav-link:hover,
@@ -133,14 +148,15 @@
     margin-bottom: 5px;
 }
 
-.topdishestabpart .nav-tabs .nav-link .editbtn { 
+.topdishestabpart .nav-tabs .nav-link button {
     border: none;
     outline: none;
     background: transparent;
     margin: 0;
-
 }
-
+.topdishestabpart .nav-tabs .nav-link button img {
+    width: 10px;
+}
 
 .topdishestabpart .nav-tabs .nav-link .buttonbox {
     width: 20px;
@@ -223,8 +239,13 @@
     line-height: 1;
 }
 
+
 .topdishestabpart .tab-content ul li > .title button + button {
-    margin-left: 5px;
+    margin-left: 7px;
+}
+
+.topdishestabpart .tab-content ul li > .title button img {
+    width: 10px;
 }
 
 
@@ -462,6 +483,22 @@
     font-size: 16px;
     line-height: 1.3;
     font-weight: 700;
+}
+
+
+
+.topdishestabpart > nav::-webkit-scrollbar,
+.login-box::-webkit-scrollbar {
+    /* width: 5px; */
+    height: 1px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.topdishestabpart > nav::-webkit-scrollbar-thumb,
+.login-box::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: linear-gradient(90.18deg, #8EC22C 2.36%, #379640 99.96%);
 }
 
 
