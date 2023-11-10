@@ -14,7 +14,7 @@ export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectW
       reactLocalStorage.set("Token",response?.data?.token);
       reactLocalStorage.set("RestaurantId",response?.data?.restaurants[0]?.restaurant_id);
       console.log("Tokendfgsrdfryhe",response?.data );
-
+      reactLocalStorage.set("Type",response?.data?.type);
 
       // reactLocalStorage.set("id",response?.data?.currentUser?.user_id);
       // reactLocalStorage.set("name",response?.data?.currentUser?.user_name);

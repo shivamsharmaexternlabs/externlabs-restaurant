@@ -10,9 +10,12 @@ import icon11 from '../../../images/icon11.svg'
 import { ToggleBar } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, NavLink, useNavigate, Route } from "react-router-dom";
+import { reactLocalStorage } from 'reactjs-localstorage'
 
 const DashboardSidebar = () => {
+  let UserTypeData = reactLocalStorage.get("Type", false);
 
+  let  RestaurantId= reactLocalStorage.get("RestaurantId",false);
 
 
 
@@ -42,48 +45,68 @@ const DashboardSidebar = () => {
           <img src={fulllogo} alt='logoimg' className='fulllogo' />
         </figure>
         <ul className='navmenu'>
-          <li className="">
+
+
+          {UserTypeData !== "sales"
+          &&
+            <>
+
+              <li className="">
+                <NavLink
+                  to="/admin/dashboard"
+                  className={` ${param.pathname === "/admin/dashboard" ? "active" : ""
+                    } `}
+                >
+
+                  <img src={icon7} alt='img' /> <span className='text'>Dashboard</span>
+
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/manager"
+                  className={` ${param.pathname === "/manager" ? "active" : ""
+                    } `}
+                >   <img src={icon8} alt='img' /> <span className='text'>Managers</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/admin/categories" className={` ${param.pathname === "/admin/categories" ? "active" : ""
+                  } `}> <img src={icon9} alt='img' /> <span className='text'>Menu Categories</span>
+                </NavLink>
+              </li>
+
+
+              <li>
+                <NavLink
+                  to="#/admin/categories"
+                  className={` ${param.pathname === "/admin/categories" ? "active" : ""
+                    } `}>
+                  <img src={icon11} alt='img' /> <span className='text'>Dashboard</span>
+                </NavLink>
+              </li>
+
+            </>
+
+          }
+          {UserTypeData === "sales" && <>  <li>
             <NavLink
-              to="/admin/dashboard"
-              className={` ${param.pathname === "/admin/dashboard" ? "active" : ""
-                } `}
-            >
-
-              <img src={icon7} alt='img' /> <span className='text'>Dashboard</span>
-
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/manager"
-              className={` ${param.pathname === "/manager" ? "active" : ""
-                } `}
-            >   <img src={icon8} alt='img' /> <span className='text'>Managers</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin/categories" className={` ${param.pathname === "/admin/categories" ? "active" : ""
-              } `}> <img src={icon9} alt='img' /> <span className='text'>Menu Categories</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/admin/leads"
-              className={` ${param.pathname === "/admin/leads" ? "active" : ""
+              to={`/${RestaurantId}/admin/leads`}
+              className={` ${param.pathname === ":id/admin/leads" ? "active" : ""
                 } `}
 
             ><img src={icon10} alt='img' /> <span className='text'>Leads</span>
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/admin/menucategories"
-              className={` ${param.pathname === "/admin/menucategories" ? "active" : ""
-                } `}
+            <li>
+              <NavLink
+                to=  {`/${RestaurantId}/admin/menucategories`}  
+                className={` ${param.pathname === ":id/admin/menucategories" ? "active" : ""
+                  } `}
 
             ><img src={icon10} alt='img' /> <span className='text'>Menu Categories</span>
             </NavLink>
           </li>
+          </>}
           {/* <li>
             <NavLink
               to="#/admin/categories"

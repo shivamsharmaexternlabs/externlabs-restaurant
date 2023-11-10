@@ -55,6 +55,14 @@
 }
 
 
+.submitbox {
+    position: absolute;
+    top: -78px;
+    right: 0;
+    left: auto;
+    width: auto;
+}
+
 
 
 

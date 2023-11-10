@@ -8,9 +8,16 @@ import { reactLocalStorage } from "reactjs-localstorage";
 // SignIn
 
 export const LeadsSlice = createAsyncThunk("LeadsSlice",async (body, { rejectWithValue }) => {
+  console.log("jhfbjhbrjfbjrhf", body)
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signin/`,body); 
-      console.log("Tokendfgsrdfryhe",response?.data ); 
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}sales/leads/?page=${body?.pagination === undefined? 1 : body?.pagination}`,
+      {
+        headers: {
+          Authorization: `Bearer ${body?.Token}`,
+        },
+      }
+      ); 
+      console.log("leadsleads",response?.data ); 
 
       return response;
 
@@ -35,7 +42,7 @@ export const LeadsSlice = createAsyncThunk("LeadsSlice",async (body, { rejectWit
 export const leadsReducer = createSlice({
   name: "leadsReducer",
   initialState: {
-    data: [],  
+    LeadReducerData: [],
     loading: false,
     error: null,
   },
@@ -49,18 +56,14 @@ export const leadsReducer = createSlice({
 
       .addCase(LeadsSlice.fulfilled, (state, action) => {
         state.loading = false;
-        state.data.push(action.payload);
-      }
-      )
+        state.LeadReducerData = action.payload;
+      })
 
       .addCase(LeadsSlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
         // state.error = action.error.message;
       })
-
-       
-
        
   },
 

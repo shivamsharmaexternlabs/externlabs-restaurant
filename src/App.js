@@ -27,6 +27,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Login />}></Route>
+        <Route path="/:id" element={<Login />}></Route>
         <Route path="/emailotpverification" element={<EmailOtpVerification />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path='/success' element={<Success />}></Route>
@@ -36,13 +37,13 @@ function App() {
         <Route path="/admin/categories" element={<Categories />}></Route>
         <Route path="/manager" element={<Manager />}></Route>
         <Route path="/:id/menu" element={<Menu />}></Route> 
-        <Route path='/admin/leads' element={<Leads />}></Route>
-        <Route path='/admin/menucategories' element={<Menucategories />}></Route>
-        <Route path='/admin/restaurantdetail' element={<RestaurantDetail />}></Route>
-
+        <Route path='/:id/admin/leads' element={<Leads />}></Route>
+        <Route path='/:id/admin/menucategories' element={<Menucategories />}></Route>
+        <Route path='/:id/admin/restaurantdetail/:id' element={<RestaurantDetail />}></Route>
 
         <Route path='/subscription' element={<Subscription />}></Route>
-        </Routes>
+
+      </Routes>
       
       <ToastContainer autoClose={2000} />
 
