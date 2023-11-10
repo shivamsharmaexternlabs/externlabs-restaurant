@@ -84,14 +84,14 @@ const DashboardSidebar = () => {
             ><img src={icon10} alt='img' /> <span className='text'>Menu Categories</span>
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink
               to="#/admin/categories"
               className={` ${param.pathname === "/admin/categories" ? "active" : ""
                 } `}>
               <img src={icon11} alt='img' /> <span className='text'>Dashboard</span>
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </div>
 
