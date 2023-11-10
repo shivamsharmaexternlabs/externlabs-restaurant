@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './dashboardSidebar.css'
 import logo from '../../../images/logo2.svg'
-import fulllogo from '../../../images/fulllogo.svg'
+import fulllogo from '../../../images/logo.svg'
 import icon7 from '../../../images/icon7.svg'
 import icon8 from '../../../images/icon8.svg'
 import icon9 from '../../../images/icon9.svg'

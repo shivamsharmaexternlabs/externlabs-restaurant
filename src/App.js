@@ -18,6 +18,7 @@ import Categories from './Components/DashboardComponents/Categories/Categories';
 import Leads from './Components/LeadsComponents/Leads/Leads';
 import Menucategories from './Components/LeadsComponents/MenuCategories/Menucategories';
 import RestaurantDetail from './Components/DashboardComponents/RestaurantDetail/RestaurantDetail.js'
+import Subscription from './Components/SubscriptionPage/Subscription.js';
 
 
 function App() {
@@ -38,7 +39,10 @@ function App() {
         <Route path='/admin/leads' element={<Leads />}></Route>
         <Route path='/admin/menucategories' element={<Menucategories />}></Route>
         <Route path='/admin/restaurantdetail' element={<RestaurantDetail />}></Route>
-      </Routes>
+
+
+        <Route path='/subscription' element={<Subscription />}></Route>
+        </Routes>
       
       <ToastContainer autoClose={2000} />
 
