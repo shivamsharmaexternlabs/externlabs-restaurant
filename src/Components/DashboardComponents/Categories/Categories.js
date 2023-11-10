@@ -18,7 +18,11 @@ import { saveAs } from "file-saver";
 import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComponent";
 import manager from "../../../images/manager.png";
 import deleteicon from "../../../images/delete.svg";
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+ import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 import { UploadMenuSlice } from "../../../Redux/slices/uploadMenuSlice";
 import {
   GetMenuCategorySlice,
@@ -49,10 +53,11 @@ const Categories = () => {
   const [EditCategory, setEditCategory] = useState("");
   const [ActiveCategory, setActiveCategory] = useState(undefined);
   const [Description, setDescription] = useState("");
+  const [EditDescription, setEditDescription] = useState("");
   const [uploadImage, setuploadImage] = useState("");
   const [caloriesunit, setCaloriesUnit] = useState("kcal");
   const [QrSampleImage, setQrSampleImage] = useState("");
-  const [uploadCategoryImage, setuploadCategoryImage] = useState(null);
+  const [uploadCategoryImage, setuploadCategoryImage] = useState("");
   const [EditMenuData, setEditMenuData] = useState("");
   const [DeleteCategory, setDeleteCategory] = useState();
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
@@ -1180,15 +1185,12 @@ const Categories = () => {
     console.log("ashd", formData);
     dispatch(CreateMenuSlice(formData));
     popUpHookFun(false);
-    let MenuSlicePayload = {
-      searchValue: undefined,
-      itemTypeValue: undefined,
-      RestaurantId: RestaurantIdLocalStorageData,
-      MenuId:
-        MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0]?.menu_id,
-    };
-
-    dispatch(MenuSlice(MenuSlicePayload));
+    setTimeout(()=>{
+      let MenuSlicePayload = {
+        RestaurantId: RestaurantIdLocalStorageData,
+      };
+      dispatch(GetMenuCategorySlice(MenuSlicePayload));
+      },1500)
   };
 
   const handleUploadImage = (e) => {
@@ -1212,10 +1214,12 @@ const Categories = () => {
 
     dispatch(CreateCategorySlice(formData));
     popUpCategoriesHookFun(false);
-    let MenuSlicePayload = {
-      RestaurantId: RestaurantIdLocalStorageData,
-    };
-    dispatch(GetMenuCategorySlice(MenuSlicePayload));
+    setTimeout(() => {
+      let MenuSlicePayload = {
+        RestaurantId: RestaurantIdLocalStorageData,
+      };
+      dispatch(GetMenuCategorySlice(MenuSlicePayload));
+    }, 1500);
   };
   const handleUploadCategoryImage = (e) => {
     console.log("hjgsdh", e?.target?.files[0]);
@@ -1239,7 +1243,7 @@ const Categories = () => {
     let url = QrSampleImage;
     saveAs(url, "Twitter-logo");
   };
-  console.log("EditMensadfsdfuData", uploadImage);
+  console.log("EditMensadfsdfuData", EditMenuData);
 
   useEffect(() => {}, [MenuApiSelectorData?.GetSampleUploadReducerData]);
   const defaultEditValue = {
@@ -1261,9 +1265,10 @@ const Categories = () => {
     menu_id: yup.string().required("Please Enter Menu"),
     item_type: yup.string().required("Please Enter Item"),
     currency: yup.string().required("Please Enter Currency"),
+    description: yup.string().required("Please Enter Description"),
   });
   const handleEditMenuSubmit = (values) => {
-    console.log("djsbdjk", values);
+    console.log("djsbdjk11", EditMenuData);
     let payload = {
       item_id: EditMenuData?.item_id,
       restaurant_id: values?.restaurant_id,
@@ -1275,19 +1280,17 @@ const Categories = () => {
       menu_id: values?.menu_id,
       item_type: values?.item_type,
       currency: values?.currency,
-      calories_unit: values?.calories_unit,
+      calories_unit: EditMenuData?.calories_unit,
     };
+    console.log("asgfdagh", payload);
     dispatch(EditMenuItemSlice(payload));
     popUpEditHookFun(false);
-    let MenuSlicePayload = {
-      searchValue: undefined,
-      itemTypeValue: undefined,
-      RestaurantId: RestaurantIdLocalStorageData,
-      MenuId:
-        MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0]?.menu_id,
-    };
-
-    dispatch(MenuSlice(MenuSlicePayload));
+    setTimeout(() => {
+      let MenuSlicePayload = {
+        RestaurantId: RestaurantIdLocalStorageData,
+      };
+      dispatch(GetMenuCategorySlice(MenuSlicePayload));
+    }, 1500);
   };
   const PopUpEditCategoriesToggleFun = (e, itemdata) => {
     setEditCategory(itemdata);
@@ -1354,15 +1357,12 @@ const Categories = () => {
     }
 
     dispatch(EditCategorySlice(payload));
-    let MenuSlicePayload = {
-      searchValue: undefined,
-      itemTypeValue: undefined,
-      RestaurantId: RestaurantIdLocalStorageData,
-      MenuId:
-        MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0]?.menu_id,
-    };
-
-    dispatch(MenuSlice(MenuSlicePayload));
+    setTimeout(()=>{
+      let MenuSlicePayload = {
+        RestaurantId: RestaurantIdLocalStorageData,
+      };
+      dispatch(GetMenuCategorySlice(MenuSlicePayload));
+      },1500)
   };
 
   const CancelCategoryEditBtnFun = () => {
@@ -1372,34 +1372,45 @@ const Categories = () => {
   const DeleteCategoryfun = (e, item) => {
     setDeleteCategory(item?.menu_id);
     dispatch(DeleteMenuCategorySlice(item?.menu_id));
+    setTimeout(() => {
+      let MenuSlicePayload = {
+        RestaurantId: RestaurantIdLocalStorageData,
+      };
+      dispatch(GetMenuCategorySlice(MenuSlicePayload));
+    }, 1500);
+    // window.location.reload(false)
+    // let MenuSlicePayload = {
+    //   RestaurantId: RestaurantIdLocalStorageData,
+    // };
+    // dispatch(GetMenuCategorySlice(MenuSlicePayload));
   };
   useEffect(() => {
-    if (
-      MenuApiSelectorData?.DeleteMenucategoryReducerData.status === 204
-    ) {
+    if (MenuApiSelectorData?.DeleteMenucategoryReducerData.status === 204) {
       toast.success("Delete Successfully");
     }
   }, [MenuApiSelectorData?.DeleteMenucategoryReducerData]);
 
   const DeleteItemfun = (e, item) => {
     dispatch(DeleteMenuItemSlice(item?.item_id));
+    setTimeout(()=>{
+      let MenuSlicePayload = {
+        RestaurantId: RestaurantIdLocalStorageData,
+      };
+      dispatch(GetMenuCategorySlice(MenuSlicePayload));
+      },1500)
   };
 
   const FavoriteFun = (e, itemData) => {
     console.log("fgjhjjha", MenuApiSelectorData?.MenuSliceReducerData?.data[0]);
     dispatch(favoriteMenuItemSlice(itemData?.item_id));
-    window.location.reload(false);
-    // let MenuSlicePayload = {
-    //   searchValue: unde    fined,
-    //   itemTypeValue: undefined,
-    //   RestaurantId: RestaurantIdLocalStorageData,
-    //   MenuId:
-    //     MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0]?.menu_id,
-    // };
-
-    // dispatch(MenuSlice(MenuSlicePayload));
+    setTimeout(()=>{
+      let MenuSlicePayload = {
+        RestaurantId: RestaurantIdLocalStorageData,
+      };
+      dispatch(GetMenuCategorySlice(MenuSlicePayload));
+      },1500)
   };
-
+console.log("msabdfjhsdf",MenuApiSelectorData?.GetMenuCategoryReducerData)
   return (
     <>
       <DashboardLayout>
@@ -1497,14 +1508,24 @@ const Categories = () => {
                   <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       {/* CATEGORY MANAGEMENT */}
-                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
+                      <Swiper
+                      slidesPerView={1}
+                        cssMode={true}
+                        navigation={true}
+                        mousewheel={true}
+                        keyboard={true}
+                        modules={[Navigation, Mousewheel, Keyboard]}
+                        className="mySwiper"
+                      >
+                         {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
                         (item, id) => {
+                          console.log("aujfsadasd",item)
                           return (
+                            <SwiperSlide>
                             <button
                               onClick={(e) => CategoryTabFun(e, item)}
-                              className={`${
-                                ActiveCategory == item?.menu_id ? "active" : "No-active"
-                              } nav-link`}
+                              className={`${ActiveCategory == item?.menu_id ? "active" : "No-active"
+                                } nav-link`}
                               key={id}
                               id="nav-dishes1-tab"
                               data-bs-toggle="tab"
@@ -1523,9 +1544,9 @@ const Categories = () => {
                                   />
                                 </figure>
                                 <div className=""></div>
-
+ 
                                 <h3>{item?.category}</h3>
-
+ 
                                 <button className="editbtn">
                                   <img
                                     src={edit1}
@@ -1564,9 +1585,11 @@ const Categories = () => {
                                 </div>
                               </div>
                             </button>
+                            </SwiperSlide>
                           );
                         }
                       )}
+                      </Swiper>
                     </div>
                   </nav>
 
@@ -1971,7 +1994,7 @@ const Categories = () => {
                     type="text"
                     className={`form-control `}
                     autoComplete="off"
-                    placeholder="Enter your First Name"
+                    placeholder="Enter your Name"
                   />
                   <p className="text-danger small mb-0">
                     <ErrorMessage name="category" />
@@ -2010,58 +2033,15 @@ const Categories = () => {
                   </div>
                 </div>
 
-                <div className="formbox mb-3">
-                  <label>Password </label>
-                  <Field
-                    name="password"
-                    type="text"
-                    className={`form-control `}
-                    autoComplete="off"
-                    placeholder="************"
-                  />
-                  <p className="text-danger">
-                    <ErrorMessage name="password" />
-                  </p>
-                </div>
-
-                <div className="formbox mb-3">
-                  <label>Confirm Password </label>
-                  <Field
-                    name="confirm_password"
-                    type="text"
-                    className={`form-control `}
-                    autoComplete="off"
-                    placeholder="************"
-                  />
-                  <p className="text-danger">
-                    <ErrorMessage name="confirm_password" />
-                  </p>
-                </div>
-
-                <div className="formbox">
-                  <label>Assign to Restaurant (optional) </label>
-                  <select className={`form-control `}>
-                    <option> Assign to Restaurant (optional) </option>
-                    <option> Assign to Restaurant (optional) </option>
-                    <option> Assign to Restaurant (optional) </option>
-                    <option> Assign to Restaurant (optional) </option>
-                  </select>
-
-                  <p className="text-danger">
-                    <ErrorMessage name="email" />
-                  </p>
-                </div>
-
-                <div className="text-end mt-5">
+                <div className="col-12 text-end mt-3">
                   <button
-                    type="btn"
-                    className="cancelbtn"
-                    onClick={(e) => CancelBtnFun(e)}
+                    type="button"
+                    className="btn3"
+                    onClick={(e) => CancelCategoryBtnFun(e)}
                   >
-                    {" "}
-                    Cancel{" "}
+                    Cancel
                   </button>
-                  <button type="submit" className="submit mx-3">
+                  <button type="submit" className="submit btn2 mx-3">
                     {" "}
                     Submit{" "}
                   </button>
@@ -2349,16 +2329,26 @@ const Categories = () => {
                 <div className="col-md-12 mb-3">
                   <div className="formbox ">
                     <label>Description (Optional) </label>
-                    <textarea
+                    <Field
+                      name="description"
+                      type="text"
+                      className={`form-control `}
+                      autoComplete="off"
+                      placeholder="Enter your Description"
+                    />
+                    <p className="text-danger small mb-0">
+                      <ErrorMessage name="description" />
+                    </p>
+                    {/* <textarea
                       className={`form-control `}
                       autoComplete="off"
                       placeholder="Type Here"
-                      value={Description}
-                      onChange={(e) => setDescription(e.target.value)}
+                      value={EditDescription}
+                      onChange={(e) => setEditDescription(e.target.value)}
                     ></textarea>
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="first_name" />
-                    </p>
+                    </p> */}
                   </div>
                 </div>
 

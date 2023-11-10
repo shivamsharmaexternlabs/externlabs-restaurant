@@ -108,13 +108,13 @@ const Login = () => {
                    
                   )}
                 </div>
-                <div className="forgortext">                     
+                {/* <div className="forgortext">                     
                     <div className=""> <input type="checkbox" />  Remember me? </div>
                     <span onClick={(e)=>navigate("/forgotpassword")}> Forgot Password </span>
-                </div>
+                </div> */}
                 <button type="submit" className="btn"> Sign in </button> 
               </Form>
-              <div className="alreadytext"> Don’t have an account?  <span onClick={(e)=>navigate("/signup")}>Click here to sign up. </span></div>
+              {/* <div className="alreadytext"> Don’t have an account?  <span onClick={(e)=>navigate("/signup")}>Click here to sign up. </span></div> */}
             </div>
           </div>
         </Formik>
