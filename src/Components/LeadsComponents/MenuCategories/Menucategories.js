@@ -338,10 +338,12 @@ const Leads = () => {
     dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
 
   }
+  // let  RestaurantId= reactLocalStorage.get("RestaurantId",false);
 
   const RestaurantsDetailsFun = (e, items, AllData) => { 
-     navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
+     navigate(`/${RestaurantId}/admin/restaurantdetail/${items?.restaurant_id}`, {
       state: {
+        page:"MenuCategory", 
         currentData: items, 
       }
     })
@@ -389,10 +391,8 @@ return (
                   <td>{items?.owner?.email}</td>
                   <td>{items?.owner?.phone_number}</td>
                   <td> {items?.url} </td>
-                  <td
-                    onClick={(e) => RestaurantsDetailsFun(e, items)}
-                  >
-                    View
+                  <td>
+                  <button type="button"  className="asbtn" onClick={(e) => RestaurantsDetailsFun(e, items)}> View </button>
                     {/* <button className='asbtn'> Transfer </button> */}
                     {/* <button className='asbtn' onClick={(e) => handleDelete(e, items)}> Delete </button> */}
                   </td>

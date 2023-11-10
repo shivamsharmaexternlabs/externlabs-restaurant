@@ -4,6 +4,9 @@ import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
     
+let RestaurantId = reactLocalStorage.get("RestaurantId", false);
+let BearerToken = reactLocalStorage.get("Token", false);
+
 // get leads Restaurant Slice 
 export const LeadsRestaurantSlice = createAsyncThunk("LeadsRestaurantSlice",async (body, { rejectWithValue }) => {
     try {
@@ -78,6 +81,31 @@ export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurants
 
 
 
+// Update Restaurant (PATCH REQUEST ...)
+export const UpdateRestaurantSlice = createAsyncThunk("UpdateRestaurantSlice",async (body, { rejectWithValue }) => {
+  console.log("sjdhbcjwhbvjhwjvhb", body)
+    try {
+      const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant/${RestaurantId}/`, body ,
+      {
+        headers: {
+          Authorization: `Bearer ${BearerToken}`,
+        },
+      }); 
+      console.log("UpdateRestaurantSlice",response?.data ); 
+
+      return response;
+
+    } catch (err) {
+
+      console.log("shfjjerr", err)
+      toast.error(err?.response?.data?.error[0]);
+      return rejectWithValue(err);
+    }
+  }
+);
+
+
+
 // Reducer
 export const LeadsRestaurantReducer = createSlice({
   name: "LeadsRestaurantReducer",
@@ -85,6 +113,7 @@ export const LeadsRestaurantReducer = createSlice({
     LeadsRestaurantReducerData: [],
     CreateLeadsRestaurantReducerData : [],
     RestaurantOnBoardReducerData : [],
+    UpdateRestaurantReducerData : [],
     loading: false,
     error: null,
   },
@@ -139,6 +168,24 @@ export const LeadsRestaurantReducer = createSlice({
       })
 
       .addCase(CreateRestaurantsOnBoardSlice.rejected, (state, action) => { 
+        state.loading = false;
+        state.error = action.payload;
+        // state.error = action.error.message;
+      })
+
+
+      // Create  Restaurant after onboard Reducer
+      .addCase(UpdateRestaurantSlice.pending, (state) => { 
+        state.loading = true;
+      })
+
+      .addCase(UpdateRestaurantSlice.fulfilled, (state, action) => { 
+        state.loading = false;
+        state.UpdateRestaurantReducerData = action.payload;
+        toast.success("restorent Created Successfully")
+      })
+
+      .addCase(UpdateRestaurantSlice.rejected, (state, action) => { 
         state.loading = false;
         state.error = action.payload;
         // state.error = action.error.message;

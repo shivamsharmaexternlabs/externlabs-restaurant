@@ -1,331 +1,324 @@
 .managertitle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
-
 .managertitle h2 {
-    color: #000;
-    font-size: 32px;
-    margin-bottom: 0px;
-    font-weight: 700;
+  color: #000;
+  font-size: 32px;
+  margin-bottom: 0px;
+  font-weight: 700;
 }
 
 .managertitle .mangerbtn {
-    border-radius: 100px;
-    color: #FFF;
-    background: #EA6A12;
-    font-size: 16px;
-    font-weight: 400;
-    border: none;
-    outline: none;
-    transition: all .3s;
-    padding: 5px 10px;
+  border-radius: 100px;
+  color: #fff;
+  background: #ea6a12;
+  font-size: 16px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  transition: all 0.3s;
+  padding: 5px 10px;
 }
 
 .managertable {
-    width: 100%;
-    overflow: auto;
+  width: 100%;
+  overflow: auto;
+  padding: 5px 0;
 }
 
 .managertable table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 950px;
-    margin-bottom: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 950px;
+  margin-bottom: 10px;
 }
 
 .managertable table th {
-    font-size: 18px;
-    color: #000;
-    font-weight: 400;
-    padding: 10px;
-    line-height: 1.2;
+  font-size: 18px;
+  color: #000;
+  font-weight: 400;
+  padding: 10px 5px;
+  line-height: 1.2;
 }
 
 .managertable table th:first-child,
 .managertable table td:first-child {
-    width: 50px;
+  width: 50px;
 }
 
 .managertable table th:nth-child(2),
 .managertable table td:nth-child(2) {
-    width: 150px;
+  width: 170px;
 }
-
 
 .managertable table th:nth-child(3),
 .managertable table td:nth-child(3) {
-    width: 240px;
+  width: 240px;
 }
 
 .managertable table th:nth-child(4),
 .managertable table td:nth-child(4) {
-    width: 200px;
+  width: 200px;
 }
-
 
 .managertable table th:nth-child(5),
 .managertable table td:nth-child(5) {
-    width: 400px;
+  width: 130px;
+}
+
+.managertable table th:nth-child(6),
+.managertable table td:nth-child(6) {
+  width: 400px;
+  word-wrap: break-word;
 }
 
 .managertable table th:last-child,
 .managertable table td:last-child {
-    width: 190px;
+  width: 120px;
 }
 
 .managertable table th:last-child {
-    text-align: center;
+  text-align: center;
 }
 
-.managertable table tr+tr {
-    margin-top: 15px;
+.managertable table tr + tr {
+  margin-top: 15px;
 }
-
 
 .managertable table .userimg {
-    width: 39px;
-    height: 39px;
-    border-radius: 50%;
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
 }
 
 .managertable table .userimg img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .managertable table td {
-    font-size: 16px;
-    color: #000;
-    font-weight: 400;
-    line-height: 1.2;
-    padding: 10px;
+  font-size: 16px;
+  color: #000;
+  font-weight: 400;
+  line-height: 1.2;
+  padding: 10px 5px;
 }
 
 .managertable table tr {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
 }
 
 .managertable table tr:first-child {
-    background-color: rgba(239, 148, 86, 0.70);
+  background-color: rgba(239, 148, 86, 0.7);
 }
 
 .managertable table tr:not(:first-child) {
-    background: rgba(255, 255, 255, 0.60);
+  background: rgba(255, 255, 255, 0.6);
 }
 
-
 .asbtn {
-    border: none;
-    outline: none;
-    border: 1px solid #CDCDCD;
-    border-radius: 100px;
-    padding: 5px 10px;
-    font-size: 16px;
-    background: transparent;
-    font-weight: 400;
-    transition: all .3s ease;
+  border: none;
+  outline: none;
+  border: 1px solid #cdcdcd;
+  border-radius: 100px;
+  padding: 5px 10px;
+  font-size: 16px;
+  background: transparent;
+  font-weight: 400;
+  transition: all 0.3s ease;
+  padding: 7px 30px;
 }
 
 .asbtn:hover {
-    transition: all .3s ease;
-    border: 1px solid #EA6A12;
-    color: #EA6A12;
+  transition: all 0.3s ease;
+  border: 1px solid #ea6a12;
+  color: #ea6a12;
 }
 
-.asbtn+.asbtn {
-    margin-left: 10px;
+.asbtn + .asbtn {
+  margin-left: 10px;
 }
 
 /* popup css */
 
 .popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-    z-index: 999;
-    overflow: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  z-index: 999;
+  overflow: auto;
 }
 
 .addmanagerpopup.popup {
-    align-items: normal;
+  align-items: normal;
 }
 
 .addmanagerpopup .popupinner {
-    border-radius: 12px;
-    padding: 30px;
-    max-width: 700px;
-    width: 90%;
-    max-width: 700px;
-    background-color: rgba(255, 255, 255, 1);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -40%);
-    -o-transform: translate(-50%, -40%);
-    -ms-transform: translate(-50%, -40%);
-    transform: translate(-50%, -40%);
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 700px;
+  width: 90%;
+  max-width: 700px;
+  background-color: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -40%);
+  -o-transform: translate(-50%, -40%);
+  -ms-transform: translate(-50%, -40%);
+  transform: translate(-50%, -40%);
 }
 
-
-
 .addmanagerpopup .popuptitle h2 {
-    color: #000;
-    font-size: 30px;
-    line-height: 1.2;
-    margin-bottom: 50px;
+  color: #000;
+  font-size: 30px;
+  line-height: 1.2;
+  margin-bottom: 50px;
 }
 
 .addmanagerpopup .popupbody {
-    background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .addmanagerpopup .popupbody form {
-    position: relative;
+  position: relative;
 }
 
 .addmanagerpopup .popupbody .managerimg {
-    position: absolute;
-    top: -85px;
-    right: 20px;
+  position: absolute;
+  top: -85px;
+  right: 20px;
 }
 
 .formbox label {
-    color: #000;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 8px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 8px;
 }
- .formbox .form-control {
-    font-size: 16px;
-    padding: 10px 15px;
-    color: #000;
-    border: none;
-    outline: none;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+.formbox .form-control {
+  font-size: 16px;
+  padding: 10px 15px;
+  color: #000;
+  border: none;
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .addmanagerpopup .popupinner button {
-    padding: 8px 25px;
+  padding: 8px 25px;
 }
 
-
 .wantmanager .popupinner {
-    max-width: 400px;
-    padding: 30px 15px;
-    background-color: #fff;
-    border-radius: 20px;
+  max-width: 400px;
+  padding: 30px 15px;
+  background-color: #fff;
+  border-radius: 20px;
 }
 
 .wantmanager .popupbody {
-    text-align: center;
+  text-align: center;
 }
 
 .wantmanager .popupbody h2 {
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 1.2;
-    margin: 20px 0;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 20px 0;
 }
 
 .wantmanager .popupbody button {
-    border: none;
-    outline: none;
-    color: #fff;
-    padding: 5px 25px;
-    border-radius: 100px;
-    transition: all .3s ease;
-    background: rgba(205, 205, 205, 0.80);
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 5px 25px;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+  background: rgba(205, 205, 205, 0.8);
 }
 
 .wantmanager .popupbody button:hover {
-    transition: all .3s ease;
-    background: #EA6A12;
+  transition: all 0.3s ease;
+  background: #ea6a12;
 }
 
-
-
 .managertable .pagination {
-    margin-top: 20px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .managertable .pagination .page-item a {
-    color: #000;
-    box-shadow: none;
-    cursor: pointer;
+  color: #000;
+  box-shadow: none;
+  cursor: pointer;
 }
 
-
-.managertable .pagination .active>.page-link {
-    border: 1px solid #c65b13b2;
-    background-color: #c65b13b2;
-    color: white;
+.managertable .pagination .active > .page-link {
+  border: 1px solid #c65b13b2;
+  background-color: #c65b13b2;
+  color: white;
 }
-
 
 .managertable .pagination .page-item:first-child a,
 .managertable .pagination .page-item:last-child a {
-    padding: 6px 16px;
-    border-radius: 8px;
-    border-radius: 8px;
-    border: 1px solid #EA6A12;
-    background-color: #fff;
+  padding: 6px 16px;
+  border-radius: 8px;
+  border-radius: 8px;
+  border: 1px solid #ea6a12;
+  background-color: #fff;
 }
 
 .managertable .pagination .page-item:first-child {
-    position: absolute;
-    left: 0;
+  position: absolute;
+  left: 0;
 }
 
 .managertable .pagination .page-item:last-child {
-    position: absolute;
-    right: 0;
+  position: absolute;
+  right: 0;
 }
 
-.managertable .pagination .page-item.disabled a{
-    border: 1px solid #e8e8e8;
-    color: #787878;
+.managertable .pagination .page-item.disabled a {
+  border: 1px solid #e8e8e8;
+  color: #787878;
 }
-
-
-
 
 /* scrollbar css start  */
 
 .managertable::-webkit-scrollbar,
 .addmanagerpopup .popupbody::-webkit-scrollbar {
-    height: 5px;
-    width: 3px;
-    background-color: #EF9456B2;
-    border-radius: 100px;
+  height: 5px;
+  width: 3px;
+  background-color: #ef9456b2;
+  border-radius: 100px;
 }
 
 .managertable::-webkit-scrollbar-thumb,
 .addmanagerpopup .popupbody::-webkit-scrollbar-thumb {
-    height: 5px;
-    width: 3px;
-    background-color: #c65b13b2;
-    border-radius: 100px;
+  height: 5px;
+  width: 3px;
+  background-color: #c65b13b2;
+  border-radius: 100px;
 }
 
 /* scrollbar css end  */

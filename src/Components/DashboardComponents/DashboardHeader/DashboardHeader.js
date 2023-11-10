@@ -1,10 +1,21 @@
 import React from 'react'
+import {useNavigate} from "react-router-dom"
 import './dashboardHeader.css'
 import user from '../../../images/user.png'
 import notify from '../../../images/icon6.svg' 
+import { reactLocalStorage } from "reactjs-localstorage";
+
 
 const DashboardHeader = ({popUpHookFun}) => {
+  const navigate=useNavigate()
+  let BearerToken = reactLocalStorage.get("Token", false);
 
+   const handleLogout=()=>{
+    // reactLocalStorage.remove("token")
+    navigate("/")
+    reactLocalStorage.clear()
+    window.location.reload()
+   }
   return (
     <>
       <header>
@@ -17,6 +28,7 @@ const DashboardHeader = ({popUpHookFun}) => {
               <h3>Austin Robertson</h3>
               <p>Admin</p>
             </div>
+            <button type='button' className='btn2 ms-3 py-1' onClick={(e)=>handleLogout(e)}> Logout </button>
           </div>
         </div>
       </header>

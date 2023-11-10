@@ -6,6 +6,7 @@ import DashboardSidebar from "../../DashboardComponents/DashboardSidebar/Dashboa
 import LodingSpiner from "../../LoadingSpinner/LoadingSpinner";
 import usePopUpHook from "../../../CustomHooks/usePopUpHook/usePopUpHook";
 import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComponent";
+import close from "../../../images/close.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { reactLocalStorage } from "reactjs-localstorage";
 import { ManagerSlice } from "../../../Redux/slices/managerSlice";
@@ -278,6 +279,7 @@ const Leads = () => {
 
 
   console.log("vsdccds", LeadsRestaurantSelectorData)
+
   useEffect(() => {
     if (LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.status === 201) {
 
@@ -332,13 +334,21 @@ const Leads = () => {
 
   }
 
-  //   const LeadsDetailsFun = (e, items, AllData) => { 
-  //     navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
-  //      state: {
-  //        currentData: items, 
-  //      }
-  //    })
-  //  }
+  const LeadsDetailsFun = (e, items, AllData) => {
+
+    console.log("mbavhgas", items)
+    navigate(`/${RestaurantId}/admin/restaurantdetail/${items?.lead_id}`, {
+      state: {
+        page: "lead",
+        currentData: items,
+      }
+    })
+  }
+
+  const closeOnBoardFun =()=>{
+    setOnBordPopUp(false)
+    window.location.reload() 
+  }
 
   return (
     <>
@@ -377,9 +387,12 @@ const Leads = () => {
                     <td>{lead?.contact_name}</td>
                     <td>{lead?.phone}</td>
                     <td>{lead?.email}</td>
-                    {/* <td
-                    onClick={(e) => LeadsDetailsFun(e, items)}
-                  ></td> */}
+                    <td>
+
+                      <button className="asbtn" onClick={(e) => LeadsDetailsFun(e, lead)}>
+                        view
+                      </button>
+                    </td>
 
                   </tr>
                 })}
@@ -413,268 +426,13 @@ const Leads = () => {
       </DashboardLayout>
 
 
-
-      {/* NEW LEAD POP UP START... */}
-      {/* {popUpHook && (
-        <PopUpComponent
-          classNameValue={"leadpopup "}
-          PopUpToggleFun={PopUpToggleFun}
-          popUpHookFun={popUpHookFun}
-        >
-
-          <div className="popuptitle">
-            <h2>New Customer </h2>
-          </div>
-          <div className="popupbody">
-            <Formik
-              initialValues={defaultValue}
-              validationSchema={Validate}
-              onSubmit={handleSubmitAndOnBoard}
-            >
-              <Form className="row">
-
-                <div className="col-12  mb-3 ">
-                  <div className="formbox">
-                    <label>Restaurant Name </label>
-                    <Field
-                      name="restaurant_name"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="Enter Restaurant Name "
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="restaurant_name" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-12  mb-3 ">
-                  <div className="formbox">
-                    <label>Owner Name </label>
-                    <Field
-                      name="owner_name"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="Enter Owner Name"
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="owner_name" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-12  mb-3 ">
-                  <div className="formbox">
-                    <label>Email </label>
-                    <Field
-                      name="email"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="Enter your Email"
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="email" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-2  mb-3">
-                  <div className="formbox ">
-                    <label> Phone Extension </label>
-                    <Field
-                      name="phone_ext"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="+91"
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="phone_ext" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-10  mb-3">
-                  <div className="formbox ">
-                    <label> Phone Number </label>
-                    <Field
-                      name="phone"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="Enter your Phone Number"
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="phone" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-6 mb-3">
-                  <div className="formbox ">
-                    <label> Shop no./Building (Optional) </label>
-                    <Field
-                      name="shop_no"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="Enter your Shop no."
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="shop_no" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-6 mb-3">
-                  <div className="formbox ">
-                    <label> Area/Street Name (Optional) </label>
-                    <Field
-                      name="street"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="Enter your Street Name"
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="street" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-4 mb-3">
-                  <div className="formbox ">
-                    <label> Town/City Name </label>
-                    <Field
-                      name="city"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="Enter your City Name"
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="city" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-8  mb-3">
-                  <div className="formbox ">
-                    <label> Landmark (Optional) </label>
-                    <Field
-                      name="landmark"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="Nearby Landmark"
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="landmark" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-3  mb-3">
-                  <div className="formbox ">
-                    <label> Pincode </label>
-                    <Field
-                      name="pincode"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="Pincode"
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="pincode" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-3  mb-3">
-                  <div className="formbox ">
-                    <label> State </label>
-                    <Field
-                      name="state"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                    // placeholder="Pincode"
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="state" />
-                    </p>
-                  </div>
-                </div>
-                <div className="col-md-3  mb-3">
-                  <div className="formbox ">
-                    <label> Country </label>
-                    <Field
-                      name="country"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                    // placeholder="Pincode"
-                    />
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="country" />
-                    </p>
-                  </div>
-                </div>
-
-
-                <div className="col-12  mb-3">
-                  <div className="formbox ">
-                    <label> Description </label>
-                    <Field
-                      component="textarea"
-                      rows="4"
-                      value={""}
-                      name="description"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="Type here..."
-                    />
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="description" />
-                    </p>
-                  </div>
-                </div>
-                <div className='text-end mt-5'>
-                  <button type="btn" className="btn2" onClick={(e) => CreateLeadBtnFun(e)} > Create Lead </button>
-                  <button type="submit" className="btn2 mx-3"> Onboard and Create Password </button>
-                </div>
-              </Form>
-            </Formik>
-          </div>
-
-
-        </PopUpComponent>
-      )} */}
-
       {popUpHook && (
         <PopUpComponent
           classNameValue={"leadpopup "}
           PopUpToggleFun={PopUpToggleFun}
           popUpHookFun={popUpHookFun}
         >
-
-
+          <button type="button" className="closebtn"  > <img src={close} alt="close icon" /> </button>
           <div className="popuptitle">
             <h2>New Customer </h2>
           </div>
@@ -948,8 +706,7 @@ const Leads = () => {
           classNameValue={"onboardingpopup "}
           PopUpToggleFun={PopUpToggleFun}
           popUpHookFun={popUpHookFun} >
-
-
+          <button type="button" className="closebtn" onClick={(e)=>closeOnBoardFun()}> <img src={close} alt="close icon" /> </button>
           <div className="popuptitle">
             <h2>Onboarding </h2>
           </div>
@@ -1005,21 +762,7 @@ const Leads = () => {
         </PopUpComponent>
       )}
 
-      {/* <div className="popup successpopup d-none">
-        <div className="innerpopup">
-          <img src={imgicon} alt="img" />
-          <h3> Success !</h3>
-          <p>[Restaurant name] is successfully registered</p>
-          <div className="sharebtnbox">
-            <span> <img src={share} alt="img" /> Link </span>
-            <input type="text" placeholder="link" />
-            <button type="button" className="copybtn"> <img src={copy} alt="img" /> </button>
-            <button type="button" className="sharebtn"> <img src={share2} alt="img" /> </button>
 
-          </div>
-          <button className="btn2"> Back to home </button>
-        </div>
-      </div> */}
 
       {/* SuccessFull On Board */}
 
