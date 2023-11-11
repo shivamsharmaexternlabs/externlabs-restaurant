@@ -36,7 +36,7 @@ const RestaurantDetail = () => {
   const LeadsRestaurantSelectorData = useSelector((state) => state.LeadsRestaurantApiData);
   const ResetPasswordSelectorData = useSelector((state) => state.ResetPasswordApiData);
 
-console.log("ResetPasswordSelectorData", ResetPasswordSelectorData)
+console.log("ResetPasswordSelectorData", LeadsRestaurantSelectorData)
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   console.log("hgdchsdd", routeData)
@@ -168,12 +168,9 @@ console.log("ResetPasswordSelectorData", ResetPasswordSelectorData)
 
 
   useEffect(() => {
-    if (LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.status === 201) { 
-
+    if (LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.status === 201) {  
       setSuccessPopup(true)
-      setOnBordPopUp(false)
-
-
+      setOnBordPopUp(false) 
     }
     else if (LeadsRestaurantSelectorData?.error === "Rejected") {
       setLoadSpiner(false);
@@ -181,7 +178,7 @@ console.log("ResetPasswordSelectorData", ResetPasswordSelectorData)
     }
   }, [LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData]);
 
-  console.log("dgfhgsvd",LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData)
+  console.log("dgfasashgsvd",LeadsRestaurantSelectorData)
 
   useEffect(() => {
     console.log("SignUpSelectorData", SignUpSelectorData)

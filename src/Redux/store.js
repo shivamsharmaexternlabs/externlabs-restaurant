@@ -10,6 +10,7 @@ import uploadMenuReducer from "./slices/uploadMenuSlice"
 import  qrcodeReducer  from "./slices/qrCodeSlice";
 import  leadsReducer  from "./slices/leadsSlice";
 import  menuItemFavouriteReducer  from "./slices/favouriteSlice";
+import LeadsRestaurantReducer  from "./slices/leadsRestaurantSlice";
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     UploadMenuData:uploadMenuReducer,
     QrCodeApiData:qrcodeReducer,
     LeadsApiData:leadsReducer,
-    MenuItemFavouriteApiData:menuItemFavouriteReducer
+    MenuItemFavouriteApiData:menuItemFavouriteReducer, 
+    LeadsRestaurantApiData: LeadsRestaurantReducer
   },
 });

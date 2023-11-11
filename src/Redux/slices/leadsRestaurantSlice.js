@@ -57,8 +57,7 @@ export const CreateLeadsRestaurantSlice = createAsyncThunk("CreateLeadsRestauran
 
 
 // create Restaurant After SignUp Slice 
-export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurantsOnBoardSlice",async (body, { rejectWithValue }) => {
-  console.log("sjdhbcjwhbvjhwjvhb", body)
+export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurantsOnBoardSlice",async (body, { rejectWithValue }) => { 
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant/`, body ,
       {
@@ -70,9 +69,7 @@ export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurants
 
       return response;
 
-    } catch (err) {
-
-      console.log("shfjjerr", err)
+    } catch (err) { 
       toast.error(err?.response?.data?.error[0]);
       return rejectWithValue(err);
     }
@@ -162,9 +159,10 @@ export const LeadsRestaurantReducer = createSlice({
       })
 
       .addCase(CreateRestaurantsOnBoardSlice.fulfilled, (state, action) => { 
-        state.loading = false;
+        console.log("nbsdsdsdsbs",  action)
+        // state.loading = false;
         state.RestaurantOnBoardReducerData = action.payload;
-        toast.success("restorent Created Successfully")
+        // toast.success("restorent Created Successfully")
       })
 
       .addCase(CreateRestaurantsOnBoardSlice.rejected, (state, action) => { 
