@@ -88,19 +88,19 @@ const Leads = () => {
   console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
   const defaultValue = {
-    restaurant_name: "shivam restro",
-    owner_name: "extern labs",
-    email: "sa21m@gmail.com",
-    phone_ext: "+91",
-    phone: "9087365441",
-    shop_no: "52",
-    street: "jtm mall",
-    city: "gorakhpur",
-    landmark: "near phatak",
-    pincode: 222202,
-    state: "U.P",
-    country: "India",
-    description: "Description ....."
+    restaurant_name: " ",
+    owner_name: " ",
+    email: " ",
+    phone_ext: " ",
+    phone: " ",
+    shop_no: " ",
+    street: " ",
+    city: " ",
+    landmark: " ",
+    pincode: " ",
+    state: " ",
+    country: "+91 ",
+    description: " ."
   };
 
 
@@ -126,8 +126,8 @@ const Leads = () => {
 
   const defaultSignUpValue = {
 
-    password: "Demo@123",
-    confirm_password: "Demo@123",
+    password: "",
+    confirm_password: "",
 
   };
 
@@ -332,6 +332,8 @@ const Leads = () => {
     };
     dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
 
+    navigate("/:id/admin/leads")
+
   }
 
   const LeadsDetailsFun = (e, items, AllData) => {
@@ -348,6 +350,13 @@ const Leads = () => {
   const closeOnBoardFun =()=>{
     setOnBordPopUp(false)
     window.location.reload() 
+  }
+
+
+  const ClosePopupFun =()=>{
+    window.location.reload() 
+
+    popUpHookFun(false)
   }
 
   return (
@@ -432,7 +441,7 @@ const Leads = () => {
           PopUpToggleFun={PopUpToggleFun}
           popUpHookFun={popUpHookFun}
         >
-          <button type="button" className="closebtn"  > <img src={close} alt="close icon" /> </button>
+          <button type="button" className="closebtn" onClick={(e)=>ClosePopupFun(e)} > <img src={close} alt="close icon" /> </button>
           <div className="popuptitle">
             <h2>New Customer </h2>
           </div>

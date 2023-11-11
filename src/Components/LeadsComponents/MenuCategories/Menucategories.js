@@ -51,19 +51,19 @@ const Leads = () => {
   console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
   const defaultValue = {
-    restaurant_name: "shivam restro",
-    owner_name: "extern labs",
-    email: "sa21m@gmail.com",
-    phone_ext: "+91",
-    phone: "9087365441",
-    shop_no: "52",
-    street: "jtm mall",
-    city: "gorakhpur",
-    landmark: "near phatak",
-    pincode: 222202,
-    state: "U.P",
-    country: "India",
-    description: "Description ....."
+    restaurant_name: " ",
+    owner_name: " ",
+    email: " ",
+    phone_ext: " ",
+    phone: " ",
+    shop_no: " ",
+    street: " ",
+    city: " ",
+    landmark: " ",
+    pincode: " ",
+    state: " ",
+    country: " ",
+    description: " "
 
   };
 
@@ -109,8 +109,8 @@ const Leads = () => {
 
   const defaultSignUpValue = {
 
-    password: "Demo@123",
-    confirm_password: "Demo@123",
+    password: "",
+    confirm_password: "",
 
   };
 

@@ -12,7 +12,7 @@ import share from '../../../images/share.svg'
 import share2 from '../../../images/share2.svg'
 import { RWebShare } from "react-web-share";
 import copy from '../../../images/copy.svg'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { reactLocalStorage } from "reactjs-localstorage";
@@ -36,18 +36,18 @@ const RestaurantDetail = () => {
   const LeadsRestaurantSelectorData = useSelector((state) => state.LeadsRestaurantApiData);
   const ResetPasswordSelectorData = useSelector((state) => state.ResetPasswordApiData);
 
-console.log("ResetPasswordSelectorData", LeadsRestaurantSelectorData)
-  let RestaurantId = reactLocalStorage.get("RestaurantId", false);
+   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
-  console.log("hgdchsdd", routeData)
-  let BearerToken = reactLocalStorage.get("Token", false);
+   let BearerToken = reactLocalStorage.get("Token", false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const defaultSignUpValue = {
 
-    password: "Demo@123",
-    confirm_password: "Demo@123",
+    password: "",
+    confirm_password: "",
 
   };
 
@@ -154,7 +154,7 @@ console.log("ResetPasswordSelectorData", LeadsRestaurantSelectorData)
   }
 
   const BackToHomeFun = () => {
-    window.location.reload(false)
+    // window.location.reload(false)
     setSuccessPopup(false)
 
     let LeadsRestaurantSlicePayload = {
@@ -163,6 +163,9 @@ console.log("ResetPasswordSelectorData", LeadsRestaurantSelectorData)
       pagination: 1,
     };
     dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
+    navigate(`/${RestaurantId}/admin/leads`)
+        window.location.reload(false)
+
 
   }
 
@@ -284,8 +287,7 @@ console.log("ResetPasswordSelectorData", LeadsRestaurantSelectorData)
     setResetPasswordPopup(true)
     // console.log("routeData ", e.target.values);
 
-    console.log("routeDajhrfbjwrhgbfta", routeData?.state?.currentData?.restaurant_id);
-
+ 
   }
 
   return (
@@ -510,9 +512,9 @@ console.log("ResetPasswordSelectorData", LeadsRestaurantSelectorData)
                     </div>
                   </div>
                   <div className='submitbox'>
-                    {routeData?.state.page === "MenuCategory" && <button type='button' className='btn2' onClick={(e) => resetPasswordFunc(e, routeData)}>Reset Password</button>}
+                    {routeData?.state?.page === "MenuCategory" && <button type='button' className='btn2' onClick={(e) => resetPasswordFunc(e, routeData)}>Reset Password</button>}
                     {
-                      <button type='submit' className='btn2 ms-3'  >{routeData?.state.page === "MenuCategory" ? 'Edit Profile' : "OnBoard and Create Password"}</button>
+                      <button type='submit' className='btn2 ms-3'  >{routeData?.state?.page === "MenuCategory" ? 'Edit Profile' : "OnBoard and Create Password"}</button>
                     }
 
                   </div>
