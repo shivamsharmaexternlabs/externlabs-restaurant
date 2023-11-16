@@ -35,7 +35,7 @@ function App() {
         <Route path="/user_auth/resetpassword/:id" element={<ResetPassword />}></Route>
         <Route path="/admin/dashboard" element={<Dashboard />}></Route>
         <Route path="/admin/categories" element={<Categories />}></Route>
-        <Route path="/manager" element={<Manager />}></Route>
+        <Route path="/admin/manager" element={<Manager />}></Route>
         <Route path="/:id/menu" element={<Menu />}></Route> 
         <Route path='/:id/admin/leads' element={<Leads />}></Route>
         <Route path='/:id/admin/menucategories' element={<Menucategories />}></Route>

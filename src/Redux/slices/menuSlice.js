@@ -33,19 +33,25 @@ export const CreateMenuSlice = createAsyncThunk(
 // create category
 export const CreateCategorySlice = createAsyncThunk(
   "CreateCategorySlice",
-  async (body, { rejectWithValue }) => {
-    console.log("nbxjdx");
+  async (body, { rejectWithValue }) => { 
+
+    const formData = new FormData();
+    formData.append("restaurant_id", body?.restaurant_id);
+    formData.append("category_image",  body?.category_image);
+    formData.append("category",  body?.category);
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/`,
-        body,
+        formData,
         {
           headers: {
-            Authorization: `Bearer ${BearerToken}`,
+            Authorization: `Bearer ${body?.token}`,
           },
         }
       );
-      toast.success(response?.data?.detail);
+      console.log("mshdgffjsd",response)
+      toast.success(response?.data?.message);
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);

@@ -250,7 +250,7 @@ const Dashboard = () => {
                 <div className='managerstablepart'>
                   <div className='title'>
                     <h2>Managers</h2>
-                    <button type='button' onClick={(e) => navigate("/manager")}> View All <img src={arrow2} alt='img' /> </button>
+                    <button type='button' onClick={(e) => navigate("/admin/manager")}> View All <img src={arrow2} alt='img' /> </button>
                   </div>
                   <div class="managerstable">
                     <table className='table'>
@@ -297,7 +297,8 @@ const Dashboard = () => {
                 <div className='qrbox'>
                   <img src={QrImage} alt='img' />
                   <div className='info'>
-                    <span>Date: 1/11/23</span>
+                    {/* <span>Date: 1/11/23</span> */}
+                    <span></span>
                     <button type='button' onClick={(e) => QrCodeDownloadFun()}>Download </button>
                   </div>
                 </div>

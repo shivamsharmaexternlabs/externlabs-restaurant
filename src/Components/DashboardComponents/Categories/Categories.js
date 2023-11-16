@@ -73,6 +73,11 @@ const Categories = () => {
     false
   );
 
+  const TokenLocalStorageData = reactLocalStorage.get(
+    "Token",
+    false
+  );
+
   console.log(
     "RestaurantIdLocalStorageData",
     MenuApiSelectorData?.DeleteMenucategoryReducerData
@@ -1207,12 +1212,16 @@ const Categories = () => {
     category: yup.string().required("Please Create Category"),
   });
   const handleCategorySubmit = (values) => {
-    const formData = new FormData();
-    formData.append("restaurant_id", RestaurantIdLocalStorageData);
-    formData.append("category_image", uploadCategoryImage);
-    formData.append("category", values?.category);
+    let handleCategoryPayload={
+      "restaurant_id": RestaurantIdLocalStorageData,
+      "category_image": uploadCategoryImage,
+      "category": values?.category,
+      "token":TokenLocalStorageData
+    }
+     
 
-    dispatch(CreateCategorySlice(formData));
+    dispatch(CreateCategorySlice(handleCategoryPayload));
+
     popUpCategoriesHookFun(false);
     setTimeout(() => {
       let MenuSlicePayload = {
@@ -1410,7 +1419,7 @@ const Categories = () => {
       dispatch(GetMenuCategorySlice(MenuSlicePayload));
       },1500)
   };
-console.log("msabdfjhsdf",MenuApiSelectorData?.GetMenuCategoryReducerData)
+console.log("msabdfjhsdf",ActiveCategory)
   return (
     <>
       <DashboardLayout>
@@ -1509,8 +1518,8 @@ console.log("msabdfjhsdf",MenuApiSelectorData?.GetMenuCategoryReducerData)
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       {/* CATEGORY MANAGEMENT */}
                       <Swiper
-                      slidesPerView={1}
-                        cssMode={true}
+                      slidesPerView={MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length>4?4:Number(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length)}
+                        // cssMode={true}
                         navigation={true}
                         mousewheel={true}
                         keyboard={true}
@@ -1524,7 +1533,7 @@ console.log("msabdfjhsdf",MenuApiSelectorData?.GetMenuCategoryReducerData)
                             <SwiperSlide>
                             <button
                               onClick={(e) => CategoryTabFun(e, item)}
-                              className={`${ActiveCategory == item?.menu_id ? "active" : "No-active"
+                              className={`${ActiveCategory === item?.menu_id ? "active" : "No-active"
                                 } nav-link`}
                               key={id}
                               id="nav-dishes1-tab"

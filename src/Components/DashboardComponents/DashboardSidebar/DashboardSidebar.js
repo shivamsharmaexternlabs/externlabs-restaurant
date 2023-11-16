@@ -63,8 +63,8 @@ const DashboardSidebar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/manager"
-                  className={` ${param.pathname === "/manager" ? "active" : ""
+                <NavLink to="/admin/manager"
+                  className={` ${param.pathname === "/admin/manager" ? "active" : ""
                     } `}
                 >   <img src={icon8} alt='img' /> <span className='text'>Managers</span>
                 </NavLink>

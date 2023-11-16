@@ -363,7 +363,7 @@ return (
             <button type='button' className="btn2" onClick={(e) => PopUpToggleFun()}>
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
-              </svg>New Customer </button>
+              </svg>New Customer</button>
           </div>
 
 
@@ -441,7 +441,7 @@ return (
 
 
         <div className="popuptitle">
-          <h2>New Customer </h2>
+          <h2>New Customer</h2>
         </div>
         <div className="popupbody">
           <Formik

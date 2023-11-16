@@ -1,7 +1,6 @@
 {
   "name": "qr-restaurant",
-  "version": "0.1.0",
-  "proxy": "http://13.233.224.46/",
+  "version": "0.1.0", 
   "private": true,
   "dependencies": {
     "@react-google-maps/api": "^2.19.2",
