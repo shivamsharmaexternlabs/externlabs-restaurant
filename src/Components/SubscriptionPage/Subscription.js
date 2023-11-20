@@ -1,11 +1,39 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./subscription.css"
 import subicon1 from '../../images/subicon1.svg'
 import subicon1h from '../../images/subicon1-h.svg'
 import checkbox from '../../images/checkbox.svg'
+import Stripe from 'stripe';
 
 const Subscription = () => {
+
+
+  // const stripe =  new  Stripe   ('sk_test_51O9jGdSBj5xgDd5yhzRUw4RGNDghmoH2uXTXtiG1kpDU0FIzb0TNSVwWgwBUHnB2ppfpprAKZevZ5GvXulcmdE8B00DEJ06sMQ');
+  // const  products  =   stripe.products.list({
+  //     limit: 3,
+  //   });
+
+  //   console.log("nxbsdsdfsd",products)
+
+
+  useEffect(() => {
+    const stripe =  new  Stripe('sk_test_51O9jGdSBj5xgDd5yhzRUw4RGNDghmoH2uXTXtiG1kpDU0FIzb0TNSVwWgwBUHnB2ppfpprAKZevZ5GvXulcmdE8B00DEJ06sMQ');
+ 
+        const getProducts =  async () => {
+            const  products  =   await stripe.products.list({
+                limit: 3,
+                expand: ['data.default_price']
+              });
+          
+              console.log("nxbsdsdfsd",products)
+        }    
+
+        getProducts()
+ 
+    },[]);
+
+
   return (
     <>
       <div className='subscriptionpage'>

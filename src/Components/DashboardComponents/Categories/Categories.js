@@ -1394,10 +1394,23 @@ const Categories = () => {
     // dispatch(GetMenuCategorySlice(MenuSlicePayload));
   };
   useEffect(() => {
-    if (MenuApiSelectorData?.DeleteMenucategoryReducerData.status === 204) {
+    if (MenuApiSelectorData?.DeleteMenucategoryReducerData?.status === 204) {
       toast.success("Delete Successfully");
     }
   }, [MenuApiSelectorData?.DeleteMenucategoryReducerData]);
+
+  useEffect(()=>{
+    if(MenuItemFavouriteApiSelectorData?.data?.status===200){
+
+      let MenuSlicePayload = {
+        RestaurantId: RestaurantIdLocalStorageData,
+      };
+   
+      dispatch(favoriteMenuSlice(MenuSlicePayload));
+
+    }
+
+  },[MenuItemFavouriteApiSelectorData])
 
   const DeleteItemfun = (e, item) => {
     dispatch(DeleteMenuItemSlice(item?.item_id));
@@ -1419,7 +1432,7 @@ const Categories = () => {
       dispatch(GetMenuCategorySlice(MenuSlicePayload));
       },1500)
   };
-console.log("msabdfjhsdf",ActiveCategory)
+console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
   return (
     <>
       <DashboardLayout>
@@ -1741,8 +1754,9 @@ console.log("msabdfjhsdf",ActiveCategory)
                   <ul>
                     {/* FAVORITE DISHES MANAGEMENT */}
                     {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map(
-                      (items, favoriteId) => {
-                        return items?.item_id?.map((item, favoriteDishId) => {
+                     
+                      (items, favoriteId) => { 
+                        return items?.item_id?.map((item, favoriteDishId) => {//no need this map every time it's 0'th index
                           console.log("hgjhdg", item);
                           return (
                             <li key={favoriteDishId}>
