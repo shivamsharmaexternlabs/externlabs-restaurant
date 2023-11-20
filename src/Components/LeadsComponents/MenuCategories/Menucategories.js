@@ -51,19 +51,19 @@ const Leads = () => {
   console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
   const defaultValue = {
-    restaurant_name: " ",
-    owner_name: " ",
-    email: " ",
-    phone_ext: " ",
-    phone: " ",
-    shop_no: " ",
-    street: " ",
-    city: " ",
-    landmark: " ",
-    pincode: " ",
-    state: " ",
-    country: " ",
-    description: " "
+    restaurant_name: "",
+    owner_name: "",
+    email: "",
+    phone_ext: "",
+    phone: "",
+    shop_no: "",
+    street: "",
+    city: "",
+    landmark: "",
+    pincode: "",
+    state: "",
+    country: "",
+    description: ""
 
   };
 
