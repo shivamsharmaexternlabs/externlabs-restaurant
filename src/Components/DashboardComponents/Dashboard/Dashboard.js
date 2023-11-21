@@ -13,6 +13,7 @@ import dish3 from '../../../images/dish3.png'
 import user from '../../../images/user.png'
 import item2 from '../../../images/item2.svg'
 import qrimg from '../../../images/qr.png'
+import menimg from '../../../images/men.png'
 import { useNavigate } from 'react-router-dom'
 import { reactLocalStorage } from 'reactjs-localstorage'
 import { favoriteMenuSlice } from '../../../Redux/slices/menuSlice'
@@ -25,14 +26,15 @@ const Dashboard = () => {
   const [data, setData] = useState({ results: [] });
   const [QrImage, setQrImage] = useState("")
   const [ActiveFavoriteCategory, setActiveFavoriteCategory] = useState({});
+  const [WellWishes, setWellWishes] = useState("")
+
 
   const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data);
   const QrApiSelectorData = useSelector((state) => state.QrCodeApiData?.data)
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
 
-  let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
-
-  console.log("dfsagh", QrApiSelectorData)
+  let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false); 
+  let  FirstName=  reactLocalStorage.get("FirstName",false); 
   let BearerToken = reactLocalStorage.get("Token", false);
 
   console.log("MenuApiSelectorDatauuuuuuuu", MenuApiSelectorData)
@@ -58,7 +60,7 @@ const Dashboard = () => {
     let url = QrImage
     saveAs(url, "Twitter-logo");
   }
-  
+
   useEffect(() => {
 
     let resturantid = RestaurantIdLocalData
@@ -79,7 +81,41 @@ const Dashboard = () => {
     setActiveFavoriteCategory(categoryItem);
   }
 
-  console.log("bvsdsdds",ActiveFavoriteCategory)
+
+
+  function getGreeting(time) {
+
+    console.log("jghadfgcds", time)
+    if (time < 12) {
+      return "Good morning!";
+    } else if (time < 18) {
+      return "Good afternoon!";
+    } else {
+      return "Good evening!";
+    }
+  }
+
+  // const greetingElement = document.querySelector(".greeting");
+  // const time = new Date().getHours();
+  // greetingElement.textContent = getGreeting(time);
+
+  useEffect(() => {
+
+    const time = new Date().getHours(); 
+    if (time < 12) {
+      setWellWishes("Good morning")
+      console.log("kjbabjd", "Good morning"); 
+    } else if (time < 16) {
+      setWellWishes("Good afternoon")
+      console.log("kjbabjd", "Good afternoon"); 
+    } else {
+      setWellWishes("Good evening")
+      console.log("kjbabjd", "Good evening"); 
+    } 
+
+  }, [])
+
+ 
 
   return (
     <>
@@ -88,8 +124,8 @@ const Dashboard = () => {
           <DashboardSidebar />
           <div className='contentpart dashboardpage'>
             <div className='bannerbox'>
-              <h2> Good Morning</h2>
-              <h3> Austine Robertson</h3>
+              <h2> {WellWishes}</h2>
+              <h3> {FirstName}</h3>
             </div>
 
             <div className='viewall-part'>
@@ -106,10 +142,10 @@ const Dashboard = () => {
                         {
                           MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map((items, favoriteId) => {
                             console.log("hdvfbjsfhvhsvh", items)
-                            return <button key={favoriteId} onClick={(e) => FavoriteCategoryTabFun(e, items)} class={`nav-link ${items?.menu_id==ActiveFavoriteCategory?.menu_id?"active":""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
+                            return <button key={favoriteId} onClick={(e) => FavoriteCategoryTabFun(e, items)} class={`nav-link ${items?.menu_id == ActiveFavoriteCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
                               <div>
                                 <figure>
-                                  <img src={items?.category_image} alt="img" className="catg-img"/>
+                                  <img src={items?.category_image} alt="img" className="catg-img" />
                                 </figure>
                                 <h3>{items?.category}</h3>
                                 <div className='buttonbox'>
@@ -157,24 +193,24 @@ const Dashboard = () => {
                     <div class="tab-content" id="nav-tabContent">
                       <div class="tab-pane fade show active" id="nav-dishes1" role="tabpanel" aria-labelledby="nav-dishes1-tab" tabindex="0">
                         <ul>
-                        {
-                          ActiveFavoriteCategory?.item_id?.map((favoriteItem, favoriteDishesId) => {
-                            console.log("favoriteItem", favoriteItem) 
-                            return <li>
-                            <h4>{favoriteItem?.item_name}</h4>
-                            <div className='tabinfo'>
-                              <div className='leftpart'>
-                                <p>{favoriteItem?.description}</p>
-                                <span className='price'>{`$${favoriteItem?.item_price}`}</span>
-                              </div>
-                              <div className='rightpart'>
-                                <img src={favoriteItem?.image} alt='img' />
-                              </div>
-                            </div>
-                          </li>
+                          {
+                            ActiveFavoriteCategory?.item_id?.map((favoriteItem, favoriteDishesId) => {
+                              console.log("favoriteItem", favoriteItem)
+                              return <li>
+                                <h4>{favoriteItem?.item_name}</h4>
+                                <div className='tabinfo'>
+                                  <div className='leftpart'>
+                                    <p>{favoriteItem?.description}</p>
+                                    <span className='price'>{`$${favoriteItem?.item_price}`}</span>
+                                  </div>
+                                  <div className='rightpart'>
+                                    <img src={favoriteItem?.image} alt='img' />
+                                  </div>
+                                </div>
+                              </li>
 
-                          })
-                        }
+                            })
+                          }
 
                           {/* <li>
                             <h4>Spaghetti</h4>
@@ -261,7 +297,7 @@ const Dashboard = () => {
                         <th> Assigned to </th>
                       </tr>
                       {data?.results?.map((items, id) => {
-                        console.log("dhgah",items)
+                        console.log("dhgah", items)
                         return <tr>
                           <td> <img src={user} alt='img' /> </td>
                           <td>{`${items?.first_name} ${items?.last_name} `}</td>
@@ -295,12 +331,15 @@ const Dashboard = () => {
 
                 </div>
                 <div className='qrbox'>
-                  <img src={QrImage} alt='img' />
-                  <div className='info'>
-                    {/* <span>Date: 1/11/23</span> */}
+                  <div className='menbox'>
+                    <img src={QrImage} alt='uploadmenu' className='qrimg' />
+                    <img src={menimg} alt='img' className='qrmenimg' />
+
+                  </div>
+                  {/* <div className='info'>
                     <span></span>
                     <button type='button' onClick={(e) => QrCodeDownloadFun()}>Download </button>
-                  </div>
+                  </div> */}
                 </div>
 
               </div>

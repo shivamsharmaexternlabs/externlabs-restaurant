@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Login from "../src/Authantication/Login/Login";
 import Signup from './Authantication/SignUp/Signup';
 import './App.css';
@@ -19,9 +19,39 @@ import Leads from './Components/LeadsComponents/Leads/Leads';
 import Menucategories from './Components/LeadsComponents/MenuCategories/Menucategories';
 import RestaurantDetail from './Components/DashboardComponents/RestaurantDetail/RestaurantDetail.js'
 import Subscription from './Components/SubscriptionPage/Subscription.js';
+import axios from 'axios';
+import { reactLocalStorage } from "reactjs-localstorage"; 
+import { toast } from "react-toastify";
+
 
 
 function App() {
+
+  const navigate=useNavigate()
+
+
+  axios.interceptors.response.use(
+    (response) => {  
+      
+      return response;
+    },
+    (error) => {
+      if (error?.response?.status == 401) { 
+        if(error?.response?.data?.error=="Token is invalid" || error?.response?.data?.error=="Token is expired"  ){ 
+          navigate("/")
+          reactLocalStorage.clear()
+          // window.location.reload()
+          toast.error(error?.response?.data?.error);
+
+        }
+        
+
+        // const myTimeout = setTimeout(sessionStorageClearFun, 2000);
+      }
+       
+      return Promise.reject(error);
+    }
+  );
   
   return (
     <>
