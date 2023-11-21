@@ -53,8 +53,14 @@
     height: 90px;
     border-radius: 50%;
 }
-
-
+.numbersdds{
+    cursor: not-allowed;
+background-color: #80808029; 
+padding-bottom: 10px;
+}
+.numbersdds input{
+    z-index: -1;
+ }
 .submitbox {
     position: absolute;
     top: -78px;

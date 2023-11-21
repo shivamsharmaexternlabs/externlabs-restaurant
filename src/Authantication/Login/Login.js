@@ -21,17 +21,20 @@ const Login = () => {
 
 
   useEffect(() => {
-    if (User?.data[0]?.status === 200) {
+    console.log("dsdsdsdsfd",User)
+
+
+    if (User?.data?.status === 200) {
       console.log("jhjdajvhah",User)
       setLoadSpiner(false);
-      if(User?.data[0]?.data?.type==="sales"){
+      if(User?.data?.data?.type !== "sales"){
 
         // navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
-
-        navigate(`/${User?.data[0]?.data?.restaurants[0]?.restaurant_id}/admin/leads`);
-      }
+          navigate(`/${User?.data[0]?.data?.restaurants[0]?.restaurant_id}/admin/dashboard`);
+       }
       else{
-        navigate("/admin/dashboard");
+        navigate(`/admin/leads`);
+
       }
        
       // window.location.reload(true);

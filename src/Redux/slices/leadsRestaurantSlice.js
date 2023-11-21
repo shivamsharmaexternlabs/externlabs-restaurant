@@ -82,10 +82,10 @@ export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurants
 export const UpdateRestaurantSlice = createAsyncThunk("UpdateRestaurantSlice",async (body, { rejectWithValue }) => {
   console.log("sjdhbcjwhbvjhwjvhb", body)
     try {
-      const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant/${RestaurantId}/`, body ,
+      const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant/${body?.RestaurantId}/`, body ,
       {
         headers: {
-          Authorization: `Bearer ${BearerToken}`,
+          Authorization: `Bearer ${body?.Token}`,
         },
       }); 
       console.log("UpdateRestaurantSlice",response?.data ); 

@@ -1,34 +1,59 @@
 import React from 'react'
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import './dashboardHeader.css'
 import user from '../../../images/user.png'
-import notify from '../../../images/icon6.svg' 
+import notify from '../../../images/icon6.svg'
 import { reactLocalStorage } from "reactjs-localstorage";
+import { ToggleNewLeads } from '../../../Redux/slices/sideBarToggle'
+import { useDispatch } from 'react-redux'
 
 
-const DashboardHeader = ({popUpHookFun}) => {
-  const navigate=useNavigate()
+const DashboardHeader = ({ popUpHookFun }) => {
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+
   let BearerToken = reactLocalStorage.get("Token", false);
 
-   const handleLogout=()=>{
+  let UserTypeData = reactLocalStorage.get("Type", false);
+ 
+  let UserNameData = reactLocalStorage.get("FirstName", false);
+
+  const handleLogout = () => {
     // reactLocalStorage.remove("token")
     navigate("/")
     reactLocalStorage.clear()
     window.location.reload()
-   }
+  }
+
+
+
+  const PopUpToggleFun = () => {
+    // popUpHookFun((o) => !o);
+    dispatch(ToggleNewLeads(true))
+
+  };
+
   return (
     <>
       <header>
         <div className='leftpart'>  <form> <input type='search' placeholder='Search…' /> </form> </div>
         <div className='rightpart'>
+
+          <button type='button' className="btn2"
+            onClick={(e) => PopUpToggleFun()}
+          >
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
+            </svg>New Customer</button>
           <span className='notifyimg'> <img src={notify} alt='notify img' /> </span>
           <div className='user'  >
             <figure> <img src={user} alt='user img' />  </figure>
             <div className='userinfo'>
-              <h3>Austin Robertson</h3>
-              <p>Admin</p>
+              <h3>{UserNameData}</h3>
+              <p>{UserTypeData}</p>
             </div>
-            <button type='button' className='btn2 ms-3 py-1' onClick={(e)=>handleLogout(e)}> Logout </button>
+            <button type='button' className='btn2 ms-3 py-1' onClick={(e) => handleLogout(e)}> Logout </button>
           </div>
         </div>
       </header>
