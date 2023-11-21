@@ -12,12 +12,7 @@ const Subscription = () => {
 
   const [subscriptionDetails, setSubscriptionDetails] = useState('')
 
-  // const stripe =  new  Stripe   ('sk_test_51O9jGdSBj5xgDd5yhzRUw4RGNDghmoH2uXTXtiG1kpDU0FIzb0TNSVwWgwBUHnB2ppfpprAKZevZ5GvXulcmdE8B00DEJ06sMQ');
-  // const  products  =   stripe.products.list({
-  //     limit: 3,
-  //   });
-
-  //   console.log("nxbsdsdfsd",products)
+  const [SubscriptionPlanDetails, setSubscriptionPlanDetails] = useState('')
 
 
   useEffect(() => {
@@ -39,7 +34,27 @@ const Subscription = () => {
         // expand: ['data.price']
         expand: ['data.product']
       });
-      setSubscriptionDetails(getPriceAwait?.data)
+
+
+      // let pushedData = []
+      // getPriceAwait?.data?.map((items, id) => {
+
+      //   if (items?.recurring?.interval !== undefined) {
+      //     pushedData.push(items?.recurring?.interval)
+      //   }
+      // })
+      // let unieqPlan = new Set(pushedData)
+
+      
+       let filterdata = getPriceAwait?.data?.filter((item) =>
+        item?.recurring?.interval == "year" || item?.recurring?.interval == "month"
+      )
+      setSubscriptionDetails(filterdata) 
+
+
+
+      // setSubscriptionDetails(getPriceAwait?.data)
+      // setSubscriptionPlanDetails(unieqPlan)
       // console.log("nxbsdsdfsdww", SubscriptionDetails) 
     }
 
@@ -49,23 +64,30 @@ const Subscription = () => {
 
   }, []);
 
+
   console.log("nxbsdsdfsdww", subscriptionDetails)
+
 
   useEffect(() => {
 
     if (subscriptionDetails) {
 
       let pushedData = []
+
+
       //  let filterdata= subscriptionDetails?.filter( (item) => 
       //       item?.recurring?.interval == "year" || item?.recurring?.interval == "month" 
       //   )
-      subscriptionDetails?.map((items, id) => {
+      //   // setSubscriptionDetails(filterdata)
 
-        if(items?.recurring?.interval!== undefined){
-        pushedData.push(items?.recurring?.interval)}
-      })
-      let unieqPlan = new Set(pushedData)
-      console.log("mabcsdasds", [...unieqPlan])
+      // console.log(filterdata)
+      // subscriptionDetails?.map((items, id) => {
+
+      //   if(items?.recurring?.interval!== undefined){
+      //   pushedData.push(items?.recurring?.interval)}
+      // })
+      // let unieqPlan = new Set(pushedData)
+      // console.log("mabcsdasds", [...unieqPlan])
 
       // .map(({ category, name }) => (
       //   <ProductItem
@@ -78,6 +100,9 @@ const Subscription = () => {
       // console.log("smbvcgdhbsd",filterdata)
     }
   }, [subscriptionDetails])
+
+  console.log("nxbsdsdfsdww", subscriptionDetails)
+
 
   return (
     <>
@@ -100,36 +125,42 @@ const Subscription = () => {
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
               <ul>
-                <li className=''>
-                  <div className='title'>
-                    <div className='iconbox'>
-                      <img src={subicon1} alt='img' className='img' />
-                      <img src={subicon1h} alt='img' className='activeimg' />
+                {subscriptionDetails && subscriptionDetails?.map((items, id) => {
+                  return items?.recurring?.interval === "month" && <li className=''>
+                    <div className='title'>
+                      <div className='iconbox'>
+                        <img src={subicon1} alt='img' className='img' />
+                        <img src={subicon1h} alt='img' className='activeimg' />
+                      </div>
+                      <h3>SAR49<span>/Per Month</span></h3>
                     </div>
-                    <h3>SAR49<span>/Per Month</span></h3>
-                  </div>
-                  <div className='info'>
-                    <h4>Basic</h4>
-                    <p>Upgrade your social portfolio with a stunning profile & enhanced shots.</p>
-                    <button type='button'>
-                      Get Started
-                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="8" viewBox="0 0 22 8">
-                        <path d="M21.3536 4.35356C21.5488 4.15829 21.5488 3.84171 21.3536 3.64645L18.1716 0.464468C17.9763 0.269205 17.6597 0.269205 17.4645 0.464468C17.2692 0.65973 17.2692 0.976312 17.4645 1.17157L20.2929 4L17.4645 6.82843C17.2692 7.02369 17.2692 7.34027 17.4645 7.53554C17.6597 7.7308 17.9763 7.7308 18.1716 7.53554L21.3536 4.35356ZM-4.37114e-08 4.5L21 4.5L21 3.5L4.37114e-08 3.5L-4.37114e-08 4.5Z" />
-                      </svg>
-                    </button>
-                  </div>
-                  <ul className='infolist'>
-                    <li> <img src={checkbox} alt='checkbox icon' /><span>User Dashboard</span> </li>
-                    <li> <img src={checkbox} alt='checkbox icon' /><span>Post 3 Ads per week</span> </li>
-                    <li> <img src={checkbox} alt='checkbox icon' /><span>Multiple images & videos </span> </li>
-                    <li> <img src={checkbox} alt='checkbox icon' /><span>Featured ads</span> </li>
-                    <li> <img src={checkbox} alt='checkbox icon' /><span>Special ads badge</span> </li>
-                    <li> <img src={checkbox} alt='checkbox icon' /><span>Call to Action in Every Ads</span> </li>
-                    <li> <img src={checkbox} alt='checkbox icon' /><span>Max 12 team members</span> </li>
-                  </ul>
-                </li>
+                    <div className='info'>
+                      <h4>{items?.product?.name}</h4>
+                      <p>{items?.product?.description}</p>
+                      <button type='button'>
+                        Get Started
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="8" viewBox="0 0 22 8">
+                          <path d="M21.3536 4.35356C21.5488 4.15829 21.5488 3.84171 21.3536 3.64645L18.1716 0.464468C17.9763 0.269205 17.6597 0.269205 17.4645 0.464468C17.2692 0.65973 17.2692 0.976312 17.4645 1.17157L20.2929 4L17.4645 6.82843C17.2692 7.02369 17.2692 7.34027 17.4645 7.53554C17.6597 7.7308 17.9763 7.7308 18.1716 7.53554L21.3536 4.35356ZM-4.37114e-08 4.5L21 4.5L21 3.5L4.37114e-08 3.5L-4.37114e-08 4.5Z" />
+                        </svg>
+                      </button>
+                    </div>
+                    <ul className='infolist'>
+                      {items?.product?.features?.map((item,id) => {
+                        return <li> <img src={checkbox} alt='checkbox icon' /><span>{item.name}</span> </li>
+                      })
+                      }
+                      {/* <li> <img src={checkbox} alt='checkbox icon' /><span>Post 3 Ads per week</span> </li>
+                      <li> <img src={checkbox} alt='checkbox icon' /><span>Multiple images & videos </span> </li>
+                      <li> <img src={checkbox} alt='checkbox icon' /><span>Featured ads</span> </li>
+                      <li> <img src={checkbox} alt='checkbox icon' /><span>Special ads badge</span> </li>
+                      <li> <img src={checkbox} alt='checkbox icon' /><span>Call to Action in Every Ads</span> </li>
+                      <li> <img src={checkbox} alt='checkbox icon' /><span>Max 12 team members</span> </li> */}
+                    </ul>
+                  </li>
+                })}
 
-                <li className='basic'>
+
+                {/* <li className='basic'>
                   <button type='button' className='rebtn'>Recommended</button>
                   <div className='title'>
                     <div className='iconbox'>
@@ -158,7 +189,7 @@ const Subscription = () => {
                     <li className='disable'> <img src={checkbox} alt='checkbox icon' /><span>Max 12 team members</span> </li>
 
                   </ul>
-                </li>
+                </li> */}
 
                 {/* <li className=''>
                   <div className='title'>
