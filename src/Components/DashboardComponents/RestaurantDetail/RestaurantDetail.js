@@ -5,11 +5,13 @@ import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
 import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComponent";
 import editbanner from '../../../images/editbanner.png';
+import PhoneInput from "react-phone-input-2"
 import user from '../../../images/user.svg';
 import burgerimg from '../../../images/burgerimg.png';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import share from '../../../images/share.svg'
 import share2 from '../../../images/share2.svg'
+// import close from "../../../images/close.svg";
 import { RWebShare } from "react-web-share";
 import copy from '../../../images/copy.svg'
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -21,6 +23,7 @@ import { SignUpSlice } from "../../../Redux/slices/SignUpSlice";
 import { CreateRestaurantsOnBoardSlice, LeadsRestaurantSlice, UpdateRestaurantSlice } from '../../../Redux/slices/leadsRestaurantSlice';
 import { ResetPasswordSlice } from '../../../Redux/slices/resetPasswordSlice'
 import close from "../../../images/close.svg";
+import { UpdateLeadsSlice } from '../../../Redux/slices/leadsSlice'
 
 const RestaurantDetail = () => {
   const [SuccessPopup, setSuccessPopup] = useState(false);
@@ -32,13 +35,17 @@ const RestaurantDetail = () => {
   const [popUpHook, popUpHookFun] = usePopUpHook("")
   const [CreateLeadOnBoardPayloadState, setCreateLeadOnBoardPayloadState] = useState("")
 
+  const [countrycode, setCountryCode] = useState("");
+  const [phonenumber, setPhoneNumber] = useState("");
+
   const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
   const LeadsRestaurantSelectorData = useSelector((state) => state.LeadsRestaurantApiData);
+  const LeadsSelectorData = useSelector((state) => state.LeadsApiData);
   const ResetPasswordSelectorData = useSelector((state) => state.ResetPasswordApiData);
 
-   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
+  let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
-   let BearerToken = reactLocalStorage.get("Token", false);
+  let BearerToken = reactLocalStorage.get("Token", false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -76,7 +83,8 @@ const RestaurantDetail = () => {
 
     owner_name: routeData?.state?.currentData?.owner?.first_name === undefined ? routeData?.state?.currentData?.contact_name : routeData?.state?.currentData?.owner?.first_name,
     email: routeData?.state?.currentData?.owner?.email === undefined ? routeData?.state?.currentData?.email : routeData?.state?.currentData?.owner?.email,
-    phone: routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone : routeData?.state?.currentData?.owner?.phone_number,
+    // phone_ext: routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone?.split("-")[0] : routeData?.state?.currentData?.owner?.phone_number?.split("-")[0],
+    // phone: routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone?.split("-")[1] : routeData?.state?.currentData?.owner?.phone_number?.split("-")[1],
 
     shop_no: routeData?.state?.currentData?.shop_no === undefined ? routeData?.state?.currentData?.shop_number : routeData?.state?.currentData?.shop_no,
     street: routeData?.state?.currentData?.street === undefined ? routeData?.state?.currentData?.street_name : routeData?.state?.currentData?.street,
@@ -85,15 +93,30 @@ const RestaurantDetail = () => {
     pincode: routeData?.state?.currentData?.pincode,
     state: routeData?.state?.currentData?.state,
     country: routeData?.state?.currentData?.country,
-    description: routeData?.state?.currentData?.description
+    description: routeData?.state?.currentData?.description,
+
 
   };
+
+  useEffect(() => {
+
+
+    if (routeData?.state?.currentData) {
+      setPhoneNumber(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone?.split("-")[1] : routeData?.state?.currentData?.owner?.phone_number?.split("-")[1])
+      setCountryCode(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone?.split("-")[0] : routeData?.state?.currentData?.owner?.phone_number?.split("-")[0])
+    }
+
+  }, [routeData?.state?.currentData])
+
+  console.log("asdadfadf", routeData?.state?.currentData)
+
 
   const Validate = yup.object({
     restaurant_name: yup.string().required("Restaurant name is required"),
     owner_name: yup.string().required("name is required"),
     email: yup.string().matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'First name must not contain spaces'),
-    phone: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces'),
+    // phone_ext: yup.string().required('Phone Extension is required').matches(/^\S*$/, 'Phone Extension must not contain spaces'),
+    // phone: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces'),
     shop_no: yup.string().required("shop_no is required"),
     street: yup.string().required("street name is required"),
     city: yup.string().required("City name is required"),
@@ -115,10 +138,11 @@ const RestaurantDetail = () => {
       password: values?.password,
       confirm_password: values?.confirm_password,
       first_name: CreateLeadOnBoardPayloadState?.owner_name,
-      phone_number: CreateLeadOnBoardPayloadState?.phone,
+      phone_number: countrycode + "-" +phonenumber,
       type: "owner",
       token: BearerToken
     }
+   
 
     // Call signUp API Here...
     dispatch(SignUpSlice(SignUpForOnBoardPayload))
@@ -163,17 +187,15 @@ const RestaurantDetail = () => {
       pagination: 1,
     };
     dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
-    navigate(`/${RestaurantId}/admin/leads`)
-        window.location.reload(false)
-
-
+    navigate(`/admin/leads`)
+    window.location.reload(false);
   }
 
 
   useEffect(() => {
-    if (LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.status === 201) {  
+    if (LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.status === 201) {
       setSuccessPopup(true)
-      setOnBordPopUp(false) 
+      setOnBordPopUp(false)
     }
     else if (LeadsRestaurantSelectorData?.error === "Rejected") {
       setLoadSpiner(false);
@@ -181,7 +203,7 @@ const RestaurantDetail = () => {
     }
   }, [LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData]);
 
-  console.log("dgfasashgsvd",LeadsRestaurantSelectorData)
+  console.log("dgfasashgsvd", LeadsRestaurantSelectorData)
 
   useEffect(() => {
     console.log("SignUpSelectorData", SignUpSelectorData)
@@ -196,8 +218,8 @@ const RestaurantDetail = () => {
       setLoadSpiner(false);
     }
   }, [SignUpSelectorData]);
- 
- 
+
+
   useEffect(() => {
     console.log("LeadsRestaurantSelectorData?.UpdateRestaurantReducerData", LeadsRestaurantSelectorData)
     if (LeadsRestaurantSelectorData?.UpdateRestaurantReducerData?.status === 200) {
@@ -212,6 +234,20 @@ const RestaurantDetail = () => {
     }
   }, [LeadsRestaurantSelectorData?.UpdateRestaurantReducerData]);
 
+  useEffect(() => {
+    //   console.log("LeadsSelectorData", LeadsSelectorData)
+    if (LeadsSelectorData?.UpdateLeadReducerData?.status === 200) {
+
+      setLoadSpiner(false);
+
+    }
+    else if (LeadsSelectorData?.error == "Rejected") {
+      setLoadSpiner(false);
+    }
+  }, [LeadsSelectorData?.UpdateLeadReducerData]);
+
+  console.log("jhvjhvjhbkjb", LeadsSelectorData)
+
   const handleSubmit = (values) => {
 
     if (routeData?.state?.page === "lead") {
@@ -219,8 +255,28 @@ const RestaurantDetail = () => {
 
       setCreateLeadOnBoardPayloadState(values)
 
-      console.log("nvdcssd", values)
-      console.log("routeData", routeData?.state?.page)
+      const updateLeadPayload = {
+        description: values?.description,
+        restaurant_name: values?.restaurant_name,
+        contact_name: values?.owner_name,
+        email: values?.email,
+        phone: countrycode + "-" + phonenumber,
+        shop_number: values?.shop_no,
+        street_name: values?.street,
+        city: values?.city,
+        landmark: values?.landmark,
+        pincode: values?.pincode,
+        state: values?.state,
+        country: values?.country,
+        leadId: routeData?.state?.currentData?.lead_id,
+        Token: BearerToken
+      }
+
+      dispatch(UpdateLeadsSlice(updateLeadPayload));
+
+
+      console.log("nvdcthtssd", updateLeadPayload)
+      console.log("routeData?.state?.page", routeData?.state.currentData.lead_id)
       // on Board and create password 
 
     }
@@ -237,7 +293,9 @@ const RestaurantDetail = () => {
         pincode: values?.pincode,
         state: values?.state,
         country: values?.country,
-        description: values?.description
+        description: values?.description,
+        Token: BearerToken,
+        RestaurantId: routeData?.state?.currentData?.restaurant_id
       }
 
       dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
@@ -260,14 +318,14 @@ const RestaurantDetail = () => {
   };
 
   useEffect(() => {
-    console.log("djfhvhsjfhjhrvg",ResetPasswordSelectorData )
+    console.log("djfhvhsjfhjhrvg", ResetPasswordSelectorData)
     if (ResetPasswordSelectorData?.data?.status === 200) {
       setLoadSpiner(false);
       setResetPasswordPopup(false);
       console.log("AFter Success reset Password", ResetPasswordSelectorData)
       // navigate("/emailotpverification");
     }
-   else if(ResetPasswordSelectorData?.error == "Rejected"){
+    else if (ResetPasswordSelectorData?.error == "Rejected") {
       setLoadSpiner(false);
     }
   }, [ResetPasswordSelectorData]);
@@ -287,8 +345,34 @@ const RestaurantDetail = () => {
     setResetPasswordPopup(true)
     // console.log("routeData ", e.target.values);
 
- 
+
   }
+
+  const closeResetPasswordFun = () => {
+    setResetPasswordPopup(false)
+    window.location.reload()
+  }
+
+  const handleOnChange1 = (
+    currentValue,
+    objectValue,
+    eventData,
+    eventTargetValue
+  ) => {
+    // we are not using all the parameters in this function , but all parameters are important becouse of this library
+    let data = [];
+    let CountryCode = eventTargetValue.split(" ");
+    setCountryCode(CountryCode[0]);
+    CountryCode.slice(1).map((items, id) => {
+      data.push(items);
+    });
+    let myString = data.join("").replace(/\D/g, "");
+    setPhoneNumber(myString);
+  };
+
+
+  console.log("asdsdsd", routeData?.state?.page)
+
 
   return (
     <>
@@ -359,18 +443,22 @@ const RestaurantDetail = () => {
                       </p>
                     </div>
 
-                    <div className="formbox mb-3">
-                      <label>Phone Number </label>
-                      <Field
-                        name="phone"
-                        type="number"
-                        className={`form-control `}
-                        autoComplete="off"
-                        placeholder="Enter your Phone Number"
-                      />
-                      <p className="text-danger small mb-0">
-                        <ErrorMessage name="phone" />
-                      </p>
+
+                    <div className='row'>
+
+                      <div className="col-md-12  mb-3">
+                        {<div className={`${routeData?.state?.page !== "lead" ? "formbox  numbersdds" : "formbox"} `}>
+                          <label> Phone Number </label>
+
+                          <PhoneInput
+                            // country={"in"}
+                            value={countrycode + phonenumber}
+                            onChange={routeData?.state?.page == "lead" ? handleOnChange1:""}
+                            className="input_filed"
+                          />
+                        </div>}
+                      </div>
+
                     </div>
 
                     <div className='row'>
@@ -534,7 +622,7 @@ const RestaurantDetail = () => {
           classNameValue={"onboardingpopup "}
           PopUpToggleFun={PopUpToggleFun}
           popUpHookFun={popUpHookFun} >
-          <button type="button" className="closebtn" onClick={(e)=>setOnBordPopUp(false)}> <img src={close} alt="close icon" /> </button>
+          <button type="button" className="closebtn" onClick={(e) => setOnBordPopUp(false)}> <img src={close} alt="close icon" /> </button>
 
 
           <div className="popuptitle">
@@ -600,7 +688,7 @@ const RestaurantDetail = () => {
           PopUpToggleFun={PopUpToggleFun}
           popUpHookFun={popUpHookFun} >
 
-
+          <button type="button" className="closebtn" onClick={(e) => closeResetPasswordFun()}> <img src={close} alt="close icon" /> </button>
           <div className="popuptitle">
             <h2>Reset Password </h2>
           </div>

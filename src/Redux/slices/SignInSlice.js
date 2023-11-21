@@ -10,10 +10,15 @@ import { reactLocalStorage } from "reactjs-localstorage";
 export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signin/`,body);
+      console.log("Tokendfgsrdfryhe",response?.data );
       toast.success("Successfully Loged In");
       reactLocalStorage.set("Token",response?.data?.token);
-      reactLocalStorage.set("RestaurantId",response?.data?.restaurants[0]?.restaurant_id);
-      console.log("Tokendfgsrdfryhe",response?.data );
+      reactLocalStorage.set("FirstName",response?.data?.first_name);
+      if(response?.data?.type!=="sales"){
+      reactLocalStorage.set("RestaurantId",response?.data?.restaurants?.[0]?.restaurant_id); //need condition when role is "sales" then only we have to
+
+      }
+        
       reactLocalStorage.set("Type",response?.data?.type);
 
       // reactLocalStorage.set("id",response?.data?.currentUser?.user_id);
@@ -66,7 +71,7 @@ export const signInReducer = createSlice({
 
       .addCase(SignInSlice.fulfilled, (state, action) => {
         state.loading = false;
-        state.data.push(action.payload);
+        state.data = (action.payload);
       }
       )
 

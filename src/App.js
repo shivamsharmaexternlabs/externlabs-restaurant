@@ -33,13 +33,16 @@ function App() {
         <Route path='/success' element={<Success />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
         <Route path="/user_auth/resetpassword/:id" element={<ResetPassword />}></Route>
-        <Route path="/admin/dashboard" element={<Dashboard />}></Route>
-        <Route path="/admin/categories" element={<Categories />}></Route>
-        <Route path="/admin/manager" element={<Manager />}></Route>
+        <Route path="/:id/admin/dashboard" element={<Dashboard />}></Route>
+        <Route path="/:id/admin/categories" element={<Categories />}></Route>
+        <Route path="/:id/admin/manager" element={<Manager />}></Route>
+
         <Route path="/:id/menu" element={<Menu />}></Route> 
-        <Route path='/:id/admin/leads' element={<Leads />}></Route>
-        <Route path='/:id/admin/menucategories' element={<Menucategories />}></Route>
-        <Route path='/:id/admin/restaurantdetail/:id' element={<RestaurantDetail />}></Route>  
+        
+        <Route path='/admin/leads' element={<Leads />}></Route>
+        <Route path='/admin/menucategories' element={<Menucategories />}></Route>
+        <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail />}></Route>  
+
         <Route path='/subscription' element={<Subscription />}></Route>
 
       </Routes>

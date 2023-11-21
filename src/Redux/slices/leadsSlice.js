@@ -5,12 +5,36 @@ import { reactLocalStorage } from "reactjs-localstorage";
 
 // let BearerToken = reactLocalStorage.get("Token", false)
     
-// SignIn
-
+//Lead get Slice
 export const LeadsSlice = createAsyncThunk("LeadsSlice",async (body, { rejectWithValue }) => {
   console.log("jhfbjhbrjfbjrhf", body)
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}sales/leads/?page=${body?.pagination === undefined? 1 : body?.pagination}`,
+      {
+        headers: {
+          Authorization: `Bearer ${body?.Token}`,
+        },
+      }
+      ); 
+      console.log("leadsleads",response?.data ); 
+
+      return response;
+
+    } catch (err) {
+
+      console.log("shfjjerr", err)
+      toast.error(err?.response?.data?.error[0]);
+      return rejectWithValue(err);
+    }
+  }
+);
+
+
+//Lead Update Slice
+export const UpdateLeadsSlice = createAsyncThunk("UpdateLeadsSlice",async (body, { rejectWithValue }) => {
+  // console.log("jhfbjhbrjfbjrhf", body)
+    try {
+      const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}sales/leads/${body?.leadId}/`, body, 
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,
@@ -43,6 +67,7 @@ export const leadsReducer = createSlice({
   name: "leadsReducer",
   initialState: {
     LeadReducerData: [],
+    UpdateLeadReducerData : [],
     loading: false,
     error: null,
   },
@@ -63,6 +88,20 @@ export const leadsReducer = createSlice({
         state.loading = false;
         state.error = action.payload;
         // state.error = action.error.message;
+      })
+
+      .addCase(UpdateLeadsSlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(UpdateLeadsSlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.UpdateLeadReducerData = action.payload;
+      })
+
+      .addCase(UpdateLeadsSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       })
        
   },

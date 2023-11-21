@@ -53,8 +53,8 @@ const DashboardSidebar = () => {
 
               <li className="">
                 <NavLink
-                  to="/admin/dashboard"
-                  className={` ${param.pathname === "/admin/dashboard" ? "active" : ""
+                  to={`/${RestaurantId}/admin/dashboard`}
+                  className={` ${param.pathname === ":id/admin/dashboard" ? "active" : ""
                     } `}
                 >
 
@@ -63,14 +63,14 @@ const DashboardSidebar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/admin/manager"
-                  className={` ${param.pathname === "/admin/manager" ? "active" : ""
+                <NavLink to={`/${RestaurantId}/admin/manager`}
+                  className={` ${param.pathname === ":id/admin/manager" ? "active" : ""
                     } `}
                 >   <img src={icon8} alt='img' /> <span className='text'>Managers</span>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/admin/categories" className={` ${param.pathname === "/admin/categories" ? "active" : ""
+                <NavLink to={`/${RestaurantId}/admin/categories`} className={` ${param.pathname === ":id/admin/categories" ? "active" : ""
                   } `}> <img src={icon9} alt='img' /> <span className='text'>Menu Categories</span>
                 </NavLink>
               </li>
@@ -90,17 +90,17 @@ const DashboardSidebar = () => {
           }
           {UserTypeData === "sales" && <>  <li>
             <NavLink
-              to={`/${RestaurantId}/admin/leads`}
-              className={` ${param.pathname === ":id/admin/leads" ? "active" : ""
+              to={`/admin/leads`}
+              className={` ${param.pathname === "/admin/leads" ? "active" : ""
                 } `}
 
-            ><img src={icon10} alt='img' /> <span className='text'>Leads</span>
+            ><img src={icon8} alt='img' /> <span className='text'>Leads</span>
             </NavLink>
           </li>
             <li>
               <NavLink
-                to=  {`/${RestaurantId}/admin/menucategories`}  
-                className={` ${param.pathname === ":id/admin/menucategories" ? "active" : ""
+                to=  {`/admin/menucategories`}  
+                className={` ${param.pathname === "/admin/menucategories" ? "active" : ""
                   } `}
 
             ><img src={icon10} alt='img' /> <span className='text'>Menu Categories</span>
