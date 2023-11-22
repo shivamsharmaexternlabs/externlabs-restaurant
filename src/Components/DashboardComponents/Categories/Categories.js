@@ -10,6 +10,8 @@ import dish3 from "../../../images/dish3.png";
 import category from "../../../images/category.png";
 import edit1 from "../../../images/edit.svg";
 import starfill from "../../../images/star.svg";
+import defaultImage from '../../../images/defaultImage.png'
+// import defaultImage2 from '../../../images/defaultImage2.png'
 import star from "../../../images/starb.png";
 import editw from "../../../images/editw.svg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -1560,7 +1562,7 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
                               <div>
                                 <figure>
                                   <img
-                                    src={item?.category_image}
+                                    src={item?.category_image === null ? defaultImage : item?.category_image}
                                     alt="img"
                                     className="catg-img"
                                   />
@@ -1686,7 +1688,7 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
                                       <span className="price">{`$${items?.item_price}`}</span>
                                     </div>
                                     <div className="rightpart">
-                                      <img src={items?.image} alt="img" />
+                                      <img src= {items?.image === null ? defaultImage : items?.image} alt="img" />
                                     </div>
                                   </div>
                                 </li>
@@ -1753,15 +1755,13 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
                   <h2>Bestseller</h2>
                   <ul>
                     {/* FAVORITE DISHES MANAGEMENT */}
-                    {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map(
-                     
-                      (items, favoriteId) => { 
+                    {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map((items, favoriteId) => { 
                         return items?.item_id?.map((item, favoriteDishId) => {//no need this map every time it's 0'th index
                           console.log("hgjhdg", item);
                           return (
                             <li key={favoriteDishId}>
                               <div className="leftpart">
-                                <img src={item?.image} alt="img" />
+                                <img src={item?.image === null? defaultImage : item?.image} alt="img" />
                               </div>
                               <div className="rightpart">
                                 <h3>{item?.item_name}</h3>

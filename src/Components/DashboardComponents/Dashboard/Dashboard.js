@@ -6,6 +6,7 @@ import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import { ManagerSlice } from "../../../Redux/slices/managerSlice"
 import { GetQrCodeSlice } from "../../../Redux/slices/qrCodeSlice"
+import defaultImage from '../../../images/defaultImage.png'
 import arrow2 from '../../../images/arrow2.svg'
 import dish1 from '../../../images/dish1.png'
 import dish2 from '../../../images/dish2.png'
@@ -145,7 +146,7 @@ const Dashboard = () => {
                             return <button key={favoriteId} onClick={(e) => FavoriteCategoryTabFun(e, items)} class={`nav-link ${items?.menu_id == ActiveFavoriteCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
                               <div>
                                 <figure>
-                                  <img src={items?.category_image} alt="img" className="catg-img" />
+                                  <img src={items?.category_image === null ? defaultImage : items?.category_image} alt="img" className="catg-img" />
                                 </figure>
                                 <h3>{items?.category}</h3>
                                 <div className='buttonbox'>
@@ -204,7 +205,7 @@ const Dashboard = () => {
                                     <span className='price'>{`$${favoriteItem?.item_price}`}</span>
                                   </div>
                                   <div className='rightpart'>
-                                    <img src={favoriteItem?.image} alt='img' />
+                                    <img src={favoriteItem?.image === null ? defaultImage : favoriteItem?.image} alt='img' />
                                   </div>
                                 </div>
                               </li>
