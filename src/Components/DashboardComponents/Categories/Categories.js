@@ -37,7 +37,7 @@ import {
   DeleteMenuCategorySlice,
 } from "../../../Redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { reactLocalStorage } from "reactjs-localstorage";
 import { favoriteMenuItemSlice } from "../../../Redux/slices/favouriteSlice";
 import { toast } from "react-toastify";
@@ -48,8 +48,7 @@ const Categories = () => {
   const [popUpEditHook, popUpEditHookFun] = usePopUpHook("");
   const [loadspiner, setLoadSpiner] = useState(false);
   const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
-  const [popUpEditcategoriesHook, popUpEditcategoriesHookFun] =
-    usePopUpHook("");
+  const [popUpEditcategoriesHook, popUpEditcategoriesHookFun] =usePopUpHook("");
   const [EditCategory, setEditCategory] = useState("");
   const [ActiveCategory, setActiveCategory] = useState(undefined);
   const [Description, setDescription] = useState("");
@@ -67,7 +66,7 @@ const Categories = () => {
   const MenuItemFavouriteApiSelectorData = useSelector(
     (state) => state.MenuItemFavouriteApiData
   );
-
+const navigate=useNavigate()
   const RestaurantIdLocalStorageData = reactLocalStorage.get(
     "RestaurantId",
     false
@@ -1190,12 +1189,12 @@ const Categories = () => {
     console.log("ashd", formData);
     dispatch(CreateMenuSlice(formData));
     popUpHookFun(false);
-    setTimeout(()=>{
+    setTimeout(() => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
       };
       dispatch(GetMenuCategorySlice(MenuSlicePayload));
-      },1500)
+    }, 1500)
   };
 
   const handleUploadImage = (e) => {
@@ -1212,13 +1211,13 @@ const Categories = () => {
     category: yup.string().required("Please Create Category"),
   });
   const handleCategorySubmit = (values) => {
-    let handleCategoryPayload={
+    let handleCategoryPayload = {
       "restaurant_id": RestaurantIdLocalStorageData,
       "category_image": uploadCategoryImage,
       "category": values?.category,
-      "token":TokenLocalStorageData
+      "token": TokenLocalStorageData
     }
-     
+
 
     dispatch(CreateCategorySlice(handleCategoryPayload));
 
@@ -1254,7 +1253,7 @@ const Categories = () => {
   };
   console.log("EditMensadfsdfuData", EditMenuData);
 
-  useEffect(() => {}, [MenuApiSelectorData?.GetSampleUploadReducerData]);
+  useEffect(() => { }, [MenuApiSelectorData?.GetSampleUploadReducerData]);
   const defaultEditValue = {
     restaurant_id: EditMenuData?.restaurant_id,
     description: EditMenuData?.description,
@@ -1366,12 +1365,12 @@ const Categories = () => {
     }
 
     dispatch(EditCategorySlice(payload));
-    setTimeout(()=>{
+    setTimeout(() => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
       };
       dispatch(GetMenuCategorySlice(MenuSlicePayload));
-      },1500)
+    }, 1500)
   };
 
   const CancelCategoryEditBtnFun = () => {
@@ -1399,40 +1398,45 @@ const Categories = () => {
     }
   }, [MenuApiSelectorData?.DeleteMenucategoryReducerData]);
 
-  useEffect(()=>{
-    if(MenuItemFavouriteApiSelectorData?.data?.status===200){
+  useEffect(() => {
+    if (MenuItemFavouriteApiSelectorData?.data?.status === 200) {
 
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
       };
-   
+
       dispatch(favoriteMenuSlice(MenuSlicePayload));
 
     }
 
-  },[MenuItemFavouriteApiSelectorData])
+  }, [MenuItemFavouriteApiSelectorData])
 
   const DeleteItemfun = (e, item) => {
     dispatch(DeleteMenuItemSlice(item?.item_id));
-    setTimeout(()=>{
+    setTimeout(() => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
       };
       dispatch(GetMenuCategorySlice(MenuSlicePayload));
-      },1500)
+    }, 1500)
   };
 
   const FavoriteFun = (e, itemData) => {
     console.log("fgjhjjha", MenuApiSelectorData?.MenuSliceReducerData?.data[0]);
     dispatch(favoriteMenuItemSlice(itemData?.item_id));
-    setTimeout(()=>{
+    setTimeout(() => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
       };
       dispatch(GetMenuCategorySlice(MenuSlicePayload));
-      },1500)
+    }, 1500)
   };
-console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
+  console.log("msabdfjhsdf", MenuItemFavouriteApiSelectorData?.data?.status)
+
+  const sortCategories=()=>{
+    navigate('/DndCategories')
+  }
+
   return (
     <>
       <DashboardLayout>
@@ -1528,10 +1532,19 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
               <div className="leftpart">
                 <div className="topdishestabpart">
                   <nav>
+
+                    <button
+                      type="button"
+                      className="categorybtn btn2"
+                      onClick={(e) => sortCategories()}
+                    >
+                      Sort categories
+                    </button>
+
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       {/* CATEGORY MANAGEMENT */}
                       <Swiper
-                      slidesPerView={MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length>4?4:Number(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length)}
+                        slidesPerView={MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length > 4 ? 4 : Number(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length)}
                         // cssMode={true}
                         navigation={true}
                         mousewheel={true}
@@ -1539,78 +1552,80 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
                         modules={[Navigation, Mousewheel, Keyboard]}
                         className="mySwiper"
                       >
-                         {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
-                        (item, id) => {
-                          console.log("aujfsadasd",item)
-                          return (
-                            <SwiperSlide>
-                            <button
-                              onClick={(e) => CategoryTabFun(e, item)}
-                              className={`${ActiveCategory === item?.menu_id ? "active" : "No-active"
-                                } nav-link`}
-                              key={id}
-                              id="nav-dishes1-tab"
-                              data-bs-toggle="tab"
-                              data-bs-target="#nav-dishes1"
-                              type="button"
-                              role="tab"
-                              aria-controls="nav-dishes1"
-                              aria-selected="true"
-                            >
-                              <div>
-                                <figure>
-                                  <img
-                                    src={item?.category_image}
-                                    alt="img"
-                                    className="catg-img"
-                                  />
-                                </figure>
-                                <div className=""></div>
- 
-                                <h3>{item?.category}</h3>
- 
-                                <button className="editbtn">
-                                  <img
-                                    src={edit1}
-                                    alt="editbtn"
-                                    className="editactive "
-                                    onClick={(e) =>
-                                      PopUpEditCategoriesToggleFun(e, item)
-                                    }
-                                  />
-                                  {/* <img src={editw} alt="" className="edithover"/> */}
+
+                        {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
+                          (item, id, index) => {
+                            console.log("aujfsadasd", item)
+                            return (
+                              <SwiperSlide>
+                                <button
+                                  onClick={(e) => CategoryTabFun(e, item)}
+                                  className={`${ActiveCategory === item?.menu_id ? "active" : "No-active"
+                                    } nav-link`}
+                                  key={id}
+                                  id="nav-dishes1-tab"
+                                  data-bs-toggle="tab"
+                                  data-bs-target="#nav-dishes1"
+                                  type="button"
+                                  role="tab"
+                                  aria-controls="nav-dishes1"
+                                  aria-selected="true"
+                                >
+                                  
+                                  <div>
+                                    <figure>
+                                      <img
+                                        src={item?.category_image}
+                                        alt="img"
+                                        className="catg-img"
+                                      />
+                                    </figure>
+                                    <div className=""></div>
+
+                                    <h3>{item?.category}</h3>
+
+                                    <button className="editbtn">
+                                      <img
+                                        src={edit1}
+                                        alt="editbtn"
+                                        className="editactive "
+                                        onClick={(e) =>
+                                          PopUpEditCategoriesToggleFun(e, item)
+                                        }
+                                      />
+                                      {/* <img src={editw} alt="" className="edithover"/> */}
+                                    </button>
+                                    <button className="deletebtn ms-1">
+                                      <img
+                                        src={deleteicon}
+                                        alt="deleteicon"
+                                        className=" "
+                                        onClick={(e) => DeleteCategoryfun(e, item)}
+                                      />
+                                      {/* <img src={editw} alt="" className="edithover"/> */}
+                                    </button>
+                                    <div className="buttonbox">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="5"
+                                        height="7"
+                                        viewBox="0 0 5 7"
+                                        fill="none"
+                                      >
+                                        <path
+                                          d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768"
+                                          stroke-width="1.10009"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                  </div>
                                 </button>
-                                <button className="deletebtn ms-1">
-                                  <img
-                                    src={deleteicon}
-                                    alt="deleteicon"
-                                    className=" "
-                                    onClick={(e) => DeleteCategoryfun(e, item)}
-                                  />
-                                  {/* <img src={editw} alt="" className="edithover"/> */}
-                                </button>
-                                <div className="buttonbox">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="5"
-                                    height="7"
-                                    viewBox="0 0 5 7"
-                                    fill="none"
-                                  >
-                                    <path
-                                      d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768"
-                                      stroke-width="1.10009"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                    />
-                                  </svg>
-                                </div>
-                              </div>
-                            </button>
-                            </SwiperSlide>
-                          );
-                        }
-                      )}
+                              </SwiperSlide>
+                            );
+                          }
+                        )}
                       </Swiper>
                     </div>
                   </nav>
@@ -1681,7 +1696,7 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
                                   <div className="tabinfo">
                                     <div className="leftpart">
                                       <p>
-                                        Lorem ipsum dolor sit amet consectetur.
+                                       {items?.description}
                                       </p>
                                       <span className="price">{`$${items?.item_price}`}</span>
                                     </div>
@@ -1754,8 +1769,8 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
                   <ul>
                     {/* FAVORITE DISHES MANAGEMENT */}
                     {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map(
-                     
-                      (items, favoriteId) => { 
+
+                      (items, favoriteId) => {
                         return items?.item_id?.map((item, favoriteDishId) => {//no need this map every time it's 0'th index
                           console.log("hgjhdg", item);
                           return (
