@@ -77,6 +77,27 @@ export const GetMenuCategorySlice = createAsyncThunk(
   }
 );
 
+//patch category data after drag and drop
+export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
+  "UpdateMenuCategoryAfterDragAndDrop",
+  async (body, { rejectWithValue }) => {
+    console.log("bodyyy",body)
+    try {
+      // Assuming `body.data` contains the data you want to update
+      const response = await axios.patch(
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${body?.RestaurantId}`,//this will be change
+        body.data
+      );
+      // toast.success("Successful");
+      return response;
+    } catch (err) {
+      console.log("UpdateMenuCategoryAfterDragAndDrop", err);
+      // toast.error(err?.response?.data?.message);
+      return rejectWithValue(err);
+    }
+  }
+);
+
 // get menu category data
 // ${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&menu_id=${body?.MenuId===undefined?"":body?.MenuId}&search=${body?.searchValue===undefined?"":body?.searchValue}&item_type=${body?.itemTypeValue===undefined?"":body?.itemTypeValue}
 
@@ -429,7 +450,21 @@ export const menuReducer = createSlice({
       .addCase(DeleteMenuCategorySlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      });
+      })
+
+      .addCase(UpdateMenuCategoryAfterDragAndDrop.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(UpdateMenuCategoryAfterDragAndDrop.fulfilled, (state, action) => {
+        state.loading = false;
+        state.GetMenuCategoryReducerData = action.payload;
+      })
+
+      .addCase(UpdateMenuCategoryAfterDragAndDrop.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
   },
 });
 
