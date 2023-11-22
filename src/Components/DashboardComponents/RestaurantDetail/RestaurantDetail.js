@@ -138,7 +138,7 @@ const RestaurantDetail = () => {
       password: values?.password,
       confirm_password: values?.confirm_password,
       first_name: CreateLeadOnBoardPayloadState?.owner_name,
-      phone_number: countrycode + "-" +phonenumber,
+      phone_number: countrycode + "-" + phonenumber,
       type: "owner",
       token: BearerToken
     }
@@ -148,7 +148,7 @@ const RestaurantDetail = () => {
     dispatch(SignUpSlice(SignUpForOnBoardPayload))
 
 
-    console.log("SignUpForOnBoardPayload", SignUpForOnBoardPayload)
+    console.log("SignUpForOnBoardPayload", SignUpForOnBoardPayload, countrycode, phonenumber)
 
   }
 
@@ -415,12 +415,13 @@ const RestaurantDetail = () => {
                       </p>
                     </div>
 
-                    <div className="formbox mb-3">
+                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3 numbersdds "  : "formbox mb-3"} `}>
                       <label>Owner Name </label>
                       <Field
                         name="owner_name"
                         type="text"
-                        className={`form-control `}
+                        disabled="true"
+                        className={`form-control ${routeData?.state?.page !== "lead" ? "numbersdds "  : ""}`}
                         autoComplete="off"
                         placeholder="Enter your Name"
                       />
@@ -429,12 +430,13 @@ const RestaurantDetail = () => {
                       </p>
                     </div>
 
-                    <div className="formbox mb-3">
+                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3 numbersdds "  : "formbox mb-3"} `}>
                       <label>Email </label>
                       <Field
                         name="email"
                         type="email"
-                        className={`form-control `}
+                        disabled='true'
+                        className={`form-control ${routeData?.state?.page !== "lead" ? "numbersdds "  : ""}`}
                         autoComplete="off"
                         placeholder="Enter your Email"
                       />

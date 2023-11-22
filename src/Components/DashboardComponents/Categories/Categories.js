@@ -1681,7 +1681,7 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
                                   <div className="tabinfo">
                                     <div className="leftpart">
                                       <p>
-                                        Lorem ipsum dolor sit amet consectetur.
+                                        {items?.description}
                                       </p>
                                       <span className="price">{`$${items?.item_price}`}</span>
                                     </div>

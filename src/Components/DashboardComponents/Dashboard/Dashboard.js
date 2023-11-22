@@ -286,7 +286,7 @@ const Dashboard = () => {
                 <div className='managerstablepart'>
                   <div className='title'>
                     <h2>Managers</h2>
-                    <button type='button' onClick={(e) => navigate("/admin/manager")}> View All <img src={arrow2} alt='img' /> </button>
+                    <button type='button' onClick={(e) => navigate(`/${RestaurantIdLocalData}/admin/manager`)}> View All <img src={arrow2} alt='img' /> </button>
                   </div>
                   <div class="managerstable">
                     <table className='table'>

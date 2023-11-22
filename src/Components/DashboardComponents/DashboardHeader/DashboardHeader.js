@@ -16,7 +16,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
   let BearerToken = reactLocalStorage.get("Token", false);
 
   let UserTypeData = reactLocalStorage.get("Type", false);
- 
+
   let UserNameData = reactLocalStorage.get("FirstName", false);
 
   const handleLogout = () => {
@@ -37,15 +37,18 @@ const DashboardHeader = ({ popUpHookFun }) => {
   return (
     <>
       <header>
-        <div className='leftpart'>  <form> <input type='search' placeholder='Search…' /> </form> </div>
+        {/* <div className='leftpart'>  <form> <input type='search' placeholder='Search…' /> </form> </div> */}
         <div className='rightpart'>
 
-          <button type='button' className="btn2"
+          {UserTypeData !== "owner" &&<button type='button' className="btn2 me-3"
             onClick={(e) => PopUpToggleFun()}
           >
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
-            </svg>New Customer</button>
+            </svg>
+            New Customer
+          </button>}
+
           <span className='notifyimg'> <img src={notify} alt='notify img' /> </span>
           <div className='user'  >
             <figure> <img src={user} alt='user img' />  </figure>
