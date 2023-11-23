@@ -12,6 +12,7 @@ import edit1 from "../../../images/edit.svg";
 import starfill from "../../../images/star.svg";
 import star from "../../../images/starb.png";
 import editw from "../../../images/editw.svg";
+import order from "../../../images/order.svg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { saveAs } from "file-saver";
@@ -19,7 +20,7 @@ import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComp
 import manager from "../../../images/manager.png";
 import deleteicon from "../../../images/delete.svg";
 import { Swiper, SwiperSlide } from 'swiper/react';
- import 'swiper/css';
+import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
@@ -41,6 +42,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { reactLocalStorage } from "reactjs-localstorage";
 import { favoriteMenuItemSlice } from "../../../Redux/slices/favouriteSlice";
 import { toast } from "react-toastify";
+import DndCategories from "../DndCategories/DndCategories";
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -48,7 +50,7 @@ const Categories = () => {
   const [popUpEditHook, popUpEditHookFun] = usePopUpHook("");
   const [loadspiner, setLoadSpiner] = useState(false);
   const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
-  const [popUpEditcategoriesHook, popUpEditcategoriesHookFun] =usePopUpHook("");
+  const [popUpEditcategoriesHook, popUpEditcategoriesHookFun] = usePopUpHook("");
   const [EditCategory, setEditCategory] = useState("");
   const [ActiveCategory, setActiveCategory] = useState(undefined);
   const [Description, setDescription] = useState("");
@@ -59,6 +61,10 @@ const Categories = () => {
   const [uploadCategoryImage, setuploadCategoryImage] = useState("");
   const [EditMenuData, setEditMenuData] = useState("");
   const [DeleteCategory, setDeleteCategory] = useState();
+  const [draggedItem, setDraggedItem] = useState(null);
+  const [draggableSubcategory,setDraggableSubcategory]=useState(false)
+  const[reorderCategory,setReorderCategory]=useState(false)
+  // const[items,setItems]=useState(MenuApiSelectorData?.MenuSliceReducerData?.data[0])
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
   const CreateApiSelectorData = useSelector(
     (state) => state.CreateApiSelectorData
@@ -66,7 +72,7 @@ const Categories = () => {
   const MenuItemFavouriteApiSelectorData = useSelector(
     (state) => state.MenuItemFavouriteApiData
   );
-const navigate=useNavigate()
+  const navigate = useNavigate()
   const RestaurantIdLocalStorageData = reactLocalStorage.get(
     "RestaurantId",
     false
@@ -1433,18 +1439,56 @@ const navigate=useNavigate()
   };
   console.log("msabdfjhsdf", MenuItemFavouriteApiSelectorData?.data?.status)
 
-  const sortCategories=()=>{
-    navigate('/DndCategories')
-  }
+  const startDrag = (e, item) => {
+    e.dataTransfer.setData('text/plain', ''); // required for Firefox to enable drag
+    setDraggedItem(item);
+  };
+
+  const handleDragOver = (e, item) => {
+    e.preventDefault();
+    if (!draggedItem || draggedItem === item) {
+      return;
+    }
+  };
+  const handleDragEnd = () => {
+    setDraggedItem(null);
+  };
+   const handleDrop = (e, item) => {
+        e.preventDefault();
+
+        if (!draggedItem || draggedItem === item) {
+            return;
+        }
+        const draggedIndex = MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id?.indexOf(draggedItem);
+        const targetIndex = MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id?.indexOf(item);
+
+        const newItems = [...MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id];
+        newItems.splice(draggedIndex, 1); // Remove the dragged item
+        newItems.splice(targetIndex, 0, draggedItem); // Insert the dragged item at the new position
+
+        // setItems(newItems);
+        console.log("newItems",newItems)
+        // Dispatch an action to update the Redux store with the new order
+
+        // dispatch(UpdateMenuCategoryAfterDragAndDrop(newItems));
+
+        setDraggedItem(null);
+    };
 
   return (
     <>
       <DashboardLayout>
         <div className="dasboardbody">
           <DashboardSidebar />
+          {reorderCategory===true?<DndCategories/>:
+          
+          
           <div className="contentpart categorypage">
             <div className="title">
-              <h2>Categories</h2>
+              <h2>
+                Categories
+              <img src={order}  className="sort-order"   onClick={(e) => setReorderCategory(true)}/>
+              </h2>
               <div className="btnbox">
                 <div className="btn1 uploadbtn-wrapper">
                   <button type="button">
@@ -1532,15 +1576,6 @@ const navigate=useNavigate()
               <div className="leftpart">
                 <div className="topdishestabpart">
                   <nav>
-
-                    <button
-                      type="button"
-                      className="categorybtn btn2"
-                      onClick={(e) => sortCategories()}
-                    >
-                      Sort categories
-                    </button>
-
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       {/* CATEGORY MANAGEMENT */}
                       <Swiper
@@ -1571,7 +1606,7 @@ const navigate=useNavigate()
                                   aria-controls="nav-dishes1"
                                   aria-selected="true"
                                 >
-                                  
+
                                   <div>
                                     <figure>
                                       <img
@@ -1638,6 +1673,14 @@ const navigate=useNavigate()
                       aria-labelledby="nav-dishes1-tab"
                       tabindex="0"
                     >
+                      <button
+                        type="button"
+                        className="categorybtn btn2"
+                        onClick={(e) => setDraggableSubcategory(true)}
+                      >
+                        Sort categories
+                      </button>
+
                       <ul>
                         {/* CATEGORY ITEMS DATA MANAGEMENT */}
                         {MenuApiSelectorData?.MenuSliceReducerData?.data &&
@@ -1645,7 +1688,16 @@ const navigate=useNavigate()
                             (items, ids) => {
                               console.log("jafhaja", items);
                               return (
-                                <li key={ids} className="active">
+                                <li
+                                  key={ids}
+                                  className="active"
+                                  // key={item.menu_id}
+                                  draggable={draggableSubcategory}
+                                  onDragStart={(e) => startDrag(e, items)}
+                                  onDragOver={(e) => handleDragOver(e, items)}
+                                  onDrop={(e) => handleDrop(e, items)}
+                                  onDragEnd={handleDragEnd}
+                                >
                                   <div className="title">
                                     <div className="">
                                       <h4>
@@ -1696,7 +1748,7 @@ const navigate=useNavigate()
                                   <div className="tabinfo">
                                     <div className="leftpart">
                                       <p>
-                                       {items?.description}
+                                        {items?.description}
                                       </p>
                                       <span className="price">{`$${items?.item_price}`}</span>
                                     </div>
@@ -1800,6 +1852,7 @@ const navigate=useNavigate()
               </div>
             </div>
           </div>
+}
         </div>
       </DashboardLayout>
       {popUpHook && (
