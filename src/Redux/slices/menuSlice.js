@@ -5,6 +5,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
 
 let BearerToken = reactLocalStorage.get("Token", false);
 let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
+console.log("RestaurantIdLocalData",RestaurantIdLocalData)
 
 // create menu
 export const CreateMenuSlice = createAsyncThunk(
@@ -33,12 +34,12 @@ export const CreateMenuSlice = createAsyncThunk(
 // create category
 export const CreateCategorySlice = createAsyncThunk(
   "CreateCategorySlice",
-  async (body, { rejectWithValue }) => { 
+  async (body, { rejectWithValue }) => {
 
     const formData = new FormData();
     formData.append("restaurant_id", body?.restaurant_id);
-    formData.append("category_image",  body?.category_image);
-    formData.append("category",  body?.category);
+    formData.append("category_image", body?.category_image);
+    formData.append("category", body?.category);
 
     try {
       const response = await axios.post(
@@ -50,7 +51,7 @@ export const CreateCategorySlice = createAsyncThunk(
           },
         }
       );
-      console.log("mshdgffjsd",response)
+      console.log("mshdgffjsd", response)
       toast.success(response?.data?.message);
       return response;
     } catch (err) {
@@ -81,22 +82,28 @@ export const GetMenuCategorySlice = createAsyncThunk(
 export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
   "UpdateMenuCategoryAfterDragAndDrop",
   async (body, { rejectWithValue }) => {
-    console.log("bodyyy",body)
+    console.log("bodyyy", body)
     try {
-      // Assuming `body.data` contains the data you want to update
+   
       const response = await axios.patch(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${body?.RestaurantId}`,//this will be change
-        body.data
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${RestaurantIdLocalData}/`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${BearerToken}`,
+          },
+        }
       );
-      // toast.success("Successful");
+      toast.success(response?.data?.detail);
+      console.log(response)
       return response;
     } catch (err) {
-      console.log("UpdateMenuCategoryAfterDragAndDrop", err);
-      // toast.error(err?.response?.data?.message);
+      toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }
   }
 );
+
 
 // get menu category data
 // ${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&menu_id=${body?.MenuId===undefined?"":body?.MenuId}&search=${body?.searchValue===undefined?"":body?.searchValue}&item_type=${body?.itemTypeValue===undefined?"":body?.itemTypeValue}
@@ -108,12 +115,9 @@ export const MenuSlice = createAsyncThunk(
 
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${
-          body?.RestaurantId
-        }&menu_id=${body?.MenuId === undefined ? "" : body?.MenuId}&search=${
-          body?.searchValue === undefined ? "" : body?.searchValue
-        }&item_type=${
-          body?.itemTypeValue === undefined ? "" : body?.itemTypeValue
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId
+        }&menu_id=${body?.MenuId === undefined ? "" : body?.MenuId}&search=${body?.searchValue === undefined ? "" : body?.searchValue
+        }&item_type=${body?.itemTypeValue === undefined ? "" : body?.itemTypeValue
         }`
 
         // {
