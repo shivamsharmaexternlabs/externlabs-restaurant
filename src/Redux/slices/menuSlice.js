@@ -304,6 +304,7 @@ export const menuReducer = createSlice({
   name: "menuReducer",
   initialState: {
     GetMenuCategoryReducerData: [],
+    GetReorderCategoryReducerData: [],
     MenuSliceReducerData: [],
     favoriteMenuSliceReducerData: [],
     CreateMenuSliceReducerData: [],
@@ -462,7 +463,7 @@ export const menuReducer = createSlice({
 
       .addCase(UpdateMenuCategoryAfterDragAndDrop.fulfilled, (state, action) => {
         state.loading = false;
-        state.GetMenuCategoryReducerData = action.payload;
+        state.GetReorderCategoryReducerData = action.payload;
       })
 
       .addCase(UpdateMenuCategoryAfterDragAndDrop.rejected, (state, action) => {
