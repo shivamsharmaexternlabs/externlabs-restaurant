@@ -86,7 +86,7 @@ export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
     try {
    
       const response = await axios.patch(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${RestaurantIdLocalData}/`,
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/${RestaurantIdLocalData}/`,
         body,
         {
           headers: {
@@ -314,6 +314,7 @@ export const menuReducer = createSlice({
     GetSampleUploadReducerData: [],
     DeleteMenuItemReducerData: [],
     DeleteMenucategoryReducerData: [],
+    UpdateMenuCategoryAfterDragAndDroprReducerData:[],
     loading: false,
     error: null,
   },
@@ -463,7 +464,7 @@ export const menuReducer = createSlice({
 
       .addCase(UpdateMenuCategoryAfterDragAndDrop.fulfilled, (state, action) => {
         state.loading = false;
-        state.GetReorderCategoryReducerData = action.payload;
+        state.UpdateMenuCategoryAfterDragAndDroprReducerData = action.payload;
       })
 
       .addCase(UpdateMenuCategoryAfterDragAndDrop.rejected, (state, action) => {
