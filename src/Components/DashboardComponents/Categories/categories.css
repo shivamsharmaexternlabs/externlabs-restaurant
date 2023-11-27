@@ -9,6 +9,11 @@
 
 }
 
+.recorded-cat-div{
+display: flex;
+justify-content: space-between;
+}
+
 .dragCategory {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     width: 99.111px;
