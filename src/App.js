@@ -67,6 +67,7 @@ function App() {
         <Route path="/user_auth/resetpassword/:id" element={<ResetPassword />}></Route>
         <Route path="/:id/admin/dashboard" element={<Dashboard />}></Route>
         <Route path="/:id/admin/categories" element={ <DndProvider backend={HTML5Backend}><Categories /></DndProvider>}></Route>
+        <Route path="/:id/admin/categories/reorder/" element={ <DndProvider backend={HTML5Backend}><DndCategories /></DndProvider>}></Route>
         <Route path="/:id/admin/manager" element={<Manager />}></Route>
 
         <Route path="/:id/menu" element={<Menu />}></Route> 

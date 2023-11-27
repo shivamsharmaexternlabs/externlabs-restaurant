@@ -58,7 +58,11 @@ const Dashboard = () => {
 
   const QrCodeDownloadFun = () => {
     let url = QrImage
-    saveAs(url, "Twitter-logo");
+    var FileSaver = require('file-saver');
+
+    FileSaver.saveAs(QrImage, "image.jpg");
+
+    // saveAs(url, "Twitter-logo");
   }
 
   useEffect(() => {
@@ -336,10 +340,16 @@ const Dashboard = () => {
                     <img src={menimg} alt='img' className='qrmenimg' />
 
                   </div>
-                  {/* <div className='info'>
+                  <div className='info'>
                     <span></span>
-                    <button type='button' onClick={(e) => QrCodeDownloadFun()}>Download </button>
-                  </div> */}
+                    <button type='button' 
+                    onClick={(e) => QrCodeDownloadFun()}
+                    > 
+                    {/* <a href={QrImage} download="my-file.png">Download </a> */}
+                    Download
+                    
+                    </button>
+                  </div>
                 </div>
 
               </div>

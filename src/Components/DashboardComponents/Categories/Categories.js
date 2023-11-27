@@ -1518,6 +1518,10 @@ const Categories = () => {
     setDraggedItem(null);
   };
 
+  const reorderSubmit = (e) => {
+    navigate(`/${RestaurantIdLocalStorageData}/admin/categories/reorder/`);
+  }
+
   return (
     <>
       <DashboardLayout>
@@ -1618,8 +1622,8 @@ const Categories = () => {
               <div className="categorycontent">
                 <div className="leftpart">
                   <div className="topdishestabpart">
-                    <div className="reorder-icon-div">
-                      <img src={order} className="sort-order" onClick={(e) => setReorderCategory(true)} />
+                    <div className="reorder-icon-div" onClick={(e) => reorderSubmit(e)}>
+                      <img src={order} className="sort-order"   />
                       <h1 className="reorder-head"> Reorder</h1>
                     </div>
                     <nav>

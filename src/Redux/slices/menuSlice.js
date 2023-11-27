@@ -61,12 +61,13 @@ export const CreateCategorySlice = createAsyncThunk(
   }
 );
 // get menu category
+// ${body?.dragAndDrop==true?body?.dragAndDrop:false}
 export const GetMenuCategorySlice = createAsyncThunk(
   "GetMenuCategorySlice",
   async (body, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${body?.RestaurantId}`
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${body?.RestaurantId}&index=true`
       );
       // toast.success("Successful");
       return response;
@@ -95,10 +96,12 @@ export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
         }
       );
       toast.success(response?.data?.detail);
-      console.log(response)
+       
       return response;
     } catch (err) {
+      // console.log(response)
       toast.error(err?.response?.data?.message);
+
       return rejectWithValue(err);
     }
   }
@@ -469,7 +472,7 @@ export const menuReducer = createSlice({
 
       .addCase(UpdateMenuCategoryAfterDragAndDrop.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action;
       })
   },
 });

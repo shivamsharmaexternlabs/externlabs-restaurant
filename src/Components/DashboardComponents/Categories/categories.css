@@ -110,7 +110,7 @@ justify-content: space-between;
 .reorder-icon-div {
     display: flex;
     justify-content: end;
-   
+   cursor: pointer;
 }
 .reorder-head{
     font-family: Neuzeit Grotesk;
