@@ -1733,10 +1733,10 @@ const Categories = () => {
                           Sort categories
                         </button> */}
                       <div className="item-head">
-                        <h1>Items</h1>
+                        <h2>Items</h2>
                         <img src={order} className="sort-item-order" onClick={(e) => setDraggableSubcategory(true)} />
                       </div>
-<h2>Items</h2>
+
                       <ul>
                         {/* CATEGORY ITEMS DATA MANAGEMENT */}
 
