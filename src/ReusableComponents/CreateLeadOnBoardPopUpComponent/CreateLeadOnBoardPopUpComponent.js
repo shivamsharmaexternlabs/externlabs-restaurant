@@ -25,7 +25,7 @@ import { useNavigate } from "react-router-dom";
 import "react-phone-input-2/lib/style.css";
 import { SignUpSlice } from "../../Redux/slices/SignUpSlice";
 import { ToggleNewLeads } from "../../Redux/slices/sideBarToggle";
- // import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
+// import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
 
 
 
@@ -44,8 +44,8 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
     const [phonenumber, setPhoneNumber] = useState("");
 
 
- 
- 
+
+
 
     let BearerToken = reactLocalStorage.get("Token", false);
     let RestaurantId = reactLocalStorage.get("RestaurantId", false);
@@ -63,7 +63,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
     const LeadsRestaurantSelectorData = useSelector((state) => state.LeadsRestaurantApiData);
     const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
- 
+
 
     console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
@@ -104,7 +104,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
     });
 
 
-    
+
 
 
     const defaultSignUpValue = {
@@ -148,7 +148,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
     }
 
     const CreateLeadBtnFun = (values) => {
-        if(countrycode !=="" && phonenumber !== ""){
+        if (countrycode !== "" && phonenumber !== "") {
             let createLeadPayload = {
                 "description": values?.description,
                 "restaurant_name": values?.restaurant_name,
@@ -165,14 +165,14 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                 "status_type": "LEAD",
                 "BearerToken": BearerToken
             }
-    
+
             console.log("CreateLeadBtnFun", values)
             console.log("createLeadPayload", createLeadPayload)
-    
+
             dispatch(CreateLeadsRestaurantSlice(createLeadPayload))
 
         }
-        else{
+        else {
             toast.error("please enter your number");
 
         }
@@ -181,22 +181,22 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
     const CreateLeadOnBoard = (values) => {
 
-        if(countrycode !=="" && phonenumber !== ""){
+        if (countrycode !== "" && phonenumber !== "") {
             setCreateLeadOnBoardPayloadState(values)
             setOnBordPopUp(true)
-            popUpHookFun((o) => !o); 
-              // dispatch(ToggleNewLeads(false))
-             setLeadPopupToggle(false)
+            popUpHookFun((o) => !o);
+            // dispatch(ToggleNewLeads(false))
+            setLeadPopupToggle(false)
 
         }
-        else{
+        else {
             toast.error("please enter your number");
 
         }
     }
 
 
-   
+
 
 
     const PopUpToggleFun = () => {
@@ -212,7 +212,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
         navigator.clipboard.writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url);
     }
 
-    
+
 
     const callBackFuncAfterSignUp = () => {
         setOnBordPopUp(false)
@@ -268,7 +268,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
             // setOnBordPopUp(false)
             // setLoadSpiner(false);
             // popUpHookFun(false);
- 
+
 
         }
         else if (LeadsRestaurantSelectorData?.error === "Rejected") {
@@ -292,7 +292,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
     }, [SignUpSelectorData]);
 
 
-    
+
 
     const BackToHomeFun = () => {
         window.location.reload(false)
@@ -318,8 +318,8 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
     }
 
     const ClosePopupFun = () => {
-        window.location.reload() 
-        popUpHookFun(false) 
+        window.location.reload()
+        popUpHookFun(false)
         dispatch(ToggleNewLeads(false))
 
     }
@@ -355,7 +355,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
     return (
         <div>
-           {LeadPopupToggle && <PopUpComponent
+            {LeadPopupToggle && <PopUpComponent
                 classNameValue={"leadpopup "}
                 PopUpToggleFun={PopUpToggleFun}
                 popUpHookFun={popUpHookFun}
@@ -453,25 +453,12 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                 <div className="col-md-12  mb-3">
                                     <div className="formbox ">
                                         <label> Phone Number </label>
-
-
                                         <PhoneInput
                                             country={"in"}
                                             // value={phonenumber}
                                             onChange={handleOnChange1}
                                             className="input_filed"
                                         />
-                                        {/* <Field
-                        name="phone"
-                        type="text"
-                        className={`form-control `}
-                        autoComplete="off"
-                        placeholder="Enter your Phone Number"
-                      />
-
-                      <p className="text-danger small mb-0">
-                        <ErrorMessage name="phone" />
-                      </p> */}
                                     </div>
                                 </div>
 
@@ -639,7 +626,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                 <PopUpComponent
                     classNameValue={"onboardingpopup "}
                     PopUpToggleFun={PopUpToggleFun}
-                    popUpHookFun={popUpHookFun} > 
+                    popUpHookFun={popUpHookFun} >
                     <button type="button" className="closebtn" onClick={(e) => closeOnBoardFun()}> <img src={close} alt="close icon" /> </button>
                     <div className="popuptitle">
                         <h2>Onboarding </h2>

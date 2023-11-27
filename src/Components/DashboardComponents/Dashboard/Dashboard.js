@@ -305,7 +305,7 @@ const Dashboard = () => {
                         console.log("dhgah", items)
                         return <tr>
                           <td> <img src={user} alt='img' /> </td>
-                          <td>{`${items?.first_name} ${items?.last_name} `}</td>
+                          <td>{`${items?.first_name}`}</td>
                           <td>{items?.email}</td>
                           <td>Lorem ipsum dolor sit amet consetur dign....</td>
                         </tr>

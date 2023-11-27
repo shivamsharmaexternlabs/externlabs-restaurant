@@ -8,6 +8,8 @@ import item1 from '../../images/item1.png'
 import pizza from '../../images/pizza.png'
 import icon4 from '../../images/icon4.svg'
 import icon5 from '../../images/icon5.svg'
+import calorie from '../../images/calorie.png'
+
 import star from '../../images/star.svg'
 import { GetMenuCategorySlice, MenuSlice } from '../../Redux/slices/menuSlice'
 import menu from '../../images/menu.svg'
@@ -236,16 +238,17 @@ const Menu = () => {
                           return <li key={ids} >
                             <div className='leftpart'>
                               <div className='spbtn'>
-                                {CategoryItem?.item_type==="NON_VEG"?<img src={icon5} alt='img' />:
-                                <img src={icon4} alt='img' />}
-                                <span className={`${CategoryItem?.item_type!=="NON_VEG"?"bestcallerBackgrounveg":"bestcallerBackgrounNonveg"} bestcallerBackgroun`}>Bestseller</span>
+                                {CategoryItem?.item_type==="NON_VEG" ? <img src={icon5} alt='img' /> : <img src={icon4} alt='img' />}
+                                {/* {CategoryItem?.item_type==="NON_VEG" ? <img src={icon5} alt='img' /> : <img src={icon4} alt='img' />} */}
+                                {CategoryItem?.is_favorite === true && <span className={`bestcallerBackgroun`}>Bestseller</span>}
                               </div>
                               <h3> {CategoryItem?.item_name}</h3>
-                              <p>Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. </p>
-                              <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div>
+                              <p>{CategoryItem?.description}</p>
+                              {/* <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div> */}
+                              <div className='startxt'> <img src={calorie} alt="img" /> {CategoryItem?.calories + " " + CategoryItem?.calories_unit}</div>
                             </div>
                             <div className='rightpart'>
-                              <span className='pricetext'> Rs.1212 </span>
+                              <span className='pricetext'>{CategoryItem?.currency} {CategoryItem?.item_price} </span>
                              {CategoryItem?.image !=null&& <figure> <img src={CategoryItem?.image} alt='img' /> </figure>}
 
                               {/* <figure> <img src={item1} alt='img' /> </figure> */}

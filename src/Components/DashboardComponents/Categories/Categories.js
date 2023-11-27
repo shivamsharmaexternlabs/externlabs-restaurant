@@ -1177,11 +1177,11 @@ const Categories = () => {
   };
   console.log("sjgjah", defaultValue);
   const Validatemenu = yup.object({
-    item_name: yup.string().required("Please Enter Item"),
+    item_name: yup.string().required("Please Enter Item Name"),
     item_price: yup.string().required("Please Enter Price"),
     calories: yup.string().required("Please Enter Calories"),
     menu_id: yup.string().required("Please Enter Menu"),
-    item_type: yup.string().required("Please Enter Item"),
+    item_type: yup.string().required("Please Enter Item Type"),
     currency: yup.string().required("Please Enter Currency"),
   });
   const handleMenuSubmit = (values) => {
@@ -1200,12 +1200,12 @@ const Categories = () => {
     console.log("ashd", formData);
     dispatch(CreateMenuSlice(formData));
     popUpHookFun(false);
-    setTimeout(() => {
-      let MenuSlicePayload = {
-        RestaurantId: RestaurantIdLocalStorageData,
-      };
-      dispatch(GetMenuCategorySlice(MenuSlicePayload));
-    }, 1500)
+    // setTimeout(() => {
+    //   let MenuSlicePayload = {
+    //     RestaurantId: RestaurantIdLocalStorageData,
+    //   };
+    //   dispatch(GetMenuCategorySlice(MenuSlicePayload));
+    // }, 1500)
   };
 
   const handleUploadImage = (e) => {
@@ -1460,7 +1460,7 @@ const Categories = () => {
     e.preventDefault();
 
     if (!draggedItem || draggedItem === item) {
-        return;
+      return;
     }
 
     const draggedIndex = MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id?.findIndex((el) => el.menu_id === draggedItem.menu_id);
@@ -1482,7 +1482,7 @@ const Categories = () => {
     console.log("newItems", newItems);
 
     const payload = {
-        data: newItems.map(({ item_id,menu_id, index }) => ({ menu_id,item_id, index })),
+      data: newItems.map(({ item_id, menu_id, index }) => ({ menu_id, item_id, index })),
     };
     console.log("payload", payload);
 
@@ -1490,7 +1490,7 @@ const Categories = () => {
     // dispatch(UpdateMenuCategoryAfterDragAndDrop(payload));
 
     setDraggedItem(null);
-};
+  };
   // const handleDrop = (e, item) => {
   //   e.preventDefault(); 
 
@@ -1529,81 +1529,81 @@ const Categories = () => {
       <DashboardLayout>
         <div className="dasboardbody">
           <DashboardSidebar />
-          {reorderCategory === true ? <DndCategories /> :
+          {/* {reorderCategory === true ? <DndCategories /> : */}
 
 
-            <div className="contentpart categorypage">
-              <div className="title">
-                <h2>
-                  Categories
-                  {/* <img src={order}  className="sort-order"   onClick={(e) => setReorderCategory(true)}/> */}
-                </h2>
-                <div className="btnbox">
-                  <div className="btn1 uploadbtn-wrapper">
-                    <button type="button">
-                      {" "}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="14"
-                        height="14"
-                        viewBox="0 0 14 14"
-                        fill="none"
-                      >
-                        <path d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z" />
-                      </svg>{" "}
-                      Upload Menu{" "}
-                    </button>
-                    <input
-                      type="file"
-                      accept="xlxs"
-                      onChange={(e) => UploadMenuFile(e)}
-                    />
-                  </div>
-
-                  <button
-                    type="button"
-                    className="menubtn btn2"
-                    onClick={(e) => PopUpToggleFun()}
-                  >
+          <div className="contentpart categorypage">
+            <div className="title">
+              <h2>
+               Menu Categories
+                {/* <img src={order}  className="sort-order"   onClick={(e) => setReorderCategory(true)}/> */}
+              </h2>
+              <div className="btnbox">
+                <div className="btn1 uploadbtn-wrapper">
+                  <button type="button">
                     {" "}
                     <svg
-                      width="13"
-                      height="13"
-                      viewBox="0 0 13 13"
-                      fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
-                    </svg>
-                    Add Menu
-                  </button>
-                  <button
-                    type="button"
-                    className="categorybtn btn2"
-                    onClick={(e) => PopUpCategoriesToggleFun()}
-                  >
-                    {" "}
-                    <svg
-                      width="13"
-                      height="13"
-                      viewBox="0 0 13 13"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 14 14"
                       fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
-                    </svg>
-                    Add Categories
+                      <path d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z" />
+                    </svg>{" "}
+                    Upload Menu{" "}
                   </button>
+                  <input
+                    type="file"
+                    accept="xlxs"
+                    onChange={(e) => UploadMenuFile(e)}
+                  />
+                </div>
 
-                  <button
-                    type="button"
-                    className="categorybtn btn2"
-                    onClick={(e) => QrCodeSampleDownloadFun()}
+                <button
+                  type="button"
+                  className="menubtn btn2"
+                  onClick={(e) => PopUpToggleFun()}
+                >
+                  {" "}
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 13 13"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Download Sample
-                  </button>
+                    <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
+                  </svg>
+                  Add Menu
+                </button>
+                <button
+                  type="button"
+                  className="categorybtn btn2"
+                  onClick={(e) => PopUpCategoriesToggleFun()}
+                >
+                  {" "}
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 13 13"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
+                  </svg>
+                  Add Categories
+                </button>
 
-                  {/* <div className="btn1 uploadbtn-wrapper">
+                <button
+                  type="button"
+                  className="categorybtn btn2"
+                  onClick={(e) => QrCodeSampleDownloadFun()}
+                >
+                  Download Sample
+                </button>
+
+                {/* <div className="btn1 uploadbtn-wrapper">
                 <img src={QrSampleImage} alt='img' />
                   <div className='info'>
                     <button type='button' onClick={(e) => QrCodeSampleDownloadFun()}>Download Sample</button>
@@ -1618,295 +1618,295 @@ const Categories = () => {
                     onClick={(e) => QrCodeSampleDownloadFun(e)}
                   />
                 </div> */}
-                </div>
               </div>
+            </div>
 
-              <div className="categorycontent">
-                <div className="leftpart">
-                  <div className="topdishestabpart">
-                    <div className="reorder-icon-div" onClick={(e) => reorderSubmit(e)}>
-                      <img src={order} className="sort-order"   />
-                      <h1 className="reorder-head"> Reorder</h1>
-                    </div>
-                    <nav>
-                      <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        {/* CATEGORY MANAGEMENT */}
-                        <Swiper
-                          slidesPerView={MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length > 4 ? 4 : Number(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length)}
-                          // cssMode={true}
-                          navigation={true}
-                          mousewheel={true}
-                          keyboard={true}
-                          modules={[Navigation, Mousewheel, Keyboard]}
-                          className="mySwiper"
-                        >
-                          {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
-                            (item, id, index) => {
-                              console.log("aujfsadasd", item)
-                              return (
-                                <SwiperSlide>
-                                  <button
-                                    onClick={(e) => CategoryTabFun(e, item)}
-                                    className={`${ActiveCategory === item?.menu_id ? "active" : "No-active"
-                                      } nav-link`}
-                                    key={id}
-                                    id="nav-dishes1-tab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#nav-dishes1"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="nav-dishes1"
-                                    aria-selected="true"
-                                  >
-
-                                    <div>
-                                      <figure>
-                                        <img
-                                          src={item?.category_image}
-                                          alt="img"
-                                          className="catg-img"
-                                        />
-                                      </figure>
-                                      <div className=""></div>
-
-                                      <h3>{item?.category}</h3>
-
-                                      <button className="editbtn">
-                                        <img
-                                          src={edit1}
-                                          alt="editbtn"
-                                          className="editactive "
-                                          onClick={(e) =>
-                                            PopUpEditCategoriesToggleFun(e, item)
-                                          }
-                                        />
-                                        {/* <img src={editw} alt="" className="edithover"/> */}
-                                      </button>
-                                      <button className="deletebtn ms-1">
-                                        <img
-                                          src={deleteicon}
-                                          alt="deleteicon"
-                                          className=" "
-                                          onClick={(e) => DeleteCategoryfun(e, item)}
-                                        />
-                                        {/* <img src={editw} alt="" className="edithover"/> */}
-                                      </button>
-                                      <div className="buttonbox">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="5"
-                                          height="7"
-                                          viewBox="0 0 5 7"
-                                          fill="none"
-                                        >
-                                          <path
-                                            d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768"
-                                            stroke-width="1.10009"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                          />
-                                        </svg>
-                                      </div>
-                                    </div>
-                                  </button>
-                                </SwiperSlide>
-                              );
-                            }
-                          )}
-                        </Swiper>
-                      </div>
-                    </nav>
-
-                    <div class="tab-content" id="nav-tabContent">
-                      <div
-                        class="tab-pane fade show active"
-                        id="nav-dishes1"
-                        role="tabpanel"
-                        aria-labelledby="nav-dishes1-tab"
-                        tabindex="0"
+            <div className="categorycontent">
+              <div className="leftpart">
+                <div className="topdishestabpart">
+                  <div className="reorder-icon-div" onClick={(e) => reorderSubmit(e)}>
+                    <img src={order} className="sort-order" />
+                    <h1 className="reorder-head"> Reorder</h1>
+                  </div>
+                  <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      {/* CATEGORY MANAGEMENT */}
+                      <Swiper
+                        slidesPerView={MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length > 4 ? 4 : Number(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length)}
+                        // cssMode={true}
+                        navigation={true}
+                        mousewheel={true}
+                        keyboard={true}
+                        modules={[Navigation, Mousewheel, Keyboard]}
+                        className="mySwiper"
                       >
-                        {/* <button
+                        {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
+                          (item, id, index) => {
+                            console.log("aujfsadasd", item)
+                            return (
+                              <SwiperSlide>
+                                <button
+                                  onClick={(e) => CategoryTabFun(e, item)}
+                                  className={`${ActiveCategory === item?.menu_id ? "active" : "No-active"
+                                    } nav-link`}
+                                  key={id}
+                                  id="nav-dishes1-tab"
+                                  data-bs-toggle="tab"
+                                  data-bs-target="#nav-dishes1"
+                                  type="button"
+                                  role="tab"
+                                  aria-controls="nav-dishes1"
+                                  aria-selected="true"
+                                >
+
+                                  <div>
+                                    <figure>
+                                      <img
+                                        src={item?.category_image}
+                                        alt="img"
+                                        className="catg-img"
+                                      />
+                                    </figure>
+                                    <div className=""></div>
+
+                                    <h3>{item?.category}</h3>
+
+                                    <button className="editbtn">
+                                      <img
+                                        src={edit1}
+                                        alt="editbtn"
+                                        className="editactive "
+                                        onClick={(e) =>
+                                          PopUpEditCategoriesToggleFun(e, item)
+                                        }
+                                      />
+                                      {/* <img src={editw} alt="" className="edithover"/> */}
+                                    </button>
+                                    <button className="deletebtn ms-1">
+                                      <img
+                                        src={deleteicon}
+                                        alt="deleteicon"
+                                        className=" "
+                                        onClick={(e) => DeleteCategoryfun(e, item)}
+                                      />
+                                      {/* <img src={editw} alt="" className="edithover"/> */}
+                                    </button>
+                                    <div className="buttonbox">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="5"
+                                        height="7"
+                                        viewBox="0 0 5 7"
+                                        fill="none"
+                                      >
+                                        <path
+                                          d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768"
+                                          stroke-width="1.10009"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </button>
+                              </SwiperSlide>
+                            );
+                          }
+                        )}
+                      </Swiper>
+                    </div>
+                  </nav>
+
+                  <div class="tab-content" id="nav-tabContent">
+                    <div
+                      class="tab-pane fade show active"
+                      id="nav-dishes1"
+                      role="tabpanel"
+                      aria-labelledby="nav-dishes1-tab"
+                      tabindex="0"
+                    >
+                      {/* <button
                           type="button"
                           className="categorybtn btn2"
                           onClick={(e) => setDraggableSubcategory(true)}
                         >
                           Sort categories
                         </button> */}
-                        <div className="item-head">
-                          <h1>Items</h1>
-                          <img src={order} className="sort-item-order" onClick={(e) => setDraggableSubcategory(true)} />
-                        </div>
-
-                        <ul>
-                          {/* CATEGORY ITEMS DATA MANAGEMENT */}
-
-
-                          {dragItem.length == 0 ? MenuApiSelectorData?.MenuSliceReducerData?.data &&
-                            MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id?.map(
-                              (items, ids) => {
-                                console.log("jafhaja", items);
-                                return (
-                                  <li
-                                    key={ids}
-                                    className={draggableSubcategory === true ? "drag-active" : "active"}
-                                    // key={item.menu_id}
-                                    draggable={draggableSubcategory}
-                                    onDragStart={(e) => startDrag(e, items)}
-                                    onDragOver={(e) => handleDragOver(e, items)}
-                                    onDrop={(e) => handleDrop(e, items)}
-                                    onDragEnd={handleDragEnd}
-                                  >
-                                    {<div className="title">
-                                      <div className="">
-                                        <h4>
-                                          {items?.item_name}{" "}
-                                          <button
-                                            type="button"
-                                            onClick={(e) => FavoriteFun(e, items)}
-                                          >
-                                            {" "}
-                                            <img
-                                              src={
-                                                items?.is_favorite === true
-                                                  ? starfill
-                                                  : star
-                                              }
-                                              alt="img"
-                                              className="ms-1"
-                                            />{" "}
-                                            {/* <img src={star} alt="img" />{" "} */}
-                                          </button>{" "}
-                                        </h4>
-                                      </div>
-                                      <div className="btnbox">
-                                        <button
-                                          type="button"
-                                          onClick={(e) =>
-                                            PopUpToggleEditFun(e, items)
-                                          }
-                                          className="editbtn"
-                                        >
-                                          {" "}
-                                          <img src={edit1} alt="img" />{" "}
-                                        </button>
-
-                                        <button className="deletbtn">
-                                          <img
-                                            src={deleteicon}
-                                            alt="delete icon "
-                                            // className="editactive "
-                                            onClick={(e) =>
-                                              DeleteItemfun(e, items)
-                                            }
-                                          />
-                                        </button>
-                                      </div>
-                                    </div>}
-
-                                    <div className="tabinfo">
-                                      <div className="leftpart">
-                                        <p>
-                                          {items?.description}
-                                        </p>
-                                        <span className="price">{`$${items?.item_price}`}</span>
-                                      </div>
-                                      <div className="rightpart">
-                                        <img src={items?.image} alt="img" />
-                                      </div>
-                                    </div>
-                                  </li>
-                                );
-                              }
-                            )
-
-                            :
-
-
-                            dragItem && dragItem?.map(
-                              (items, ids) => {
-                                console.log("jafhaja", items);
-                                return (
-                                  <li
-                                    key={ids}
-                                    className={draggableSubcategory === true ? "drag-active" : "active"}
-                                    // key={item.menu_id}
-                                    draggable={draggableSubcategory}
-                                    onDragStart={(e) => startDrag(e, items)}
-                                    onDragOver={(e) => handleDragOver(e, items)}
-                                    onDrop={(e) => handleDrop(e, items)}
-                                    onDragEnd={handleDragEnd}
-                                  >
-                                    {<div className="title">
-                                      <div className="">
-                                        <h4>
-                                          {items?.item_name}{" "}
-                                          <button
-                                            type="button"
-                                            onClick={(e) => FavoriteFun(e, items)}
-                                          >
-                                            {" "}
-                                            <img
-                                              src={
-                                                items?.is_favorite === true
-                                                  ? starfill
-                                                  : star
-                                              }
-                                              alt="img"
-                                              className="ms-1"
-                                            />{" "}
-                                            {/* <img src={star} alt="img" />{" "} */}
-                                          </button>{" "}
-                                        </h4>
-                                      </div>
-                                      <div className="btnbox">
-                                        <button
-                                          type="button"
-                                          onClick={(e) =>
-                                            PopUpToggleEditFun(e, items)
-                                          }
-                                          className="editbtn"
-                                        >
-                                          {" "}
-                                          <img src={edit1} alt="img" />{" "}
-                                        </button>
-
-                                        <button className="deletbtn">
-                                          <img
-                                            src={deleteicon}
-                                            alt="delete icon "
-                                            // className="editactive "
-                                            onClick={(e) =>
-                                              DeleteItemfun(e, items)
-                                            }
-                                          />
-                                        </button>
-                                      </div>
-                                    </div>}
-
-                                    <div className="tabinfo">
-                                      <div className="leftpart">
-                                        <p>
-                                          {items?.description}
-                                        </p>
-                                        <span className="price">{`$${items?.item_price}`}</span>
-                                      </div>
-                                      <div className="rightpart">
-                                        <img src={items?.image} alt="img" />
-                                      </div>
-                                    </div>
-                                  </li>
-                                );
-                              }
-                            )
-
-
-                          }
-
-
-                        </ul>
+                      <div className="item-head">
+                        <h1>Items</h1>
+                        <img src={order} className="sort-item-order" onClick={(e) => setDraggableSubcategory(true)} />
                       </div>
+<h2>Items</h2>
+                      <ul>
+                        {/* CATEGORY ITEMS DATA MANAGEMENT */}
 
-                      {/* <div class="tab-pane fade" id="nav-dishes2" role="tabpanel" aria-labelledby="nav-dishes2-tab" tabindex="0">
+
+                        {dragItem.length == 0 ? MenuApiSelectorData?.MenuSliceReducerData?.data &&
+                          MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id?.map(
+                            (items, ids) => {
+                              console.log("jafhaja", items);
+                              return (
+                                <li
+                                  key={ids}
+                                  className={draggableSubcategory === true ? "drag-active" : "active"}
+                                  // key={item.menu_id}
+                                  draggable={draggableSubcategory}
+                                  onDragStart={(e) => startDrag(e, items)}
+                                  onDragOver={(e) => handleDragOver(e, items)}
+                                  onDrop={(e) => handleDrop(e, items)}
+                                  onDragEnd={handleDragEnd}
+                                >
+                                  {<div className="title">
+                                    <div className="">
+                                      <h4>
+                                        {items?.item_name}{" "}
+                                        <button
+                                          type="button"
+                                          onClick={(e) => FavoriteFun(e, items)}
+                                        >
+                                          {" "}
+                                          <img
+                                            src={
+                                              items?.is_favorite === true
+                                                ? starfill
+                                                : star
+                                            }
+                                            alt="img"
+                                            className="ms-1"
+                                          />{" "}
+                                          {/* <img src={star} alt="img" />{" "} */}
+                                        </button>{" "}
+                                      </h4>
+                                    </div>
+                                    <div className="btnbox">
+                                      <button
+                                        type="button"
+                                        onClick={(e) =>
+                                          PopUpToggleEditFun(e, items)
+                                        }
+                                        className="editbtn"
+                                      >
+                                        {" "}
+                                        <img src={edit1} alt="img" />{" "}
+                                      </button>
+
+                                      <button className="deletbtn">
+                                        <img
+                                          src={deleteicon}
+                                          alt="delete icon "
+                                          // className="editactive "
+                                          onClick={(e) =>
+                                            DeleteItemfun(e, items)
+                                          }
+                                        />
+                                      </button>
+                                    </div>
+                                  </div>}
+
+                                  <div className="tabinfo">
+                                    <div className="leftpart">
+                                      <p>
+                                        {items?.description}
+                                      </p>
+                                      <span className="price">{`$${items?.item_price}`}</span>
+                                    </div>
+                                    <div className="rightpart">
+                                      <img src={items?.image} alt="img" />
+                                    </div>
+                                  </div>
+                                </li>
+                              );
+                            }
+                          )
+
+                          :
+
+
+                          dragItem && dragItem?.map(
+                            (items, ids) => {
+                              console.log("jafhaja", items);
+                              return (
+                                <li
+                                  key={ids}
+                                  className={draggableSubcategory === true ? "drag-active" : "active"}
+                                  // key={item.menu_id}
+                                  draggable={draggableSubcategory}
+                                  onDragStart={(e) => startDrag(e, items)}
+                                  onDragOver={(e) => handleDragOver(e, items)}
+                                  onDrop={(e) => handleDrop(e, items)}
+                                  onDragEnd={handleDragEnd}
+                                >
+                                  {<div className="title">
+                                    <div className="">
+                                      <h4>
+                                        {items?.item_name}{" "}
+                                        <button
+                                          type="button"
+                                          onClick={(e) => FavoriteFun(e, items)}
+                                        >
+                                          {" "}
+                                          <img
+                                            src={
+                                              items?.is_favorite === true
+                                                ? starfill
+                                                : star
+                                            }
+                                            alt="img"
+                                            className="ms-1"
+                                          />{" "}
+                                          {/* <img src={star} alt="img" />{" "} */}
+                                        </button>{" "}
+                                      </h4>
+                                    </div>
+                                    <div className="btnbox">
+                                      <button
+                                        type="button"
+                                        onClick={(e) =>
+                                          PopUpToggleEditFun(e, items)
+                                        }
+                                        className="editbtn"
+                                      >
+                                        {" "}
+                                        <img src={edit1} alt="img" />{" "}
+                                      </button>
+
+                                      <button className="deletbtn">
+                                        <img
+                                          src={deleteicon}
+                                          alt="delete icon "
+                                          // className="editactive "
+                                          onClick={(e) =>
+                                            DeleteItemfun(e, items)
+                                          }
+                                        />
+                                      </button>
+                                    </div>
+                                  </div>}
+
+                                  <div className="tabinfo">
+                                    <div className="leftpart">
+                                      <p>
+                                        {items?.description}
+                                      </p>
+                                      <span className="price">{`$${items?.item_price}`}</span>
+                                    </div>
+                                    <div className="rightpart">
+                                      <img src={items?.image} alt="img" />
+                                    </div>
+                                  </div>
+                                </li>
+                              );
+                            }
+                          )
+
+
+                        }
+
+
+                      </ul>
+                    </div>
+
+                    {/* <div class="tab-pane fade" id="nav-dishes2" role="tabpanel" aria-labelledby="nav-dishes2-tab" tabindex="0">
                                             <ul>
                                                 <li>
                                                     <h4>Spaghetti</h4>
@@ -1955,47 +1955,47 @@ const Categories = () => {
                                                 </li>
                                             </ul>
                                         </div>  */}
-                    </div>
-                  </div>
-                </div>
-                <div className="rightpart">
-                  <div className="bestsellerpart">
-                    <h2>Bestseller</h2>
-                    <ul>
-                      {/* FAVORITE DISHES MANAGEMENT */}
-                      {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map(
-
-                        (items, favoriteId) => {
-                          return items?.item_id?.map((item, favoriteDishId) => {//no need this map every time it's 0'th index
-                            console.log("hgjhdg", item);
-                            return (
-                              <li key={favoriteDishId}>
-                                <div className="leftpart">
-                                  <img src={item?.image} alt="img" />
-                                </div>
-                                <div className="rightpart">
-                                  <h3>{item?.item_name}</h3>
-                                  <p>
-                                    Lorem ipsum dolor sit amet consectetur.
-                                    Blandit sapien eget non vivamus leo tellus a.
-                                    Accumsan euismod{" "}
-                                  </p>
-                                  <span className="price">
-                                    {" "}
-                                    {`$${item?.item_price}`}{" "}
-                                  </span>
-                                </div>
-                              </li>
-                            );
-                          });
-                        }
-                      )}
-                    </ul>
                   </div>
                 </div>
               </div>
+              <div className="rightpart">
+                <div className="bestsellerpart">
+                  <h2>Bestseller</h2>
+                  <ul>
+                    {/* FAVORITE DISHES MANAGEMENT */}
+                    {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map(
+
+                      (items, favoriteId) => {
+                        return items?.item_id?.map((item, favoriteDishId) => {//no need this map every time it's 0'th index
+                          console.log("hgjhdg", item);
+                          return (
+                            <li key={favoriteDishId}>
+                              <div className="leftpart">
+                                <img src={item?.image} alt="img" />
+                              </div>
+                              <div className="rightpart">
+                                <h3>{item?.item_name}</h3>
+                                <p>
+                                  Lorem ipsum dolor sit amet consectetur.
+                                  Blandit sapien eget non vivamus leo tellus a.
+                                  Accumsan euismod{" "}
+                                </p>
+                                <span className="price">
+                                  {" "}
+                                  {`$${item?.item_price}`}{" "}
+                                </span>
+                              </div>
+                            </li>
+                          );
+                        });
+                      }
+                    )}
+                  </ul>
+                </div>
+              </div>
             </div>
-          }
+          </div>
+          {/* } */}
         </div>
       </DashboardLayout>
       {popUpHook && (
@@ -2087,6 +2087,9 @@ const Categories = () => {
                       name="menu_id"
                       className={`form-control `}
                     >
+                       <option value="select">
+                              Please Select Category.....
+                            </option>
                       {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
                         (item, id) => {
                           console.log("sjdhaj", item?.category);
@@ -2143,9 +2146,9 @@ const Categories = () => {
                       value={Description}
                       onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
-                    <p className="text-danger small mb-0">
+                    {/* <p className="text-danger small mb-0">
                       <ErrorMessage name="first_name" />
-                    </p>
+                    </p> */}
                   </div>
                 </div>
 

@@ -30,7 +30,7 @@ const Login = () => {
       if(User?.data?.data?.type !== "sales"){
 
         // navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
-          navigate(`/${User?.data[0]?.data?.restaurants[0]?.restaurant_id}/admin/dashboard`);
+          navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}/admin/dashboard`);
        }
       else{
         navigate(`/admin/leads`);
@@ -53,7 +53,7 @@ const Login = () => {
 
   const defaultValue = {
     email: "shivam@yopmail.com",
-    password: "System@123",
+    password: "",
   };
 
   const Validate = yup.object({
@@ -101,7 +101,7 @@ const Login = () => {
                 </div>
 
                 <div className="formbox">
-                  <label>Email </label>
+                  <label>Password </label>
                   <Field
                     name="password"
                     type={showPassword ? "text" : "password"}

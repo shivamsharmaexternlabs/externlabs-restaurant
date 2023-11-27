@@ -6,6 +6,7 @@ import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
 import manager from '../../../images/manager.png'
 import deleteimg from '../../../images/delete.png'
+import PhoneInput from "react-phone-input-2"
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import PopUpComponent from '../../../ReusableComponents/PopUpComponent/PopUpComponent'
@@ -32,6 +33,9 @@ const Manager = () => {
     let BearerToken = reactLocalStorage.get("Token", false);
     console.log("SignUpSelectorData : ", SignUpSelectorData)
 
+    const [countrycode, setCountryCode] = useState("+91");
+    const [phonenumber, setPhoneNumber] = useState("");
+
 
     const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data);
 
@@ -44,14 +48,14 @@ const Manager = () => {
 
     useEffect(() => {
 
-        let ManagerSlicePayload={
-            Token:BearerToken,
-            pageination:1
+        let ManagerSlicePayload = {
+            Token: BearerToken,
+            pageination: 1
         }
-        
-            dispatch(ManagerSlice(ManagerSlicePayload))
-        
-         
+
+        dispatch(ManagerSlice(ManagerSlicePayload))
+
+
     }, [BearerToken])
 
     const PopUpToggleFun = () => {
@@ -59,14 +63,14 @@ const Manager = () => {
     }
 
 
-    useEffect(() => { 
+    useEffect(() => {
         if (SignUpSelectorData?.data?.status === 201) {
             setLoadSpiner(false);
             popUpHookFun(false);
 
-            let ManagerSlicePayload={
-                Token:BearerToken,
-                pageination:1
+            let ManagerSlicePayload = {
+                Token: BearerToken,
+                pageination: 1
             }
             dispatch(ManagerSlice(ManagerSlicePayload));
         }
@@ -75,15 +79,31 @@ const Manager = () => {
             popUpHookFun(true);
         }
     }, [SignUpSelectorData]);
+    
+    // useEffect(() => {
+    //     if (SignUpSelectorData?.data?.status === 201) {
+    //         setLoadSpiner(false);
+    //         popUpHookFun(false);
+
+    //         let ManagerSlicePayload = {
+    //             Token: BearerToken,
+    //             pageination: 1
+    //         }
+    //         dispatch(ManagerSlice(ManagerSlicePayload));
+    //     }
+    //     else if (SignUpSelectorData?.error === "Rejected") {
+    //         setLoadSpiner(false);
+    //         popUpHookFun(true);
+    //     }
+    // }, [ManagerApiSelectorData?.managerDeleteReducer]);
 
 
     const defaultValue = {
-        email: "sa21m@gmail.com",
-        first_name: "sam",
-        last_name: "sams",
-        password: "Demo@123",
-        confirm_password: "Demo@123",
-        phone_number: "9087365441",
+        email: "",
+        first_name: "",
+        // last_name: "",
+        password: "",
+        confirm_password: "",
         type: "manager",
         token: BearerToken
 
@@ -91,28 +111,40 @@ const Manager = () => {
 
     const Validate = yup.object({
         email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'First name must not contain spaces'),
-        first_name: yup.string().required("first name is required").matches(/^\S*$/, 'First name must not contain spaces'),
-        last_name: yup.string().required("last name is required").matches(/^\S*$/, 'Last name must not contain spaces'),
+        first_name: yup.string().required("first name is required").matches(/^[\w\-\s]+$/, 'Name must not contain special characters'),
+        // first_name: yup.string().required("first name is required").matches(/^\S*$/, 'First name must not contain spaces'),
+        // last_name: yup.string().required("last name is required").matches(/^[a-zA-Z0-9]+$/, 'Last name must not contain contain spaces & special characters'),
         password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
         confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-        phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces')
-
-
+        // phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces')
     });
 
+
     const handleSubmit = (values) => {
-        console.log("kkkkkkkkkkk", values)
-        dispatch(SignUpSlice(values))
-        // reactLocalStorage.set("EmailVerification", values.email);
+        console.log("kkkkkkkgfgfcgkkkk", values)
+
+        let SignUpForOnBoardPayload = {
+            email: values?.email,
+            password: values?.password,
+            confirm_password: values?.confirm_password,
+            first_name: values?.first_name,
+            // last_name: values?.last_name,
+            phone_number: `${countrycode}-${phonenumber}`,
+            type: "manager",
+            token: BearerToken
+        }
+        console.log("jhbgfchbjnkm", SignUpForOnBoardPayload)
+        dispatch(SignUpSlice(SignUpForOnBoardPayload))
+        setCurrentPage(0);
         setLoadSpiner(true);
     };
 
     const handlePageClick = (selectedPage) => {
         const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.
 
-        let ManagerSlicePayload={
-            Token:BearerToken,
-            pageination:page
+        let ManagerSlicePayload = {
+            Token: BearerToken,
+            pageination: page
         }
         dispatch(ManagerSlice(ManagerSlicePayload));
         setCurrentPage(page - 1);
@@ -126,11 +158,34 @@ const Manager = () => {
     const confirmDelete = (e, item) => {
         dispatch(ManagerDeleteSlice(item))
         deletePopUpFun(false)
+        setCurrentPage(0);
+        let ManagerSlicePayload = {
+            Token: BearerToken,
+            pageination: 1
+        }
+        dispatch(ManagerSlice(ManagerSlicePayload));
     }
 
     const CancelBtnFun = () => {
         popUpHookFun(false);
     }
+
+    const handleOnChange1 = (
+        currentValue,
+        objectValue,
+        eventData,
+        eventTargetValue
+    ) => {
+        // we are not using all the parameters in this function , but all parameters are important becouse of this library
+        let data = [];
+        let CountryCode = eventTargetValue.split(" ");
+        setCountryCode(CountryCode[0]);
+        CountryCode.slice(1).map((items, id) => {
+            data.push(items);
+        });
+        let myString = data.join("").replace(/\D/g, "");
+        setPhoneNumber(myString);
+    };
 
 
     return (
@@ -161,7 +216,7 @@ const Manager = () => {
                                     console.log("ManagerApiSelectorData items", id, items)
                                     return <tr>
                                         <td> <img src={user} alt='img' /> </td>
-                                        <td>{`${items?.first_name} ${items?.last_name} `}</td>
+                                        <td>{`${items?.first_name}`}</td>
                                         <td>{items?.email}</td>
                                         <td>{items?.phone_number}</td>
                                         <td>Lorem ipsum dolor sit amet consetur dign....</td>
@@ -386,20 +441,20 @@ const Manager = () => {
                                 <Form>
                                     <img src={manager} alt='manager img' className='managerimg' />
                                     <div className="formbox mb-3">
-                                        <label>First Name </label>
+                                        <label> Name </label>
                                         <Field
                                             name="first_name"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Enter your First Name"
+                                            placeholder="Enter your Name"
                                         />
                                         <p className="text-danger small">
                                             <ErrorMessage name="first_name" />
                                         </p>
                                     </div>
 
-                                    <div className="formbox mb-3">
+                                    {/* <div className="formbox mb-3">
                                         <label>Last Name </label>
                                         <Field
                                             name="last_name"
@@ -411,8 +466,8 @@ const Manager = () => {
                                         <p className="text-danger small">
                                             <ErrorMessage name="last_name" />
                                         </p>
-                                    </div>
-                                    
+                                    </div> */}
+
                                     <div className="formbox mb-3">
                                         <label>Email </label>
                                         <Field
@@ -427,7 +482,7 @@ const Manager = () => {
                                         </p>
                                     </div>
 
-                                    <div className="formbox mb-3">
+                                    {/* <div className="formbox mb-3">
                                         <label>Mobile Number </label>
                                         <Field
                                             name="phone_number"
@@ -439,7 +494,19 @@ const Manager = () => {
                                         <p className="text-danger">
                                             <ErrorMessage name="phone_number" />
                                         </p>
+                                    </div> */}
+
+
+                                    <div className="formbox mb-3">
+                                        <label> Phone Number </label>
+                                        <PhoneInput
+                                            country={"in"}
+                                            // value={phonenumber}
+                                            onChange={handleOnChange1}
+                                            className="input_filed"
+                                        />
                                     </div>
+
 
                                     <div className="formbox mb-3">
                                         <label>Password </label>
@@ -468,19 +535,7 @@ const Manager = () => {
                                             <ErrorMessage name="confirm_password" />
                                         </p>
                                     </div>
-                                    <div className="formbox">
-                                        <label>Assign to Restaurant (optional) </label>
-                                        <select className={`form-control `}>
-                                            <option>  Assign to Restaurant (optional) </option>
-                                            <option>  Assign to Restaurant (optional) </option>
-                                            <option>  Assign to Restaurant (optional) </option>
-                                            <option>  Assign to Restaurant (optional) </option>
-                                        </select>
-
-                                        <p className="text-danger">
-                                            <ErrorMessage name="email" />
-                                        </p>
-                                    </div>
+                                    
 
                                     <div className='text-end mt-5'>
                                         <button type="btn" className="btn2" onClick={(e) => CancelBtnFun(e)} > Cancel </button>
@@ -490,20 +545,19 @@ const Manager = () => {
                             </Formik>
                         </div>
 
-                        {/* children part end */}
 
                     </PopUpComponent>}
-                    
+
 
 
                 {false && <PopUpComponent classNameValue={"wantmanager"}>
-                        <div className='popupbody'>
-                            <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
-                            <h2>Do you want to Delete this Manager?</h2>
+                    <div className='popupbody'>
+                        <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
+                        <h2>Do you want to Delete this Manager?</h2>
 
-                        </div>
+                    </div>
 
-                    </PopUpComponent>
+                </PopUpComponent>
                 }
 
                 {
