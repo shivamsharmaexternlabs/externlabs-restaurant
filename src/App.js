@@ -19,10 +19,12 @@ import Leads from './Components/LeadsComponents/Leads/Leads';
 import Menucategories from './Components/LeadsComponents/MenuCategories/Menucategories';
 import RestaurantDetail from './Components/DashboardComponents/RestaurantDetail/RestaurantDetail.js'
 import Subscription from './Components/SubscriptionPage/Subscription.js';
+import DndCategories from './Components/DashboardComponents/DndCategories/DndCategories.js';
 import axios from 'axios';
 import { reactLocalStorage } from "reactjs-localstorage"; 
 import { toast } from "react-toastify";
-
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 
 function App() {
@@ -64,7 +66,8 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
         <Route path="/user_auth/resetpassword/:id" element={<ResetPassword />}></Route>
         <Route path="/:id/admin/dashboard" element={<Dashboard />}></Route>
-        <Route path="/:id/admin/categories" element={<Categories />}></Route>
+        <Route path="/:id/admin/categories" element={ <DndProvider backend={HTML5Backend}><Categories /></DndProvider>}></Route>
+        <Route path="/:id/admin/categories/reorder/" element={ <DndProvider backend={HTML5Backend}><DndCategories /></DndProvider>}></Route>
         <Route path="/:id/admin/manager" element={<Manager />}></Route>
 
         <Route path="/:id/menu" element={<Menu />}></Route> 
@@ -74,6 +77,8 @@ function App() {
         <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail />}></Route>  
 
         <Route path='/subscription' element={<Subscription />}></Route>
+
+        <Route path="/dndcategories" element={<DndCategories />}></Route>
 
       </Routes>
       

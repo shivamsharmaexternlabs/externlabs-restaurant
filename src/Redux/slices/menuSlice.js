@@ -5,6 +5,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
 
 let BearerToken = reactLocalStorage.get("Token", false);
 let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
+console.log("RestaurantIdLocalData",RestaurantIdLocalData)
 
 // create menu
 export const CreateMenuSlice = createAsyncThunk(
@@ -33,12 +34,12 @@ export const CreateMenuSlice = createAsyncThunk(
 // create category
 export const CreateCategorySlice = createAsyncThunk(
   "CreateCategorySlice",
-  async (body, { rejectWithValue }) => { 
+  async (body, { rejectWithValue }) => {
 
     const formData = new FormData();
     formData.append("restaurant_id", body?.restaurant_id);
-    formData.append("category_image",  body?.category_image);
-    formData.append("category",  body?.category);
+    formData.append("category_image", body?.category_image);
+    formData.append("category", body?.category);
 
     try {
       const response = await axios.post(
@@ -50,7 +51,7 @@ export const CreateCategorySlice = createAsyncThunk(
           },
         }
       );
-      console.log("mshdgffjsd",response)
+      console.log("mshdgffjsd", response)
       toast.success(response?.data?.message);
       return response;
     } catch (err) {
@@ -60,12 +61,13 @@ export const CreateCategorySlice = createAsyncThunk(
   }
 );
 // get menu category
+// ${body?.dragAndDrop==true?body?.dragAndDrop:false}
 export const GetMenuCategorySlice = createAsyncThunk(
   "GetMenuCategorySlice",
   async (body, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${body?.RestaurantId}`
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${body?.RestaurantId}&index=true`
       );
       // toast.success("Successful");
       return response;
@@ -77,6 +79,35 @@ export const GetMenuCategorySlice = createAsyncThunk(
   }
 );
 
+//patch category data after drag and drop
+export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
+  "UpdateMenuCategoryAfterDragAndDrop",
+  async (body, { rejectWithValue }) => {
+    console.log("bodyyy", body)
+    try {
+   
+      const response = await axios.patch(
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/${RestaurantIdLocalData}/`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${BearerToken}`,
+          },
+        }
+      );
+      toast.success(response?.data?.detail);
+       
+      return response;
+    } catch (err) {
+      // console.log(response)
+      toast.error(err?.response?.data?.message);
+
+      return rejectWithValue(err);
+    }
+  }
+);
+
+
 // get menu category data
 // ${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&menu_id=${body?.MenuId===undefined?"":body?.MenuId}&search=${body?.searchValue===undefined?"":body?.searchValue}&item_type=${body?.itemTypeValue===undefined?"":body?.itemTypeValue}
 
@@ -87,12 +118,9 @@ export const MenuSlice = createAsyncThunk(
 
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${
-          body?.RestaurantId
-        }&menu_id=${body?.MenuId === undefined ? "" : body?.MenuId}&search=${
-          body?.searchValue === undefined ? "" : body?.searchValue
-        }&item_type=${
-          body?.itemTypeValue === undefined ? "" : body?.itemTypeValue
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId
+        }&menu_id=${body?.MenuId === undefined ? "" : body?.MenuId}&search=${body?.searchValue === undefined ? "" : body?.searchValue
+        }&item_type=${body?.itemTypeValue === undefined ? "" : body?.itemTypeValue
         }`
 
         // {
@@ -279,6 +307,7 @@ export const menuReducer = createSlice({
   name: "menuReducer",
   initialState: {
     GetMenuCategoryReducerData: [],
+    GetReorderCategoryReducerData: [],
     MenuSliceReducerData: [],
     favoriteMenuSliceReducerData: [],
     CreateMenuSliceReducerData: [],
@@ -288,6 +317,7 @@ export const menuReducer = createSlice({
     GetSampleUploadReducerData: [],
     DeleteMenuItemReducerData: [],
     DeleteMenucategoryReducerData: [],
+    UpdateMenuCategoryAfterDragAndDroprReducerData:[],
     loading: false,
     error: null,
   },
@@ -429,7 +459,21 @@ export const menuReducer = createSlice({
       .addCase(DeleteMenuCategorySlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      });
+      })
+
+      .addCase(UpdateMenuCategoryAfterDragAndDrop.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(UpdateMenuCategoryAfterDragAndDrop.fulfilled, (state, action) => {
+        state.loading = false;
+        state.UpdateMenuCategoryAfterDragAndDroprReducerData = action.payload;
+      })
+
+      .addCase(UpdateMenuCategoryAfterDragAndDrop.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action;
+      })
   },
 });
 

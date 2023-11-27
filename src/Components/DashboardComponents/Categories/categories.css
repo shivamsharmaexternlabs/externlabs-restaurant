@@ -1,3 +1,125 @@
+/* /////////recorded category drag and drop//////////// */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    /* Adjust the number of columns as needed */
+    gap: 0.5rem;
+    /* Adjust the gap between items as needed */
+    width: 100%;
+
+}
+
+.recorded-cat-div{
+display: flex;
+justify-content: space-between;
+}
+
+.dragCategory {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    width: 99.111px;
+    height: 182.508px;
+    border-radius: 22.418px;
+    background: rgba(255, 255, 255, 0.40);
+    backdrop-filter: blur(24.780000686645508px);
+    cursor: move;
+    background-color: rgba(255, 255, 255, 0.40);
+}
+
+.dragCategory:hover {
+    background-color: rgba(234, 106, 18, 0.70);
+    color: white;
+
+}
+
+.itemCategory {
+    text-align: center;
+    color: #000;
+    font-family: Neuzeit Grotesk;
+    font-size: 13.845px;
+    font-style: normal;
+    font-weight: 400;
+    /* line-height: 175%; */
+    /* 24.229px */
+    /* letter-spacing: 0.277px; */
+}
+
+.itemCategory:hover {
+    color: white;
+}
+
+.drag-catg-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+}
+
+.recorded-cat-head {
+    font-family: Neuzeit Grotesk;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%;
+    /* 41.6px */
+    letter-spacing: 0.64px;
+    margin-bottom: 30px;
+}
+
+.button-arrow {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+}
+.indx-div{
+    display: flex;
+    justify-content: end;
+}
+.item-indx{
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 24px;
+    height: 25px;
+    text-align: center;
+    background-color: rgba(234, 106, 18, 0.36);
+    border-color: rgba(234, 106, 18, 0.36);
+}
+
+/* ////////category page///////////// */
+.sort-order {
+    margin-left: 10px;
+    cursor: pointer;
+    height: 14px;
+    width: 14px;
+    margin-right: 4px;
+}
+
+.drag-active {
+    cursor: move;
+}
+.item-head{
+    display: flex;
+    justify-content: space-between;
+}
+.sort-item-order{
+    cursor: pointer;
+}
+
+.reorder-icon-div {
+    display: flex;
+    justify-content: end;
+   cursor: pointer;
+}
+.reorder-head{
+    font-family: Neuzeit Grotesk;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.24px;
+}
+
 .categorypage>.title {
     display: flex;
     align-items: center;
@@ -90,7 +212,7 @@
     transition: all .3s ease;
 }
 
-.btn3{
+.btn3 {
     padding: 10px 35px;
     border: 1px solid rgba(205, 205, 205, 0.80);
     border-radius: 563.025px;
@@ -98,7 +220,7 @@
     color: #fff;
 }
 
-.btn3:hover{
+.btn3:hover {
     background: #fff;
     color: rgba(205, 205, 205, 0.80);
     -webkit-transition: all .3s ease;
@@ -110,7 +232,7 @@
     justify-content: space-between;
 }
 
-.submit.btn2{
+.submit.btn2 {
     padding: 10px 35px;
 }
 
@@ -215,7 +337,7 @@
     color: #fff;
 }
 
-.catg-img{
+.catg-img {
     height: 40px;
     width: 40px;
 }
@@ -236,21 +358,21 @@
 }
 
 .sarbox,
-.caloriesbox{
+.caloriesbox {
     position: relative;
 }
 
-.No-active h3{
+.No-active h3 {
     color: #000 !important;
 }
- 
+
 
 
 .sarbox::after,
-.caloriesbox::after  {
-    position: absolute;   
+.caloriesbox::after {
+    position: absolute;
     top: -1px;
-    right: -1px; 
+    right: -1px;
     height: calc(100% + 2px);
     border-radius: 0px 12px 12px 0px;
     background: #FFE8D8;
@@ -266,7 +388,7 @@
     width: 37px;
 } */
 
-.caloriesbox::after{
+.caloriesbox::after {
     content: "kcal";
     width: 47px;
 }
@@ -279,11 +401,12 @@
     padding-right: 50px;
 }
 
-.uploadwrapper{
+.uploadwrapper {
     display: inline-block;
     position: relative;
     overflow: hidden;
 }
+
 .uploadwrapper button {
     cursor: pointer;
     border: 1px solid #D2D2D2;
@@ -303,7 +426,7 @@
     width: auto;
     height: 100%;
     display: block;
-    opacity: 0;    
+    opacity: 0;
     cursor: pointer;
 }
 
@@ -318,4 +441,3 @@
     width: auto;
     height: auto;
 }
-
