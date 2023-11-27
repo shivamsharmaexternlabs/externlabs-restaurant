@@ -301,7 +301,7 @@ const Dashboard = () => {
                         console.log("dhgah", items)
                         return <tr>
                           <td> <img src={user} alt='img' /> </td>
-                          <td>{`${items?.first_name} ${items?.last_name} `}</td>
+                          <td>{`${items?.first_name}`}</td>
                           <td>{items?.email}</td>
                           <td>Lorem ipsum dolor sit amet consetur dign....</td>
                         </tr>
@@ -337,10 +337,10 @@ const Dashboard = () => {
                     <img src={menimg} alt='img' className='qrmenimg' />
 
                   </div>
-                  {/* <div className='info'>
+                  <div className='info'>
                     <span></span>
                     <button type='button' onClick={(e) => QrCodeDownloadFun()}>Download </button>
-                  </div> */}
+                  </div>
                 </div>
 
               </div>

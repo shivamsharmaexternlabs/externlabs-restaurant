@@ -1169,11 +1169,11 @@ const Categories = () => {
   };
   console.log("sjgjah", defaultValue);
   const Validatemenu = yup.object({
-    item_name: yup.string().required("Please Enter Item"),
+    item_name: yup.string().required("Please Enter Item Name"),
     item_price: yup.string().required("Please Enter Price"),
     calories: yup.string().required("Please Enter Calories"),
     menu_id: yup.string().required("Please Enter Menu"),
-    item_type: yup.string().required("Please Enter Item"),
+    item_type: yup.string().required("Please Enter Item Type"),
     currency: yup.string().required("Please Enter Currency"),
   });
   const handleMenuSubmit = (values) => {
@@ -1192,12 +1192,14 @@ const Categories = () => {
     console.log("ashd", formData);
     dispatch(CreateMenuSlice(formData));
     popUpHookFun(false);
-    setTimeout(()=>{
-      let MenuSlicePayload = {
-        RestaurantId: RestaurantIdLocalStorageData,
-      };
-      dispatch(GetMenuCategorySlice(MenuSlicePayload));
-      },1500)
+
+    // setTimeout(()=>{
+    //   let MenuSlicePayload = {
+    //     RestaurantId: RestaurantIdLocalStorageData,
+    //   };
+    //   dispatch(GetMenuCategorySlice(MenuSlicePayload));
+    //   },1500)
+    // please do not remove this comment
   };
 
   const handleUploadImage = (e) => {
@@ -1442,7 +1444,7 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
           <DashboardSidebar />
           <div className="contentpart categorypage">
             <div className="title">
-              <h2>Categories</h2>
+              <h2>Menu Categories</h2>
               <div className="btnbox">
                 <div className="btn1 uploadbtn-wrapper">
                   <button type="button">
@@ -1625,6 +1627,7 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
                       aria-labelledby="nav-dishes1-tab"
                       tabindex="0"
                     >
+                    <h2>Items</h2>
                       <ul>
                         {/* CATEGORY ITEMS DATA MANAGEMENT */}
                         {MenuApiSelectorData?.MenuSliceReducerData?.data &&
@@ -1876,6 +1879,9 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
                       name="menu_id"
                       className={`form-control `}
                     >
+                    <option value="select">
+                        Please Select Category.....
+                      </option>
                       {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
                         (item, id) => {
                           console.log("sjdhaj", item?.category);
@@ -1932,9 +1938,9 @@ console.log("msabdfjhsdf",MenuItemFavouriteApiSelectorData?.data?.status)
                       value={Description}
                       onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
-                    <p className="text-danger small mb-0">
+                    {/* <p className="text-danger small mb-0">
                       <ErrorMessage name="first_name" />
-                    </p>
+                    </p> */}
                   </div>
                 </div>
 

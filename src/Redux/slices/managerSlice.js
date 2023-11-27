@@ -31,7 +31,7 @@ export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejec
 export const ManagerDeleteSlice = createAsyncThunk("ManagerDeleteSlice",async (body, { rejectWithValue }) => {
   console.log("sdffas",body)
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/?user_id=${body}`,
+      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/${body}/`,
       {
         headers: {
           Authorization: `Bearer ${BearerToken}`,
@@ -87,7 +87,7 @@ export const managerReducer = createSlice({
 
       .addCase(ManagerDeleteSlice.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.managerDeleteReducer = action.payload;
       }
       )
 

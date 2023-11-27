@@ -242,6 +242,11 @@ font-size: 15px;
     color: #fff !important;
     cursor: pointer;
 }
+
+.bestcallerBackgroun{
+    background-color: #eebe37;
+}
+
 .bestcallerBackgrounveg{
     background-color: #42B856;
 }
@@ -373,6 +378,7 @@ font-size: 15px;
     color: #000;
     font-size: 12px;
     line-height: 1.5;
+    font-weight: 500;
 }
 
 .menuitemlist li .rightpart figure {

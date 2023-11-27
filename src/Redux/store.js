@@ -11,6 +11,7 @@ import  qrcodeReducer  from "./slices/qrCodeSlice";
 import  leadsReducer  from "./slices/leadsSlice";
 import  menuItemFavouriteReducer  from "./slices/favouriteSlice";
 import LeadsRestaurantReducer  from "./slices/leadsRestaurantSlice";
+import PaymentReducer from "./slices/paymentSlice";
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
     QrCodeApiData:qrcodeReducer,
     LeadsApiData:leadsReducer,
     MenuItemFavouriteApiData:menuItemFavouriteReducer, 
-    LeadsRestaurantApiData: LeadsRestaurantReducer
+    LeadsRestaurantApiData: LeadsRestaurantReducer,
+    PaymentApiData : PaymentReducer
   },
 });
