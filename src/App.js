@@ -25,6 +25,8 @@ import { reactLocalStorage } from "reactjs-localstorage";
 import { toast } from "react-toastify";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import AllMedia from './Components/DashboardComponents/AllMedia/AllMedia.js';
+
 
 
 function App() {
@@ -69,9 +71,7 @@ function App() {
         <Route path="/:id/admin/categories" element={ <DndProvider backend={HTML5Backend}><Categories /></DndProvider>}></Route>
         <Route path="/:id/admin/categories/reorder/" element={ <DndProvider backend={HTML5Backend}><DndCategories /></DndProvider>}></Route>
         <Route path="/:id/admin/manager" element={<Manager />}></Route>
-
-        <Route path="/:id/menu" element={<Menu />}></Route> 
-        
+        <Route path="/:id/menu" element={<Menu />}></Route>         
         <Route path='/admin/leads' element={<Leads />}></Route>
         <Route path='/admin/menucategories' element={<Menucategories />}></Route>
         <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail />}></Route>  
@@ -79,6 +79,7 @@ function App() {
         <Route path='/subscription' element={<Subscription />}></Route>
 
         <Route path="/dndcategories" element={<DndCategories />}></Route>
+        <Route path="/allmedia" element={<AllMedia />}></Route>
 
       </Routes>
       

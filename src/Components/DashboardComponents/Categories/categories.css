@@ -441,3 +441,11 @@ justify-content: space-between;
     width: auto;
     height: auto;
 }
+
+
+@media(max-width:767px){  
+    .btn1, .btn2, .btn3 {
+        font-size: 14px;
+    }
+
+}

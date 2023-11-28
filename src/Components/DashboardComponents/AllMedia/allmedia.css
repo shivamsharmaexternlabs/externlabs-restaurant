@@ -1,0 +1,137 @@
+
+
+.mediapage > .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 35px;
+}
+
+.mediapage > .title > h2 {
+    color: #000;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0;
+}
+
+.medialist {
+    width: 100%;
+    padding: 0  ;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.medialist li {
+    width: calc(100%/5 - 13px);
+    margin-right: 16px;
+    margin-bottom: 15px;
+}
+
+.medialist li:nth-child(5n+5){
+    margin-right: 0;
+}
+
+.medialist li figure {
+    position: relative;
+    margin:0 0 5px;
+    width: 100%;
+}
+
+.medialist li figure > img {
+    width: 100%;
+}
+
+.medialist li figure > button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    width: 10px;
+}
+
+.medialist li figure > button > img {
+    width: 100%;
+}
+
+.medialist li h4 {
+    font-size: 16px;
+    color: #000;
+    font-weight: 400;
+    text-align: center;
+    padding: 0 5px;
+    margin: 0;
+}
+
+
+
+@media(max-width:1199px){
+    .medialist li h4 {
+        font-size: 14px;
+    }
+}
+
+
+
+@media(max-width:991px){ 
+    .medialist li {
+        width: calc(100%/3 - 7px);
+        margin-right: 10px;
+    }
+
+    .medialist li:nth-child(5n+5){
+        margin-right: 10px;
+    }
+    .medialist li:nth-child(3n+3){
+        margin-right: 0;
+    }
+
+}
+
+@media(max-width:767px){ 
+    .mediapage > .title > h2 {
+        font-size: 25px;
+    }
+
+}
+
+
+
+@media(max-width:500px){ 
+    .mediapage > .title > h2 {
+        font-size: 18px;
+    }
+
+    .mediapage > .title > .btn1 {
+        font-size: 12px;
+    }
+
+    .medialist {
+        justify-content: space-between;
+    }
+
+    .medialist li {
+        width: 48%;
+        margin-right: 0;
+        justify-content: space-between;
+    }
+    .medialist li h4 {
+        font-size: 12px;
+    }
+    .medialist li:nth-child(5n+5) {
+        margin-right: 0;
+    }
+
+
+    
+    
+}
+
+
+
+
+

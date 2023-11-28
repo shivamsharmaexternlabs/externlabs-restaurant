@@ -1,5 +1,6 @@
 import React from 'react'
-import imgs from '../../images/suce.svg'
+
+import imgs from '../../images/imgicon.svg'
 import './Success.css'
 import { useNavigate } from 'react-router-dom';
  

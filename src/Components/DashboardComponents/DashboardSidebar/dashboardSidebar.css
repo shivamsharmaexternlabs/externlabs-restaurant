@@ -183,9 +183,10 @@
     }
 
     .dasboardbody .contentpart {
-        padding: 20px;
+        padding: 20px 15px 10px 10px;
     }    
 }
+
 
 @media (max-width: 767px) { 
     .fullsidebar .sidebar>.logo .fulllogo,
