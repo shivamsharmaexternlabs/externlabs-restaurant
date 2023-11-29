@@ -75,6 +75,18 @@ const DashboardSidebar = () => {
                 </NavLink>
               </li>
 
+              <li>
+                <NavLink to={`/${RestaurantId}/admin/allmedia`} className={` ${param.pathname === ":id/admin/allmedia" ? "active" : ""
+                  } `}> <img src={icon9} alt='img' /> <span className='text'>Media Files</span>
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink to={`/${RestaurantId}/admin/paymenthistory`} className={` ${param.pathname === ":id/admin/paymenthistory" ? "active" : ""
+                  } `}> <img src={icon9} alt='img' /> <span className='text'>Payment History</span>
+                </NavLink>
+              </li>
+
 
               {/* <li>
                 <NavLink

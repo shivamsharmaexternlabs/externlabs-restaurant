@@ -72,16 +72,19 @@ function App() {
         <Route path="/:id/admin/categories" element={ <DndProvider backend={HTML5Backend}><Categories /></DndProvider>}></Route>
         <Route path="/:id/admin/categories/reorder/" element={ <DndProvider backend={HTML5Backend}><DndCategories /></DndProvider>}></Route>
         <Route path="/:id/admin/manager" element={<Manager />}></Route>
-        <Route path="/:id/menu" element={<Menu />}></Route>         
+        <Route path="/:id/menu" element={<Menu />}></Route>  
+        <Route path="/:id/admin/allmedia" element={<AllMedia />}></Route>
+        <Route path="/:id/admin/paymenthistory" element={<PaymentHistory />}></Route>
+
+
+
         <Route path='/admin/leads' element={<Leads />}></Route>
         <Route path='/admin/menucategories' element={<Menucategories />}></Route>
         <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail />}></Route>  
 
         <Route path='/subscription' element={<Subscription />}></Route>
 
-        <Route path="/dndcategories" element={<DndCategories />}></Route>
-        <Route path="/allmedia" element={<AllMedia />}></Route>
-        <Route path="/:id/admin/paymenthistory" element={<PaymentHistory />}></Route>
+         
 
         
 
