@@ -89,8 +89,8 @@
     .medialist li:nth-child(3n+3){
         margin-right: 0;
     }
-
 }
+
 
 @media(max-width:767px){ 
     .mediapage > .title > h2 {

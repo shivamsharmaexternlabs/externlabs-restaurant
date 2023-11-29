@@ -26,6 +26,7 @@ import { toast } from "react-toastify";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import AllMedia from './Components/DashboardComponents/AllMedia/AllMedia.js';
+import PaymentHistory from './Components/DashboardComponents/PaymentHistory/PaymentHistory.js';
 
 
 
@@ -80,6 +81,9 @@ function App() {
 
         <Route path="/dndcategories" element={<DndCategories />}></Route>
         <Route path="/allmedia" element={<AllMedia />}></Route>
+        <Route path="/paymenthistory" element={<PaymentHistory />}></Route>
+
+        
 
       </Routes>
       
