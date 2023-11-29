@@ -42,9 +42,13 @@ const PaymentHistory = () => {
 
     }, []);
 
+    
     useEffect(() => {
-        dispatch(PaymentHistorySlice());
-    }, []);
+        if(BearerToken !== false){
+          dispatch(PaymentHistorySlice(BearerToken));
+        }
+        
+      }, []);
 
 
     const unsubscribePaymentFunc = (e, item) => {
@@ -53,9 +57,6 @@ const PaymentHistory = () => {
 
     }
 
-    useEffect(() => {
-        dispatch(PaymentHistorySlice());
-    }, []);
 
 
     useEffect(() => {

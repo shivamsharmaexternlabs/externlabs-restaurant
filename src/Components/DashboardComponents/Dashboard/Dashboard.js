@@ -63,8 +63,10 @@ const Dashboard = () => {
   }, [BearerToken])
 
   useEffect(() => {
-    if(BearerToken != false)
-    dispatch(PaymentHistorySlice(BearerToken));
+    if(BearerToken !== false){
+      dispatch(PaymentHistorySlice(BearerToken));
+    }
+    
   }, []);
 
   const QrCodeDownloadFun = () => {
