@@ -13,11 +13,11 @@ export const favoriteMenuItemSlice = createAsyncThunk(
     try {
       let headersList = {
         Accept: "*/*",
-        Authorization: `Bearer ${BearerToken}`,
+        Authorization: `Bearer ${body?.BearerToken}`,
       };
 
       let reqOptions = {
-        url: `${process.env.REACT_APP_BASE_URL}restaurant_app/menuitems/${body}/update-favorite/`,
+        url: `${process.env.REACT_APP_BASE_URL}restaurant_app/menuitems/${body?.item_id}/update-favorite/`,
         method: "PATCH",
         headers: headersList,
       };

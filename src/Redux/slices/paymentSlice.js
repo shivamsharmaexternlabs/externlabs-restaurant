@@ -12,7 +12,7 @@ export const PaymentPostSlice = createAsyncThunk("PaymentPostSlice", async (body
         const response = await axios.post(`${process.env.REACT_APP_BASE_URL}payment/initiate/`, body,
             {
                 headers: {
-                    Authorization: `Bearer ${BearerToken}`,
+                    Authorization: `Bearer ${body?.BearerToken}`,
                 },
             }
         );

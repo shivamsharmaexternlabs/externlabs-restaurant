@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
-// let BearerToken = reactLocalStorage.get("Token", false)
+
     
 //Lead get Slice
 export const LeadsSlice = createAsyncThunk("LeadsSlice",async (body, { rejectWithValue }) => {

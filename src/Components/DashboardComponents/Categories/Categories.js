@@ -73,7 +73,7 @@ const Categories = () => {
   const [dndPayload, setDndPayload] = useState()
   const [SaveActiveBtn, setSaveActiveBtn] = useState(false)
 
-
+  let BearerToken = reactLocalStorage.get("Token", false);
 
   const CreateApiSelectorData = useSelector(
     (state) => state.CreateApiSelectorData
@@ -120,8 +120,14 @@ const Categories = () => {
     };
     formData.append("file", payload?.file);
     formData.append("restaurant_id", payload?.restaurant_id);
+    // formData.append("BearerToken", BearerToken);
     console.log("shgdah", payload, formData);
-    dispatch(UploadMenuSlice(formData));
+    const UploadPayload = {
+      formData,
+      BearerToken
+    }
+
+    dispatch(UploadMenuSlice(UploadPayload));
   };
 
   useEffect(() => {
@@ -231,7 +237,12 @@ const Categories = () => {
     formData.append("currency", values?.currency);
     formData.append("calories_unit", caloriesunit);
     console.log("ashd", formData);
-    dispatch(CreateMenuSlice(formData));
+
+    let MenuSubmitPayload = {
+      formData,
+      BearerToken
+    }
+    dispatch(CreateMenuSlice(MenuSubmitPayload));
     setDescription("");
     popUpHookFun(false);
     // setTimeout(() => {
@@ -332,6 +343,7 @@ const Categories = () => {
       item_type: values?.item_type,
       currency: values?.currency,
       calories_unit: EditMenuData?.calories_unit,
+      BearerToken
     };
     dispatch(EditMenuItemSlice(payload));
     popUpEditHookFun(false);
@@ -397,6 +409,7 @@ const Categories = () => {
       restaurant_id: RestaurantIdLocalStorageData,
       category_image: uploadCategoryImage,
       category: values?.category,
+      BearerToken
     };
 
     if (
@@ -421,7 +434,7 @@ const Categories = () => {
 
   const DeleteCategoryfun = (e, item) => {
     setDeleteCategory(item?.menu_id);
-    dispatch(DeleteMenuCategorySlice(item?.menu_id));
+    dispatch(DeleteMenuCategorySlice({menu_id : item?.menu_id, BearerToken}));
     setTimeout(() => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
@@ -454,7 +467,7 @@ const Categories = () => {
   }, [MenuItemFavouriteApiSelectorData])
 
   const DeleteItemfun = (e, item) => {
-    dispatch(DeleteMenuItemSlice(item?.item_id));
+    dispatch(DeleteMenuItemSlice({item_id : item?.item_id, BearerToken}));
     setTimeout(() => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
@@ -465,7 +478,7 @@ const Categories = () => {
 
   const FavoriteFun = (e, itemData) => {
     console.log("fgjhjjha", MenuApiSelectorData?.MenuSliceReducerData?.data[0]);
-    dispatch(favoriteMenuItemSlice(itemData?.item_id));
+    dispatch(favoriteMenuItemSlice({item_id : itemData?.item_id, BearerToken}));
     setTimeout(() => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
@@ -524,17 +537,15 @@ const Categories = () => {
       data: newItems.map(({ item_id, menu_id, index }) => ({ menu_id, item_id, index })),
     };
     setDndPayload(payload)
-    console.log("nmdsfvd", draggedItem ,payload)
-
-    // Dispatch an action to update the Redux store with the new order
-    // dispatch(UpdateMenuCategoryAfterDragAndDrop(payload));
-
     setDraggedItem(null);
   };
 
 
 
   const handleDndUpdate = () => {
+    setDndPayload(previousState => {
+      return { ...previousState, BearerToken }
+    });
     dispatch(UpdateMenuItemsAfterDragAndDrop(dndPayload));
 
   };

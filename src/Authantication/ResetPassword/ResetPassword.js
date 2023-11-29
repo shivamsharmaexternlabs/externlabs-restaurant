@@ -16,7 +16,8 @@ const ResetPassword = () => {
     const dispatch = useDispatch();
     const  params = useLocation();
 
-
+    let BearerToken = reactLocalStorage.get("Token", false);
+    
     useEffect(() => {
         if(params?.pathname){
 
@@ -55,6 +56,7 @@ const ResetPassword = () => {
 
     const handleSubmit = (values) => {
         console.log("values", values); 
+        values[BearerToken] = BearerToken;
         if(values.new_pass == values.confirm_pass){
             dispatch(ResetPasswordSlice(values));
         }

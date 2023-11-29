@@ -15,16 +15,14 @@ const AllMedia = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const RestaurantId = reactLocalStorage.get(
-        "RestaurantId",
-        false
-    );
+    let BearerToken = reactLocalStorage.get("Token", false)
+    const RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
     const MediaLibrarySelectorData = useSelector((state) => state?.MediaLibraryApiData);
 
     useEffect(() => {
         // console.log("RestaurantId", RestaurantId)
-        dispatch(GetMediaLibrarySlice({RestaurantId}))
+        dispatch(GetMediaLibrarySlice({RestaurantId, BearerToken}))
     }, [])
 
     console.log("MediaLibrarySelectorData :", MediaLibrarySelectorData)
@@ -32,7 +30,8 @@ const AllMedia = () => {
     const MultiUploadFun =(e)=>{
         const multiUploadPayload = {
             images : e.target.files,
-            restaurant_id : RestaurantId
+            restaurant_id : RestaurantId,
+            BearerToken
         }
 
         // console.log("bschgsdnd",e.target.files)

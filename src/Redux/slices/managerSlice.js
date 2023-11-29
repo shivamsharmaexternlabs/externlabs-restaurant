@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
-let BearerToken = reactLocalStorage.get("Token", false);
+
 
 export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejectWithValue }) => { 
     try {
@@ -31,10 +31,10 @@ export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejec
 export const ManagerDeleteSlice = createAsyncThunk("ManagerDeleteSlice",async (body, { rejectWithValue }) => {
   console.log("sdffas",body)
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/${body}/`,
+      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/${body?.item}/`,
       {
         headers: {
-          Authorization: `Bearer ${BearerToken}`,
+          Authorization: `Bearer ${body?.BearerToken}`,
         },
       }
       

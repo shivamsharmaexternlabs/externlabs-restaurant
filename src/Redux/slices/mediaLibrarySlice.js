@@ -3,7 +3,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
-let BearerToken = reactLocalStorage.get("Token", false);
 
 // Get Media Library Slice
 export const GetMediaLibrarySlice = createAsyncThunk(
@@ -15,7 +14,7 @@ export const GetMediaLibrarySlice = createAsyncThunk(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/bulk_image_upload/?restaurant_id=${body?.RestaurantId}`,
         {
           headers: {
-            Authorization: `Bearer ${BearerToken}`,
+            Authorization: `Bearer ${body?.BearerToken}`,
           },
         }
       );
@@ -51,7 +50,7 @@ export const PostMediaLibrarySlice = createAsyncThunk(
         formData,
         {
           headers: {
-            Authorization: `Bearer ${BearerToken}`,
+            Authorization: `Bearer ${body?.BearerToken}`,
           },
         }
       );

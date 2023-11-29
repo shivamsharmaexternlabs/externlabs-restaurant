@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
-// import { reactLocalStorage } from "reactjs-localstorage";
 
-// let BearerToken = reactLocalStorage.get("Token", false)
+
     
 // SignUp
 
