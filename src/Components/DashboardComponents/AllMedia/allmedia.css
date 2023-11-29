@@ -1,13 +1,11 @@
-
-
-.mediapage > .title {
+.mediapage>.title {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 35px;
 }
 
-.mediapage > .title > h2 {
+.mediapage>.title>h2 {
     color: #000;
     font-size: 32px;
     font-weight: 700;
@@ -15,9 +13,24 @@
     margin-bottom: 0;
 }
 
+.mediaupload {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.mediaupload input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
 .medialist {
     width: 100%;
-    padding: 0  ;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 15px;
@@ -29,21 +42,23 @@
     margin-bottom: 15px;
 }
 
-.medialist li:nth-child(5n+5){
+.medialist li:nth-child(5n+5) {
     margin-right: 0;
 }
 
 .medialist li figure {
     position: relative;
-    margin:0 0 5px;
+    margin: 0 0 5px;
     width: 100%;
 }
 
-.medialist li figure > img {
+.medialist li figure>img {
     width: 100%;
+    height: 300px;
+    object-fit: fill;
 }
 
-.medialist li figure > button {
+.medialist li figure>button {
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -51,10 +66,10 @@
     border: none;
     outline: none;
     box-shadow: none;
-    width: 10px;
+    /* width: 10px; */
 }
 
-.medialist li figure > button > img {
+.medialist li figure>button>img {
     width: 100%;
 }
 
@@ -69,7 +84,7 @@
 
 
 
-@media(max-width:1199px){
+@media(max-width:1199px) {
     .medialist li h4 {
         font-size: 14px;
     }
@@ -77,23 +92,24 @@
 
 
 
-@media(max-width:991px){ 
+@media(max-width:991px) {
     .medialist li {
         width: calc(100%/3 - 7px);
         margin-right: 10px;
     }
 
-    .medialist li:nth-child(5n+5){
+    .medialist li:nth-child(5n+5) {
         margin-right: 10px;
     }
-    .medialist li:nth-child(3n+3){
+
+    .medialist li:nth-child(3n+3) {
         margin-right: 0;
     }
 }
 
 
-@media(max-width:767px){ 
-    .mediapage > .title > h2 {
+@media(max-width:767px) {
+    .mediapage>.title>h2 {
         font-size: 25px;
     }
 
@@ -101,12 +117,12 @@
 
 
 
-@media(max-width:500px){ 
-    .mediapage > .title > h2 {
+@media(max-width:500px) {
+    .mediapage>.title>h2 {
         font-size: 18px;
     }
 
-    .mediapage > .title > .btn1 {
+    .mediapage>.title>.btn1 {
         font-size: 12px;
     }
 
@@ -119,19 +135,29 @@
         margin-right: 0;
         justify-content: space-between;
     }
+
     .medialist li h4 {
         font-size: 12px;
     }
+
     .medialist li:nth-child(5n+5) {
         margin-right: 0;
     }
 
+    .medialist li figure>img {
+        height: 165px;
+    }
 
-    
-    
+
+
 }
 
+@media(max-width:380px) { 
+    .medialist li {
+        width: 100%;
+    }
+    .medialist li figure>img {
+        height: auto;
+    }
 
-
-
-
+}

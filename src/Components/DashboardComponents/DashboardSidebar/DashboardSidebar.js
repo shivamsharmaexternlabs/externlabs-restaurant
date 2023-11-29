@@ -7,6 +7,9 @@ import icon8 from '../../../images/icon8.svg'
 import icon9 from '../../../images/icon9.svg'
 import icon10 from '../../../images/icon10.svg'
 import icon11 from '../../../images/icon11.svg'
+
+import icon13 from '../../../images/icon13.svg'
+import icon14 from '../../../images/icon14.svg'
 import { ToggleBar } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, NavLink, useNavigate, Route } from "react-router-dom";
@@ -71,19 +74,19 @@ const DashboardSidebar = () => {
               </li>
               <li>
                 <NavLink to={`/${RestaurantId}/admin/categories`} className={` ${param.pathname === ":id/admin/categories" ? "active" : ""
-                  } `}> <img src={icon9} alt='img' /> <span className='text'>Menu Categories</span>
+                  } `}> <img src={icon10} alt='img' /> <span className='text'>Menu Categories</span>
                 </NavLink>
               </li>
 
               <li>
                 <NavLink to={`/${RestaurantId}/admin/allmedia`} className={` ${param.pathname === ":id/admin/allmedia" ? "active" : ""
-                  } `}> <img src={icon9} alt='img' /> <span className='text'>Media Files</span>
+                  } `}> <img src={icon13} alt='img' /> <span className='text'>Media Files</span>
                 </NavLink>
               </li>
 
               <li>
                 <NavLink to={`/${RestaurantId}/admin/paymenthistory`} className={` ${param.pathname === ":id/admin/paymenthistory" ? "active" : ""
-                  } `}> <img src={icon9} alt='img' /> <span className='text'>Payment History</span>
+                  } `}> <img src={icon14} alt='img' /> <span className='text'>Payment History</span>
                 </NavLink>
               </li>
 
