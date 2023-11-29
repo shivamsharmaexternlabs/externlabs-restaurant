@@ -207,7 +207,7 @@ const Manager = () => {
                                     <th>Email</th>
                                     <th>Mobile No.</th>
                                     <th>Assigned to </th>
-                                    <th>Assigned to</th>
+                                    <th>Action</th>
                                 </tr>
 
 

@@ -1,0 +1,238 @@
+.paymenthispage>.title>h2 {
+    color: #000;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    margin: 0 0 35px;
+}
+
+.paylist {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin-bottom: 40px;
+}
+
+.paylist li {
+    width: 48%;
+    border: 2px solid #F6F6F6;
+    transition: all .3s ease;
+    padding: 15px;
+    background: #F6F6F6;
+    border-radius: 10px;
+}
+
+.paylist li:hover {
+    border: 2px solid #EA6A12;
+    transition: all .3s ease;
+    background: rgba(234, 106, 18, 0.05);
+}
+
+.paylist select {
+    background: #FFF;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    border-radius: 100px;
+    color: #EA6A12;
+    font-size: 14px;
+}
+
+.clear:after {
+    display: block;
+    clear: both;
+    content: "";
+}
+
+.paylist li h3 {
+    margin: -20px 0 5px;
+    font-size: 34px;
+    color: #000;
+    font-weight: 500;
+}
+
+.paylist li p {
+    color: #000;
+    font-size: 20px;
+}
+
+.paylist li h4 {
+    text-align: right;
+    color: #000;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.paylist li:hover h4 {
+    color: #EA6A12; 
+}
+
+.paylist li h4 span {
+    color: #42526B;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 400;
+}
+
+
+.paymenttable table {
+    width: 100%;
+}
+
+.paymenttable table tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.paymenttable table tr {
+    padding: 10px 20px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.60);
+    backdrop-filter: blur(21px);
+    margin-bottom: 15px;
+    
+}
+
+.paymenttable table tr:first-child {
+    background: rgba(239, 148, 86, 0.70);
+}
+
+.paymenttable table tr th {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.paymenttable table tr td {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+
+.dot {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    margin-top: -5px;
+    margin-right: 10px;
+
+}
+
+.dotred{
+    background-color: #CC0909;
+}
+
+.dotgreen{
+  background-color: #42B856;
+}
+
+.dotyellow{
+    background-color: #FFCA28;
+}
+
+
+.paymenttable table .btn1 {
+    padding: 3px 20px 7px;
+}
+
+.paymenttable table th:first-child,
+.paymenttable table td:first-child {
+    width: 130px;
+}
+
+.paymenttable table th:nth-child(2),
+.paymenttable table td:nth-child(2){
+    width: 100px;
+}
+
+.paymenttable table th:nth-child(3),
+.paymenttable table td:nth-child(3){
+    width: 100px;
+}
+
+.paymenttable table th:nth-child(4),
+.paymenttable table td:nth-child(4){
+    width: 130px;
+}
+
+.paymenttable table th:nth-child(5),
+.paymenttable table td:nth-child(5){
+    width: 130px;   
+}
+
+.paymenttable table th:nth-child(6),
+.paymenttable table td:nth-child(6){
+    width: 180px;
+}
+
+.paymenttable table th:last-child,
+.paymenttable table td:last-child{
+    width: 100px;
+    text-align: center;
+}
+
+.paymenttable{
+    width: 100%;
+    overflow: auto;
+}
+
+.paymenttable table {
+    min-width: 1100px;
+}
+
+
+
+@media(max-width:991px) {
+    .paylist li h3 {
+        font-size: 25px;
+    }
+    .paylist li p {
+        font-size: 16px;
+    }
+
+    .paylist li h4 {
+        font-size: 25px;
+    }
+
+    .paylist li h4 span {
+        font-size: 14px;
+    }
+}
+
+
+@media(max-width:767px){ 
+    .paymenthispage>.title>h2 {
+        font-size: 25px;
+    }
+    .paymenttable table tr td,
+    .paymenttable table tr th {
+        font-size: 16px;
+    }
+
+}
+
+@media(max-width:500px){ 
+    .paymenthispage>.title>h2 {
+        font-size: 18px;
+    }
+    .paylist {
+        flex-wrap: wrap;
+    }
+
+    .paylist li {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+
+
+

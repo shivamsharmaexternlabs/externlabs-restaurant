@@ -19,58 +19,31 @@ const Subscription = () => {
   const [SubscriptionPlanDetails, setSubscriptionPlanDetails] = useState('')
 
   const PaymentSelectorData = useSelector((state) => state.PaymentApiData);
-  // const ResetPasswordSelectorData = useSelector((state) => state.ResetPasswordApiData);
-
+ 
   useEffect(() => {
     const stripe = new Stripe('sk_test_51O9jGdSBj5xgDd5yhzRUw4RGNDghmoH2uXTXtiG1kpDU0FIzb0TNSVwWgwBUHnB2ppfpprAKZevZ5GvXulcmdE8B00DEJ06sMQ');
-
-    // const getProducts = async () => {
-    //   const products = await stripe.products.list({
-    //     limit: 6,
-    //     expand: ['data.default_price'] 
-    //   });
-
-    //   console.log("nxbsdsdfsd", products)
-    // }
+ 
 
     const getPrice = async () => {
       const getPriceAwait = await stripe.prices.list({
-        // limit: 3,
-        // expand: ['data.default_price']
-        // expand: ['data.price']
         expand: ['data.product']
       });
-
-
-      // let pushedData = []
-      // getPriceAwait?.data?.map((items, id) => {
-
-      //   if (items?.recurring?.interval !== undefined) {
-      //     pushedData.push(items?.recurring?.interval)
-      //   }
-      // })
-      // let unieqPlan = new Set(pushedData)
-
+      
+      console.log("nvsgdshdnms",getPriceAwait)
 
       let filterdata = getPriceAwait?.data?.filter((item) =>
         item?.recurring?.interval == "year" || item?.recurring?.interval == "month"
       )
       setSubscriptionDetails(filterdata)
 
-
-
-      // setSubscriptionDetails(getPriceAwait?.data)
-      // setSubscriptionPlanDetails(unieqPlan)
-      // console.log("nxbsdsdfsdww", SubscriptionDetails) 
-    }
-
-    // getProducts()
+    } 
 
     getPrice()
 
   }, []);
-  console.log("PaymentSelectorDatahghvhghgch", PaymentSelectorData)
 
+
+ 
   useEffect(() => {
     if (PaymentSelectorData?.PaymentPostReducerData?.status === 200) {
       // window.location.replace(PaymentSelectorData?.PaymentPostReducerData?.data?.url?.url)
@@ -81,46 +54,9 @@ const Subscription = () => {
     }
   }, [PaymentSelectorData?.PaymentPostReducerData]);
 
+  
 
-
-
-  useEffect(() => {
-
-    if (subscriptionDetails) {
-
-      let pushedData = []
-
-
-      //  let filterdata= subscriptionDetails?.filter( (item) => 
-      //       item?.recurring?.interval == "year" || item?.recurring?.interval == "month" 
-      //   )
-      //   // setSubscriptionDetails(filterdata)
-
-      // console.log(filterdata)
-      // subscriptionDetails?.map((items, id) => {
-
-      //   if(items?.recurring?.interval!== undefined){
-      //   pushedData.push(items?.recurring?.interval)}
-      // })
-      // let unieqPlan = new Set(pushedData)
-      // console.log("mabcsdasds", [...unieqPlan])
-
-      // .map(({ category, name }) => (
-      //   <ProductItem
-      //     key={`ProductItems-${name}`}
-      //     category={category}
-      //     name={name}
-      //   />
-      // ))}
-
-      // console.log("smbvcgdhbsd",filterdata)
-    }
-  }, [subscriptionDetails])
-
-  // console.log("nxbsdsdfsdww", subscriptionDetails)
-
-  const PaymentFunc = (price_id) => {
-
+  const PaymentFunc = (price_id) => { 
     dispatch(PaymentPostSlice({ price_id , restaurant_id : RestaurantId}));
   }
 
@@ -146,18 +82,19 @@ const Subscription = () => {
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
               <ul>
+
                 {subscriptionDetails && subscriptionDetails?.map((items, id) => {
                   {/* console.log("-->item", items) */}
-                  return items?.recurring?.interval === "month" && items?.product?.active === true && <li className=''>
+                  return items?.recurring?.interval === "month" && items?.product?.active === true && <li key={id} className=''>
                     <div className='title'>
                       <div className='iconbox'>
                         <img src={subicon1} alt='img' className='img' />
-                        <img src={subicon1h} alt='img' className='activeimg' />
+                        <img src={subicon1h} alt='img' className='activeimg'/>
                       </div>
-                      <h3>{items?.currency.toUpperCase()} {items?.unit_amount / 100}<span>/per {items?.recurring?.interval}</span></h3>
+                      <h3>{items?.currency?.toUpperCase()} {items?.unit_amount / 100}<span>/per {items?.recurring?.interval}</span></h3>
                     </div>
                     <div className='info'>
-                      <h4>{items?.product?.name.charAt(0).toUpperCase() + items?.product?.name.slice(1)}</h4>
+                      <h4>{items?.product?.name?.charAt(0)?.toUpperCase() + items?.product?.name?.slice(1)}</h4>
                       <p>{items?.product?.description}</p>
 
                       <button type='button' onClick={() => PaymentFunc(items.id)}>

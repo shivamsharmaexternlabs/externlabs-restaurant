@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import "./login.css";
 import { useDispatch, useSelector } from "react-redux";
-import {SignInSlice} from "../../Redux/slices/SignInSlice";
+import { SignInSlice } from "../../Redux/slices/SignInSlice";
 import { reactLocalStorage } from "reactjs-localstorage";
 // import LodingSpiner from "../LoadinSpinner";
 
@@ -17,26 +17,33 @@ const Login = () => {
   const User = useSelector((state) => state.SignInApiData);
   console.log("User", User)
 
-  let  RestaurantId= reactLocalStorage.get("RestaurantId",false);
+  let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
 
   useEffect(() => {
-    console.log("dsdsdsdsfd",User)
+    console.log("dsdsdsdsfd", User)
 
 
     if (User?.data?.status === 200) {
-      console.log("jhjdajvhah",User)
+      console.log("jhjdajvhah", User)
       setLoadSpiner(false);
-      if(User?.data?.data?.type !== "sales"){
+      if (User?.data?.data?.type !== "sales") {
+
+        if (User?.data?.data?.payment_status === false) {
+          navigate(`/subscription`); 
+        }
+        else if(User?.data?.data?.payment_status === true){
+          navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}/admin/dashboard`);
+
+        }
 
         // navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
-          navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}/admin/dashboard`);
        }
-      else{
+      else {
         navigate(`/admin/leads`);
 
       }
-       
+
       // window.location.reload(true);
     }
 
@@ -52,12 +59,12 @@ const Login = () => {
   // }, [User]);
 
   const defaultValue = {
-    email: "shivam@yopmail.com",
+    email_or_phone: "shivam@yopmail.com",
     password: "",
   };
 
   const Validate = yup.object({
-    email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'Email Number must not contain spaces'),
+    email_or_phone: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'Email Number must not contain spaces'),
     password: yup.string().required("Password is required").matches(/^\S*$/, 'Password Number must not contain spaces')
     // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "Password must contain 8 character, at least one lowercase, one uppercase,one digit and one special character"),
   });
@@ -88,7 +95,7 @@ const Login = () => {
                 <div className="formbox">
                   <label>Email </label>
                   <Field
-                    name="email"
+                    name="email_or_phone"
                     type="email"
                     className={`form-control `}
                     autoComplete="off"
@@ -96,7 +103,7 @@ const Login = () => {
                   />
                   {/* <img src={sms} alt="sms img" className="imgsms" /> */}
                   <p className="text-danger">
-                    <ErrorMessage name="email" />
+                    <ErrorMessage name="email_or_phone" />
                   </p>
                 </div>
 
@@ -122,14 +129,14 @@ const Login = () => {
                   ) : (
                     <>
                     </>
-                   
+
                   )}
                 </div>
                 {/* <div className="forgortext">                     
                     <div className=""> <input type="checkbox" />  Remember me? </div>
                     <span onClick={(e)=>navigate("/forgotpassword")}> Forgot Password </span>
                 </div> */}
-                <button type="submit" className="btn"> Sign in </button> 
+                <button type="submit" className="btn"> Sign in </button>
               </Form>
               {/* <div className="alreadytext"> Don’t have an account?  <span onClick={(e)=>navigate("/signup")}>Click here to sign up. </span></div> */}
             </div>

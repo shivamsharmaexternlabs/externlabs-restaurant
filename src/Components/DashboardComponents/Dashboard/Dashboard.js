@@ -18,6 +18,7 @@ import menimg from '../../../images/men.png'
 import { useNavigate } from 'react-router-dom'
 import { reactLocalStorage } from 'reactjs-localstorage'
 import { favoriteMenuSlice } from '../../../Redux/slices/menuSlice'
+import { PaymentHistorySlice } from '../../../Redux/slices/paymentSlice';
 
 
 
@@ -33,9 +34,10 @@ const Dashboard = () => {
   const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data);
   const QrApiSelectorData = useSelector((state) => state.QrCodeApiData?.data)
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
+  const PaymentSelectorData = useSelector((state) => state.PaymentApiData);
 
-  let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false); 
-  let  FirstName=  reactLocalStorage.get("FirstName",false); 
+  let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
+  let FirstName = reactLocalStorage.get("FirstName", false);
   let BearerToken = reactLocalStorage.get("Token", false);
 
   console.log("MenuApiSelectorDatauuuuuuuu", MenuApiSelectorData)
@@ -56,6 +58,9 @@ const Dashboard = () => {
 
   }, [BearerToken])
 
+  useEffect(() => {
+    dispatch(PaymentHistorySlice());
+  }, []);
 
   const QrCodeDownloadFun = () => {
     let url = QrImage
@@ -86,19 +91,7 @@ const Dashboard = () => {
     setActiveFavoriteCategory(categoryItem);
   }
 
-
-
-  function getGreeting(time) {
-
-    console.log("jghadfgcds", time)
-    if (time < 12) {
-      return "Good morning!";
-    } else if (time < 18) {
-      return "Good afternoon!";
-    } else {
-      return "Good evening!";
-    }
-  }
+  
 
   // const greetingElement = document.querySelector(".greeting");
   // const time = new Date().getHours();
@@ -106,21 +99,21 @@ const Dashboard = () => {
 
   useEffect(() => {
 
-    const time = new Date().getHours(); 
+    const time = new Date().getHours();
     if (time < 12) {
       setWellWishes("Good morning")
-      console.log("kjbabjd", "Good morning"); 
+      console.log("kjbabjd", "Good morning");
     } else if (time < 16) {
       setWellWishes("Good afternoon")
-      console.log("kjbabjd", "Good afternoon"); 
+      console.log("kjbabjd", "Good afternoon");
     } else {
       setWellWishes("Good evening")
-      console.log("kjbabjd", "Good evening"); 
-    } 
+      console.log("kjbabjd", "Good evening");
+    }
 
   }, [])
 
- 
+console.log("jhvgcfgvhbjnkmlknjbhv",PaymentSelectorData)
 
   return (
     <>
@@ -321,13 +314,13 @@ const Dashboard = () => {
                 <div className='subplanbox'>
                   <div className='title'>
                     <h3>Subscription Plan</h3>
-                    <button type='button'> View Details <img src={arrow2} alt='arrow img' />  </button>
+                    <button type='button' onClick = {() => navigate(`/${RestaurantIdLocalData}/admin/paymenthistory`)}> View Details <img src={arrow2} alt='arrow img' />  </button>
                   </div>
                   <div className='info'>
                     <div className='leftpart'>
-                      <p>Basic Plan</p>
-                      <p>Start Date: 24/10/23</p>
-                      <p>End Date: 24/10/23</p>
+                      <p>{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_name.charAt(0).toUpperCase() + PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_name.slice(1) } </p>
+                      <p>Start Date: {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.start_date}</p>
+                      <p>End Date: {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.end_date}</p>
                     </div>
                     <div className='rightpart'>
                       <img src={item2} alt='img' />
@@ -343,12 +336,12 @@ const Dashboard = () => {
                   </div>
                   <div className='info'>
                     <span></span>
-                    <button type='button' 
-                    onClick={(e) => QrCodeDownloadFun()}
-                    > 
-                    {/* <a href={QrImage} download="my-file.png">Download </a> */}
-                    Download
-                    
+                    <button type='button'
+                      onClick={(e) => QrCodeDownloadFun()}
+                    >
+                      {/* <a href={QrImage} download="my-file.png">Download </a> */}
+                      Download
+
                     </button>
                   </div>
                 </div>

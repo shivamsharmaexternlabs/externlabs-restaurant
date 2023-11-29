@@ -88,6 +88,7 @@ export const managerReducer = createSlice({
       .addCase(ManagerDeleteSlice.fulfilled, (state, action) => {
         state.loading = false;
         state.managerDeleteReducer = action.payload;
+        toast.success(action?.payload?.data?.message);
       }
       )
 
