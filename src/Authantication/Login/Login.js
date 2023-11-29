@@ -28,11 +28,13 @@ const Login = () => {
       console.log("jhjdajvhah", User)
       setLoadSpiner(false);
       if (User?.data?.data?.type !== "sales") {
+        reactLocalStorage.set("payment_status", User?.data?.data?.payment_status);
 
         if (User?.data?.data?.payment_status === false) {
           navigate(`/subscription`); 
         }
         else if(User?.data?.data?.payment_status === true){
+          
           navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}/admin/dashboard`);
 
         }

@@ -22,7 +22,7 @@ export const PaymentPostSlice = createAsyncThunk("PaymentPostSlice", async (body
 
     } catch (err) {
         // console.log("shfjjerr", err)
-        toast.error(err?.response?.data?.error[0]);
+        toast.error(err?.response?.data?.error);
         return rejectWithValue(err);
     }
 }
@@ -57,7 +57,7 @@ export const PaymentHistorySlice = createAsyncThunk("PaymentHistorySlice", async
         const response = await axios.get(`${process.env.REACT_APP_BASE_URL}payment/history/`,
             {
                 headers: {
-                    Authorization: `Bearer ${BearerToken}`,
+                    Authorization: `Bearer ${body}`,
                 },
             }
         );
@@ -67,7 +67,7 @@ export const PaymentHistorySlice = createAsyncThunk("PaymentHistorySlice", async
 
     } catch (err) {
         // console.log("shfjjerr", err)
-        toast.error(err?.response?.data?.error[0]);
+        toast.error(err?.response?.data?.error);
         return rejectWithValue(err);
     }
 }

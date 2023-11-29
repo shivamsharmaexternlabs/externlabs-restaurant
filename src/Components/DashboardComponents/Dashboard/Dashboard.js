@@ -17,7 +17,7 @@ import qrimg from '../../../images/qr.png'
 import menimg from '../../../images/men.png'
 import { useNavigate } from 'react-router-dom'
 import { reactLocalStorage } from 'reactjs-localstorage'
-import { favoriteMenuSlice } from '../../../Redux/slices/menuSlice'
+import { MenuSlice, favoriteMenuSlice } from '../../../Redux/slices/menuSlice'
 import { PaymentHistorySlice } from '../../../Redux/slices/paymentSlice';
 
 
@@ -27,7 +27,11 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({ results: [] });
   const [QrImage, setQrImage] = useState("")
-  const [ActiveFavoriteCategory, setActiveFavoriteCategory] = useState({});
+
+  // for top dishes
+  // const [ActiveFavoriteCategory, setActiveFavoriteCategory] = useState({});
+
+  const [ActiveCategory, setActiveCategory] = useState({});
   const [WellWishes, setWellWishes] = useState("")
 
 
@@ -41,7 +45,7 @@ const Dashboard = () => {
   let BearerToken = reactLocalStorage.get("Token", false);
 
   console.log("MenuApiSelectorDatauuuuuuuu", MenuApiSelectorData)
-  console.log("ActiveFavoriteCategory", ActiveFavoriteCategory)
+  console.log("ActiveCategory", ActiveCategory)
 
   useEffect(() => {
     setData(ManagerApiSelectorData?.data)
@@ -59,7 +63,8 @@ const Dashboard = () => {
   }, [BearerToken])
 
   useEffect(() => {
-    dispatch(PaymentHistorySlice());
+    if(BearerToken != false)
+    dispatch(PaymentHistorySlice(BearerToken));
   }, []);
 
   const QrCodeDownloadFun = () => {
@@ -73,22 +78,31 @@ const Dashboard = () => {
 
   useEffect(() => {
 
-    let resturantid = RestaurantIdLocalData
-    dispatch(GetQrCodeSlice(resturantid))
-    dispatch(favoriteMenuSlice({ "RestaurantId": RestaurantIdLocalData }));
+    // let resturantid = RestaurantIdLocalData
+    dispatch(GetQrCodeSlice(RestaurantIdLocalData))
+    dispatch(MenuSlice({ "RestaurantId": RestaurantIdLocalData }));
 
     // setActiveFavoriteCategory(MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.[0]?.menu_id)
   }, [])
 
+// for favorite top dishes
+  // useEffect(() => {
+
+  //   setActiveFavoriteCategory(MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.[0])
+  // }, [MenuApiSelectorData?.favoriteMenuSliceReducerData])
+
 
   useEffect(() => {
+    setActiveCategory(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0])
+  }, [MenuApiSelectorData?.MenuSliceReducerData])
 
-    setActiveFavoriteCategory(MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.[0])
-  }, [MenuApiSelectorData?.favoriteMenuSliceReducerData])
+// for favorite top dishes
+  // const FavoriteCategoryTabFun = (e, categoryItem) => {
+  //   setActiveFavoriteCategory(categoryItem);
+  // }
 
-
-  const FavoriteCategoryTabFun = (e, categoryItem) => {
-    setActiveFavoriteCategory(categoryItem);
+  const CategoryTabFun = (e, categoryItem) => {
+    setActiveCategory(categoryItem);
   }
 
   
@@ -112,8 +126,7 @@ const Dashboard = () => {
     }
 
   }, [])
-
-console.log("jhvgcfgvhbjnkmlknjbhv",PaymentSelectorData)
+  
 
   return (
     <>
@@ -130,13 +143,36 @@ console.log("jhvgcfgvhbjnkmlknjbhv",PaymentSelectorData)
               <div className='leftpart'>
                 <div className='topdishespart'>
                   <div className='title'>
-                    <h2> Top Dishes </h2> <button type='button'> View All <img src={arrow2} alt='img' /> </button>
+                    <h2> Menu Items </h2> <button type='button' onClick = {() => {navigate(`/${RestaurantIdLocalData}/admin/categories`)}}> View All <img src={arrow2} alt='img' /> </button>
                   </div>
 
                   <div className='topdishestabpart'>
                     <nav>
                       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        {/* FAVORITE DISHES MANAGEMENT */}
+
+                        {/* MENU DISHES MANAGEMENT */}
+                        {
+                          MenuApiSelectorData?.MenuSliceReducerData?.data?.map((items, Id) => {
+                            console.log("hdvfbjsfhvhsvh", items)
+                            return <button key={Id} onClick={(e) => CategoryTabFun(e, items)} class={`nav-link ${items?.menu_id == ActiveCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
+                              <div>
+                                <figure>
+                                  <img src={items?.category_image === null ? defaultImage : items?.category_image} alt="img" className="catg-img" />
+                                </figure>
+                                <h3>{items?.category}</h3>
+                                <div className='buttonbox'>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="5" height="7" viewBox="0 0 5 7" fill="none">
+                                    <path d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768" stroke-width="1.10009" stroke-linecap="round" stroke-linejoin="round" />
+                                  </svg>
+                                </div>
+                              </div>
+                            </button>
+
+                          })
+                        }
+
+
+                        {/* FAVORITE DISHES MANAGEMENT
                         {
                           MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map((items, favoriteId) => {
                             console.log("hdvfbjsfhvhsvh", items)
@@ -155,7 +191,7 @@ console.log("jhvgcfgvhbjnkmlknjbhv",PaymentSelectorData)
                             </button>
 
                           })
-                        }
+                        } */}
 
                         {/* <button class="nav-link active" id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
                           <div>
@@ -192,17 +228,17 @@ console.log("jhvgcfgvhbjnkmlknjbhv",PaymentSelectorData)
                       <div class="tab-pane fade show active" id="nav-dishes1" role="tabpanel" aria-labelledby="nav-dishes1-tab" tabindex="0">
                         <ul>
                           {
-                            ActiveFavoriteCategory?.item_id?.map((favoriteItem, favoriteDishesId) => {
-                              console.log("favoriteItem", favoriteItem)
+                            ActiveCategory?.item_id?.slice(0, 4).map((Item, DishesId) => {
+                              console.log("Itjhgcvhjkem", Item)
                               return <li>
-                                <h4>{favoriteItem?.item_name}</h4>
+                                <h4>{Item?.item_name}</h4>
                                 <div className='tabinfo'>
                                   <div className='leftpart'>
-                                    <p>{favoriteItem?.description}</p>
-                                    <span className='price'>{`$${favoriteItem?.item_price}`}</span>
+                                    <p>{Item?.description}</p>
+                                    <span className='price'>{`$${Item?.item_price}`}</span>
                                   </div>
                                   <div className='rightpart'>
-                                    <img src={favoriteItem?.image === null ? defaultImage : favoriteItem?.image} alt='img' />
+                                    <img src={Item?.image === null ? defaultImage : Item?.image} alt='img' />
                                   </div>
                                 </div>
                               </li>
