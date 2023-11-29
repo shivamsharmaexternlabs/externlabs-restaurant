@@ -60,8 +60,7 @@ export const CreateCategorySlice = createAsyncThunk(
     }
   }
 );
-// get menu category
-// ${body?.dragAndDrop==true?body?.dragAndDrop:false}
+// get menu category 
 export const GetMenuCategorySlice = createAsyncThunk(
   "GetMenuCategorySlice",
   async (body, { rejectWithValue }) => {
@@ -108,6 +107,36 @@ export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
 );
 
 
+//patch menu item data after drag and drop
+export const UpdateMenuItemsAfterDragAndDrop = createAsyncThunk(
+  "UpdateMenuItemsAfterDragAndDrop",
+  async (body, { rejectWithValue }) => {
+    console.log("bodyyy", body)
+    try {
+   
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/item_index/`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${BearerToken}`,
+          },
+        }
+      );
+      toast.success("Menu Items is Reorder ");
+      // toast.success(response?.data?.detail);
+       
+      return response;
+    } catch (err) {
+      // console.log(response)
+      toast.error(err?.response?.data?.message);
+
+      return rejectWithValue(err);
+    }
+  }
+);
+
+
 // get menu category data
 // ${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&menu_id=${body?.MenuId===undefined?"":body?.MenuId}&search=${body?.searchValue===undefined?"":body?.searchValue}&item_type=${body?.itemTypeValue===undefined?"":body?.itemTypeValue}
 
@@ -121,7 +150,7 @@ export const MenuSlice = createAsyncThunk(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId
         }&menu_id=${body?.MenuId === undefined ? "" : body?.MenuId}&search=${body?.searchValue === undefined ? "" : body?.searchValue
         }&item_type=${body?.itemTypeValue === undefined ? "" : body?.itemTypeValue
-        }`
+        }&index=true`
 
         // {
         //   headers: {
@@ -318,6 +347,7 @@ export const menuReducer = createSlice({
     DeleteMenuItemReducerData: [],
     DeleteMenucategoryReducerData: [],
     UpdateMenuCategoryAfterDragAndDroprReducerData:[],
+    UpdateMenuItemsAfterDragAndDropReducerData:[],
     loading: false,
     error: null,
   },
@@ -471,6 +501,20 @@ export const menuReducer = createSlice({
       })
 
       .addCase(UpdateMenuCategoryAfterDragAndDrop.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action;
+      })
+
+      .addCase(UpdateMenuItemsAfterDragAndDrop.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(UpdateMenuItemsAfterDragAndDrop.fulfilled, (state, action) => {
+        state.loading = false;
+        state.UpdateMenuItemsAfterDragAndDropReducerData = action.payload;
+      })
+
+      .addCase(UpdateMenuItemsAfterDragAndDrop.rejected, (state, action) => {
         state.loading = false;
         state.error = action;
       })

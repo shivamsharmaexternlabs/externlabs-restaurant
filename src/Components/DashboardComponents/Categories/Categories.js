@@ -38,6 +38,7 @@ import {
   EditCategorySlice,
   DeleteMenuItemSlice,
   DeleteMenuCategorySlice,
+  UpdateMenuItemsAfterDragAndDrop,
 } from "../../../Redux/slices/menuSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -67,9 +68,11 @@ const Categories = () => {
   const [draggableSubcategory, setDraggableSubcategory] = useState(false)
   const [reorderCategory, setReorderCategory] = useState(false)
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
-  const [items, setItems] = useState(MenuApiSelectorData.MenuSliceReducerData.data)
-  const [dragItem, setDragItem] = useState([])
-  console.log("items", items)
+  const [DragAndDropItems, setDragAndDropItems] = useState([])
+  const [dndPayload, setDndPayload] = useState()
+  const [SaveActiveBtn, setSaveActiveBtn] = useState(false)
+
+
 
   const CreateApiSelectorData = useSelector(
     (state) => state.CreateApiSelectorData
@@ -96,6 +99,7 @@ const Categories = () => {
   const PopUpToggleFun = () => {
     popUpHookFun((o) => !o);
   };
+
   let currencyData = [
     {
       country: "Afghanistan",
@@ -1070,6 +1074,7 @@ const Categories = () => {
       currency_code: "ZWD",
     },
   ];
+
   const PopUpCategoriesToggleFun = () => {
     popUpCategoriesHookFun((o) => !o);
   };
@@ -1092,7 +1097,6 @@ const Categories = () => {
     dispatch(UploadMenuSlice(formData));
   };
 
-  console.log("MenuApiSelectorData", MenuApiSelectorData);
   useEffect(() => {
     if (MenuApiSelectorData?.GetMenuCategoryReducerData.status === 200) {
       setLoadSpiner(false);
@@ -1100,6 +1104,7 @@ const Categories = () => {
       setLoadSpiner(false);
     }
     if (MenuApiSelectorData?.MenuSliceReducerData.status === 200) {
+      setDragAndDropItems(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.item_id)
       setLoadSpiner(false);
     } else if (MenuApiSelectorData?.error == "Rejected") {
       setLoadSpiner(false);
@@ -1109,6 +1114,7 @@ const Categories = () => {
     } else if (MenuApiSelectorData?.error == "Rejected") {
       setLoadSpiner(false);
     }
+
   }, [
     MenuApiSelectorData?.GetMenuCategoryReducerData,
     MenuApiSelectorData?.MenuSliceReducerData,
@@ -1262,7 +1268,6 @@ const Categories = () => {
     let url = QrSampleImage;
     saveAs(url, "Twitter-logo");
   };
-  console.log("EditMensadfsdfuData", EditMenuData);
 
   useEffect(() => { }, [MenuApiSelectorData?.GetSampleUploadReducerData]);
   const defaultEditValue = {
@@ -1287,7 +1292,6 @@ const Categories = () => {
     description: yup.string().required("Please Enter Description"),
   });
   const handleEditMenuSubmit = (values) => {
-    console.log("djsbdjk11", EditMenuData);
     let payload = {
       item_id: EditMenuData?.item_id,
       restaurant_id: values?.restaurant_id,
@@ -1301,7 +1305,6 @@ const Categories = () => {
       currency: values?.currency,
       calories_unit: EditMenuData?.calories_unit,
     };
-    console.log("asgfdagh", payload);
     dispatch(EditMenuItemSlice(payload));
     popUpEditHookFun(false);
     setTimeout(() => {
@@ -1442,7 +1445,9 @@ const Categories = () => {
       dispatch(GetMenuCategorySlice(MenuSlicePayload));
     }, 1500)
   };
-  console.log("msabdfjhsdf", MenuItemFavouriteApiSelectorData?.data?.status)
+
+
+
 
   const startDrag = (e, item) => {
     e.dataTransfer.setData('text/plain', ''); // required for Firefox to enable drag
@@ -1459,14 +1464,21 @@ const Categories = () => {
   const handleDrop = (e, item) => {
     e.preventDefault();
 
+    // if(draggedItem !==item){
+    setSaveActiveBtn(true)
+    // }  please do not remove this if condition , after test we will remove this condtion // developer jinda bad
+
+
     if (!draggedItem || draggedItem === item) {
       return;
     }
 
-    const draggedIndex = MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id?.findIndex((el) => el.menu_id === draggedItem.menu_id);
-    const targetIndex = MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id?.findIndex((el) => el.menu_id === item.menu_id);
+    console.log("nmdsfvd", draggedItem)
 
-    const updatedItems = [...MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id];
+    const draggedIndex = DragAndDropItems?.findIndex((el) => el.item_id === draggedItem.item_id);
+    const targetIndex = DragAndDropItems?.findIndex((el) => el.item_id === item.item_id);
+
+    const updatedItems = [...DragAndDropItems];
     const draggedItemCopy = { ...draggedItem, index: targetIndex + 1 };
 
     // Remove the dragged item from its original position
@@ -1478,43 +1490,51 @@ const Categories = () => {
     // Reindex the remaining items
     const newItems = updatedItems.map((item, index) => ({ ...item, index: index + 1 }));
 
-    setDragItem(newItems);
-    console.log("newItems", newItems);
+    setDragAndDropItems(newItems);
 
     const payload = {
       data: newItems.map(({ item_id, menu_id, index }) => ({ menu_id, item_id, index })),
     };
-    console.log("payload", payload);
+    setDndPayload(payload)
+    console.log("nmdsfvd", draggedItem ,payload)
 
     // Dispatch an action to update the Redux store with the new order
     // dispatch(UpdateMenuCategoryAfterDragAndDrop(payload));
 
     setDraggedItem(null);
   };
-  // const handleDrop = (e, item) => {
-  //   e.preventDefault(); 
 
-  //   if (!draggedItem || draggedItem === item) {
-  //     return;
-  //   }
-  //   const draggedIndex = MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id?.indexOf(draggedItem);
-  //   const targetIndex = MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id?.indexOf(item);
 
-  //   const newItems = [...MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id];
-  //   newItems.splice(draggedIndex, 1); // Remove the dragged item
-  //   newItems.splice(targetIndex, 0, draggedItem); // Insert the dragged item at the new position
 
-  //   // setItems(newItems);
-  //   console.log("newItems", newItems)
-  //   setDragItem(newItems)
+  const handleDndUpdate = () => {
+    dispatch(UpdateMenuItemsAfterDragAndDrop(dndPayload));
 
-  //   console.log("first",MenuApiSelectorData)
-  //   // // Dispatch an ,action to update the Redux store with the new order
+  };
 
-  //   // // dispatch(UpdateMenuCategoryAfterDragAndDrop(newItems));
 
-  //   // setDraggedItem(null);
-  // };
+  useEffect(() => {
+ 
+    if (MenuApiSelectorData?.UpdateMenuItemsAfterDragAndDropReducerData?.status === 200) {
+        console.log("UpdateMenuItemsAfterDragAndDropReducerData is 200 status");
+        setSaveActiveBtn(false)
+        setDraggableSubcategory(false)
+        
+       // Additional actions you want to perform when status is 200
+        // dispatch(GetMenuCategorySlice({
+        //     RestaurantId: resId  
+        // }
+        // ));
+    } 
+    else{
+        console.log("UpdateMenuItemsAfterDragAndDropReducerData is error", MenuApiSelectorData?.UpdateMenuItemsAfterDragAndDropReducerData)
+    }
+
+
+    // else if(MenuApiSelectorData?.UpdateMenuItemsAfterDragAndDropReducerData?.error === "Rejected") {
+    //     toast.error("detail error");
+    // }
+
+}, [MenuApiSelectorData?.UpdateMenuItemsAfterDragAndDropReducerData])
 
   const handleDragEnd = () => {
     setDraggedItem(null);
@@ -1535,7 +1555,7 @@ const Categories = () => {
           <div className="contentpart categorypage">
             <div className="title">
               <h2>
-               Menu Categories
+                Menu Categories
                 {/* <img src={order}  className="sort-order"   onClick={(e) => setReorderCategory(true)}/> */}
               </h2>
               <div className="btnbox">
@@ -1734,29 +1754,57 @@ const Categories = () => {
                         </button> */}
                       <div className="item-head">
                         <h2>Items</h2>
-                        <img src={order} className="sort-item-order" onClick={(e) => setDraggableSubcategory(true)} />
-                      </div>
+
+
+                        <div className="reorder-icon-div" onClick={(e) => setDraggableSubcategory(true)}>
+                   { !SaveActiveBtn &&
+                   <>
+                    <img src={order} className="sort-order" />
+                    <h1 className="reorder-head"> Reorder</h1>
+                   
+                   </>  }
+                    {SaveActiveBtn && <button
+                            type="button "
+                            className="categorybtn btn2 me-3"
+                            onClick={handleDndUpdate}
+                            style={{ width: "100px", height: "43px" }}
+                          >
+                            Save
+                          </button>}
+                          </div>
+
+
+                        {/* <div   className="ReorderCurese">
+                          <img src={order} className="sort-item-order me-3"  /> Reorder
+                          
+                        </div> */}
+                      </div> 
 
                       <ul>
                         {/* CATEGORY ITEMS DATA MANAGEMENT */}
 
 
-                        {dragItem.length == 0 ? MenuApiSelectorData?.MenuSliceReducerData?.data &&
-                          MenuApiSelectorData?.MenuSliceReducerData?.data[0]?.item_id?.map(
+                        {
+                          // dragItem.length == 0 ? MenuApiSelectorData?.MenuSliceReducerData?.data &&
+
+                          DragAndDropItems?.map(
                             (items, ids) => {
-                              console.log("jafhaja", items);
                               return (
                                 <li
                                   key={ids}
-                                  className={draggableSubcategory === true ? "drag-active" : "active"}
+                                  className={draggableSubcategory === true ? "drag-active " : "active"}
                                   // key={item.menu_id}
                                   draggable={draggableSubcategory}
-                                  onDragStart={(e) => startDrag(e, items)}
-                                  onDragOver={(e) => handleDragOver(e, items)}
-                                  onDrop={(e) => handleDrop(e, items)}
+                                  onDragStart={(e) =>draggableSubcategory && startDrag(e, items)}
+                                  onDragOver={(e) => draggableSubcategory && handleDragOver(e, items)}
+                                  onDrop={(e) => draggableSubcategory && handleDrop(e, items)}
                                   onDragEnd={handleDragEnd}
+
                                 >
                                   {<div className="title">
+                                    {draggableSubcategory && <div className='indx-div'>
+                                      <span className='item-indx'>{ids + 1}</span>
+                                    </div>}
                                     <div className="">
                                       <h4>
                                         {items?.item_name}{" "}
@@ -1819,85 +1867,82 @@ const Categories = () => {
                             }
                           )
 
-                          :
+                          // :
 
 
-                          dragItem && dragItem?.map(
-                            (items, ids) => {
-                              console.log("jafhaja", items);
-                              return (
-                                <li
-                                  key={ids}
-                                  className={draggableSubcategory === true ? "drag-active" : "active"}
-                                  // key={item.menu_id}
-                                  draggable={draggableSubcategory}
-                                  onDragStart={(e) => startDrag(e, items)}
-                                  onDragOver={(e) => handleDragOver(e, items)}
-                                  onDrop={(e) => handleDrop(e, items)}
-                                  onDragEnd={handleDragEnd}
-                                >
-                                  {<div className="title">
-                                    <div className="">
-                                      <h4>
-                                        {items?.item_name}{" "}
-                                        <button
-                                          type="button"
-                                          onClick={(e) => FavoriteFun(e, items)}
-                                        >
-                                          {" "}
-                                          <img
-                                            src={
-                                              items?.is_favorite === true
-                                                ? starfill
-                                                : star
-                                            }
-                                            alt="img"
-                                            className="ms-1"
-                                          />{" "}
-                                          {/* <img src={star} alt="img" />{" "} */}
-                                        </button>{" "}
-                                      </h4>
-                                    </div>
-                                    <div className="btnbox">
-                                      <button
-                                        type="button"
-                                        onClick={(e) =>
-                                          PopUpToggleEditFun(e, items)
-                                        }
-                                        className="editbtn"
-                                      >
-                                        {" "}
-                                        <img src={edit1} alt="img" />{" "}
-                                      </button>
+                          // dragItem && dragItem?.map(
+                          //   (items, ids) => {
+                          //     console.log("jafhaja", items);
+                          //     return (
+                          //       <li
+                          //         key={ids}
+                          //         className={draggableSubcategory === true ? "drag-active" : "active"} 
+                          //         draggable={draggableSubcategory}
+                          //         onDragStart={(e) => startDrag(e, items)}
+                          //         onDragOver={(e) => handleDragOver(e, items)}
+                          //         onDrop={(e) => handleDrop(e, items)}
+                          //         onDragEnd={handleDragEnd}
+                          //       >
+                          //         {<div className="title">
+                          //           <div className="">
+                          //             <h4>
+                          //               {items?.item_name}{" "}
+                          //               <button
+                          //                 type="button"
+                          //                 onClick={(e) => FavoriteFun(e, items)}
+                          //               >
+                          //                 {" "}
+                          //                 <img
+                          //                   src={
+                          //                     items?.is_favorite === true
+                          //                       ? starfill
+                          //                       : star
+                          //                   }
+                          //                   alt="img"
+                          //                   className="ms-1"
+                          //                 />{" "} 
+                          //               </button>{" "}
+                          //             </h4>
+                          //           </div>
+                          //           <div className="btnbox">
+                          //             <button
+                          //               type="button"
+                          //               onClick={(e) =>
+                          //                 PopUpToggleEditFun(e, items)
+                          //               }
+                          //               className="editbtn"
+                          //             >
+                          //               {" "}
+                          //               <img src={edit1} alt="img" />{" "}
+                          //             </button>
 
-                                      <button className="deletbtn">
-                                        <img
-                                          src={deleteicon}
-                                          alt="delete icon "
-                                          // className="editactive "
-                                          onClick={(e) =>
-                                            DeleteItemfun(e, items)
-                                          }
-                                        />
-                                      </button>
-                                    </div>
-                                  </div>}
+                          //             <button className="deletbtn">
+                          //               <img
+                          //                 src={deleteicon}
+                          //                 alt="delete icon " 
+                          //                 onClick={(e) =>
+                          //                   DeleteItemfun(e, items)
+                          //                 }
+                          //               />
+                          //             </button>
+                          //           </div>
+                          //         </div>}
 
-                                  <div className="tabinfo">
-                                    <div className="leftpart">
-                                      <p>
-                                        {items?.description}
-                                      </p>
-                                      <span className="price">{`$${items?.item_price}`}</span>
-                                    </div>
-                                    <div className="rightpart">
-                                      <img src={items?.image} alt="img" />
-                                    </div>
-                                  </div>
-                                </li>
-                              );
-                            }
-                          )
+                          //         <div className="tabinfo">
+                          //           <div className="leftpart">
+                          //             <p>
+                          //               {items?.description}
+                          //             </p>
+                          //             <span className="price">{`$${items?.item_price}`}</span>
+                          //           </div>
+                          //           <div className="rightpart">
+                          //             <img src={items?.image} alt="img" />
+                          //           </div>
+                          //         </div>
+                          //       </li>
+                          //     );
+                          //   }
+                          // )
 
 
                         }
@@ -2087,9 +2132,9 @@ const Categories = () => {
                       name="menu_id"
                       className={`form-control `}
                     >
-                       <option value="select">
-                              Please Select Category.....
-                            </option>
+                      <option value="select">
+                        Please Select Category.....
+                      </option>
                       {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
                         (item, id) => {
                           console.log("sjdhaj", item?.category);
