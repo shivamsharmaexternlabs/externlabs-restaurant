@@ -12,6 +12,7 @@ import  leadsReducer  from "./slices/leadsSlice";
 import  menuItemFavouriteReducer  from "./slices/favouriteSlice";
 import LeadsRestaurantReducer  from "./slices/leadsRestaurantSlice";
 import PaymentReducer from "./slices/paymentSlice";
+import mediaLibraryReducer from "./slices/mediaLibrarySlice";
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
     LeadsApiData:leadsReducer,
     MenuItemFavouriteApiData:menuItemFavouriteReducer, 
     LeadsRestaurantApiData: LeadsRestaurantReducer,
-    PaymentApiData : PaymentReducer
+    PaymentApiData : PaymentReducer,
+    MediaLibraryApiData : mediaLibraryReducer
   },
 });

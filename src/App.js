@@ -81,7 +81,7 @@ function App() {
 
         <Route path="/dndcategories" element={<DndCategories />}></Route>
         <Route path="/allmedia" element={<AllMedia />}></Route>
-        <Route path="/paymenthistory" element={<PaymentHistory />}></Route>
+        <Route path="/:id/admin/paymenthistory" element={<PaymentHistory />}></Route>
 
         
 

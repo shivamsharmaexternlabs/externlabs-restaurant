@@ -22,7 +22,8 @@ export const CreateMenuSlice = createAsyncThunk(
           },
         }
       );
-      toast.success(response?.data?.detail);
+      // toast.success(response?.data?.message);
+      console.log("dfsgfhdgj", response?.data?.message)
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -375,6 +376,7 @@ export const menuReducer = createSlice({
       .addCase(CreateMenuSlice.fulfilled, (state, action) => {
         state.loading = false;
         state.CreateMenuSliceReducerData = action.payload;
+        toast.success(action?.payload?.data?.message);
       })
 
       .addCase(CreateMenuSlice.rejected, (state, action) => {
