@@ -8,6 +8,7 @@ import DashboardSidebar from '../DashboardSidebar/DashboardSidebar';
 import DashboardLayout from '../DashboardLayout/DashboardLayout';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { reactLocalStorage } from 'reactjs-localstorage';
 
 function DndCategories() {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function DndCategories() {
 
 
     const resId = localStorage.getItem("RestaurantId");
+    const BearerToken = reactLocalStorage.get("Token", false);
     const navigate = useNavigate();
 
 
@@ -93,6 +95,10 @@ function DndCategories() {
     };
 
     const handleDndUpdate = () => {
+
+        setDndPayload(previousState => {
+            return { ...previousState, BearerToken }
+          });
         dispatch(UpdateMenuCategoryAfterDragAndDrop(dndPayload));
 
     };

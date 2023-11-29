@@ -336,6 +336,7 @@ const RestaurantDetail = () => {
       restaurant_id: routeData?.state?.currentData?.restaurant_id,
       new_pass: values?.new_pass,
       confirm_pass: values?.confirm_pass,
+      BearerToken
     }
 
     dispatch(ResetPasswordSlice(forgetPayload));

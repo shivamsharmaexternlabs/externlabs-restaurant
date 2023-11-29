@@ -4,29 +4,8 @@ import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 // Reset password
-let BearerToken = reactLocalStorage.get("Token", false);
-// export const ResetPasswordSlice = createAsyncThunk("ResetPasswordSlice",async (body, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/forgot_password/`,body,
-//       {
-//         headers: {
-//           Authorization: `Bearer ${BearerToken}`,
-//         },
-//       }
-      
-//       );
-//       console.log("response",response);
-//       toast.success("Successful");
+// let BearerToken = reactLocalStorage.get("Token", false);
 
-//       return response;
-
-//     } catch (err) {
-//         console.log("err++++++++",err.response.data.message);
-//       toast.error(err?.response?.data?.message);
-//       return rejectWithValue(err);
-//     }
-//   }
-// );
 
 
 export const ResetPasswordSlice = createAsyncThunk("ResetPasswordSlice",async (body, { rejectWithValue }) => {
@@ -34,7 +13,7 @@ export const ResetPasswordSlice = createAsyncThunk("ResetPasswordSlice",async (b
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/reset_password/`,body,
       {
         headers: {
-          Authorization: `Bearer ${BearerToken}`,
+          Authorization: `Bearer ${body?.BearerToken}`,
         },
       }
       

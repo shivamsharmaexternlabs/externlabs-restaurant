@@ -16,8 +16,7 @@ import { reactLocalStorage } from 'reactjs-localstorage'
 import { SignUpSlice } from '../../../Redux/slices/SignUpSlice'
 import { useNavigate } from 'react-router-dom'
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
-import { ManagerSlice, ManagerDeleteSlice } from '../../../Redux/slices/managerSlice'
-// import {ManagerDeleteSlice} from "../../../Redux/slices/managerDeleteSlice"
+import { ManagerSlice, ManagerDeleteSlice } from '../../../Redux/slices/managerSlice' 
 import ReactPaginate from 'react-paginate';
 
 const Manager = () => {
@@ -156,7 +155,7 @@ const Manager = () => {
         deletePopUpFun(true)
     }
     const confirmDelete = (e, item) => {
-        dispatch(ManagerDeleteSlice(item))
+        dispatch(ManagerDeleteSlice({item, BearerToken}))
         deletePopUpFun(false)
         setCurrentPage(0);
         let ManagerSlicePayload = {

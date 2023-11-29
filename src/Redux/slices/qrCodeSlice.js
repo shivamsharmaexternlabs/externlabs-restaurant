@@ -3,8 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
-let BearerToken = reactLocalStorage.get("Token", false);
-let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
+
 
 
 // get menu category 

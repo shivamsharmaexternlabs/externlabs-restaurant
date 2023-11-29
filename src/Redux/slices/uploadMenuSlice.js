@@ -4,14 +4,13 @@ import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 
-let BearerToken = reactLocalStorage.get("Token", false);
 export const UploadMenuSlice = createAsyncThunk("UploadMenuSlice",async (body, { rejectWithValue }) => {
     console.log("hagss",body)
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}restaurant_app/menuupload/`,body,
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}restaurant_app/menuupload/`,body?.formData,
       {
         headers: {
-          Authorization: `Bearer ${BearerToken}`,
+          Authorization: `Bearer ${body?.BearerToken}`,
         },
       }
       
@@ -59,9 +58,6 @@ export const uploadMenuReducer = createSlice({
         state.error = action.error.message;
       })
 
-       
-
-       
   },
 
 });

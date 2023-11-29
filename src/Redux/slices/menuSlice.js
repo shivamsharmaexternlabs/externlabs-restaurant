@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
-let BearerToken = reactLocalStorage.get("Token", false);
+
 let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
 console.log("RestaurantIdLocalData",RestaurantIdLocalData)
 
@@ -15,10 +15,10 @@ export const CreateMenuSlice = createAsyncThunk(
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/menuitems/`,
-        body,
+        body?.formData,
         {
           headers: {
-            Authorization: `Bearer ${BearerToken}`,
+            Authorization: `Bearer ${body?.BearerToken}`,
           },
         }
       );
@@ -91,7 +91,7 @@ export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
         body,
         {
           headers: {
-            Authorization: `Bearer ${BearerToken}`,
+            Authorization: `Bearer ${body?.BearerToken}`,
           },
         }
       );
@@ -120,7 +120,7 @@ export const UpdateMenuItemsAfterDragAndDrop = createAsyncThunk(
         body,
         {
           headers: {
-            Authorization: `Bearer ${BearerToken}`,
+            Authorization: `Bearer ${body?.BearerToken}`,
           },
         }
       );
@@ -153,11 +153,6 @@ export const MenuSlice = createAsyncThunk(
         }&item_type=${body?.itemTypeValue === undefined ? "" : body?.itemTypeValue
         }&index=true`
 
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${BearerToken}`,
-        //   },
-        // }
       );
       console.log("GetMenuCatdsdsdegorySlice11", response);
 
@@ -236,7 +231,7 @@ export const EditMenuItemSlice = createAsyncThunk(
         formData,
         {
           headers: {
-            Authorization: `Bearer ${BearerToken}`,
+            Authorization: `Bearer ${body?.BearerToken}`,
           },
         }
       );
@@ -269,7 +264,7 @@ export const EditCategorySlice = createAsyncThunk(
         formData,
         {
           headers: {
-            Authorization: `Bearer ${BearerToken}`,
+            Authorization: `Bearer ${body?.BearerToken}`,
           },
         }
       );
@@ -290,10 +285,10 @@ export const DeleteMenuItemSlice = createAsyncThunk(
 
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/menuitems/${body}/`,
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/menuitems/${body?.item_id}/`,
         {
           headers: {
-            Authorization: `Bearer ${BearerToken}`,
+            Authorization: `Bearer ${body?.BearerToken}`,
           },
         }
       );
@@ -315,10 +310,10 @@ export const DeleteMenuCategorySlice = createAsyncThunk(
 
     try {
       const response = await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/${body}/ `,
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/${body?.menu_id}/ `,
         {
           headers: {
-            Authorization: `Bearer ${BearerToken}`,
+            Authorization: `Bearer ${body?.BearerToken}`,
           },
         }
       );

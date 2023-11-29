@@ -14,6 +14,7 @@ import { reactLocalStorage } from 'reactjs-localstorage'
 const Subscription = () => {
   const dispatch = useDispatch();
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
+  let BearerToken = reactLocalStorage.get("Token", false);
   const [subscriptionDetails, setSubscriptionDetails] = useState('')
 
   const [SubscriptionPlanDetails, setSubscriptionPlanDetails] = useState('')
@@ -57,7 +58,7 @@ const Subscription = () => {
   
 
   const PaymentFunc = (price_id) => { 
-    dispatch(PaymentPostSlice({ price_id , restaurant_id : RestaurantId}));
+    dispatch(PaymentPostSlice({ price_id , restaurant_id : RestaurantId, BearerToken}));
   }
 
 
