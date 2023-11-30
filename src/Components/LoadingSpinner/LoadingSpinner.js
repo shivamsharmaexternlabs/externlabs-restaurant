@@ -2,13 +2,19 @@ import React from 'react'
 import Popup from "reactjs-popup";
 import {ColorRing } from 'react-loader-spinner' 
 import "./loadingSpinner.css"
+import { useSelector } from 'react-redux';
 
 
 const LodingSpiner = ({ loadspiner }) => {
+
+
+    const ToggleBarSelectorData = useSelector((state) => state.ToggleBarData);
+
+
     return (
         
         <div className=" ">
-            <Popup open={loadspiner} position="" model className="loader">
+            <Popup open={ToggleBarSelectorData?.loadingspinner} position="" model className="loader">
                 <div className="loader">
                     <div className='loader-sec'>
                         <div className="justify-content-center d-flex">

@@ -20,6 +20,7 @@ import { reactLocalStorage } from 'reactjs-localstorage'
 import { MenuSlice, favoriteMenuSlice } from '../../../Redux/slices/menuSlice'
 import { PaymentHistorySlice } from '../../../Redux/slices/paymentSlice';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
+import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 
 
 
@@ -54,7 +55,7 @@ const Dashboard = () => {
     setQrImage(QrApiSelectorData?.data?.results[0]?.qrcode)
   }, [ManagerApiSelectorData, QrApiSelectorData]);
 
-  useEffect(() => {
+  useEffect(async () => {
 
     if (BearerToken !== false) {
 
@@ -63,18 +64,27 @@ const Dashboard = () => {
         Token: BearerToken,
         pageination: 1
       }
+      dispatch(LoadingSpinner(true))
 
-      setLoadSpiner(true)
+      try {
+        await dispatch(ManagerSlice(ManagerSlicePayload))
 
-      dispatch(ManagerSlice(ManagerSlicePayload)) 
-
-      dispatch(PaymentHistorySlice(BearerToken));
+        await dispatch(PaymentHistorySlice(BearerToken));
 
 
-      // we don't need token for these api's
+        // we don't need token for these api's
 
-      dispatch(GetQrCodeSlice(RestaurantIdLocalData))
-      dispatch(MenuSlice({ "RestaurantId": RestaurantIdLocalData }));
+        await dispatch(GetQrCodeSlice(RestaurantIdLocalData))
+        await dispatch(MenuSlice({ "RestaurantId": RestaurantIdLocalData }));
+
+        dispatch(LoadingSpinner(false))
+
+
+      } catch (error) {
+
+        dispatch(LoadingSpinner(false))
+
+      }
 
     }
 
@@ -129,37 +139,10 @@ const Dashboard = () => {
 
   }, [])
 
-  useEffect(() => {
-    console.log("hjgfcxcghjghgcfgchjh"
-      , PaymentSelectorData)
-
-    if(ManagerApiSelectorData?.status === 200
-      && QrApiSelectorData?.status === 200
-      && MenuApiSelectorData?.MenuSliceReducerData.status === 200
-      && PaymentSelectorData?.PaymentHistoryReducerData.status === 200){
-        setLoadSpiner(false)
-      }
-      else{
-        // setLoadSpiner(false)
-      }
+   
 
 
-
-  }, [ManagerApiSelectorData
-    , QrApiSelectorData
-    , MenuApiSelectorData
-    , PaymentSelectorData])
-
-
-  useEffect(() => {
-
-    // if(PaymentSelectorData?.LoadingPaymentHistory==true ){
-    setLoadSpiner(PaymentSelectorData?.LoadingPaymentHistory)
-    // }
-
-
-  }, [PaymentSelectorData?.LoadingPaymentHistory])
-
+   
 
   return (
     <>
