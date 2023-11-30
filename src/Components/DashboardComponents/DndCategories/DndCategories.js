@@ -97,7 +97,9 @@ function DndCategories() {
     const handleDndUpdate = () => {
 
         setDndPayload(previousState => {
-            return { ...previousState, BearerToken }
+            previousState["BearerToken"] = BearerToken
+            previousState["RestaurantId"] = resId
+            return { ...previousState }
           });
         dispatch(UpdateMenuCategoryAfterDragAndDrop(dndPayload));
 

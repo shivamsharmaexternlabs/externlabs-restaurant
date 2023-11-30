@@ -14,15 +14,12 @@ export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejec
         },
       }
       
-      );
-      console.log("ManagerSlice response -> ",response);
-      // toast.success("Successful");
+      );  
 
       return response;
 
     } catch (err) {
-        console.log("err++++++++",err.response.data.message);
-      toast.error(err?.response?.data?.message);
+       toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }
   }
@@ -38,9 +35,7 @@ export const ManagerDeleteSlice = createAsyncThunk("ManagerDeleteSlice",async (b
         },
       }
       
-      );
-      console.log("ManagerDeleteSlice response -> ",response);
-      // toast.success("Successful");
+      ); 
 
       return response;
 

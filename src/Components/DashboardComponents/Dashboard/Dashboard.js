@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom'
 import { reactLocalStorage } from 'reactjs-localstorage'
 import { MenuSlice, favoriteMenuSlice } from '../../../Redux/slices/menuSlice'
 import { PaymentHistorySlice } from '../../../Redux/slices/paymentSlice';
+import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 
 
 
@@ -27,6 +28,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({ results: [] });
   const [QrImage, setQrImage] = useState("")
+  const [LoadSpiner, setLoadSpiner] = useState(false)
 
   // for top dishes
   // const [ActiveFavoriteCategory, setActiveFavoriteCategory] = useState({});
@@ -44,7 +46,7 @@ const Dashboard = () => {
   let FirstName = reactLocalStorage.get("FirstName", false);
   let BearerToken = reactLocalStorage.get("Token", false);
 
-  console.log("MenuApiSelectorDatauuuuuuuu", MenuApiSelectorData)
+  console.log("MenuApiSelectorDatauuuuuuuu", PaymentSelectorData?.LoadingPaymentHistory)
   console.log("ActiveCategory", ActiveCategory)
 
   useEffect(() => {
@@ -54,40 +56,40 @@ const Dashboard = () => {
 
   useEffect(() => {
 
-    let ManagerSlicePayload = {
-      Token: BearerToken,
-      pageination: 1
+    if (BearerToken !== false) {
+
+
+      let ManagerSlicePayload = {
+        Token: BearerToken,
+        pageination: 1
+      }
+
+      setLoadSpiner(true)
+
+      dispatch(ManagerSlice(ManagerSlicePayload)) 
+
+      dispatch(PaymentHistorySlice(BearerToken));
+
+
+      // we don't need token for these api's
+
+      dispatch(GetQrCodeSlice(RestaurantIdLocalData))
+      dispatch(MenuSlice({ "RestaurantId": RestaurantIdLocalData }));
+
     }
-    dispatch(ManagerSlice(ManagerSlicePayload))
 
   }, [BearerToken])
 
-  useEffect(() => {
-    if(BearerToken !== false){
-      dispatch(PaymentHistorySlice(BearerToken));
-    }
-    
-  }, []);
+  
 
-  const QrCodeDownloadFun = () => {
-    let url = QrImage
-    var FileSaver = require('file-saver');
-
-    FileSaver.saveAs(QrImage, "image.jpg");
-
-    // saveAs(url, "Twitter-logo");
+  const QrCodeDownloadFun = () => { 
+    var FileSaver = require('file-saver'); 
+    FileSaver.saveAs(QrImage, "image.jpg"); 
   }
 
-  useEffect(() => {
 
-    // let resturantid = RestaurantIdLocalData
-    dispatch(GetQrCodeSlice(RestaurantIdLocalData))
-    dispatch(MenuSlice({ "RestaurantId": RestaurantIdLocalData }));
 
-    // setActiveFavoriteCategory(MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.[0]?.menu_id)
-  }, [])
-
-// for favorite top dishes
+  // for favorite top dishes don't delete this comment
   // useEffect(() => {
 
   //   setActiveFavoriteCategory(MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.[0])
@@ -98,7 +100,7 @@ const Dashboard = () => {
     setActiveCategory(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0])
   }, [MenuApiSelectorData?.MenuSliceReducerData])
 
-// for favorite top dishes
+  // for favorite top dishes  don't delete this comment
   // const FavoriteCategoryTabFun = (e, categoryItem) => {
   //   setActiveFavoriteCategory(categoryItem);
   // }
@@ -107,11 +109,9 @@ const Dashboard = () => {
     setActiveCategory(categoryItem);
   }
 
-  
 
-  // const greetingElement = document.querySelector(".greeting");
-  // const time = new Date().getHours();
-  // greetingElement.textContent = getGreeting(time);
+
+  
 
   useEffect(() => {
 
@@ -128,7 +128,38 @@ const Dashboard = () => {
     }
 
   }, [])
-  
+
+  useEffect(() => {
+    console.log("hjgfcxcghjghgcfgchjh"
+      , PaymentSelectorData)
+
+    if(ManagerApiSelectorData?.status === 200
+      && QrApiSelectorData?.status === 200
+      && MenuApiSelectorData?.MenuSliceReducerData.status === 200
+      && PaymentSelectorData?.PaymentHistoryReducerData.status === 200){
+        setLoadSpiner(false)
+      }
+      else{
+        // setLoadSpiner(false)
+      }
+
+
+
+  }, [ManagerApiSelectorData
+    , QrApiSelectorData
+    , MenuApiSelectorData
+    , PaymentSelectorData])
+
+
+  useEffect(() => {
+
+    // if(PaymentSelectorData?.LoadingPaymentHistory==true ){
+    setLoadSpiner(PaymentSelectorData?.LoadingPaymentHistory)
+    // }
+
+
+  }, [PaymentSelectorData?.LoadingPaymentHistory])
+
 
   return (
     <>
@@ -145,7 +176,7 @@ const Dashboard = () => {
               <div className='leftpart'>
                 <div className='topdishespart'>
                   <div className='title'>
-                    <h2> Menu Items </h2> <button type='button' onClick = {() => {navigate(`/${RestaurantIdLocalData}/admin/categories`)}}> View All <img src={arrow2} alt='img' /> </button>
+                    <h2> Menu Items </h2> <button type='button' onClick={() => { navigate(`/${RestaurantIdLocalData}/admin/categories`) }}> View All <img src={arrow2} alt='img' /> </button>
                   </div>
 
                   <div className='topdishestabpart'>
@@ -352,11 +383,11 @@ const Dashboard = () => {
                 <div className='subplanbox'>
                   <div className='title'>
                     <h3>Subscription Plan</h3>
-                    <button type='button' onClick = {() => navigate(`/${RestaurantIdLocalData}/admin/paymenthistory`)}> View Details <img src={arrow2} alt='arrow img' />  </button>
+                    <button type='button' onClick={() => navigate(`/${RestaurantIdLocalData}/admin/paymenthistory`)}> View Details <img src={arrow2} alt='arrow img' />  </button>
                   </div>
                   <div className='info'>
                     <div className='leftpart'>
-                      <p>{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_name.charAt(0).toUpperCase() + PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_name.slice(1) } </p>
+                      <p>{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_name.charAt(0).toUpperCase() + PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_name.slice(1)} </p>
                       <p>Start Date: {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.start_date}</p>
                       <p>End Date: {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.end_date}</p>
                     </div>
@@ -391,6 +422,7 @@ const Dashboard = () => {
 
 
       </DashboardLayout>
+      <LodingSpiner loadspiner={LoadSpiner} />
 
 
     </>

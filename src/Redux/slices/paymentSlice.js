@@ -81,6 +81,7 @@ export const PaymentReducer = createSlice({
         PaymentPostReducerData: [],
         PaymentHistoryReducerData: [],
         UnsubscribePaymentReducerData: [],
+        LoadingPaymentHistory: false,
         loading: false,
         error: null,
     },
@@ -121,16 +122,16 @@ export const PaymentReducer = createSlice({
 
             // Payment History Slice
             .addCase(PaymentHistorySlice.pending, (state) => {
-                state.loading = true;
+                state.LoadingPaymentHistory = true;
             })
 
             .addCase(PaymentHistorySlice.fulfilled, (state, action) => {
-                state.loading = false;
+                state.LoadingPaymentHistory = false;
                 state.PaymentHistoryReducerData = action.payload;
             })
 
             .addCase(PaymentHistorySlice.rejected, (state, action) => {
-                state.loading = false;
+                state.LoadingPaymentHistory = false;
                 state.error = action.payload;
             })
 

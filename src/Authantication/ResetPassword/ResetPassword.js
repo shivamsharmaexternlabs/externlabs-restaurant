@@ -56,7 +56,7 @@ const ResetPassword = () => {
 
     const handleSubmit = (values) => {
         console.log("values", values); 
-        values[BearerToken] = BearerToken;
+        values["BearerToken"] = BearerToken;
         if(values.new_pass == values.confirm_pass){
             dispatch(ResetPasswordSlice(values));
         }

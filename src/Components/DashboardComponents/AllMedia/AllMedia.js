@@ -44,7 +44,7 @@ const AllMedia = () => {
         console.log("gcfxdfcgvhbjvgcv", MediaLibrarySelectorData)
         if (MediaLibrarySelectorData?.PostMediaLibraryReducerData?.status === 200) {
             
-            dispatch(GetMediaLibrarySlice({RestaurantId}))
+            dispatch(GetMediaLibrarySlice({RestaurantId, BearerToken}))
         }
         else if (MediaLibrarySelectorData?.error === "Rejected") {
             toast.success("Internal Server Error");

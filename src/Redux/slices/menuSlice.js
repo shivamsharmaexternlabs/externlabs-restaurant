@@ -83,11 +83,11 @@ export const GetMenuCategorySlice = createAsyncThunk(
 export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
   "UpdateMenuCategoryAfterDragAndDrop",
   async (body, { rejectWithValue }) => {
-    console.log("bodyyy", body)
+    console.log("bodyfghgdyy", body)
     try {
    
       const response = await axios.patch(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/${RestaurantIdLocalData}/`,
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/${body?.RestaurantId}/`,
         body,
         {
           headers: {

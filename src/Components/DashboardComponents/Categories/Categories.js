@@ -544,8 +544,10 @@ const Categories = () => {
 
   const handleDndUpdate = () => {
     setDndPayload(previousState => {
-      return { ...previousState, BearerToken }
+      previousState["BearerToken"] = BearerToken
+      return { ...previousState }
     });
+    
     dispatch(UpdateMenuItemsAfterDragAndDrop(dndPayload));
 
   };
