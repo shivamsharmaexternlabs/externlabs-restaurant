@@ -108,7 +108,7 @@ const RestaurantDetail = () => {
 
   }, [routeData?.state?.currentData])
 
-
+console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
   const Validate = yup.object({
     restaurant_name: yup.string().required("Restaurant name is required"),
@@ -263,9 +263,6 @@ const RestaurantDetail = () => {
       }
 
       dispatch(UpdateLeadsSlice(updateLeadPayload));
-
-
-      // on Board and create password 
 
     }
 

@@ -21,25 +21,20 @@ const PaymentHistory = () => {
     const PaymentSelectorData = useSelector((state) => state.PaymentApiData);
     let BearerToken = reactLocalStorage.get("Token", false)
 
-
-
     useEffect(() => {
-        const stripe = new Stripe('sk_test_51O9jGdSBj5xgDd5yhzRUw4RGNDghmoH2uXTXtiG1kpDU0FIzb0TNSVwWgwBUHnB2ppfpprAKZevZ5GvXulcmdE8B00DEJ06sMQ');
-
+        const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
         const getPrice = async () => {
             const getPriceAwait = await stripe.prices.list({
                 expand: ['data.product']
             });
 
-
             let filterdata = getPriceAwait?.data?.filter((item) =>
                 item?.recurring?.interval == "year" || item?.recurring?.interval == "month"
             )
+
             setSubscriptionDetails(filterdata)
-
         }
-
         getPrice()
 
     }, []);
@@ -58,15 +53,17 @@ const PaymentHistory = () => {
                 }
 
             }
-            myFunc();
+             
         }
-    }, []);
 
+        myFunc();
+    }, [BearerToken]);
+    
+console.log("PaymentSelectorData :", PaymentSelectorData)
 
     const unsubscribePaymentFunc = (e, item) => {
 
         dispatch(UnsubscribePaymentSlice({ subscription_id: item?.subscription_id, BearerToken }))
-
     }
 
 

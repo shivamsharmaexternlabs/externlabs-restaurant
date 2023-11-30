@@ -14,12 +14,13 @@ export const SignUpSlice = createAsyncThunk("SignUpSlice",async (body, { rejectW
         Authorization: `Bearer ${body?.token}`,
       },
     }); 
+    
+    toast.success(response?.data?.message);  
 
-    toast.success(response?.data?.detail);  
     return response;
 
     } catch (err) {
-      toast.error(err?.response?.data?.error[0]);
+      toast.error(err?.response?.data?.error);
       return rejectWithValue(err);
     }
   }

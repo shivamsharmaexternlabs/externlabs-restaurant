@@ -170,7 +170,8 @@ export const LeadsRestaurantReducer = createSlice({
       .addCase(UpdateRestaurantSlice.fulfilled, (state, action) => { 
         state.loading = false;
         state.UpdateRestaurantReducerData = action.payload;
-        toast.success("restorent Created Successfully")
+        
+        toast.success(action?.payload?.data?.message)
       })
 
       .addCase(UpdateRestaurantSlice.rejected, (state, action) => { 

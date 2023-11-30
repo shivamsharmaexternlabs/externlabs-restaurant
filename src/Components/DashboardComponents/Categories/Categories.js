@@ -389,6 +389,8 @@ const Categories = () => {
     }
 
     dispatch(EditCategorySlice(payload));
+    popUpEditcategoriesHookFun((o) => !o);
+
     setTimeout(() => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
