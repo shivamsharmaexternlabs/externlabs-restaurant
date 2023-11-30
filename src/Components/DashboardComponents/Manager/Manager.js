@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom'
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 import { ManagerSlice, ManagerDeleteSlice } from '../../../Redux/slices/managerSlice' 
 import ReactPaginate from 'react-paginate';
+import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 
 const Manager = () => {
     const itemsPerPage = 5;
@@ -30,7 +31,6 @@ const Manager = () => {
     const [UserId, setUserId] = useState("")
     const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
     let BearerToken = reactLocalStorage.get("Token", false);
-    console.log("SignUpSelectorData : ", SignUpSelectorData)
 
     const [countrycode, setCountryCode] = useState("+91");
     const [phonenumber, setPhoneNumber] = useState("");
@@ -38,7 +38,6 @@ const Manager = () => {
 
     const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data);
 
-    console.log("ManagerApiSelectorData======>>>", data);
 
 
     useEffect(() => {
@@ -46,15 +45,24 @@ const Manager = () => {
     }, [ManagerApiSelectorData]);
 
     useEffect(() => {
-
-        let ManagerSlicePayload = {
-            Token: BearerToken,
-            pageination: 1
+        
+        (async function (){
+            if (BearerToken !== false) {
+                dispatch(LoadingSpinner(true))
+                try {
+                    let ManagerSlicePayload = {
+                        Token: BearerToken,
+                        pageination: 1
+                    }
+            
+                    await dispatch(ManagerSlice(ManagerSlicePayload))
+                    dispatch(LoadingSpinner(false))
+                } catch (error) {
+                    dispatch(LoadingSpinner(false))
+                }
         }
-
-        dispatch(ManagerSlice(ManagerSlicePayload))
-
-
+        })()
+        
     }, [BearerToken])
 
     const PopUpToggleFun = () => {
@@ -120,7 +128,6 @@ const Manager = () => {
 
 
     const handleSubmit = (values) => {
-        console.log("kkkkkkkgfgfcgkkkk", values)
 
         let SignUpForOnBoardPayload = {
             email: values?.email,
@@ -132,7 +139,6 @@ const Manager = () => {
             type: "manager",
             token: BearerToken
         }
-        console.log("jhbgfchbjnkm", SignUpForOnBoardPayload)
         dispatch(SignUpSlice(SignUpForOnBoardPayload))
         setCurrentPage(0);
         setLoadSpiner(true);
@@ -150,7 +156,6 @@ const Manager = () => {
     }
 
     const handleDelete = (e, item) => {
-        console.log("dsfahg", item.user_id)
         setUserId(item.user_id)
         deletePopUpFun(true)
     }
@@ -212,7 +217,6 @@ const Manager = () => {
 
 
                                 {data?.results?.map((items, id) => {
-                                    console.log("ManagerApiSelectorData items", id, items)
                                     return <tr>
                                         <td> <img src={user} alt='img' /> </td>
                                         <td>{`${items?.first_name}`}</td>

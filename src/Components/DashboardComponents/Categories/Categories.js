@@ -46,7 +46,8 @@ import { reactLocalStorage } from "reactjs-localstorage";
 import { favoriteMenuItemSlice } from "../../../Redux/slices/favouriteSlice";
 import { toast } from "react-toastify";
 import DndCategories from "../DndCategories/DndCategories";
-import {currencyData} from "./currencyData"
+import { currencyData } from "./currencyData"
+import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -92,16 +93,11 @@ const Categories = () => {
     false
   );
 
-  console.log(
-    "RestaurantIdLocalStorageData",
-    MenuApiSelectorData?.DeleteMenucategoryReducerData
-  );
-
   const PopUpToggleFun = () => {
     popUpHookFun((o) => !o);
   };
-  
-  
+
+
   const PopUpCategoriesToggleFun = () => {
     popUpCategoriesHookFun((o) => !o);
   };
@@ -112,7 +108,6 @@ const Categories = () => {
     popUpCategoriesHookFun(false);
   };
   const UploadMenuFile = (e) => {
-    console.log("hjgsdh", e?.target?.files[0]);
     const formData = new FormData();
     let payload = {
       file: e?.target?.files[0],
@@ -121,7 +116,6 @@ const Categories = () => {
     formData.append("file", payload?.file);
     formData.append("restaurant_id", payload?.restaurant_id);
     // formData.append("BearerToken", BearerToken);
-    console.log("shgdah", payload, formData);
     const UploadPayload = {
       formData,
       BearerToken
@@ -155,24 +149,33 @@ const Categories = () => {
   ]);
 
   useEffect(() => {
-    let MenuSlicePayload = {
-      RestaurantId: RestaurantIdLocalStorageData,
-    };
+    const MyFunc = async () => {
 
-    dispatch(GetMenuCategorySlice(MenuSlicePayload));
-    dispatch(favoriteMenuSlice(MenuSlicePayload));
-    dispatch(GetSampleUploadSlice());
-  }, []);
+      if (BearerToken !== false) {
+        dispatch(LoadingSpinner(true))
+        try {
+          let MenuSlicePayload = {
+            RestaurantId: RestaurantIdLocalStorageData,
+          };
+
+          await dispatch(GetMenuCategorySlice(MenuSlicePayload));
+          await dispatch(favoriteMenuSlice(MenuSlicePayload));
+          await dispatch(GetSampleUploadSlice());
+
+          dispatch(LoadingSpinner(false))
+        } catch (error) {
+          dispatch(LoadingSpinner(false))
+        }
+      }
+    }
+    MyFunc();
+  }, [BearerToken]);
 
   useEffect(() => {
-    console.log(
-      "hagsha",
-      MenuApiSelectorData?.GetSampleUploadReducerData?.data
-    );
     setQrSampleImage(MenuApiSelectorData?.GetSampleUploadReducerData?.data);
   }, [MenuApiSelectorData?.GetSampleUploadReducerData]);
-  // console.log("nchgsddsdsd", MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.[0])
-  console.log("ActiveCategory", ActiveCategory);
+
+
 
   useEffect(() => {
     setActiveCategory(
@@ -200,7 +203,6 @@ const Categories = () => {
 
     dispatch(MenuSlice(MenuSlicePayload));
     setActiveCategory(categoryItem?.menu_id);
-    console.log("hgvujvjvhjvvhv", ActiveCategory);
   };
   const defaultValue = {
     restaurant_id: "",
@@ -214,7 +216,6 @@ const Categories = () => {
     currency: "INR",
     calories_unit: "",
   };
-  console.log("sjgjah", defaultValue);
   const Validatemenu = yup.object({
     item_name: yup.string().required("Please Enter Item Name"),
     item_price: yup.string().required("Please Enter Price"),
@@ -225,7 +226,6 @@ const Categories = () => {
   });
   const handleMenuSubmit = (values) => {
     const formData = new FormData();
-    console.log("djsbdjk", values);
     formData.append("restaurant_id", RestaurantIdLocalStorageData);
     formData.append("description", Description);
     formData.append("image", uploadImage);
@@ -236,7 +236,6 @@ const Categories = () => {
     formData.append("item_type", values?.item_type);
     formData.append("currency", values?.currency);
     formData.append("calories_unit", caloriesunit);
-    console.log("ashd", formData);
 
     let MenuSubmitPayload = {
       formData,
@@ -286,7 +285,6 @@ const Categories = () => {
     }, 1500);
   };
   const handleUploadCategoryImage = (e) => {
-    console.log("hjgsdh", e?.target?.files[0]);
     setuploadCategoryImage(e?.target?.files[0]);
     // const formData = new FormData()
     // formData.append("file", payload?.file);
@@ -294,7 +292,6 @@ const Categories = () => {
 
   // edit menu items
   const PopUpToggleEditFun = (e, itemData) => {
-    console.log("jhdfshfd", itemData);
     setEditMenuData(itemData);
     setuploadImage(itemData?.image);
     popUpEditHookFun((o) => !o);
@@ -308,7 +305,7 @@ const Categories = () => {
     saveAs(url, "Twitter-logo");
   };
 
-  useEffect(() => { }, [MenuApiSelectorData?.GetSampleUploadReducerData]);
+
   const defaultEditValue = {
     restaurant_id: EditMenuData?.restaurant_id,
     description: EditMenuData?.description,
@@ -321,6 +318,7 @@ const Categories = () => {
     currency: EditMenuData?.currency,
     calories_unit: EditMenuData?.calories_unit,
   };
+
   const Validateditemenu = yup.object({
     item_name: yup.string().required("Please Enter Item"),
     item_price: yup.string().required("Please Enter Price"),
@@ -330,6 +328,7 @@ const Categories = () => {
     currency: yup.string().required("Please Enter Currency"),
     description: yup.string().required("Please Enter Description"),
   });
+
   const handleEditMenuSubmit = (values) => {
     let payload = {
       item_id: EditMenuData?.item_id,
@@ -354,6 +353,7 @@ const Categories = () => {
       dispatch(GetMenuCategorySlice(MenuSlicePayload));
     }, 1500);
   };
+
   const PopUpEditCategoriesToggleFun = (e, itemdata) => {
     setEditCategory(itemdata);
     setuploadCategoryImage(itemdata?.category_image);
@@ -363,47 +363,16 @@ const Categories = () => {
   const ValidateEditCategory = yup.object({
     category: yup.string().required("Please Create Category"),
   });
+
   const defaultValueEditCategory = {
     category: EditCategory?.category,
   };
+
   const handleUploadEditCategoryImage = (e) => {
     setuploadCategoryImage(e?.target?.files[0]);
   };
 
-  // edit  Category Function
-
   const handleCategoryeditSubmit = (values) => {
-    // console.log("jkaghjas", uploadCategoryImage);
-
-    // console.log("ajghdjhas", image, EditCategory);
-
-    // if (uploadCategoryImage !== null) {
-    //   let image = uploadCategoryImage?.split(":");
-
-    //   if (image[0] !== "https") {
-    //     let payload = {
-    //       menu_id: EditCategory?.menu_id,
-    //       restaurant_id: RestaurantIdLocalStorageData,
-    //       category: values?.category,
-    //     };
-    //     console.log("jnazgshs", payload);
-    //   } else {
-    //     let payload = {
-    //       menu_id: EditCategory?.menu_id,
-    //       restaurant_id: RestaurantIdLocalStorageData,
-    //       category_image: uploadCategoryImage,
-    //       category: values?.category,
-    //     };
-    //     console.log("jnazgshs1111", payload);
-    //   }
-    // } else {
-    //   let payload = {
-    //     menu_id: EditCategory?.menu_id,
-    //     restaurant_id: RestaurantIdLocalStorageData,
-    //     category: values?.category,
-    //   };
-
-    // }
     let payload = {
       menu_id: EditCategory?.menu_id,
       restaurant_id: RestaurantIdLocalStorageData,
@@ -434,18 +403,13 @@ const Categories = () => {
 
   const DeleteCategoryfun = (e, item) => {
     setDeleteCategory(item?.menu_id);
-    dispatch(DeleteMenuCategorySlice({menu_id : item?.menu_id, BearerToken}));
+    dispatch(DeleteMenuCategorySlice({ menu_id: item?.menu_id, BearerToken }));
     setTimeout(() => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
       };
       dispatch(GetMenuCategorySlice(MenuSlicePayload));
     }, 1500);
-    // window.location.reload(false)
-    // let MenuSlicePayload = {
-    //   RestaurantId: RestaurantIdLocalStorageData,
-    // };
-    // dispatch(GetMenuCategorySlice(MenuSlicePayload));
   };
   useEffect(() => {
     if (MenuApiSelectorData?.DeleteMenucategoryReducerData?.status === 204) {
@@ -467,7 +431,7 @@ const Categories = () => {
   }, [MenuItemFavouriteApiSelectorData])
 
   const DeleteItemfun = (e, item) => {
-    dispatch(DeleteMenuItemSlice({item_id : item?.item_id, BearerToken}));
+    dispatch(DeleteMenuItemSlice({ item_id: item?.item_id, BearerToken }));
     setTimeout(() => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
@@ -477,8 +441,7 @@ const Categories = () => {
   };
 
   const FavoriteFun = (e, itemData) => {
-    console.log("fgjhjjha", MenuApiSelectorData?.MenuSliceReducerData?.data[0]);
-    dispatch(favoriteMenuItemSlice({item_id : itemData?.item_id, BearerToken}));
+    dispatch(favoriteMenuItemSlice({ item_id: itemData?.item_id, BearerToken }));
     setTimeout(() => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
@@ -514,7 +477,6 @@ const Categories = () => {
       return;
     }
 
-    console.log("nmdsfvd", draggedItem)
 
     const draggedIndex = DragAndDropItems?.findIndex((el) => el.item_id === draggedItem.item_id);
     const targetIndex = DragAndDropItems?.findIndex((el) => el.item_id === item.item_id);
@@ -547,27 +509,25 @@ const Categories = () => {
       previousState["BearerToken"] = BearerToken
       return { ...previousState }
     });
-    
+
     dispatch(UpdateMenuItemsAfterDragAndDrop(dndPayload));
 
   };
 
 
   useEffect(() => {
- 
+
     if (MenuApiSelectorData?.UpdateMenuItemsAfterDragAndDropReducerData?.status === 200) {
-        console.log("UpdateMenuItemsAfterDragAndDropReducerData is 200 status");
-        setSaveActiveBtn(false)
-        setDraggableSubcategory(false)
-        
-       // Additional actions you want to perform when status is 200
-        // dispatch(GetMenuCategorySlice({
-        //     RestaurantId: resId  
-        // }
-        // ));
-    } 
-    else{
-        console.log("UpdateMenuItemsAfterDragAndDropReducerData is error", MenuApiSelectorData?.UpdateMenuItemsAfterDragAndDropReducerData)
+      setSaveActiveBtn(false)
+      setDraggableSubcategory(false)
+
+      // Additional actions you want to perform when status is 200
+      // dispatch(GetMenuCategorySlice({
+      //     RestaurantId: resId  
+      // }
+      // ));
+    }
+    else {
     }
 
 
@@ -575,7 +535,7 @@ const Categories = () => {
     //     toast.error("detail error");
     // }
 
-}, [MenuApiSelectorData?.UpdateMenuItemsAfterDragAndDropReducerData])
+  }, [MenuApiSelectorData?.UpdateMenuItemsAfterDragAndDropReducerData])
 
   const handleDragEnd = () => {
     setDraggedItem(null);
@@ -703,7 +663,6 @@ const Categories = () => {
                       >
                         {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
                           (item, id, index) => {
-                            console.log("aujfsadasd", item)
                             return (
                               <SwiperSlide>
                                 <button
@@ -798,13 +757,13 @@ const Categories = () => {
 
 
                         <div className="reorder-icon-div" onClick={(e) => setDraggableSubcategory(true)}>
-                   { !SaveActiveBtn &&
-                   <>
-                    <img src={order} className="sort-order" />
-                    <h1 className="reorder-head"> Reorder</h1>
-                   
-                   </>  }
-                    {SaveActiveBtn && <button
+                          {!SaveActiveBtn &&
+                            <>
+                              <img src={order} className="sort-order" />
+                              <h1 className="reorder-head"> Reorder</h1>
+
+                            </>}
+                          {SaveActiveBtn && <button
                             type="button "
                             className="categorybtn btn2 me-3"
                             onClick={handleDndUpdate}
@@ -812,14 +771,14 @@ const Categories = () => {
                           >
                             Save
                           </button>}
-                          </div>
+                        </div>
 
 
                         {/* <div   className="ReorderCurese">
                           <img src={order} className="sort-item-order me-3"  /> Reorder
                           
                         </div> */}
-                      </div> 
+                      </div>
 
                       <ul>
                         {/* CATEGORY ITEMS DATA MANAGEMENT */}
@@ -836,7 +795,7 @@ const Categories = () => {
                                   className={draggableSubcategory === true ? "drag-active " : "active"}
                                   // key={item.menu_id}
                                   draggable={draggableSubcategory}
-                                  onDragStart={(e) =>draggableSubcategory && startDrag(e, items)}
+                                  onDragStart={(e) => draggableSubcategory && startDrag(e, items)}
                                   onDragOver={(e) => draggableSubcategory && handleDragOver(e, items)}
                                   onDrop={(e) => draggableSubcategory && handleDrop(e, items)}
                                   onDragEnd={handleDragEnd}
@@ -913,7 +872,6 @@ const Categories = () => {
 
                           // dragItem && dragItem?.map(
                           //   (items, ids) => {
-                          //     console.log("jafhaja", items);
                           //     return (
                           //       <li
                           //         key={ids}
@@ -1053,7 +1011,6 @@ const Categories = () => {
 
                       (items, favoriteId) => {
                         return items?.item_id?.map((item, favoriteDishId) => {//no need this map every time it's 0'th index
-                          console.log("hgjhdg", item);
                           return (
                             <li key={favoriteDishId}>
                               <div className="leftpart">
@@ -1178,7 +1135,6 @@ const Categories = () => {
                       </option>
                       {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
                         (item, id) => {
-                          console.log("sjdhaj", item?.category);
                           return (
                             <option value={item?.menu_id}>
                               {item?.category}

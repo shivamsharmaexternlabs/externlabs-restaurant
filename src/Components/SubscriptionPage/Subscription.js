@@ -22,7 +22,7 @@ const Subscription = () => {
   const PaymentSelectorData = useSelector((state) => state.PaymentApiData);
  
   useEffect(() => {
-    const stripe = new Stripe('sk_test_51O9jGdSBj5xgDd5yhzRUw4RGNDghmoH2uXTXtiG1kpDU0FIzb0TNSVwWgwBUHnB2ppfpprAKZevZ5GvXulcmdE8B00DEJ06sMQ');
+    const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
  
 
     const getPrice = async () => {
@@ -30,7 +30,6 @@ const Subscription = () => {
         expand: ['data.product']
       });
       
-      console.log("nvsgdshdnms",getPriceAwait)
 
       let filterdata = getPriceAwait?.data?.filter((item) =>
         item?.recurring?.interval == "year" || item?.recurring?.interval == "month"
@@ -85,7 +84,6 @@ const Subscription = () => {
               <ul>
 
                 {subscriptionDetails && subscriptionDetails?.map((items, id) => {
-                  {/* console.log("-->item", items) */}
                   return items?.recurring?.interval === "month" && items?.product?.active === true && <li key={id} className=''>
                     <div className='title'>
                       <div className='iconbox'>

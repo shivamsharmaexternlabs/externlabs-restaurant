@@ -16,12 +16,10 @@ export const PaymentPostSlice = createAsyncThunk("PaymentPostSlice", async (body
                 },
             }
         );
-        console.log("PaymentPostSlice", response);
 
         return response;
 
     } catch (err) {
-        // console.log("shfjjerr", err)
         toast.error(err?.response?.data?.error);
         return rejectWithValue(err);
     }
@@ -30,7 +28,6 @@ export const PaymentPostSlice = createAsyncThunk("PaymentPostSlice", async (body
 
 // Unsubscribe Payment Slice
 export const UnsubscribePaymentSlice = createAsyncThunk("UnsubscribePaymentSlice", async (body, { rejectWithValue }) => {
-console.log("payloajhgfd", body?.BearerToken)
     try {
         const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}payment/unsubscribe/?subscription_id=${body?.subscription_id}`,
         
@@ -61,12 +58,10 @@ export const PaymentHistorySlice = createAsyncThunk("PaymentHistorySlice", async
                 },
             }
         );
-        console.log("PaymentPostSlice", response);
 
         return response;
 
     } catch (err) {
-        // console.log("shfjjerr", err)
         toast.error(err?.response?.data?.error);
         return rejectWithValue(err);
     }

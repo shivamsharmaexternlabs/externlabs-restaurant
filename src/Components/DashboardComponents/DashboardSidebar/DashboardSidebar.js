@@ -30,7 +30,6 @@ const DashboardSidebar = () => {
 
   const ToggleBarSelectorData = useSelector((state) => state?.ToggleBarData?.toggle);
 
-  console.log("sfgdfgdf", ToggleBarSelectorData)
 
   const PopUpToggleFun = () => {
     setToggleHeader(o => !o)

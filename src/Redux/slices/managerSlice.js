@@ -26,7 +26,6 @@ export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejec
 );
 
 export const ManagerDeleteSlice = createAsyncThunk("ManagerDeleteSlice",async (body, { rejectWithValue }) => {
-  console.log("sdffas",body)
     try {
       const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/${body?.item}/`,
       {
@@ -40,7 +39,6 @@ export const ManagerDeleteSlice = createAsyncThunk("ManagerDeleteSlice",async (b
       return response;
 
     } catch (err) {
-        console.log("err++++++++",err.response.data.message);
       toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }

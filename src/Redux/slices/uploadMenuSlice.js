@@ -5,7 +5,6 @@ import { reactLocalStorage } from "reactjs-localstorage";
 
 
 export const UploadMenuSlice = createAsyncThunk("UploadMenuSlice",async (body, { rejectWithValue }) => {
-    console.log("hagss",body)
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}restaurant_app/menuupload/`,body?.formData,
       {
@@ -15,13 +14,11 @@ export const UploadMenuSlice = createAsyncThunk("UploadMenuSlice",async (body, {
       }
       
       );
-      console.log("response",response);
       toast.success("Successful");
 
       return response;
 
     } catch (err) {
-        console.log("err++++++++",err.response.data.message);
       toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }

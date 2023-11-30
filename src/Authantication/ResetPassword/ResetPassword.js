@@ -29,7 +29,6 @@ const ResetPassword = () => {
     // const navigate = useNavigate();
     // const [loadspiner, setLoadSpiner] = useState(false);
     // const ForgotPasswordSelectorData = useSelector((state) => state?.Forgotpassword); 
-    // console.log("ForgotPasswordSelectorData",ForgotPasswordSelectorData);
 
     // useEffect(() => {
     //     if (ForgotPasswordSelectorData?.data[0]?.status === 201) {
@@ -55,7 +54,6 @@ const ResetPassword = () => {
 
 
     const handleSubmit = (values) => {
-        console.log("values", values); 
         values["BearerToken"] = BearerToken;
         if(values.new_pass == values.confirm_pass){
             dispatch(ResetPasswordSlice(values));

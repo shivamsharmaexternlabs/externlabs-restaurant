@@ -8,13 +8,11 @@ import { toast } from "react-toastify";
 export const ForgotPasswordSlice = createAsyncThunk("ForgotPasswordSlice",async (body, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/forgot_password_mail/`,body);
-      console.log("response",response);
       toast.success(response?.data?.message)
 
       return response;
 
     } catch (err) {
-        console.log("err++++++++",err.response.data.message);
       toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }

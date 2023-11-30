@@ -6,12 +6,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { PaymentHistorySlice, UnsubscribePaymentSlice } from '../../../Redux/slices/paymentSlice'
 import { reactLocalStorage } from 'reactjs-localstorage'
 import Stripe from 'stripe';
+import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
+import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 
 
 const PaymentHistory = () => {
 
     const [subscriptionDetails, setSubscriptionDetails] = useState('')
     const [PaymentHistoryDetails, setPaymentHistoryDetails] = useState([])
+    const [LoadSpiner, setLoadSpiner] = useState(false)
 
 
     const dispatch = useDispatch();
@@ -29,7 +32,6 @@ const PaymentHistory = () => {
                 expand: ['data.product']
             });
 
-            console.log("nvsgdshdnms", getPriceAwait)
 
             let filterdata = getPriceAwait?.data?.filter((item) =>
                 item?.recurring?.interval == "year" || item?.recurring?.interval == "month"
@@ -42,13 +44,23 @@ const PaymentHistory = () => {
 
     }, []);
 
-    
+
     useEffect(() => {
-        if(BearerToken !== false){
-          dispatch(PaymentHistorySlice(BearerToken));
+        const myFunc = async () => {
+
+            if (BearerToken !== false) {
+                dispatch(LoadingSpinner(true))
+                try {
+                    await dispatch(PaymentHistorySlice(BearerToken));
+                    dispatch(LoadingSpinner(false))
+                } catch (error) {
+                    dispatch(LoadingSpinner(false))
+                }
+
+            }
+            myFunc();
         }
-        
-      }, []);
+    }, []);
 
 
     const unsubscribePaymentFunc = (e, item) => {
@@ -73,7 +85,6 @@ const PaymentHistory = () => {
 
     }, [PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]])
 
-    console.log("nvsgdshdnms1", PaymentHistoryDetails);
 
     return (
         <>
@@ -88,16 +99,15 @@ const PaymentHistory = () => {
                         <ul className='paylist'>
 
                             {PaymentHistoryDetails?.map((items, id) => {
-                                console.log("dssfghngfsgd", items)
                                 return <li key={id}>
                                     <div className='clear'>
                                         <select className='float-end'>
-                                            <option>{ items?.recurring?.interval.charAt(0).toUpperCase() + items?.recurring?.interval.slice(1)} </option>
+                                            <option>{items?.recurring?.interval.charAt(0).toUpperCase() + items?.recurring?.interval.slice(1)} </option>
                                         </select>
                                     </div>
-                                    <h3> { items?.product?.name.charAt(0).toUpperCase() + items?.product?.name.slice(1) } </h3>
+                                    <h3> {items?.product?.name.charAt(0).toUpperCase() + items?.product?.name.slice(1)} </h3>
                                     <p>{items?.product?.description}</p>
-                                    <h4>{items?.currency?.toUpperCase()} {items?.unit_amount/100}<span>/Per { items?.recurring?.interval.charAt(0).toUpperCase() + items?.recurring?.interval.slice(1)}</span></h4>
+                                    <h4>{items?.currency?.toUpperCase()} {items?.unit_amount / 100}<span>/Per {items?.recurring?.interval.charAt(0).toUpperCase() + items?.recurring?.interval.slice(1)}</span></h4>
                                 </li>
                             })}
                             {/* <li>
@@ -159,7 +169,7 @@ const PaymentHistory = () => {
                     </div>
                 </div>
             </DashboardLayout>
-
+            <LodingSpiner loadspiner={LoadSpiner} />
 
         </>
     )

@@ -8,7 +8,6 @@ import { reactLocalStorage } from "reactjs-localstorage";
 export const GetMediaLibrarySlice = createAsyncThunk(
   "GetMediaLibrarySlice",
   async (body, { rejectWithValue }) => {
-    console.log("hgfcdx", body)
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/bulk_image_upload/?restaurant_id=${body?.RestaurantId}`,
@@ -19,11 +18,9 @@ export const GetMediaLibrarySlice = createAsyncThunk(
         }
       );
       // toast.success(response?.data?.message);
-      console.log("media Library response", response)
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
-      console.log(err);
       return rejectWithValue(err);
     }
   }
@@ -55,10 +52,8 @@ export const PostMediaLibrarySlice = createAsyncThunk(
         }
       );
 
-      console.log("errefgeggggg")
       return response;
     } catch (err) {
-      console.log("errefgeg", err)
       // toast.error(err);
       return rejectWithValue(err);
     }

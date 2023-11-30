@@ -11,6 +11,7 @@ import ReactPaginate from 'react-paginate';
  import { LeadsSlice } from "../../../Redux/slices/leadsSlice";
 import { useNavigate } from "react-router-dom";
 import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
+import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
  
 
 
@@ -18,8 +19,8 @@ const Leads = () => {
 
    const itemsPerPage = 5;
 
-  const [loadspiner, setLoadSpiner] = useState(false);
   const [popUpHook, popUpHookFun] = usePopUpHook("") 
+  const [LoadSpiner, setLoadSpiner] = useState(false)
 
 
   let BearerToken = reactLocalStorage.get("Token", false);
@@ -52,12 +53,24 @@ const Leads = () => {
 
 
   useEffect(() => {
-    let LeadsSlicePayload = {
-      Token: BearerToken,
-      pagination: 1,
-    };
-    dispatch(LeadsSlice(LeadsSlicePayload));
-  }, []);
+    
+    const myFunc = async() => {
+    if (BearerToken !== false) {
+      dispatch(LoadingSpinner(true))
+      try {
+        let LeadsSlicePayload = {
+          Token: BearerToken,
+          pagination: 1,
+        };
+        await dispatch(LeadsSlice(LeadsSlicePayload));
+        dispatch(LoadingSpinner(false))
+      } catch (error) {
+        dispatch(LoadingSpinner(false))
+      }
+    }
+  }
+  myFunc();
+  }, [BearerToken]);
 
  
 
@@ -76,7 +89,6 @@ const Leads = () => {
 
   const LeadsDetailsFun = (e, items, AllData) => {
 
-    console.log("mbavhgas", items)
     navigate(`/admin/restaurantdetail/${items?.lead_id}`, {
       state: {
         page: "lead",
@@ -164,7 +176,7 @@ const Leads = () => {
       {ToggleBarSelectorData && <CreateLeadOnBoardPopUpComponent />}
  
  
-      <LodingSpiner loadspiner={loadspiner} />
+      <LodingSpiner loadspiner={LoadSpiner} />
     </>
   );
 };

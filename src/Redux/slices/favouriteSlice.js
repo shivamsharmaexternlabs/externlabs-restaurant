@@ -9,7 +9,6 @@ let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
 export const favoriteMenuItemSlice = createAsyncThunk(
   "favoriteMenuItemSlice",
   async (body, { rejectWithValue }) => {
-    console.log("GetMenuCatdszdfsfdsdegorySlice", body);
     try {
       let headersList = {
         Accept: "*/*",
@@ -24,7 +23,6 @@ export const favoriteMenuItemSlice = createAsyncThunk(
       const response = await axios.request(reqOptions);
       return response;
     } catch (err) {
-      // console.log("err++++++++",err.response.data.message);
       toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }

@@ -65,7 +65,6 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
     const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
 
 
-    console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
     const defaultValue = {
         restaurant_name: "",
@@ -125,8 +124,6 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
     });
 
     const handleSubmitOnBoardPassAndConfPass = (values) => {
-        console.log("pass anf confirm password ", values);
-        console.log("kdhsbjhdsbjfhs", CreateLeadOnBoardPayloadState);
 
         let SignUpForOnBoardPayload = {
             email: CreateLeadOnBoardPayloadState?.email,
@@ -143,7 +140,6 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
         dispatch(SignUpSlice(SignUpForOnBoardPayload))
 
 
-        console.log("SignUpForOnBoardPayload", SignUpForOnBoardPayload)
 
     }
 
@@ -166,8 +162,6 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                 "BearerToken": BearerToken
             }
 
-            console.log("CreateLeadBtnFun", values)
-            console.log("createLeadPayload", createLeadPayload)
 
             dispatch(CreateLeadsRestaurantSlice(createLeadPayload))
 
@@ -216,8 +210,6 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
     const callBackFuncAfterSignUp = () => {
         setOnBordPopUp(false)
-        console.log("callBackFuncAfterSignUp is running")
-        console.log("CreateLeadOnBoardPayloadState", CreateLeadOnBoardPayloadState, SignUpSelectorData)
 
         const payloadOnBoard = {
             "restaurant_name": CreateLeadOnBoardPayloadState?.restaurant_name,
@@ -241,7 +233,6 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
     // Use effect after password and confirm password...
     useEffect(() => {
         if (LeadsRestaurantSelectorData?.CreateLeadsRestaurantReducerData?.status === 201) {
-            console.log("asdsdfsfwdwesd")
 
             setLoadSpiner(false);
             popUpHookFun(false);
@@ -258,7 +249,6 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
 
 
-    console.log("vsdccds", LeadsRestaurantSelectorData)
     useEffect(() => {
         if (LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.status === 201) {
 
@@ -279,7 +269,6 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
 
     useEffect(() => {
-        console.log("SignUpSelectorData", SignUpSelectorData)
         if (SignUpSelectorData?.data?.status === 201) {
             setLoadSpiner(false);
             callBackFuncAfterSignUp();
@@ -308,7 +297,6 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
     // let  RestaurantId= reactLocalStorage.get("RestaurantId",false);
 
     const RestaurantsDetailsFun = (e, items, AllData) => {
-        console.log("rfgjhrfjwhr", items)
         navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
             state: {
                 page: "MenuCategory",
@@ -349,7 +337,6 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
         setPhoneNumber(myString);
     };
 
-    console.log("sbndasd", phonenumber, countrycode)
 
 
 

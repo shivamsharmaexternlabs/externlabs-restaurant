@@ -47,54 +47,49 @@ const Dashboard = () => {
   let FirstName = reactLocalStorage.get("FirstName", false);
   let BearerToken = reactLocalStorage.get("Token", false);
 
-  console.log("MenuApiSelectorDatauuuuuuuu", PaymentSelectorData?.LoadingPaymentHistory)
-  console.log("ActiveCategory", ActiveCategory)
 
   useEffect(() => {
     setData(ManagerApiSelectorData?.data)
     setQrImage(QrApiSelectorData?.data?.results[0]?.qrcode)
   }, [ManagerApiSelectorData, QrApiSelectorData]);
 
-  useEffect(async () => {
-
-    if (BearerToken !== false) {
+  useEffect(() => {
 
 
-      let ManagerSlicePayload = {
-        Token: BearerToken,
-        pageination: 1
+    const GetApiCallFun = async () => {
+
+      if (BearerToken !== false) {
+        dispatch(LoadingSpinner(true))
+
+        try {
+          let ManagerSlicePayload = {
+            Token: BearerToken,
+            pageination: 1
+          }
+          await dispatch(ManagerSlice(ManagerSlicePayload))
+          await dispatch(PaymentHistorySlice(BearerToken));
+
+          // we don't need token for these api's
+
+          await dispatch(GetQrCodeSlice(RestaurantIdLocalData))
+          await dispatch(MenuSlice({ "RestaurantId": RestaurantIdLocalData }));
+
+          dispatch(LoadingSpinner(false))
+
+        } catch (error) {
+          dispatch(LoadingSpinner(false))
+        }
       }
-      dispatch(LoadingSpinner(true))
-
-      try {
-        await dispatch(ManagerSlice(ManagerSlicePayload))
-
-        await dispatch(PaymentHistorySlice(BearerToken));
-
-
-        // we don't need token for these api's
-
-        await dispatch(GetQrCodeSlice(RestaurantIdLocalData))
-        await dispatch(MenuSlice({ "RestaurantId": RestaurantIdLocalData }));
-
-        dispatch(LoadingSpinner(false))
-
-
-      } catch (error) {
-
-        dispatch(LoadingSpinner(false))
-
-      }
-
     }
+    GetApiCallFun()
 
   }, [BearerToken])
 
-  
 
-  const QrCodeDownloadFun = () => { 
-    var FileSaver = require('file-saver'); 
-    FileSaver.saveAs(QrImage, "image.jpg"); 
+
+  const QrCodeDownloadFun = () => {
+    var FileSaver = require('file-saver');
+    FileSaver.saveAs(QrImage, "image.jpg");
   }
 
 
@@ -121,28 +116,25 @@ const Dashboard = () => {
 
 
 
-  
+
 
   useEffect(() => {
 
     const time = new Date().getHours();
     if (time < 12) {
       setWellWishes("Good morning")
-      console.log("kjbabjd", "Good morning");
     } else if (time < 16) {
       setWellWishes("Good afternoon")
-      console.log("kjbabjd", "Good afternoon");
     } else {
       setWellWishes("Good evening")
-      console.log("kjbabjd", "Good evening");
     }
 
   }, [])
 
-   
 
 
-   
+
+
 
   return (
     <>
@@ -169,7 +161,6 @@ const Dashboard = () => {
                         {/* MENU DISHES MANAGEMENT */}
                         {
                           MenuApiSelectorData?.MenuSliceReducerData?.data?.map((items, Id) => {
-                            console.log("hdvfbjsfhvhsvh", items)
                             return <button key={Id} onClick={(e) => CategoryTabFun(e, items)} class={`nav-link ${items?.menu_id == ActiveCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
                               <div>
                                 <figure>
@@ -191,7 +182,6 @@ const Dashboard = () => {
                         {/* FAVORITE DISHES MANAGEMENT
                         {
                           MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map((items, favoriteId) => {
-                            console.log("hdvfbjsfhvhsvh", items)
                             return <button key={favoriteId} onClick={(e) => FavoriteCategoryTabFun(e, items)} class={`nav-link ${items?.menu_id == ActiveFavoriteCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
                               <div>
                                 <figure>
@@ -245,7 +235,6 @@ const Dashboard = () => {
                         <ul>
                           {
                             ActiveCategory?.item_id?.slice(0, 4).map((Item, DishesId) => {
-                              console.log("Itjhgcvhjkem", Item)
                               return <li>
                                 <h4>{Item?.item_name}</h4>
                                 <div className='tabinfo'>
@@ -347,7 +336,6 @@ const Dashboard = () => {
                         <th> Assigned to </th>
                       </tr>
                       {data?.results?.map((items, id) => {
-                        console.log("dhgah", items)
                         return <tr>
                           <td> <img src={user} alt='img' /> </td>
                           <td>{`${items?.first_name}`}</td>

@@ -15,17 +15,14 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const User = useSelector((state) => state.SignInApiData);
-  console.log("User", User)
 
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
 
   useEffect(() => {
-    console.log("dsdsdsdsfd", User)
 
 
     if (User?.data?.status === 200) {
-      console.log("jhjdajvhah", User)
       setLoadSpiner(false);
       if (User?.data?.data?.type !== "sales") {
         reactLocalStorage.set("payment_status", User?.data?.data?.payment_status);
@@ -72,7 +69,6 @@ const Login = () => {
   });
 
   const handleSubmit = (values) => {
-    console.log("values", values);
     // setShowPassword(false);
 
     dispatch(SignInSlice(values));

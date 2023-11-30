@@ -1,54 +1,63 @@
 import React, { useEffect, useState } from "react";
- import './menucategories.css'
+import './menucategories.css'
 import DashboardLayout from "../../DashboardComponents/DashboardLayout/DashboardLayout";
 import DashboardSidebar from "../../DashboardComponents/DashboardSidebar/DashboardSidebar";
 import LodingSpiner from "../../LoadingSpinner/LoadingSpinner";
 import usePopUpHook from "../../../CustomHooks/usePopUpHook/usePopUpHook";
- import { useDispatch, useSelector } from "react-redux";
-import { reactLocalStorage } from "reactjs-localstorage"; 
-import user from '../../../images/user.png' 
-import ReactPaginate from 'react-paginate'; 
+import { useDispatch, useSelector } from "react-redux";
+import { reactLocalStorage } from "reactjs-localstorage";
+import user from '../../../images/user.png'
+import ReactPaginate from 'react-paginate';
 import { LeadsRestaurantSlice } from "../../../Redux/slices/leadsRestaurantSlice";
- import { useNavigate } from "react-router-dom";
- import "react-phone-input-2/lib/style.css";
+import { useNavigate } from "react-router-dom";
+import "react-phone-input-2/lib/style.css";
 import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
+import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
 
 
 
 const LeadsRestaurant = () => {
-   const itemsPerPage = 5;
+  const itemsPerPage = 5;
 
-  const [loadspiner, setLoadSpiner] = useState(false);
+  const [LoadSpiner, setLoadSpiner] = useState(false)
   const [popUpHook, popUpHookFun] = usePopUpHook("")
-   
+
   let BearerToken = reactLocalStorage.get("Token", false);
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [CurrentPage, setCurrentPage] = useState(0); 
+  const [CurrentPage, setCurrentPage] = useState(0);
 
   const LeadsRestaurantSelectorData = useSelector((state) => state.LeadsRestaurantApiData);
-   const ToggleBarSelectorData = useSelector((state) => state?.ToggleBarData?.togglenewleads);
+  const ToggleBarSelectorData = useSelector((state) => state?.ToggleBarData?.togglenewleads);
 
-  console.log("jhgfdszfxghjadf", ToggleBarSelectorData);
 
-  
+
   useEffect(() => {
+    const myFunc = async () => {
+      if (BearerToken !== false) {
+        dispatch(LoadingSpinner(true))
+        try {
+          let LeadsRestaurantSlicePayload = {
+            Token: BearerToken,
+            RestaurantId: RestaurantId,
+            pagination: 1,
+          };
+          await dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
+          dispatch(LoadingSpinner(false))
+        } catch (error) {
+          dispatch(LoadingSpinner(false))
+        }
+      }
+    }
+    myFunc();
+  }, [BearerToken]);
 
-    let LeadsRestaurantSlicePayload = {
-      Token: BearerToken,
-      RestaurantId: RestaurantId,
-      pagination: 1,
-    };
-    dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
-
-  }, []);
 
 
- 
- 
+
   const handlePageClick = (selectedPage) => {
     const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.
     let LeadsRestaurantSlicePayload = {
@@ -59,9 +68,8 @@ const LeadsRestaurant = () => {
 
     dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
     setCurrentPage(page - 1);
-  } 
+  }
   const RestaurantsDetailsFun = (e, items, AllData) => {
-    console.log("rfgjhrfjwhr", items)
     navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
       state: {
         page: "MenuCategory",
@@ -69,7 +77,7 @@ const LeadsRestaurant = () => {
       }
     })
   }
- 
+
   return (
     <>
       <DashboardLayout>
@@ -77,8 +85,8 @@ const LeadsRestaurant = () => {
           <DashboardSidebar />
           <div className="contentpart leadpage">
             <div className="title">
-              <h2>Restaurants</h2> 
-            </div> 
+              <h2>Restaurants</h2>
+            </div>
             <div className='managertable'>
               <table>
                 <tr>
@@ -94,7 +102,6 @@ const LeadsRestaurant = () => {
 
 
                 {LeadsRestaurantSelectorData?.LeadsRestaurantReducerData?.data?.results?.map((items, id) => {
-                  console.log("jsvsh")
                   return <tr key={id}>
                     <td> <img src={user} alt='img' /> </td>
                     <td>{items?.restaurant_name}</td>
@@ -141,13 +148,13 @@ const LeadsRestaurant = () => {
         </div>
       </DashboardLayout>
 
-      
+
       {ToggleBarSelectorData && <CreateLeadOnBoardPopUpComponent />}
- 
 
- 
 
-      <LodingSpiner loadspiner={loadspiner} />
+
+
+      <LodingSpiner loadspiner={LoadSpiner} />
     </>
   );
 };

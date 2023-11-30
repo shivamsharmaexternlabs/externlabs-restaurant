@@ -5,13 +5,11 @@ import { reactLocalStorage } from "reactjs-localstorage";
 
 
 let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
-console.log("RestaurantIdLocalData",RestaurantIdLocalData)
 
 // create menu
 export const CreateMenuSlice = createAsyncThunk(
   "CreateMenuSlice",
   async (body, { rejectWithValue }) => {
-    console.log("nbxjdx");
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/menuitems/`,
@@ -23,7 +21,6 @@ export const CreateMenuSlice = createAsyncThunk(
         }
       );
       // toast.success(response?.data?.message);
-      console.log("dfsgfhdgj", response?.data?.message)
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -52,7 +49,6 @@ export const CreateCategorySlice = createAsyncThunk(
           },
         }
       );
-      console.log("mshdgffjsd", response)
       toast.success(response?.data?.message);
       return response;
     } catch (err) {
@@ -72,7 +68,6 @@ export const GetMenuCategorySlice = createAsyncThunk(
       // toast.success("Successful");
       return response;
     } catch (err) {
-      console.log("GetMenuCategorySlice error", err);
       // toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }
@@ -83,7 +78,6 @@ export const GetMenuCategorySlice = createAsyncThunk(
 export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
   "UpdateMenuCategoryAfterDragAndDrop",
   async (body, { rejectWithValue }) => {
-    console.log("bodyfghgdyy", body)
     try {
    
       const response = await axios.patch(
@@ -99,7 +93,6 @@ export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
        
       return response;
     } catch (err) {
-      // console.log(response)
       toast.error(err?.response?.data?.message);
 
       return rejectWithValue(err);
@@ -112,7 +105,6 @@ export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
 export const UpdateMenuItemsAfterDragAndDrop = createAsyncThunk(
   "UpdateMenuItemsAfterDragAndDrop",
   async (body, { rejectWithValue }) => {
-    console.log("bodyyy", body)
     try {
    
       const response = await axios.post(
@@ -129,7 +121,6 @@ export const UpdateMenuItemsAfterDragAndDrop = createAsyncThunk(
        
       return response;
     } catch (err) {
-      // console.log(response)
       toast.error(err?.response?.data?.message);
 
       return rejectWithValue(err);
@@ -144,7 +135,6 @@ export const UpdateMenuItemsAfterDragAndDrop = createAsyncThunk(
 export const MenuSlice = createAsyncThunk(
   "MenuSlice",
   async (body, { rejectWithValue }) => {
-    console.log("GetMenuCatdsdsdegorySlice", body);
 
     try {
       const response = await axios.get(
@@ -154,11 +144,9 @@ export const MenuSlice = createAsyncThunk(
         }&index=true`
 
       );
-      console.log("GetMenuCatdsdsdegorySlice11", response);
 
       return response;
     } catch (err) {
-      // console.log("err++++++++",err.response.data.message);
       // toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }
@@ -169,7 +157,6 @@ export const MenuSlice = createAsyncThunk(
 export const favoriteMenuSlice = createAsyncThunk(
   "favoriteMenuSlice",
   async (body, { rejectWithValue }) => {
-    // console.log("GetMenuCatdsdsdegorySlice",body);
 
     try {
       const response = await axios.get(
@@ -177,7 +164,6 @@ export const favoriteMenuSlice = createAsyncThunk(
       );
       return response;
     } catch (err) {
-      // console.log("err++++++++",err.response.data.message);
       // toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }
@@ -187,7 +173,6 @@ export const favoriteMenuSlice = createAsyncThunk(
 export const GetSampleUploadSlice = createAsyncThunk(
   "GetSampleUploadSlice",
   async (body, { rejectWithValue }) => {
-    // console.log("GetMenuCatdsdsdegorySlice",body);
 
     try {
       const response = await axios.get(
@@ -195,7 +180,6 @@ export const GetSampleUploadSlice = createAsyncThunk(
       );
       return response;
     } catch (err) {
-      // console.log("err++++++++",err.response.data.message);
       // toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }
@@ -206,13 +190,11 @@ export const GetSampleUploadSlice = createAsyncThunk(
 export const EditMenuItemSlice = createAsyncThunk(
   "EditMenuItemSlice",
   async (body, { rejectWithValue }) => {
-    console.log("shdgah", body);
     try {
       const formData = new FormData();
       formData.append("restaurant_id", body?.restaurant_id);
       formData.append("description", body?.description);
       // let imageValue = body?.image.split(":")
-      //  console.log(   "dsafsdfd",imageValue[0] )
       if (typeof body.image === "string" || body.image === null) {
         delete body.image;
       } else {
@@ -248,7 +230,6 @@ export const EditMenuItemSlice = createAsyncThunk(
 export const EditCategorySlice = createAsyncThunk(
   "EditCategorySlice",
   async (body, { rejectWithValue }) => {
-    console.log("shdgah", body);
     try {
       const formData = new FormData();
       formData.append("restaurant_id", body?.restaurant_id);
@@ -281,7 +262,6 @@ export const EditCategorySlice = createAsyncThunk(
 export const DeleteMenuItemSlice = createAsyncThunk(
   "DeleteMenuItemSlice",
   async (body, { rejectWithValue }) => {
-    console.log("GetMenuCatdsdsdegorySlice", body);
 
     try {
       const response = await axios.delete(
@@ -292,11 +272,9 @@ export const DeleteMenuItemSlice = createAsyncThunk(
           },
         }
       );
-      console.log("GetMenuCatdsdsdegorySlice11", response);
 
       return response;
     } catch (err) {
-      // console.log("err++++++++",err.response.data.message);
       // toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }
@@ -306,7 +284,6 @@ export const DeleteMenuItemSlice = createAsyncThunk(
 export const DeleteMenuCategorySlice = createAsyncThunk(
   "DeleteMenuCategorySlice",
   async (body, { rejectWithValue }) => {
-    console.log("GetMenuCatdsdsdegorySlice1111", body);
 
     try {
       const response = await axios.delete(
@@ -317,10 +294,8 @@ export const DeleteMenuCategorySlice = createAsyncThunk(
           },
         }
       );
-      console.log("GetMenuCatdsdsdegorySlice11", response);
       return response;
     } catch (err) {
-      console.log("err++++++++", err.response.data.message);
       toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }
@@ -370,7 +345,6 @@ export const menuReducer = createSlice({
       })
 
       .addCase(MenuSlice.fulfilled, (state, action) => {
-        console.log("hjvjheee", action.payload);
         state.loading = false;
         state.MenuSliceReducerData = action.payload;
       })

@@ -29,7 +29,6 @@ const EmailOtpVerification = () => {
                     }
                 )
                 .then((response) => {
-                    console.log("response ===>", response)
                     reactLocalStorage.set("Token",response?.data?.token);
                     toast.success("Verified Phone successfully");
                     navigate("/success")
@@ -62,13 +61,11 @@ const EmailOtpVerification = () => {
     }, [isTimerRunning]);
 
     const handleResendOTP = () => {
-        console.log('Resending OTP==>');
         setTimer(60);
         setIsTimerRunning(true);
     };
 
     const handleChange = (otpvalue) => {
-        // console.log("otp Value", otpvalue)
         setOtpValue(otpvalue);
     }
 
@@ -88,7 +85,6 @@ const EmailOtpVerification = () => {
             })
             .catch((err) => {
 
-                console.log(err?.response.data.error.non_field_errors[0]);
                 toast.warn(err?.response.data.error.non_field_errors[0]);
 
 

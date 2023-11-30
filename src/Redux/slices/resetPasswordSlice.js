@@ -18,13 +18,11 @@ export const ResetPasswordSlice = createAsyncThunk("ResetPasswordSlice",async (b
       }
       
       );
-      console.log("response",response);
       toast.success("Successful");
 
       return response;
 
     } catch (err) {
-        console.log("err++++++++",err.response.data.message);
       toast.error(err?.response?.data?.message);
       return rejectWithValue(err);
     }

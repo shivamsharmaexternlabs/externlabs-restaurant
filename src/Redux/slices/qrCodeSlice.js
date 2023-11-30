@@ -12,13 +12,11 @@ import { reactLocalStorage } from "reactjs-localstorage";
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/qrcodes/?restaurant_id=${body}`,
     
     );
-    console.log("GetQrCodeSlice",response);
     // toast.success("Successful");
 
     return response;
 
   } catch (err) {
-      console.log("GetQrCodeSlice error",err );
     // toast.error(err?.response?.data?.message);
     return rejectWithValue(err);
   }

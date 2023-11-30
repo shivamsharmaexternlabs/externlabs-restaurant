@@ -12,7 +12,6 @@ const DashboardLayout = ({children,isFullScreen}) => {
   const ToggleBarSelectorData = useSelector((state) => state?.ToggleBarData?.toggle);
 
 
-  console.log("dbvnvadnd",popUpHook)
   return (
     <div className={`dasboardpageouter ${ToggleBarSelectorData?'fullsidebar':""}`}>
         <DashboardHeader 

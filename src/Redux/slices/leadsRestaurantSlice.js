@@ -17,13 +17,11 @@ export const LeadsRestaurantSlice = createAsyncThunk("LeadsRestaurantSlice",asyn
         },
       }
       ); 
-      console.log("LeadsRestaurantSlice",response?.data ); 
 
       return response;
 
     } catch (err) {
 
-      console.log("shfjjerr", err)
       toast.error(err?.response?.data?.error[0]);
       return rejectWithValue(err);
     }
@@ -33,7 +31,6 @@ export const LeadsRestaurantSlice = createAsyncThunk("LeadsRestaurantSlice",asyn
 
 // create leads Restaurant Slice 
 export const CreateLeadsRestaurantSlice = createAsyncThunk("CreateLeadsRestaurantSlice",async (body, { rejectWithValue }) => {
-  console.log("sjdhbcjwhbvjhwjvhb", body)
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}sales/leads/`, body ,
       {
@@ -41,13 +38,11 @@ export const CreateLeadsRestaurantSlice = createAsyncThunk("CreateLeadsRestauran
           Authorization: `Bearer ${body?.BearerToken}`,
         },
       }); 
-      console.log("LeadsRestaurantSlice",response?.data ); 
 
       return response;
 
     } catch (err) {
 
-      console.log("shfjjerr", err)
       toast.error(err?.response?.data?.error[0]);
       return rejectWithValue(err);
     }
@@ -65,7 +60,6 @@ export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurants
           Authorization: `Bearer ${body?.Token}`,
         },
       }); 
-      console.log("LeadsRestaurantSlice",response?.data ); 
 
       return response;
 
@@ -80,7 +74,6 @@ export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurants
 
 // Update Restaurant (PATCH REQUEST ...)
 export const UpdateRestaurantSlice = createAsyncThunk("UpdateRestaurantSlice",async (body, { rejectWithValue }) => {
-  console.log("sjdhbcjwhbvjhwjvhb", body)
     try {
       const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant/${body?.RestaurantId}/`, body ,
       {
@@ -88,13 +81,11 @@ export const UpdateRestaurantSlice = createAsyncThunk("UpdateRestaurantSlice",as
           Authorization: `Bearer ${body?.Token}`,
         },
       }); 
-      console.log("UpdateRestaurantSlice",response?.data ); 
 
       return response;
 
     } catch (err) {
 
-      console.log("shfjjerr", err)
       toast.error(err?.response?.data?.error[0]);
       return rejectWithValue(err);
     }
@@ -159,7 +150,6 @@ export const LeadsRestaurantReducer = createSlice({
       })
 
       .addCase(CreateRestaurantsOnBoardSlice.fulfilled, (state, action) => { 
-        console.log("nbsdsdsdsbs",  action)
         // state.loading = false;
         state.RestaurantOnBoardReducerData = action.payload;
         // toast.success("restorent Created Successfully")

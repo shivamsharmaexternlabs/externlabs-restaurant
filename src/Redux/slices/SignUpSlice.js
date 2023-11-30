@@ -16,7 +16,6 @@ export const SignUpSlice = createAsyncThunk("SignUpSlice",async (body, { rejectW
     }); 
 
     toast.success(response?.data?.detail);  
-    console.log("nbxjdxghgggggg", response)
     return response;
 
     } catch (err) {

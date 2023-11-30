@@ -10,7 +10,6 @@ import { reactLocalStorage } from "reactjs-localstorage";
 export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signin/`,body);
-      console.log("Tokendfgsrdfryhe",response?.data );
       toast.success("Successfully Loged In");
       reactLocalStorage.set("Token",response?.data?.token);
       reactLocalStorage.set("FirstName",response?.data?.first_name);
@@ -31,13 +30,11 @@ export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectW
 
       // let Permission =  JSON.stringify(response?.data?.currentUser?.permissions);
       // reactLocalStorage.set("Permissions",Permission);
-      // console.log("Permissions",Permission)
 
       return response;
 
     } catch (err) {
 
-      console.log("shfjjerr", err)
       toast.error(err?.response?.data?.error[0]);
       return rejectWithValue(err);
     }

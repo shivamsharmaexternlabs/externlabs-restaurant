@@ -108,7 +108,6 @@ const RestaurantDetail = () => {
 
   }, [routeData?.state?.currentData])
 
-  console.log("asdadfadf", routeData?.state?.currentData)
 
 
   const Validate = yup.object({
@@ -130,8 +129,6 @@ const RestaurantDetail = () => {
   });
 
   const handleSubmitOnBoardPassAndConfPass = (values) => {
-    console.log("pass anf confirm password ", values);
-    console.log("kdhsbjhdsbjfhs", CreateLeadOnBoardPayloadState);
 
     let SignUpForOnBoardPayload = {
       email: CreateLeadOnBoardPayloadState?.email,
@@ -148,13 +145,11 @@ const RestaurantDetail = () => {
     dispatch(SignUpSlice(SignUpForOnBoardPayload))
 
 
-    console.log("SignUpForOnBoardPayload", SignUpForOnBoardPayload, countrycode, phonenumber)
 
   }
 
   const callBackFuncAfterSignUp = () => {
 
-    console.log("CreateLeadOnBoardPayloadState", CreateLeadOnBoardPayloadState, SignUpSelectorData)
 
     const payloadOnBoard = {
       "restaurant_name": CreateLeadOnBoardPayloadState?.restaurant_name,
@@ -203,10 +198,8 @@ const RestaurantDetail = () => {
     }
   }, [LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData]);
 
-  console.log("dgfasashgsvd", LeadsRestaurantSelectorData)
 
   useEffect(() => {
-    console.log("SignUpSelectorData", SignUpSelectorData)
     if (SignUpSelectorData?.data?.status === 201) {
       setOnBordPopUp(false)
       setLoadSpiner(false);
@@ -221,7 +214,6 @@ const RestaurantDetail = () => {
 
 
   useEffect(() => {
-    console.log("LeadsRestaurantSelectorData?.UpdateRestaurantReducerData", LeadsRestaurantSelectorData)
     if (LeadsRestaurantSelectorData?.UpdateRestaurantReducerData?.status === 200) {
       setLoadSpiner(false);
 
@@ -235,7 +227,6 @@ const RestaurantDetail = () => {
   }, [LeadsRestaurantSelectorData?.UpdateRestaurantReducerData]);
 
   useEffect(() => {
-    //   console.log("LeadsSelectorData", LeadsSelectorData)
     if (LeadsSelectorData?.UpdateLeadReducerData?.status === 200) {
 
       setLoadSpiner(false);
@@ -246,7 +237,6 @@ const RestaurantDetail = () => {
     }
   }, [LeadsSelectorData?.UpdateLeadReducerData]);
 
-  console.log("jhvjhvjhbkjb", LeadsSelectorData)
 
   const handleSubmit = (values) => {
 
@@ -275,8 +265,6 @@ const RestaurantDetail = () => {
       dispatch(UpdateLeadsSlice(updateLeadPayload));
 
 
-      console.log("nvdcthtssd", updateLeadPayload)
-      console.log("routeData?.state?.page", routeData?.state.currentData.lead_id)
       // on Board and create password 
 
     }
@@ -300,8 +288,6 @@ const RestaurantDetail = () => {
 
       dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
 
-      console.log("UpdateRestroPayload", UpdateRestroPayload)
-      console.log("routeData", routeData?.state?.page)
       // Patch API for restaurant edit will run
 
 
@@ -311,18 +297,15 @@ const RestaurantDetail = () => {
     // setDataaa(values)
   }
 
-  // console.log("bavgchd",dataaa)
 
   const PopUpToggleFun = () => {
     popUpHookFun((o) => !o);
   };
 
   useEffect(() => {
-    console.log("djfhvhsjfhjhrvg", ResetPasswordSelectorData)
     if (ResetPasswordSelectorData?.data?.status === 200) {
       setLoadSpiner(false);
       setResetPasswordPopup(false);
-      console.log("AFter Success reset Password", ResetPasswordSelectorData)
       // navigate("/emailotpverification");
     }
     else if (ResetPasswordSelectorData?.error == "Rejected") {
@@ -331,7 +314,6 @@ const RestaurantDetail = () => {
   }, [ResetPasswordSelectorData]);
 
   const resetPasswordSubmit = (values) => {
-    console.log("shgbdfjgvhf", values, routeData?.state?.currentData?.restaurant_id)
     let forgetPayload = {
       restaurant_id: routeData?.state?.currentData?.restaurant_id,
       new_pass: values?.new_pass,
@@ -344,7 +326,6 @@ const RestaurantDetail = () => {
 
   const resetPasswordFunc = (e, routeData) => {
     setResetPasswordPopup(true)
-    // console.log("routeData ", e.target.values);
 
 
   }
@@ -371,8 +352,6 @@ const RestaurantDetail = () => {
     setPhoneNumber(myString);
   };
 
-
-  console.log("asdsdsd", routeData?.state?.page)
 
 
   return (

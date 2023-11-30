@@ -20,7 +20,6 @@ const Signup = () => {
   const SignUpSelectorData = useSelector((state) => state.SignUpApiData); 
 
   useEffect(() => {
-    console.log("SignUpSelectorData", SignUpSelectorData)
     if (SignUpSelectorData?.data[0]?.status === 201) {
       setLoadSpiner(false);
       navigate("/emailotpverification");

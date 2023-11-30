@@ -12,11 +12,9 @@ const ForgotPassword = () => {
     // const navigate = useNavigate();
     const [loadspiner, setLoadSpiner] = useState(false);
     const ForgotPasswordSelectorData = useSelector((state) => state?.ForgotPasswordApiData); 
-    console.log("ForgotPasswordSelectorData",ForgotPasswordSelectorData);
 
     useEffect(() => {
         if (ForgotPasswordSelectorData?.data[0]?.status === 200) {
-            console.log("hgshgsds",ForgotPasswordSelectorData)
           setLoadSpiner(false);
         //   toast.success(ForgotPasswordSelectorData?.data[0].data.message)
         //   navigate("/emailotpverification");
@@ -38,7 +36,6 @@ const ForgotPassword = () => {
 
 
     const handleSubmit = (values) => {
-        console.log("values", values); 
         dispatch(ForgotPasswordSlice(values));
         setLoadSpiner(true);
       };
