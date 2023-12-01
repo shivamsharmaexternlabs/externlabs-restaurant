@@ -24,6 +24,7 @@ import { CreateRestaurantsOnBoardSlice, LeadsRestaurantSlice, UpdateRestaurantSl
 import { ResetPasswordSlice } from '../../../Redux/slices/resetPasswordSlice'
 import close from "../../../images/close.svg";
 import { UpdateLeadsSlice } from '../../../Redux/slices/leadsSlice'
+import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 
 const RestaurantDetail = () => {
   const [SuccessPopup, setSuccessPopup] = useState(false);
@@ -34,7 +35,7 @@ const RestaurantDetail = () => {
   const [loadspiner, setLoadSpiner] = useState(false);
   const [popUpHook, popUpHookFun] = usePopUpHook("")
   const [CreateLeadOnBoardPayloadState, setCreateLeadOnBoardPayloadState] = useState("")
-
+  
   const [countrycode, setCountryCode] = useState("");
   const [phonenumber, setPhoneNumber] = useState("");
 
@@ -100,6 +101,7 @@ const RestaurantDetail = () => {
 
   useEffect(() => {
 
+    // dispatch(LoadingSpinner(false))
 
     if (routeData?.state?.currentData) {
       setPhoneNumber(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone?.split("-")[1] : routeData?.state?.currentData?.owner?.phone_number?.split("-")[1])
@@ -310,7 +312,9 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
     }
   }, [ResetPasswordSelectorData]);
 
-  const resetPasswordSubmit = (values) => {
+  const resetPasswordSubmit = async (values) => {
+    await dispatch(LoadingSpinner(true));
+
     let forgetPayload = {
       restaurant_id: routeData?.state?.currentData?.restaurant_id,
       new_pass: values?.new_pass,
@@ -318,7 +322,15 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
       BearerToken
     }
 
-    dispatch(ResetPasswordSlice(forgetPayload));
+    try {
+      
+      await dispatch(ResetPasswordSlice(forgetPayload));
+      await dispatch(LoadingSpinner(true))
+
+    } catch (error) {
+      await dispatch(LoadingSpinner(true))
+    }
+
   }
 
   const resetPasswordFunc = (e, routeData) => {

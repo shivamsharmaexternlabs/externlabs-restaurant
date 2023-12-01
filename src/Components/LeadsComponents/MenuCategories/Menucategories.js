@@ -38,7 +38,7 @@ const LeadsRestaurant = () => {
   useEffect(() => {
     const myFunc = async () => {
       if (BearerToken !== false) {
-        dispatch(LoadingSpinner(true))
+        await dispatch(LoadingSpinner(true))
         try {
           let LeadsRestaurantSlicePayload = {
             Token: BearerToken,
@@ -46,9 +46,9 @@ const LeadsRestaurant = () => {
             pagination: 1,
           };
           await dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
-          dispatch(LoadingSpinner(false))
+          await dispatch(LoadingSpinner(false))
         } catch (error) {
-          dispatch(LoadingSpinner(false))
+          await dispatch(LoadingSpinner(false))
         }
       }
     }
@@ -69,6 +69,8 @@ const LeadsRestaurant = () => {
     dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
     setCurrentPage(page - 1);
   }
+
+
   const RestaurantsDetailsFun = (e, items, AllData) => {
     navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
       state: {

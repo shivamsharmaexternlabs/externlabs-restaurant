@@ -23,11 +23,11 @@ const AllMedia = () => {
     const MediaLibrarySelectorData = useSelector((state) => state?.MediaLibraryApiData);
 
     useEffect(() => {
-        
-          const myFunc = async() => {
+
+        const myFunc = async () => {
             if (BearerToken !== false) {
                 dispatch(LoadingSpinner(true))
-    
+
                 try {
                     await dispatch(GetMediaLibrarySlice({ RestaurantId, BearerToken }))
                     dispatch(LoadingSpinner(false))
@@ -42,16 +42,22 @@ const AllMedia = () => {
     }, [BearerToken])
 
 
-    const MultiUploadFun = (e) => {
-        const multiUploadPayload = {
-            images: e.target.files,
-            restaurant_id: RestaurantId,
-            BearerToken
+    const MultiUploadFun = async (e) => {
+        await dispatch(LoadingSpinner(true))
+        
+        try {
+            const multiUploadPayload = {
+                images: e.target.files,
+                restaurant_id: RestaurantId,
+                BearerToken
+            }
+
+            await dispatch(PostMediaLibrarySlice(multiUploadPayload));
+            await dispatch(LoadingSpinner(false))
+
+        } catch (error) {
+            await dispatch(LoadingSpinner(false))
         }
-
-
-        dispatch(PostMediaLibrarySlice(multiUploadPayload));
-
     }
 
     useEffect(() => {
@@ -118,7 +124,7 @@ const AllMedia = () => {
                     </div>
                 </div>
             </DashboardLayout>
-            <LodingSpiner/>
+            <LodingSpiner />
         </>
     )
 }

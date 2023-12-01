@@ -26,6 +26,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
+import deleteimg from '../../../images/delete.png'
+
 import { UploadMenuSlice } from "../../../Redux/slices/uploadMenuSlice";
 import {
   GetMenuCategorySlice,
@@ -56,11 +58,16 @@ const Categories = () => {
   const [loadspiner, setLoadSpiner] = useState(false);
   const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
   const [popUpEditcategoriesHook, popUpEditcategoriesHookFun] = usePopUpHook("");
+  const [deletePopup, deletePopUpFun] = usePopUpHook("")
+  const [deleteCategoryPopup, deleteCategoryPopupFun] = usePopUpHook("")
+
   const [EditCategory, setEditCategory] = useState("");
   const [ActiveCategory, setActiveCategory] = useState(undefined);
   const [Description, setDescription] = useState("");
   const [EditDescription, setEditDescription] = useState("");
   const [uploadImage, setuploadImage] = useState("");
+  const [CategoryId, setCategoryId] = useState("");
+  const [MenuItemId, setMenuItemId] = useState("");
   const [caloriesunit, setCaloriesUnit] = useState("kcal");
   const [QrSampleImage, setQrSampleImage] = useState("");
   const [uploadCategoryImage, setuploadCategoryImage] = useState("");
@@ -71,7 +78,7 @@ const Categories = () => {
   const [reorderCategory, setReorderCategory] = useState(false)
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
   const [DragAndDropItems, setDragAndDropItems] = useState([])
-  const [dndPayload, setDndPayload] = useState()
+  const [dndPayload, setDndPayload] = useState({})
   const [SaveActiveBtn, setSaveActiveBtn] = useState(false)
 
   let BearerToken = reactLocalStorage.get("Token", false);
@@ -107,7 +114,10 @@ const Categories = () => {
   const CancelCategoryBtnFun = () => {
     popUpCategoriesHookFun(false);
   };
-  const UploadMenuFile = (e) => {
+
+
+  const UploadMenuFile = async (e) => {
+    await dispatch(LoadingSpinner(true))
     const formData = new FormData();
     let payload = {
       file: e?.target?.files[0],
@@ -121,8 +131,15 @@ const Categories = () => {
       BearerToken
     }
 
-    dispatch(UploadMenuSlice(UploadPayload));
+    try {
+      await dispatch(UploadMenuSlice(UploadPayload));
+      await dispatch(LoadingSpinner(false))
+    } catch (error) {
+      await dispatch(LoadingSpinner(false))
+    }
+
   };
+
 
   useEffect(() => {
     if (MenuApiSelectorData?.GetMenuCategoryReducerData.status === 200) {
@@ -193,7 +210,9 @@ const Categories = () => {
     dispatch(MenuSlice(MenuSlicePayload));
   }, [MenuApiSelectorData?.GetMenuCategoryReducerData]);
 
-  const CategoryTabFun = (e, categoryItem) => {
+  const CategoryTabFun = async (e, categoryItem) => {
+    dispatch(LoadingSpinner(true))
+
     let MenuSlicePayload = {
       searchValue: "",
       itemTypeValue: "",
@@ -201,9 +220,17 @@ const Categories = () => {
       MenuId: categoryItem?.menu_id,
     };
 
-    dispatch(MenuSlice(MenuSlicePayload));
+    try {
+      await dispatch(MenuSlice(MenuSlicePayload));
+      await dispatch(LoadingSpinner(false))
+    } catch (error) {
+      await dispatch(LoadingSpinner(false))
+    }
+
     setActiveCategory(categoryItem?.menu_id);
   };
+
+
   const defaultValue = {
     restaurant_id: "",
     description: "",
@@ -224,7 +251,9 @@ const Categories = () => {
     item_type: yup.string().required("Please Enter Item Type"),
     currency: yup.string().required("Please Enter Currency"),
   });
-  const handleMenuSubmit = (values) => {
+  const handleMenuSubmit = async (values) => {
+    await dispatch(LoadingSpinner(true));
+
     const formData = new FormData();
     formData.append("restaurant_id", RestaurantIdLocalStorageData);
     formData.append("description", Description);
@@ -241,7 +270,16 @@ const Categories = () => {
       formData,
       BearerToken
     }
-    dispatch(CreateMenuSlice(MenuSubmitPayload));
+    try {
+
+      await dispatch(CreateMenuSlice(MenuSubmitPayload));
+      await dispatch(LoadingSpinner(false))
+    } catch (error) {
+      await dispatch(LoadingSpinner(false))
+    }
+
+
+
     setDescription("");
     popUpHookFun(false);
     // setTimeout(() => {
@@ -262,28 +300,43 @@ const Categories = () => {
     category: "",
   };
 
+  
   const ValidateCategory = yup.object({
     category: yup.string().required("Please Create Category"),
   });
-  const handleCategorySubmit = (values) => {
+
+
+  const handleCategorySubmit = async (values) => {
+
+    await dispatch(LoadingSpinner(true))
+
     let handleCategoryPayload = {
       "restaurant_id": RestaurantIdLocalStorageData,
       "category_image": uploadCategoryImage,
       "category": values?.category,
       "token": TokenLocalStorageData
     }
+    try {
+      await dispatch(CreateCategorySlice(handleCategoryPayload));
 
+      popUpCategoriesHookFun(false);
 
-    dispatch(CreateCategorySlice(handleCategoryPayload));
+      setTimeout(async () => {
 
-    popUpCategoriesHookFun(false);
-    setTimeout(() => {
-      let MenuSlicePayload = {
-        RestaurantId: RestaurantIdLocalStorageData,
-      };
-      dispatch(GetMenuCategorySlice(MenuSlicePayload));
-    }, 1500);
+        let MenuSlicePayload = {
+          RestaurantId: RestaurantIdLocalStorageData,
+        };
+        await dispatch(GetMenuCategorySlice(MenuSlicePayload));
+
+      }, 1500);
+
+      await dispatch(LoadingSpinner(false))
+    } 
+    catch (error) {
+      await dispatch(LoadingSpinner(false))
+    }
   };
+
   const handleUploadCategoryImage = (e) => {
     setuploadCategoryImage(e?.target?.files[0]);
     // const formData = new FormData()
@@ -329,7 +382,7 @@ const Categories = () => {
     description: yup.string().required("Please Enter Description"),
   });
 
-  const handleEditMenuSubmit = (values) => {
+  const handleEditMenuSubmit = async (values) => {
     let payload = {
       item_id: EditMenuData?.item_id,
       restaurant_id: values?.restaurant_id,
@@ -344,13 +397,25 @@ const Categories = () => {
       calories_unit: EditMenuData?.calories_unit,
       BearerToken
     };
-    dispatch(EditMenuItemSlice(payload));
-    popUpEditHookFun(false);
-    setTimeout(() => {
+
+    dispatch(LoadingSpinner(true))
+    try {
+      await dispatch(EditMenuItemSlice(payload));
+      popUpEditHookFun(false);
+    } catch (error) {
+      popUpEditHookFun(true);
+    }
+
+    setTimeout(async () => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
       };
-      dispatch(GetMenuCategorySlice(MenuSlicePayload));
+      try {
+        await dispatch(GetMenuCategorySlice(MenuSlicePayload));
+        dispatch(LoadingSpinner(false))
+      } catch (error) {
+        dispatch(LoadingSpinner(false))
+      }
     }, 1500);
   };
 
@@ -372,7 +437,9 @@ const Categories = () => {
     setuploadCategoryImage(e?.target?.files[0]);
   };
 
-  const handleCategoryeditSubmit = (values) => {
+  const handleCategoryeditSubmit = async (values) => {
+    dispatch(LoadingSpinner(true))
+
     let payload = {
       menu_id: EditCategory?.menu_id,
       restaurant_id: RestaurantIdLocalStorageData,
@@ -388,14 +455,30 @@ const Categories = () => {
       delete payload.category_image;
     }
 
-    dispatch(EditCategorySlice(payload));
-    popUpEditcategoriesHookFun((o) => !o);
+    try {
+      await dispatch(EditCategorySlice(payload));
+      popUpEditcategoriesHookFun((o) => !o);
 
-    setTimeout(() => {
-      let MenuSlicePayload = {
-        RestaurantId: RestaurantIdLocalStorageData,
-      };
-      dispatch(GetMenuCategorySlice(MenuSlicePayload));
+      // await dispatch(LoadingSpinner(false))
+    }
+    catch (error) {
+      // await dispatch(LoadingSpinner(false))
+    }
+
+
+    setTimeout(async () => {
+
+      try {
+
+        let MenuSlicePayload = {
+          RestaurantId: RestaurantIdLocalStorageData,
+        };
+        await dispatch(GetMenuCategorySlice(MenuSlicePayload));
+        await dispatch(LoadingSpinner(false))
+      } catch (error) {
+        await dispatch(LoadingSpinner(false))
+      }
+
     }, 1500)
   };
 
@@ -404,15 +487,47 @@ const Categories = () => {
   };
 
   const DeleteCategoryfun = (e, item) => {
-    setDeleteCategory(item?.menu_id);
-    dispatch(DeleteMenuCategorySlice({ menu_id: item?.menu_id, BearerToken }));
+    setCategoryId(item?.menu_id)
+    deletePopUpFun(true)
+  };
+
+  const confirmDelete = (e, item) => {
+    dispatch(LoadingSpinner(true))
+
+    try {
+      dispatch(DeleteMenuCategorySlice({ menu_id: item, BearerToken }));
+      deletePopUpFun(false)
+      // dispatch(LoadingSpinner(false))
+    } catch (error) {
+      // dispatch(LoadingSpinner(false))
+    }
+
     setTimeout(() => {
+      // dispatch(LoadingSpinner(true))
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
       };
-      dispatch(GetMenuCategorySlice(MenuSlicePayload));
+      try {
+        dispatch(GetMenuCategorySlice(MenuSlicePayload));
+        dispatch(LoadingSpinner(false))
+      } catch (error) {
+        dispatch(LoadingSpinner(false))
+      }
+
     }, 1500);
-  };
+
+    // dispatch(ManagerDeleteSlice({item, BearerToken}))
+    //     deletePopUpFun(false)
+    //     setCurrentPage(0);
+    //     let ManagerSlicePayload = {
+    //         Token: BearerToken,
+    //         pageination: 1
+    //     }
+    //     dispatch(ManagerSlice(ManagerSlicePayload));
+  }
+
+
+
   useEffect(() => {
     if (MenuApiSelectorData?.DeleteMenucategoryReducerData?.status === 204) {
       toast.success("Delete Successfully");
@@ -433,23 +548,53 @@ const Categories = () => {
   }, [MenuItemFavouriteApiSelectorData])
 
   const DeleteItemfun = (e, item) => {
-    dispatch(DeleteMenuItemSlice({ item_id: item?.item_id, BearerToken }));
-    setTimeout(() => {
-      let MenuSlicePayload = {
-        RestaurantId: RestaurantIdLocalStorageData,
-      };
-      dispatch(GetMenuCategorySlice(MenuSlicePayload));
-    }, 1500)
+    setMenuItemId(item?.item_id)
+    deleteCategoryPopupFun(true)
   };
 
-  const FavoriteFun = (e, itemData) => {
-    dispatch(favoriteMenuItemSlice({ item_id: itemData?.item_id, BearerToken }));
-    setTimeout(() => {
+  const ConfirmDeleteItemFun = async (e, menuItemId) => {
+    dispatch(LoadingSpinner(true))
+    try {
+      await dispatch(DeleteMenuItemSlice({ item_id: menuItemId, BearerToken }));
+      deleteCategoryPopupFun(false)
+
+    } catch (error) {
+      deleteCategoryPopupFun(true)
+
+    }
+    setTimeout(async () => {
       let MenuSlicePayload = {
         RestaurantId: RestaurantIdLocalStorageData,
       };
-      dispatch(GetMenuCategorySlice(MenuSlicePayload));
+
+      try {
+        await dispatch(GetMenuCategorySlice(MenuSlicePayload));
+        dispatch(LoadingSpinner(false))
+      } catch (error) {
+        dispatch(LoadingSpinner(false))
+      }
     }, 1500)
+  }
+
+  const FavoriteFun = async (e, itemData) => {
+
+    await dispatch(LoadingSpinner(true))
+    try {
+
+      await dispatch(favoriteMenuItemSlice({ item_id: itemData?.item_id, BearerToken }));
+
+      setTimeout(async () => {
+        let MenuSlicePayload = {
+          RestaurantId: RestaurantIdLocalStorageData,
+        };
+        await dispatch(GetMenuCategorySlice(MenuSlicePayload));
+      }, 1500)
+
+      await dispatch(LoadingSpinner(false))
+
+    } catch (error) {
+      await dispatch(LoadingSpinner(false))
+    }
   };
 
 
@@ -478,6 +623,7 @@ const Categories = () => {
     if (!draggedItem || draggedItem === item) {
       return;
     }
+    // setSaveActiveBtn(true)
 
 
     const draggedIndex = DragAndDropItems?.findIndex((el) => el.item_id === draggedItem.item_id);
@@ -507,13 +653,15 @@ const Categories = () => {
 
 
   const handleDndUpdate = () => {
-    setDndPayload(previousState => {
-      previousState["BearerToken"] = BearerToken
-      return { ...previousState }
-    });
+    if (dndPayload) {
 
-    dispatch(UpdateMenuItemsAfterDragAndDrop(dndPayload));
+      setDndPayload(previousState => {
+        previousState["BearerToken"] = BearerToken
+        return { ...previousState }
+      });
 
+      dispatch(UpdateMenuItemsAfterDragAndDrop(dndPayload));
+    }
   };
 
 
@@ -546,6 +694,8 @@ const Categories = () => {
   const reorderSubmit = (e) => {
     navigate(`/${RestaurantIdLocalStorageData}/admin/categories/reorder/`);
   }
+
+
 
   return (
     <>
@@ -847,6 +997,7 @@ const Categories = () => {
                                           // className="editactive "
                                           onClick={(e) =>
                                             DeleteItemfun(e, items)
+
                                           }
                                         />
                                       </button>
@@ -951,56 +1102,6 @@ const Categories = () => {
 
                       </ul>
                     </div>
-
-                    {/* <div class="tab-pane fade" id="nav-dishes2" role="tabpanel" aria-labelledby="nav-dishes2-tab" tabindex="0">
-                                            <ul>
-                                                <li>
-                                                    <h4>Spaghetti</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                                                    <span className='price'>$7.29</span>
-                                                </li>
-                                                <li>
-                                                    <h4>Vegetable Pizza</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                                                    <span className='price'>$7.29</span>
-                                                </li>
-                                                <li>
-                                                    <h4>Mushroom Pizza</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                                                    <span className='price'>$7.29</span>
-                                                </li>
-                                                <li>
-                                                    <h4>OTC Pizza</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                                                    <span className='price'>$7.29</span>
-                                                </li>
-                                            </ul>
-                                        </div> 
-
-                                         <div class="tab-pane fade" id="nav-dishes3" role="tabpanel" aria-labelledby="nav-dishes3-tab" tabindex="0">
-                                            <ul>
-                                                <li>
-                                                    <h4>Spaghetti</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                                                    <span className='price'>$7.29</span>
-                                                </li>
-                                                <li>
-                                                    <h4>Vegetable Pizza</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                                                    <span className='price'>$7.29</span>
-                                                </li>
-                                                <li>
-                                                    <h4>Mushroom Pizza</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                                                    <span className='price'>$7.29</span>
-                                                </li>
-                                                <li>
-                                                    <h4>OTC Pizza</h4>
-                                                    <p>Lorem ipsum dolor sit amet consectetur.</p>
-                                                    <span className='price'>$7.29</span>
-                                                </li>
-                                            </ul>
-                                        </div>  */}
                   </div>
                 </div>
               </div>
@@ -1249,6 +1350,58 @@ const Categories = () => {
           {/* children part end */}
         </PopUpComponent>
       )}
+
+      {
+        deletePopup &&
+        <PopUpComponent
+          classNameValue={"popup wantmanager "}
+          PopUpToggleFun={PopUpToggleFun}
+          popUpHookFun={popUpHookFun}
+        >
+          {/* children part start */}
+
+          <div className='popupinner'>
+            <div className='popupbody'>
+              <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
+              <h2>Do you want to Delete this Category?</h2>
+              <div className='text-center'>
+                <button type="button" onClick={(e) => deletePopUpFun(false)}>Cancel </button>
+                <button type="button" className='ms-4' onClick={(e) => confirmDelete(e, CategoryId)}>Yes, I’m Sure</button>
+              </div>
+            </div>
+          </div>
+
+          {/* children part end */}
+
+        </PopUpComponent>
+      }
+
+
+
+      {
+        deleteCategoryPopup &&
+        <PopUpComponent
+          classNameValue={"popup wantmanager "}
+          PopUpToggleFun={PopUpToggleFun}
+          popUpHookFun={popUpHookFun}
+        >
+          {/* children part start */}
+
+          <div className='popupinner'>
+            <div className='popupbody'>
+              <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
+              <h2>Do you want to Delete this Menu Item?</h2>
+              <div className='text-center'>
+                <button type="button" onClick={(e) => deleteCategoryPopupFun(false)}>Cancel </button>
+                <button type="button" className='ms-4' onClick={(e) => ConfirmDeleteItemFun(e, MenuItemId)}>Yes, I’m Sure</button>
+              </div>
+            </div>
+          </div>
+
+          {/* children part end */}
+
+        </PopUpComponent>
+      }
       {popUpcategoriesHook && (
         <PopUpComponent
           classNameValue={"addcategorypopup"}

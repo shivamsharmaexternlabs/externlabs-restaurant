@@ -16,7 +16,7 @@ import { reactLocalStorage } from 'reactjs-localstorage'
 import { SignUpSlice } from '../../../Redux/slices/SignUpSlice'
 import { useNavigate } from 'react-router-dom'
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
-import { ManagerSlice, ManagerDeleteSlice } from '../../../Redux/slices/managerSlice' 
+import { ManagerSlice, ManagerDeleteSlice } from '../../../Redux/slices/managerSlice'
 import ReactPaginate from 'react-paginate';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 
@@ -45,8 +45,8 @@ const Manager = () => {
     }, [ManagerApiSelectorData]);
 
     useEffect(() => {
-        
-        (async function (){
+
+        (async function () {
             if (BearerToken !== false) {
                 dispatch(LoadingSpinner(true))
                 try {
@@ -54,15 +54,15 @@ const Manager = () => {
                         Token: BearerToken,
                         pageination: 1
                     }
-            
+
                     await dispatch(ManagerSlice(ManagerSlicePayload))
                     dispatch(LoadingSpinner(false))
                 } catch (error) {
                     dispatch(LoadingSpinner(false))
                 }
-        }
+            }
         })()
-        
+
     }, [BearerToken])
 
     const PopUpToggleFun = () => {
@@ -86,7 +86,7 @@ const Manager = () => {
             popUpHookFun(true);
         }
     }, [SignUpSelectorData]);
-    
+
     // useEffect(() => {
     //     if (SignUpSelectorData?.data?.status === 201) {
     //         setLoadSpiner(false);
@@ -127,8 +127,8 @@ const Manager = () => {
     });
 
 
-    const handleSubmit = (values) => {
-
+    const handleSubmit = async (values) => {
+        dispatch(LoadingSpinner(true))
         let SignUpForOnBoardPayload = {
             email: values?.email,
             password: values?.password,
@@ -139,7 +139,13 @@ const Manager = () => {
             type: "manager",
             token: BearerToken
         }
-        dispatch(SignUpSlice(SignUpForOnBoardPayload))
+        try {
+            await dispatch(SignUpSlice(SignUpForOnBoardPayload))
+            dispatch(LoadingSpinner(false))
+        } catch (error) {
+            dispatch(LoadingSpinner(false))
+        }
+        
         setCurrentPage(0);
         setLoadSpiner(true);
     };
@@ -160,7 +166,7 @@ const Manager = () => {
         deletePopUpFun(true)
     }
     const confirmDelete = (e, item) => {
-        dispatch(ManagerDeleteSlice({item, BearerToken}))
+        dispatch(ManagerDeleteSlice({ item, BearerToken }))
         deletePopUpFun(false)
         setCurrentPage(0);
         let ManagerSlicePayload = {
@@ -538,7 +544,7 @@ const Manager = () => {
                                             <ErrorMessage name="confirm_password" />
                                         </p>
                                     </div>
-                                    
+
 
                                     <div className='text-end mt-5'>
                                         <button type="btn" className="btn2" onClick={(e) => CancelBtnFun(e)} > Cancel </button>

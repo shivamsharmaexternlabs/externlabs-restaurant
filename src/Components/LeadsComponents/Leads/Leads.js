@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import './leads.css'
 import DashboardLayout from "../../DashboardComponents/DashboardLayout/DashboardLayout";
 import DashboardSidebar from "../../DashboardComponents/DashboardSidebar/DashboardSidebar";
 import LodingSpiner from "../../LoadingSpinner/LoadingSpinner";
-import usePopUpHook from "../../../CustomHooks/usePopUpHook/usePopUpHook"; 
+import usePopUpHook from "../../../CustomHooks/usePopUpHook/usePopUpHook";
 import { useDispatch, useSelector } from "react-redux";
-import { reactLocalStorage } from "reactjs-localstorage";  
-import user from '../../../images/user.png' 
-import ReactPaginate from 'react-paginate'; 
- import { LeadsSlice } from "../../../Redux/slices/leadsSlice";
+import { reactLocalStorage } from "reactjs-localstorage";
+import user from '../../../images/user.png'
+import ReactPaginate from 'react-paginate';
+import { LeadsSlice } from "../../../Redux/slices/leadsSlice";
 import { useNavigate } from "react-router-dom";
 import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
 import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
- 
+
 
 
 const Leads = () => {
 
-   const itemsPerPage = 5;
+  const itemsPerPage = 5;
 
-  const [popUpHook, popUpHookFun] = usePopUpHook("") 
+  const [popUpHook, popUpHookFun] = usePopUpHook("")
   const [LoadSpiner, setLoadSpiner] = useState(false)
 
 
@@ -30,10 +30,10 @@ const Leads = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [CurrentPage, setCurrentPage] = useState(0); 
+  const [CurrentPage, setCurrentPage] = useState(0);
   const LeadsSelectorData = useSelector((state) => state.LeadsApiData);
   const ToggleBarSelectorData = useSelector((state) => state?.ToggleBarData?.togglenewleads);
- 
+
 
   useEffect(() => {
     if (LeadsSelectorData?.data?.status === 201) {
@@ -53,26 +53,31 @@ const Leads = () => {
 
 
   useEffect(() => {
-    
-    const myFunc = async() => {
-    if (BearerToken !== false) {
-      dispatch(LoadingSpinner(true))
-      try {
-        let LeadsSlicePayload = {
-          Token: BearerToken,
-          pagination: 1,
-        };
-        await dispatch(LeadsSlice(LeadsSlicePayload));
-        dispatch(LoadingSpinner(false))
-      } catch (error) {
-        dispatch(LoadingSpinner(false))
+
+    const myFunc = async () => {
+      if (BearerToken !== false) {
+
+        await dispatch(LoadingSpinner(true));
+
+        try {
+          let LeadsSlicePayload = {
+            Token: BearerToken,
+            pagination: 1,
+          };
+
+          await dispatch(LeadsSlice(LeadsSlicePayload));
+          await dispatch(LoadingSpinner(false))
+
+        } catch (error) {
+          await dispatch(LoadingSpinner(false))
+        }
+
       }
     }
-  }
-  myFunc();
+    myFunc();
   }, [BearerToken]);
 
- 
+
 
   const handlePageClick = (selectedPage) => {
     const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.
@@ -84,8 +89,8 @@ const Leads = () => {
     dispatch(LeadsSlice(LeadsSlicePayload));
     setCurrentPage(page - 1);
   }
- 
-  
+
+
 
   const LeadsDetailsFun = (e, items, AllData) => {
 
@@ -95,9 +100,10 @@ const Leads = () => {
         currentData: items,
       }
     })
+
   }
- 
-  
+
+
 
 
 
@@ -108,7 +114,7 @@ const Leads = () => {
           <DashboardSidebar />
           <div className="contentpart leadpage">
             <div className="title">
-              <h2>Leads</h2> 
+              <h2>Leads</h2>
             </div>
 
 
@@ -172,10 +178,10 @@ const Leads = () => {
         </div>
       </DashboardLayout>
 
- 
+
       {ToggleBarSelectorData && <CreateLeadOnBoardPopUpComponent />}
- 
- 
+
+
       <LodingSpiner loadspiner={LoadSpiner} />
     </>
   );

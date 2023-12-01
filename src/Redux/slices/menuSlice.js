@@ -105,6 +105,7 @@ export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
 export const UpdateMenuItemsAfterDragAndDrop = createAsyncThunk(
   "UpdateMenuItemsAfterDragAndDrop",
   async (body, { rejectWithValue }) => {
+    console.log("bodyOfUpdateMenuItemDragAndDrop", body?.BearerToken)
     try {
    
       const response = await axios.post(

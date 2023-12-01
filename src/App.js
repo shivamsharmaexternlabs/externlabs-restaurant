@@ -27,6 +27,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import AllMedia from './Components/DashboardComponents/AllMedia/AllMedia.js';
 import PaymentHistory from './Components/DashboardComponents/PaymentHistory/PaymentHistory.js';
+import { useEffect } from 'react';
 
 
 
@@ -34,6 +35,8 @@ function App() {
 
   const navigate=useNavigate()
 
+
+  let Token=reactLocalStorage.get("Token",false)
 
   axios.interceptors.response.use(
     
@@ -43,11 +46,13 @@ function App() {
     },
     (error) => {
       if (error?.response?.status == 401) { 
+        console.log("zasdfgnbsad",error?.response)
         if(error?.response?.data?.error=="Token is invalid" || error?.response?.data?.error=="Token is expired"  ){ 
-          navigate("/")
+          
           reactLocalStorage.clear()
-          // window.location.reload()
+          navigate("/")
           toast.error(error?.response?.data?.error);
+          // window.location.reload()
 
         }
         
@@ -58,6 +63,17 @@ function App() {
       return Promise.reject(error);
     }
   );
+console.log("dfghjk",Token)
+
+
+  useEffect(()=>{
+
+    if(Token == false){
+
+      navigate("/")
+    }
+
+  },[Token])
   
   return (
     <>
