@@ -160,7 +160,7 @@ const Dashboard = () => {
 
                         {/* MENU DISHES MANAGEMENT */}
                         {
-                          MenuApiSelectorData?.MenuSliceReducerData?.data?.map((items, Id) => {
+                          MenuApiSelectorData?.MenuSliceReducerData?.data?.slice(0, 7)?.map((items, Id) => {
                             return <button key={Id} onClick={(e) => CategoryTabFun(e, items)} class={`nav-link ${items?.menu_id == ActiveCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
                               <div>
                                 <figure>
@@ -235,10 +235,12 @@ const Dashboard = () => {
                         <ul>
                           {
                             ActiveCategory?.item_id?.slice(0, 4).map((Item, DishesId) => {
+                              console.log("kjhgfaedfrdgf",Item)
                               return <li>
                                 <h4>{Item?.item_name}</h4>
                                 <div className='tabinfo'>
                                   <div className='leftpart'>
+                                    <h5> sdfdsf</h5>
                                     <p>{Item?.description}</p>
                                     <span className='price'>{`$${Item?.item_price}`}</span>
                                   </div>

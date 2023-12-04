@@ -815,20 +815,10 @@ const Categories = () => {
                   <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       {/* CATEGORY MANAGEMENT */}
-                      <Swiper
-                        slidesPerView={MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length > 7 ? 7 : Number(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length)}
-                        // cssMode={true}
-                        navigation={true}
-                        mousewheel={true}
-                        keyboard={true}
-                        modules={[Navigation, Mousewheel, Keyboard]}
-                        className="mySwiper"
-                      >
-                        {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
+                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
                           (item, id, index) => {
                             return (
-                              <SwiperSlide>
-                                <button
+                                 <button
                                   onClick={(e) => CategoryTabFun(e, item)}
                                   className={`${ActiveCategory === item?.menu_id ? "active" : "No-active"
                                     } nav-link`}
@@ -892,11 +882,89 @@ const Categories = () => {
                                     </div>
                                   </div>
                                 </button>
+                             );
+                          }
+                        )}
+
+                      {/* <Swiper
+                        slidesPerView={MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length > 7 ? 7 : Number(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length)}
+                         navigation={true}
+                        mousewheel={true}
+                        keyboard={true}
+                        modules={[Navigation, Mousewheel, Keyboard]}
+                        className="mySwiper"
+                      >
+                        {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
+                          (item, id, index) => {
+                            return (
+                              <SwiperSlide>
+                                <button
+                                  onClick={(e) => CategoryTabFun(e, item)}
+                                  className={`${ActiveCategory === item?.menu_id ? "active" : "No-active"
+                                    } nav-link`}
+                                  key={id}
+                                  id="nav-dishes1-tab"
+                                  data-bs-toggle="tab"
+                                  data-bs-target="#nav-dishes1"
+                                  type="button"
+                                  role="tab"
+                                  aria-controls="nav-dishes1"
+                                  aria-selected="true"
+                                >
+
+                                  <div>
+                                    <figure>
+                                      <img
+                                        src={item?.category_image}
+                                        alt="img"
+                                        className="catg-img"
+                                      />
+                                    </figure>
+                                    <div className=""></div>
+
+                                    <h3>{item?.category}</h3>
+
+                                    <button className="editbtn">
+                                      <img
+                                        src={edit1}
+                                        alt="editbtn"
+                                        className="editactive "
+                                        onClick={(e) =>
+                                          PopUpEditCategoriesToggleFun(e, item)
+                                        }
+                                      />
+                                     </button>
+                                    <button className="deletebtn ms-1">
+                                      <img
+                                        src={deleteicon}
+                                        alt="deleteicon"
+                                        className=" "
+                                        onClick={(e) => DeleteCategoryfun(e, item)}
+                                      />
+                                     </button>
+                                    <div className="buttonbox">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="5"
+                                        height="7"
+                                        viewBox="0 0 5 7"
+                                        fill="none"
+                                      >
+                                        <path
+                                          d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768"
+                                          stroke-width="1.10009"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </button>
                               </SwiperSlide>
                             );
                           }
                         )}
-                      </Swiper>
+                      </Swiper> */}
                     </div>
                   </nav>
 

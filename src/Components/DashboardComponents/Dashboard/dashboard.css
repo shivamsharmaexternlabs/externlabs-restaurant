@@ -4,19 +4,21 @@
     padding: 35px;
     border-radius: 25px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
+    min-height: 245px;
 }
 
 .bannerbox h2 {
-    color: #EA6A12;
-    font-size: 36px;
-    font-weight: 400;
+    color: #EA6A12; 
+    font-family: 'DIN 30640 Std'; 
+    font-size: 45px;
+    font-weight: 300;
     line-height: 1.2;
     margin: 0;
 }
 
 .bannerbox h3 {
     color: #07143B;
-    font-size: 48px;
+    font-size: 54px;
     font-weight: 700;
     letter-spacing: 0.96px;
     margin-bottom: 10px;
@@ -63,8 +65,10 @@
 
 .topdishespart>.title>h2 {
     font-size: 28px;
-    font-weight: 700;
+    font-family: 'NeuzeitGro-Bol';
+    font-weight: 900;
     line-height: 1.2;
+
 }
 
 .topdishespart>.title>button {
@@ -133,8 +137,6 @@
     font-size: 0;
 }
 
-.topdishestabpart nav>.nav .swiper-button-prev {}
-
 .topdishestabpart>nav>.nav {
     width: 100%;
     min-width: 915px;
@@ -151,15 +153,20 @@
     border-radius: 19px;
     width: 90%;
     max-width: 100%;
+
 }
 
+
+.topdishestabpart .nav-tabs .nav-link + .nav-link {
+    margin-left: 28px;
+} 
 
 .topdishestabpart .nav-tabs .nav-link figure {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     text-align: center;
-    margin: 0 auto;
+    margin: 0 auto 15px;
     width: auto;
     height: auto;
     display: flex;
@@ -222,6 +229,14 @@
     color: #FFF;
 }
 
+.topdishestabpart .nav-tabs .nav-link h3::after {
+    display: block;
+    content: "";
+    width: 60px;
+    height: 1px;
+    background-color: #000;
+    margin: 10px auto 0;
+}
 
 .topdishestabpart .nav-tabs .nav-link:hover h3::after,
 .topdishestabpart .nav-tabs .nav-link.active h3::after {
@@ -364,6 +379,14 @@
     width: 9px;
 }
 
+.topdishestabpart .tab-content ul li h5 {
+    color: #8E8E8E;
+    font-family: 'NeuzeitGro-Reg';
+    line-height: 1;
+    font-weight: 400;
+    font-size: 12px;
+
+}
 
 .topdishestabpart .tab-content ul li p {
     color: #8E8E8E;
@@ -400,6 +423,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    height: calc(100% - 13px);
 }
 
 .topdishestabpart .tab-content ul li .tabinfo>.leftpart {
@@ -414,6 +438,9 @@
 
 .topdishestabpart .tab-content ul li .tabinfo>.rightpart>img {
     width: 100%;
+    height: 75px;
+    border-radius: 5px;
+    object-fit: contain;
 }
 
 .managerstablepart {

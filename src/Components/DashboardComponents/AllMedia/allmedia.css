@@ -54,7 +54,7 @@
 
 .medialist li figure>img {
     width: 100%;
-    height: 300px;
+    height: 215px;
     object-fit: fill;
 }
 
@@ -80,6 +80,7 @@
     text-align: center;
     padding: 0 5px;
     margin: 0;
+    word-break: break-all;
 }
 
 
@@ -157,7 +158,7 @@
         width: 100%;
     }
     .medialist li figure>img {
-        height: auto;
+        /* height: auto; */     
     }
 
 }

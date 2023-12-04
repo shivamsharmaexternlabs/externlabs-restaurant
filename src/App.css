@@ -1,56 +1,88 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins&display=swap');
 
- @font-face {
-  font-family: 'DIN 30640 Std';
-  src: url(./fonts/NeuzeitGroteskCondW01-Black.svg);
-  src: url('./fonts/DINNeuzeitGroteskStd-Light.eot');
-  src: url('./fonts/DINNeuzeitGroteskStd-Light.eot?#iefix') format('embedded-opentype'),
-      url('./fonts/DINNeuzeitGroteskStd-Light.woff2') format('woff2'),
-      url('./fonts/DINNeuzeitGroteskStd-Light.woff') format('woff'),
-      url('./fonts/DINNeuzeitGroteskStd-Light.ttf') format('truetype'),
-      url('./fonts/DINNeuzeitGroteskStd-Light.svg#DINNeuzeitGroteskStd-Light') format('svg');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
 @font-face {
-  font-family: 'NeuzeitGroteskCondW01';
-  src: url('./fonts/NeuzeitGroteskCondW01-Black.eot');
-  src: url('./fonts/NeuzeitGroteskCondW01-Black.eot?#iefix') format('embedded-opentype'),
-      url('./fonts/NeuzeitGroteskCondW01-Black.woff2') format('woff2'),
-      url('./fonts/NeuzeitGroteskCondW01-Black.woff') format('woff'),
-      url('./fonts/NeuzeitGroteskCondW01-Black.ttf') format('truetype'),
-      url('./fonts/NeuzeitGroteskCondW01-Black.svg#NeuzeitGroteskCondW01-Black') format('svg');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'NeuzeitGroteskW01';
-  src: url('./fonts/NeuzeitGroteskW01-Regular.eot');
-  src: url('./fonts/NeuzeitGroteskW01-Regular.woff2') format('woff2'),
-      url('./fonts/NeuzeitGroteskW01-Regular.woff') format('woff'),
-      url('./fonts/NeuzeitGroteskW01-Regular.ttf') format('truetype'),
-      url('./fonts/NeuzeitGroteskW01-Regular.svg#NeuzeitGroteskW01-Regular') format('svg');
+  font-family: 'NeuzeitGroCon-Bla';
+  src: url('./fonts/NeuzeitGroCon-Bla.eot');
+  src: url('./fonts/NeuzeitGroCon-Bla.eot?#iefix') format('embedded-opentype'),
+      url('./fonts/NeuzeitGroCon-Bla.woff2') format('woff2'),
+      url('./fonts/NeuzeitGroCon-Bla.woff') format('woff'),
+      url('./fonts/NeuzeitGroCon-Bla.ttf') format('truetype'),
+      url('./fonts/NeuzeitGroCon-Bla.svg#NeuzeitGroCon-Bla') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'NeuzeitS-Book';
-  src: url('./fonts/NeuzeitS-Book.eot');
-  src: url('./fonts/NeuzeitS-Book.eot?#iefix') format('embedded-opentype'),
-      url('./fonts/NeuzeitS-Book.woff2') format('woff2'),
-      url('./fonts/NeuzeitS-Book.woff') format('woff'),
-      url('./fonts/NeuzeitS-Book.ttf') format('truetype'),
-      url('./fonts/NeuzeitS-Book.svg#NeuzeitS-Book') format('svg');
+  
+  font-family: 'NeuzeitGroExt-Bla';
+  src: url('./fonts/NeuzeitGroExt-Bla.eot');
+  src: url('./fonts/NeuzeitGroExt-Bla.eot?#iefix') format('embedded-opentype'),
+      url('./fonts/NeuzeitGroExt-Bla.woff2') format('woff2'),
+      url('./fonts/NeuzeitGroExt-Bla.woff') format('woff'),
+      url('./fonts/NeuzeitGroExt-Bla.ttf') format('truetype'),
+      url('./fonts/NeuzeitGroExt-Bla.svg#NeuzeitGroExt-Bla') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'NeuzeitGro-Reg';
+  src: url('./fonts/NeuzeitGro-Reg.eot');
+  src: url('./fonts/NeuzeitGro-Reg.eot?#iefix') format('embedded-opentype'),
+      url('./fonts/NeuzeitGro-Reg.woff2') format('woff2'),
+      url('./fonts/NeuzeitGro-Reg.woff') format('woff'),
+      url('./fonts/NeuzeitGro-Reg.ttf') format('truetype'),
+      url('./fonts/NeuzeitGro-Reg.svg#NeuzeitGro-Reg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NeuzeitGro-Lig';
+  src: url('./fonts/NeuzeitGro-Lig.eot');
+  src: url('./fonts/NeuzeitGro-Lig.eot?#iefix') format('embedded-opentype'),
+      url('./fonts/NeuzeitGro-Lig.woff2') format('woff2'),
+      url('./fonts/NeuzeitGro-Lig.woff') format('woff'),
+      url('./fonts/NeuzeitGro-Lig.ttf') format('truetype'),
+      url('./fonts/NeuzeitGro-Lig.svg#NeuzeitGro-Lig') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NeuzeitGro-Bla';
+  src: url('./fonts/NeuzeitGro-Bla.eot');
+  src: url('./fonts/NeuzeitGro-Bla.eot?#iefix') format('embedded-opentype'),
+      url('./fonts/NeuzeitGro-Bla.woff2') format('woff2'),
+      url('./fonts/NeuzeitGro-Bla.woff') format('woff'),
+      url('./fonts/NeuzeitGro-Bla.ttf') format('truetype'),
+      url('./fonts/NeuzeitGro-Bla.svg#NeuzeitGro-Bla') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NeuzeitGro-Bol';
+  src: url('./fonts/NeuzeitGro-Bol.eot');
+  src: url('./fonts/NeuzeitGro-Bol.eot?#iefix') format('embedded-opentype'),
+      url('./fonts/NeuzeitGro-Bol.woff2') format('woff2'),
+      url('./fonts/NeuzeitGro-Bol.woff') format('woff'),
+      url('./fonts/NeuzeitGro-Bol.ttf') format('truetype'),
+      url('./fonts/NeuzeitGro-Bol.svg#NeuzeitGro-Bol') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+
+
 
 body {
   padding: 0;
