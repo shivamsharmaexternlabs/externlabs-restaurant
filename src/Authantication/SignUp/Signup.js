@@ -42,7 +42,7 @@ const Signup = () => {
   };
 
   const Validate = yup.object({
-    email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'First name must not contain spaces'),
+    // email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'First name must not contain spaces'),
     first_name: yup.string().required("first name is required").matches(/^\S*$/, 'First name must not contain spaces'),
     last_name: yup.string().required("last name is required").matches(/^\S*$/, 'Last name must not contain spaces'),
     password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),

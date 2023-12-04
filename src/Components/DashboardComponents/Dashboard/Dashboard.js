@@ -89,7 +89,7 @@ const Dashboard = () => {
 
   const QrCodeDownloadFun = () => {
     var FileSaver = require('file-saver');
-    FileSaver.saveAs(QrImage, "image.jpg");
+    FileSaver.saveAs(QrImage, "QrDownload.jpg");
   }
 
 

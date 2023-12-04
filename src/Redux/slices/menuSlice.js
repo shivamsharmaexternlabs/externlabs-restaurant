@@ -89,10 +89,12 @@ export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
           },
         }
       );
-      toast.success(response?.data?.detail);
+      toast.success(response?.data?.message);
        
       return response;
     } catch (err) {
+
+      console.log("asdsfgfhjh",err?.response)
       toast.error(err?.response?.data?.message);
 
       return rejectWithValue(err);

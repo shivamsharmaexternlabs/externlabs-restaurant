@@ -85,6 +85,7 @@
     margin-left: 10px;
 }
 
+
 .topdishestabpart>nav {
     overflow: auto;
     width: 100%;
@@ -241,7 +242,6 @@
     margin: 0;
     padding: 0;
     display: flex;
-    /* justify-content: space-between; */
     flex-wrap: wrap;
 }
 
@@ -275,7 +275,19 @@
     transition: all .3s ease;
 }
 
-.topdishestabpart .tab-content ul li>.title {}
+
+.editinfostar {
+    display: flex;
+    align-items: center;
+}
+
+.editinfostar .starbtn { 
+    margin-right: 10px;
+    width: 14px;
+}
+.editinfostar .starbtn img {
+    width: 100%;
+}
 
 .topdishestabpart .tab-content ul li>.title button {
     border: none;
@@ -284,13 +296,72 @@
     line-height: 1;
 }
 
+/* .topdishestabpart .tab-content ul li>.title button img {
+    width: 10px;
+} */
 
-.topdishestabpart .tab-content ul li>.title button+button {
-    margin-left: 7px;
+
+.editinfobtn {
+    width: 20px;
+    text-align: center;
+    position: relative;
 }
 
-.topdishestabpart .tab-content ul li>.title button img {
-    width: 10px;
+.topdishestabpart .tab-content ul li>.title .editinfobtn > button {
+    width: 5px;
+}
+
+.topdishestabpart .tab-content ul li>.title .editinfobtn > button > img {
+    width: 100%;
+}
+
+
+.topdishestabpart .tab-content ul li>.title .editinfobtn > .btnbox { 
+    position: absolute;
+    top: -44px;
+    right: 2px;
+    width: 70px;
+    height: auto;
+    padding: 5px 8px;
+
+    background-color: #FFEEE7;
+    border-radius: 4px;
+}
+
+.topdishestabpart .tab-content ul li>.title .editinfobtn > .btnbox::after{
+    position: absolute;
+    content: "";
+    bottom: -22px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    background: url(../../../images/arrowimg.svg) top center no-repeat;
+
+}
+
+.topdishestabpart .tab-content ul li>.title .editinfobtn > .btnbox button {
+    font-size: 11px;
+}
+
+.editinfobtn > .btnbox > button{
+    display: block;
+    
+}
+.editinfobtn > .btnbox > button > img {
+    margin-right: 5px;
+}
+
+.editbtn { 
+    color: #000;
+}
+
+.deletbtn {
+    margin-top: 5px;
+    color: #E52614;
+}
+
+.deletbtn > img {
+    width: 9px;
 }
 
 

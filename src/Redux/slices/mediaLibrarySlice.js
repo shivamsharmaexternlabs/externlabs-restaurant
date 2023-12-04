@@ -20,7 +20,7 @@ export const GetMediaLibrarySlice = createAsyncThunk(
       // toast.success(response?.data?.message);
       return response;
     } catch (err) {
-      toast.error(err?.response?.data?.message);
+      toast.error(err?.response?.data?.error);
       return rejectWithValue(err);
     }
   }

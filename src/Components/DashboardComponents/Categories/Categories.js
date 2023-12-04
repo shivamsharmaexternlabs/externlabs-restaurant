@@ -11,8 +11,8 @@ import category from "../../../images/category.png";
 import edit1 from "../../../images/edit.svg";
 import starfill from "../../../images/star.svg";
 import defaultImage from '../../../images/defaultImage.png'
-// import defaultImage2 from '../../../images/defaultImage2.png'
-import star from "../../../images/starb.png";
+import dot from '../../../images/dot.svg'
+import star from "../../../images/starb.svg";
 import editw from "../../../images/editw.svg";
 import order from "../../../images/order.svg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -75,7 +75,7 @@ const Categories = () => {
   const [DeleteCategory, setDeleteCategory] = useState();
   const [draggedItem, setDraggedItem] = useState(null);
   const [draggableSubcategory, setDraggableSubcategory] = useState(false)
-  const [reorderCategory, setReorderCategory] = useState(false)
+  const [OpenMenuActionToggle, setOpenMenuActionToggle] = useState(null)
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
   const [DragAndDropItems, setDragAndDropItems] = useState([])
   const [dndPayload, setDndPayload] = useState({})
@@ -300,7 +300,7 @@ const Categories = () => {
     category: "",
   };
 
-  
+
   const ValidateCategory = yup.object({
     category: yup.string().required("Please Create Category"),
   });
@@ -331,7 +331,7 @@ const Categories = () => {
       }, 1500);
 
       await dispatch(LoadingSpinner(false))
-    } 
+    }
     catch (error) {
       await dispatch(LoadingSpinner(false))
     }
@@ -696,6 +696,17 @@ const Categories = () => {
   }
 
 
+  const OpenActionToggleFun =(e,items)=>{
+
+    if (OpenMenuActionToggle === items?.item_id) {
+      setOpenMenuActionToggle(null);
+        } else {
+          setOpenMenuActionToggle(items?.item_id);
+        }
+
+    // setOpenMenuActionToggle(true)
+  }
+
 
   return (
     <>
@@ -805,7 +816,7 @@ const Categories = () => {
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       {/* CATEGORY MANAGEMENT */}
                       <Swiper
-                        slidesPerView={MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length > 4 ? 4 : Number(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length)}
+                        slidesPerView={MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length > 7 ? 7 : Number(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length)}
                         // cssMode={true}
                         navigation={true}
                         mousewheel={true}
@@ -941,6 +952,7 @@ const Categories = () => {
 
                           DragAndDropItems?.map(
                             (items, ids) => {
+                              console.log("SDASFGH",items?.item_id)
                               return (
                                 <li
                                   key={ids}
@@ -960,49 +972,52 @@ const Categories = () => {
                                     <div className="">
                                       <h4>
                                         {items?.item_name}{" "}
-                                        <button
-                                          type="button"
-                                          onClick={(e) => FavoriteFun(e, items)}
-                                        >
-                                          {" "}
-                                          <img
-                                            src={
-                                              items?.is_favorite === true
-                                                ? starfill
-                                                : star
-                                            }
-                                            alt="img"
-                                            className="ms-1"
-                                          />{" "}
-                                          {/* <img src={star} alt="img" />{" "} */}
-                                        </button>{" "}
+                                      
                                       </h4>
                                     </div>
-                                    <div className="btnbox">
-                                      <button
-                                        type="button"
-                                        onClick={(e) =>
-                                          PopUpToggleEditFun(e, items)
-                                        }
-                                        className="editbtn"
-                                      >
-                                        {" "}
-                                        <img src={edit1} alt="img" />{" "}
-                                      </button>
+                                    <div className="editinfostar">
+                                      <button type="button" className="starbtn" onClick={(e) => FavoriteFun(e, items)} >
+                                        <img src={items?.is_favorite === true ? starfill : star} alt="img" className="ms-1" />
+                                      </button>                                   
 
-                                      <button className="deletbtn">
-                                        <img
-                                          src={deleteicon}
-                                          alt="delete icon "
-                                          // className="editactive "
+                                    <div className="editinfobtn">
+                                      <button type="button" onClick={(e)=>OpenActionToggleFun(e,items)}> 
+                                      
+                                      <img src={dot} alt="dot img" />
+                                      {/* {items?.item_id != OpenMenuActionToggle
+                                    ? "..more"
+                                    : "..less"} */}
+                                      
+                                       </button>
+
+                                      {items?.item_id == OpenMenuActionToggle && <div className="btnbox">
+                                        <button
+                                          type="button"
                                           onClick={(e) =>
-                                            DeleteItemfun(e, items)
-
+                                            PopUpToggleEditFun(e, items)
                                           }
-                                        />
-                                      </button>
+                                          className="editbtn">
+                                          {" "}
+                                          <img src={edit1} alt="img" />{" "} Edit
+                                        </button>
+
+                                        <button className="deletbtn">
+                                          <img
+                                            src={deleteicon}
+                                            alt="delete icon "
+                                            // className="editactive "
+                                            onClick={(e) =>
+                                              DeleteItemfun(e, items)
+                                            }
+                                          /> Delete
+                                        </button>
+                                      </div>}
+
                                     </div>
-                                  </div>}
+         
+                                    </div>
+                                  </div>
+                                  }
 
                                   <div className="tabinfo">
                                     <div className="leftpart">

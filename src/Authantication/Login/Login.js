@@ -63,7 +63,11 @@ const Login = () => {
   };
 
   const Validate = yup.object({
-    email_or_phone: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'Email Number must not contain spaces'),
+    email_or_phone: yup.string().required("Email or phone number is required")
+    // .matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid")
+    // .matches(/^\S*$/, 'Email Number must not contain spaces')
+    ,
+
     password: yup.string().required("Password is required").matches(/^\S*$/, 'Password Number must not contain spaces')
     // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "Password must contain 8 character, at least one lowercase, one uppercase,one digit and one special character"),
   });
@@ -91,13 +95,13 @@ const Login = () => {
               </div>
               <Form>
                 <div className="formbox">
-                  <label>Email </label>
+                  <label>Email or Phone No  </label>
                   <Field
                     name="email_or_phone"
-                    type="email"
+                    type="text"
                     className={`form-control `}
                     autoComplete="off"
-                    placeholder="Email"
+                    placeholder="Email or Phone No"
                   />
                   {/* <img src={sms} alt="sms img" className="imgsms" /> */}
                   <p className="text-danger">
