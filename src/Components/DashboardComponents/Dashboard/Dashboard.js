@@ -377,7 +377,7 @@ const Dashboard = () => {
 
                   </div>
                   <div className='info'>
-                    <span></span>
+                    {/* <span></span> */}
                     <button type='button'
                       onClick={(e) => QrCodeDownloadFun()}
                     >

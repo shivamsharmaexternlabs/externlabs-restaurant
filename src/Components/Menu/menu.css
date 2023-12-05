@@ -82,7 +82,8 @@
 .categorylist h2 {
     color: #000;
     font-size: 18px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.2;
     margin-bottom: 15px;
 }
@@ -101,7 +102,8 @@
 .categorylist ul li {
     border-radius: 1000px;
     font-size: 14px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 18px;
     text-align: center;
     background-color: #f7f7fa;
@@ -149,7 +151,8 @@
 .categorylist ul li h3 {
     color: #000;
     font-size: 12px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1;
     margin: 5px 0 5px;
     text-align: center;
@@ -182,7 +185,8 @@
     /* font-family: 'Playfair Display', serif; */
     font-size: 32px;
     font-style: normal;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.2;
 }
 
@@ -202,7 +206,8 @@
     color: #000;
     font-size: 12px;
     font-style: normal;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     transition: all .3s;
     padding: 6px 15px;
     white-space: nowrap;
@@ -272,7 +277,8 @@ font-size: 15px;
 
 .menuitemtab h2 {
     font-size: 18px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 32px;
     letter-spacing: 0.02em;
     text-align: center;
@@ -343,7 +349,8 @@ font-size: 15px;
 .menuitemlist li .leftpart h3 {
     color: #000;
     font-size: 14px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.2;
     margin: 10px 0;
 }
@@ -351,7 +358,8 @@ font-size: 15px;
 .menuitemlist li .leftpart p {
     color: #5F5F5F;
     font-size: 12px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     margin-bottom: 10px;
     line-height: 1.5;
 }
@@ -360,7 +368,8 @@ font-size: 15px;
 .startxt {
     color: #000;
     font-size: 14px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.5;
 }
 

@@ -41,7 +41,8 @@
     font-family: Neuzeit Grotesk;
     font-size: 13.845px;
     font-style: normal;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     /* line-height: 175%; */
     /* 24.229px */
     /* letter-spacing: 0.277px; */
@@ -63,7 +64,8 @@
     font-family: Neuzeit Grotesk;
     font-size: 40px;
     font-style: normal;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 130%;
     /* 41.6px */
     letter-spacing: 0.64px;
@@ -94,6 +96,7 @@
 }
 
 /* ////////category page///////////// */
+
 .sort-order {
     margin-left: 10px;
     cursor: pointer;
@@ -110,6 +113,14 @@
     display: flex;
     justify-content: space-between;
 }
+.item-head > h2 {
+    font-size: 28px;
+    color: #000;
+    line-height: 1;    
+    font-family: 'NeuzeitGro-Bol';
+    font-weight: normal;
+    margin: 0;
+}
 
 .sort-item-order {
     cursor: pointer;
@@ -122,11 +133,12 @@
 }
 
 .reorder-head {
-    font-family: Neuzeit Grotesk;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: 500;   
     font-size: 14px;
     font-style: normal;
-    font-weight: 500;
     letter-spacing: 0.24px;
+    line-height: 1;
 }
 
 .categorypage>.title {
@@ -141,7 +153,8 @@
     color: #000;
     font-size: 32px;
     margin-bottom: 0px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
 }
 
 .btn1,
@@ -150,7 +163,8 @@
     outline: none;
     box-shadow: none;
     font-size: 16px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.2;
     border-radius: 100px;
     padding: 10px 15px;
@@ -266,7 +280,8 @@
 .bestsellerpart>h2 {
     color: #000;
     font-size: 28px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.3;
     margin: 0 0 30px;
 }
@@ -303,7 +318,8 @@
 .bestsellerpart>ul>li>.rightpart h3 {
     color: #000;
     font-size: 16px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.2;
     margin: 0;
 }
@@ -311,7 +327,8 @@
 .bestsellerpart>ul>li>.rightpart p {
     color: #8E8E8E;
     font-size: 12px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.5;
     margin: 10px 0;
 }
@@ -320,7 +337,8 @@
 .bestsellerpart>ul>li>.rightpart .price {
     color: #EA6A12;
     font-size: 15px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.3;
 }
 
@@ -349,6 +367,7 @@
 .catg-img {
     height: 40px;
     width: 40px;
+    object-fit: contain;
 }
 
 .uploadbtn-wrapper input[type=file] {
@@ -424,7 +443,8 @@
     color: #8D8D8D;
     font-size: 24px;
     border-radius: 12px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.3;
 }
 

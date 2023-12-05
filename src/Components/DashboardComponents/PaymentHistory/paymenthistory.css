@@ -2,7 +2,8 @@
     color: #000;
     font-size: 32px;
     font-style: normal;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     margin: 0 0 35px;
 }
 
@@ -61,7 +62,8 @@
     color: #000;
     font-size: 50px;
     font-style: normal;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.2;
     margin: 0;
 }
@@ -74,7 +76,8 @@
     color: #42526B;
     font-size: 20px;
     line-height: 1;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
 }
 
 
@@ -103,14 +106,16 @@
 .paymenttable table tr th {
     color: #000;
     font-size: 18px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.1;
 }
 
 .paymenttable table tr td {
     color: #000;
     font-size: 18px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.1;
 }
 

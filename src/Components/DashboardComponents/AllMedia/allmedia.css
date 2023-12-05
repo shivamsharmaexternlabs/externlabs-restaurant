@@ -8,7 +8,8 @@
 .mediapage>.title>h2 {
     color: #000;
     font-size: 32px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.3;
     margin-bottom: 0;
 }
@@ -76,7 +77,8 @@
 .medialist li h4 {
     font-size: 16px;
     color: #000;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     text-align: center;
     padding: 0 5px;
     margin: 0;

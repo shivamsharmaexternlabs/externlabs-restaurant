@@ -25,7 +25,8 @@
     font-family: Playfair Display;
     font-size: 40px;
     font-style: normal;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.2;
     letter-spacing: 0.8px;
 }
@@ -35,7 +36,8 @@
     font-family: Poppins;
     font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.2;
     letter-spacing: 0.32px;
     margin-bottom: 16px;
@@ -53,7 +55,8 @@
     font-family: Poppins;
     font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     display: block;
     margin-bottom: 10px;
     line-height: 1;
@@ -110,14 +113,16 @@
     font-family: Poppins;
     font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.2;
 }
 
 .alreadytext {
     color: #07143B;
     font-size: 16px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     text-align: center;
     margin: 50px 0 0;
 }

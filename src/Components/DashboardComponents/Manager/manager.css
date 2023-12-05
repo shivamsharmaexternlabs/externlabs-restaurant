@@ -9,7 +9,8 @@
   color: #000;
   font-size: 32px;
   margin-bottom: 0px;
-  font-weight: 700;
+  font-family: 'NeuzeitGro-Bol';
+  font-weight: normal;
 }
 
 .managertitle .mangerbtn {
@@ -17,7 +18,8 @@
   color: #fff;
   background: #ea6a12;
   font-size: 16px;
-  font-weight: 400;
+ font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
   border: none;
   outline: none;
   transition: all 0.3s;
@@ -32,15 +34,16 @@
 
 .managertable table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: collapse; 
   min-width: 950px;
   margin-bottom: 10px;
-}
+} 
 
 .managertable table th {
   font-size: 18px;
   color: #000;
-  font-weight: 400;
+  font-family: 'NeuzeitGro-Reg';
+  font-weight: normal;
   padding: 10px 5px;
   line-height: 1.2;
 }
@@ -104,16 +107,19 @@
 .managertable table td {
   font-size: 16px;
   color: #000;
-  font-weight: 400;
+ font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
   line-height: 1.2;
   padding: 10px 5px;
-}
+  font-family: 'NeuzeitGro-Reg';
+  font-weight: normal;
+} 
 
 .managertable table tr {
   display: flex;
-  align-items: center;
+  align-items: center; 
   justify-content: space-between;
-  border-radius: 12px;
+  border-radius: 12px; 
 }
 
 .managertable table tr:first-child {
@@ -132,9 +138,12 @@
   padding: 5px 10px;
   font-size: 16px;
   background: transparent;
-  font-weight: 400;
+ font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
   transition: all 0.3s ease;
   padding: 7px 30px;
+  font-family: 'NeuzeitGro-Reg';
+  font-weight: normal;
 }
 
 .asbtn:hover {
@@ -208,7 +217,8 @@
 .formbox label {
   color: #000;
   font-size: 16px;
-  font-weight: 400;
+ font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
   line-height: 1.2;
   margin-bottom: 8px;
 }
@@ -239,7 +249,8 @@
 
 .wantmanager .popupbody h2 {
   font-size: 30px;
-  font-weight: 700;
+ font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
   line-height: 1.2;
   margin: 20px 0;
 }

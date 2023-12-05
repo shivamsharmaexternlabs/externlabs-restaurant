@@ -47,6 +47,7 @@ header .rightpart .user {
     display: flex;
     align-items: center;
     margin-left: 15px;
+    position: relative;
 }
 
 header .rightpart .user figure {
@@ -65,7 +66,9 @@ header .rightpart .user figure>img {
 header .rightpart .user h3 {
     color: #000;
     font-size: 14px;
-    font-weight: 500;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: 600;
+    letter-spacing: 1px;
     font-style: normal;
     margin: 0 0 2px;
 }
@@ -74,9 +77,51 @@ header .rightpart .user p {
     color: #000;
     font-size: 10px;
     font-style: normal;
-    font-weight: 400;
-    margin: 0;    
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
+    margin: 0;
 }
+
+.dropdownopt {
+    position: relative;
+    margin: 12px 0 0 10px;
+}
+
+.dropdownopt>span {
+    width: 10px;
+    cursor: pointer;
+    height: 0px;
+    border-width: 8px 8px 0px 8px;
+    border-style: solid solid none solid;
+    border-color: #000 transparent transparent transparent;
+}
+
+.dropdownoptbox {
+    position: absolute;
+    top: 8px;
+    right: 0;
+    width: 102px;
+    border-radius: 2px;
+    background: #FFEEE7;
+    padding: 5px 10px ;
+}
+
+.dropdownoptbox>button {
+    border: none;
+    background-color: transparent;
+    color: #000;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.dropdownoptbox>button img {
+    width: 18px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
 
 
 

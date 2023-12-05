@@ -15,7 +15,8 @@
 .otpbox .title h2 {
   color: #07143B;
   font-size: 40px;
-  font-weight: 700;
+ font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
 }
 
 .otpbox .title p {
@@ -53,13 +54,15 @@
 
 .email_number {
   font-size: 16px;
-  font-weight: 400;
+ font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
   color: #111;
 }
 
 .resendtext  {
   font-size: 16px;
-  font-weight: 400;
+ font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
   color: #111;
   text-align: right;
   max-width: 310px;

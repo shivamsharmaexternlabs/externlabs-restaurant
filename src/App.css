@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins&display=swap');
 
-@font-face {
+/* @font-face {
   font-family: 'NeuzeitGroCon-Bla';
   src: url('./fonts/NeuzeitGroCon-Bla.eot');
   src: url('./fonts/NeuzeitGroCon-Bla.eot?#iefix') format('embedded-opentype'),
@@ -25,7 +25,7 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 @font-face {
   font-family: 'NeuzeitGro-Reg';

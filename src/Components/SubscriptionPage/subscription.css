@@ -18,7 +18,8 @@
     color: #000;
     font-size: 56px;
     font-style: normal;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.3;
     letter-spacing: -1.12px;
     text-align: center;
@@ -30,7 +31,8 @@
     text-align: center;
     font-size: 18px;
     font-style: normal;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.5;
 }
 
@@ -56,7 +58,8 @@
     color: #838E9E;
     background: #fff;
     border-radius: 170px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
 
 }
 
@@ -195,7 +198,8 @@
 .subscriptiontabs .tab-content ul>li>.title>h3 {
     color: #000;
     font-size: 34px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.3;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
@@ -204,7 +208,8 @@
 .subscriptiontabs .tab-content ul>li>.title>h3>span {
     color: #42526B;
     font-size: 16px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
 }
 
 .subscriptiontabs .tab-content ul>li:hover > .title>h3,
@@ -223,7 +228,8 @@
 .subscriptiontabs .tab-content ul>li .info h4 {
     color: #000;
     font-size: 24px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.3;
     margin-bottom: 10px;
 }
@@ -231,7 +237,8 @@
 .subscriptiontabs .tab-content ul>li .info p {
     color: #42526B;
     font-size: 16px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.3;
     margin-bottom: 32px;
 }
@@ -289,7 +296,8 @@
 .subscriptiontabs .tab-content ul>li .infolist>li span {
     color: #42526B;
     font-size: 16px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.3;
     margin-left: 12px;
     -webkit-transition: all .3s ease;

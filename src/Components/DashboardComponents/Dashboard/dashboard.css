@@ -9,9 +9,9 @@
 
 .bannerbox h2 {
     color: #EA6A12; 
-    font-family: 'DIN 30640 Std'; 
+    font-family: 'NeuzeitGro-Lig';
     font-size: 45px;
-    font-weight: 300;
+    font-weight: normal;
     line-height: 1.2;
     margin: 0;
 }
@@ -19,7 +19,8 @@
 .bannerbox h3 {
     color: #07143B;
     font-size: 54px;
-    font-weight: 700;
+    font-family: 'NeuzeitGro-Bol';
+    font-weight: normal;
     letter-spacing: 0.96px;
     margin-bottom: 10px;
 }
@@ -27,7 +28,8 @@
 .bannerbox .btn {
     color: #fff;
     font-size: 16px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.2;
     letter-spacing: 0.325px;
     padding: 10px 16px;
@@ -53,8 +55,21 @@
 
 .viewall-part>.leftpart {
     width: 60%;
+    position: relative;
+    z-index: 1;
+    
 }
-
+.viewall-part>.leftpart::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(252, 237, 227, 0.30);
+    filter: blur(84.5px);
+    z-index: -1;
+} 
 
 .topdishespart>.title {
     display: flex;
@@ -76,7 +91,8 @@
     outline: none;
     background-color: transparent;
     font-size: 12px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.2;
 }
 
@@ -144,15 +160,14 @@
     flex-wrap: nowrap;
 }
 
-
 .topdishestabpart .nav-tabs .nav-link {
     background-color: transparent;
     border: none;
     background-color: #fff;
-    padding: 10px;
+    padding: 10px 5px;
     border-radius: 19px;
     width: 90%;
-    max-width: 100%;
+    max-width: 100px;
 
 }
 
@@ -178,8 +193,8 @@
 .topdishestabpart .nav-tabs .nav-link h3 {
     color: #000;
     font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
     line-height: 1.2;
     position: relative;
     letter-spacing: 0.235px;
@@ -284,7 +299,8 @@
 .topdishestabpart .tab-content ul li h4 {
     color: #000;
     font-size: 14px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.2;
     margin: 0;
     transition: all .3s ease;
@@ -383,15 +399,16 @@
     color: #8E8E8E;
     font-family: 'NeuzeitGro-Reg';
     line-height: 1;
-    font-weight: 400;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
     font-size: 12px;
-
 }
 
 .topdishestabpart .tab-content ul li p {
     color: #8E8E8E;
     font-size: 10px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.5;
     margin: 10px 0;
     transition: all .3s ease;
@@ -400,11 +417,11 @@
 .topdishestabpart .tab-content ul li .price {
     color: #EA6A12;
     font-size: 15px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
     line-height: 1.2;
     transition: all .3s ease;
 }
-
 
 .topdishestabpart .tab-content ul li:hover {
     background: rgba(234, 106, 18, 0.70);
@@ -413,11 +430,11 @@
 
 .topdishestabpart .tab-content ul li:hover h4,
 .topdishestabpart .tab-content ul li:hover p,
-.topdishestabpart .tab-content ul li:hover .price {
+.topdishestabpart .tab-content ul li:hover .price ,
+.topdishestabpart .tab-content ul li:hover h5 {
     color: #fff;
     transition: all .3s ease;
 }
-
 
 .topdishestabpart .tab-content ul li .tabinfo {
     display: flex;
@@ -456,7 +473,8 @@
 
 .managerstablepart>.title>h2 {
     font-size: 28px;
-    font-weight: 700;
+    font-family: 'NeuzeitGro-Bol';
+    font-weight: normal;
     line-height: 1.2;
 }
 
@@ -465,7 +483,8 @@
     outline: none;
     background-color: transparent;
     font-size: 12px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.2;
 }
 
@@ -509,7 +528,8 @@
 .managerstable th {
     color: #000;
     font-size: 16px;
-    font-weight: 400;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
     letter-spacing: normal;
     padding: 9px 5px;
 }
@@ -537,16 +557,15 @@
 .managerstable td {
     color: #000;
     font-size: 14px;
-    font-weight: 400;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
     letter-spacing: normal;
     padding: 9px;
 }
 
-
 .viewall-part>.rightpart {
     width: 38%;
 }
-
 
 .subplanbox {
     background: url(../../../images/planbg.svg) top right no-repeat;
@@ -566,7 +585,9 @@
 .subplanbox>.title h3 {
     color: #000;
     font-size: 28px;
-    font-weight: 700;
+    font-family: 'NeuzeitGro-Bol';
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     line-height: 1.3;
     padding-right: 10px;
 }
@@ -574,7 +595,8 @@
 .subplanbox>.title button {
     color: #000;
     font-size: 12px;
-    font-weight: 400;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
     line-height: 1.3;
     background-color: transparent;
     border: none;
@@ -583,9 +605,9 @@
 
 .subplanbox>.title button img {
     margin-left: 5px;
-}
+} 
 
-.subplanbox>.info {
+.subplanbox>.info { 
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -598,7 +620,8 @@
 .subplanbox>.info>.leftpart p {
     color: #000;
     font-size: 16px;
-    font-weight: 400;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
     line-height: 1.3;
     margin-bottom: 10px;
 }
@@ -635,13 +658,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 25px 0 0;
+    margin: 0px 0 0;
 }
 
 .qrbox>.info>span {
     color: #000;
     font-size: 16px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     line-height: 1.3;
 }
 
@@ -652,9 +676,22 @@
     color: #EA6A12;
     font-size: 16px;
     line-height: 1.3;
-    font-weight: 700;
-}
+    font-family: 'NeuzeitGro-Bol';
+    font-weight: normal;
+    margin:-55px 0 0px 20px;
+    position: relative;
+} 
 
+.qrbox>.info button::after {
+    content: "";
+    filter: blur(15px);
+    background: rgb(234 106 18 / 62%);
+    width: 106px;
+    height: 25px;
+    position: absolute;
+    left: -14px;
+    top: -4px;
+}
 
 
 .topdishestabpart>nav::-webkit-scrollbar,

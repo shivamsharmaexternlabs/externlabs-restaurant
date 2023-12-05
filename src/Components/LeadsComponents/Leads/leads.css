@@ -10,13 +10,15 @@
     color: #000;
     font-size: 32px;
     margin-bottom: 0px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
 }
 
 .leadpage .btn2 {
     border-radius: 100px;
     font-size: 16px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
     outline: none;
     transition: all .3s;
     padding: 10px 15px;
@@ -81,7 +83,8 @@
 .successpopup .innerpopup h3 {
     color: #000;
     font-size: 40px;
-    font-weight: 700;
+   font-family: 'NeuzeitGro-Bol';
+font-weight: normal;
     margin: 20px 0;
 
 }
@@ -89,7 +92,8 @@
 .successpopup .innerpopup p {
     color: #000;
     font-size: 16px;
-    font-weight: 400;
+   font-family: 'NeuzeitGro-Reg';
+font-weight: normal;
 }
 
 .sharebtnbox {

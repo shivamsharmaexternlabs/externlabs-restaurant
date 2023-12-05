@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import './dashboardHeader.css'
 import user from '../../../images/user.png'
 import notify from '../../../images/icon6.svg'
+import logout from '../../../images/logout.svg'
 import { reactLocalStorage } from "reactjs-localstorage";
 import { ToggleNewLeads } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch } from 'react-redux'
@@ -56,7 +57,14 @@ const DashboardHeader = ({ popUpHookFun }) => {
               <h3>{UserNameData}</h3>
               <p>{UserTypeData}</p>
             </div>
-            <button type='button' className='btn2 ms-3 py-1' onClick={(e) => handleLogout(e)}> Logout </button>
+            <div className='dropdownopt'> 
+              <span></span>
+              <div className='dropdownoptbox'>
+                <button type='button' className='' onClick={(e) => handleLogout(e)}> 
+                  <img src={logout} alt='img' /> Logout 
+                </button>  
+              </div>
+            </div>
           </div>
         </div>
       </header>
