@@ -80,6 +80,10 @@ const Categories = () => {
   const [DragAndDropItems, setDragAndDropItems] = useState([])
   const [dndPayload, setDndPayload] = useState({})
   const [SaveActiveBtn, setSaveActiveBtn] = useState(false)
+  const [FavoriteValueStoreData, setFavoriteValueStoreData] = useState({
+    toggle: false,
+    data: ""
+  })
 
   let BearerToken = reactLocalStorage.get("Token", false);
 
@@ -147,7 +151,9 @@ const Categories = () => {
     } else if (MenuApiSelectorData?.error == "Rejected") {
       setLoadSpiner(false);
     }
-    if (MenuApiSelectorData?.MenuSliceReducerData.status === 200) {
+    if (MenuApiSelectorData?.MenuSliceReducerData.status === 200
+      && FavoriteValueStoreData.toggle == false
+    ) {
       setDragAndDropItems(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.item_id)
       setLoadSpiner(false);
     } else if (MenuApiSelectorData?.error == "Rejected") {
@@ -210,7 +216,20 @@ const Categories = () => {
     dispatch(MenuSlice(MenuSlicePayload));
   }, [MenuApiSelectorData?.GetMenuCategoryReducerData]);
 
-  const CategoryTabFun = async (e, categoryItem) => {
+  const CategoryTabFun = async (e, categoryItem,toggleAction) => {
+    // fromImage
+    if(toggleAction !="3dots"){
+      setOpenMenuActionToggle(null)
+    }
+    // setOpenMenuActionToggle(null);
+    console.log("mshhjasasd1",categoryItem)
+
+
+    setFavoriteValueStoreData({
+      toggle: false,
+      data: ''
+    })
+
     dispatch(LoadingSpinner(true))
 
     let MenuSlicePayload = {
@@ -578,16 +597,33 @@ const Categories = () => {
 
   const FavoriteFun = async (e, itemData) => {
 
+     
+
+    setFavoriteValueStoreData({
+      toggle: true,
+      data: itemData
+    })
+
     await dispatch(LoadingSpinner(true))
     try {
 
-      await dispatch(favoriteMenuItemSlice({ item_id: itemData?.item_id, BearerToken }));
+  let responseData=    await dispatch(favoriteMenuItemSlice({ item_id: itemData?.item_id, BearerToken }));
 
-      setTimeout(async () => {
-        let MenuSlicePayload = {
-          RestaurantId: RestaurantIdLocalStorageData,
-        };
-        await dispatch(GetMenuCategorySlice(MenuSlicePayload));
+      // setTimeout(async () => {
+      //   let MenuSlicePayload = {
+      //     RestaurantId: RestaurantIdLocalStorageData,
+      //   };
+      //   await dispatch(GetMenuCategorySlice(MenuSlicePayload));
+      // }, 1500)
+
+console.log("jkxgksgjahs",responseData?.payload?.status)
+
+setTimeout(async () => {
+  CategoryTabFun("s",itemData)
+        // let MenuSlicePayload = {
+        //   RestaurantId: RestaurantIdLocalStorageData,
+        // };
+        // await dispatch(GetMenuCategorySlice(MenuSlicePayload));
       }, 1500)
 
       await dispatch(LoadingSpinner(false))
@@ -695,7 +731,7 @@ const Categories = () => {
 
 
   const OpenActionToggleFun = (e, items) => {
-console.log("jhglkjh",items)
+    console.log("jhglkjh", items)
     if (OpenMenuActionToggle === items?.item_id) {
       setOpenMenuActionToggle(null);
     } else {
@@ -706,15 +742,15 @@ console.log("jhglkjh",items)
   }
 
   const OpenActionToggleMenuFun = (e, items) => {
-    console.log("jhglkjh",items)
-        if (OpenMenuActionToggle === items?.menu_id) {
-          setOpenMenuActionToggle(null);
-        } else {
-          setOpenMenuActionToggle(items?.menu_id);
-        }
-    
-        // setOpenMenuActionToggle(true)
-      }
+     
+    if (OpenMenuActionToggle === items?.menu_id) {
+      setOpenMenuActionToggle(null);
+    } else {
+      setOpenMenuActionToggle(items?.menu_id);
+    }
+
+    // setOpenMenuActionToggle(true)
+  }
 
 
   return (
@@ -832,40 +868,48 @@ console.log("jhglkjh",items)
                               className={`${ActiveCategory === item?.menu_id ? "active sadfs" : "No-active sadfs"
                                 } nav-link`}
                               key={id}
-                              id="nav-dishes1-tab"
-                              data-bs-toggle="tab"
-                              data-bs-target="#nav-dishes1"
-                              type="button"
-                              role="tab"
-                              aria-controls="nav-dishes1"
-                              aria-selected="true">
-                              <div className="editinfobtnbox" onClick={(e) => OpenActionToggleMenuFun(e, item)}>
+                            // id="nav-dishes1-tab"
+                            // data-bs-toggle="tab"
+                            // data-bs-target="#nav-dishes1"
+                            // type="button"
+                            // role="tab"
+                            // aria-controls="nav-dishes1"
+                            // aria-selected="true"
+                            >
+
+                              <div className="editinfobtnbox" onClick={(e) => {OpenActionToggleMenuFun(e, item);CategoryTabFun(e, item,"3dots")}}
+                              >
                                 <button type="button">
                                   <img src={dot} alt="dot img" />
                                 </button>
 
 
 
-                               { item?.menu_id == OpenMenuActionToggle && <div className="btnbox">
+                                {item?.menu_id == OpenMenuActionToggle && <div className="btnbox">
 
-                                  <button type="button" className="editbtn">
+                                  <button type="button" className="editbtn"
+                                   onClick={(e) =>
+                                    PopUpEditCategoriesToggleFun(e, item)
+                                  }
+                                  >
                                     <img src={edit1} alt="img" />{" "} Edit
-                                  </button>
+                                  </button >
 
-                                  <button className="deletbtn">
+                                  <button className="deletbtn" 
+                                   onClick={(e) => DeleteCategoryfun(e, item)}>
                                     <img src={deleteicon} alt="delete icon " /> Delete
                                   </button>
 
                                 </div>}
 
-                                
+
                               </div>
 
 
                               <div>
-                                <figure onClick={(e) => CategoryTabFun(e, item)} className="curserer" >
+                                <figure className="curserer" >
                                   <img
-
+                                    onClick={(e) => CategoryTabFun(e, item,"fromImage")}
                                     src={item?.category_image}
                                     alt="img"
                                     className="catg-img"
@@ -928,7 +972,7 @@ console.log("jhglkjh",items)
                                           }
                                         />
                                       </button>
-                                    
+
                                       <button className="deletebtn ms-1">
                                         <img
                                           src={deleteicon}
@@ -1124,14 +1168,12 @@ console.log("jhglkjh",items)
                                         <img src={items?.is_favorite === true ? starfill : star} alt="img" className="ms-1" />
                                       </button>
 
-                                      <div className="editinfobtn"  onClick={(e) => OpenActionToggleFun(e, items)}>
+                                      <div className="editinfobtn" onClick={(e) => OpenActionToggleFun(e, items)}>
                                         <button type="button" >
 
                                           <img src={dot} alt="dot img" />
 
-                                          {/* {items?.item_id != OpenMenuActionToggle
-                                    ? "..more"
-                                    : "..less"} */}
+
 
                                         </button>
 

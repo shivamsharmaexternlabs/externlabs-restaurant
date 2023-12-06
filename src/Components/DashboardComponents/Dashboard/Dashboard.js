@@ -242,7 +242,7 @@ const Dashboard = () => {
                                 <h4>{Item?.item_name}</h4>
                                 <div className='tabinfo'>
                                   <div className='leftpart'>
-                                    <h5> sdfdsf</h5>
+                                    <h5 className='mt-1'> {Item?.calories} {Item?.calories_unit}</h5>
                                     <p>{Item?.description}</p>
                                     <span className='price'>{`$${Item?.item_price}`}</span>
                                   </div>

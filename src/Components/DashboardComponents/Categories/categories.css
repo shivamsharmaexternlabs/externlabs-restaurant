@@ -269,6 +269,7 @@
   z-index: 99;
   top: 6px;
   right: 8px;
+  cursor: pointer;
 }
 
 .categorypage .topdishestabpart .nav-tabs .nav-link .editinfobtnbox > button > img {
