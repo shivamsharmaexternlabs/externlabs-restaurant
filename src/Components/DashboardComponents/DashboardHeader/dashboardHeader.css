@@ -114,16 +114,13 @@ header .rightpart .user p {
     font-weight: normal;
     font-size: 14px;
     line-height: 1;
-}
+}  
 
 .dropdownoptbox>button img {
     width: 18px;
     display: inline-block;
     margin-right: 5px;
-}
-
-
-
+} 
 
 .fullsidebar header {
     padding-left: 275px;

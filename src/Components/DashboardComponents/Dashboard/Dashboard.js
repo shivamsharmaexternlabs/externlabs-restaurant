@@ -167,11 +167,13 @@ const Dashboard = () => {
                                   <img src={items?.category_image === null ? defaultImage : items?.category_image} alt="img" className="catg-img" />
                                 </figure>
                                 <h3>{items?.category}</h3>
+
                                 <div className='buttonbox'>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="5" height="7" viewBox="0 0 5 7" fill="none">
                                     <path d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768" stroke-width="1.10009" stroke-linecap="round" stroke-linejoin="round" />
                                   </svg>
                                 </div>
+
                               </div>
                             </button>
 

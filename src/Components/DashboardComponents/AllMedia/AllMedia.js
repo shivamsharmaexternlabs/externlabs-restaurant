@@ -96,7 +96,7 @@ const AllMedia = () => {
                                 Upload Images</button>
                         </div>
 
-                        <ul className='medialist'>
+                        <ul className='medialist '>
 
                             {
                                 MediaLibrarySelectorData?.GetMediaLibrarySliceReducerData?.data?.images?.map((items, id) => {
@@ -104,8 +104,11 @@ const AllMedia = () => {
                                         <figure>
                                             <img src={items} alt='margerita - img' />
                                             <button type='button' className='btn' onClick={(e) => DownlodImageFun(e, items)}> <img src={upload} alt='upload' /> </button>
+                                            {/* <div className='mediaimgname'> {items.split("/")?.[4].split(".")?.[0]}</div> */}
                                         </figure>
                                         <h4> {items.split("/")?.[4].split(".")?.[0]} </h4>
+
+                                       
                                     </li>
 
                                 })

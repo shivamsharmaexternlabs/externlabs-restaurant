@@ -34,10 +34,11 @@ font-weight: normal;
 .popupinnerbox {
     border-radius: 12px;
     padding: 30px;
-    max-width: 700px;
     width: 90%;
-    max-width: 700px;
-    background-color: rgba(255, 255, 255, 1);
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.40);
+    -webkit-backdrop-filter: blur(21px);
+    backdrop-filter: blur(21px);
     position: absolute;
     top: 50%;
     left: 50%;

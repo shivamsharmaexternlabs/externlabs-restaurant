@@ -4,6 +4,7 @@ import logo from '../../../images/logo2.svg'
 import fulllogo from '../../../images/logo.svg'
 import icon7 from '../../../images/icon7.svg'
 import icon8 from '../../../images/icon8.svg'
+import icon8h from '../../../images/icon8h.svg'
 import icon9 from '../../../images/icon9.svg'
 import icon10 from '../../../images/icon10.svg'
 import icon11 from '../../../images/icon11.svg'
@@ -47,8 +48,6 @@ const DashboardSidebar = () => {
           <img src={fulllogo} alt='logoimg' className='fulllogo' />
         </figure>
         <ul className='navmenu'>
-
-
           {UserTypeData !== "sales"
           &&
             <>
@@ -59,8 +58,11 @@ const DashboardSidebar = () => {
                   className={` ${param.pathname === ":id/admin/dashboard" ? "active" : ""
                     } `}
                 >
-
                   <img src={icon7} alt='img' /> <span className='text'>Dashboard</span>
+               
+
+             
+
 
                 </NavLink>
               </li>
@@ -68,7 +70,19 @@ const DashboardSidebar = () => {
                 <NavLink to={`/${RestaurantId}/admin/manager`}
                   className={` ${param.pathname === ":id/admin/manager" ? "active" : ""
                     } `}
-                >   <img src={icon8} alt='img' /> <span className='text'>Managers</span>
+                >   
+                
+                <div className='normalicon'>
+                <img src={icon8} alt='img' /> <span className='text'>Managers</span>
+                </div>
+
+                <div className='activeicon'>
+                  <img src={icon8h} alt='icon8h img' /> <span className='text'>Managers</span>
+                </div>
+
+
+
+
                 </NavLink>
               </li>
               <li>

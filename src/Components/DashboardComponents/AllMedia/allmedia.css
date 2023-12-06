@@ -43,6 +43,16 @@ font-weight: normal;
     margin-bottom: 15px;
 }
 
+.medialist li:hover div{ 
+        display: block !important; 
+        background-color: red;
+}
+
+.medialist li .mediaimgname{
+    display: none;
+    background-color: red;
+}
+
 .medialist li:nth-child(5n+5) {
     margin-right: 0;
 }

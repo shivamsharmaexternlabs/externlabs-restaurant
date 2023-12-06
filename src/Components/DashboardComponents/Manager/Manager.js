@@ -545,10 +545,9 @@ const Manager = () => {
                                         </p>
                                     </div>
 
-
-                                    <div className='text-end mt-5'>
-                                        <button type="btn" className="btn2" onClick={(e) => CancelBtnFun(e)} > Cancel </button>
-                                        <button type="submit" className="btn2 mx-3"> Submit </button>
+                                    <div className='text-end mt-5 submitbtnbox'>
+                                        <button type="btn" className="cancelbtn" onClick={(e) => CancelBtnFun(e)} > Cancel </button>
+                                        <button type="submit" className="submitbtn"> Submit </button>
                                     </div>
                                 </Form>
                             </Formik>

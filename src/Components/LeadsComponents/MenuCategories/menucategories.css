@@ -1,125 +1,100 @@
-.leadpage>.title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
+.leadpage > .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
-
 .leadpage h2 {
-    color: #000;
-    font-size: 32px;
-    margin-bottom: 0px;
-   font-family: 'NeuzeitGro-Bol';
-font-weight: normal;
+  color: #000;
+  font-size: 32px;
+  margin-bottom: 0px;
+  font-family: "NeuzeitGro-Bol";
+  font-weight: normal;
 }
 
 .leadpage .btn2 {
-    /* width: 160px; */
-    border-radius: 100px;
-    font-size: 16px;
-   font-family: 'NeuzeitGro-Reg';
-font-weight: normal;
-    outline: none;
-    transition: all .3s;
-    padding: 10px 15px;
-    line-height: normal;
-    white-space: nowrap;
+  border-radius: 100px;
+  font-size: 16px;
+  font-family: "NeuzeitGro-Reg";
+  font-weight: normal;
+  outline: none;
+  transition: all 0.3s;
+  padding: 10px 15px;
+  line-height: normal;
+  white-space: nowrap;
 }
 
 .leadpage .btn2:hover svg {
-    fill: #EA6A12;
-}
-
-
-
-.popupinnerbox {
-    border-radius: 12px;
-    padding: 30px;
-    max-width: 700px;
-    width: 90%;
-    max-width: 480px;
-    background-color: rgba(255, 255, 255, 1);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -40%);
-    -o-transform: translate(-50%, -40%);
-    -ms-transform: translate(-50%, -40%);
-    transform: translate(-50%, -40%);
+  fill: #ea6a12;
 }
 
 .leadpopup .popuptitle,
 .onboardingpopup .popuptitle {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .successpopup .innerpopup {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(17.920225143432617px);
-    border-radius: 19px;
-    text-align: center;
-    padding: 30px;
-    width: 90%;
-    max-width: 400px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(17.920225143432617px);
+  border-radius: 19px;
+  text-align: center;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
 }
 
 .successpopup .innerpopup h3 {
-    color: #000;
-    font-size: 40px;
-   font-family: 'NeuzeitGro-Bol';
-font-weight: normal;
-    margin: 20px 0;
-
+  color: #000;
+  font-size: 40px;
+  font-family: "NeuzeitGro-Bol";
+  font-weight: normal;
+  margin: 20px 0;
 }
 
 .successpopup .innerpopup p {
-    color: #000;
-    font-size: 16px;
-   font-family: 'NeuzeitGro-Reg';
-font-weight: normal;
+  color: #000;
+  font-size: 16px;
+  font-family: "NeuzeitGro-Reg";
+  font-weight: normal;
 }
 
 .sharebtnbox {
-    border-radius: 100px;
-    border: 1px solid #EA6A12;
-    background: #FFF;
-    overflow: hidden;
-    margin: 0 0 25px;
-    position: relative;
-    padding: 0 0 0 65px;
+  border-radius: 100px;
+  border: 1px solid #ea6a12;
+  background: #fff;
+  overflow: hidden;
+  margin: 0 0 25px;
+  position: relative;
+  padding: 0 0 0 65px;
 }
 
-.sharebtnbox>span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    padding:0 10px;
-    color: #fff;
-    border-radius: 480.454px 0px 0px 480.454px;
-    background: #EA6A12;
+.sharebtnbox > span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 0 10px;
+  color: #fff;
+  border-radius: 480.454px 0px 0px 480.454px;
+  background: #ea6a12;
 }
 
 .sharebtnbox input {
-    border: none;
-    outline: none;
-    width: calc(100% - 60px);
-    padding: 0 5px;
+  border: none;
+  outline: none;
+  width: calc(100% - 60px);
+  padding: 0 5px;
 }
 
 .sharebtnbox .copybtn,
 .sharebtnbox .sharebtn {
-    background: transparent;
-    display: inline-block;
-    border: none;
-    outline: none;
+  background: transparent;
+  display: inline-block;
+  border: none;
+  outline: none;
 }
 
 .sharebtnbox .sharebtn {
-    margin-left: 10px;
+  margin-left: 10px;
 }
-
-
-
-

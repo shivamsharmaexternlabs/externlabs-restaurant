@@ -38,12 +38,6 @@
     transition: all .3s;
 }
 
-.navmenu li a:hover,
-.navmenu li a.active {
-    background-color: #EA6A12;
-    -webkit-transition: all.3s ease;
-    transition: all .3s ease;
-}
 
 .navmenu {
     display: flex;
@@ -66,9 +60,37 @@
     -webkit-transition: all.3s ease;
     transition: all .3s ease;
 }
+.normalicon {
+    -webkit-transition: all.3s ease;
+    transition: all .3s ease;
+}
 
-.navmenu li a>.text {
+.navmenu li a .activeicon {
     display: none;
+    -webkit-transition: all.3s ease;
+    transition: all .3s ease;
+}
+
+.navmenu li a:hover,
+.navmenu li a.active {
+    background-color: #EA6A12;
+    -webkit-transition: all.3s ease;
+    transition: all .3s ease;
+}
+
+
+
+.navmenu li a .text ,
+.navmenu li a:hover .normalicon,
+.navmenu li a.active .normalicon {
+    display: none;
+    -webkit-transition: all.3s ease;
+    transition: all .3s ease;
+}
+
+.navmenu li a:hover .activeicon,
+.navmenu li a.active .activeicon { 
+    display: inline-block;
     -webkit-transition: all.3s ease;
     transition: all .3s ease;
 }
@@ -126,10 +148,13 @@
     margin-bottom: 15px;
     position: relative;
     text-decoration: none;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
+
 
 }
 
-.fullsidebar .navmenu li>a>.text {
+.fullsidebar .navmenu li>a .text {
     -webkit-transition: all.3s ease;
     transition: all .3s ease;
     display: inline-block;
@@ -151,16 +176,18 @@
     background-color: #EA6A12;
 }
 
-.fullsidebar .sidebar .navmenu li>a>.text {
+.fullsidebar .sidebar .navmenu li>a .text {
     color: #aaa;
     font-size: 16px;
     margin-left: 10px;
+    vertical-align: -webkit-baseline-middle;
+    vertical-align: baseline-middle;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
 }
 
-.fullsidebar .sidebar .navmenu li a:hover>.text,
-.fullsidebar .sidebar .navmenu li a.active>.text {
+.fullsidebar .sidebar .navmenu li a:hover .text,
+.fullsidebar .sidebar .navmenu li a.active .text {
     color: #fff;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
