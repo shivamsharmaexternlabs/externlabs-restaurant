@@ -168,11 +168,11 @@ const Dashboard = () => {
                                 </figure>
                                 <h3>{items?.category}</h3>
 
-                                <div className='buttonbox'>
+                                {/* <div className='buttonbox'>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="5" height="7" viewBox="0 0 5 7" fill="none">
                                     <path d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768" stroke-width="1.10009" stroke-linecap="round" stroke-linejoin="round" />
                                   </svg>
-                                </div>
+                                </div> */}
 
                               </div>
                             </button>
@@ -237,14 +237,24 @@ const Dashboard = () => {
                         <ul>
                           {
                             ActiveCategory?.item_id?.slice(0, 4).map((Item, DishesId) => {
-                              console.log("kjhgfaedfrdgf",Item)
+                              console.log("kjhgfaedfrdgf", Item)
                               return <li>
                                 <h4>{Item?.item_name}</h4>
                                 <div className='tabinfo'>
                                   <div className='leftpart'>
                                     <h5 className='mt-1'> {Item?.calories} {Item?.calories_unit}</h5>
-                                    <p>{Item?.description}</p>
-                                    <span className='price'>{`$${Item?.item_price}`}</span>
+
+
+                                    <p>
+                                      {Item?.description?.length > 45 ? Item?.description.slice(0, 45) + "..." : Item?.description}
+                                      <span>{Item?.description?.length > 45 ? <b>More <div className=''>{Item?.description} </div> </b> : ""}  </span>
+                                    </p>
+                                    {/* {Item?.description}
+                                      {Item?.description?.length} */}
+
+
+
+                                    <span className='price'>{`${Item?.currency} ${Item?.item_price}`}</span>
                                   </div>
                                   <div className='rightpart'>
                                     <img src={Item?.image === null ? defaultImage : Item?.image} alt='img' />
@@ -339,7 +349,7 @@ const Dashboard = () => {
                         <th> E-mail </th>
                         <th> Assigned to </th>
                       </tr>
-                      {data?.results?.map((items, id) => {
+                      {data?.results?.slice(0, 2)?.map((items, id) => {
                         return <tr>
                           <td> <img src={user} alt='img' /> </td>
                           <td>{`${items?.first_name}`}</td>
@@ -384,7 +394,7 @@ const Dashboard = () => {
                       onClick={(e) => QrCodeDownloadFun()}
                     >
                       {/* <a href={QrImage} download="my-file.png">Download </a> */}
-                      Download
+                      Download Now
 
                     </button>
                   </div>
