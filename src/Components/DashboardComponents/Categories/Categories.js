@@ -1010,7 +1010,7 @@ const Categories = () => {
                                 <figure className="curserer" >
                                   <img
                                     onClick={(e) => CategoryTabFun(e, item, "fromImage")}
-                                    src={item?.category_image}
+                                    src={item?.category_image===null?defaultImage:item?.category_image}
                                     alt="img"
                                     className="catg-img"
                                   />
@@ -1051,7 +1051,7 @@ const Categories = () => {
                                     <div>
                                       <figure>
                                         <img
-                                          src={item?.category_image}
+                                          src={item?.category_image===null?defaultImage:item?.category_image}
                                           alt="img"
                                           className="catg-img"
                                         />
@@ -1312,10 +1312,10 @@ const Categories = () => {
                                       <p>
                                         {items?.description}
                                       </p>
-                                      <span className="price">{`$${items?.item_price}`}</span>
+                                      <span className="price">{`${items?.currency} ${items?.item_price}`}</span>
                                     </div>
                                     <div className="rightpart">
-                                      <img src={items?.image} alt="img" />
+                                      <img src={items?.image==null?defaultImage:items?.image} alt="img" />
                                     </div>
                                   </div>
                                 </li>
@@ -1420,18 +1420,16 @@ const Categories = () => {
                           return (
                             <li key={favoriteDishId}>
                               <div className="leftpart">
-                                <img src={item?.image} alt="img" />
+                                <img src={item?.image==null?defaultImage:item?.image} alt="img" />
                               </div>
                               <div className="rightpart">
                                 <h3>{item?.item_name}</h3>
                                 <p>
-                                  Lorem ipsum dolor sit amet consectetur.
-                                  Blandit sapien eget non vivamus leo tellus a.
-                                  Accumsan euismod{" "}
+                                  {item?.description}
                                 </p>
                                 <span className="price">
                                   {" "}
-                                  {`$${item?.item_price}`}{" "}
+                                  {`${item?.currency} ${item?.item_price}`}{" "}
                                 </span>
                               </div>
                             </li>
