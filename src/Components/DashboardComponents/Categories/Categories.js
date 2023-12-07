@@ -355,11 +355,16 @@ const Categories = () => {
         MenuId:   values?.menu_id,
       }; 
 
+
+
       // this condition will hold the menu on the category , it will not switch on the first category 
       
-
       if(resposeData?.payload?.status==201){ 
-        dispatch(MenuSlice(MenuSlicePayload)); 
+      let responseDataMenu=  dispatch(MenuSlice(MenuSlicePayload)); 
+      setActiveCategory({
+        toggle: true,
+        data: values?.menu_id
+      });
       }
 
      } catch (error) {
