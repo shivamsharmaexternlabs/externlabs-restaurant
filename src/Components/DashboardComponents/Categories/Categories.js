@@ -1165,7 +1165,7 @@ setTimeout(async () => {
                                     </div>
                                     <div className="editinfostar">
                                       <button type="button" className="starbtn" onClick={(e) => FavoriteFun(e, items)} >
-                                        <img src={items?.is_favorite === true ? starfill : star} alt="img" className="ms-1" />
+                                        <img src={items?.is_favorite === true ? starfill : star} alt="img"  />
                                       </button>
 
                                       <div className="editinfobtn" onClick={(e) => OpenActionToggleFun(e, items)}>
