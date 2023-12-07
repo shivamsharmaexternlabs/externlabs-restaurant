@@ -345,29 +345,29 @@ const Categories = () => {
     }
     try {
 
-    let resposeData=  await dispatch(CreateMenuSlice(MenuSubmitPayload));
+      let resposeData = await dispatch(CreateMenuSlice(MenuSubmitPayload));
       await dispatch(LoadingSpinner(false))
 
       let MenuSlicePayload = {
         searchValue: undefined,
         itemTypeValue: undefined,
         RestaurantId: RestaurantIdLocalStorageData,
-        MenuId:   values?.menu_id,
-      }; 
+        MenuId: values?.menu_id,
+      };
 
 
 
       // this condition will hold the menu on the category , it will not switch on the first category 
-      
-      if(resposeData?.payload?.status==201){ 
-      let responseDataMenu=  dispatch(MenuSlice(MenuSlicePayload)); 
-      setActiveCategory({
-        toggle: true,
-        data: values?.menu_id
-      });
+
+      if (resposeData?.payload?.status == 201) {
+        let responseDataMenu = dispatch(MenuSlice(MenuSlicePayload));
+        setActiveCategory({
+          toggle: true,
+          data: values?.menu_id
+        });
       }
 
-     } catch (error) {
+    } catch (error) {
       await dispatch(LoadingSpinner(false))
     }
 
@@ -502,13 +502,13 @@ const Categories = () => {
         searchValue: undefined,
         itemTypeValue: undefined,
         RestaurantId: RestaurantIdLocalStorageData,
-        MenuId:  ActiveCategory?.data,
-      }; 
+        MenuId: ActiveCategory?.data,
+      };
 
       // this condition will hold the menu on the category , it will not switch on the first category 
-      if (responseData?.payload?.status == 200) { 
+      if (responseData?.payload?.status == 200) {
         dispatch(MenuSlice(MenuSlicePayload));
-      } 
+      }
 
 
     } catch (error) {
@@ -603,12 +603,28 @@ const Categories = () => {
     deletePopUpFun(true)
   };
 
-  const confirmDelete = (e, item) => {
+  const confirmDelete = async (e, item) => {
     dispatch(LoadingSpinner(true))
 
     try {
-      dispatch(DeleteMenuCategorySlice({ menu_id: item, BearerToken }));
+
+
+      let responseData = await dispatch(DeleteMenuCategorySlice({ menu_id: item, BearerToken }));
       deletePopUpFun(false)
+
+
+      let MenuSlicePayload = {
+        searchValue: undefined,
+        itemTypeValue: undefined,
+        RestaurantId: RestaurantIdLocalStorageData,
+        MenuId: item?.menu_id,
+      };
+
+      await dispatch(MenuSlice(MenuSlicePayload));
+
+
+
+
       // dispatch(LoadingSpinner(false))
     } catch (error) {
       // dispatch(LoadingSpinner(false))
@@ -660,17 +676,33 @@ const Categories = () => {
   }, [MenuItemFavouriteApiSelectorData])
 
   const DeleteItemfun = (e, item) => {
-    console.log("kjhgfhgjgjkh")
+    console.log("kjhgfhgjgjkh",item)
 
-    setMenuItemId(item?.item_id)
+    setMenuItemId(item)
     deleteCategoryPopupFun(true)
   };
 
   const ConfirmDeleteItemFun = async (e, menuItemId) => {
     dispatch(LoadingSpinner(true))
     try {
-      await dispatch(DeleteMenuItemSlice({ item_id: menuItemId, BearerToken }));
+      let responseData = await dispatch(DeleteMenuItemSlice({ item_id: menuItemId?.item_id, BearerToken }));
       deleteCategoryPopupFun(false)
+
+
+
+      console.log("jkgydgsham", responseData)
+
+      let MenuSlicePayload = {
+        searchValue: undefined,
+        itemTypeValue: undefined,
+        RestaurantId: RestaurantIdLocalStorageData,
+        MenuId: menuItemId?.menu_id,
+      };
+
+      if (responseData?.payload?.status == 204) {
+        dispatch(MenuSlice(MenuSlicePayload));
+      }
+
 
     } catch (error) {
       deleteCategoryPopupFun(true)
@@ -719,7 +751,7 @@ const Categories = () => {
         //   RestaurantId: RestaurantIdLocalStorageData,
         // };
         // await dispatch(GetMenuCategorySlice(MenuSlicePayload));
-      }, 1500)
+      }, 500)
 
       await dispatch(LoadingSpinner(false))
 
@@ -949,18 +981,18 @@ const Categories = () => {
               <div className="leftpart">
                 <div className="topdishestabpart">
                   <div className="reorder-icon-div"  >
-                    <div onClick={(e) => reorderSubmit(e)} 
-                    type="button">
+                    <div onClick={(e) => reorderSubmit(e)}
+                      type="button">
 
- 
-                    <img src={order} className="sort-order" />
-                    <span className="reorder-head"> Reorder</span>
+
+                      <img src={order} className="sort-order" />
+                      <span className="reorder-head"> Reorder</span>
                     </div>
                   </div>
                   <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       {/* CATEGORY MANAGEMENT */}
-                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length < 8 ? MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
+                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length < 1000 ? MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
                         (item, id) => {
                           return (
                             <button
@@ -980,7 +1012,7 @@ const Categories = () => {
                               <div className="editinfobtnbox" onClick={(e) => { OpenActionToggleMenuFun(e, item); CategoryTabFun(e, item, "3dots") }}
                               >
                                 <button type="button">
-                                  <img src={dot} alt="dot img" />
+                                  <img src={dot} alt="img" />
                                 </button>
 
 
@@ -993,7 +1025,7 @@ const Categories = () => {
                                     }
                                   >
                                     <img src={edit1} alt="img" />{" "} Edit
-                                  </button >
+                                  </button>
 
                                   <button className="deletbtn"
                                     onClick={(e) => DeleteCategoryfun(e, item)}>
@@ -1010,7 +1042,7 @@ const Categories = () => {
                                 <figure className="curserer" >
                                   <img
                                     onClick={(e) => CategoryTabFun(e, item, "fromImage")}
-                                    src={item?.category_image===null?defaultImage:item?.category_image}
+                                    src={item?.category_image === null ? defaultImage : item?.category_image}
                                     alt="img"
                                     className="catg-img"
                                   />
@@ -1032,75 +1064,62 @@ const Categories = () => {
                         >
                           {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
                             (item, id, index) => {
-                              return (
-                                <SwiperSlide>
-                                  <button
-                                    onClick={(e) => CategoryTabFun(e, item)}
-                                    className={`${ActiveCategory === item?.menu_id ? "active" : "No-active"
-                                      } nav-link`}
-                                    key={id}
-                                    id="nav-dishes1-tab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#nav-dishes1"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="nav-dishes1"
-                                    aria-selected="true"
+                              return  <button
+
+                              className={`${ActiveCategory?.data === item?.menu_id ? "active sadfs" : "No-active sadfs"
+                                } nav-link`}
+                              key={id}
+                            // id="nav-dishes1-tab"
+                            // data-bs-toggle="tab"
+                            // data-bs-target="#nav-dishes1"
+                            // type="button"
+                            // role="tab"
+                            // aria-controls="nav-dishes1"
+                            // aria-selected="true"
+                            >
+
+                              <div className="editinfobtnbox" onClick={(e) => { OpenActionToggleMenuFun(e, item); CategoryTabFun(e, item, "3dots") }}
+                              >
+                                <button type="button">
+                                  <img src={dot} alt="img" />
+                                </button>
+
+
+
+                                {item?.menu_id == OpenMenuActionToggle && <div className="btnbox">
+
+                                  <button type="button" className="editbtn"
+                                    onClick={(e) =>
+                                      PopUpEditCategoriesToggleFun(e, item)
+                                    }
                                   >
-
-                                    <div>
-                                      <figure>
-                                        <img
-                                          src={item?.category_image===null?defaultImage:item?.category_image}
-                                          alt="img"
-                                          className="catg-img"
-                                        />
-                                      </figure>
-                                      <div className=""></div>
-
-                                      <h3>{item?.category}</h3>
-
-
-
-                                      <button className="editbtn">
-                                        <img
-                                          src={edit1}
-                                          alt="editbtn"
-                                          className="editactive "
-                                          onClick={(e) =>
-                                            PopUpEditCategoriesToggleFun(e, item)
-                                          }
-                                        />
-                                      </button>
-
-                                      <button className="deletebtn ms-1">
-                                        <img
-                                          src={deleteicon}
-                                          alt="deleteicon"
-                                          className=" "
-                                          onClick={(e) => DeleteCategoryfun(e, item)}
-                                        />
-                                      </button>
-                                      <div className="buttonbox">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="5"
-                                          height="7"
-                                          viewBox="0 0 5 7"
-                                          fill="none"
-                                        >
-                                          <path
-                                            d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768"
-                                            stroke-width="1.10009"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                          />
-                                        </svg>
-                                      </div>
-                                    </div>
+                                    <img src={edit1} alt="img" />{" "} Edit
                                   </button>
-                                </SwiperSlide>
-                              );
+
+                                  <button className="deletbtn"
+                                    onClick={(e) => DeleteCategoryfun(e, item)}>
+                                    <img src={deleteicon} alt="delete icon " /> Delete
+                                  </button>
+
+                                </div>}
+
+
+                              </div>
+
+
+                              <div>
+                                <figure className="curserer" >
+                                  <img
+                                    onClick={(e) => CategoryTabFun(e, item, "fromImage")}
+                                    src={item?.category_image === null ? defaultImage : item?.category_image}
+                                    alt="img"
+                                    className="catg-img"
+                                  />
+                                </figure>
+                                <h3>{item?.category}</h3>
+                              </div>
+                            </button>
+                          
                             }
                           )}
                         </Swiper>
@@ -1207,7 +1226,7 @@ const Categories = () => {
                         <h2>Items</h2>
 
 
-                        <div className="reorder-icon-div" onClick={(e) => setDraggableSubcategory(o=>!o)}>
+                        <div className="reorder-icon-div" onClick={(e) => setDraggableSubcategory(o => !o)}>
                           {!SaveActiveBtn &&
                             <>
                               <img src={order} className="sort-order" />
@@ -1309,13 +1328,15 @@ const Categories = () => {
 
                                   <div className="tabinfo">
                                     <div className="leftpart">
+                                      <h5 className='mt-1'> {items?.calories} {items?.calories_unit}</h5>
                                       <p>
-                                        {items?.description}
+                                        {items?.description?.length > 45 ? items?.description.slice(0, 45) + "..." : items?.description}
+                                        <span>{items?.description?.length > 45 ? <b>More <div className=''>{items?.description} </div> </b> : ""}  </span>
                                       </p>
                                       <span className="price">{`${items?.currency} ${items?.item_price}`}</span>
                                     </div>
                                     <div className="rightpart">
-                                      <img src={items?.image==null?defaultImage:items?.image} alt="img" />
+                                      <img src={items?.image == null ? defaultImage : items?.image} alt="img" />
                                     </div>
                                   </div>
                                 </li>
@@ -1420,7 +1441,7 @@ const Categories = () => {
                           return (
                             <li key={favoriteDishId}>
                               <div className="leftpart">
-                                <img src={item?.image==null?defaultImage:item?.image} alt="img" />
+                                <img src={item?.image == null ? defaultImage : item?.image} alt="img" />
                               </div>
                               <div className="rightpart">
                                 <h3>{item?.item_name}</h3>

@@ -270,7 +270,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .topdishestabpart .tab-content ul li h4 {
@@ -285,7 +285,7 @@
 
 .editinfostar {
   display: flex;
-  align-items: center;
+  
 }
 
 .editinfostar .starbtn {
@@ -305,14 +305,17 @@
 }
 
 .editinfobtn {
-  width: 20px;
+  width: 4px;
   text-align: center;
   position: relative;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.editinfobtn > button,
+.editinfobtn > button > img {
+  width: 100%;
 }
 
-.topdishestabpart .tab-content ul li > .title .editinfobtn > button {
-  width: 5px;
-}
 
 .topdishestabpart .tab-content ul li > .title .editinfobtn > button > img {
   width: 100%;
@@ -321,11 +324,10 @@
 .topdishestabpart .tab-content ul li > .title .editinfobtn > .btnbox {
   position: absolute;
   top: -44px;
-  right: 12px;
+  right: 3px;
   width: 70px;
   height: auto;
   padding: 5px 8px;
-
   background-color: #ffeee7;
   border-radius: 4px;
 }
@@ -380,7 +382,7 @@
   font-family: "NeuzeitGro-Reg";
   font-weight: normal;
   line-height: 1.5;
-  margin: 10px 0;
+  margin: 5px 0 2px;
   transition: all 0.3s ease;
 }
 
@@ -749,7 +751,7 @@
   line-height: 1.3;
   font-family: "NeuzeitGro-Bol";
   font-weight: normal;
-  margin: -55px 0 0px 20px;
+  margin: -20% 0 0px 20px;
   position: relative;
 }
 
@@ -792,6 +794,9 @@
 
   .topdishestabpart .tab-content ul li:nth-child(4n + 4) {
     margin-right: 10px;
+  }
+  .qrbox > .info button {
+    margin-top: -10%;
   }
 }
 

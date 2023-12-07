@@ -7,9 +7,12 @@ import logout from '../../../images/logout.svg'
 import { reactLocalStorage } from "reactjs-localstorage";
 import { ToggleNewLeads } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 
 
 const DashboardHeader = ({ popUpHookFun }) => {
+
+  const [LogOutToggle,setLogOutToggle]=useState(false)
 
   const navigate = useNavigate()
   const dispatch = useDispatch();
@@ -35,6 +38,12 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
   };
 
+  const LogoutFun =()=>{
+
+    setLogOutToggle(o=>!o)
+
+  }
+
   return (
     <>
       <header>
@@ -57,13 +66,13 @@ const DashboardHeader = ({ popUpHookFun }) => {
               <h3>{UserNameData}</h3>
               <p>{UserTypeData}</p>
             </div>
-            <div className='dropdownopt'> 
+            <div className='dropdownopt' onClick={(e)=>LogoutFun()}> 
               <span></span>
-              <div className='dropdownoptbox'>
-                <button type='button' className='' onClick={(e) => handleLogout(e)}> 
+              {LogOutToggle && <div className='dropdownoptbox'>
+                 <button type='button' className='' onClick={(e) => handleLogout(e)}> 
                   <img src={logout} alt='img' /> Logout 
                 </button>  
-              </div>
+              </div>} 
             </div>
           </div>
         </div>
