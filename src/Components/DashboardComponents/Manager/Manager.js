@@ -108,7 +108,6 @@ const Manager = () => {
     const defaultValue = {
         email: "",
         first_name: "",
-        // last_name: "",
         password: "",
         confirm_password: "",
         type: "manager",

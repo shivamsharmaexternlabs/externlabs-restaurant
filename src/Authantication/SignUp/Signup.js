@@ -31,13 +31,13 @@ const Signup = () => {
 
 
   const defaultValue = {
-    email: "sa21m@gmail.com",
-    first_name: "sam",
-    last_name: "sams",
-    password: "Demo@123",
-    confirm_password: "Demo@123",
-    phone_number: "9087365441",
-    type:"owner"
+    email: "",
+    first_name: "",
+    last_name: "",
+    password: "",
+    confirm_password: "",
+    phone_number: "",
+    type:""
 
   };
 

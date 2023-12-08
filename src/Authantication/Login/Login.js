@@ -58,7 +58,7 @@ const Login = () => {
   // }, [User]);
 
   const defaultValue = {
-    email_or_phone: "shivam@yopmail.com",
+    email_or_phone: "",
     password: "",
   };
 
