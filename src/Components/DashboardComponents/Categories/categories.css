@@ -77,19 +77,22 @@
   gap: 7px;
 }
 
-.indx-div {
-  display: flex;
-  justify-content: end;
-}
+
 
 .item-indx {
   border: 1px solid black;
   border-radius: 50%;
-  width: 24px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
   text-align: center;
   background-color: rgba(234, 106, 18, 0.36);
   border-color: rgba(234, 106, 18, 0.36);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  margin-right: 5px;
+  font-size: 12px;
 }
 
 /* ////////category page///////////// */
@@ -125,8 +128,8 @@
 
 .reorder-icon-div {
   display: flex;
+  cursor: pointer;
   justify-content: end;
- 
 }
 
 .reorder-icon-div button {
@@ -136,6 +139,13 @@
   position: relative;
   z-index: 2;
   margin-bottom: 10px;
+}
+
+.reorder-icon-div .btn1{
+  border: 1px solid #ea6a12;
+  background-color: #fff;
+  color: #ea6a12;
+  transition: all 0.3s ease;
 }
 
 .reorder-head {

@@ -1091,11 +1091,7 @@ const Categories = () => {
                                     <button type="button">
                                       <img src={dot} alt="img" />
                                     </button>
-
-
-
                                     {item?.menu_id == OpenMenuActionToggle && <div className="btnbox">
-
                                       <button type="button" className="editbtn"
                                         onClick={(e) =>
                                           PopUpEditCategoriesToggleFun(e, item)
@@ -1246,9 +1242,8 @@ const Categories = () => {
                             </>}
                           {SaveActiveBtn && <button
                             type="button "
-                            className="categorybtn btn2 me-3"
+                            className="btn1"
                             onClick={handleDndUpdate}
-                            style={{ width: "100px", height: "43px" }}
                           >
                             Save
                           </button>}
@@ -1284,15 +1279,24 @@ const Categories = () => {
 
                                 >
                                   {<div className="title">
-                                    {draggableSubcategory && <div className='indx-div'>
+                                    {draggableSubcategory ?
+                                      <div className="">
+                                      <h4>
+                                    <div className='indx-div'>
                                       <span className='item-indx'>{ids + 1}</span>
-                                    </div>}
+                                    </div>
+                                    {items?.item_name}{" "}
+                                    </h4>
+                                    </div> :
                                     <div className="">
                                       <h4>
+                                     
                                         {items?.item_name}{" "}
 
                                       </h4>
                                     </div>
+                                    }
+                                  
                                     <div className="editinfostar">
                                       <button type="button" className="starbtn" onClick={(e) => FavoriteFun(e, items)} >
                                         <img src={items?.is_favorite === true ? starfill : star} alt="img" />
@@ -1337,9 +1341,9 @@ const Categories = () => {
                                   </div>
                                   }
 
+                                    <h5 className='mt-1'> {items?.calories} {items?.calories_unit}</h5>
                                   <div className="tabinfo">
-                                    <div className="leftpart">
-                                      <h5 className='mt-1'> {items?.calories} {items?.calories_unit}</h5>
+                                    <div className="leftpart">                                    
                                       <p>
                                         {items?.description?.length > 45 ? items?.description.slice(0, 45) + "..." : items?.description}
                                         <span>{items?.description?.length > 45 ? <b>More <div className=''>{items?.description} </div> </b> : ""}  </span>
