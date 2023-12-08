@@ -622,7 +622,10 @@ const Categories = () => {
 
       await dispatch(MenuSlice(MenuSlicePayload));
 
-
+      setActiveCategory({
+        toggle: false,
+        data: undefined
+      });
 
 
       // dispatch(LoadingSpinner(false))
