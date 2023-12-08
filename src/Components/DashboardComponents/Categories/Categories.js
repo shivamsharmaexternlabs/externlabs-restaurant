@@ -319,7 +319,7 @@ const Categories = () => {
   const Validatemenu = yup.object({
     item_name: yup.string().required("Please Enter Item Name"),
     item_price: yup.string().required("Please Enter Price"),
-    calories: yup.string().required("Please Enter Calories"),
+    calories: yup.string().matches(/^[0-9]+$/, 'Calories must contain only digits').required("Please Enter Calories"),
     menu_id: yup.string().required("Please Enter Menu"),
     item_type: yup.string().required("Please Enter Item Type"),
     currency: yup.string().required("Please Enter Currency"),
@@ -468,7 +468,7 @@ const Categories = () => {
   const Validateditemenu = yup.object({
     item_name: yup.string().required("Please Enter Item"),
     item_price: yup.string().required("Please Enter Price"),
-    calories: yup.string().required("Please Enter Calories"),
+    calories: yup.string().matches(/^[0-9]+$/, 'Calories must contain only digits').required("Please Enter Calories"),
     menu_id: yup.string().required("Please Enter Menu"),
     item_type: yup.string().required("Please Enter Item"),
     currency: yup.string().required("Please Enter Currency"),
