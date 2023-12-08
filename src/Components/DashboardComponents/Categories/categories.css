@@ -126,7 +126,16 @@
 .reorder-icon-div {
   display: flex;
   justify-content: end;
-   
+ 
+}
+
+.reorder-icon-div button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 10px;
 }
 
 .reorder-head {
@@ -254,7 +263,7 @@
 }
 
 .categorycontent > .leftpart {
-  width: 60%;
+  width: 68%;
   padding-right: 15px;
 }
 
@@ -282,6 +291,11 @@
 }
 
 .categorypage .topdishestabpart nav {
+  padding-top: 40px;
+  margin-top: -40px;
+}
+
+.categorypage .topdishestabpart nav > .nav > .swiper {
   padding-top: 40px;
   margin-top: -40px;
 }
@@ -327,7 +341,7 @@
 }
 
 .categorycontent > .rightpart {
-  width: 40%;
+  width: 32%;
   padding-left: 15px;
 }
 

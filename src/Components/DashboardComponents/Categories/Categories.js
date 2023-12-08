@@ -676,7 +676,7 @@ const Categories = () => {
   }, [MenuItemFavouriteApiSelectorData])
 
   const DeleteItemfun = (e, item) => {
-    console.log("kjhgfhgjgjkh",item)
+    console.log("kjhgfhgjgjkh", item)
 
     setMenuItemId(item)
     deleteCategoryPopupFun(true)
@@ -981,79 +981,81 @@ const Categories = () => {
               <div className="leftpart">
                 <div className="topdishestabpart">
                   <div className="reorder-icon-div"  >
-                    <div onClick={(e) => reorderSubmit(e)}
+                    <button onClick={(e) => reorderSubmit(e)}
                       type="button">
-
-
                       <img src={order} className="sort-order" />
                       <span className="reorder-head"> Reorder</span>
-                    </div>
+                    </button>
                   </div>
                   <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       {/* CATEGORY MANAGEMENT */}
-                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length < 1000 ? MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
-                        (item, id) => {
-                          return (
-                            <button
+                      {/* ================================================================== */}
 
-                              className={`${ActiveCategory?.data === item?.menu_id ? "active sadfs" : "No-active sadfs"
-                                } nav-link`}
-                              key={id}
-                            // id="nav-dishes1-tab"
-                            // data-bs-toggle="tab"
-                            // data-bs-target="#nav-dishes1"
-                            // type="button"
-                            // role="tab"
-                            // aria-controls="nav-dishes1"
-                            // aria-selected="true"
-                            >
+                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length <= 7 ?
+                        MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
+                          (item, id) => {
+                            return (
+                              <button key={id}
+                                className={`${ActiveCategory?.data === item?.menu_id ? "active sadfs" : "No-active sadfs"
+                                  } nav-link`}
 
-                              <div className="editinfobtnbox" onClick={(e) => { OpenActionToggleMenuFun(e, item); CategoryTabFun(e, item, "3dots") }}
+                              // id="nav-dishes1-tab"
+                              // data-bs-toggle="tab"
+                              // data-bs-target="#nav-dishes1"
+                              // type="button"
+                              // role="tab"
+                              // aria-controls="nav-dishes1"
+                              // aria-selected="true"
                               >
-                                <button type="button">
-                                  <img src={dot} alt="img" />
-                                </button>
 
-
-
-                                {item?.menu_id == OpenMenuActionToggle && <div className="btnbox">
-
-                                  <button type="button" className="editbtn"
-                                    onClick={(e) =>
-                                      PopUpEditCategoriesToggleFun(e, item)
-                                    }
-                                  >
-                                    <img src={edit1} alt="img" />{" "} Edit
+                                <div className="editinfobtnbox" onClick={(e) => {
+                                  OpenActionToggleMenuFun(e, item);
+                                  CategoryTabFun(e, item, "3dots");
+                                }}
+                                >
+                                  <button type="button">
+                                    <img src={dot} alt="img" />
                                   </button>
 
-                                  <button className="deletbtn"
-                                    onClick={(e) => DeleteCategoryfun(e, item)}>
-                                    <img src={deleteicon} alt="delete icon " /> Delete
-                                  </button>
-
-                                </div>}
 
 
-                              </div>
+                                  {item?.menu_id === OpenMenuActionToggle && <div className="btnbox">
+
+                                    <button type="button" className="editbtn"
+                                      onClick={(e) =>
+                                        PopUpEditCategoriesToggleFun(e, item)
+                                      }
+                                    >
+                                      <img src={edit1} alt="img" />{" "} Edit
+                                    </button>
+
+                                    <button className="deletbtn"
+                                      onClick={(e) => DeleteCategoryfun(e, item)}>
+                                      <img src={deleteicon} alt="delete icon " /> Delete
+                                    </button>
+
+                                  </div>}
 
 
-                              <div>
-                                <figure className="curserer" >
-                                  <img
-                                    onClick={(e) => CategoryTabFun(e, item, "fromImage")}
-                                    src={item?.category_image === null ? defaultImage : item?.category_image}
-                                    alt="img"
-                                    className="catg-img"
-                                  />
-                                </figure>
-                                <h3>{item?.category}</h3>
-                              </div>
-                            </button>
-                          );
-                        }
-                      ) :
-                        // MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length > 7 ? 7 : Number(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length)
+                                </div>
+
+
+                                <div>
+                                  <figure className="curserer" >
+                                    <img
+                                      onClick={(e) => CategoryTabFun(e, item, "fromImage")}
+                                      src={item?.category_image === null ? defaultImage : item?.category_image}
+                                      alt="img"
+                                      className="catg-img"
+                                    />
+                                  </figure>
+                                  <h3>{item?.category}</h3>
+                                </div>
+                              </button>
+                            );
+                          }
+                        ) :
                         <Swiper
                           slidesPerView={7}
                           navigation={true}
@@ -1063,66 +1065,72 @@ const Categories = () => {
                           className="mySwiper"
                         >
                           {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
-                            (item, id, index) => {
-                              return  <button
+                            (item, id) => {
+                              return <SwiperSlide>
+                                <button key={id}
+                                  className={`${ActiveCategory?.data === item?.menu_id ? "active sadfs" : "No-active sadfs"
+                                    } nav-link`}
 
-                              className={`${ActiveCategory?.data === item?.menu_id ? "active sadfs" : "No-active sadfs"
-                                } nav-link`}
-                              key={id}
-                            // id="nav-dishes1-tab"
-                            // data-bs-toggle="tab"
-                            // data-bs-target="#nav-dishes1"
-                            // type="button"
-                            // role="tab"
-                            // aria-controls="nav-dishes1"
-                            // aria-selected="true"
-                            >
+                                // id="nav-dishes1-tab"
+                                // data-bs-toggle="tab"
+                                // data-bs-target="#nav-dishes1"
+                                // type="button"
+                                // role="tab"
+                                // aria-controls="nav-dishes1"
+                                // aria-selected="true"
+                                >
 
-                              <div className="editinfobtnbox" onClick={(e) => { OpenActionToggleMenuFun(e, item); CategoryTabFun(e, item, "3dots") }}
-                              >
-                                <button type="button">
-                                  <img src={dot} alt="img" />
-                                </button>
-
-
-
-                                {item?.menu_id == OpenMenuActionToggle && <div className="btnbox">
-
-                                  <button type="button" className="editbtn"
-                                    onClick={(e) =>
-                                      PopUpEditCategoriesToggleFun(e, item)
-                                    }
+                                  <div className="editinfobtnbox" onClick={(e) => {
+                                    OpenActionToggleMenuFun(e, item);
+                                    CategoryTabFun(e, item, "3dots");
+                                  }}
                                   >
-                                    <img src={edit1} alt="img" />{" "} Edit
-                                  </button>
-
-                                  <button className="deletbtn"
-                                    onClick={(e) => DeleteCategoryfun(e, item)}>
-                                    <img src={deleteicon} alt="delete icon " /> Delete
-                                  </button>
-
-                                </div>}
+                                    <button type="button">
+                                      <img src={dot} alt="img" />
+                                    </button>
 
 
-                              </div>
+
+                                    {item?.menu_id == OpenMenuActionToggle && <div className="btnbox">
+
+                                      <button type="button" className="editbtn"
+                                        onClick={(e) =>
+                                          PopUpEditCategoriesToggleFun(e, item)
+                                        }
+                                      >
+                                        <img src={edit1} alt="img" />{" "} Edit
+                                      </button>
+
+                                      <button className="deletbtn"
+                                        onClick={(e) => DeleteCategoryfun(e, item)}>
+                                        <img src={deleteicon} alt="delete icon " /> Delete
+                                      </button>
+
+                                    </div>}
 
 
-                              <div>
-                                <figure className="curserer" >
-                                  <img
-                                    onClick={(e) => CategoryTabFun(e, item, "fromImage")}
-                                    src={item?.category_image === null ? defaultImage : item?.category_image}
-                                    alt="img"
-                                    className="catg-img"
-                                  />
-                                </figure>
-                                <h3>{item?.category}</h3>
-                              </div>
-                            </button>
-                          
+                                  </div>
+
+
+                                  <div>
+                                    <figure className="curserer" >
+                                      <img
+                                        onClick={(e) => CategoryTabFun(e, item, "fromImage")}
+                                        src={item?.category_image === null ? defaultImage : item?.category_image}
+                                        alt="img"
+                                        className="catg-img"
+                                      />
+                                    </figure>
+                                    <h3>{item?.category}</h3>
+                                  </div>
+                                </button>
+                              </SwiperSlide>
+
                             }
                           )}
                         </Swiper>
+
+
                       }
 
                       {/* <Swiper
