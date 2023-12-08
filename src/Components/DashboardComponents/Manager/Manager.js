@@ -144,7 +144,7 @@ const Manager = () => {
         } catch (error) {
             dispatch(LoadingSpinner(false))
         }
-        
+
         setCurrentPage(0);
         setLoadSpiner(true);
     };
@@ -164,15 +164,22 @@ const Manager = () => {
         setUserId(item.user_id)
         deletePopUpFun(true)
     }
-    const confirmDelete = (e, item) => {
-        dispatch(ManagerDeleteSlice({ item, BearerToken }))
-        deletePopUpFun(false)
-        setCurrentPage(0);
-        let ManagerSlicePayload = {
-            Token: BearerToken,
-            pageination: 1
+    const confirmDelete = async(e, item) => {
+        await dispatch(LoadingSpinner(true));
+
+        try {
+            await dispatch(ManagerDeleteSlice({ item, BearerToken }))
+            deletePopUpFun(false)
+            setCurrentPage(0);
+            let ManagerSlicePayload = {
+                Token: BearerToken,
+                pageination: 1
+            }
+            await dispatch(ManagerSlice(ManagerSlicePayload));
+            await dispatch(LoadingSpinner(false));
+        } catch (error) {
+            await dispatch(LoadingSpinner(false));
         }
-        dispatch(ManagerSlice(ManagerSlicePayload));
     }
 
     const CancelBtnFun = () => {
@@ -215,7 +222,6 @@ const Manager = () => {
                                     <th>User Name </th>
                                     <th>Email</th>
                                     <th>Mobile No.</th>
-                                    {/* <th>Assigned to </th> */}
                                     <th>Action</th>
                                 </tr>
 
@@ -227,9 +233,7 @@ const Manager = () => {
                                         <td>{`${items?.first_name}`}</td>
                                         <td>{items?.email}</td>
                                         <td>{items?.phone_number}</td>
-                                        {/* <td>Lorem ipsum dolor sit amet consetur dign....</td> */}
                                         <td>
-                                            {/* <button className='asbtn'> Transfer </button> */}
                                             <button className='asbtn' onClick={(e) => handleDelete(e, items)}> Delete </button>
                                         </td>
                                     </tr>

@@ -635,7 +635,6 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                       name="password"
                       type="text"
                       className={`form-control `}
-                      autoComplete="off"
                       placeholder="************"
                     />
                     <p className="text-danger small mb-0">

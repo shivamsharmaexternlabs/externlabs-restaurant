@@ -449,7 +449,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                     </div>
                                 </div>
 
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-6 mb-3 pe-md-1">
                                     <div className="formbox ">
                                         <label> Shop no./Building (Optional) </label>
                                         <Field
@@ -466,7 +466,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                     </div>
                                 </div>
 
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-6 mb-3 ps-md-1">
                                     <div className="formbox ">
                                         <label> Area/Street Name (Optional) </label>
                                         <Field
@@ -483,7 +483,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                     </div>
                                 </div>
 
-                                <div className="col-md-4 mb-3">
+                                <div className="col-md-4 mb-3 pe-md-1">
                                     <div className="formbox ">
                                         <label> Town/City Name </label>
                                         <Field
@@ -500,7 +500,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                     </div>
                                 </div>
 
-                                <div className="col-md-8  mb-3">
+                                <div className="col-md-8  mb-3 ps-md-1">
                                     <div className="formbox ">
                                         <label> Landmark (Optional) </label>
                                         <Field
@@ -517,7 +517,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                     </div>
                                 </div>
 
-                                <div className="col-md-3  mb-3">
+                                <div className="col-md-3  mb-3 pe-md-1">
                                     <div className="formbox ">
                                         <label> Pincode </label>
                                         <Field
@@ -534,7 +534,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                     </div>
                                 </div>
 
-                                <div className="col-md-3  mb-3">
+                                <div className="col-md-3  mb-3 px-md-1 ">
                                     <div className="formbox ">
                                         <label> State </label>
                                         <Field
@@ -551,7 +551,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                     </div>
                                 </div>
 
-                                <div className="col-md-3  mb-3">
+                                <div className="col-md-6  mb-3 ps-md-1">
                                     <div className="formbox ">
                                         <label> Country </label>
                                         <Field
@@ -559,7 +559,6 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                        // placeholder="Pincode"
                                         />
 
                                         <p className="text-danger small mb-0">
@@ -589,7 +588,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
 
                                 <div className='text-end mt-5'>
-                                    <button type="button" className="btn2" onClick={(e) => {
+                                    <button type="button" className="btn1" onClick={(e) => {
                                         submitAction = "primary";
                                         handleSubmit(e)
                                     }} > Create Lead </button>

@@ -112,7 +112,7 @@ const LeadsRestaurant = () => {
                     <td>{items?.owner?.phone_number}</td>
                     <td> {items?.url} </td>
                     <td>
-                      <button type="button" className="asbtn" onClick={(e) => RestaurantsDetailsFun(e, items)}> View </button>
+                      <button type="button" className="asbtn" onClick={(e) => RestaurantsDetailsFun(e, items)}> View More</button>
                       {/* <button className='asbtn'> Transfer </button> */}
                       {/* <button className='asbtn' onClick={(e) => handleDelete(e, items)}> Delete </button> */}
                     </td>

@@ -79,7 +79,8 @@
 
 .managertable table th:nth-child(5),
 .managertable table td:nth-child(5) {
-  min-width: 130px;
+  min-width: 200px;
+  width: 20%;
 }
 
 .managertable table th:nth-child(6),
@@ -91,6 +92,7 @@
 .managertable table th:last-child,
 .managertable table td:last-child {
   min-width: 140px;
+  text-align: center;
 }
 
 .managertable table th:last-child {
@@ -145,13 +147,12 @@
   border: 1px solid #cdcdcd;
   border-radius: 100px;
   color: rgba(205, 205, 205, 1);
-  padding: 5px 10px;
   font-size: 16px;
   background: transparent;
   font-family: "NeuzeitGro-Reg";
   font-weight: normal;
   transition: all 0.3s ease;
-  padding: 7px 30px;
+  padding: 7px 20px;
   font-family: "NeuzeitGro-Reg";
   font-weight: normal;
   line-height: 1;
@@ -268,7 +269,8 @@
   margin-right: 50px;
 }
 
-.addmanagerpopup .react-tel-input .form-control {
+.addmanagerpopup .react-tel-input .form-control ,
+.leadpopup  .react-tel-input .form-control {
   width: 100%;
 }
 

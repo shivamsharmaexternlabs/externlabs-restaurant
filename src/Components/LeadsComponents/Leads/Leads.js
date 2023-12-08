@@ -143,7 +143,7 @@ const Leads = () => {
                     <td>
 
                       <button className="asbtn" onClick={(e) => LeadsDetailsFun(e, lead)}>
-                        view
+                        View More 
                       </button>
                     </td>
 

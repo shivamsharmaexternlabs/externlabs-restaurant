@@ -31,7 +31,18 @@
 
 .leadpopup .popuptitle,
 .onboardingpopup .popuptitle {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+}
+
+.leadpopup .popuptitle {
+  font-size: 40px;
+  font-family: 'NeuzeitGro-Bol';
+  font-weight: bold;
+  color: #000;
+  line-height: 1;
+}
+.onboardingpopup button[type=submit] {
+  padding: 8px 36px 6px;
 }
 
 .successpopup .innerpopup {

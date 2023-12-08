@@ -122,7 +122,17 @@ const DashboardSidebar = () => {
               className={` ${param.pathname === "/admin/leads" ? "active" : ""
                 } `}
 
-            ><img src={icon8} alt='img' /> <span className='text'>Leads</span>
+            >
+             <div className='normalicon'>
+                <img src={icon8} alt='img' /> <span className='text'>Leads</span>
+                </div>
+
+                <div className='activeicon'>
+                  <img src={icon8h} alt='icon8h img' /> <span className='text'>Leads</span>
+                </div>
+            
+            {/* <img src={icon8} alt='img' /> <span className='text'>Leads</span> */}
+
             </NavLink>
           </li>
             <li>
