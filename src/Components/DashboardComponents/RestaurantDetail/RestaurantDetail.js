@@ -603,9 +603,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
             </div>
           </div>
         </div>
-      </DashboardLayout>
-
-      {/* Password Confirm_password in onBoard leads */}
+           {/* Password Confirm_password in onBoard leads */}
       {OnBordPopUp && (
         <PopUpComponent
           classNameValue={"onboardingpopup "}
@@ -739,11 +737,11 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
         <div className="popup successpopup ">
           <div className="innerpopup">
             <img src={imgicon} alt="img" />
-            <h3> Success !</h3>
-            <p>[Restaurant name] is successfully registered</p>
+            <h3> {translaterFun("success")} !</h3>
+            <p>{translaterFun("successfully-registered")}</p>
             <div className="sharebtnbox">
-              <span> <img src={share} alt="img" /> Link </span>
-              <input type="text" placeholder="link" value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
+              <span> <img src={share} alt="img" /> {translaterFun("link")} </span>
+              <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
               <button type="button" className="copybtn"> <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} /> </button>
               <button type="button" className="sharebtn">
                 <RWebShare data={{
@@ -762,7 +760,10 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
           </div>
         </div>
       }
-    </>
+
+      </DashboardLayout>
+
+        </>
   )
 }
 

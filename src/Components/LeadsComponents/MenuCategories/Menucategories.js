@@ -147,11 +147,12 @@ const LeadsRestaurant = ({ translaterFun }) => {
 
           </div>
         </div>
+        {ToggleBarSelectorData && <CreateLeadOnBoardPopUpComponent translaterFun={translaterFun}/>}
+
       </DashboardLayout>
 
 
-      {ToggleBarSelectorData && <CreateLeadOnBoardPopUpComponent />}
-
+ 
 
 
 

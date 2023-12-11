@@ -341,86 +341,89 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
     return (
-        <div>
-            {LeadPopupToggle && <PopUpComponent
-                classNameValue={"leadpopup "}
-                PopUpToggleFun={PopUpToggleFun}
-                popUpHookFun={popUpHookFun}
-            >
-                <button type="button" className="closebtn" onClick={(e) => ClosePopupFun(e)}  > <img src={close} alt="close icon" /> </button>
-                <div className="popuptitle">
-                    <h2>{translaterFun("new-customer")}</h2>
-                </div>
-                <div className="popupbody">
-                    <Formik
-                        initialValues={defaultValue}
-                        validationSchema={Validate}
-                        onSubmit={(values) => {
-                            if (submitAction === "primary") {
-                                CreateLeadBtnFun(values);
-                            }
-                            else {
-                                CreateLeadOnBoard(values);
-                            }
-                        }}
-                    >
-                        {({ handleSubmit, initialValues, values }) => (
+        <>
+            
+
+            <div>
+                {LeadPopupToggle && <PopUpComponent
+                    classNameValue={"leadpopup "}
+                    PopUpToggleFun={PopUpToggleFun}
+                    popUpHookFun={popUpHookFun}
+                >
+                    <button type="button" className="closebtn" onClick={(e) => ClosePopupFun(e)}  > <img src={close} alt="close icon" /> </button>
+                    <div className="popuptitle">
+                        <h2>{translaterFun("new-customer")}</h2>
+                    </div>
+                    <div className="popupbody">
+                        <Formik
+                            initialValues={defaultValue}
+                            validationSchema={Validate}
+                            onSubmit={(values) => {
+                                if (submitAction === "primary") {
+                                    CreateLeadBtnFun(values);
+                                }
+                                else {
+                                    CreateLeadOnBoard(values);
+                                }
+                            }}
+                        >
+                            {({ handleSubmit, initialValues, values }) => (
 
 
-                            <Form className="row">
+                                <Form className="row">
 
-                                <div className="col-12  mb-3 ">
-                                    <div className="formbox">
-                                        <label>{translaterFun("restaurant-name")}</label>
-                                        <Field
-                                            name="restaurant_name"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder={translaterFun("enter-restaurant-name")}
-                                        />
+                                    <div className="col-12  mb-3 ">
+                                        <div className="formbox">
+                                            <label>{translaterFun("restaurant-name")}</label>
+                                            <Field
+                                                name="restaurant_name"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                                placeholder={translaterFun("enter-restaurant-name")}
+                                            />
 
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="restaurant_name" />
-                                        </p>
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="restaurant_name" />
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="col-12  mb-3 ">
-                                    <div className="formbox">
-                                        <label>{translaterFun("owner-name")}</label>
-                                        <Field
-                                            name="owner_name"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder={translaterFun("enter-restaurant-name")}
-                                        />
+                                    <div className="col-12  mb-3 ">
+                                        <div className="formbox">
+                                            <label>{translaterFun("owner-name")}</label>
+                                            <Field
+                                                name="owner_name"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                                placeholder={translaterFun("enter-restaurant-name")}
+                                            />
 
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="owner_name" />
-                                        </p>
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="owner_name" />
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="col-12  mb-3 ">
-                                    <div className="formbox">
-                                        <label>{translaterFun("email")} </label>
-                                        <Field
-                                            name="email"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder={translaterFun("enter-your-email")}
-                                        />
+                                    <div className="col-12  mb-3 ">
+                                        <div className="formbox">
+                                            <label>{translaterFun("email")} </label>
+                                            <Field
+                                                name="email"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                                placeholder={translaterFun("enter-your-email")}
+                                            />
 
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="email" />
-                                        </p>
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="email" />
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* <div className="col-md-2  mb-3">
+                                    {/* <div className="col-md-2  mb-3">
                     <div className="formbox ">
                       <label> Phone Extension </label>
                       <Field
@@ -437,270 +440,272 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                     </div>
                   </div> */}
 
-                                <div className="col-md-12  mb-3">
-                                    <div className="formbox ">
-                                        <label>{translaterFun("phone-number")} </label>
-                                        <PhoneInput
-                                            country={"in"}
-                                            // value={phonenumber}
-                                            onChange={handleOnChange1}
-                                            className="input_filed"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6 mb-3 pe-md-1">
-                                    <div className="formbox ">
-                                        <label>{translaterFun("shop-no-optional")} </label>
-                                        <Field
-                                            name="shop_no"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder={translaterFun("enter-your-shop-no")}
-                                        />
-
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="shop_no" />
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6 mb-3 ps-md-1">
-                                    <div className="formbox ">
-                                        <label>{translaterFun("area-street-name")}</label>
-                                        <Field
-                                            name="street"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder={translaterFun("enter-your-street-name")}
-                                        />
-
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="street" />
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="col-md-4 mb-3 pe-md-1">
-                                    <div className="formbox ">
-                                        <label>{translaterFun("town/city-name")}</label>
-                                        <Field
-                                            name="city"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder={translaterFun("enter-your-city-name")}
-                                        />
-
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="city" />
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="col-md-8  mb-3 ps-md-1">
-                                    <div className="formbox ">
-                                        <label>{translaterFun("landmark-optional")} </label>
-                                        <Field
-                                            name="landmark"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder={translaterFun("nearby-landmark")}
-                                        />
-
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="landmark" />
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="col-md-3  mb-3 pe-md-1">
-                                    <div className="formbox ">
-                                        <label>{translaterFun("")} Pincode </label>
-                                        <Field
-                                            name="pincode"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder={translaterFun("pincode")}
-                                        />
-
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="pincode" />
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="col-md-3  mb-3 px-md-1 ">
-                                    <div className="formbox ">
-                                        <label>{translaterFun("state")} </label>
-                                        <Field
-                                            name="state"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                        // placeholder="Pincode"
-                                        />
-
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="state" />
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6  mb-3 ps-md-1">
-                                    <div className="formbox ">
-                                        <label> {translaterFun("country")} </label>
-                                        <Field
-                                            name="country"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                        />
-
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="country" />
-                                        </p>
-                                    </div>
-                                </div>
-
-
-
-                                <div className="col-md-12  mb-3">
-                                    <div className="formbox ">
-                                        <label>{translaterFun("description")}</label>
-                                        <Field
-                                            name="description"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder={translaterFun("type-here")}
-                                        />
-
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="description" />
-                                        </p>
-                                    </div>
-                                </div>
-
-
-                                <div className='text-end mt-5'>
-                                    <button type="button" className="btn1" onClick={(e) => {
-                                        submitAction = "primary";
-                                        handleSubmit(e)
-                                    }} >{translaterFun("create-lead")}</button>
-
-                                    <button type="submit" className="btn2 mx-3" onClick={(e) => {
-                                        submitAction = "secondary";
-                                        handleSubmit(e)
-                                    }} > {translaterFun("onboard-and-create-password")}</button>
-                                </div>
-                            </Form>
-
-                        )}
-                    </Formik>
-                </div>
-
-            </PopUpComponent>}
-
-            {/* Password Confirm_password in onBoard leads */}
-
-            {OnBordPopUp && (
-                <PopUpComponent
-                    classNameValue={"onboardingpopup "}
-                    PopUpToggleFun={PopUpToggleFun}
-                    popUpHookFun={popUpHookFun} >
-                    <button type="button" className="closebtn" onClick={(e) => closeOnBoardFun()}> <img src={close} alt="close icon" /> </button>
-                    <div className="popuptitle">
-                        <h2>{translaterFun("onboarding")}</h2>
-                    </div>
-                    <div className="popupbody">
-                        <Formik
-                            initialValues={defaultSignUpValue}
-                            validationSchema={ValidateSignUp}
-                            onSubmit={handleSubmitOnBoardPassAndConfPass}
-                        >
-                            <Form className="row">
-
-                                <div className="col-md-12 mb-3">
-
-                                    <div className="formbox">
-                                        <label>{translaterFun("password")} </label>
-                                        <Field
-                                            name="password"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder="************"
-                                        />
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="password" />
-                                        </p>
+                                    <div className="col-md-12  mb-3">
+                                        <div className="formbox ">
+                                            <label>{translaterFun("phone-number")} </label>
+                                            <PhoneInput
+                                                country={"in"}
+                                                // value={phonenumber}
+                                                onChange={handleOnChange1}
+                                                className="input_filed"
+                                            />
+                                        </div>
                                     </div>
 
-                                </div>
-                                <div className="col-md-12 mb-3">
+                                    <div className="col-md-6 mb-3 pe-md-1">
+                                        <div className="formbox ">
+                                            <label>{translaterFun("shop-no-optional")} </label>
+                                            <Field
+                                                name="shop_no"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                                placeholder={translaterFun("enter-your-shop-no")}
+                                            />
 
-                                    <div className="formbox mb-3">
-                                        <label>{translaterFun("confirm-password")}</label>
-                                        <Field
-                                            name="confirm_password"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder="************"
-                                        />
-                                        <p className="text-danger small mb-0">
-                                            <ErrorMessage name="confirm_password" />
-                                        </p>
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="shop_no" />
+                                            </p>
+                                        </div>
                                     </div>
 
-                                </div>
-                                <div className='text-center mt-1'>
-                                    <button type="submit" className="btn2 mx-3">{translaterFun("submit")} </button>
-                                </div>
-                            </Form>
+                                    <div className="col-md-6 mb-3 ps-md-1">
+                                        <div className="formbox ">
+                                            <label>{translaterFun("area-street-name")}</label>
+                                            <Field
+                                                name="street"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                                placeholder={translaterFun("enter-your-street-name")}
+                                            />
+
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="street" />
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-4 mb-3 pe-md-1">
+                                        <div className="formbox ">
+                                            <label>{translaterFun("town/city-name")}</label>
+                                            <Field
+                                                name="city"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                                placeholder={translaterFun("enter-your-city-name")}
+                                            />
+
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="city" />
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-8  mb-3 ps-md-1">
+                                        <div className="formbox ">
+                                            <label>{translaterFun("landmark-optional")} </label>
+                                            <Field
+                                                name="landmark"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                                placeholder={translaterFun("nearby-landmark")}
+                                            />
+
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="landmark" />
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-3  mb-3 pe-md-1">
+                                        <div className="formbox ">
+                                            <label>{translaterFun("")} Pincode </label>
+                                            <Field
+                                                name="pincode"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                                placeholder={translaterFun("pincode")}
+                                            />
+
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="pincode" />
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-3  mb-3 px-md-1 ">
+                                        <div className="formbox ">
+                                            <label>{translaterFun("state")} </label>
+                                            <Field
+                                                name="state"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                            // placeholder="Pincode"
+                                            />
+
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="state" />
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-6  mb-3 ps-md-1">
+                                        <div className="formbox ">
+                                            <label> {translaterFun("country")} </label>
+                                            <Field
+                                                name="country"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                            />
+
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="country" />
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div className="col-md-12  mb-3">
+                                        <div className="formbox ">
+                                            <label>{translaterFun("description")}</label>
+                                            <Field
+                                                name="description"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                                placeholder={translaterFun("type-here")}
+                                            />
+
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="description" />
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                    <div className='text-end mt-5'>
+                                        <button type="button" className="btn1" onClick={(e) => {
+                                            submitAction = "primary";
+                                            handleSubmit(e)
+                                        }} >{translaterFun("create-lead")}</button>
+
+                                        <button type="submit" className="btn2 mx-3" onClick={(e) => {
+                                            submitAction = "secondary";
+                                            handleSubmit(e)
+                                        }} > {translaterFun("onboard-and-create-password")}</button>
+                                    </div>
+                                </Form>
+
+                            )}
                         </Formik>
                     </div>
-                    {/* children part end */}
-                </PopUpComponent>
-            )}
 
+                </PopUpComponent>}
 
-            {/* SuccessFull On Board */}
+                {/* Password Confirm_password in onBoard leads */}
 
-            {SuccessPopup &&
-                <div className="popup successpopup ">
-                    <div className="innerpopup">
-                        <img src={imgicon} alt="img" />
-                        <h3> {translaterFun("success")}</h3>
-                        <p>{translaterFun("successfully-registered")}</p>
-                        <div className="sharebtnbox">
-                            <span> <img src={share} alt="img" /> {translaterFun("link")}</span>
-                            <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
-                            <button type="button" className="copybtn"> <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} /> </button>
-                            <button type="button" className="sharebtn">
-                                <RWebShare data={{
-                                    // text: "Web Share - GFG",
-                                    url: LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url,
-                                    // title: "Gfg"
-                                }}
-                                    onClick={() => console.log("Shared successfully!")} >
-
-                                    <img src={share2} alt="img" />
-                                </RWebShare>
-                            </button>
-
+                {OnBordPopUp && (
+                    <PopUpComponent
+                        classNameValue={"onboardingpopup "}
+                        PopUpToggleFun={PopUpToggleFun}
+                        popUpHookFun={popUpHookFun} >
+                        <button type="button" className="closebtn" onClick={(e) => closeOnBoardFun()}> <img src={close} alt="close icon" /> </button>
+                        <div className="popuptitle">
+                            <h2>{translaterFun("onboarding")}</h2>
                         </div>
-                        <button className="btn2" onClick={(e) => BackToHomeFun()}>{translaterFun("back-to-home")} </button>
-                    </div>
-                </div>
-            }
+                        <div className="popupbody">
+                            <Formik
+                                initialValues={defaultSignUpValue}
+                                validationSchema={ValidateSignUp}
+                                onSubmit={handleSubmitOnBoardPassAndConfPass}
+                            >
+                                <Form className="row">
 
-        </div>
+                                    <div className="col-md-12 mb-3">
+
+                                        <div className="formbox">
+                                            <label>{translaterFun("password")} </label>
+                                            <Field
+                                                name="password"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                                placeholder="************"
+                                            />
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="password" />
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                    <div className="col-md-12 mb-3">
+
+                                        <div className="formbox mb-3">
+                                            <label>{translaterFun("confirm-password")}</label>
+                                            <Field
+                                                name="confirm_password"
+                                                type="text"
+                                                className={`form-control `}
+                                                autoComplete="off"
+                                                placeholder="************"
+                                            />
+                                            <p className="text-danger small mb-0">
+                                                <ErrorMessage name="confirm_password" />
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                    <div className='text-center mt-1'>
+                                        <button type="submit" className="btn2 mx-3">{translaterFun("submit")} </button>
+                                    </div>
+                                </Form>
+                            </Formik>
+                        </div>
+                        {/* children part end */}
+                    </PopUpComponent>
+                )}
+
+
+                {/* SuccessFull On Board */}
+
+                {SuccessPopup &&
+                    <div className="popup successpopup ">
+                        <div className="innerpopup">
+                            <img src={imgicon} alt="img" />
+                            <h3> {translaterFun("success")}</h3>
+                            <p>{translaterFun("successfully-registered")}</p>
+                            <div className="sharebtnbox">
+                                <span> <img src={share} alt="img" /> {translaterFun("link")}</span>
+                                <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
+                                <button type="button" className="copybtn"> <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} /> </button>
+                                <button type="button" className="sharebtn">
+                                    <RWebShare data={{
+                                        // text: "Web Share - GFG",
+                                        url: LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url,
+                                        // title: "Gfg"
+                                    }}
+                                        onClick={() => console.log("Shared successfully!")} >
+
+                                        <img src={share2} alt="img" />
+                                    </RWebShare>
+                                </button>
+
+                            </div>
+                            <button className="btn2" onClick={(e) => BackToHomeFun()}>{translaterFun("back-to-home")} </button>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </>
     )
 }
 

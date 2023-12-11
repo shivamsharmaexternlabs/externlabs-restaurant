@@ -168,26 +168,13 @@ header .rightpart .user p {
     transform: rotate(-180deg);
 }
 
-
-
-
-/* 
-.arabic .dasboardbody ,
-.arabic .topdishestabpart .tab-content ul li .tabinfo{
-    flex-direction: row-reverse;
+.arabic header .rightpart > button.me-3 {
+    margin-right: 0 !important;
+    margin-left: 10px;
 }
-
-.arabic .bannerbox h2 ,
-.arabic .bannerbox h3 ,
-.arabic .topdishestabpart .nav-tabs .nav-link h3,
-.arabic .topdishestabpart .tab-content ul li h4 ,
-.arabic .topdishestabpart .tab-content ul li h5,
-.topdishestabpart .tab-content ul li p > span > b > div ,
-.topdishestabpart .tab-content ul li p > span > b,
-.topdishestabpart .tab-content ul li p {
-direction: rtl;
-} */
-
+.arabic .dropdownopt {
+    margin: 12px 10px 0 0px;
+}
 
 
 @media (max-width: 767px) {

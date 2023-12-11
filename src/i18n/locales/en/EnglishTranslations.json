@@ -214,7 +214,7 @@
   "create-lead": "Create Lead",
   "town/city-name": "Town/City Name",
   "success": "Success !",
-  "successfully-registered": "[Restaurant name] is successfully registered",
+  "successfully-registered": "Restaurant is successfully registered",
   "link": "Link",
   "back-to-home": "Back to home",
   "pincode-must-not-contain-spaces": "Pincode must not contain spaces",

@@ -41,6 +41,13 @@
   color: #000;
   line-height: 1;
 }
+
+.leadpopup .popupinnerbox {
+  max-width: 500px;
+}
+
+
+
 .onboardingpopup button[type=submit] {
   padding: 8px 36px 6px;
 }
@@ -109,3 +116,14 @@
 .sharebtnbox .sharebtn {
   margin-left: 10px;
 }
+
+.react-tel-input .form-control {
+  width: 100%;
+}
+
+
+/*************Arabic css  ***********/
+
+
+
+

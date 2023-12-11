@@ -175,10 +175,11 @@ const Leads = ({ translaterFun }) => {
 
           </div>
         </div>
+        {ToggleBarSelectorData && <CreateLeadOnBoardPopUpComponent translaterFun={translaterFun} />}
       </DashboardLayout>
 
 
-      {ToggleBarSelectorData && <CreateLeadOnBoardPopUpComponent translaterFun={translaterFun} />}
+       
 
 
       <LodingSpiner loadspiner={LoadSpiner} />

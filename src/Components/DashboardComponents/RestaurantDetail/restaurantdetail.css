@@ -61,6 +61,11 @@ padding-bottom: 10px;
 .numbersdds input{
     z-index: -1;
  }
+
+.numbersdds .react-tel-input.input_filed .form-control  {
+    display: block;
+}
+
 .submitbox {
     position: absolute;
     top: -78px;
@@ -69,6 +74,24 @@ padding-bottom: 10px;
     width: auto;
 }
 
+/************** Arabic css  ****************/
+
+.arabic  .submitbox .btn2.ms-3 {
+    margin-left: 0 !important;
+    margin-right: 1rem;
+}
+
+.arabic .submitbox {
+    right: auto;
+    left: 0;
+}
+
+.arabic .burgerimg {
+    right: auto;
+    z-index: 2;
+    left: 0;
+    transform: rotateY(180deg);
+}
 
 
 
