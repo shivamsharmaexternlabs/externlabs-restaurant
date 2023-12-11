@@ -105,10 +105,8 @@ console.log("dfghjk",Token)
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Login  translaterFun={t} />}></Route>
-        <Route path="/:id" element={<Login  translaterFun={t} />}></Route>
-        {/* <Route path="/emailotpverification" element={<EmailOtpVerification  translaterFun={t} />}></Route> */}
+     {Token !== false&& <Routes>
+           {/* <Route path="/emailotpverification" element={<EmailOtpVerification  translaterFun={t} />}></Route> */}
         {/* <Route path="/signup" element={<Signup  translaterFun={t} />}></Route> */}
         <Route path='/success' element={<Success  translaterFun={t} />}></Route>
         {/* <Route path="/forgotpassword" element={<ForgotPassword  translaterFun={t} />}></Route> */}
@@ -117,13 +115,19 @@ console.log("dfghjk",Token)
         <Route path="/:id/admin/categories" element={ <DndProvider backend={HTML5Backend}><Categories  translaterFun={t}/></DndProvider>}></Route>  {/* convert in arabic  */}
         <Route path="/:id/admin/categories/reorder/" element={ <DndProvider backend={HTML5Backend}><DndCategories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
         <Route path="/:id/admin/manager" element={<Manager  translaterFun={t} />}></Route> {/* convert in arabic  */}
-        <Route path="/:id/menu" element={<Menu  translaterFun={t} />}></Route>
-        <Route path="/:id/admin/allmedia" element={<AllMedia  translaterFun={t} />}></Route>{/* convert in arabic  */}
+         <Route path="/:id/admin/allmedia" element={<AllMedia  translaterFun={t} />}></Route>{/* convert in arabic  */}
         <Route path="/:id/admin/paymenthistory" element={<PaymentHistory  translaterFun={t} />}></Route> {/* convert in arabic  */}
         <Route path='/admin/leads' element={<Leads  translaterFun={t} />}></Route>
         <Route path='/admin/menucategories' element={<Menucategories  translaterFun={t} />}></Route> {/* convert in arabic  */}
         <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail  translaterFun={t} />}></Route>
         <Route path='/subscription' element={<Subscription  translaterFun={t} />}></Route>
+      </Routes>}
+
+      <Routes>
+      <Route path="/:id/menu" element={<Menu  translaterFun={t} />}></Route>
+
+      <Route path="/" element={<Login  translaterFun={t} />}></Route>
+        <Route path="/:id" element={<Login  translaterFun={t} />}></Route>
       </Routes>
 
       <ToastContainer autoClose={2000} />
