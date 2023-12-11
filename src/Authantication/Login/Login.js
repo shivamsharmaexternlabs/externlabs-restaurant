@@ -81,7 +81,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="loginpage">
+      <div className="loginpage" dir="ltr">
         <Formik
           initialValues={defaultValue}
           validationSchema={Validate}

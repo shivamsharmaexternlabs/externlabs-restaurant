@@ -91,7 +91,6 @@ const DashboardHeader = ({ popUpHookFun }) => {
                 <button type='button' className='' onClick={(e) => LanguageFun("en")}>
                   English
                 </button>
-                <br />
                 <button type='button' className='' onClick={(e) => LanguageFun("ar")}>
                   عربي
                 </button>

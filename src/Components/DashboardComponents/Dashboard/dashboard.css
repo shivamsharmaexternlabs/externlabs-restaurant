@@ -775,6 +775,49 @@
   outline: none;
 }
 
+/******************** Arabic css **********************/
+
+.arabic .topdishespart > .title > button img {
+  margin-left: 0;
+  margin-right: 10px;
+  }
+  
+  .arabic .topdishestabpart .nav-tabs .nav-link + .nav-link {
+      margin-left: 0;
+      margin-right: 28px;
+  }
+  
+  .arabic .topdishestabpart .tab-content ul li .tabinfo > .leftpart {
+      padding-right: 0;
+      padding-left: 5px;
+  }
+  
+  .arabic .topdishestabpart .tab-content ul li {
+      margin-right:0;
+      margin-left: 12px;
+  }
+  
+  .arabic .topdishestabpart .tab-content ul li:nth-child(4n + 4) {
+      margin-left: 0;
+  }
+  
+  .arabic .qrbox > .info {
+      justify-content: flex-end;
+  }
+
+  .arabic .managerstablepart > .title > button img {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+  
+ .arabic .subplanbox > .title button img {
+    margin-left: 0;
+    margin-right: 5px;
+  }
+  
+
+
+
 /**************************  scrollbar  ***************************************/
 
 .topdishestabpart > nav::-webkit-scrollbar,
@@ -807,6 +850,16 @@
   .qrbox > .info button {
     margin-top: -10%;
   }
+
+  .arabic .topdishestabpart .tab-content ul li:nth-child(3n + 3) {
+   margin-left: 0 ;
+  }
+
+.arabic .topdishestabpart .tab-content ul li:nth-child(4n + 4) {
+  margin-left: 10px;
+    margin-right: 0;
+  }
+
 }
 
 @media (max-width: 1199px) {
@@ -833,9 +886,16 @@
     margin-right: 0;
   }
 
-  .topdishestabpart .tab-content ul li:nth-child(4n + 4) {
+  
+    .arabic .topdishestabpart .tab-content ul li {
+      margin-left: 0;
+    }
+
+.arabic  .topdishestabpart .tab-content ul li:nth-child(4n + 4) {
+    margin-left: 0;
     margin-right: 0;
   }
+  
 }
 
 @media (max-width: 580px) {

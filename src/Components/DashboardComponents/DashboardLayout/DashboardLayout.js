@@ -13,7 +13,7 @@ const DashboardLayout = ({children,isFullScreen}) => {
 
 
   return (
-    <div className={`dasboardpageouter ${ToggleBarSelectorData?'fullsidebar':""}`}>
+    <div  className={`dasboardpageouter arabic ${ToggleBarSelectorData?'fullsidebar':""}`}>
         <DashboardHeader 
         popUpHookFun={popUpHookFun}
         />

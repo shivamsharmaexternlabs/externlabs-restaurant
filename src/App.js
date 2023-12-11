@@ -105,7 +105,8 @@ console.log("dfghjk",Token)
 
   return (
     <>
-     {Token !== false&& <Routes>
+    <div   dir={Token!==false?"rtl":""}>
+     {Token !== false&&   <Routes>
            {/* <Route path="/emailotpverification" element={<EmailOtpVerification  translaterFun={t} />}></Route> */}
         {/* <Route path="/signup" element={<Signup  translaterFun={t} />}></Route> */}
         <Route path='/success' element={<Success  translaterFun={t} />}></Route>
@@ -131,7 +132,7 @@ console.log("dfghjk",Token)
       </Routes>
 
       <ToastContainer autoClose={2000} />
-
+      </div>
     </>
   );
 

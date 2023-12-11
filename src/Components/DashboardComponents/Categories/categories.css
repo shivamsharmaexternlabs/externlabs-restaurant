@@ -571,6 +571,40 @@
   height: auto;
 }
 
+/********* Arabic css  *********/
+
+.arabic .categorypage > .title .btnbox button + button {
+  margin-left: 0;
+  margin-right: 10px;
+}
+.arabic .uploadbtn-wrapper {
+margin-left: 10px;
+margin-right: 0;
+}
+
+.arabic .categorycontent > .leftpart {
+  padding-left: 15px;
+  padding-right: 0;
+}
+
+.arabic .editinfobtn{
+  margin-left:0;
+  margin-right: 5px;
+}
+
+.arabic .bestsellerpart > ul > li > .leftpart {
+  padding-left: 5px;
+  padding-right: 0;
+}
+
+.arabic .item-indx{
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+
+
+
 @media (max-width: 767px) {
   .btn1,
   .btn2,
