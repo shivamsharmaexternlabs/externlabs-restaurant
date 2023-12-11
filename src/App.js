@@ -90,14 +90,14 @@ console.log("dfghjk",Token)
 
 
 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-    if(Token == false){
+  //   if(Token == false){
 
-      navigate("/")
-    }
+  //     navigate("/")
+  //   }
 
-  },[Token])
+  // },[Token])
 
   useEffect(()=>{
     i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
