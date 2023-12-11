@@ -95,7 +95,25 @@ font-weight: normal;
     word-break: break-all;
 }
 
+/**************** Arabic css **************/
 
+.arabic .medialist li {
+margin-right: 0;
+margin-left: 16px;
+}
+
+.arabic .medialist li:nth-child(5n+5) {
+    margin-right: 0;
+    margin-left: 0;
+} 
+
+.arabic .btn1 svg {
+    margin-left: 5px;
+    margin-right: 0;
+}
+
+
+/***************** responsive css ***********************/
 
 @media(max-width:1199px) {
     .medialist li h4 {

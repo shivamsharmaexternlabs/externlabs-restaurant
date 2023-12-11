@@ -102,9 +102,11 @@ console.log("dfghjk",Token)
   useEffect(()=>{
     i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
   },[ManagerApiSelectorData?.languagechange])
+  var x = localStorage.getItem("Token",false);
+  console.log("zdljksdbs")
 
   return (
-    <>
+    <div   dir={x!==false?"rtl":""}>
       <Routes>
         <Route path="/" element={<Login  translaterFun={t} />}></Route>
         <Route path="/:id" element={<Login  translaterFun={t} />}></Route>
@@ -128,7 +130,7 @@ console.log("dfghjk",Token)
 
       <ToastContainer autoClose={2000} />
 
-    </>
+    </div>
   );
 
 }

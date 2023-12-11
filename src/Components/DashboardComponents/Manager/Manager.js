@@ -246,10 +246,10 @@ const Manager = ({ translaterFun }) => {
                             </table>
                             <ReactPaginate
                                 // previousLabel={"Previous"}
+                                
                                 previousLabel= {translaterFun("previous")}
-
+                                i18nIsDynamicList={true}
                                 // nextLabel={"Next"}
-
                                 nextLabel= {translaterFun("next")}
                                 pageCount={Math.ceil(data?.count / itemsPerPage)}
                                 onPageChange={handlePageClick}

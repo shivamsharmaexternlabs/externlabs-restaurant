@@ -107,7 +107,7 @@ header .rightpart .user p {
     width: 102px;
     border-radius: 2px;
     background: #FFEEE7;
-    padding: 5px 10px ;
+    padding: 5px 10px;
     z-index: 9999999;
 }
 
@@ -119,19 +119,73 @@ header .rightpart .user p {
     font-weight: normal;
     font-size: 14px;
     line-height: 1;
-}  
+    display: block;
+}
 
 .dropdownoptbox>button img {
     width: 18px;
     display: inline-block;
     margin-right: 5px;
-} 
+}
 
 .fullsidebar header {
     padding-left: 275px;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
 }
+
+/********** Aracic css ***********/
+
+.arabic header {
+    padding: 15px 90px 15px 15px;
+}
+
+.arabic header .rightpart .user {
+    margin-right: 15px;
+    margin-left: 0px;
+    width: auto;
+    min-width: 122px;
+}
+
+.arabic header .rightpart .user figure {
+    margin: 0 0 0 10px;
+}
+
+.arabic .dropdownoptbox {
+    left: 0;
+    right: auto;
+}
+
+.arabic .dropdownoptbox>button img {
+    margin-right: 0px;
+    margin-left: 5px;
+    transform: rotate(-180deg);
+}
+
+.arabic .dropdownoptbox>button:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+
+
+
+/* 
+.arabic .dasboardbody ,
+.arabic .topdishestabpart .tab-content ul li .tabinfo{
+    flex-direction: row-reverse;
+}
+
+.arabic .bannerbox h2 ,
+.arabic .bannerbox h3 ,
+.arabic .topdishestabpart .nav-tabs .nav-link h3,
+.arabic .topdishestabpart .tab-content ul li h4 ,
+.arabic .topdishestabpart .tab-content ul li h5,
+.topdishestabpart .tab-content ul li p > span > b > div ,
+.topdishestabpart .tab-content ul li p > span > b,
+.topdishestabpart .tab-content ul li p {
+direction: rtl;
+} */
+
 
 
 @media (max-width: 767px) {
