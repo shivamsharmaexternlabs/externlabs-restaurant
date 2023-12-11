@@ -353,6 +353,34 @@
   color: #787878;
 }
 
+
+/***************  Arabic css  *****************/
+
+.arabic .managertable .pagination .page-item:not(:first-child){
+  direction: ltr;
+}
+
+.arabic .addmanagerpopup .popupbody .managerimg {
+right: auto;
+left: 20px;
+}
+
+.arabic .react-tel-input.input_filed {
+direction: ltr;
+}
+
+.arabic .submitbtnbox .cancelbtn {
+  margin-left: 50px;
+  margin-right: 0;
+}
+
+
+.arabic .managertable .pagination {
+  
+}
+
+
+
 /* scrollbar css start  */
 
 .managertable::-webkit-scrollbar,
