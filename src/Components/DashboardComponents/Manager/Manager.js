@@ -20,7 +20,7 @@ import { ManagerSlice, ManagerDeleteSlice } from '../../../Redux/slices/managerS
 import ReactPaginate from 'react-paginate';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 
-const Manager = ({ t }) => {
+const Manager = ({ translaterFun }) => {
     const itemsPerPage = 5;
     const [loadspiner, setLoadSpiner] = useState(false);
     const [data, setData] = useState({ results: [] })
@@ -117,11 +117,11 @@ const Manager = ({ t }) => {
 
     const Validate = yup.object({
         // email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'First name must not contain spaces'),
-        first_name: yup.string().required("first name is required").matches(/^[\w\-\s]+$/, 'Name must not contain special characters'),
+        first_name: yup.string().required(translaterFun("first-name-is-required")).matches(/^[\w\-\s]+$/, 'Name must not contain special characters'),
         // first_name: yup.string().required("first name is required").matches(/^\S*$/, 'First name must not contain spaces'),
         // last_name: yup.string().required("last name is required").matches(/^[a-zA-Z0-9]+$/, 'Last name must not contain contain spaces & special characters'),
-        password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-        confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
+        password: yup.string().required(translaterFun("password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
+        confirm_password: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
         // phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces')
     });
 
@@ -213,19 +213,19 @@ const Manager = ({ t }) => {
                     <div className='contentpart managerpage'>
                         <div className='managertitle'>
                             <h2>
-                                {t("managers")}
+                                {translaterFun("managers")}
                             </h2>
-                            <button type='button' className='mangerbtn' onClick={(e) => PopUpToggleFun()}> <img src={plus} alt='plusimg' />                                  {t("add-manager")}
+                            <button type='button' className='mangerbtn' onClick={(e) => PopUpToggleFun()}> <img src={plus} alt='plusimg' />                                  {translaterFun("add-manager")}
                             </button>
                         </div>
                         <div className='managertable'>
                             <table>
                                 <tr> 
                                     <th></th>
-                                    <th>{t("user-name")}</th>
-                                    <th>{t("email")}</th>
-                                    <th>{t("mobile-no")}</th> 
-                                    <th>{t("action")}</th>
+                                    <th>{translaterFun("user-name")}</th>
+                                    <th>{translaterFun("email")}</th>
+                                    <th>{translaterFun("mobile-no")}</th> 
+                                    <th>{translaterFun("action")}</th>
                                 </tr>
 
 
@@ -238,7 +238,7 @@ const Manager = ({ t }) => {
                                         <td>{items?.phone_number}</td>
                                         <td>
                                             <button className='asbtn' onClick={(e) => handleDelete(e, items)}> 
-                                            {t("delete")} </button>
+                                            {translaterFun("delete")} </button>
                                         </td>
                                     </tr>
                                 })}
@@ -246,11 +246,11 @@ const Manager = ({ t }) => {
                             </table>
                             <ReactPaginate
                                 // previousLabel={"Previous"}
-                                previousLabel= {t("previous")}
+                                previousLabel= {translaterFun("previous")}
 
                                 // nextLabel={"Next"}
 
-                                nextLabel= {t("next")}
+                                nextLabel= {translaterFun("next")}
                                 pageCount={Math.ceil(data?.count / itemsPerPage)}
                                 onPageChange={handlePageClick}
                                 forcePage={CurrentPage}
@@ -287,7 +287,7 @@ const Manager = ({ t }) => {
                         <div className='popuptitle'>
                             <h2>
                                 
-                            {t("add-new-manager")}                                  
+                            {translaterFun("add-new-manager")}                                  
                                   </h2>
                         </div>
                         <div className='popupbody'>
@@ -302,13 +302,13 @@ const Manager = ({ t }) => {
                                     <img src={manager} alt='manager img' className='managerimg' />
                                     <div className="formbox mb-3">
                                         <label>
-                                        {t("name")}  </label>
+                                        {translaterFun("name")}  </label>
                                         <Field
                                             name="first_name"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder={t("enter-your-name")} 
+                                            placeholder={translaterFun("enter-your-name")} 
                                         />
                                         <p className="text-danger small">
                                             <ErrorMessage name="first_name" />
@@ -330,13 +330,13 @@ const Manager = ({ t }) => {
                                     </div> */}
 
                                     <div className="formbox mb-3">
-                                        <label>{t("email")} </label>
+                                        <label>{translaterFun("email")} </label>
                                         <Field
                                             name="email"
                                             type="email"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder={t("email")} 
+                                            placeholder={translaterFun("email")} 
 
                                         />
                                         <p className="text-danger">
@@ -360,7 +360,7 @@ const Manager = ({ t }) => {
 
 
                                     <div className="formbox mb-3">
-                                        <label>{t("phone-number")} </label>
+                                        <label>{translaterFun("phone-number")} </label>
                                         <PhoneInput
                                             country={"in"}
                                             // value={phonenumber}
@@ -371,7 +371,7 @@ const Manager = ({ t }) => {
 
 
                                     <div className="formbox mb-3">
-                                        <label>{t("password")} </label>
+                                        <label>{translaterFun("password")} </label>
                                         <Field
                                             name="password"
                                             type="text"
@@ -385,7 +385,7 @@ const Manager = ({ t }) => {
                                     </div>
 
                                     <div className="formbox mb-3">
-                                        <label>{t("confirm-password")} </label>
+                                        <label>{translaterFun("confirm-password")} </label>
                                         <Field
                                             name="confirm_password"
                                             type="text"
@@ -399,9 +399,9 @@ const Manager = ({ t }) => {
                                     </div>
 
                                     <div className='text-end mt-5 submitbtnbox'>
-                                        <button type="btn" className="cancelbtn" onClick={(e) => CancelBtnFun(e)} >  {t("cancel")} 
+                                        <button type="btn" className="cancelbtn" onClick={(e) => CancelBtnFun(e)} >  {translaterFun("cancel")} 
                                          </button>
-                                        <button type="submit" className="submitbtn"> {t("submit")} </button>
+                                        <button type="submit" className="submitbtn"> {translaterFun("submit")} </button>
                                     </div>
                                 </Form>
                             </Formik>

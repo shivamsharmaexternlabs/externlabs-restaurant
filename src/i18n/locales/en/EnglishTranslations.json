@@ -21,6 +21,12 @@
     "submit":"Submit",
     "cancel":"Cancel",
     "delete": "Delete",
+    "first-name-is-required":"first name is required",
+    "password-is-required":"Password is required",
+    "confirm-password-is-required":"Confirm Password is required",
+    "delete-manager" :"Do you want to Delete this Manager?",
+
+
     "-------------MediaData--------": "-------------MediaData--------", 
 
     "all-media":"All Media",
