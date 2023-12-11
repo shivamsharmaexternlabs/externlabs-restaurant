@@ -3,7 +3,9 @@ import Popup from "reactjs-popup";
 import {ColorRing } from 'react-loader-spinner' 
 import "./loadingSpinner.css"
 import { useSelector } from 'react-redux';
-import loading from "../../images/loader.gif"
+// import loading from "../../images/loader.gif"
+
+import loading from "../../images/fastfood.gif"
 
 const LodingSpiner = ({ loadspiner }) => {
 
