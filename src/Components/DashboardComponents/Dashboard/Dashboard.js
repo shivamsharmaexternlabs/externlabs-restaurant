@@ -6,7 +6,9 @@ import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import { ManagerSlice } from "../../../Redux/slices/managerSlice"
 import { GetQrCodeSlice } from "../../../Redux/slices/qrCodeSlice"
-import defaultImage from '../../../images/defaultImage.png'
+// import defaultImage from '../../../images/defaultImage.png'
+import defaultImage from '../../../images/defaultimg.svg'
+
 import arrow2 from '../../../images/arrow2.svg'
 import dish1 from '../../../images/dish1.png'
 import dish2 from '../../../images/dish2.png'
@@ -240,20 +242,15 @@ const Dashboard = () => {
                               console.log("kjhgfaedfrdgf", Item)
                               return <li>
                                 <h4>{Item?.item_name}</h4>
+                                <h5 className='mt-1'> {Item?.calories} {Item?.calories_unit}</h5>
                                 <div className='tabinfo'>
-                                  <div className='leftpart'>
-                                    <h5 className='mt-1'> {Item?.calories} {Item?.calories_unit}</h5>
-
-
+                                  <div className='leftpart'>                                   
                                     <p>
                                       {Item?.description?.length > 45 ? Item?.description.slice(0, 45) + "..." : Item?.description}
                                       <span>{Item?.description?.length > 45 ? <b>More <div className=''>{Item?.description} </div> </b> : ""}  </span>
                                     </p>
                                     {/* {Item?.description}
                                       {Item?.description?.length} */}
-
-
-
                                     <span className='price'>{`${Item?.currency} ${Item?.item_price}`}</span>
                                   </div>
                                   <div className='rightpart'>

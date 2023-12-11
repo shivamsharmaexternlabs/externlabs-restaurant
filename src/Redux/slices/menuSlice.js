@@ -220,7 +220,7 @@ export const EditMenuItemSlice = createAsyncThunk(
           },
         }
       );
-      toast.success(response?.data?.detail);
+      toast.success(response?.data?.message);
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -251,8 +251,9 @@ export const EditCategorySlice = createAsyncThunk(
             Authorization: `Bearer ${body?.BearerToken}`,
           },
         }
-      );
-      toast.success(response?.data?.detail);
+      ); 
+
+      toast.success(response?.data?.message);
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);

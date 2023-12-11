@@ -10,7 +10,7 @@ import dish3 from "../../../images/dish3.png";
 import category from "../../../images/category.png";
 import edit1 from "../../../images/edit.svg";
 import starfill from "../../../images/star.svg";
-import defaultImage from '../../../images/defaultImage.png'
+import defaultImage from '../../../images/defaultimg.png'
 import dot from '../../../images/dot.svg'
 import star from "../../../images/starb.svg";
 import editw from "../../../images/editw.svg";
@@ -561,8 +561,8 @@ const Categories = () => {
     };
 
     if (
-      typeof payload.category_image === "string" ||
-      payload.category_image === null
+      typeof payload?.category_image === "string" ||
+      payload?.category_image === null
     ) {
       delete payload.category_image;
     }
@@ -1229,7 +1229,7 @@ const Categories = () => {
                         >
                           Sort categories
                         </button> */}
-                      <div className="item-head">
+                      <div className="item-head"> 
                         <h2>Items</h2>
 
 
