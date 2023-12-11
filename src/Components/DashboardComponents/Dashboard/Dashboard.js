@@ -27,7 +27,7 @@ import {useTranslation} from "react-i18next"
 
 
 
-const Dashboard = ({t, i18n } ) => {
+const Dashboard = ({translaterFun}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState({ results: [] });
@@ -122,11 +122,11 @@ const Dashboard = ({t, i18n } ) => {
 
     const time = new Date().getHours();
     if (time < 12) {
-      setWellWishes("Good morning")
+      setWellWishes(translaterFun("good-morning"))
     } else if (time < 16) {
-      setWellWishes(t("good-afternoon"))
+      setWellWishes(translaterFun("good-afternoon"))
     } else {
-      setWellWishes("Good evening")
+      setWellWishes(translaterFun("good-evening"))
     }
 
   }, [])
@@ -148,9 +148,9 @@ const Dashboard = ({t, i18n } ) => {
               <div className='leftpart'>
                 <div className='topdishespart'>
                   <div className='title'>
-                    <h2>{t("menu-items")}
+                    <h2>{translaterFun("menu-items")}
                      {/* Menu Items */}
-                      </h2> <button type='button' onClick={() => { navigate(`/${RestaurantIdLocalData}/admin/categories`) }}> View All <img src={arrow2} alt='img' /> </button>
+                      </h2> <button type='button' onClick={() => { navigate(`/${RestaurantIdLocalData}/admin/categories`) }}> {translaterFun("view-all")}<img src={arrow2} alt='img' /> </button>
                   </div>
 
                   <div className='topdishestabpart'>
@@ -235,8 +235,7 @@ const Dashboard = ({t, i18n } ) => {
                       <div class="tab-pane fade show active" id="nav-dishes1" role="tabpanel" aria-labelledby="nav-dishes1-tab" tabindex="0">
                         <ul>
                           {
-                            ActiveCategory?.item_id?.slice(0, 4).map((Item, DishesId) => {
-                              console.log("kjhgfaedfrdgf", Item)
+                            ActiveCategory?.item_id?.slice(0, 4).map((Item, DishesId) => { 
                               return <li>
                                 <h4>{Item?.item_name}</h4>
                                 <h5 className='mt-1'> {Item?.calories} {Item?.calories_unit}</h5>
@@ -244,7 +243,7 @@ const Dashboard = ({t, i18n } ) => {
                                   <div className='leftpart'>                                   
                                     <p>
                                       {Item?.description?.length > 45 ? Item?.description.slice(0, 45) + "..." : Item?.description}
-                                      <span>{Item?.description?.length > 45 ? <b>More <div className=''>{Item?.description} </div> </b> : ""}  </span>
+                                      <span>{Item?.description?.length > 45 ? <b>{translaterFun("more")}<div className=''>{Item?.description} </div> </b> : ""}  </span>
                                     </p>
                                     {/* {Item?.description}
                                       {Item?.description?.length} */}
@@ -333,23 +332,27 @@ const Dashboard = ({t, i18n } ) => {
                 <div className='managerstablepart'>
                   <div className='title'>
                     <h2>Managers</h2>
-                    <button type='button' onClick={(e) => navigate(`/${RestaurantIdLocalData}/admin/manager`)}> View All <img src={arrow2} alt='img' /> </button>
+                    <button type='button' onClick={(e) => navigate(`/${RestaurantIdLocalData}/admin/manager`)}> 
+                    {translaterFun("view-all")} <img src={arrow2} alt='img' /> </button>
                   </div>
                   <div class="managerstable">
                     <table className='table'>
                       <tr className=''>
                         <th> </th>
-                        <th> User Name </th>
+                        <th> {translaterFun("user-name")} </th>
+                        <th> {translaterFun("e-mail")} </th>
+                        <th>{translaterFun("mobile-no")}</th>
+                        {/* <th> User Name </th>
                         <th> E-mail </th>
-                        <th> Assigned to </th>
+                        <th> Assigned to </th> */}
                       </tr>
                       {data?.results?.slice(0, 2)?.map((items, id) => {
+                        console.log("zjdcghdcvsd",items)
                         return <tr>
                           <td> <img src={user} alt='img' /> </td>
                           <td>{`${items?.first_name}`}</td>
                           <td>{items?.email}</td>
-                          <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                        </tr>
+                          <td>{items?.phone_number}</td>                        </tr>
                       })}
 
                     </table>
@@ -361,14 +364,14 @@ const Dashboard = ({t, i18n } ) => {
 
                 <div className='subplanbox'>
                   <div className='title'>
-                    <h3>Subscription Plan</h3>
-                    <button type='button' onClick={() => navigate(`/${RestaurantIdLocalData}/admin/paymenthistory`)}> View Details <img src={arrow2} alt='arrow img' />  </button>
+                    <h3> {translaterFun("subscription-plan")} </h3>
+                    <button type='button' onClick={() => navigate(`/${RestaurantIdLocalData}/admin/paymenthistory`)}> {translaterFun("view-all")} <img src={arrow2} alt='arrow img' />  </button>
                   </div>
                   <div className='info'>
                     <div className='leftpart'>
                       <p>{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_name.charAt(0).toUpperCase() + PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_name.slice(1)} </p>
-                      <p>Start Date: {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.start_date}</p>
-                      <p>End Date: {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.end_date}</p>
+                      <p>{translaterFun("start-date")} {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.start_date}</p>
+                      <p>{translaterFun("end-date")}{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.end_date}</p>
                     </div>
                     <div className='rightpart'>
                       <img src={item2} alt='img' />
@@ -388,8 +391,8 @@ const Dashboard = ({t, i18n } ) => {
                       onClick={(e) => QrCodeDownloadFun()}
                     >
                       {/* <a href={QrImage} download="my-file.png">Download </a> */}
-                      Download Now
-
+                      {/* Download Now */}
+                      {translaterFun("download-now")}
                     </button>
                   </div>
                 </div>

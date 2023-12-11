@@ -16,7 +16,7 @@ import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
 
 
 
-const LeadsRestaurant = () => {
+const LeadsRestaurant = ({ translaterFun }) => {
   const itemsPerPage = 5;
 
   const [LoadSpiner, setLoadSpiner] = useState(false)
@@ -87,21 +87,19 @@ const LeadsRestaurant = () => {
           <DashboardSidebar />
           <div className="contentpart leadpage">
             <div className="title">
-              <h2>Restaurants</h2>
+              <h2>{translaterFun("restaurants")}</h2>
             </div>
             <div className='managertable'>
               <table>
                 <tr>
                   <th></th>
-                  <th>Restaurant Name </th>
-                  <th>Name </th>
-                  <th>Email</th>
-                  <th>Mobile No.</th>
-                  <th>Generated Link</th>
-                  <th>Action</th>
-                </tr>
-
-
+                  <th>{translaterFun("restaurant-name")}</th>
+                  <th>{translaterFun("name")}</th>
+                  <th>{translaterFun("email")}</th>
+                  <th>{translaterFun("mobile-no")}</th>
+                  <th>{translaterFun("generated-link")}</th>
+                  <th>{translaterFun("action")}</th> 
+                </tr> 
 
                 {LeadsRestaurantSelectorData?.LeadsRestaurantReducerData?.data?.results?.map((items, id) => {
                   return <tr key={id}>
@@ -112,7 +110,8 @@ const LeadsRestaurant = () => {
                     <td>{items?.owner?.phone_number}</td>
                     <td> {items?.url} </td>
                     <td>
-                      <button type="button" className="asbtn" onClick={(e) => RestaurantsDetailsFun(e, items)}> View More</button>
+                      <button type="button" className="asbtn" onClick={(e) => RestaurantsDetailsFun(e, items)}>
+                        {translaterFun("view-all")}</button>
                       {/* <button className='asbtn'> Transfer </button> */}
                       {/* <button className='asbtn' onClick={(e) => handleDelete(e, items)}> Delete </button> */}
                     </td>
@@ -124,8 +123,8 @@ const LeadsRestaurant = () => {
 
               </table>
               <ReactPaginate
-                previousLabel={"Previous"}
-                nextLabel={"Next"}
+                previousLabel={translaterFun("previous")}
+                nextLabel={translaterFun("next")}
                 pageCount={Math.ceil(LeadsRestaurantSelectorData?.LeadsRestaurantReducerData?.data?.count / itemsPerPage)}
                 onPageChange={handlePageClick}
                 forcePage={CurrentPage}

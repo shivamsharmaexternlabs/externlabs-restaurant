@@ -13,7 +13,7 @@ import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 
 
-const AllMedia = () => {
+const AllMedia = ({translaterFun}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -87,13 +87,13 @@ const AllMedia = () => {
                     <DashboardSidebar />
                     <div className='contentpart mediapage'>
                         <div className='title'>
-                            <h2>All Media</h2>
+                            <h2>{translaterFun("all-media")}</h2>
                             <button type='button' className='btn1 mediaupload'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                                     <path d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z" />
                                 </svg>
                                 <input type='file' multiple onChange={(e) => MultiUploadFun(e)} />
-                                Upload Images</button>
+                                {translaterFun("upload-images")}</button>
                         </div>
 
                         <ul className='medialist '>

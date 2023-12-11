@@ -117,7 +117,7 @@ const Manager = ({ translaterFun }) => {
 
     const Validate = yup.object({
         // email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'First name must not contain spaces'),
-        first_name: yup.string().required(translaterFun("first-name-is-required")).matches(/^[\w\-\s]+$/, 'Name must not contain special characters'),
+        first_name: yup.string().required(translaterFun("first-name-is-required")).matches(/^[\w\-\s\u0600-\u06FF]+$/, 'Name must not contain special characters'),
         // first_name: yup.string().required("first name is required").matches(/^\S*$/, 'First name must not contain spaces'),
         // last_name: yup.string().required("last name is required").matches(/^[a-zA-Z0-9]+$/, 'Last name must not contain contain spaces & special characters'),
         password: yup.string().required(translaterFun("password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
@@ -434,10 +434,10 @@ const Manager = ({ translaterFun }) => {
                         <div className='popupinner'>
                             <div className='popupbody'>
                                 <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
-                                <h2>Do you want to Delete this Manager?</h2>
+                                <h2>{translaterFun("delete-manager")}</h2>
                                 <div className='text-center'>
-                                    <button type="button" onClick={(e) => deletePopUpFun(false)}>Cancel </button>
-                                    <button type="button" className='ms-4' onClick={(e) => confirmDelete(e, UserId)}>Yes, I’m Sure</button>
+                                    <button type="button" onClick={(e) => deletePopUpFun(false)}>{translaterFun("cancel")} </button>
+                                    <button type="button" className='ms-4' onClick={(e) => confirmDelete(e, UserId)}>{translaterFun("confirm-delete-button")}</button>
                                 </div>
                             </div>
                         </div>

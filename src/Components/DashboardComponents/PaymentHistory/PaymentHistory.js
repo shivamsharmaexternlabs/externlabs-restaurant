@@ -10,7 +10,7 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 
 
-const PaymentHistory = ({t}) => {
+const PaymentHistory = ({translaterFun}) => {
 
     const [subscriptionDetails, setSubscriptionDetails] = useState('')
     const [PaymentHistoryDetails, setPaymentHistoryDetails] = useState([])
@@ -59,8 +59,7 @@ const PaymentHistory = ({t}) => {
         myFunc();
     }, [BearerToken]);
     
-console.log("PaymentSelectorData :", PaymentSelectorData)
-
+ 
     const unsubscribePaymentFunc = (e, item) => {
 
         dispatch(UnsubscribePaymentSlice({ subscription_id: item?.subscription_id, BearerToken }))
@@ -90,7 +89,7 @@ console.log("PaymentSelectorData :", PaymentSelectorData)
                     <DashboardSidebar />
                     <div className='contentpart paymenthispage'>
                         <div className='title'>
-                            <h2>{t("payment-history")} </h2>
+                            <h2>{translaterFun("payment-history")} </h2>
                         </div>
 
                         <ul className='paylist'>
@@ -107,28 +106,25 @@ console.log("PaymentSelectorData :", PaymentSelectorData)
                                     <h4>{items?.currency?.toUpperCase()} {items?.unit_amount / 100}<span>/Per {items?.recurring?.interval.charAt(0).toUpperCase() + items?.recurring?.interval.slice(1)}</span></h4>
                                 </li>
                             })}
-                            {/* <li>
-                                <div className='clear'>
-                                    <select className='float-end'>
-                                        <option> Month </option>
-                                        <option> Year </option>
-                                    </select>
-                                </div>
-                                <h3> Premium  </h3>
-                                <p>Unlock essential features to streamline your restaurant operations with our cost-effective Basic subscription.</p>
-                                <h4>SAR49<span>/Per Month</span></h4>
-                            </li> */}
+                             
                         </ul>
 
                         <div className='paymenttable'>
                             <table>
                                 <tr>
-                                    <th>  Status</th>
-                                    <th> Amount</th>
-                                    <th> Start Date</th>
-                                    <th> Plan </th>
-                                    <th> End Date </th>
-                                    <th> Action </th>
+                                <th>{translaterFun("status")}</th>
+                                <th>{translaterFun("amount")}</th>
+
+                                <th>{translaterFun("start-date")}</th>
+
+                                <th>{translaterFun("plan")}</th>
+
+                                <th>{translaterFun("end-date")}</th>
+
+                                <th>{translaterFun("action")}</th>
+
+
+                                     
                                 </tr>
 
                                 {PaymentSelectorData?.PaymentHistoryReducerData?.data?.map((item, id) => {
@@ -137,28 +133,14 @@ console.log("PaymentSelectorData :", PaymentSelectorData)
                                         <td><span className='dot dotgreen'></span> {item?.status ? "Current Plan" : "Cancelled Plan"}</td>
                                         <td>{item?.currency.toUpperCase()} {item?.amount}</td>
                                         <td>{item?.start_date}</td>
-                                        <td>{item?.product_name} Plan</td>
+                                        <td>{item?.product_name} {translaterFun("plan")}</td>
                                         <td>{item?.end_date}</td>
 
                                         <td> <button type='button' className='btn1'
                                             onClick={(e) => unsubscribePaymentFunc(e, item)}
-                                        > Cancel</button> </td>
+                                        > {translaterFun("cancel")}</button> </td>
                                     </tr>
-                                })}
-
-
-
-                                {/* <tr>
-                                    <td><span className='dot dotgreen'></span>Current Plan</td>
-                                    <td>$90</td>
-                                    <td>24/10/23</td>
-                                    <td>Basic Plan</td>
-                                    <td>24/11/23</td>
-                                    <td>Payment via Paypal</td>
-                                    <td> <button type='button' className='btn1'>cancel</button> </td>
-                                </tr> */}
-
-
+                                })} 
 
                             </table>
                         </div>
