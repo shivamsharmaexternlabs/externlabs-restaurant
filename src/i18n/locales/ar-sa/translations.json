@@ -1,4 +1,5 @@
 {
+    "items" : "أغراض",
     "menu-categories" : "فئات القائمة",
     "edit" : "يحرر",
     "delete" : "يمسح",
@@ -42,5 +43,11 @@
     "please-enter-calories" : "الرجاء إدخال السعرات الحرارية",
     "please-select-category" : "الرجاء تحديد الفئة .....",
     "type-here" : "أكتب هنا",
-    "add-category" : "إضافة فئة"
+    "add-category" : "إضافة فئة",
+    "please-enter-item-type" : "الرجاء إدخال نوع العنصر",
+
+
+    "explore-our-pricing-plans":"استكشف خطط التسعير لدينا",
+    "per":"لكل",
+    "get-started" : "البدء"
 }

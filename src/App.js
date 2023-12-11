@@ -114,8 +114,8 @@ console.log("dfghjk",Token)
         {/* <Route path="/forgotpassword" element={<ForgotPassword  translaterFun={t} />}></Route> */}
         <Route path="/user_auth/resetpassword/:id" element={<ResetPassword  translaterFun={t} />}></Route>
         <Route path="/:id/admin/dashboard" element={<Dashboard    translaterFun={t} />}></Route>  {/* convert in arabic  */}
-        <Route path="/:id/admin/categories" element={ <DndProvider backend={HTML5Backend}><Categories /></DndProvider>}></Route>  {/* convert in arabic  */}
-        <Route path="/:id/admin/categories/reorder/" element={ <DndProvider backend={HTML5Backend}><DndCategories /></DndProvider>}></Route>  {/* convert in arabic  */}
+        <Route path="/:id/admin/categories" element={ <DndProvider backend={HTML5Backend}><Categories  translaterFun={t}/></DndProvider>}></Route>  {/* convert in arabic  */}
+        <Route path="/:id/admin/categories/reorder/" element={ <DndProvider backend={HTML5Backend}><DndCategories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
         <Route path="/:id/admin/manager" element={<Manager  translaterFun={t} />}></Route> {/* convert in arabic  */}
         <Route path="/:id/menu" element={<Menu  translaterFun={t} />}></Route>
         <Route path="/:id/admin/allmedia" element={<AllMedia  translaterFun={t} />}></Route>{/* convert in arabic  */}

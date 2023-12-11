@@ -331,7 +331,7 @@ const Dashboard = ({translaterFun}) => {
 
                 <div className='managerstablepart'>
                   <div className='title'>
-                    <h2>Managers</h2>
+                    <h2>{translaterFun("managers")}</h2>
                     <button type='button' onClick={(e) => navigate(`/${RestaurantIdLocalData}/admin/manager`)}> 
                     {translaterFun("view-all")} <img src={arrow2} alt='img' /> </button>
                   </div>

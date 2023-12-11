@@ -51,7 +51,7 @@ import DndCategories from "../DndCategories/DndCategories";
 import { currencyData } from "./currencyData"
 import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
 
-const Categories = () => {
+const Categories = ({ translaterFun }) => {
   const dispatch = useDispatch();
   const [popUpHook, popUpHookFun] = usePopUpHook("");
   const [popUpEditHook, popUpEditHookFun] = usePopUpHook("");
@@ -316,14 +316,16 @@ const Categories = () => {
     currency: "INR",
     calories_unit: "",
   };
+
   const Validatemenu = yup.object({
-    item_name: yup.string().required("Please Enter Item Name"),
-    item_price: yup.string().required("Please Enter Price"),
-    calories: yup.string().matches(/^[0-9]+$/, 'Calories must contain only digits').required("Please Enter Calories"),
-    menu_id: yup.string().required("Please Enter Menu"),
-    item_type: yup.string().required("Please Enter Item Type"),
-    currency: yup.string().required("Please Enter Currency"),
+    item_name: yup.string().required(translaterFun("please-enter-item-name")),
+    item_price: yup.string().required(translaterFun("please-enter-price")),
+    calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-calories")),
+    menu_id: yup.string().required(translaterFun("please-enter-item-name")),
+    item_type: yup.string().required(translaterFun("please-enter-item-type")),
+    currency: yup.string().required(translaterFun("please-enter-currency")),
   });
+
   const handleMenuSubmit = async (values) => {
     await dispatch(LoadingSpinner(true));
 
@@ -395,7 +397,7 @@ const Categories = () => {
 
 
   const ValidateCategory = yup.object({
-    category: yup.string().required("Please Create Category"),
+    category: yup.string().required(translaterFun("please-create-category")),
   });
 
 
@@ -466,13 +468,13 @@ const Categories = () => {
   };
 
   const Validateditemenu = yup.object({
-    item_name: yup.string().required("Please Enter Item"),
-    item_price: yup.string().required("Please Enter Price"),
-    calories: yup.string().matches(/^[0-9]+$/, 'Calories must contain only digits').required("Please Enter Calories"),
-    menu_id: yup.string().required("Please Enter Menu"),
-    item_type: yup.string().required("Please Enter Item"),
-    currency: yup.string().required("Please Enter Currency"),
-    description: yup.string().required("Please Enter Description"),
+    item_name: yup.string().required(translaterFun("please-enter-item-name")),
+    item_price: yup.string().required(translaterFun("please-enter-price")),
+    calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-menu")),
+    menu_id: yup.string().required(translaterFun("please-enter-menu")),
+    item_type: yup.string().required(translaterFun("please-enter-item-type")),
+    currency: yup.string().required(translaterFun("please-enter-currency")),
+    description: yup.string().required(translaterFun("please-enter-description")),
   });
 
   const handleEditMenuSubmit = async (values) => {
@@ -538,7 +540,7 @@ const Categories = () => {
   };
 
   const ValidateEditCategory = yup.object({
-    category: yup.string().required("Please Create Category"),
+    category: yup.string().required(translaterFun("please-create-category")),
   });
 
   const defaultValueEditCategory = {
@@ -894,7 +896,8 @@ const Categories = () => {
           <div className="contentpart categorypage">
             <div className="title">
               <h2>
-                Menu Categories
+              {translaterFun("menu-categories")} 
+
                 {/* <img src={order}  className="sort-order"   onClick={(e) => setReorderCategory(true)}/> */}
               </h2>
               <div className="btnbox">
@@ -910,7 +913,7 @@ const Categories = () => {
                     >
                       <path d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z" />
                     </svg>{" "}
-                    Upload Menu{" "}
+                    {translaterFun("upload-menu")}{" "}
                   </button>
                   <input
                     type="file"
@@ -934,7 +937,7 @@ const Categories = () => {
                   >
                     <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
                   </svg>
-                  Add Menu
+                  {translaterFun("add-menu")}
                 </button>
                 <button
                   type="button"
@@ -951,7 +954,7 @@ const Categories = () => {
                   >
                     <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
                   </svg>
-                  Add Categories
+                  {translaterFun("add-categories")}
                 </button>
 
                 <button
@@ -959,7 +962,7 @@ const Categories = () => {
                   className="categorybtn btn2"
                   onClick={(e) => QrCodeSampleDownloadFun()}
                 >
-                  Download Sample
+                {translaterFun("download-sample")}
                 </button>
 
                 {/* <div className="btn1 uploadbtn-wrapper">
@@ -987,7 +990,7 @@ const Categories = () => {
                     <button onClick={(e) => reorderSubmit(e)}
                       type="button">
                       <img src={order} className="sort-order" />
-                      <span className="reorder-head"> Reorder</span>
+                      <span className="reorder-head"> {translaterFun("reorder")}</span>
                     </button>
                   </div>
                   <nav>
@@ -1030,12 +1033,11 @@ const Categories = () => {
                                         PopUpEditCategoriesToggleFun(e, item)
                                       }
                                     >
-                                      <img src={edit1} alt="img" />{" "} Edit
+                                      <img src={edit1} alt="img" />{" "} {translaterFun("edit")}
                                     </button>
 
-                                    <button className="deletbtn"
-                                      onClick={(e) => DeleteCategoryfun(e, item)}>
-                                      <img src={deleteicon} alt="delete icon " /> Delete
+                                    <button className="deletbtn" onClick={(e) => DeleteCategoryfun(e, item)}>
+                                      <img src={deleteicon} alt="delete icon " /> {translaterFun("delete")}
                                     </button>
 
                                   </div>}
@@ -1097,12 +1099,12 @@ const Categories = () => {
                                           PopUpEditCategoriesToggleFun(e, item)
                                         }
                                       >
-                                        <img src={edit1} alt="img" />{" "} Edit
+                                        <img src={edit1} alt="img" />{" "} {translaterFun("edit")}
                                       </button>
 
                                       <button className="deletbtn"
                                         onClick={(e) => DeleteCategoryfun(e, item)}>
-                                        <img src={deleteicon} alt="delete icon " /> Delete
+                                        <img src={deleteicon} alt="delete icon " /> {translaterFun("delete")}
                                       </button>
 
                                     </div>}
@@ -1230,14 +1232,14 @@ const Categories = () => {
                           Sort categories
                         </button> */}
                       <div className="item-head"> 
-                        <h2>Items</h2>
+                        <h2>{translaterFun("items")}</h2>
 
 
                         <div className="reorder-icon-div" onClick={(e) => setDraggableSubcategory(o => !o)}>
                           {!SaveActiveBtn &&
                             <>
                               <img src={order} className="sort-order" />
-                              <span className="reorder-head"> Reorder</span>
+                              <span className="reorder-head"> {translaterFun("reorder")}</span>
 
                             </>}
                           {SaveActiveBtn && <button
@@ -1245,7 +1247,7 @@ const Categories = () => {
                             className="btn1"
                             onClick={handleDndUpdate}
                           >
-                            Save
+                            {translaterFun("save")}
                           </button>}
                         </div>
 
@@ -1319,7 +1321,7 @@ const Categories = () => {
                                             }
                                             className="editbtn">
                                             {" "}
-                                            <img src={edit1} alt="img" />{" "} Edit
+                                            <img src={edit1} alt="img" />{" "} {translaterFun("edit")}
                                           </button>
 
                                           <button className="deletbtn"
@@ -1331,7 +1333,7 @@ const Categories = () => {
                                               src={deleteicon}
                                               alt="delete icon "
                                             // className="editactive "
-                                            /> Delete
+                                            /> {translaterFun("delete")}
                                           </button>
                                         </div>}
 
@@ -1346,7 +1348,7 @@ const Categories = () => {
                                     <div className="leftpart">                                    
                                       <p>
                                         {items?.description?.length > 45 ? items?.description.slice(0, 45) + "..." : items?.description}
-                                        <span>{items?.description?.length > 45 ? <b>More <div className=''>{items?.description} </div> </b> : ""}  </span>
+                                        <span>{items?.description?.length > 45 ? <b>{translaterFun("more")} <div className=''>{items?.description} </div> </b> : ""}  </span>
                                       </p>
                                       <span className="price">{`${items?.currency} ${items?.item_price}`}</span>
                                     </div>
@@ -1446,7 +1448,7 @@ const Categories = () => {
               </div>
               <div className="rightpart">
                 <div className="bestsellerpart">
-                  <h2>Bestseller</h2>
+                  <h2>{translaterFun("bestseller")}</h2>
                   <ul>
                     {/* FAVORITE DISHES MANAGEMENT */}
                     {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map(
@@ -1489,7 +1491,7 @@ const Categories = () => {
         >
           {/* children part start */}
           <div className="popuptitle">
-            <h2>Add Menu Item</h2>
+            <h2>{translaterFun("add-menu-item")}</h2>
           </div>
           <div className="popupbody">
             <Formik
@@ -1500,13 +1502,13 @@ const Categories = () => {
               <Form className="row">
                 <div className="col-12 mb-3">
                   <div className="formbox ">
-                    <label>Name </label>
+                    <label>{translaterFun("name")} </label>
                     <Field
                       name="item_name"
                       type="text"
                       className={`form-control `}
                       autoComplete="off"
-                      placeholder="Enter your Item Name"
+                      placeholder={translaterFun("enter-your-item-name")}
                     />
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="item_name" />
@@ -1515,14 +1517,14 @@ const Categories = () => {
                 </div>
                 <div className="col-md-4 mb-3">
                   <div className="formbox ">
-                    <label>Item Price </label>
+                    <label>{translaterFun("item-price")}  </label>
                     <div className="sarbox d-flex">
                       <Field
                         name="item_price"
                         type="number"
                         className={`form-control `}
                         autoComplete="off"
-                        placeholder="Enter the amount"
+                        placeholder={translaterFun("enter-the-amount")}
                       />
                       <Field
                         as="select"
@@ -1546,7 +1548,7 @@ const Categories = () => {
 
                 <div className="col-md-8 mb-3">
                   <div className="formbox ">
-                    <label>Calories </label>
+                    <label>{translaterFun("calories")} </label>
                     <div className="caloriesbox">
                       <Field
                         name="calories"
@@ -1564,14 +1566,14 @@ const Categories = () => {
 
                 <div className="col-12 mb-3">
                   <div className="formbox">
-                    <label>Category </label>
+                    <label>{translaterFun("category")} </label>
                     <Field
                       as="select"
                       name="menu_id"
                       className={`form-control `}
                     >
                       <option value="select">
-                        Please Select Category.....
+                      {translaterFun("please-select-category")}
                       </option>
                       {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
                         (item, id) => {
@@ -1582,17 +1584,9 @@ const Categories = () => {
                           );
                         }
                       )}
-                      {/* <option value="red">Red</option>
-                      <option value="green">Green</option>
-                      <option value="blue">Blue</option> */}
+                      
                     </Field>
-                    {/* <label>Category </label>
-                    <select className={`form-control `}>
-                      <option> Item Type 1 </option>
-                      <option> Item Type 2 </option>
-                      <option> Item Type 3 </option>
-                      <option> Item Type 4 </option>
-                    </select> */}
+                    
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="menu_id" />
                     </p>
@@ -1600,14 +1594,14 @@ const Categories = () => {
                 </div>
                 <div className="col-12 mb-3">
                   <div className="formbox">
-                    <label>Item Type </label>
+                    <label>{translaterFun("item-type")} </label>
                     <Field
                       as="select"
                       name="item_type"
-                      className={`form-control `}
+                      className={`form-control`}
                     >
                       <option value="select">
-                        Please Select Item Type .....
+                        {translaterFun("please-select-item-type")}
                       </option>
                       <option value="VEG">Veg</option>
                       <option value="NON_VEG">Non Veg</option>
@@ -1620,11 +1614,11 @@ const Categories = () => {
 
                 <div className="col-md-12 mb-3">
                   <div className="formbox ">
-                    <label>Description (Optional) </label>
+                    <label>{translaterFun("description")} </label>
                     <textarea
                       className={`form-control `}
                       autoComplete="off"
-                      placeholder="Type Here"
+                      placeholder={translaterFun("type-here")}
                       value={Description}
                       onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
@@ -1636,7 +1630,7 @@ const Categories = () => {
 
                 <div className="col-md-12 mb-3">
                   <div className="formbox ">
-                    <label className="d-block">Upload Image (Optional) </label>
+                    <label className="d-block">{translaterFun("upload-image")} </label>
                     <div className=" uploadwrapper ">
                       <button type="button">
                         {" "}
@@ -1652,7 +1646,7 @@ const Categories = () => {
                             fill="#8D8D8D"
                           />
                         </svg>{" "}
-                        Upload{" "}
+                        {translaterFun("upload")}{" "}
                       </button>
                       <input
                         type="file"
@@ -1673,11 +1667,11 @@ const Categories = () => {
                     onClick={(e) => CancelBtnFun(e)}
                   >
                     {" "}
-                    Cancel{" "}
+                    {translaterFun("cancel")}{" "}
                   </button>
                   <button type="submit" className="btn2 submit mx-3">
                     {" "}
-                    Submit{" "}
+                    {translaterFun("submit")}{" "}
                   </button>
                 </div>
               </Form>
@@ -1700,10 +1694,10 @@ const Categories = () => {
           <div className='popupinner'>
             <div className='popupbody'>
               <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
-              <h2>Do you want to Delete this Category?</h2>
+              <h2>{translaterFun("delete-category-confirmation-message")}</h2>
               <div className='text-center'>
-                <button type="button" onClick={(e) => deletePopUpFun(false)}>Cancel </button>
-                <button type="button" className='ms-4' onClick={(e) => confirmDelete(e, CategoryId)}>Yes, I’m Sure</button>
+                <button type="button" onClick={(e) => deletePopUpFun(false)}>{translaterFun("cancel")} </button>
+                <button type="button" className='ms-4' onClick={(e) => confirmDelete(e, CategoryId)}>{translaterFun("confirm-delete-button")}</button>
               </div>
             </div>
           </div>
@@ -1727,10 +1721,10 @@ const Categories = () => {
           <div className='popupinner'>
             <div className='popupbody'>
               <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
-              <h2>Do you want to Delete this Menu Item?</h2>
+              <h2>{translaterFun("delete-menu-item-confirmation-message")}</h2>
               <div className='text-center'>
-                <button type="button" onClick={(e) => deleteCategoryPopupFun(false)}>Cancel </button>
-                <button type="button" className='ms-4' onClick={(e) => ConfirmDeleteItemFun(e, MenuItemId)}>Yes, I’m Sure</button>
+                <button type="button" onClick={(e) => deleteCategoryPopupFun(false)}>{translaterFun("cancel")} </button>
+                <button type="button" className='ms-4' onClick={(e) => ConfirmDeleteItemFun(e, MenuItemId)}>{translaterFun("confirm-delete-button")}</button>
               </div>
             </div>
           </div>
@@ -1748,7 +1742,7 @@ const Categories = () => {
           {/* children part start */}
 
           <div className="popuptitle mb-5">
-            <h2>Add Category </h2>
+            <h2>{translaterFun("add-category")} </h2>
           </div>
           <div className="popupbody">
             <Formik
@@ -1759,13 +1753,13 @@ const Categories = () => {
               <Form className="row">
                 <img src={category} alt="manager img" class="categoryimg" />
                 <div className="formbox mb-3">
-                  <label>Category Name </label>
+                  <label> {translaterFun("category-name")}</label>
                   <Field
                     name="category"
                     type="text"
                     className={`form-control `}
                     autoComplete="off"
-                    placeholder="Enter your Name"
+                    placeholder={translaterFun("enter-your-name")}
                   />
                   <p className="text-danger small mb-0">
                     <ErrorMessage name="category" />
@@ -1774,7 +1768,7 @@ const Categories = () => {
 
                 <div className="col-md-12 mb-3">
                   <div className="formbox ">
-                    <label className="d-block">Upload Image (Optional) </label>
+                    <label className="d-block">{translaterFun("upload-image")} </label>
                     <div className=" uploadwrapper ">
                       <button type="button">
                         {" "}
@@ -1790,7 +1784,7 @@ const Categories = () => {
                             fill="#8D8D8D"
                           />
                         </svg>{" "}
-                        Upload{" "}
+                        {translaterFun("upload")}{" "}
                       </button>
                       <input
                         type="file"
@@ -1810,11 +1804,11 @@ const Categories = () => {
                     className="btn3"
                     onClick={(e) => CancelCategoryBtnFun(e)}
                   >
-                    Cancel
+                    {translaterFun("cancel")}
                   </button>
                   <button type="submit" className="submit btn2 mx-3">
                     {" "}
-                    Submit{" "}
+                    {translaterFun("submit")}{" "}
                   </button>
                 </div>
               </Form>
@@ -1833,7 +1827,7 @@ const Categories = () => {
           {/* children part start */}
 
           <div className="popuptitle">
-            <h2>Add Menu Items </h2>
+            <h2>{translaterFun("add-menu-item")} </h2>
           </div>
           <div className="popupbody">
             <Formik
@@ -1949,11 +1943,11 @@ const Categories = () => {
                     onClick={(e) => CancelCategoryBtnFun(e)}
                   >
                     {" "}
-                    Cancel{" "}
+                    {translaterFun("cancel")} {" "}
                   </button>
                   <button type="submit" className="submit mx-3">
                     {" "}
-                    Submit{" "}
+                    {translaterFun("submit")}{" "}
                   </button>
                 </div>
               </Form>
@@ -1971,7 +1965,7 @@ const Categories = () => {
         >
           {/* children part start */}
           <div className="popuptitle">
-            <h2>Edit Menu Item</h2>
+            <h2>{translaterFun("edit-menu-item")}</h2>
           </div>
           <div className="popupbody">
             <Formik
@@ -1988,7 +1982,7 @@ const Categories = () => {
                       type="text"
                       className={`form-control `}
                       autoComplete="off"
-                      placeholder="Enter your Item Name"
+                      placeholder={translaterFun("enter-your-item-name")}
                     />
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="item_name" />
@@ -1997,7 +1991,7 @@ const Categories = () => {
                 </div>
                 <div className="col-md-4 mb-3">
                   <div className="formbox ">
-                    <label>Item Price </label>
+                    <label>{translaterFun("item-price")} </label>
                     <div className="sarbox d-flex">
                       <Field
                         name="item_price"
@@ -2079,14 +2073,14 @@ const Categories = () => {
                 </div>
                 <div className="col-12 mb-3">
                   <div className="formbox">
-                    <label>Item Type </label>
+                    <label>{translaterFun("item-type")} </label>
                     <Field
                       as="select"
                       name="item_type"
                       className={`form-control `}
                     >
                       <option value="select">
-                        Please Select Item Type .....
+                        {translaterFun("please-select-item-type")}
                       </option>
                       <option value="VEG">Veg</option>
                       <option value="NON_VEG">Non Veg</option>
@@ -2098,13 +2092,13 @@ const Categories = () => {
                 </div>
                 <div className="col-md-12 mb-3">
                   <div className="formbox ">
-                    <label>Description (Optional) </label>
+                    <label>{translaterFun("description")} </label>
                     <Field
                       name="description"
                       type="text"
                       className={`form-control `}
                       autoComplete="off"
-                      placeholder="Enter your Description"
+                      placeholder={translaterFun("please-enter-description")}
                     />
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="description" />
@@ -2124,7 +2118,7 @@ const Categories = () => {
 
                 <div className="col-md-12 mb-3">
                   <div className="formbox ">
-                    <label className="d-block">Upload Image (Optional) </label>
+                    <label className="d-block">{translaterFun("upload-image")} </label>
                     <div className=" uploadwrapper ">
                       <button type="button">
                         {" "}
@@ -2140,7 +2134,7 @@ const Categories = () => {
                             fill="#8D8D8D"
                           />
                         </svg>{" "}
-                        Upload{" "}
+                        {translaterFun("upload")}{" "}
                       </button>
                       <input
                         type="file"
@@ -2161,11 +2155,11 @@ const Categories = () => {
                     onClick={(e) => CancelEditBtnFun(e)}
                   >
                     {" "}
-                    Cancel{" "}
+                    {translaterFun("cancel")}{" "}
                   </button>
                   <button type="submit" className="btn2 submit mx-3">
                     {" "}
-                    Submit{" "}
+                    {translaterFun("submit")}{" "}
                   </button>
                 </div>
               </Form>
@@ -2184,7 +2178,7 @@ const Categories = () => {
           {/* children part start */}
 
           <div className="popuptitle mb-5">
-            <h2>Edit Category </h2>
+            <h2>{translaterFun("edit-category")}</h2>
           </div>
           <div className="popupbody">
             <Formik
@@ -2195,13 +2189,13 @@ const Categories = () => {
               <Form className="row">
                 <img src={category} alt="manager img" class="categoryimg" />
                 <div className="formbox mb-3">
-                  <label>Category Name </label>
+                  <label>{translaterFun("category-name")} </label>
                   <Field
                     name="category"
                     type="text"
                     className={`form-control `}
                     autoComplete="off"
-                    placeholder="Enter your Name"
+                    placeholder={translaterFun("enter-your-name")}
                   />
                   <p className="text-danger small mb-0">
                     <ErrorMessage name="category" />
@@ -2210,7 +2204,7 @@ const Categories = () => {
 
                 <div className="col-md-12 mb-3">
                   <div className="formbox ">
-                    <label className="d-block">Upload Image (Optional) </label>
+                    <label className="d-block">{translaterFun("upload-image")} </label>
                     <div className=" uploadwrapper ">
                       <button type="button">
                         {" "}
@@ -2226,7 +2220,7 @@ const Categories = () => {
                             fill="#8D8D8D"
                           />
                         </svg>{" "}
-                        Upload{" "}
+                        {translaterFun("upload")}{" "}
                       </button>
                       <input
                         type="file"
@@ -2246,11 +2240,11 @@ const Categories = () => {
                     className="btn3"
                     onClick={(e) => CancelCategoryEditBtnFun(e)}
                   >
-                    Cancel
+                    {translaterFun("cancel")}
                   </button>
                   <button type="submit" className="submit btn2 mx-3">
                     {" "}
-                    Submit{" "}
+                    {translaterFun("submit")}{" "}
                   </button>
                 </div>
               </Form>
