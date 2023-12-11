@@ -10,7 +10,7 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 
 
-const PaymentHistory = () => {
+const PaymentHistory = ({t}) => {
 
     const [subscriptionDetails, setSubscriptionDetails] = useState('')
     const [PaymentHistoryDetails, setPaymentHistoryDetails] = useState([])
@@ -90,7 +90,7 @@ console.log("PaymentSelectorData :", PaymentSelectorData)
                     <DashboardSidebar />
                     <div className='contentpart paymenthispage'>
                         <div className='title'>
-                            <h2> Payment History </h2>
+                            <h2>{t("payment-history")} </h2>
                         </div>
 
                         <ul className='paylist'>

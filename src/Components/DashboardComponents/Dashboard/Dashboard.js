@@ -27,15 +27,12 @@ import {useTranslation} from "react-i18next"
 
 
 
-const Dashboard = () => {
+const Dashboard = ({t, i18n } ) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState({ results: [] });
   const [QrImage, setQrImage] = useState("")
-  const [LoadSpiner, setLoadSpiner] = useState(false)
-  const {t, i18n } = useTranslation()
-  // for top dishes
-  // const [ActiveFavoriteCategory, setActiveFavoriteCategory] = useState({});
+  const [LoadSpiner, setLoadSpiner] = useState(false) 
 
   const [ActiveCategory, setActiveCategory] = useState({});
   const [WellWishes, setWellWishes] = useState("")
@@ -136,9 +133,6 @@ const Dashboard = () => {
 
 
 
-
-
-
   return (
     <>
       <DashboardLayout  >
@@ -154,7 +148,9 @@ const Dashboard = () => {
               <div className='leftpart'>
                 <div className='topdishespart'>
                   <div className='title'>
-                    <h2> Menu Items </h2> <button type='button' onClick={() => { navigate(`/${RestaurantIdLocalData}/admin/categories`) }}> View All <img src={arrow2} alt='img' /> </button>
+                    <h2>{t("menu-items")}
+                     {/* Menu Items */}
+                      </h2> <button type='button' onClick={() => { navigate(`/${RestaurantIdLocalData}/admin/categories`) }}> View All <img src={arrow2} alt='img' /> </button>
                   </div>
 
                   <div className='topdishestabpart'>

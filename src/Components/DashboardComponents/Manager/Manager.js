@@ -20,7 +20,7 @@ import { ManagerSlice, ManagerDeleteSlice } from '../../../Redux/slices/managerS
 import ReactPaginate from 'react-paginate';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 
-const Manager = () => {
+const Manager = ({ t }) => {
     const itemsPerPage = 5;
     const [loadspiner, setLoadSpiner] = useState(false);
     const [data, setData] = useState({ results: [] })
@@ -164,7 +164,7 @@ const Manager = () => {
         setUserId(item.user_id)
         deletePopUpFun(true)
     }
-    const confirmDelete = async(e, item) => {
+    const confirmDelete = async (e, item) => {
         await dispatch(LoadingSpinner(true));
 
         try {
@@ -212,17 +212,20 @@ const Manager = () => {
                     <DashboardSidebar />
                     <div className='contentpart managerpage'>
                         <div className='managertitle'>
-                            <h2>Managers</h2>
-                            <button type='button' className='mangerbtn' onClick={(e) => PopUpToggleFun()}> <img src={plus} alt='plusimg' /> Add Manager</button>
+                            <h2>
+                                {t("managers")}
+                            </h2>
+                            <button type='button' className='mangerbtn' onClick={(e) => PopUpToggleFun()}> <img src={plus} alt='plusimg' />                                  {t("add-manager")}
+                            </button>
                         </div>
                         <div className='managertable'>
                             <table>
-                                <tr>
+                                <tr> 
                                     <th></th>
-                                    <th>User Name </th>
-                                    <th>Email</th>
-                                    <th>Mobile No.</th>
-                                    <th>Action</th>
+                                    <th>{t("user-name")}</th>
+                                    <th>{t("email")}</th>
+                                    <th>{t("mobile-no")}</th> 
+                                    <th>{t("action")}</th>
                                 </tr>
 
 
@@ -234,103 +237,20 @@ const Manager = () => {
                                         <td>{items?.email}</td>
                                         <td>{items?.phone_number}</td>
                                         <td>
-                                            <button className='asbtn' onClick={(e) => handleDelete(e, items)}> Delete </button>
+                                            <button className='asbtn' onClick={(e) => handleDelete(e, items)}> 
+                                            {t("delete")} </button>
                                         </td>
                                     </tr>
                                 })}
 
-
-
-
-
-                                {/* <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td> <img src={user} alt='img' /> </td>
-                                    <td>Landon Kirby</td>
-                                    <td>Landonkirby@gmail.com</td>
-                                    <td>+97 2265 58694</td>
-                                    <td>Lorem ipsum dolor sit amet consetur dign....</td>
-                                    <td>
-                                        <button className='asbtn'> Transfer </button>
-                                        <button className='asbtn'> Delete </button>
-                                    </td>
-                                </tr> */}
-
                             </table>
                             <ReactPaginate
-                                previousLabel={"Previous"}
-                                nextLabel={"Next"}
+                                // previousLabel={"Previous"}
+                                previousLabel= {t("previous")}
+
+                                // nextLabel={"Next"}
+
+                                nextLabel= {t("next")}
                                 pageCount={Math.ceil(data?.count / itemsPerPage)}
                                 onPageChange={handlePageClick}
                                 forcePage={CurrentPage}
@@ -354,82 +274,7 @@ const Manager = () => {
 
 
 
-                {/* <div className='popup addmanagerpopup d-none'>
-                    <div className='popupinner'>
-                        <div className='popuptitle'>
-                            <h2> Add New Manager  </h2>
-                        </div>
-                        <div className='popupbody'>
-                            <Formik>
-                                <Form>
-                                    <img src={manager} alt='manager img' className='managerimg' />
-                                    <div className="formbox mb-3">
-                                        <label>Name </label>
-                                        <Field
-                                            name="text"
-                                            type="text"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder="Enter your Name"
-                                        />
-                                        
-                                        <p className="text-danger small">
-                                            <ErrorMessage name="email" />
-                                        </p>
-                                    </div>
-                                    <div className="formbox mb-3">
-                                        <label>Email </label>
-                                        <Field
-                                            name="email"
-                                            type="email"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder="Email"
-                                        />
-                                         <p className="text-danger">
-                                            <ErrorMessage name="email" />
-                                        </p>
-                                    </div>
-
-                                    <div className="formbox mb-3">
-                                        <label>Mobile Number </label>
-                                        <Field
-
-                                            type="number"
-                                            className={`form-control `}
-                                            autoComplete="off"
-                                            placeholder="Enter your mobile number"
-                                        />
-                                         <p className="text-danger">
-                                            <ErrorMessage name="email" />
-                                        </p>
-                                    </div>
-
-                                    <div className="formbox">
-                                        <label>Assign to Restaurant (optional) </label>
-                                        <select className={`form-control `}>
-                                            <option>  Assign to Restaurant (optional) </option>
-                                            <option>  Assign to Restaurant (optional) </option>
-                                            <option>  Assign to Restaurant (optional) </option>
-                                            <option>  Assign to Restaurant (optional) </option>
-                                        </select>
-
-                                        <p className="text-danger">
-                                            <ErrorMessage name="email" />
-                                        </p>
-                                    </div>
-
-                                    <div className='text-end mt-5'>
-                                        <button type="submit" className="btn2"> Cancel </button>
-                                        <button type="submit" className="btn2 mx-3"> Submit </button>
-                                    </div>
-
-                                </Form>
-                            </Formik>
-                        </div>
-                    </div>
-                </div> */}
-
+              
 
                 {popUpHook &&
                     <PopUpComponent
@@ -440,7 +285,10 @@ const Manager = () => {
                         {/* children part start */}
 
                         <div className='popuptitle'>
-                            <h2> Add New Manager  </h2>
+                            <h2>
+                                
+                            {t("add-new-manager")}                                  
+                                  </h2>
                         </div>
                         <div className='popupbody'>
 
@@ -453,13 +301,14 @@ const Manager = () => {
                                 <Form>
                                     <img src={manager} alt='manager img' className='managerimg' />
                                     <div className="formbox mb-3">
-                                        <label> Name </label>
+                                        <label>
+                                        {t("name")}  </label>
                                         <Field
                                             name="first_name"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Enter your Name"
+                                            placeholder={t("enter-your-name")} 
                                         />
                                         <p className="text-danger small">
                                             <ErrorMessage name="first_name" />
@@ -481,13 +330,14 @@ const Manager = () => {
                                     </div> */}
 
                                     <div className="formbox mb-3">
-                                        <label>Email </label>
+                                        <label>{t("email")} </label>
                                         <Field
                                             name="email"
                                             type="email"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Email"
+                                            placeholder={t("email")} 
+
                                         />
                                         <p className="text-danger">
                                             <ErrorMessage name="email" />
@@ -510,7 +360,7 @@ const Manager = () => {
 
 
                                     <div className="formbox mb-3">
-                                        <label> Phone Number </label>
+                                        <label>{t("phone-number")} </label>
                                         <PhoneInput
                                             country={"in"}
                                             // value={phonenumber}
@@ -521,7 +371,7 @@ const Manager = () => {
 
 
                                     <div className="formbox mb-3">
-                                        <label>Password </label>
+                                        <label>{t("password")} </label>
                                         <Field
                                             name="password"
                                             type="text"
@@ -535,7 +385,7 @@ const Manager = () => {
                                     </div>
 
                                     <div className="formbox mb-3">
-                                        <label>Confirm Password </label>
+                                        <label>{t("confirm-password")} </label>
                                         <Field
                                             name="confirm_password"
                                             type="text"
@@ -549,8 +399,9 @@ const Manager = () => {
                                     </div>
 
                                     <div className='text-end mt-5 submitbtnbox'>
-                                        <button type="btn" className="cancelbtn" onClick={(e) => CancelBtnFun(e)} > Cancel </button>
-                                        <button type="submit" className="submitbtn"> Submit </button>
+                                        <button type="btn" className="cancelbtn" onClick={(e) => CancelBtnFun(e)} >  {t("cancel")} 
+                                         </button>
+                                        <button type="submit" className="submitbtn"> {t("submit")} </button>
                                     </div>
                                 </Form>
                             </Formik>
