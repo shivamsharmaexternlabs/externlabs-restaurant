@@ -816,6 +816,28 @@
   }
   
 
+  .arabic .editinfobtn > .btnbox > button > img{
+    margin-right: 0;
+    margin-left: 5px;
+  }
+
+  .arabic .topdishestabpart .tab-content ul li > .title .editinfobtn > .btnbox {
+    right: auto;
+    left: 0;
+  }
+
+  .arabic .topdishestabpart .tab-content ul li > .title .editinfobtn > .btnbox {
+    left: -7px;
+    right: auto;
+  }
+
+  .arabic .topdishestabpart .tab-content ul li > .title .editinfobtn > .btnbox::after {
+      right: auto;
+      bottom: -17px;
+      left: 0px;
+      transform: rotate(-90deg);
+  }
+
 
 
 /**************************  scrollbar  ***************************************/

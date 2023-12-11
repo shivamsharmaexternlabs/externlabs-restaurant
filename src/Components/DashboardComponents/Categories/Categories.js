@@ -896,7 +896,7 @@ const Categories = ({ translaterFun }) => {
           <div className="contentpart categorypage">
             <div className="title">
               <h2>
-              {translaterFun("menu-categories")} 
+                {translaterFun("menu-categories")}
 
                 {/* <img src={order}  className="sort-order"   onClick={(e) => setReorderCategory(true)}/> */}
               </h2>
@@ -962,7 +962,7 @@ const Categories = ({ translaterFun }) => {
                   className="categorybtn btn2"
                   onClick={(e) => QrCodeSampleDownloadFun()}
                 >
-                {translaterFun("download-sample")}
+                  {translaterFun("download-sample")}
                 </button>
 
                 {/* <div className="btn1 uploadbtn-wrapper">
@@ -1231,7 +1231,7 @@ const Categories = ({ translaterFun }) => {
                         >
                           Sort categories
                         </button> */}
-                      <div className="item-head"> 
+                      <div className="item-head">
                         <h2>{translaterFun("items")}</h2>
 
 
@@ -1283,22 +1283,22 @@ const Categories = ({ translaterFun }) => {
                                   {<div className="title">
                                     {draggableSubcategory ?
                                       <div className="">
-                                      <h4>
-                                    <div className='indx-div'>
-                                      <span className='item-indx'>{ids + 1}</span>
-                                    </div>
-                                    {items?.item_name}{" "}
-                                    </h4>
-                                    </div> :
-                                    <div className="">
-                                      <h4>
-                                     
-                                        {items?.item_name}{" "}
+                                        <h4>
+                                          <div className='indx-div'>
+                                            <span className='item-indx'>{ids + 1}</span>
+                                          </div>
+                                          {items?.item_name}{" "}
+                                        </h4>
+                                      </div> :
+                                      <div className="">
+                                        <h4>
 
-                                      </h4>
-                                    </div>
+                                          {items?.item_name}{" "}
+
+                                        </h4>
+                                      </div>
                                     }
-                                  
+
                                     <div className="editinfostar">
                                       <button type="button" className="starbtn" onClick={(e) => FavoriteFun(e, items)} >
                                         <img src={items?.is_favorite === true ? starfill : star} alt="img" />
@@ -1343,9 +1343,9 @@ const Categories = ({ translaterFun }) => {
                                   </div>
                                   }
 
-                                    <h5 className='mt-1'> {items?.calories} {items?.calories_unit}</h5>
+                                  <h5 className='mt-1'> {items?.calories} {items?.calories_unit}</h5>
                                   <div className="tabinfo">
-                                    <div className="leftpart">                                    
+                                    <div className="leftpart">
                                       <p>
                                         {items?.description?.length > 45 ? items?.description.slice(0, 45) + "..." : items?.description}
                                         <span>{items?.description?.length > 45 ? <b>{translaterFun("more")} <div className=''>{items?.description} </div> </b> : ""}  </span>
@@ -1479,11 +1479,8 @@ const Categories = ({ translaterFun }) => {
                 </div>
               </div>
             </div>
-          </div>
-          {/* } */}
-        </div>
-      </DashboardLayout>
-      {popUpHook && (
+
+            {popUpHook && (
         <PopUpComponent
           classNameValue={"addmenupopup d-block"}
           PopUpToggleFun={PopUpToggleFun}
@@ -1573,7 +1570,7 @@ const Categories = ({ translaterFun }) => {
                       className={`form-control `}
                     >
                       <option value="select">
-                      {translaterFun("please-select-category")}
+                        {translaterFun("please-select-category")}
                       </option>
                       {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
                         (item, id) => {
@@ -1584,9 +1581,9 @@ const Categories = ({ translaterFun }) => {
                           );
                         }
                       )}
-                      
+
                     </Field>
-                    
+
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="menu_id" />
                     </p>
@@ -2254,6 +2251,13 @@ const Categories = ({ translaterFun }) => {
           {/* children part end */}
         </PopUpComponent>
       )}
+
+
+          </div>
+          {/* } */}
+        </div>
+      </DashboardLayout>
+     
       <LodingSpiner loadspiner={loadspiner} />
     </>
   );

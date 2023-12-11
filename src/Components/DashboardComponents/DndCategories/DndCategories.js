@@ -164,15 +164,15 @@ function DndCategories({translaterFun}) {
                 <div className="dasboardbody">
                     <DashboardSidebar />
 
-                    <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", backgroundColor: "FBF6F2", padding: "30px" }}>
+                    <div className='contentpart d&dcategorypage'>
                         <div className="recorded-cat-div">
                             <h1 className='recorded-cat-head'>{translaterFun("reorder-categories")}</h1>
-                            <div className='me-3 pe-2'>
+                            <div className=''>
                                 {SaveActiveBtn && <button
                                     type="button "
-                                    className="categorybtn btn2 me-3"
+                                    className="categorybtn btn2"
                                     onClick={handleDndUpdate}
-                                    style={{ width: "100px", height: "43px" }}
+                                    // style={{ width: "100px", height: "43px" }}
                                 >
                                     {translaterFun("save")}
                                 </button>}
@@ -182,7 +182,7 @@ function DndCategories({translaterFun}) {
                                     onClick={(e) => {
                                         navigate(`/${resId}/admin/categories/`);
                                     }}
-                                    style={{ width: "100px", height: "43px" }}
+                                    // style={{ width: "100px", height: "43px" }}
                                 >
                                     {translaterFun("back")}
                                 </button>

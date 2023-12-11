@@ -602,6 +602,19 @@ margin-right: 0;
   margin-left: 5px;
 }
 
+.arabic .btn2 svg {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+.arabic .addcategorypopup form .categoryimg {
+  right: auto;
+  left: 0;
+}
+
+.arabic  .categorypage .item-head {
+  margin-bottom: 10px;
+}
 
 
 

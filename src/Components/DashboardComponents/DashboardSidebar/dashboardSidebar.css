@@ -201,6 +201,17 @@
 }
 
 
+
+/**************** Arabic css ***********************/
+
+.arabic.fullsidebar .sidebar .navmenu li>a .text {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+
+/******************** Media css  **************************/
+
 @media (max-width:1199px) {
     .fullsidebar .sidebar {
         width: 240px;

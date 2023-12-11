@@ -97,7 +97,7 @@ const PaymentHistory = ({translaterFun}) => {
                             {PaymentHistoryDetails?.map((items, id) => {
                                 return <li key={id}>
                                     <div className='clear'>
-                                        <select className='float-end'>
+                                        <select >
                                             <option>{items?.recurring?.interval.charAt(0).toUpperCase() + items?.recurring?.interval.slice(1)} </option>
                                         </select>
                                     </div>

@@ -22,6 +22,9 @@ font-weight: normal;
     background: #F6F6F6;
     border-radius: 10px;
 }
+.paylist li select {
+    float: right;
+}
 
 .paylist li:hover {
     border: 2px solid #EA6A12;
@@ -145,7 +148,7 @@ font-weight: normal;
 
 
 .paymenttable table .btn1 {
-    padding: 3px 20px 7px;
+    padding: 5px 20px;
 }
 
 .paymenttable table th:first-child,
@@ -194,6 +197,19 @@ font-weight: normal;
 }
 
 
+
+/******************** Arabic css ***********************/
+.arabic .categorypage .dot {
+ margin-right: 0;
+ margin-left: 5px;
+}
+
+.arabic .paylist li select {
+    float: left;
+}
+
+
+/******************* Media css  ************************/
 
 @media(max-width:991px) {
     .paylist li h3 {

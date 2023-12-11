@@ -122,6 +122,12 @@ header .rightpart .user p {
     display: block;
 }
 
+
+.dropdownoptbox>button:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+
 .dropdownoptbox>button img {
     width: 18px;
     display: inline-block;
@@ -160,10 +166,6 @@ header .rightpart .user p {
     margin-right: 0px;
     margin-left: 5px;
     transform: rotate(-180deg);
-}
-
-.arabic .dropdownoptbox>button:not(:last-child) {
-    margin-bottom: 10px;
 }
 
 
