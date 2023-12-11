@@ -87,8 +87,6 @@
   "pincode": "Pincode",
   "state": "State",
   "country": "Country",
-  "description": "Description",
-  "type-here": "Type here",
   "create-lead": "Create Lead",
   "on-board-and-create-password": "OnBoard and Create Password",
   "restaurant-name-is-required": "Restaurant name is required",
@@ -147,7 +145,6 @@
   "please-select-category": "Please Select Category.....",
   "please-enter-item-type": "Please Enter Item Type",
   "please-enter-currency": "Please Enter Currency",
-  "type-here": "Type Here",
   "add-category": "Add Category",
 
   "explore-our-pricing-plans": "Explore Our Pricing Plans",

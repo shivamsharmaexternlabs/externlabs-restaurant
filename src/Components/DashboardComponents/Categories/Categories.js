@@ -1555,7 +1555,7 @@ const Categories = ({ translaterFun }) => {
                         type="text"
                         className={`form-control `}
                         autoComplete="off"
-                        placeholder="Type Here"
+                        placeholder={translaterFun("type-here")}
                       />
                     </div>
                     <p className="text-danger small mb-0">
@@ -1998,7 +1998,7 @@ const Categories = ({ translaterFun }) => {
                         type="number"
                         className={`form-control `}
                         autoComplete="off"
-                        placeholder="Enter the amount"
+                        placeholder={translaterFun("enter-the-amount")}
                       />
                       <Field
                         as="select"
@@ -2028,7 +2028,7 @@ const Categories = ({ translaterFun }) => {
                         type="text"
                         className={`form-control `}
                         autoComplete="off"
-                        placeholder="Type Here"
+                        placeholder={translaterFun("type-here")}
                       />
                     </div>
                     <p className="text-danger small mb-0">
@@ -2103,16 +2103,7 @@ const Categories = ({ translaterFun }) => {
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="description" />
                     </p>
-                    {/* <textarea
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="Type Here"
-                      value={EditDescription}
-                      onChange={(e) => setEditDescription(e.target.value)}
-                    ></textarea>
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="first_name" />
-                    </p> */}
+                    
                   </div>
                 </div>
 
