@@ -23,6 +23,7 @@ import { MenuSlice, favoriteMenuSlice } from '../../../Redux/slices/menuSlice'
 import { PaymentHistorySlice } from '../../../Redux/slices/paymentSlice';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
+import {useTranslation} from "react-i18next"
 
 
 
@@ -32,7 +33,7 @@ const Dashboard = () => {
   const [data, setData] = useState({ results: [] });
   const [QrImage, setQrImage] = useState("")
   const [LoadSpiner, setLoadSpiner] = useState(false)
-
+  const {t, i18n } = useTranslation()
   // for top dishes
   // const [ActiveFavoriteCategory, setActiveFavoriteCategory] = useState({});
 
@@ -126,7 +127,7 @@ const Dashboard = () => {
     if (time < 12) {
       setWellWishes("Good morning")
     } else if (time < 16) {
-      setWellWishes("Good afternoon")
+      setWellWishes(t("good-afternoon"))
     } else {
       setWellWishes("Good evening")
     }

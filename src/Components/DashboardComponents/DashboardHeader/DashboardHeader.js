@@ -9,6 +9,7 @@ import { ToggleNewLeads } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 
+import {useTranslation} from "react-i18next"
 
 const DashboardHeader = ({ popUpHookFun }) => {
 
@@ -16,7 +17,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch();
-
+  const { t, i18n } = useTranslation();
   let BearerToken = reactLocalStorage.get("Token", false);
 
   let UserTypeData = reactLocalStorage.get("Type", false);
@@ -59,20 +60,22 @@ const DashboardHeader = ({ popUpHookFun }) => {
             New Customer
           </button>}
 
-          <span className='notifyimg'> <img src={notify} alt='notify img' /> </span>
+          <span className='notifyimg'> <img src={notify} alt='notify img' onClick={() => {
+            i18n.changeLanguage("ar")
+          }}/> </span>
           <div className='user'  >
             <figure> <img src={user} alt='user img' />  </figure>
             <div className='userinfo'>
               <h3>{UserNameData}</h3>
               <p>{UserTypeData}</p>
             </div>
-            <div className='dropdownopt' onClick={(e)=>LogoutFun()}> 
+            <div className='dropdownopt' onClick={(e)=>LogoutFun()}>
               <span></span>
               {LogOutToggle && <div className='dropdownoptbox'>
-                 <button type='button' className='' onClick={(e) => handleLogout(e)}> 
-                  <img src={logout} alt='img' /> Logout 
-                </button>  
-              </div>} 
+                 <button type='button' className='' onClick={(e) => handleLogout(e)}>
+                  <img src={logout} alt='img' /> {t("logout")}
+                </button>
+              </div>}
             </div>
           </div>
         </div>
