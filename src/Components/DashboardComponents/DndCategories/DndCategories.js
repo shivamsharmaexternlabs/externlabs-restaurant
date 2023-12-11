@@ -12,7 +12,7 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 
-function DndCategories() {
+function DndCategories({translaterFun}) {
     const dispatch = useDispatch();
     const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
     const [draggedItem, setDraggedItem] = useState(null);
@@ -166,7 +166,7 @@ function DndCategories() {
 
                     <div style={{ width: "100%", height: "100vh", display: "flex", flexDirection: "column", backgroundColor: "FBF6F2", padding: "30px" }}>
                         <div className="recorded-cat-div">
-                            <h1 className='recorded-cat-head'>Reorder Categories</h1>
+                            <h1 className='recorded-cat-head'>{translaterFun("reorder-categories")}</h1>
                             <div className='me-3 pe-2'>
                                 {SaveActiveBtn && <button
                                     type="button "
@@ -174,7 +174,7 @@ function DndCategories() {
                                     onClick={handleDndUpdate}
                                     style={{ width: "100px", height: "43px" }}
                                 >
-                                    Save
+                                    {translaterFun("save")}
                                 </button>}
                                 <button
                                     type="button"
@@ -184,7 +184,7 @@ function DndCategories() {
                                     }}
                                     style={{ width: "100px", height: "43px" }}
                                 >
-                                    Back
+                                    {translaterFun("back")}
                                 </button>
                             </div>
                         </div>
