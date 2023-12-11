@@ -30,7 +30,7 @@ import { ToggleNewLeads } from "../../Redux/slices/sideBarToggle";
 
 
 
-const CreateLeadOnBoardPopUpComponent = ({ }) => {
+const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
     let submitAction = undefined;
     const itemsPerPage = 5;
@@ -83,22 +83,22 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
     };
 
+
     const Validate = yup.object({
-        restaurant_name: yup.string().required("Restaurant name is required"),
-        owner_name: yup.string().required("name is required"),
+        restaurant_name: yup.string().required(translaterFun("restaurant-name-is-required")),
+        owner_name: yup.string().required(translaterFun("name-is-required")),
         // email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'First name must not contain spaces'),
         // phone: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces'),
         // shop_no: yup.string().required("shop_no is required"),    
         // street: yup.string().required("street name is required"),
-        city: yup.string().required("City name is required"),
+        city: yup.string().required(translaterFun("city-name-is-required")),
         // landmark: yup.string().required("landmark is required"),
-        pincode: yup.string().matches(/^[0-9]+$/, 'pincode must contain only digits').required('pincode is required').matches(/^\S*$/, 'pincode must not contain spaces'),
-        state: yup.string().required("state is required"),
-        country: yup.string().required("country is required"),
+        pincode: yup.string().matches(/^[0-9]+$/, translaterFun('pincode-must-contain-only-digits')).required(translaterFun('pincode-is-required')).matches(/^\S*$/, translaterFun('pincode-must-not-contain-spaces')),
+        state: yup.string().required(translaterFun("state-is-required")),
+        country: yup.string().required(translaterFun("country-is-required")),
         // description: yup.string().required("description is required"),
         // password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
         // confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-
 
     });
 
@@ -118,8 +118,8 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
         // first_name: yup.string().required("first name is required").matches(/^\S*$/, 'First name must not contain spaces'),
         // last_name: yup.string().required("last name is required").matches(/^\S*$/, 'Last name must not contain spaces'),
         // phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces'),
-        password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-        confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
+        password: yup.string().required(translaterFun("password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
+        confirm_password: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
 
     });
 
@@ -349,7 +349,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
             >
                 <button type="button" className="closebtn" onClick={(e) => ClosePopupFun(e)}  > <img src={close} alt="close icon" /> </button>
                 <div className="popuptitle">
-                    <h2>New Customer</h2>
+                    <h2>{translaterFun("new-customer")}</h2>
                 </div>
                 <div className="popupbody">
                     <Formik
@@ -371,13 +371,13 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-12  mb-3 ">
                                     <div className="formbox">
-                                        <label>Restaurant Name </label>
+                                        <label>{translaterFun("restaurant-name")}</label>
                                         <Field
                                             name="restaurant_name"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Enter Restaurant Name "
+                                            placeholder={translaterFun("enter-restaurant-name")}
                                         />
 
                                         <p className="text-danger small mb-0">
@@ -388,13 +388,13 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-12  mb-3 ">
                                     <div className="formbox">
-                                        <label>Owner Name </label>
+                                        <label>{translaterFun("owner-name")}</label>
                                         <Field
                                             name="owner_name"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Enter Owner Name"
+                                            placeholder={translaterFun("enter-restaurant-name")}
                                         />
 
                                         <p className="text-danger small mb-0">
@@ -405,13 +405,13 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-12  mb-3 ">
                                     <div className="formbox">
-                                        <label>Email </label>
+                                        <label>{translaterFun("email")} </label>
                                         <Field
                                             name="email"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Enter your Email"
+                                            placeholder={translaterFun("enter-your-email")}
                                         />
 
                                         <p className="text-danger small mb-0">
@@ -439,7 +439,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-md-12  mb-3">
                                     <div className="formbox ">
-                                        <label> Phone Number </label>
+                                        <label>{translaterFun("phone-number")} </label>
                                         <PhoneInput
                                             country={"in"}
                                             // value={phonenumber}
@@ -451,13 +451,13 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-md-6 mb-3 pe-md-1">
                                     <div className="formbox ">
-                                        <label> Shop no./Building (Optional) </label>
+                                        <label>{translaterFun("shop-no-optional")} </label>
                                         <Field
                                             name="shop_no"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Enter your Shop no."
+                                            placeholder={translaterFun("enter-your-shop-no")}
                                         />
 
                                         <p className="text-danger small mb-0">
@@ -468,13 +468,13 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-md-6 mb-3 ps-md-1">
                                     <div className="formbox ">
-                                        <label> Area/Street Name (Optional) </label>
+                                        <label>{translaterFun("area-street-name")}</label>
                                         <Field
                                             name="street"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Enter your Street Name"
+                                            placeholder={translaterFun("enter-your-street-name")}
                                         />
 
                                         <p className="text-danger small mb-0">
@@ -485,13 +485,13 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-md-4 mb-3 pe-md-1">
                                     <div className="formbox ">
-                                        <label> Town/City Name </label>
+                                        <label>{translaterFun("town/city-name")}</label>
                                         <Field
                                             name="city"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Enter your City Name"
+                                            placeholder={translaterFun("enter-your-city-name")}
                                         />
 
                                         <p className="text-danger small mb-0">
@@ -502,13 +502,13 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-md-8  mb-3 ps-md-1">
                                     <div className="formbox ">
-                                        <label> Landmark (Optional) </label>
+                                        <label>{translaterFun("landmark-optional")} </label>
                                         <Field
                                             name="landmark"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Nearby Landmark"
+                                            placeholder={translaterFun("nearby-landmark")}
                                         />
 
                                         <p className="text-danger small mb-0">
@@ -519,13 +519,13 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-md-3  mb-3 pe-md-1">
                                     <div className="formbox ">
-                                        <label> Pincode </label>
+                                        <label>{translaterFun("")} Pincode </label>
                                         <Field
                                             name="pincode"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Pincode"
+                                            placeholder={translaterFun("pincode")}
                                         />
 
                                         <p className="text-danger small mb-0">
@@ -536,7 +536,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-md-3  mb-3 px-md-1 ">
                                     <div className="formbox ">
-                                        <label> State </label>
+                                        <label>{translaterFun("state")} </label>
                                         <Field
                                             name="state"
                                             type="text"
@@ -553,7 +553,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-md-6  mb-3 ps-md-1">
                                     <div className="formbox ">
-                                        <label> Country </label>
+                                        <label> {translaterFun("country")} </label>
                                         <Field
                                             name="country"
                                             type="text"
@@ -571,13 +571,13 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 <div className="col-md-12  mb-3">
                                     <div className="formbox ">
-                                        <label> Description </label>
+                                        <label>{translaterFun("description")}</label>
                                         <Field
                                             name="description"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder="Type here..."
+                                            placeholder={translaterFun("type-here")}
                                         />
 
                                         <p className="text-danger small mb-0">
@@ -591,12 +591,12 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                     <button type="button" className="btn1" onClick={(e) => {
                                         submitAction = "primary";
                                         handleSubmit(e)
-                                    }} > Create Lead </button>
+                                    }} >{translaterFun("create-lead")}</button>
 
                                     <button type="submit" className="btn2 mx-3" onClick={(e) => {
                                         submitAction = "secondary";
                                         handleSubmit(e)
-                                    }} > Onboard and Create Password </button>
+                                    }} > {translaterFun("onboard-and-create-password")}</button>
                                 </div>
                             </Form>
 
@@ -615,7 +615,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                     popUpHookFun={popUpHookFun} >
                     <button type="button" className="closebtn" onClick={(e) => closeOnBoardFun()}> <img src={close} alt="close icon" /> </button>
                     <div className="popuptitle">
-                        <h2>Onboarding </h2>
+                        <h2>{translaterFun("onboarding")}</h2>
                     </div>
                     <div className="popupbody">
                         <Formik
@@ -628,7 +628,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                 <div className="col-md-12 mb-3">
 
                                     <div className="formbox">
-                                        <label>Password </label>
+                                        <label>{translaterFun("password")} </label>
                                         <Field
                                             name="password"
                                             type="text"
@@ -645,7 +645,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                                 <div className="col-md-12 mb-3">
 
                                     <div className="formbox mb-3">
-                                        <label>Confirm Password </label>
+                                        <label>{translaterFun("confirm-password")}</label>
                                         <Field
                                             name="confirm_password"
                                             type="text"
@@ -660,7 +660,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
 
                                 </div>
                                 <div className='text-center mt-1'>
-                                    <button type="submit" className="btn2 mx-3"> Submit </button>
+                                    <button type="submit" className="btn2 mx-3">{translaterFun("submit")} </button>
                                 </div>
                             </Form>
                         </Formik>
@@ -676,11 +676,11 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                 <div className="popup successpopup ">
                     <div className="innerpopup">
                         <img src={imgicon} alt="img" />
-                        <h3> Success !</h3>
-                        <p>[Restaurant name] is successfully registered</p>
+                        <h3> {translaterFun("success")}</h3>
+                        <p>{translaterFun("successfully-registered")}</p>
                         <div className="sharebtnbox">
-                            <span> <img src={share} alt="img" /> Link </span>
-                            <input type="text" placeholder="link" value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
+                            <span> <img src={share} alt="img" /> {translaterFun("link")}</span>
+                            <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
                             <button type="button" className="copybtn"> <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} /> </button>
                             <button type="button" className="sharebtn">
                                 <RWebShare data={{
@@ -695,7 +695,7 @@ const CreateLeadOnBoardPopUpComponent = ({ }) => {
                             </button>
 
                         </div>
-                        <button className="btn2" onClick={(e) => BackToHomeFun()}> Back to home </button>
+                        <button className="btn2" onClick={(e) => BackToHomeFun()}>{translaterFun("back-to-home")} </button>
                     </div>
                 </div>
             }

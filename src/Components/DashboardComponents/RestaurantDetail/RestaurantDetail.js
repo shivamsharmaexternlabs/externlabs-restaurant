@@ -26,7 +26,7 @@ import close from "../../../images/close.svg";
 import { UpdateLeadsSlice } from '../../../Redux/slices/leadsSlice'
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 
-const RestaurantDetail = () => {
+const RestaurantDetail = ({translaterFun}) => {
   const [SuccessPopup, setSuccessPopup] = useState(false);
   const [ResetPasswordPopup, setResetPasswordPopup] = useState(false);
   const [dataaa, setDataaa] = useState("")
@@ -64,8 +64,8 @@ const RestaurantDetail = () => {
     // first_name: yup.string().required("first name is required").matches(/^\S*$/, 'First name must not contain spaces'),
     // last_name: yup.string().required("last name is required").matches(/^\S*$/, 'Last name must not contain spaces'),
     // phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces'),
-    password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-    confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
+    password: yup.string().required(translaterFun("password-is-required")).matches(/^\S*$/, translaterFun("password-not-contain-spaces")),
+    confirm_password: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, translaterFun("password-not-contain-spaces")),
 
   });
 
@@ -75,8 +75,8 @@ const RestaurantDetail = () => {
   }
 
   const resetPasswordValidate = yup.object({
-    new_pass: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-    confirm_pass: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
+    new_pass: yup.string().required(translaterFun("password-is-required")).matches(/^\S*$/, translaterFun("password-not-contain-spaces")),
+    confirm_pass: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, translaterFun("password-not-contain-spaces")),
   });
 
   const defaultValue = {
@@ -113,21 +113,19 @@ const RestaurantDetail = () => {
 console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
   const Validate = yup.object({
-    restaurant_name: yup.string().required("Restaurant name is required"),
-    owner_name: yup.string().required("name is required"),
-    email: yup.string().matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'First name must not contain spaces'),
-    // phone_ext: yup.string().required('Phone Extension is required').matches(/^\S*$/, 'Phone Extension must not contain spaces'),
-    // phone: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces'),
-    shop_no: yup.string().required("shop_no is required"),
-    street: yup.string().required("street name is required"),
-    city: yup.string().required("City name is required"),
-    landmark: yup.string().required("landmark is required"),
-    pincode: yup.string().matches(/^[0-9]+$/, 'pincode must contain only digits').required('pincode is required').matches(/^\S*$/, 'pincode must not contain spaces'),
-    state: yup.string().required("state is required"),
-    country: yup.string().required("country is required"),
-    description: yup.string().required("description is required"),
-    // password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-    // confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
+    restaurant_name: yup.string().required(translaterFun("restaurant-name-is-required")),
+    owner_name: yup.string().required(translaterFun("owner-name-is-required")),
+    email: yup.string().matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, translaterFun("email-is-invalid")).matches(/^\S*$/, 'First name must not contain spaces'),
+    // phone_ext: yup.string().required(translaterFun('Phone Extension is required').matches(/^\S*$/, 'Phone Extension must not contain spaces'),
+    // phone: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required(translaterFun('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces'),
+    shop_no: yup.string().required(translaterFun("shop-no-is-required")),
+    street: yup.string().required(translaterFun("street-name-is-required")),
+    city: yup.string().required(translaterFun("city-name-is-required")),
+    landmark: yup.string().required(translaterFun("landmark-is-required")),
+    pincode: yup.string().matches(/^[0-9]+$/, translaterFun("pincode-must-contain-only-digits")).required(translaterFun('pincode-is-required')).matches(/^\S*$/, translaterFun("pincode-must-not-contain-spaces")),
+    state: yup.string().required(translaterFun("state-is-required")),
+    country: yup.string().required(translaterFun("country-is-required")),
+    description: yup.string().required(translaterFun("description-is-required")),
   });
 
   const handleSubmitOnBoardPassAndConfPass = (values) => {
@@ -391,13 +389,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                   <div className='col-md-6'>
 
                     <div className="formbox mb-3">
-                      <label>Restaurant Name </label>
+                      <label>{translaterFun("restaurant-name")}</label>
                       <Field
                         name="restaurant_name"
                         type="text"
                         className={`form-control `}
                         autoComplete="off"
-                        placeholder="Enter your Name"
+                        placeholder={translaterFun("enter-your-name")}
                       />
                       <p className="text-danger small mb-0">
                         <ErrorMessage name="restaurant_name" />
@@ -405,14 +403,14 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                     </div>
 
                     <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3 numbersdds "  : "formbox mb-3"} `}>
-                      <label>Owner Name </label>
+                      <label> {translaterFun("owner-name")} </label>
                       <Field
                         name="owner_name"
                         type="text"
                         disabled="true"
                         className={`form-control ${routeData?.state?.page !== "lead" ? "numbersdds "  : ""}`}
                         autoComplete="off"
-                        placeholder="Enter your Name"
+                        placeholder={translaterFun("enter-owner-name")}
                       />
                       <p className="text-danger small mb-0">
                         <ErrorMessage name="owner_name" />
@@ -420,14 +418,14 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                     </div>
 
                     <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3 numbersdds "  : "formbox mb-3"} `}>
-                      <label>Email </label>
+                      <label>{translaterFun("email")} </label>
                       <Field
                         name="email"
                         type="email"
                         disabled='true'
                         className={`form-control ${routeData?.state?.page !== "lead" ? "numbersdds "  : ""}`}
                         autoComplete="off"
-                        placeholder="Enter your Email"
+                        placeholder={translaterFun("enter-your-email")}
                       />
                       <p className="text-danger small mb-0">
                         <ErrorMessage name="email" />
@@ -439,7 +437,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
                       <div className="col-md-12  mb-3">
                         {<div className={`${routeData?.state?.page !== "lead" ? "formbox  numbersdds" : "formbox"} `}>
-                          <label> Phone Number </label>
+                          <label> {translaterFun("phone-number")} </label>
 
                           <PhoneInput
                             // country={"in"}
@@ -455,13 +453,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                     <div className='row'>
                       <div className='col-md-4'>
                         <div className="formbox mb-3">
-                          <label>Shop no. (Optional) </label>
+                          <label>{translaterFun("shop-no-optional")}</label>
                           <Field
                             name="shop_no"
                             type="text"
                             className={`form-control `}
                             autoComplete="off"
-                            placeholder="Enter your Shop no."
+                            placeholder={translaterFun("enter-your-shop-no")}
                           />
                           <p className="text-danger small mb-0">
                             <ErrorMessage name="shop_no" />
@@ -471,13 +469,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
                       <div className='col-md-8'>
                         <div className="formbox mb-3">
-                          <label>Street Name </label>
+                          <label>{translaterFun("street-name")} </label>
                           <Field
                             name="street"
                             type="text"
                             className={`form-control `}
                             autoComplete="off"
-                            placeholder="Enter your Street Name"
+                            placeholder={translaterFun("enter-your-street-name")}
                           />
                           <p className="text-danger small mb-0">
                             <ErrorMessage name="street" />
@@ -489,13 +487,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                     <div className='row'>
                       <div className='col-md-4'>
                         <div className="formbox mb-3">
-                          <label>City Name </label>
+                          <label>{translaterFun("city-name")}</label>
                           <Field
                             name="city"
                             type="text"
                             className={`form-control `}
                             autoComplete="off"
-                            placeholder="Enter your City Name"
+                            placeholder={translaterFun("enter-your-city-name")}
                           />
                           <p className="text-danger small mb-0">
                             <ErrorMessage name="city" />
@@ -504,13 +502,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                       </div>
                       <div className='col-md-8'>
                         <div className="formbox mb-3">
-                          <label>Landmark (Optional) </label>
+                          <label>{translaterFun("landmark-optional")} </label>
                           <Field
                             name="landmark"
                             type="text"
                             className={`form-control `}
                             autoComplete="off"
-                            placeholder="Nearby Landmark"
+                            placeholder={translaterFun("nearby-landmark")}
                           />
                           <p className="text-danger small mb-0">
                             <ErrorMessage name="landmark" />
@@ -524,13 +522,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                     <div className='row'>
                       <div className='col-md-3'>
                         <div className="formbox mb-3">
-                          <label>Pincode </label>
+                          <label>{translaterFun("pincode")}  </label>
                           <Field
                             name="pincode"
                             type="text"
                             className={`form-control `}
                             autoComplete="off"
-                            placeholder="Pincode"
+                            placeholder={translaterFun("pincode")}
                           />
                           <p className="text-danger small mb-0">
                             <ErrorMessage name="pincode" />
@@ -540,13 +538,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
                       <div className='col-md-3'>
                         <div className="formbox mb-3">
-                          <label>State </label>
+                          <label>{translaterFun("state")}  </label>
                           <Field
                             name="state"
                             type="text"
                             className={`form-control `}
                             autoComplete="off"
-                            placeholder="state"
+                            placeholder={translaterFun("state")}
                           />
                           <p className="text-danger small mb-0">
                             <ErrorMessage name="state" />
@@ -556,13 +554,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
                       <div className='col-md-6'>
                         <div className="formbox mb-3">
-                          <label>Country </label>
+                          <label>{translaterFun("country")}  </label>
                           <Field
                             name="country"
                             type="text"
                             className={`form-control `}
                             autoComplete="off"
-                            placeholder="country"
+                            placeholder={translaterFun("country")}  
                           />
                           <p className="text-danger small mb-0">
                             <ErrorMessage name="country" />
@@ -572,13 +570,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
                       <div className="col-md-12  mb-3">
                         <div className="formbox ">
-                          <label> Description </label>
+                          <label> {translaterFun("description")}  </label>
                           <Field
                             name="description"
                             type="text"
                             className={`form-control `}
                             autoComplete="off"
-                            placeholder="Type here..."
+                            placeholder={translaterFun("type-here")}
                           />
 
                           <p className="text-danger small mb-0">
@@ -591,9 +589,9 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                     </div>
                   </div>
                   <div className='submitbox'>
-                    {routeData?.state?.page === "MenuCategory" && <button type='button' className='btn2' onClick={(e) => resetPasswordFunc(e, routeData)}>Reset Password</button>}
+                    {routeData?.state?.page === "MenuCategory" && <button type='button' className='btn2' onClick={(e) => resetPasswordFunc(e, routeData)}>{translaterFun("reset-password")} </button>}
                     {
-                      <button type='submit' className='btn2 ms-3'  >{routeData?.state?.page === "MenuCategory" ? 'Edit Profile' : "OnBoard and Create Password"}</button>
+                      <button type='submit' className='btn2 ms-3'  >{routeData?.state?.page === "MenuCategory" ? translaterFun("edit-profile") : translaterFun("onBoard-and-Create-Password")} </button>
                     }
 
                   </div>
@@ -617,7 +615,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
 
           <div className="popuptitle">
-            <h2>Onboarding </h2>
+            <h2>{translaterFun("onboarding" )}</h2>
           </div>
           <div className="popupbody">
             <Formik
@@ -630,7 +628,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                 <div className="col-md-12 mb-3">
 
                   <div className="formbox">
-                    <label>Password </label>
+                    <label>{translaterFun("password" )} </label>
                     <Field
                       name="password"
                       type="text"
@@ -646,7 +644,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                 <div className="col-md-12 mb-3">
 
                   <div className="formbox mb-3">
-                    <label>Confirm Password </label>
+                    <label>{translaterFun("confirm-password" )} </label>
                     <Field
                       name="confirm_password"
                       type="text"
@@ -661,7 +659,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
                 </div>
                 <div className='text-center mt-1'>
-                  <button type="submit" className="btn2 mx-3"> Submit </button>
+                  <button type="submit" className="btn2 mx-3"> {translaterFun("submit" )} </button>
                 </div>
               </Form>
             </Formik>
@@ -680,7 +678,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
           <button type="button" className="closebtn" onClick={(e) => closeResetPasswordFun()}> <img src={close} alt="close icon" /> </button>
           <div className="popuptitle">
-            <h2>Reset Password </h2>
+            <h2>{translaterFun("reset-password")} </h2>
           </div>
           <div className="popupbody">
             <Formik
@@ -693,7 +691,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                 <div className="col-md-12 mb-3">
 
                   <div className="formbox">
-                    <label>Password </label>
+                    <label>{translaterFun("password")}  </label>
                     <Field
                       name="new_pass"
                       type="text"
@@ -710,7 +708,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                 <div className="col-md-12 mb-3">
 
                   <div className="formbox mb-3">
-                    <label>Confirm Password </label>
+                    <label>{translaterFun("confirm-password")} </label>
                     <Field
                       name="confirm_pass"
                       type="text"
@@ -725,7 +723,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
                 </div>
                 <div className='text-center mt-1'>
-                  <button type="submit" className="btn2 mx-3"> Submit </button>
+                  <button type="submit" className="btn2 mx-3"> {translaterFun("submit")} </button>
                 </div>
               </Form>
             </Formik>
