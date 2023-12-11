@@ -5,15 +5,16 @@ import user from '../../../images/user.png'
 import notify from '../../../images/icon6.svg'
 import logout from '../../../images/logout.svg'
 import { reactLocalStorage } from "reactjs-localstorage";
-import { ToggleNewLeads } from '../../../Redux/slices/sideBarToggle'
+import { LanguageChange, ToggleNewLeads } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 
-import {useTranslation} from "react-i18next"
+import { useTranslation } from "react-i18next"
 
 const DashboardHeader = ({ popUpHookFun }) => {
 
-  const [LogOutToggle,setLogOutToggle]=useState(false)
+  const [LogOutToggle, setLogOutToggle] = useState(false)
+  const [languagesToggle, setlanguagesToggle] = useState(false)
 
   const navigate = useNavigate()
   const dispatch = useDispatch();
@@ -39,11 +40,18 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
   };
 
-  const LogoutFun =()=>{
+  const LogoutFun = () => {
 
-    setLogOutToggle(o=>!o)
+    setLogOutToggle(o => !o)
 
   }
+  const LanguageFun =  (value) => {
+    // i18n.changeLanguage(value)  
+   
+    dispatch(LanguageChange(value))
+  }
+
+
 
   return (
     <>
@@ -51,7 +59,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
         {/* <div className='leftpart'>  <form> <input type='search' placeholder='Search…' /> </form> </div> */}
         <div className='rightpart'>
 
-          {UserTypeData !== "owner" &&<button type='button' className="btn2 me-3"
+          {UserTypeData !== "owner" && <button type='button' className="btn2 me-3"
             onClick={(e) => PopUpToggleFun()}
           >
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,19 +69,31 @@ const DashboardHeader = ({ popUpHookFun }) => {
           </button>}
 
           <span className='notifyimg'> <img src={notify} alt='notify img' onClick={() => {
-            i18n.changeLanguage("ar")
-          }}/> </span>
+            LanguageFun()
+
+          }} /> </span>
           <div className='user'  >
             <figure> <img src={user} alt='user img' />  </figure>
             <div className='userinfo'>
               <h3>{UserNameData}</h3>
               <p>{UserTypeData}</p>
             </div>
-            <div className='dropdownopt' onClick={(e)=>LogoutFun()}>
+            <div className='dropdownopt' onClick={(e) => LogoutFun()}>
               <span></span>
               {LogOutToggle && <div className='dropdownoptbox'>
-                 <button type='button' className='' onClick={(e) => handleLogout(e)}>
-                  <img src={logout} alt='img' /> {t("logout")}
+                <button type='button' className='' onClick={(e) => handleLogout(e)}>
+                  <img src={logout} alt='img' />
+
+                  {/*  */}
+                   {t("logout")}
+
+                </button>
+                <button type='button' className='' onClick={(e) => LanguageFun("en")}>
+                  English
+                </button>
+                <br />
+                <button type='button' className='' onClick={(e) => LanguageFun("ar")}>
+                  عربي
                 </button>
               </div>}
             </div>

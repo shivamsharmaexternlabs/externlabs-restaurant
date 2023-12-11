@@ -20,6 +20,13 @@ export const LoadingSpinner = createAsyncThunk("LoadingSpinner", async (body) =>
     }
 ))
 
+export const LanguageChange = createAsyncThunk("LanguageChange", async (body) => (
+    {
+        languagechange: body,
+    }
+))
+
+
 
 
 export const toggleBarReducer = createSlice({
@@ -28,6 +35,7 @@ export const toggleBarReducer = createSlice({
         toggle: true,
         togglenewleads: false,
         loadingspinner: false,
+        languagechange:"en",
         loading: false,
         error: null,
     },
@@ -74,6 +82,22 @@ export const toggleBarReducer = createSlice({
 
 
             .addCase(LoadingSpinner.rejected, (state, action) => {
+                state.error = action.error.message;
+            })
+
+            // for Language
+
+             // for loader
+             .addCase(LanguageChange.pending, (state) => {
+                state.loading = true;
+            })
+
+            .addCase(LanguageChange.fulfilled, (state, { payload }) => {
+                state.languagechange = payload?.languagechange;
+            })
+
+
+            .addCase(LanguageChange.rejected, (state, action) => {
                 state.error = action.error.message;
             })
     },

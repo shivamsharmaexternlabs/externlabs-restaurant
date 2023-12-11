@@ -29,6 +29,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import AllMedia from './Components/DashboardComponents/AllMedia/AllMedia.js';
 import PaymentHistory from './Components/DashboardComponents/PaymentHistory/PaymentHistory.js';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 /* import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 i18n.use(initReactI18next).init({
@@ -51,6 +53,9 @@ i18n.languages = ['en', 'ar']; */
 function App() {
 
   const navigate=useNavigate()
+  const {t, i18n } = useTranslation()
+
+  const ManagerApiSelectorData = useSelector((state) => state.ToggleBarData);
 
 
   let Token=reactLocalStorage.get("Token",false)
@@ -94,31 +99,35 @@ console.log("dfghjk",Token)
 
   },[Token])
 
+  useEffect(()=>{
+    i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
+  },[ManagerApiSelectorData?.languagechange])
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<Login />}></Route>
-        <Route path="/:id" element={<Login />}></Route>
-        <Route path="/emailotpverification" element={<EmailOtpVerification />}></Route>
-        <Route path="/signup" element={<Signup />}></Route>
-        <Route path='/success' element={<Success />}></Route>
-        <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
-        <Route path="/user_auth/resetpassword/:id" element={<ResetPassword />}></Route>
-        <Route path="/:id/admin/dashboard" element={<Dashboard />}></Route>
+        <Route path="/" element={<Login  t={t} />}></Route>
+        <Route path="/:id" element={<Login  t={t} />}></Route>
+        <Route path="/emailotpverification" element={<EmailOtpVerification  t={t} />}></Route>
+        <Route path="/signup" element={<Signup  t={t} />}></Route>
+        <Route path='/success' element={<Success  t={t} />}></Route>
+        <Route path="/forgotpassword" element={<ForgotPassword  t={t} />}></Route>
+        <Route path="/user_auth/resetpassword/:id" element={<ResetPassword  t={t} />}></Route>
+        <Route path="/:id/admin/dashboard" element={<Dashboard    t={t} />}></Route>
         <Route path="/:id/admin/categories" element={ <DndProvider backend={HTML5Backend}><Categories /></DndProvider>}></Route>
         <Route path="/:id/admin/categories/reorder/" element={ <DndProvider backend={HTML5Backend}><DndCategories /></DndProvider>}></Route>
-        <Route path="/:id/admin/manager" element={<Manager />}></Route>
-        <Route path="/:id/menu" element={<Menu />}></Route>
-        <Route path="/:id/admin/allmedia" element={<AllMedia />}></Route>
-        <Route path="/:id/admin/paymenthistory" element={<PaymentHistory />}></Route>
+        <Route path="/:id/admin/manager" element={<Manager  t={t} />}></Route>
+        <Route path="/:id/menu" element={<Menu  t={t} />}></Route>
+        <Route path="/:id/admin/allmedia" element={<AllMedia  t={t} />}></Route>
+        <Route path="/:id/admin/paymenthistory" element={<PaymentHistory  t={t} />}></Route>
 
 
 
-        <Route path='/admin/leads' element={<Leads />}></Route>
-        <Route path='/admin/menucategories' element={<Menucategories />}></Route>
-        <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail />}></Route>
+        <Route path='/admin/leads' element={<Leads  t={t} />}></Route>
+        <Route path='/admin/menucategories' element={<Menucategories  t={t} />}></Route>
+        <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail  t={t} />}></Route>
 
-        <Route path='/subscription' element={<Subscription />}></Route>
+        <Route path='/subscription' element={<Subscription  t={t} />}></Route>
 
 
 
