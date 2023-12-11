@@ -134,6 +134,13 @@ header .rightpart .user p {
     margin-right: 5px;
 }
 
+
+ .dropdownoptbox>button:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+
+
 .fullsidebar header {
     padding-left: 275px;
     -webkit-transition: all .3s ease;

@@ -15,64 +15,65 @@ import { GetMenuCategorySlice, MenuSlice } from '../../Redux/slices/menuSlice'
 import menu from '../../images/menu.svg'
 import arrow from '../../images/arrow.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom' 
+import { useLocation, useNavigate } from 'react-router-dom'
 import { reactLocalStorage } from 'reactjs-localstorage'
 import LodingSpiner from '../LoadingSpinner/LoadingSpinner'
+import { LanguageChange } from '../../Redux/slices/sideBarToggle'
 
-const Menu = () => {
+const Menu = ({ translaterFun }) => {
   const [ActiveCategory, setActiveCategory] = useState("")
   const [MenuToggleBookData, setMenuToggleBookData] = useState(false)
-  const [CategoryTabToggleData, setCategoryTabToggleData] = useState(false)
-  const [MenuItemTypeToggleData, setMenuItemTypeToggleData] = useState(null) 
+  const [languageToggleValue, setlanguageToggleValue] = useState("")
+  const [MenuItemTypeToggleData, setMenuItemTypeToggleData] = useState(null)
   const [MenuItemTypeValue, setMenuItemTypeValue] = useState("")
   const [MenuItemSearchValue, setMenuItemSearchValue] = useState("")
   const [loadspiner, setLoadSpiner] = useState(false);
 
 
-  const  params = useLocation(); 
+  const params = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
 
 
-  let splitdata =params?.pathname.split("/")[1] 
-  reactLocalStorage.set("RestaurantId",splitdata); 
+  let splitdata = params?.pathname.split("/")[1]
+  reactLocalStorage.set("RestaurantId", splitdata);
 
-  useEffect(() => { 
+  useEffect(() => {
     if (MenuApiSelectorData?.GetMenuCategoryReducerData.status === 200) {
       setLoadSpiner(false);
-      
+
     }
-   else if(MenuApiSelectorData?.error == "Rejected"){
+    else if (MenuApiSelectorData?.error == "Rejected") {
       setLoadSpiner(false);
     }
     if (MenuApiSelectorData?.MenuSliceReducerData.status === 200) {
       setLoadSpiner(false);
-       
+
     }
-   else if(MenuApiSelectorData?.error == "Rejected"){
+    else if (MenuApiSelectorData?.error == "Rejected") {
       setLoadSpiner(false);
     }
-  }, [MenuApiSelectorData?.GetMenuCategoryReducerData,MenuApiSelectorData?.MenuSliceReducerData]);
+  }, [MenuApiSelectorData?.GetMenuCategoryReducerData, MenuApiSelectorData?.MenuSliceReducerData]);
 
   useEffect(() => {
-    if(params?.pathname){ 
-      setLoadSpiner(true); 
-        
-         
+    if (params?.pathname) {
+      setLoadSpiner(true);
 
-        let MenuSlicePayload = {
-          "searchValue": undefined,
-          "itemTypeValue": undefined,
-          "RestaurantId":splitdata
-    
-        } 
 
-        dispatch(MenuSlice(MenuSlicePayload));  
+
+      let MenuSlicePayload = {
+        "searchValue": undefined,
+        "itemTypeValue": undefined,
+        "RestaurantId": splitdata
+
+      }
+
+      dispatch(MenuSlice(MenuSlicePayload));
       dispatch(GetMenuCategorySlice(MenuSlicePayload));
     }
-}, [params])
+  }, [params])
 
 
   const MenuToggleBookFun = () => {
@@ -93,8 +94,8 @@ const Menu = () => {
     setMenuItemSearchValue(e.target.value)
     let MenuSlicePayload = {
       "searchValue": e.target.value,
-      "itemTypeValue": MenuItemTypeValue, 
-      "RestaurantId":splitdata
+      "itemTypeValue": MenuItemTypeValue,
+      "RestaurantId": splitdata
 
     }
     dispatch(MenuSlice(MenuSlicePayload));
@@ -105,45 +106,71 @@ const Menu = () => {
     setMenuItemTypeValue(itemType?.type_value)
     let MenuSlicePayload = {
       "searchValue": MenuItemSearchValue,
-      "itemTypeValue": itemType?.type_value, 
-      "RestaurantId":splitdata
+      "itemTypeValue": itemType?.type_value,
+      "RestaurantId": splitdata
 
     }
     dispatch(MenuSlice(MenuSlicePayload));
 
   }
 
-  const toggleOffFun =()=>{
+  const toggleOffFun = () => {
     setMenuItemTypeToggleData("")
   }
 
   const MenuItemType = [
     {
-      type_name: "Veg",
+      type_name: translaterFun("veg"),
       type_value: "VEG",
       type_img: <img src={icon4} alt='img' />
     }
     ,
     {
-      type_name: "Non-Veg",
+      type_name: translaterFun("non-veg"),
       type_value: "NON_VEG",
       type_img: <img src={icon5} alt='img' />
     },
     {
-      type_name: "Bestseller",
+      type_name: translaterFun("bestseller"),
       type_value: "BESTSELLER",
       type_img: ""
     },
     {
-      type_name: "Offer",
+      type_name: translaterFun("offer"),
       type_value: "OFFER",
       type_img: ""
     }
   ]
 
+  let languageDAta= reactLocalStorage.get("languageSet", false);
+
+  const LanguageFun = (e) => {
+    // i18n.changeLanguage(value)  
+    dispatch(LanguageChange(e.target.value))
+    setlanguageToggleValue(e.target.value)
+    reactLocalStorage.set("languageSet", e.target.value);
 
 
+  }
+  let languageData = [
+    { value: "en", key: "English" },
+    { value: "ar", key: "عربي" }
 
+  ]
+
+  useEffect(()=>{
+    if(languageDAta !==false ){
+      setlanguageToggleValue(languageDAta)
+      dispatch(LanguageChange(languageDAta))
+
+    }
+
+       
+
+
+  },[languageDAta])
+
+  
 
 
   return (
@@ -154,17 +181,38 @@ const Menu = () => {
             <div className='logo'>
               <a href='#'> <img src={logo} className='' alt='logoimg' /> </a>
             </div>
-            <ul className=''>
+
+            <div className='languagebox'>
+
+              <select className='form-select' onChange={(e) => LanguageFun(e)}>
+                {/* <option value="null">Select language ...</option> */}
+
+                {languageData?.map((items, id) => {
+                  return <option selected={languageDAta==items?.value?"select":""} value={items?.value}>{items?.key}</option>
+                })}
+
+              </select>
+              {/* <button type='button' className='' onClick={(e) => LanguageFun("en")}>
+                  English
+                </button>
+                <button type='button' className='' onClick={(e) => LanguageFun("ar")}>
+                  عربي
+                </button> */}
+            </div>
+
+
+            {/* <ul className=''>
               <li> <a href='javascript:void()'> <img src={icon1} alt='img' /> </a> </li>
               <li> <a href='javascript:void()'> <img src={icon2} alt='img' /> </a> </li>
-            </ul>
+            </ul> */}
+
           </div>
 
 
           {/* SEARCH BOX MANAGEMENT */}
 
           <div className='searchbox'>
-            <input type="search" placeholder='Search a food.....' onChange={(e) => MenuSearchFun(e)} />
+            <input type="search" placeholder={translaterFun("search-a-food")} onChange={(e) => MenuSearchFun(e)} />
             <button className='' type='submit'> <img src={icon3} alt='img' />  </button>
           </div>
           <ul className='itemlistbtn'>
@@ -172,12 +220,12 @@ const Menu = () => {
               return <li key={id} onClick={(e) => MenuItemTypeToggleFun(e, itemType, id)}
                 className={`${id === MenuItemTypeToggleData ? 'MenuItemActive' : ""}`}
               >
-                <span className='icon'>  {itemType?.type_img}   </span> 
-                
-                {itemType?.type_name} 
-                
-               {/* {MenuItemTypeToggleData==id&& <span className='crossbtn' onClick={()=>toggleOffFun()} >  x</span>} */}
-                </li>
+                <span className='icon'>  {itemType?.type_img}   </span>
+
+                {itemType?.type_name}
+
+                {/* {MenuItemTypeToggleData==id&& <span className='crossbtn' onClick={()=>toggleOffFun()} >  x</span>} */}
+              </li>
             })}
           </ul>
         </div>
@@ -194,10 +242,10 @@ const Menu = () => {
             <li> Offer </li> */}
         {/* {/* <div className='menuitemtabsection'> */}
 
-        
+
         <div className='menuitemtabsection  '>
           <div className="accordion menuitemtab" id="accordionPanelsStayOpenExample">
-             
+
             {
               MenuApiSelectorData?.MenuSliceReducerData?.data?.map((items, id) => {
 
@@ -216,13 +264,13 @@ const Menu = () => {
                   <div id={`toggle${id}`} className="accordion-collapse collapse show">
                     <div className="accordion-body">
                       <ul className='menuitemlist'   >
-                        {items?.item_id?.map((CategoryItem, ids) => { 
+                        {items?.item_id?.map((CategoryItem, ids) => {
                           return <li key={ids} >
                             <div className='leftpart'>
                               <div className='spbtn'>
-                                {CategoryItem?.item_type==="NON_VEG" ? <img src={icon5} alt='img' /> : <img src={icon4} alt='img' />}
+                                {CategoryItem?.item_type === "NON_VEG" ? <img src={icon5} alt='img' /> : <img src={icon4} alt='img' />}
                                 {/* {CategoryItem?.item_type==="NON_VEG" ? <img src={icon5} alt='img' /> : <img src={icon4} alt='img' />} */}
-                                {CategoryItem?.is_favorite === true && <span className={`bestcallerBackgroun`}>Bestseller</span>}
+                                {CategoryItem?.is_favorite === true && <span className={`bestcallerBackgroun`}>{translaterFun("bestseller")}</span>}
                               </div>
                               <h3> {CategoryItem?.item_name}</h3>
                               <p>{CategoryItem?.description}</p>
@@ -231,7 +279,7 @@ const Menu = () => {
                             </div>
                             <div className='rightpart'>
                               <span className='pricetext'>{CategoryItem?.currency} {CategoryItem?.item_price} </span>
-                             {CategoryItem?.image !=null&& <figure> <img src={CategoryItem?.image} alt='img' /> </figure>}
+                              {CategoryItem?.image != null && <figure> <img src={CategoryItem?.image} alt='img' /> </figure>}
 
                               {/* <figure> <img src={item1} alt='img' /> </figure> */}
                             </div>
@@ -244,21 +292,21 @@ const Menu = () => {
                 </div>
               })
             }
-            
+
           </div>
 
 
         </div>
         <div className='menulist'>
-          {MenuItemSearchValue ==="" &&<span onClick={(e) => MenuToggleBookFun(e)}> <img src={menu} alt='img' /> </span>}
-          {MenuItemSearchValue ==="" && MenuToggleBookData &&<ul>
+          {MenuItemSearchValue === "" && <span onClick={(e) => MenuToggleBookFun(e)}> <img src={menu} alt='img' /> </span>}
+          {MenuItemSearchValue === "" && MenuToggleBookData && <ul>
             {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map((item, id) => {
-                return  <li li key={id} onClick={(e) => MenuCategoryIteamFun(e, item, id)}>  
-              <a href={`#${item?.menu_id}`} className={`${item?.menu_id === ActiveCategory ? 'active' : ""} ,${item?.menu_id ? 'active' : ""} ` }>    
-               {item?.category}
-                  </a> 
-            </li> 
-           })}  
+              return <li li key={id} onClick={(e) => MenuCategoryIteamFun(e, item, id)}>
+                <a href={`#${item?.menu_id}`} className={`${item?.menu_id === ActiveCategory ? 'active' : ""} ,${item?.menu_id ? 'active' : ""} `}>
+                  {item?.category}
+                </a>
+              </li>
+            })}
 
           </ul>}
         </div>

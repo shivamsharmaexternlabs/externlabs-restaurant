@@ -23,13 +23,15 @@ import { MenuSlice, favoriteMenuSlice } from '../../../Redux/slices/menuSlice'
 import { PaymentHistorySlice } from '../../../Redux/slices/paymentSlice';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
-import {useTranslation} from "react-i18next"
+ import {useTranslation} from "react-i18next"
 
 
 
 const Dashboard = ({translaterFun}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+
   const [data, setData] = useState({ results: [] });
   const [QrImage, setQrImage] = useState("")
   const [LoadSpiner, setLoadSpiner] = useState(false) 
@@ -130,14 +132,23 @@ const Dashboard = ({translaterFun}) => {
     }
 
   }, [])
-
+  i18n.on("languageChanged", () => {
+    const time = new Date().getHours();
+    if (time < 12) {
+      setWellWishes(translaterFun("good-morning"))
+    } else if (time < 16) {
+      setWellWishes(translaterFun("good-afternoon"))
+    } else {
+      setWellWishes(translaterFun("good-evening"))
+    }
+  })
 
 
   return (
     <>
       <DashboardLayout  >
         <div className='dasboardbody'>
-          <DashboardSidebar />
+          <DashboardSidebar   />
           <div className='contentpart dashboardpage'>
             <div className='bannerbox'>
               <h2> {WellWishes}</h2>

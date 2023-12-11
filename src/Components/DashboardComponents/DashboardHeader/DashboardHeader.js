@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
 import './dashboardHeader.css'
 import user from '../../../images/user.png'
@@ -8,6 +8,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
 import { LanguageChange, ToggleNewLeads } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
+ 
 
 import { useTranslation } from "react-i18next"
 
@@ -45,12 +46,20 @@ const DashboardHeader = ({ popUpHookFun }) => {
     setLogOutToggle(o => !o)
 
   }
+
+  let languageDAta= reactLocalStorage.get("languageSet", false);
+
   const LanguageFun = (value) => {
     // i18n.changeLanguage(value)  
-
+    reactLocalStorage.set("languageSet", value);
     dispatch(LanguageChange(value))
   }
 
+  useEffect(()=>{
+    if(languageDAta !==false ){ 
+      dispatch(LanguageChange(languageDAta)) 
+    }  
+  },[languageDAta])
 
 
   return (
