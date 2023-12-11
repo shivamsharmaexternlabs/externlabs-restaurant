@@ -519,7 +519,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
                                 <div className="col-md-3  mb-3 pe-md-1">
                                     <div className="formbox ">
-                                        <label>{translaterFun("")} Pincode </label>
+                                        <label>{translaterFun("pincode")}  </label>
                                         <Field
                                             name="pincode"
                                             type="text"

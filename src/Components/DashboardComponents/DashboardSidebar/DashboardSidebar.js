@@ -15,12 +15,17 @@ import { ToggleBar } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, NavLink, useNavigate, Route } from "react-router-dom";
 import { reactLocalStorage } from 'reactjs-localstorage'
+import { useTranslation } from 'react-i18next';
 
 const DashboardSidebar = () => {
+
+
+  const {t, i18n } = useTranslation()
+
   let UserTypeData = reactLocalStorage.get("Type", false);
 
   let  RestaurantId= reactLocalStorage.get("RestaurantId",false);
-
+ 
 
 
   const [ToggleHeader, setToggleHeader] = useState()
@@ -30,6 +35,7 @@ const DashboardSidebar = () => {
 
 
   const ToggleBarSelectorData = useSelector((state) => state?.ToggleBarData?.toggle);
+  const ManagerApiSelectorData = useSelector((state) => state.ToggleBarData);
 
 
   const PopUpToggleFun = () => {
@@ -39,6 +45,12 @@ const DashboardSidebar = () => {
   useEffect(() => {
     dispatch(ToggleBar(ToggleHeader))
   }, [ToggleHeader])
+
+
+  useEffect(()=>{
+    i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
+  },[ManagerApiSelectorData?.languagechange])
+
 
   return (
     <>
@@ -58,12 +70,8 @@ const DashboardSidebar = () => {
                   className={` ${param.pathname === ":id/admin/dashboard" ? "active" : ""
                     } `}
                 >
-                  <img src={icon7} alt='img' /> <span className='text'>Dashboard</span>
+                  <img src={icon7} alt='img' /> <span className='text'>{t("dashboard")}</span>
                
-
-             
-
-
                 </NavLink>
               </li>
               <li>
@@ -73,11 +81,11 @@ const DashboardSidebar = () => {
                 >   
                 
                 <div className='normalicon'>
-                <img src={icon8} alt='img' /> <span className='text'>Managers</span>
+                <img src={icon8} alt='img' /> <span className='text'>{t("managers")}</span>
                 </div>
 
                 <div className='activeicon'>
-                  <img src={icon8h} alt='icon8h img' /> <span className='text'>Managers</span>
+                  <img src={icon8h} alt='icon8h img' /> <span className='text'>{t("managers")}</span>
                 </div>
 
 
@@ -87,19 +95,19 @@ const DashboardSidebar = () => {
               </li>
               <li>
                 <NavLink to={`/${RestaurantId}/admin/categories`} className={` ${param.pathname === ":id/admin/categories" ? "active" : ""
-                  } `}> <img src={icon10} alt='img' /> <span className='text'>Menu Categories</span>
+                  } `}> <img src={icon10} alt='img' /> <span className='text'>{t("menu-categories")}</span>
                 </NavLink>
               </li>
 
               <li>
                 <NavLink to={`/${RestaurantId}/admin/allmedia`} className={` ${param.pathname === ":id/admin/allmedia" ? "active" : ""
-                  } `}> <img src={icon13} alt='img' /> <span className='text'>Media Files</span>
+                  } `}> <img src={icon13} alt='img' /> <span className='text'> {t("media-files")} </span>
                 </NavLink>
               </li>
 
               <li>
                 <NavLink to={`/${RestaurantId}/admin/paymenthistory`} className={` ${param.pathname === ":id/admin/paymenthistory" ? "active" : ""
-                  } `}> <img src={icon14} alt='img' /> <span className='text'>Payment History</span>
+                  } `}> <img src={icon14} alt='img' /> <span className='text'>{t("payment-history")}</span>
                 </NavLink>
               </li>
 
@@ -124,11 +132,11 @@ const DashboardSidebar = () => {
 
             >
              <div className='normalicon'>
-                <img src={icon8} alt='img' /> <span className='text'>Leads</span>
+                <img src={icon8} alt='img' /> <span className='text'>{t("leads")}</span>
                 </div>
 
                 <div className='activeicon'>
-                  <img src={icon8h} alt='icon8h img' /> <span className='text'>Leads</span>
+                  <img src={icon8h} alt='icon8h img' /> <span className='text'>{t("leads")}</span>
                 </div>
             
             {/* <img src={icon8} alt='img' /> <span className='text'>Leads</span> */}
@@ -141,7 +149,7 @@ const DashboardSidebar = () => {
                 className={` ${param.pathname === "/admin/menucategories" ? "active" : ""
                   } `}
 
-            ><img src={icon10} alt='img' /> <span className='text'>Menu Categories</span>
+            ><img src={icon10} alt='img' /> <span className='text'>{t("menu-categories")}</span>
             </NavLink>
           </li>
           </>}

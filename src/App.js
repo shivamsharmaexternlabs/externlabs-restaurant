@@ -98,14 +98,18 @@ console.log("dfghjk",Token)
   //   }
 
   // },[Token])
+  let languageDAta= reactLocalStorage.get("languageSet", false);
+
 
   useEffect(()=>{
     i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
   },[ManagerApiSelectorData?.languagechange])
 
+
+
   return (
     <>
-    <div   dir={Token!==false?"rtl":""}>
+    <div className={languageDAta=="ar"?"arabic":""}  dir={languageDAta=="ar"?"rtl":""}>
      {Token !== false&&   <Routes>
            {/* <Route path="/emailotpverification" element={<EmailOtpVerification  translaterFun={t} />}></Route> */}
         {/* <Route path="/signup" element={<Signup  translaterFun={t} />}></Route> */}

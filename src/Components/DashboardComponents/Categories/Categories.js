@@ -1603,8 +1603,8 @@ const Categories = ({ translaterFun }) => {
                       <option value="select">
                         {translaterFun("please-select-item-type")}
                       </option>
-                      <option value="VEG">Veg</option>
-                      <option value="NON_VEG">Non Veg</option>
+                      <option value="VEG">{translaterFun("veg")}</option>
+                      <option value="NON_VEG">{translaterFun("non-veg")}</option>
                     </Field>
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="item_type" />
@@ -2021,7 +2021,7 @@ const Categories = ({ translaterFun }) => {
 
                 <div className="col-md-8 mb-3">
                   <div className="formbox ">
-                    <label>Calories </label>
+                    <label> {translaterFun("calories")} </label>
                     <div className="caloriesbox">
                       <Field
                         name="calories"
@@ -2039,7 +2039,7 @@ const Categories = ({ translaterFun }) => {
 
                 <div className="col-12 mb-3">
                   <div className="formbox">
-                    <label>Category </label>
+                    <label> {translaterFun("category")} </label>
                     <Field
                       as="select"
                       name="menu_id"
@@ -2082,8 +2082,8 @@ const Categories = ({ translaterFun }) => {
                       <option value="select">
                         {translaterFun("please-select-item-type")}
                       </option>
-                      <option value="VEG">Veg</option>
-                      <option value="NON_VEG">Non Veg</option>
+                      <option value="VEG">{translaterFun("veg")}</option>
+                      <option value="NON_VEG">{translaterFun("non-veg")}</option>
                     </Field>
                     <p className="text-danger small mb-0">
                       <ErrorMessage name="item_type" />
