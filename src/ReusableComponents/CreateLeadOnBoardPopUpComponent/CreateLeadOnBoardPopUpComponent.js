@@ -83,6 +83,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
     };
 
+
     const Validate = yup.object({
         restaurant_name: yup.string().required(translaterFun("restaurant-name-is-required")),
         owner_name: yup.string().required(translaterFun("name-is-required")),
