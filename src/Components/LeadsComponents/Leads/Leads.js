@@ -15,7 +15,7 @@ import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
 
 
 
-const Leads = () => {
+const Leads = ({ translaterFun }) => {
 
   const itemsPerPage = 5;
 
@@ -114,7 +114,7 @@ const Leads = () => {
           <DashboardSidebar />
           <div className="contentpart leadpage">
             <div className="title">
-              <h2>Leads</h2>
+              <h2> {translaterFun("leads")}</h2>
             </div>
 
 
@@ -123,11 +123,11 @@ const Leads = () => {
               <table>
                 <tr>
                   <th></th>
-                  <th>Restaurant Name </th>
-                  <th>Name</th>
-                  <th>Mobile No.</th>
-                  <th>E-mail </th>
-                  <th>Action </th>
+                  <th>{translaterFun("restaurant-name")}</th>
+                  <th> {translaterFun("name")}</th>
+                  <th> {translaterFun("mobile-no.")}</th>
+                  <th> {translaterFun("email")}</th>
+                  <th> {translaterFun("action")}</th>
 
                 </tr>
 
@@ -143,17 +143,16 @@ const Leads = () => {
                     <td>
 
                       <button className="asbtn" onClick={(e) => LeadsDetailsFun(e, lead)}>
-                        View More 
+                        {translaterFun("view-more")}
                       </button>
                     </td>
 
                   </tr>
                 })}
-
               </table>
               <ReactPaginate
-                previousLabel={"Previous"}
-                nextLabel={"Next"}
+                previousLabel={translaterFun("previous")}
+                nextLabel={translaterFun("next")}
                 pageCount={Math.ceil(LeadsSelectorData?.LeadReducerData?.data?.count / itemsPerPage)}
                 onPageChange={handlePageClick}
                 forcePage={CurrentPage}
@@ -179,7 +178,7 @@ const Leads = () => {
       </DashboardLayout>
 
 
-      {ToggleBarSelectorData && <CreateLeadOnBoardPopUpComponent />}
+      {ToggleBarSelectorData && <CreateLeadOnBoardPopUpComponent translaterFun={translaterFun} />}
 
 
       <LodingSpiner loadspiner={LoadSpiner} />

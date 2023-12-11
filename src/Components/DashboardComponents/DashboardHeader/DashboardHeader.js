@@ -45,9 +45,9 @@ const DashboardHeader = ({ popUpHookFun }) => {
     setLogOutToggle(o => !o)
 
   }
-  const LanguageFun =  (value) => {
+  const LanguageFun = (value) => {
     // i18n.changeLanguage(value)  
-   
+
     dispatch(LanguageChange(value))
   }
 
@@ -65,7 +65,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
             </svg>
-            New Customer
+            {t("new-customer")}
           </button>}
 
           <span className='notifyimg'> <img src={notify} alt='notify img' onClick={() => {
@@ -85,7 +85,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
                   <img src={logout} alt='img' />
 
                   {/*  */}
-                   {t("logout")}
+                  {t("logout")}
 
                 </button>
                 <button type='button' className='' onClick={(e) => LanguageFun("en")}>
