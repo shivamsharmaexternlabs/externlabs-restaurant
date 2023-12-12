@@ -44,8 +44,13 @@
 
 .leadpopup .popupinnerbox {
   max-width: 500px;
+  /* max-height: 90%; */
 }
 
+.leadpopup .popupinnerbox .popupbody {
+  /* height: calc(100% - 100px); */
+  /* overflow: auto; */
+}
 
 
 .onboardingpopup button[type=submit] {

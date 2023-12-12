@@ -370,7 +370,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                             {({ handleSubmit, initialValues, values }) => (
 
 
-                                <Form className="row">
+                                <Form className="row mx-0">
 
                                     <div className="col-12  mb-3 ">
                                         <div className="formbox">

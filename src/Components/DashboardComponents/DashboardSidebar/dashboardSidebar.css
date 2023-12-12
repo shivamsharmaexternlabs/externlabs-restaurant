@@ -204,10 +204,11 @@
 
 /**************** Arabic css ***********************/
 
-.arabic.fullsidebar .sidebar .navmenu li>a .text {
+.arabic .fullsidebar .sidebar .navmenu li>a .text {
     margin-left: 0;
     margin-right: 10px;
 }
+
 
 
 /******************** Media css  **************************/
