@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 let BearerToken = reactLocalStorage.get("Token", false);
-let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
+let languageSet = reactLocalStorage.get("languageSet", "en");
 
 export const favoriteMenuItemSlice = createAsyncThunk(
   "favoriteMenuItemSlice",
@@ -13,6 +13,7 @@ export const favoriteMenuItemSlice = createAsyncThunk(
       let headersList = {
         Accept: "*/*",
         Authorization: `Bearer ${body?.BearerToken}`,
+        "Accept-Language": languageSet
       };
 
       let reqOptions = {

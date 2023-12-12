@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
-
+let languageSet = reactLocalStorage.get("languageSet", "en");
     
 //Lead get Slice
 export const LeadsSlice = createAsyncThunk("LeadsSlice",async (body, { rejectWithValue }) => {
@@ -12,6 +12,7 @@ export const LeadsSlice = createAsyncThunk("LeadsSlice",async (body, { rejectWit
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,
+          "Accept-Language": languageSet
         },
       }
       ); 
@@ -20,7 +21,7 @@ export const LeadsSlice = createAsyncThunk("LeadsSlice",async (body, { rejectWit
 
     } catch (err) {
 
-      toast.error(err?.response?.data?.error[0]);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }
@@ -34,6 +35,7 @@ export const UpdateLeadsSlice = createAsyncThunk("UpdateLeadsSlice",async (body,
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,
+          "Accept-Language": languageSet
         },
       }
       ); 
@@ -42,7 +44,7 @@ export const UpdateLeadsSlice = createAsyncThunk("UpdateLeadsSlice",async (body,
 
     } catch (err) {
 
-      toast.error(err?.response?.data?.error[0]);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }

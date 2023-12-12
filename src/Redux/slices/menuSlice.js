@@ -5,6 +5,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
 
 
 let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
+let languageSet = reactLocalStorage.get("languageSet", "en");
 
 // create menu
 export const CreateMenuSlice = createAsyncThunk(
@@ -17,6 +18,7 @@ export const CreateMenuSlice = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${body?.BearerToken}`,
+            "Accept-Language": languageSet
           },
         }
       );
@@ -46,6 +48,7 @@ export const CreateCategorySlice = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${body?.token}`,
+            "Accept-Language": languageSet
           },
         }
       );
@@ -63,7 +66,12 @@ export const GetMenuCategorySlice = createAsyncThunk(
   async (body, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${body?.RestaurantId}&index=true`
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/category/?restaurant_id=${body?.RestaurantId}&index=true`,
+        {
+          headers: {
+            "Accept-Language": languageSet
+          },
+        }
       );
       // toast.success("Successful");
       return response;
@@ -79,22 +87,23 @@ export const UpdateMenuCategoryAfterDragAndDrop = createAsyncThunk(
   "UpdateMenuCategoryAfterDragAndDrop",
   async (body, { rejectWithValue }) => {
     try {
-   
+
       const response = await axios.patch(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/category/${body?.RestaurantId}/`,
         body,
         {
           headers: {
             Authorization: `Bearer ${body?.BearerToken}`,
+            "Accept-Language": languageSet
           },
         }
       );
       toast.success(response?.data?.message);
-       
+
       return response;
     } catch (err) {
 
-      console.log("asdsfgfhjh",err?.response)
+      console.log("asdsfgfhjh", err?.response)
       toast.error(err?.response?.data?.message);
 
       return rejectWithValue(err);
@@ -109,19 +118,20 @@ export const UpdateMenuItemsAfterDragAndDrop = createAsyncThunk(
   async (body, { rejectWithValue }) => {
     console.log("bodyOfUpdateMenuItemDragAndDrop", body?.BearerToken)
     try {
-   
+
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/item_index/`,
         body,
         {
           headers: {
             Authorization: `Bearer ${body?.BearerToken}`,
+            "Accept-Language": languageSet
           },
         }
       );
       toast.success("Menu Items is Reorder ");
       // toast.success(response?.data?.detail);
-       
+
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -144,7 +154,12 @@ export const MenuSlice = createAsyncThunk(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId
         }&menu_id=${body?.MenuId === undefined ? "" : body?.MenuId}&search=${body?.searchValue === undefined ? "" : body?.searchValue
         }&item_type=${body?.itemTypeValue === undefined ? "" : body?.itemTypeValue
-        }&index=true`
+        }&index=true`,
+        {
+          headers: {
+            "Accept-Language": languageSet
+          },
+        }
 
       );
 
@@ -163,7 +178,12 @@ export const favoriteMenuSlice = createAsyncThunk(
 
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&is_favorite=True`
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&is_favorite=True`,
+        {
+          headers: {
+            "Accept-Language": languageSet
+          },
+        }
       );
       return response;
     } catch (err) {
@@ -179,7 +199,12 @@ export const GetSampleUploadSlice = createAsyncThunk(
 
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}restaurant_app/sample_excel/`
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/sample_excel/`,
+        {
+          headers: {
+            "Accept-Language": languageSet
+          },
+        }
       );
       return response;
     } catch (err) {
@@ -217,6 +242,7 @@ export const EditMenuItemSlice = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${body?.BearerToken}`,
+            "Accept-Language": languageSet
           },
         }
       );
@@ -249,9 +275,10 @@ export const EditCategorySlice = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${body?.BearerToken}`,
+            "Accept-Language": languageSet
           },
         }
-      ); 
+      );
 
       toast.success(response?.data?.message);
       return response;
@@ -273,6 +300,7 @@ export const DeleteMenuItemSlice = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${body?.BearerToken}`,
+            "Accept-Language": languageSet
           },
         }
       );
@@ -295,6 +323,7 @@ export const DeleteMenuCategorySlice = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${body?.BearerToken}`,
+            "Accept-Language": languageSet
           },
         }
       );
@@ -321,8 +350,8 @@ export const menuReducer = createSlice({
     GetSampleUploadReducerData: [],
     DeleteMenuItemReducerData: [],
     DeleteMenucategoryReducerData: [],
-    UpdateMenuCategoryAfterDragAndDroprReducerData:[],
-    UpdateMenuItemsAfterDragAndDropReducerData:[],
+    UpdateMenuCategoryAfterDragAndDroprReducerData: [],
+    UpdateMenuItemsAfterDragAndDropReducerData: [],
     loading: false,
     error: null,
   },

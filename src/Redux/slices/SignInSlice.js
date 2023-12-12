@@ -4,12 +4,17 @@ import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 
-    
+let languageSet = reactLocalStorage.get("languageSet", "en"); 
 // SignIn
 
 export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signin/`,body);
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/signin/`,body, 
+      {
+        headers: { 
+          "Accept-Language": languageSet
+        },
+      });
       toast.success("Successfully Loged In");
       reactLocalStorage.set("Token",response?.data?.token);
       reactLocalStorage.set("FirstName",response?.data?.first_name);
@@ -40,11 +45,6 @@ export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectW
     }
   }
 );
-
-
-// SignOut 
-
- 
 
  
 

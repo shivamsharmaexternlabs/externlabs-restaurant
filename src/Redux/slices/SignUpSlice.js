@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 
-    
+let languageSet = reactLocalStorage.get("languageSet", "en");
 // SignUp
 
 export const SignUpSlice = createAsyncThunk("SignUpSlice",async (body, { rejectWithValue }) => {
@@ -12,6 +13,7 @@ export const SignUpSlice = createAsyncThunk("SignUpSlice",async (body, { rejectW
     {
       headers: {
         Authorization: `Bearer ${body?.token}`,
+        "Accept-Language": languageSet
       },
     }); 
     

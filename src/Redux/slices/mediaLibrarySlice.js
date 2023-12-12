@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
+let languageSet = reactLocalStorage.get("languageSet", "en");
 
 // Get Media Library Slice
 export const GetMediaLibrarySlice = createAsyncThunk(
@@ -14,6 +15,7 @@ export const GetMediaLibrarySlice = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${body?.BearerToken}`,
+            "Accept-Language": languageSet
           },
         }
       );
@@ -48,6 +50,7 @@ export const PostMediaLibrarySlice = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${body?.BearerToken}`,
+            "Accept-Language": languageSet
           },
         }
       );

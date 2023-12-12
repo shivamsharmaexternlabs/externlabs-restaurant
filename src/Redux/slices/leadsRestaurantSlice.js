@@ -6,6 +6,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
     
 let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 let BearerToken = reactLocalStorage.get("Token", false);
+let languageSet = reactLocalStorage.get("languageSet", "en");
 
 // get leads Restaurant Slice 
 export const LeadsRestaurantSlice = createAsyncThunk("LeadsRestaurantSlice",async (body, { rejectWithValue }) => {
@@ -14,6 +15,7 @@ export const LeadsRestaurantSlice = createAsyncThunk("LeadsRestaurantSlice",asyn
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,
+          "Accept-Language": languageSet
         },
       }
       ); 
@@ -36,6 +38,7 @@ export const CreateLeadsRestaurantSlice = createAsyncThunk("CreateLeadsRestauran
       {
         headers: {
           Authorization: `Bearer ${body?.BearerToken}`,
+          "Accept-Language": languageSet
         },
       }); 
 
@@ -58,6 +61,7 @@ export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurants
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,
+          "Accept-Language": languageSet
         },
       }); 
 
@@ -79,6 +83,7 @@ export const UpdateRestaurantSlice = createAsyncThunk("UpdateRestaurantSlice",as
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,
+          "Accept-Language": languageSet
         },
       }); 
 
@@ -86,7 +91,7 @@ export const UpdateRestaurantSlice = createAsyncThunk("UpdateRestaurantSlice",as
 
     } catch (err) {
 
-      toast.error(err?.response?.data?.error[0]);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }

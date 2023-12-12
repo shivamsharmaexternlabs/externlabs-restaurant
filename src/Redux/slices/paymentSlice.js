@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 let BearerToken = reactLocalStorage.get("Token", false)
+let languageSet = reactLocalStorage.get("languageSet", "en");
 
 // Payment Initiate Slice
 export const PaymentPostSlice = createAsyncThunk("PaymentPostSlice", async (body, { rejectWithValue }) => {
@@ -13,6 +14,7 @@ export const PaymentPostSlice = createAsyncThunk("PaymentPostSlice", async (body
             {
                 headers: {
                     Authorization: `Bearer ${body?.BearerToken}`,
+                    "Accept-Language": languageSet
                 },
             }
         );
@@ -34,6 +36,7 @@ export const UnsubscribePaymentSlice = createAsyncThunk("UnsubscribePaymentSlice
             {
                 headers: {
                     Authorization: `Bearer ${body?.BearerToken}`,
+                    "Accept-Language": languageSet
                 },
             }
         );
@@ -55,6 +58,7 @@ export const PaymentHistorySlice = createAsyncThunk("PaymentHistorySlice", async
             {
                 headers: {
                     Authorization: `Bearer ${body}`,
+                    "Accept-Language": languageSet
                 },
             }
         );
