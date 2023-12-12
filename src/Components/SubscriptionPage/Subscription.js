@@ -10,13 +10,15 @@ import Stripe from 'stripe';
 import { useDispatch, useSelector } from 'react-redux'
 import { PaymentPostSlice } from '../../Redux/slices/paymentSlice'
 import { reactLocalStorage } from 'reactjs-localstorage'
+import DashboardHeader from '../DashboardComponents/DashboardHeader/DashboardHeader' 
+import usePopUpHook from '../../CustomHooks/usePopUpHook/usePopUpHook'
 
 const Subscription = ({translaterFun}) => {
   const dispatch = useDispatch();
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
   let BearerToken = reactLocalStorage.get("Token", false);
   const [subscriptionDetails, setSubscriptionDetails] = useState('')
-
+  const [popUpHook, popUpHookFun] = usePopUpHook("")
   const [SubscriptionPlanDetails, setSubscriptionPlanDetails] = useState('')
 
   const PaymentSelectorData = useSelector((state) => state.PaymentApiData);
@@ -63,6 +65,7 @@ const Subscription = ({translaterFun}) => {
 
   return (
     <>
+      <DashboardHeader popUpHookFun={popUpHookFun}/>
       <div className='subscriptionpage'>
         <div className='title'>
           <h2> {translaterFun("explore-our-pricing-plans")}</h2>

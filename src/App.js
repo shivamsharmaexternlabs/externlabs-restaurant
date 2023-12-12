@@ -59,6 +59,7 @@ function App() {
 
 
   let Token=reactLocalStorage.get("Token",false)
+  let UserTypeData = reactLocalStorage.get("Type", false);
 
   axios.interceptors.response.use(
 
@@ -125,7 +126,7 @@ console.log("dfghjk",Token)
         <Route path='/admin/leads' element={<Leads  translaterFun={t} />}></Route>
         <Route path='/admin/menucategories' element={<Menucategories  translaterFun={t} />}></Route> {/* convert in arabic  */}
         <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail  translaterFun={t} />}></Route>
-        <Route path='/subscription' element={<Subscription  translaterFun={t} />}></Route>
+        {UserTypeData == "owner"&&<Route path='/subscription' element={<Subscription  translaterFun={t} />}></Route>}
       </Routes>: <Routes>
       <Route path="/" element={<Login  translaterFun={t} />}></Route>
         <Route path="/:id" element={<Login  translaterFun={t} />}></Route>
