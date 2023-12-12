@@ -1,13 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { reactLocalStorage } from "reactjs-localstorage";
 
-
+let languageSet = reactLocalStorage.get("languageSet", "en");
 // Forgot password
 
 export const ForgotPasswordSlice = createAsyncThunk("ForgotPasswordSlice",async (body, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/forgot_password_mail/`,body);
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user_auth/forgot_password_mail/`,
+      body, 
+      {
+        headers: {
+          "Accept-Language": languageSet
+        },
+      }
+      );
       toast.success(response?.data?.message)
 
       return response;

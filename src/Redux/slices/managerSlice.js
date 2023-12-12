@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
-
+let languageSet = reactLocalStorage.get("languageSet", "en");
 
 export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejectWithValue }) => { 
     try {
@@ -11,6 +11,7 @@ export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejec
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,
+          "Accept-Language": languageSet
         },
       }
       
@@ -31,6 +32,7 @@ export const ManagerDeleteSlice = createAsyncThunk("ManagerDeleteSlice",async (b
       {
         headers: {
           Authorization: `Bearer ${body?.BearerToken}`,
+          "Accept-Language": languageSet
         },
       }
       

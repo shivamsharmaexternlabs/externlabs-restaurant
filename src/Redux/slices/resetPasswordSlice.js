@@ -6,7 +6,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
 // Reset password
 // let BearerToken = reactLocalStorage.get("Token", false);
 
-
+let languageSet = reactLocalStorage.get("languageSet", "en");
 
 export const ResetPasswordSlice = createAsyncThunk("ResetPasswordSlice",async (body, { rejectWithValue }) => {
     try {
@@ -14,6 +14,7 @@ export const ResetPasswordSlice = createAsyncThunk("ResetPasswordSlice",async (b
       {
         headers: {
           Authorization: `Bearer ${body?.BearerToken}`,
+          "Accept-Language": languageSet
         },
       }
       

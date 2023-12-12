@@ -4,15 +4,20 @@ import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 
-
+let languageSet = reactLocalStorage.get("languageSet", "en");
 
 // get menu category 
  export const GetQrCodeSlice = createAsyncThunk("GetQrCodeSlice",async (body, { rejectWithValue }) => {
   try {
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/qrcodes/?restaurant_id=${body}`,
+    {
+      headers: {
+        "Accept-Language": languageSet
+      },
+    }
     
     );
-    // toast.success("Successful");
+    // toast.success("Successful"); 
 
     return response;
 
