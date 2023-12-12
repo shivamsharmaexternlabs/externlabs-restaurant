@@ -324,7 +324,7 @@
     transition: all .3s ease;
     border-bottom: 3px solid #F7F7FA;
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 20px;
 }
 
 .menuitemtab .accordion-item .accordion-header .accordion-button {

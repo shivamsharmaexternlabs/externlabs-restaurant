@@ -1,24 +1,30 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import './dashboardHeader.css'
 import user from '../../../images/user.png'
 import notify from '../../../images/icon6.svg'
 import logout from '../../../images/logout.svg'
+import globe from '../../../images/Globe.svg'
 import { reactLocalStorage } from "reactjs-localstorage";
 import { LanguageChange, ToggleNewLeads } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
- 
+
 
 import { useTranslation } from "react-i18next"
 
 const DashboardHeader = ({ popUpHookFun }) => {
 
   const [LogOutToggle, setLogOutToggle] = useState(false)
-  const [languagesToggle, setlanguagesToggle] = useState(false)
+  const [languagesDataKey, setlanguagesDataKey] = useState("")
+  const [languagesDataValue, setlanguagesDataValue] = useState("English")
+const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
+  
+
 
   const navigate = useNavigate()
   const dispatch = useDispatch();
+  const params=useLocation()
   const { t, i18n } = useTranslation();
   let BearerToken = reactLocalStorage.get("Token", false);
 
@@ -47,28 +53,53 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
   }
 
-  let languageDAta= reactLocalStorage.get("languageSet", false);
+  let languageDAta = reactLocalStorage.get("languageSet", false);
 
-  const LanguageFun = (value) => {
-    // i18n.changeLanguage(value)  
-    reactLocalStorage.set("languageSet", value);
-    dispatch(LanguageChange(value))
+  // const LanguageFun = (value) => {
+  //   // i18n.changeLanguage(value)  
+  //   reactLocalStorage.set("languageSet", value);
+  //   dispatch(LanguageChange(value))
+  // }
+
+  useEffect(() => {
+    if (languageDAta !== false) {
+      dispatch(LanguageChange(languageDAta))
+    }
+  }, [languageDAta])
+  
+  let languageData = [
+    { value: "en", key: "English" },
+    { value: "ar", key: "عربي" }
+
+  ]
+
+  const languageDataFun =(e,value,key)=>{
+    setlanguagesDataValue(  value=="English"?"عربي":"English")
+    setlanguagesDataKey(key)
+    setSelectToggleSelectTogglealue(o=>!o)
+    reactLocalStorage.set("languageSet", key);
   }
 
-  useEffect(()=>{
-    if(languageDAta !==false ){ 
-      dispatch(LanguageChange(languageDAta)) 
-    }  
-  },[languageDAta])
-
+  const openSelectToggleFun=()=>{
+    setSelectToggleSelectTogglealue(o=>!o)
+  }
 
   return (
     <>
       <header>
         {/* <div className='leftpart'>  <form> <input type='search' placeholder='Search…' /> </form> </div> */}
         <div className='rightpart'>
+          <div className='languaselist'>
+            <img src={globe} alt='Language img' className='globeimg'/>
+            <button className='' onClick={(e)=>openSelectToggleFun()}> {languagesDataValue} </button>
+            {SelectToggleValue && <ul className=''  >
+              {languageData?.map((items,id)=>{
+               return  <li onClick={(e)=>languageDataFun(e,items?.key,items?.value)}> {items?.key}  </li> 
+              })} 
+            </ul>}
+          </div>
 
-          {UserTypeData !== "owner" && <button type='button' className="btn2 me-3"
+          {UserTypeData !== "owner" && params?.pathname?.split("/")?.[2] !=="restaurantdetail" && <button type='button' className="btn2 me-3"
             onClick={(e) => PopUpToggleFun()}
           >
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,10 +108,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
             {t("new-customer")}
           </button>}
 
-          <span className='notifyimg'> <img src={notify} alt='notify img' onClick={() => {
-            LanguageFun()
-
-          }} /> </span>
+          <span className='notifyimg'> <img src={notify} alt='notify img'  /> </span>
           <div className='user'  >
             <figure> <img src={user} alt='user img' />  </figure>
             <div className='userinfo'>
@@ -97,12 +125,12 @@ const DashboardHeader = ({ popUpHookFun }) => {
                   {t("logout")}
 
                 </button>
-                <button type='button' className='' onClick={(e) => LanguageFun("en")}>
+                {/* <button type='button' className='' onClick={(e) => LanguageFun("en")}>
                   English
                 </button>
                 <button type='button' className='' onClick={(e) => LanguageFun("ar")}>
                   عربي
-                </button>
+                </button> */}
               </div>}
             </div>
           </div>

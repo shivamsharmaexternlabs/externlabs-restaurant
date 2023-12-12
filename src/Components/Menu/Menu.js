@@ -10,6 +10,8 @@ import icon4 from '../../images/icon4.svg'
 import icon5 from '../../images/icon5.svg'
 import calorie from '../../images/calorie.png'
 
+import globe from '../../images/Globe.svg'
+
 import star from '../../images/star.svg'
 import { GetMenuCategorySlice, MenuSlice } from '../../Redux/slices/menuSlice'
 import menu from '../../images/menu.svg'
@@ -28,6 +30,11 @@ const Menu = ({ translaterFun }) => {
   const [MenuItemTypeValue, setMenuItemTypeValue] = useState("")
   const [MenuItemSearchValue, setMenuItemSearchValue] = useState("")
   const [loadspiner, setLoadSpiner] = useState(false);
+
+
+  const [languagesDataKey, setlanguagesDataKey] = useState("")
+  const [languagesDataValue, setlanguagesDataValue] = useState("English")
+const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
 
 
   const params = useLocation();
@@ -170,6 +177,19 @@ const Menu = ({ translaterFun }) => {
 
   },[languageDAta])
 
+
+  
+
+  const languageDataFun =(e,value,key)=>{
+    setlanguagesDataValue(  value=="English"?"عربي":"English")
+    setlanguagesDataKey(key)
+    setSelectToggleSelectTogglealue(o=>!o)
+    reactLocalStorage.set("languageSet", key);
+  }
+
+  const openSelectToggleFun=()=>{
+    setSelectToggleSelectTogglealue(o=>!o)
+  }
   
 
 
@@ -184,14 +204,21 @@ const Menu = ({ translaterFun }) => {
 
             <div className='languagebox'>
 
-              <select className='form-select' onChange={(e) => LanguageFun(e)}>
-                {/* <option value="null">Select language ...</option> */}
-
+            <div className='languaselist'>
+            <img src={globe} alt='Language img' className='globeimg'/>
+            <button className='' onClick={(e)=>openSelectToggleFun()}> {languagesDataValue} </button>
+            {SelectToggleValue && <ul className=''  >
+              {languageData?.map((items,id)=>{
+               return  <li onClick={(e)=>languageDataFun(e,items?.key,items?.value)}> {items?.key}  </li> 
+              })} 
+            </ul>}
+          </div>
+              {/* <select className='form-select' onChange={(e) => LanguageFun(e)}> 
                 {languageData?.map((items, id) => {
                   return <option selected={languageDAta==items?.value?"select":""} value={items?.value}>{items?.key}</option>
                 })}
 
-              </select>
+              </select> */}
               {/* <button type='button' className='' onClick={(e) => LanguageFun("en")}>
                   English
                 </button>
