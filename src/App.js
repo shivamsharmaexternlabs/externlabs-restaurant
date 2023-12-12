@@ -128,7 +128,7 @@ function App() {
             <Route path='/admin/leads' element={<Leads translaterFun={t} />}></Route>
             <Route path='/admin/menucategories' element={<Menucategories translaterFun={t} />}></Route> {/* convert in arabic  */}
             <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail translaterFun={t} />}></Route>
-            {!payment_status && <Route path='/subscription' element={<Subscription translaterFun={t} />}></Route>}
+            {payment_status =="false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
           </Routes>
         }
         <Routes>

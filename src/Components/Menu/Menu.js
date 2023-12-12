@@ -215,6 +215,7 @@ const Menu = ({ translaterFun }) => {
             <input type="search" placeholder={translaterFun("search-a-food")} onChange={(e) => MenuSearchFun(e)} />
             <button className='' type='submit'> <img src={icon3} alt='img' />  </button>
           </div>
+          <div className='line'></div>
           <ul className='itemlistbtn'>
             {MenuItemType?.map((itemType, id) => {
               return <li key={id} onClick={(e) => MenuItemTypeToggleFun(e, itemType, id)}
@@ -228,8 +229,10 @@ const Menu = ({ translaterFun }) => {
               </li>
             })}
           </ul>
+          <div className='line'></div>
         </div>
-        <div className='specialbox'></div>
+
+        {/* <div className='specialbox'></div> */}
 
 
         {/* ITEM TYPE MANAGEMENT */}

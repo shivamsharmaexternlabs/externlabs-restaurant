@@ -30,7 +30,7 @@ const Login = () => {
         reactLocalStorage.set("payment_status", User?.data?.data?.payment_status);
 
         if (User?.data?.data?.payment_status === false) {
-          navigate(`/subscription`); 
+          navigate(`/subscription/page`); 
         }
         else if(User?.data?.data?.payment_status === true){
           
