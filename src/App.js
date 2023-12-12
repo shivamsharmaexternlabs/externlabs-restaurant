@@ -110,7 +110,7 @@ console.log("dfghjk",Token)
   return (
     <>
     <div className={languageDAta=="ar"?"arabic":""}  dir={languageDAta=="ar"?"rtl":""}>
-     {Token !== false&&   <Routes>
+     {Token !== false?   <Routes>
            {/* <Route path="/emailotpverification" element={<EmailOtpVerification  translaterFun={t} />}></Route> */}
         {/* <Route path="/signup" element={<Signup  translaterFun={t} />}></Route> */}
         <Route path='/success' element={<Success  translaterFun={t} />}></Route>
@@ -126,14 +126,16 @@ console.log("dfghjk",Token)
         <Route path='/admin/menucategories' element={<Menucategories  translaterFun={t} />}></Route> {/* convert in arabic  */}
         <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail  translaterFun={t} />}></Route>
         <Route path='/subscription' element={<Subscription  translaterFun={t} />}></Route>
-      </Routes>}
+      </Routes>: <Routes>
+      <Route path="/" element={<Login  translaterFun={t} />}></Route>
+        <Route path="/:id" element={<Login  translaterFun={t} />}></Route>
+
+        </Routes>}
 
       <Routes>
       <Route path="/:id/menu" element={<Menu  translaterFun={t} />}></Route>
 
-      <Route path="/" element={<Login  translaterFun={t} />}></Route>
-        <Route path="/:id" element={<Login  translaterFun={t} />}></Route>
-      </Routes>
+       </Routes>
 
       <ToastContainer autoClose={2000} />
       </div>
