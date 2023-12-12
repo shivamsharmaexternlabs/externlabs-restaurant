@@ -52,13 +52,14 @@ i18n.languages = ['en', 'ar']; */
 
 function App() {
 
-  const navigate=useNavigate()
-  const {t, i18n } = useTranslation()
+  const navigate = useNavigate()
+  const { t, i18n } = useTranslation()
 
   const ManagerApiSelectorData = useSelector((state) => state.ToggleBarData);
 
 
-  let Token=reactLocalStorage.get("Token",false)
+  let Token = reactLocalStorage.get("Token", false)
+  let payment_status = reactLocalStorage.get("payment_status", false)
   let UserTypeData = reactLocalStorage.get("Type", false);
 
   axios.interceptors.response.use(
@@ -69,8 +70,8 @@ function App() {
     },
     (error) => {
       if (error?.response?.status == 401) {
-        console.log("zasdfgnbsad",error?.response)
-        if(error?.response?.data?.error=="Token is invalid" || error?.response?.data?.error=="Token is expired"  ){
+        console.log("zasdfgnbsad", error?.response)
+        if (error?.response?.data?.error == "Token is invalid" || error?.response?.data?.error == "Token is expired") {
 
           reactLocalStorage.clear()
           navigate("/")
@@ -86,7 +87,7 @@ function App() {
       return Promise.reject(error);
     }
   );
-console.log("dfghjk",Token)
+  console.log("dfghjk", Token)
 
 
 
@@ -99,46 +100,49 @@ console.log("dfghjk",Token)
   //   }
 
   // },[Token])
-  let languageDAta= reactLocalStorage.get("languageSet", false);
+  let languageDAta = reactLocalStorage.get("languageSet", false);
 
 
-  useEffect(()=>{
+  useEffect(() => {
     i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
-  },[ManagerApiSelectorData?.languagechange])
+  }, [ManagerApiSelectorData?.languagechange])
 
 
 
   return (
     <>
-    <div className={languageDAta=="ar"?"arabic":""}  dir={languageDAta=="ar"?"rtl":""}>
-     {Token !== false?   <Routes>
-           {/* <Route path="/emailotpverification" element={<EmailOtpVerification  translaterFun={t} />}></Route> */}
-        {/* <Route path="/signup" element={<Signup  translaterFun={t} />}></Route> */}
-        <Route path='/success' element={<Success  translaterFun={t} />}></Route>
-        {/* <Route path="/forgotpassword" element={<ForgotPassword  translaterFun={t} />}></Route> */}
-        <Route path="/user_auth/resetpassword/:id" element={<ResetPassword  translaterFun={t} />}></Route>
-        <Route path="/:id/admin/dashboard" element={<Dashboard    translaterFun={t} />}></Route>  {/* convert in arabic  */}
-        <Route path="/:id/admin/categories" element={ <DndProvider backend={HTML5Backend}><Categories  translaterFun={t}/></DndProvider>}></Route>  {/* convert in arabic  */}
-        <Route path="/:id/admin/categories/reorder/" element={ <DndProvider backend={HTML5Backend}><DndCategories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
-        <Route path="/:id/admin/manager" element={<Manager  translaterFun={t} />}></Route> {/* convert in arabic  */}
-         <Route path="/:id/admin/allmedia" element={<AllMedia  translaterFun={t} />}></Route>{/* convert in arabic  */}
-        <Route path="/:id/admin/paymenthistory" element={<PaymentHistory  translaterFun={t} />}></Route> {/* convert in arabic  */}
-        <Route path='/admin/leads' element={<Leads  translaterFun={t} />}></Route>
-        <Route path='/admin/menucategories' element={<Menucategories  translaterFun={t} />}></Route> {/* convert in arabic  */}
-        <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail  translaterFun={t} />}></Route>
-        {UserTypeData == "owner"&&<Route path='/subscription' element={<Subscription  translaterFun={t} />}></Route>}
-      </Routes>: <Routes>
-      <Route path="/" element={<Login  translaterFun={t} />}></Route>
-        <Route path="/:id" element={<Login  translaterFun={t} />}></Route>
+      <div className={languageDAta == "ar" ? "arabic" : ""} dir={languageDAta == "ar" ? "rtl" : ""}>
+        {Token &&
+          <Routes>
+            {/* <Route path="/emailotpverification" element={<EmailOtpVerification  translaterFun={t} />}></Route> // Please do not remove this comment... */}
+            {/* <Route path="/signup" element={<Signup  translaterFun={t} />}></Route> // Please do not remove this comment... */}
+            {/* <Route path='/success' element={<Success  translaterFun={t} />}></Route>   // Please do not remove this comment...*/}
+            {/* <Route path="/forgotpassword" element={<ForgotPassword  translaterFun={t} />}></Route> // Please do not remove this comment... */}
+            <Route path="/user_auth/resetpassword/:id" element={<ResetPassword translaterFun={t} />}></Route>
+            <Route path="/:id/admin/dashboard" element={<Dashboard translaterFun={t} />}></Route>  {/* convert in arabic  */}
+            <Route path="/:id/admin/categories" element={<DndProvider backend={HTML5Backend}><Categories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
+            <Route path="/:id/admin/categories/reorder/" element={<DndProvider backend={HTML5Backend}><DndCategories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
+            <Route path="/:id/admin/manager" element={<Manager translaterFun={t} />}></Route> {/* convert in arabic  */}
+            <Route path="/:id/admin/allmedia" element={<AllMedia translaterFun={t} />}></Route>{/* convert in arabic  */}
+            <Route path="/:id/admin/paymenthistory" element={<PaymentHistory translaterFun={t} />}></Route> {/* convert in arabic  */}
+            <Route path='/admin/leads' element={<Leads translaterFun={t} />}></Route>
+            <Route path='/admin/menucategories' element={<Menucategories translaterFun={t} />}></Route> {/* convert in arabic  */}
+            <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail translaterFun={t} />}></Route>
+            {!payment_status && <Route path='/subscription' element={<Subscription translaterFun={t} />}></Route>}
+          </Routes>
+        }
+        <Routes>
+          <Route path="/" element={<Login translaterFun={t} />}></Route>
+          <Route path="/:id" element={<Login translaterFun={t} />}></Route> 
 
-        </Routes>}
+        </Routes>
 
-      <Routes>
-      <Route path="/:id/menu" element={<Menu  translaterFun={t} />}></Route>
+        <Routes>
+          <Route path="/:id/menu" element={<Menu translaterFun={t} />}></Route>
 
-       </Routes>
+        </Routes>
 
-      <ToastContainer autoClose={2000} />
+        <ToastContainer autoClose={2000} />
       </div>
     </>
   );

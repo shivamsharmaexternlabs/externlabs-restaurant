@@ -19,10 +19,13 @@ const Subscription = ({translaterFun}) => {
   let BearerToken = reactLocalStorage.get("Token", false);
   const [subscriptionDetails, setSubscriptionDetails] = useState('')
   const [popUpHook, popUpHookFun] = usePopUpHook("")
-  const [SubscriptionPlanDetails, setSubscriptionPlanDetails] = useState('')
+  // const [LanguageSelected, setLanguageSelected] = useState('en')
 
   const PaymentSelectorData = useSelector((state) => state.PaymentApiData);
+  const LanguageSelected = reactLocalStorage.get("languageSet", false);
  
+
+ console.log("jhgf", LanguageSelected)
   useEffect(() => {
     const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
  
@@ -43,6 +46,8 @@ const Subscription = ({translaterFun}) => {
     getPrice()
 
   }, []);
+
+  console.log("subscriptionDetailsdfgfds", subscriptionDetails)
 
 
  
@@ -87,7 +92,7 @@ const Subscription = ({translaterFun}) => {
               <ul>
 
                 {subscriptionDetails && subscriptionDetails?.map((items, id) => {
-                  return items?.recurring?.interval === "month" && items?.product?.active === true && <li key={id} className=''>
+                  return items?.recurring?.interval === "month" && items?.product?.active === true && items?.product?.metadata?.language === LanguageSelected && <li key={id} className=''>
                     <div className='title'>
                       <div className='iconbox'>
                         <img src={subicon1} alt='img' className='img' />
@@ -125,19 +130,19 @@ const Subscription = ({translaterFun}) => {
 
                 {subscriptionDetails && subscriptionDetails?.map((items, id) => {
                   {/* let price_id = items?.id; */ }
-                  return items?.recurring?.interval === "year" && items?.product?.active === true && <li className=''>
+                  return items?.recurring?.interval === "year" && items?.product?.active === true && items?.product?.metadata?.language === LanguageSelected && <li className=''>
                     <div className='title'>
                       <div className='iconbox'>
                         <img src={subicon1} alt='img' className='img' />
                         <img src={subicon1h} alt='img' className='activeimg' />
                       </div>
-                      <h3>{items?.currency.toUpperCase()} {items?.unit_amount / 100}<span>/per {items?.recurring?.interval}</span></h3>
+                      <h3>{items?.currency.toUpperCase()} {items?.unit_amount / 100}<span>/{translaterFun("per")} {items?.recurring?.interval}</span></h3>
                     </div>
                     <div className='info'>
                       <h4>{items?.product?.name.charAt(0).toUpperCase() + items?.product?.name.slice(1)}</h4>
                       <p>{items?.product?.description}</p>
                       <button type='button' onClick={() => PaymentFunc(items.id)}>
-                        Get Started
+                      {translaterFun("get-started")}
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="8" viewBox="0 0 22 8">
                           <path d="M21.3536 4.35356C21.5488 4.15829 21.5488 3.84171 21.3536 3.64645L18.1716 0.464468C17.9763 0.269205 17.6597 0.269205 17.4645 0.464468C17.2692 0.65973 17.2692 0.976312 17.4645 1.17157L20.2929 4L17.4645 6.82843C17.2692 7.02369 17.2692 7.34027 17.4645 7.53554C17.6597 7.7308 17.9763 7.7308 18.1716 7.53554L21.3536 4.35356ZM-4.37114e-08 4.5L21 4.5L21 3.5L4.37114e-08 3.5L-4.37114e-08 4.5Z" />
                         </svg>

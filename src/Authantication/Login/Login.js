@@ -24,6 +24,8 @@ const Login = () => {
 
     if (User?.data?.status === 200) {
       setLoadSpiner(false);
+      reactLocalStorage.set("languageSet", "en");
+
       if (User?.data?.data?.type !== "sales") {
         reactLocalStorage.set("payment_status", User?.data?.data?.payment_status);
 
