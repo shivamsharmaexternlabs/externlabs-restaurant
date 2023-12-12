@@ -38,18 +38,19 @@ const RestaurantDetail = ({translaterFun}) => {
   
   const [countrycode, setCountryCode] = useState("");
   const [phonenumber, setPhoneNumber] = useState("");
-
+  const [HandleFormData,setHandleFormData]=useState(false)
   const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
   const LeadsRestaurantSelectorData = useSelector((state) => state.LeadsRestaurantApiData);
   const LeadsSelectorData = useSelector((state) => state.LeadsApiData);
   const ResetPasswordSelectorData = useSelector((state) => state.ResetPasswordApiData);
-
+console.log("fhsga",HandleFormData)
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   let BearerToken = reactLocalStorage.get("Token", false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+let submitAction = undefined;
 
 
   const defaultSignUpValue = {
@@ -118,10 +119,10 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
     email: yup.string().matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, translaterFun("email-is-invalid")).matches(/^\S*$/, 'First name must not contain spaces'),
     // phone_ext: yup.string().required(translaterFun('Phone Extension is required').matches(/^\S*$/, 'Phone Extension must not contain spaces'),
     // phone: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required(translaterFun('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces'),
-    shop_no: yup.string().required(translaterFun("shop-no-is-required")),
+    // shop_no: yup.string().required(translaterFun("shop-no-is-required")),
     street: yup.string().required(translaterFun("street-name-is-required")),
     city: yup.string().required(translaterFun("city-name-is-required")),
-    landmark: yup.string().required(translaterFun("landmark-is-required")),
+    // landmark: yup.string().required(translaterFun("landmark-is-required")),
     pincode: yup.string().matches(/^[0-9]+$/, translaterFun("pincode-must-contain-only-digits")).required(translaterFun('pincode-is-required')).matches(/^\S*$/, translaterFun("pincode-must-not-contain-spaces")),
     state: yup.string().required(translaterFun("state-is-required")),
     country: yup.string().required(translaterFun("country-is-required")),
@@ -268,22 +269,29 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
 
     else {
+      //  if(!HandleFormData==true){
+        let UpdateRestroPayload = {
+          restaurant_name: values?.restaurant_name,
+          shop_no: values?.shop_no,
+          street: values?.street,
+          city: values?.city,
+          landmark: values?.landmark,
+          pincode: values?.pincode,
+          state: values?.state,
+          country: values?.country,
+          description: values?.description,
+          Token: BearerToken,
+          RestaurantId: routeData?.state?.currentData?.restaurant_id
+        }
+        console.log("shgajh",UpdateRestroPayload)
+        // setHandleFormData(false)
 
-      let UpdateRestroPayload = {
-        restaurant_name: values?.restaurant_name,
-        shop_no: values?.shop_no,
-        street: values?.street,
-        city: values?.city,
-        landmark: values?.landmark,
-        pincode: values?.pincode,
-        state: values?.state,
-        country: values?.country,
-        description: values?.description,
-        Token: BearerToken,
-        RestaurantId: routeData?.state?.currentData?.restaurant_id
-      }
+        dispatch(UpdateRestaurantSlice(UpdateRestroPayload)); 
+        // setHandleFormData(true)
+        setHandleFormData(false)
 
-      dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
+      //  }
+      // dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
 
       // Patch API for restaurant edit will run
 
@@ -379,21 +387,46 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
               </div>
             </div>
 
-            <div className='mt-4 mb-2 editprofileform'>
+            <div className={`mt-4 mb-2 editprofileform ${!HandleFormData?"":""}`}>
               <Formik
                 initialValues={defaultValue}
                 validationSchema={Validate}
-                onSubmit={handleSubmit}
+                // onSubmit={handleSubmit}
+              //   onSubmit={(values) => {
+              //     if(HandleFormData){
+              //        console.log("dhsgh")
+              //     }
+              //     else{
+              //       console.log("dhsgh111")
+              //       handleSubmit(values)
+              //     }
+              //     // if (submitAction === "primary") {
+              //     //     handleSubmit(values);
+              //     // }
+              //     // else {
+              //     //     CreateLeadOnBoard(values);
+              //     // }
+              // }}
+              onSubmit={(values) => {
+                if (submitAction === "primary") {
+                  console.log("dhgasjh")
+                    // handleSubmit(values);
+                }
+                else if(submitAction === "secondary"){
+                  console.log("dhgasjh11")
+                  handleSubmit(values);
+                }
+            }}
               >
-                <Form className="row">
+               {({ handleSubmit, initialValues, values }) => (  <Form className="row">
                   <div className='col-md-6'>
-
-                    <div className="formbox mb-3">
+                    <div className="formbox mb-3 ">
                       <label>{translaterFun("restaurant-name")}</label>
                       <Field
                         name="restaurant_name"
                         type="text"
-                        className={`form-control `}
+                        className={` form-control ${HandleFormData ? ""  : "numbersdds"}`}
+                        disabled={HandleFormData? '':"true"}
                         autoComplete="off"
                         placeholder={translaterFun("enter-your-name")}
                       />
@@ -402,13 +435,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                       </p>
                     </div>
 
-                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3 numbersdds "  : "formbox mb-3"} `}>
+                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3"  : "formbox mb-3"} `}>
                       <label> {translaterFun("owner-name")} </label>
                       <Field
                         name="owner_name"
                         type="text"
                         disabled="true"
-                        className={`form-control ${routeData?.state?.page !== "lead" ? "numbersdds "  : ""}`}
+                        className={`form-control ${HandleFormData && routeData?.state?.page !== "lead" ? "numbersdds"  : "numbersdds"}`}
                         autoComplete="off"
                         placeholder={translaterFun("enter-owner-name")}
                       />
@@ -417,13 +450,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                       </p>
                     </div>
 
-                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3 numbersdds "  : "formbox mb-3"} `}>
+                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3"  : "formbox mb-3"} `}>
                       <label>{translaterFun("email")} </label>
                       <Field
                         name="email"
                         type="email"
                         disabled='true'
-                        className={`form-control ${routeData?.state?.page !== "lead" ? "numbersdds "  : ""}`}
+                        className={`form-control ${HandleFormData && routeData?.state?.page !== "lead" ? "numbersdds"  : "numbersdds"}`}
                         autoComplete="off"
                         placeholder={translaterFun("enter-your-email")}
                       />
@@ -436,14 +469,14 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                     <div className='row'>
 
                       <div className="col-md-12  mb-3">
-                        {<div className={`${routeData?.state?.page !== "lead" ? "formbox  numbersdds" : "formbox"} `}>
+                        {<div className={`${HandleFormData&&routeData?.state?.page !== "lead" ? "formbox numbersdds" : "formbox numbersdds"} `}>
                           <label> {translaterFun("phone-number")} </label>
 
                           <PhoneInput
                             // country={"in"}
                             value={countrycode + phonenumber}
                             onChange={routeData?.state?.page == "lead" ? handleOnChange1:""}
-                            className="input_filed"
+                            className="input_filed" 
                           />
                         </div>}
                       </div>
@@ -457,7 +490,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="shop_no"
                             type="text"
-                            className={`form-control `}
+                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
+                            disabled={HandleFormData? '':"true"}
                             autoComplete="off"
                             placeholder={translaterFun("enter-your-shop-no")}
                           />
@@ -473,7 +507,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="street"
                             type="text"
-                            className={`form-control `}
+                            disabled={HandleFormData? '':"true"}
+                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
                             autoComplete="off"
                             placeholder={translaterFun("enter-your-street-name")}
                           />
@@ -491,7 +526,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="city"
                             type="text"
-                            className={`form-control `}
+                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
+                            disabled={HandleFormData? '':"true"}
                             autoComplete="off"
                             placeholder={translaterFun("enter-your-city-name")}
                           />
@@ -506,7 +542,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="landmark"
                             type="text"
-                            className={`form-control `}
+                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
+                            disabled={HandleFormData? '':"true"}
                             autoComplete="off"
                             placeholder={translaterFun("nearby-landmark")}
                           />
@@ -526,7 +563,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="pincode"
                             type="text"
-                            className={`form-control `}
+                            disabled={HandleFormData? '':"true"}
+                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
                             autoComplete="off"
                             placeholder={translaterFun("pincode")}
                           />
@@ -542,7 +580,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="state"
                             type="text"
-                            className={`form-control `}
+                            disabled={HandleFormData? '':"true"}  
+                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
                             autoComplete="off"
                             placeholder={translaterFun("state")}
                           />
@@ -558,7 +597,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="country"
                             type="text"
-                            className={`form-control `}
+                            disabled={HandleFormData? '':"true"}
+                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
                             autoComplete="off"
                             placeholder={translaterFun("country")}  
                           />
@@ -574,7 +614,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="description"
                             type="text"
-                            className={`form-control `}
+                            disabled={HandleFormData? '':"true"}  
+                            className={`form-control ${HandleFormData?"":"numbersdds"}  `}
                             autoComplete="off"
                             placeholder={translaterFun("type-here")}
                           />
@@ -590,13 +631,33 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                   </div>
                   <div className='submitbox'>
                     {routeData?.state?.page === "MenuCategory" && <button type='button' className='btn2' onClick={(e) => resetPasswordFunc(e, routeData)}>{translaterFun("reset-password")} </button>}
-                    {
-                      <button type='submit' className='btn2 ms-3'  >{routeData?.state?.page === "MenuCategory" ? translaterFun("edit-profile") : translaterFun("onBoard-and-Create-Password")} </button>
-                    }
+                    {<>
+                    
+
+                      {!HandleFormData&&<button type="submit" className="btn1 mx-3" 
+                      onClick={(e) => {
+                        submitAction = "primary";
+                        setHandleFormData(true)
+                        // handleSubmit(e)
+                      }}
+                       >{translaterFun("edit-profile")}</button>}
+
+                      {HandleFormData&&<button type="submit" className="btn2 mx-3"
+                       onClick={(e) => {
+                        submitAction = "secondary";
+                        handleSubmit(e)
+                      }} 
+                      > {translaterFun("save-profile")}</button>}
+                      </>
+                                          //   <button type='submit' className='btn2 ms-3' onClick={()=>setHandleFormData(true)} >
+                                          //     {routeData?.state?.page === "MenuCategory" ? !HandleFormData ? translaterFun("edit-profile") 
+                    //     :"Save-profile": translaterFun("onBoard-and-Create-Password")} </button>
+                    // 
+                  }
 
                   </div>
                 </Form>
-
+  )}
 
               </Formik>
 
