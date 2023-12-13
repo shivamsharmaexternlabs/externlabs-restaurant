@@ -46,7 +46,7 @@ header .rightpart {
 .languaselist {
     margin-right: 10px;
     position: relative;
-    z-index: 1;
+    z-index:9;
 }
 
 .languaselist>button {

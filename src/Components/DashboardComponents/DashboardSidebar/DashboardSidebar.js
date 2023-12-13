@@ -127,7 +127,7 @@ const DashboardSidebar = () => {
           {UserTypeData === "sales" && <>  <li>
             <NavLink
               to={`/admin/leads`}
-              className={` ${param.pathname === "/admin/leads" ? "active" : ""
+              className={` ${param.pathname === "/admin/leads" || param?.state?.currentData?.lead_id  ? "active" : ""
                 } `}
 
             >
@@ -146,7 +146,7 @@ const DashboardSidebar = () => {
             <li>
               <NavLink
                 to=  {`/admin/menucategories`}  
-                className={` ${param.pathname === "/admin/menucategories" ? "active" : ""
+                className={` ${param.pathname === "/admin/menucategories" || param?.state?.currentData?.restaurant_id ? "active" : ""
                   } `}
 
             ><img src={icon10} alt='img' /> <span className='text'>{t("menu-categories")}</span>
