@@ -8,21 +8,7 @@
     position: relative;
 }
 
-.hadertopbar {
-    /* position: fixed; */
-    /* top: 0; */
-    /* z-index: 99; */
-    /* background: #fff; */
-    /* width: 380px; */
-}
 
-.menuitemtabsection {
-    /* padding-top: 192px; */
-}
-
-.specialbox {
-    /* padding-top: 192px; */
-}
 
 .headerbox {
     display: flex;
@@ -32,18 +18,42 @@
     padding: 0 15px;
 }
 
-.headerbox>ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.headerbox .logo {
+    width: 90%;
+    max-width: 160px;
 }
 
-.headerbox>ul>li+li {
-    margin-left: 25px;
+
+.headerbox .logo img{
+    width: 100%;
 }
+
+.headerbox .languaselist {
+    margin-right: 0;
+}
+
+.headerbox .languaselist>button {
+    font-size: 14px;
+    padding: 8px 25px 8px 32px;
+}
+
+.headerbox .languaselist>.globeimg {
+    width: 16px;
+}
+.headerbox .languaselist>button::after {
+    width: 8px;
+    height: 8px;
+    border-width: 0 0 8px 8px;
+}
+
+.headerbox .languaselist > ul li {
+    padding: 8px;
+}
+
+.headerbox .languaselist>.globeimg {
+    top: 7px;
+}
+
 
 .languagebox .form-select {
     box-shadow: none;
@@ -295,10 +305,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 20px 0 15px;
 }
 
 .menuitemtab h2 {
-    font-size: 18px;
+    font-size: 20px;
     font-family: 'NeuzeitGro-Bol';
     font-weight: normal;
     line-height: 32px;
@@ -322,17 +333,17 @@
     border: none;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
-    border-bottom: 3px solid #F7F7FA;
-    padding-left: 15px;
-    padding-right: 20px;
+    border-bottom: 6px solid #F7F7FA;
+    /* padding-left: 15px; */
+    /* padding-right: 20px; */
+    padding-top: 10px;
 }
 
 .menuitemtab .accordion-item .accordion-header .accordion-button {
     background-color: transparent;
     border-bottom: none;
     box-shadow: none;
-    padding: 5px 0;
-    margin-bottom: 5px;
+    padding: 10px 0;
 }
 
 .menuitemtab .accordion-item .accordion-header .accordion-button::after {
@@ -355,7 +366,8 @@
 .menuitemlist li {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 20px 20px 20px 15px;
+    min-height: 137px;
 }
 
 .menuitemlist li:not(:last-child) {
