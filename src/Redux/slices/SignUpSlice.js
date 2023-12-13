@@ -23,7 +23,7 @@ export const SignUpSlice = createAsyncThunk("SignUpSlice",async (body, { rejectW
 
     } catch (err) {
       // console.log("harshGandu", err?.response?.data?.error?.[0])
-      toast.error(err?.response?.data?.error?.[0]);
+      toast.error(err?.response?.data?.error);
       return rejectWithValue(err);
     }
   }
