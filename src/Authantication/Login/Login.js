@@ -6,12 +6,15 @@ import "./login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { SignInSlice } from "../../Redux/slices/SignInSlice";
 import { reactLocalStorage } from "reactjs-localstorage";
+import { LoadingSpinner } from "../../Redux/slices/sideBarToggle";
+import LodingSpiner from "../../Components/LoadingSpinner/LoadingSpinner";
 // import LodingSpiner from "../LoadinSpinner";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loadspiner, setLoadSpiner] = useState(false);
+  // const [loadspiner, setLoadSpiner] = useState(false);
+  const [LoadSpiner, setLoadSpiner] = useState(false) 
   const [showPassword, setShowPassword] = useState(false);
 
   const User = useSelector((state) => state.SignInApiData);
@@ -30,16 +33,16 @@ const Login = () => {
         reactLocalStorage.set("payment_status", User?.data?.data?.payment_status);
 
         if (User?.data?.data?.payment_status === false) {
-          navigate(`/subscription/page`); 
+          navigate(`/subscription/page`);
         }
-        else if(User?.data?.data?.payment_status === true){
-          
+        else if (User?.data?.data?.payment_status === true) {
+
           navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}/admin/dashboard`);
 
         }
 
         // navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
-       }
+      }
       else {
         navigate(`/admin/leads`);
 
@@ -74,11 +77,16 @@ const Login = () => {
     // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "Password must contain 8 character, at least one lowercase, one uppercase,one digit and one special character"),
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     // setShowPassword(false);
+    dispatch(LoadingSpinner(true))
+    try {
+      await dispatch(SignInSlice(values));
+      dispatch(LoadingSpinner(false))
 
-    dispatch(SignInSlice(values));
-    setLoadSpiner(true);
+    } catch (error) {
+      dispatch(LoadingSpinner(false))
+    }
   };
 
   return (
@@ -148,6 +156,7 @@ const Login = () => {
         </Formik>
 
       </div>
+      <LodingSpiner loadspiner={LoadSpiner} />
     </>
   );
 };
