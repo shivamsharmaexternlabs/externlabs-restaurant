@@ -246,6 +246,8 @@
   "media-files": "Media Files",
   "payment-history": "Payment History",
   "leads": "Leads",
-  "get-started" : "Get Started"
+  "get-started" : "Get Started",
+  "item-price-must-be-digit" : "Price must contain only digits",
+  "calories-must-be-digit" : "Calories must contain only digits"
   
 }

@@ -244,7 +244,10 @@
   "menu-categories": "فئات القائمة",
   "media-files": "ملفات الوسائط",
   "payment-history": "تاريخ الدفع",
-  "leads": "عملاء محتملين"
+  "leads": "عملاء محتملين",
+  "item-price-must-be-digit" : "يجب أن يحتوي السعر على أرقام فقط",
+  "calories-must-be-digit" : "يجب أن تحتوي السعرات الحرارية على أرقام فقط"
+
 
   
 }

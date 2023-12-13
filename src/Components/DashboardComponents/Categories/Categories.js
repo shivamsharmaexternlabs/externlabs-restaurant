@@ -319,7 +319,7 @@ const Categories = ({ translaterFun }) => {
 
   const Validatemenu = yup.object({
     item_name: yup.string().required(translaterFun("please-enter-item-name")),
-    item_price: yup.string().required(translaterFun("please-enter-price")),
+    item_price: yup.string().matches(/^[0-9]+$/, translaterFun("item-price-must-be-digit")).required(translaterFun("please-enter-price")),
     calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-calories")),
     menu_id: yup.string().required(translaterFun("please-enter-item-name")),
     item_type: yup.string().required(translaterFun("please-enter-item-type")),
@@ -469,7 +469,7 @@ const Categories = ({ translaterFun }) => {
 
   const Validateditemenu = yup.object({
     item_name: yup.string().required(translaterFun("please-enter-item-name")),
-    item_price: yup.string().required(translaterFun("please-enter-price")),
+    item_price: yup.string().matches(/^[0-9]+$/, translaterFun("item-price-must-be-digit")).required(translaterFun("please-enter-price")),
     calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-menu")),
     menu_id: yup.string().required(translaterFun("please-enter-menu")),
     item_type: yup.string().required(translaterFun("please-enter-item-type")),
@@ -562,6 +562,8 @@ const Categories = ({ translaterFun }) => {
       BearerToken
     };
 
+    console.log("ngfhgsdvsd", typeof payload?.category_image)
+
     if (
       typeof payload?.category_image === "string" ||
       payload?.category_image === null
@@ -570,6 +572,8 @@ const Categories = ({ translaterFun }) => {
     }
 
     try {
+      console.log("ngfhgsdvsd", payload)
+
       await dispatch(EditCategorySlice(payload));
       popUpEditcategoriesHookFun((o) => !o);
 
@@ -1973,7 +1977,7 @@ const Categories = ({ translaterFun }) => {
               <Form className="row">
                 <div className="col-12 mb-3">
                   <div className="formbox ">
-                    <label>Name </label>
+                    <label>{translaterFun("name")}  </label>
                     <Field
                       name="item_name"
                       type="text"
