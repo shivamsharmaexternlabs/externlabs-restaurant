@@ -466,6 +466,17 @@
 
 .addmenupopup .popupinnerbox {
   max-width: 640px;
+  height: 90%;
+  margin: 0 auto;
+  position: static;
+  transform: none;
+  max-height: 780px;
+}
+
+.addmenupopup .popupinnerbox .popupbody {
+  height: calc(100vh - 255px);
+  overflow: auto;
+  margin: 0 -12px;
 }
 
 .addmenupopup .popuptitle {
@@ -559,17 +570,33 @@
   cursor: pointer;
 }
 
+.addcategorypopup .popuptitle {
+  margin-bottom: 40px;
+}
+
 .addcategorypopup form {
   position: relative;
 }
 
 .addcategorypopup form .categoryimg {
   position: absolute;
-  top: -80px;
+  top: -70px;
   right: 0;
   width: auto;
   height: auto;
 }
+
+/* editmenupopup  */
+
+.editmenupopup .popupinnerbox {
+  max-width: 620px;
+}
+
+.editmenupopup .popuptitle{
+  margin-bottom: 25px;
+}
+
+
 
 /********* Arabic css  *********/
 
@@ -606,14 +633,13 @@ margin-right: 0;
   margin-right: 0;
   margin-left: 5px;
 }
-
-.arabic .addcategorypopup form .categoryimg {
-  right: auto;
-  left: 0;
+.arabic .popuptitle {
+  margin-bottom: 85px;
 }
 
+
 .arabic  .categorypage .item-head {
-  margin-bottom: 10px;
+  margin-bottom: 10px ;
 }
 
 

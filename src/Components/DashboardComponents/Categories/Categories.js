@@ -1482,7 +1482,7 @@ const Categories = ({ translaterFun }) => {
 
             {popUpHook && (
         <PopUpComponent
-          classNameValue={"addmenupopup d-block"}
+          classNameValue={"addmenupopup"}
           PopUpToggleFun={PopUpToggleFun}
           popUpHookFun={popUpHookFun}
         >
@@ -1496,8 +1496,8 @@ const Categories = ({ translaterFun }) => {
               validationSchema={Validatemenu}
               onSubmit={handleMenuSubmit}
             >
-              <Form className="row">
-                <div className="col-12 mb-3">
+              <Form className="row mx-0">
+                <div className="col-md-6 mb-3">
                   <div className="formbox ">
                     <label>{translaterFun("name")} </label>
                     <Field
@@ -1511,8 +1511,23 @@ const Categories = ({ translaterFun }) => {
                       <ErrorMessage name="item_name" />
                     </p>
                   </div>
+                </div> 
+                <div className="col-md-6 mb-3">
+                  <div className="formbox " dir="rtl" >
+                    <label >{translaterFun("name")} </label>
+                    <Field
+                      name="item_name"
+                      type="text"
+                      className={`form-control `}
+                      autoComplete="off"
+                      placeholder={translaterFun("enter-your-item-name")}
+                    />
+                    <p className="text-danger small mb-0">
+                      <ErrorMessage name="item_name" />
+                    </p>
+                  </div>
                 </div>
-                <div className="col-md-4 mb-3">
+                <div className="col-md-6 mb-3">
                   <div className="formbox ">
                     <label>{translaterFun("item-price")}  </label>
                     <div className="sarbox d-flex">
@@ -1543,7 +1558,7 @@ const Categories = ({ translaterFun }) => {
                   </div>
                 </div>
 
-                <div className="col-md-8 mb-3">
+                <div className="col-md-6 mb-3">
                   <div className="formbox ">
                     <label>{translaterFun("calories")} </label>
                     <div className="caloriesbox">
@@ -1561,7 +1576,7 @@ const Categories = ({ translaterFun }) => {
                   </div>
                 </div>
 
-                <div className="col-12 mb-3">
+                <div className="col-md-6 mb-3">
                   <div className="formbox">
                     <label>{translaterFun("category")} </label>
                     <Field
@@ -1589,7 +1604,11 @@ const Categories = ({ translaterFun }) => {
                     </p>
                   </div>
                 </div>
-                <div className="col-12 mb-3">
+
+               
+
+
+                <div className="col-md-6 mb-3">
                   <div className="formbox">
                     <label>{translaterFun("item-type")} </label>
                     <Field
@@ -1609,7 +1628,23 @@ const Categories = ({ translaterFun }) => {
                   </div>
                 </div>
 
-                <div className="col-md-12 mb-3">
+                <div className="col-md-12 mb-3" dir="ltr">
+                  <div className="formbox ">
+                    <label>{translaterFun("description")} </label>
+                    <textarea
+                      className={`form-control `}
+                      autoComplete="off"
+                      placeholder={translaterFun("type-here")}
+                      value={Description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    ></textarea>
+                    {/* <p className="text-danger small mb-0">
+                      <ErrorMessage name="first_name" />
+                    </p> */}
+                  </div>
+                </div>
+
+                <div className="col-md-12 mb-3" dir="rtl">
                   <div className="formbox ">
                     <label>{translaterFun("description")} </label>
                     <textarea
@@ -1732,13 +1767,13 @@ const Categories = ({ translaterFun }) => {
       }
       {popUpcategoriesHook && (
         <PopUpComponent
-          classNameValue={"addcategorypopup"}
+          classNameValue={"addcategorypopup  "}
           PopUpToggleFun={PopUpCategoriesToggleFun}
           popUpHookFun={popUpCategoriesHookFun}
         >
           {/* children part start */}
 
-          <div className="popuptitle mb-5">
+          <div className="popuptitle">
             <h2>{translaterFun("add-category")} </h2>
           </div>
           <div className="popupbody">
@@ -1749,7 +1784,20 @@ const Categories = ({ translaterFun }) => {
             >
               <Form className="row">
                 <img src={category} alt="manager img" class="categoryimg" />
-                <div className="formbox mb-3">
+                <div className="formbox mb-3" dir='ltr'>
+                  <label>Category Name</label>
+                  <Field
+                    name="category"
+                    type="text"
+                    className={`form-control `}
+                    autoComplete="off"
+                    placeholder= "Enter Your Name" 
+                  />
+                  <p className="text-danger small mb-0">
+                    <ErrorMessage name="category" />
+                  </p>
+                </div>
+                <div className="formbox mb-3" dir='rtl'>
                   <label> {translaterFun("category-name")}</label>
                   <Field
                     name="category"
@@ -1809,6 +1857,8 @@ const Categories = ({ translaterFun }) => {
                   </button>
                 </div>
               </Form>
+              
+
             </Formik>
           </div>
 
@@ -1956,7 +2006,7 @@ const Categories = ({ translaterFun }) => {
       )}
       {popUpEditHook && (
         <PopUpComponent
-          classNameValue={"addmenupopup d-block"}
+          classNameValue={"editmenupopup"}
           PopUpToggleFun={PopUpToggleEditFun}
           popUpHookFun={popUpEditHookFun}
         >
@@ -1970,8 +2020,9 @@ const Categories = ({ translaterFun }) => {
               validationSchema={Validateditemenu}
               onSubmit={handleEditMenuSubmit}
             >
-              <Form className="row">
-                <div className="col-12 mb-3">
+              <Form className="row mx-0">
+
+                <div className="col-md-6 mb-3" dir='ltr'>
                   <div className="formbox ">
                     <label>Name </label>
                     <Field
@@ -1986,7 +2037,24 @@ const Categories = ({ translaterFun }) => {
                     </p>
                   </div>
                 </div>
-                <div className="col-md-4 mb-3">
+
+                <div className="col-md-6 mb-3" dir='rtl'>
+                  <div className="formbox ">
+                    <label>Name </label>
+                    <Field
+                      name="item_name"
+                      type="text"
+                      className={`form-control `}
+                      autoComplete="off"
+                      placeholder={translaterFun("enter-your-item-name")}
+                    />
+                    <p className="text-danger small mb-0">
+                      <ErrorMessage name="item_name" />
+                    </p>
+                  </div>
+                </div>
+
+                <div className="col-md-6 mb-3">
                   <div className="formbox ">
                     <label>{translaterFun("item-price")} </label>
                     <div className="sarbox d-flex">
@@ -2016,7 +2084,7 @@ const Categories = ({ translaterFun }) => {
                   </div>
                 </div>
 
-                <div className="col-md-8 mb-3">
+                <div className="col-md-6 mb-3">
                   <div className="formbox ">
                     <label> {translaterFun("calories")} </label>
                     <div className="caloriesbox">
@@ -2034,7 +2102,7 @@ const Categories = ({ translaterFun }) => {
                   </div>
                 </div>
 
-                <div className="col-12 mb-3">
+                <div className="col-md-6 mb-3">
                   <div className="formbox">
                     <label> {translaterFun("category")} </label>
                     <Field
@@ -2068,7 +2136,10 @@ const Categories = ({ translaterFun }) => {
                     </p>
                   </div>
                 </div>
-                <div className="col-12 mb-3">
+
+                
+
+                <div className="col-md-6 mb-3">
                   <div className="formbox">
                     <label>{translaterFun("item-type")} </label>
                     <Field
@@ -2087,7 +2158,24 @@ const Categories = ({ translaterFun }) => {
                     </p>
                   </div>
                 </div>
-                <div className="col-md-12 mb-3">
+
+                <div className="col-md-12 mb-3" dir='ltr'>
+                  <div className="formbox ">
+                    <label>{translaterFun("description")} </label>
+                    <Field
+                      name="description"
+                      type="text"
+                      className={`form-control `}
+                      autoComplete="off"
+                      placeholder={translaterFun("please-enter-description")}
+                    />
+                    <p className="text-danger small mb-0">
+                      <ErrorMessage name="description" />
+                    </p>
+                    
+                  </div>
+                </div>
+                <div className="col-md-12 mb-3" dir='rtl'>
                   <div className="formbox ">
                     <label>{translaterFun("description")} </label>
                     <Field
@@ -2150,6 +2238,7 @@ const Categories = ({ translaterFun }) => {
                     {translaterFun("submit")}{" "}
                   </button>
                 </div>
+
               </Form>
             </Formik>
           </div>
@@ -2159,13 +2248,13 @@ const Categories = ({ translaterFun }) => {
       )}
       {popUpEditcategoriesHook && (
         <PopUpComponent
-          classNameValue={"addcategorypopup"}
+          classNameValue={"addcategorypopup rrsefgesfseefsf"}
           PopUpToggleFun={PopUpEditCategoriesToggleFun}
           popUpHookFun={popUpEditcategoriesHookFun}
         >
           {/* children part start */}
 
-          <div className="popuptitle mb-5">
+          <div className="popuptitle">
             <h2>{translaterFun("edit-category")}</h2>
           </div>
           <div className="popupbody">
@@ -2174,9 +2263,22 @@ const Categories = ({ translaterFun }) => {
               validationSchema={ValidateEditCategory}
               onSubmit={handleCategoryeditSubmit}
             >
-              <Form className="row">
+              <Form className="row mx-0 "> 
                 <img src={category} alt="manager img" class="categoryimg" />
-                <div className="formbox mb-3">
+                <div className="formbox mb-3 px-0" dir='ltr' >
+                  <label>{translaterFun("category-name")} </label>
+                  <Field
+                    name="category"
+                    type="text"
+                    className={`form-control `}
+                    autoComplete="off"
+                    placeholder={translaterFun("enter-your-name")}
+                  />
+                  <p className="text-danger small mb-0">
+                    <ErrorMessage name="category" />
+                  </p>
+                </div>
+                <div className="formbox mb-3 px-0 " dir='rtl'>
                   <label>{translaterFun("category-name")} </label>
                   <Field
                     name="category"
@@ -2190,7 +2292,7 @@ const Categories = ({ translaterFun }) => {
                   </p>
                 </div>
 
-                <div className="col-md-12 mb-3">
+                <div className="col-md-12 mb-3 px-0">
                   <div className="formbox ">
                     <label className="d-block">{translaterFun("upload-image")} </label>
                     <div className=" uploadwrapper ">
@@ -2222,7 +2324,7 @@ const Categories = ({ translaterFun }) => {
                   </div>
                 </div>
 
-                <div className="col-12 text-end mt-3">
+                <div className="col-12 px-0 text-end mt-3">
                   <button
                     type="button"
                     className="btn3"

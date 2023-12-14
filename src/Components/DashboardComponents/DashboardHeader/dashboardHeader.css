@@ -228,6 +228,11 @@ header .rightpart .user p {
     padding: 15px 90px 15px 15px;
 }
 
+.arabic .languaselist {
+margin-right: 0;
+margin-left: 10px;
+}
+
 .arabic header .rightpart .user {
     margin-right: 15px;
     margin-left: 0px;
