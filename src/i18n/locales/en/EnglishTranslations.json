@@ -246,6 +246,7 @@
   "media-files": "Media Files",
   "payment-history": "Payment History",
   "leads": "Leads",
-  "get-started" : "Get Started"
+  "get-started" : "Get Started",
+  "confirm-upload" : "Replacing with new data: Existing menu will be deleted. Confirm?"
   
 }

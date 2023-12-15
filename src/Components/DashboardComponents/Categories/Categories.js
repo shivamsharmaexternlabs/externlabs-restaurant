@@ -54,6 +54,7 @@ import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
 const Categories = ({ translaterFun }) => {
   const dispatch = useDispatch();
   const [popUpHook, popUpHookFun] = usePopUpHook("");
+  const [confirmMenuUploadFilePopUp, confirmMenuUploadFilePopUpFun] = usePopUpHook("");
   const [popUpEditHook, popUpEditHookFun] = usePopUpHook("");
   const [loadspiner, setLoadSpiner] = useState(false);
   const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
@@ -75,6 +76,7 @@ const Categories = ({ translaterFun }) => {
   const [MenuItemId, setMenuItemId] = useState("");
   const [caloriesunit, setCaloriesUnit] = useState("kcal");
   const [QrSampleImage, setQrSampleImage] = useState("");
+  const [UploadMenuFileState, setUploadMenuFileState] = useState("");
   const [uploadCategoryImage, setuploadCategoryImage] = useState("");
   const [EditMenuData, setEditMenuData] = useState("");
   const [DeleteCategory, setDeleteCategory] = useState();
@@ -127,10 +129,43 @@ const Categories = ({ translaterFun }) => {
 
 
   const UploadMenuFile = async (e) => {
+    setUploadMenuFileState(e?.target?.files);
+
+    if (MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length === 0) {
+      await dispatch(LoadingSpinner(true))
+      const formData = new FormData();
+      let payload = {
+        file: e?.target?.files?.[0],
+        restaurant_id: RestaurantIdLocalStorageData,
+      };
+      formData.append("file", payload?.file);
+      formData.append("restaurant_id", payload?.restaurant_id);
+      // formData.append("BearerToken", BearerToken);
+      const UploadPayload = {
+        formData,
+        BearerToken
+      }
+
+      try {
+        await dispatch(UploadMenuSlice(UploadPayload));
+        // setUploadMenuFileState("");
+        confirmMenuUploadFilePopUpFun(o => !o);
+
+        await dispatch(LoadingSpinner(false))
+      } catch (error) {
+        await dispatch(LoadingSpinner(false))
+      }
+
+    }
+    confirmMenuUploadFilePopUpFun(o => !o);
+
+  };
+
+  const confirmMenuUploadFile = async () => {
     await dispatch(LoadingSpinner(true))
     const formData = new FormData();
     let payload = {
-      file: e?.target?.files[0],
+      file: UploadMenuFileState?.[0],
       restaurant_id: RestaurantIdLocalStorageData,
     };
     formData.append("file", payload?.file);
@@ -142,13 +177,31 @@ const Categories = ({ translaterFun }) => {
     }
 
     try {
-      await dispatch(UploadMenuSlice(UploadPayload));
-      await dispatch(LoadingSpinner(false))
+      let response = await dispatch(UploadMenuSlice(UploadPayload));
+      setUploadMenuFileState("");
+      confirmMenuUploadFilePopUpFun(o => !o);
+      console.log("response", response)
+
+      if(response?.payload?.status === 200){
+        // await dispatch(LoadingSpinner(true))
+
+        setTimeout(async () => {
+          
+          await dispatch(GetMenuCategorySlice({
+            RestaurantId: RestaurantIdLocalStorageData,
+          }));
+          await dispatch(LoadingSpinner(false))
+        }, 1500);
+        
+        
+      }
+      // await dispatch(MenuSlice(UploadPayload));
+
+      // await dispatch(LoadingSpinner(false))
     } catch (error) {
       await dispatch(LoadingSpinner(false))
     }
-
-  };
+  }
 
 
   useEffect(() => {
@@ -334,14 +387,31 @@ const Categories = ({ translaterFun }) => {
   };
 
   const Validatemenu = yup.object({
-    item_name_en: yup.string().required("Please Enter Item Name"),
-    item_name_native: yup.string().required("الرجاء إدخال اسم الصنف"),
+    // item_name_en: yup.string().required("Please Enter Item Name"),
+    // item_name_native: yup.string().required("الرجاء إدخال اسم الصنف"),
     item_price: yup.string().required(translaterFun("please-enter-price")),
     calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-calories")),
     menu_id: yup.string().required(translaterFun("please-enter-item-name")),
     item_type: yup.string().required(translaterFun("please-enter-item-type")),
     currency: yup.string().required(translaterFun("please-enter-currency")),
-  });
+  }).shape({
+    item_name_en: yup.string().when('item_name_native',
+      (item_name_native_value) => {
+        if (item_name_native_value[0]) {
+          return yup.string()
+        } else {
+          return yup.string().required("Provide Item Name in English, Arabic, or both")
+        }
+      }),
+    item_name_native: yup.string().when('item_name_en',
+      (item_name_en_value) => {
+        if (item_name_en_value[0]) {
+          return yup.string()
+        } else {
+          return yup.string().required("قم بتوفير اسم العنصر باللغة الإنجليزية أو العربية أو كليهما")
+        }
+      }),
+  }, ['item_name_en', 'item_name_native']);
 
   const handleMenuSubmit = async (values) => {
     await dispatch(LoadingSpinner(true));
@@ -422,22 +492,22 @@ const Categories = ({ translaterFun }) => {
 
   const ValidateCategory = yup.object().shape({
     category_en: yup.string().when('category_native',
-    (category_native_value) => {
-      if(category_native_value[0]){
-       return yup.string()
-      }else{
-       return yup.string().required("Please Create Category")
-      }
-    }),
+      (category_native_value) => {
+        if (category_native_value[0]) {
+          return yup.string()
+        } else {
+          return yup.string().required("Provide Category in English, Arabic, or both")
+        }
+      }),
     category_native: yup.string().when('category_en',
-    (category_en_value) => {
-      if(category_en_value[0]){
-       return yup.string()
-      }else{
-       return yup.string().required("الرجاء إنشاء الفئة")
-      }
-    }),
-  },['category_en','category_native']);
+      (category_en_value) => {
+        if (category_en_value[0]) {
+          return yup.string()
+        } else {
+          return yup.string().required("قم بتوفير الفئة باللغة الإنجليزية أو العربية أو كليهما")
+        }
+      }),
+  }, ['category_en', 'category_native']);
 
   const handleCategorySubmit = async (values) => {
 
@@ -514,15 +584,34 @@ const Categories = ({ translaterFun }) => {
   };
 
   const Validateditemenu = yup.object({
-    item_name_en: yup.string().required("Please Enter Item Name"),
-    item_name_native: yup.string().required("الرجاء إدخال اسم الصنف"),
+    // item_name_en: yup.string().required("Please Enter Item Name"),
+    // item_name_native: yup.string().required("الرجاء إدخال اسم الصنف"),
     item_price: yup.string().required(translaterFun("please-enter-price")),
     calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-menu")),
     menu_id: yup.string().required(translaterFun("please-enter-menu")),
     item_type: yup.string().required(translaterFun("please-enter-item-type")),
     currency: yup.string().required(translaterFun("please-enter-currency")),
     // description: yup.string().required(translaterFun("please-enter-description")),
-  });
+  }).shape({
+    item_name_en: yup.string().when('item_name_native',
+      (item_name_native_value) => {
+        if (item_name_native_value[0]) {
+          return yup.string()
+        } else {
+          return yup.string().required("Provide Item Name in English, Arabic, or both")
+        }
+      }),
+    item_name_native: yup.string().when('item_name_en',
+      (item_name_en_value) => {
+        if (item_name_en_value[0]) {
+          return yup.string()
+        } else {
+          return yup.string().required("قم بتوفير اسم العنصر باللغة الإنجليزية أو العربية أو كليهما")
+        }
+      }),
+  }, ['item_name_en', 'item_name_native']);
+
+
 
   const handleEditMenuSubmit = async (values) => {
     let payload = {
@@ -592,10 +681,25 @@ const Categories = ({ translaterFun }) => {
     popUpEditcategoriesHookFun((o) => !o);
   };
 
-  const ValidateEditCategory = yup.object({
-    category_en: yup.string().required(translaterFun("please-create-category")),
-    category_native: yup.string().required("الرجاء إنشاء الفئة"),
-  });
+
+  const ValidateEditCategory = yup.object().shape({
+    category_en: yup.string().when('category_native',
+      (category_native_value) => {
+        if (category_native_value[0]) {
+          return yup.string()
+        } else {
+          return yup.string().required("Provide Category in English, Arabic, or both")
+        }
+      }),
+    category_native: yup.string().when('category_en',
+      (category_en_value) => {
+        if (category_en_value[0]) {
+          return yup.string()
+        } else {
+          return yup.string().required("قم بتوفير الفئة باللغة الإنجليزية أو العربية أو كليهما")
+        }
+      }),
+  }, ['category_en', 'category_native']);
 
   const defaultValueEditCategory = {
     category_en: EditCategory?.category_en,
@@ -1407,17 +1511,17 @@ const Categories = ({ translaterFun }) => {
                                         {/* {languageSet == "en" ? items?.category_en : items?.category_native} */}
                                         {
                                           (languageSet == "en") ?
-                                          <>
+                                            <>
 
-                                            { items?.description_en?.length > 45 ? items?.description_en.slice(0, 45) + "..." : items?.description_en}
-                                        <span>{items?.description_en?.length > 45 ? <b>{translaterFun("more")} <div className=''>{items?.description_en} </div> </b> : ""}  </span>
-                                          </>
-                                        :
-                                        <>
-                                        {items?.description_native?.length > 45 ? items?.description_native.slice(0, 45) + "..." : items?.description_native}
-                                        <span>{items?.description_native?.length > 45 ? <b>{translaterFun("more")} <div className=''>{items?.description_native} </div> </b> : ""}  </span>
-                                        </>
-                                      }
+                                              {items?.description_en?.length > 45 ? items?.description_en.slice(0, 45) + "..." : items?.description_en}
+                                              <span>{items?.description_en?.length > 45 ? <b>{translaterFun("more")} <div className=''>{items?.description_en} </div> </b> : ""}  </span>
+                                            </>
+                                            :
+                                            <>
+                                              {items?.description_native?.length > 45 ? items?.description_native.slice(0, 45) + "..." : items?.description_native}
+                                              <span>{items?.description_native?.length > 45 ? <b>{translaterFun("more")} <div className=''>{items?.description_native} </div> </b> : ""}  </span>
+                                            </>
+                                        }
 
                                       </p>
                                       <span className="price">{`${items?.currency} ${items?.item_price}`}</span>
@@ -1533,7 +1637,20 @@ const Categories = ({ translaterFun }) => {
                               <div className="rightpart">
                                 <h3>{languageSet === "en" ? item?.item_name_en : item?.item_name_native}</h3>
                                 <p>
-                                  {item?.description}
+                                  {
+                                    (languageSet == "en") ?
+                                      <>
+
+                                        {item?.description_en?.length > 45 ? item?.description_en.slice(0, 45) + "..." : item?.description_en}
+                                        <span>{item?.description_en?.length > 45 ? <b>{translaterFun("more")} <div className=''>{item?.description_en} </div> </b> : ""}  </span>
+                                      </>
+                                      :
+                                      <>
+                                        {item?.description_native?.length > 45 ? item?.description_native.slice(0, 45) + "..." : item?.description_native}
+                                        <span>{item?.description_native?.length > 45 ? <b>{translaterFun("more")} <div className=''>{item?.description_native} </div> </b> : ""}  </span>
+                                      </>
+                                  }
+                                  {/* {languageSet === "en" ? item?.description_en : item?.description_native} */}
                                 </p>
                                 <span className="price">
                                   {" "}
@@ -1549,6 +1666,29 @@ const Categories = ({ translaterFun }) => {
                 </div>
               </div>
             </div>
+
+            {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length > 0 &&
+              confirmMenuUploadFilePopUp &&
+              <PopUpComponent
+                classNameValue={"popup wantmanager "}
+                PopUpToggleFun={PopUpToggleFun}
+                popUpHookFun={popUpHookFun}
+              >
+
+                <div className='popupinner'>
+                  <div className='popupbody'>
+                    <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
+                    <h2>{translaterFun("confirm-upload")}</h2>
+                    <div className='text-center'>
+                      <button type="button" onClick={(e) => confirmMenuUploadFilePopUpFun(false)}>{translaterFun("cancel")} </button>
+                      <button type="button" className='ms-4' onClick={(e) => confirmMenuUploadFile(e)}>{translaterFun("confirm-delete-button")}</button>
+                    </div>
+                  </div>
+                </div>
+
+              </PopUpComponent>
+            }
+
 
             {popUpHook && (
               <PopUpComponent
@@ -1763,7 +1903,7 @@ const Categories = ({ translaterFun }) => {
                         </div>
                       </div>
 
-                      <div className="col-12 text-end">
+                      <div className="col-12  addmenusubmitbtnbox">
                         <button
                           type="button"
                           className="btn3"
@@ -1810,8 +1950,6 @@ const Categories = ({ translaterFun }) => {
               </PopUpComponent>
             }
 
-
-
             {
               deleteCategoryPopup &&
               <PopUpComponent
@@ -1838,7 +1976,7 @@ const Categories = ({ translaterFun }) => {
             }
             {popUpcategoriesHook && (
               <PopUpComponent
-                classNameValue={"addcategorypopup  "}
+                classNameValue={"addcategorypopup"}
                 PopUpToggleFun={PopUpCategoriesToggleFun}
                 popUpHookFun={popUpCategoriesHookFun}
               >
@@ -1915,7 +2053,7 @@ const Categories = ({ translaterFun }) => {
                         </div>
                       </div>
 
-                      <div className="col-12 text-end mt-3">
+                      <div className="col-12  submitcategorybox mt-3">
                         <button
                           type="button"
                           className="btn3"
@@ -2156,7 +2294,7 @@ const Categories = ({ translaterFun }) => {
                         </div>
                       </div>
 
-                      <div className="col-12 text-end">
+                      <div className="col-12 submiteditbox">
                         <button
                           type="button"
                           className="btn3"
@@ -2256,7 +2394,7 @@ const Categories = ({ translaterFun }) => {
                         </div>
                       </div>
 
-                      <div className="col-12 px-0 text-end mt-3">
+                      <div className="col-12 px-0 submitcategorybox mt-3">
                         <button
                           type="button"
                           className="btn3"
