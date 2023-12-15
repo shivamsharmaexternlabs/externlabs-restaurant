@@ -46,6 +46,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
 
   let splitdata = params?.pathname.split("/")[1]
   reactLocalStorage.set("RestaurantId", splitdata);
+  let languageSet = reactLocalStorage.get("languageSet", false);
 
   useEffect(() => {
     if (MenuApiSelectorData?.GetMenuCategoryReducerData.status === 200) {
@@ -284,7 +285,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
                     <button className="accordion-button" type="button" data-bs-toggle="collapse"
                       data-bs-target={`#toggle${id}`} aria-expanded="true" aria-controls={`toggle${id}`}>
                       <div className='menuitem-title' >
-                        <h2> {items?.category} </h2>
+                        <h2> {languageSet == "en" ? items?.category_en : items?.category_native} </h2>
                         <span onClick={(e) => CategoryTabToggleFun(e, items)}><img src={arrow} alt='img' /></span>
 
                       </div>
@@ -298,12 +299,12 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
                           return <li key={ids} >
                             <div className='leftpart'>
                               <div className='spbtn'>
-                                {CategoryItem?.item_type === "NON_VEG" ? <img src={icon5} alt='img' /> : <img src={icon4} alt='img' />}
-                                {/* {CategoryItem?.item_type==="NON_VEG" ? <img src={icon5} alt='img' /> : <img src={icon4} alt='img' />} */}
+                                {CategoryItem?.is_non_veg ? <img src={icon5} alt='img' /> : <img src={icon4} alt='img' />}
+                                
                                 {CategoryItem?.is_favorite === true && <span className={`bestcallerBackgroun`}>{translaterFun("bestseller")}</span>}
                               </div>
-                              <h3> {CategoryItem?.item_name}</h3>
-                              <p>{CategoryItem?.description}</p>
+                              <h3> {languageSet == "en" ? CategoryItem?.item_name_en : CategoryItem?.item_name_native} </h3>
+                              <p> {languageSet == "en" ? CategoryItem?.description_en : CategoryItem?.description_native} </p>
                               {/* <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div> */}
                               <div className='startxt'> <img src={calorie} alt="img" /> {CategoryItem?.calories + " " + CategoryItem?.calories_unit}</div>
                             </div>
@@ -333,7 +334,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
             {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map((item, id) => {
               return <li li key={id} onClick={(e) => MenuCategoryIteamFun(e, item, id)}>
                 <a href={`#${item?.menu_id}`} className={`${item?.menu_id === ActiveCategory ? 'active' : ""} ,${item?.menu_id ? 'active' : ""} `}>
-                  {item?.category}
+                {languageSet == "en" ? item?.category_en : item?.category_native}
                 </a>
               </li>
             })}
