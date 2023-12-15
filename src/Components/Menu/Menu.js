@@ -197,7 +197,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
 
   return (
     <>
-      <div className='menupage'>
+      <div className={`menupage ${languageDAta=="en"?"rotateEn rotate":"rotateAe rotate"} `}>
         <div className='hadertopbar'>
           <div className='headerbox'>
             <div className='logo'>

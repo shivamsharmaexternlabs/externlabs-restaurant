@@ -112,7 +112,7 @@ function App() {
 
   return (
     <>
-      <div className={languageDAta == "ar" ? "arabic rotate" : "rotate"} dir={languageDAta == "ar" ? "rtl" : ""}>
+      <div className={languageDAta == "ar" ? "arabic  " : " "} dir={languageDAta == "ar" ? "rtl" : ""}>
         {Token &&
           <Routes>
             {/* <Route path="/emailotpverification" element={<EmailOtpVerification  translaterFun={t} />}></Route> // Please do not remove this comment... */}
