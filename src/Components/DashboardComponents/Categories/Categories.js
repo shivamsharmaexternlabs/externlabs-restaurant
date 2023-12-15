@@ -68,7 +68,7 @@ const Categories = ({ translaterFun }) => {
     data: undefined
   });
   const [DescriptionEn, setDescriptionEn] = useState("");
-  const [DescriptionNative, setDescriptionNative] = useState(""); 
+  const [DescriptionNative, setDescriptionNative] = useState("");
 
   const [uploadImage, setuploadImage] = useState("");
   const [CategoryId, setCategoryId] = useState("");
@@ -159,11 +159,11 @@ const Categories = ({ translaterFun }) => {
     }
 
     // if (MenuApiSelectorData?.MenuSliceReducerData.status === 200
-    //   && FavoriteValueStoreData.toggle == false  
-    // ) { 
+    //   && FavoriteValueStoreData.toggle == false
+    // ) {
     //   setDragAndDropItems(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.item_id)
     //   setLoadSpiner(false);
-    // }   
+    // }
     // else if (MenuApiSelectorData?.error == "Rejected") {
     //   setLoadSpiner(false);
     // }
@@ -199,7 +199,7 @@ const Categories = ({ translaterFun }) => {
 
 
 
-  // after Click on category it will give perticular category's data 
+  // after Click on category it will give perticular category's data
   useEffect(() => {
     if (MenuApiSelectorData?.MenuSliceReducerData.status === 200
       && FavoriteValueStoreData.toggle == false
@@ -379,7 +379,7 @@ const Categories = ({ translaterFun }) => {
 
 
 
-      // this condition will hold the menu on the category , it will not switch on the first category 
+      // this condition will hold the menu on the category , it will not switch on the first category
 
       if (resposeData?.payload?.status == 201) {
         let responseDataMenu = dispatch(MenuSlice(MenuSlicePayload));
@@ -419,11 +419,25 @@ const Categories = ({ translaterFun }) => {
   };
 
 
-  const ValidateCategory = yup.object({
-    category_en: yup.string().required("Please Create Category"),
-    category_native: yup.string().required("الرجاء إنشاء الفئة"),
-  });
 
+  const ValidateCategory = yup.object().shape({
+    category_en: yup.string().when('category_native',
+    (category_native_value) => {
+      if(category_native_value[0]){
+       return yup.string()
+      }else{
+       return yup.string().required("Please Create Category")
+      }
+    }),
+    category_native: yup.string().when('category_en',
+    (category_en_value) => {
+      if(category_en_value[0]){
+       return yup.string()
+      }else{
+       return yup.string().required("الرجاء إنشاء الفئة")
+      }
+    }),
+  },['category_en','category_native']);
 
   const handleCategorySubmit = async (values) => {
 
@@ -457,7 +471,7 @@ const Categories = ({ translaterFun }) => {
     }
   };
 
-  const handleUploadCategoryImage = (e) => { 
+  const handleUploadCategoryImage = (e) => {
     console.log("bhgvfcdx", e.target?.files)
     setuploadCategoryImage(e?.target?.files[0]);
     // const formData = new FormData()
@@ -485,7 +499,7 @@ const Categories = ({ translaterFun }) => {
 
 
   const defaultEditValue = {
-    restaurant_id: EditMenuData?.restaurant_id, 
+    restaurant_id: EditMenuData?.restaurant_id,
     description_en: DescriptionEn,
     description_native: DescriptionNative,
     image: uploadImage,
@@ -546,7 +560,7 @@ const Categories = ({ translaterFun }) => {
         MenuId: ActiveCategory?.data,
       };
 
-      // this condition will hold the menu on the category , it will not switch on the first category 
+      // this condition will hold the menu on the category , it will not switch on the first category
       if (responseData?.payload?.status == 200) {
         dispatch(MenuSlice(MenuSlicePayload));
       }
@@ -882,7 +896,7 @@ const Categories = ({ translaterFun }) => {
 
       // Additional actions you want to perform when status is 200
       // dispatch(GetMenuCategorySlice({
-      //     RestaurantId: resId  
+      //     RestaurantId: resId
       // }
       // ));
     }
@@ -1297,7 +1311,7 @@ const Categories = ({ translaterFun }) => {
 
                         {/* <div   className="ReorderCurese">
                           <img src={order} className="sort-item-order me-3"  /> Reorder
-                          
+
                         </div> */}
                       </div>
 
@@ -1392,7 +1406,7 @@ const Categories = ({ translaterFun }) => {
                                       <p>
                                         {/* {languageSet == "en" ? items?.category_en : items?.category_native} */}
                                         {
-                                          (languageSet == "en") ? 
+                                          (languageSet == "en") ?
                                           <>
 
                                             { items?.description_en?.length > 45 ? items?.description_en.slice(0, 45) + "..." : items?.description_en}
@@ -1425,7 +1439,7 @@ const Categories = ({ translaterFun }) => {
                           //     return (
                           //       <li
                           //         key={ids}
-                          //         className={draggableSubcategory === true ? "drag-active" : "active"} 
+                          //         className={draggableSubcategory === true ? "drag-active" : "active"}
                           //         draggable={draggableSubcategory}
                           //         onDragStart={(e) => startDrag(e, items)}
                           //         onDragOver={(e) => handleDragOver(e, items)}
@@ -1449,7 +1463,7 @@ const Categories = ({ translaterFun }) => {
                           //                   }
                           //                   alt="img"
                           //                   className="ms-1"
-                          //                 />{" "} 
+                          //                 />{" "}
                           //               </button>{" "}
                           //             </h4>
                           //           </div>
@@ -1468,7 +1482,7 @@ const Categories = ({ translaterFun }) => {
                           //             <button className="deletbtn">
                           //               <img
                           //                 src={deleteicon}
-                          //                 alt="delete icon " 
+                          //                 alt="delete icon "
                           //                 onClick={(e) =>
                           //                   DeleteItemfun(e, items)
                           //                 }
@@ -1739,7 +1753,7 @@ const Categories = ({ translaterFun }) => {
                             <input
                               type="file"
                               accept=".png"
-                               
+
                               onChange={(e) => handleUploadImage(e)}
                             />
                           </div>
@@ -2091,7 +2105,7 @@ const Categories = ({ translaterFun }) => {
                             value={DescriptionEn}
                             onChange={(e) => setDescriptionEn(e.target.value)}
                           ></textarea>
-                          
+
                         </div>
                       </div>
 
@@ -2105,10 +2119,10 @@ const Categories = ({ translaterFun }) => {
                             value={DescriptionNative}
                             onChange={(e) => setDescriptionNative(e.target.value)}
                           ></textarea>
-                          
+
                         </div>
                       </div>
-                      
+
 
                       <div className="col-md-12 mb-3">
                         <div className="formbox ">
