@@ -249,13 +249,26 @@ const Dashboard = ({translaterFun}) => {
                           {
                             ActiveCategory?.item_id?.slice(0, 4).map((Item, DishesId) => { 
                               return <li>
-                                <h4>{Item?.item_name}</h4>
+                                <h4>{languageSet === "en" ? Item?.item_name_en :Item?.item_name_native }</h4>
                                 <h5 className='mt-1'> {Item?.calories} {Item?.calories_unit}</h5>
                                 <div className='tabinfo'>
                                   <div className='leftpart'>                                   
                                     <p>
-                                      {Item?.description?.length > 45 ? Item?.description.slice(0, 45) + "..." : Item?.description}
-                                      <span>{Item?.description?.length > 45 ? <b>{translaterFun("more")}<div className=''>{Item?.description} </div> </b> : ""}  </span>
+                                    {
+                                          (languageSet == "en") ? 
+                                          <>
+
+                                            { Item?.description_en?.length > 45 ? Item?.description_en.slice(0, 45) + "..." : Item?.description_en}
+                                        <span>{Item?.description_en?.length > 45 ? <b>{translaterFun("more")} <div className=''>{Item?.description_en} </div> </b> : ""}  </span>
+                                          </>
+                                        :
+                                        <>
+                                        {Item?.description_native?.length > 45 ? Item?.description_native.slice(0, 45) + "..." : Item?.description_native}
+                                        <span>{Item?.description_native?.length > 45 ? <b>{translaterFun("more")} <div className=''>{Item?.description_native} </div> </b> : ""}  </span>
+                                        </>
+                                      }
+                                      {/* {Item?.description?.length > 45 ? Item?.description.slice(0, 45) + "..." : Item?.description}
+                                      <span>{Item?.description?.length > 45 ? <b>{translaterFun("more")}<div className=''>{Item?.description} </div> </b> : ""}  </span> */}
                                     </p>
                                     {/* {Item?.description}
                                       {Item?.description?.length} */}
