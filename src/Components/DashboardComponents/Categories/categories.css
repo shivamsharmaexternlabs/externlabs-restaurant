@@ -77,8 +77,6 @@
   gap: 7px;
 }
 
-
-
 .item-indx {
   border: 1px solid black;
   border-radius: 50%;
@@ -141,7 +139,7 @@
   margin-bottom: 10px;
 }
 
-.reorder-icon-div .btn1{
+.reorder-icon-div .btn1 {
   border: 1px solid #ea6a12;
   background-color: #fff;
   color: #ea6a12;
@@ -291,12 +289,17 @@
   cursor: pointer;
 }
 
-.categorypage .editinfobtnbox> button > img {
+.categorypage .editinfobtnbox > button > img {
   display: block;
 }
 
-
-.categorypage .topdishestabpart .nav-tabs .nav-link .editinfobtnbox > button > img {
+.categorypage
+  .topdishestabpart
+  .nav-tabs
+  .nav-link
+  .editinfobtnbox
+  > button
+  > img {
   width: 4px;
 }
 
@@ -310,12 +313,11 @@
   margin-top: -40px;
 }
 
- 
-.sadfs{
-   cursor:auto !important;
-}  
+.sadfs {
+  cursor: auto !important;
+}
 
-.curserer{
+.curserer {
   cursor: pointer !important;
 }
 .categorypage .topdishestabpart .nav-tabs .nav-link .editinfobtnbox > .btnbox {
@@ -330,7 +332,13 @@
   text-align: left;
 }
 
-.categorypage .topdishestabpart .nav-tabs .nav-link .editinfobtnbox > .btnbox button {
+.categorypage
+  .topdishestabpart
+  .nav-tabs
+  .nav-link
+  .editinfobtnbox
+  > .btnbox
+  button {
   font-size: 11px;
   display: block;
 }
@@ -375,18 +383,21 @@
   display: flex;
   justify-content: space-between;
   margin: 17px 0;
-  border-bottom: .5px solid #ea6a12;
-  padding: 0 5px
-   15px;
+  border-bottom: 0.5px solid #ea6a12;
+  padding: 0 5px 15px;
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
-  background:transparent;
+  background: transparent;
 }
 
-.bestsellerpart > ul > li:hover { 
+.bestsellerpart > ul > li:hover {
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
-  background: linear-gradient(180deg,rgba(217, 217, 217, 0) 0%, rgba(234, 106, 18, 0.2) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(217, 217, 217, 0) 0%,
+    rgba(234, 106, 18, 0.2) 100%
+  );
 }
 
 .bestsellerpart > ul > li > .leftpart {
@@ -466,22 +477,18 @@
 
 .addmenupopup .popupinnerbox {
   max-width: 640px;
-  height: 90%;
-  margin: 0 auto;
-  position: static;
-  transform: none;
-  max-height: 780px;
+  margin:  auto 0;
+ 
 }
 
-.addmenupopup .popupinnerbox .popupbody {
-  height: calc(100vh - 255px);
-  overflow: auto;
-  margin: 0 -12px;
+.addmenupopup .popupinnerbox .popupbody { 
+  margin: 40px -12px 0;
 }
 
-.addmenupopup .popuptitle {
-  margin-bottom: 25px;
+.addmenusubmitbtnbox{
+  text-align: right;
 }
+
 .sarbox,
 .caloriesbox {
   position: relative;
@@ -505,7 +512,6 @@
   align-items: center;
   justify-content: center;
 }
-
 
 .caloriesbox::after {
   content: "kcal";
@@ -581,26 +587,28 @@
   width: auto;
   height: auto;
 }
+.submitcategorybox{
+  text-align: right;
+}
 
 /* editmenupopup  */
 
 .editmenupopup .popupinnerbox {
   max-width: 620px;
-  position: static;
-  transform: none;
+  margin-top: 50px;
 }
 
-.editmenupopup .popuptitle{
-  margin-bottom: 25px;
+.editmenupopup .popuptitle {
+  margin-bottom: 40px;
 }
 
 .editmenupopup .popupinnerbox .popupbody {
-  overflow: auto;
-  height: calc(100vh - 270px);  
   margin: 0 -12px;
 }
 
-
+.submiteditbox{
+  text-align: right;
+}
 
 /********* Arabic css  *********/
 
@@ -609,8 +617,8 @@
   margin-right: 10px;
 }
 .arabic .uploadbtn-wrapper {
-margin-left: 10px;
-margin-right: 0;
+  margin-left: 10px;
+  margin-right: 0;
 }
 
 .arabic .categorycontent > .leftpart {
@@ -618,8 +626,8 @@ margin-right: 0;
   padding-right: 0;
 }
 
-.arabic .editinfobtn{
-  margin-left:0;
+.arabic .editinfobtn {
+  margin-left: 0;
   margin-right: 5px;
 }
 
@@ -628,7 +636,7 @@ margin-right: 0;
   padding-right: 0;
 }
 
-.arabic .item-indx{
+.arabic .item-indx {
   margin-right: 0;
   margin-left: 5px;
 }
@@ -637,16 +645,47 @@ margin-right: 0;
   margin-right: 0;
   margin-left: 5px;
 }
-.arabic .popuptitle {
-  margin-bottom: 85px;
+
+
+.arabic .categorypage .item-head {
+  margin-bottom: 10px;
 }
 
-
-.arabic  .categorypage .item-head {
-  margin-bottom: 10px ;
+.arabic .addmenupopup .popuptitle {
+  margin-bottom: 0;
 }
 
+.arabic .addmenusubmitbtnbox {
+  text-align: left;
+}
 
+.arabic .submitcategorybox,
+.arabic .submiteditbox {
+  text-align: left;
+}
+
+.arabic .addcategorypopup .popuptitle {
+  margin-bottom: 80px;
+}
+
+.arabic .categorypage .editinfobtnbox {
+  left: 8px;
+  right: auto;
+}
+
+.arabic .categorypage .topdishestabpart .nav-tabs .nav-link .editinfobtnbox > .btnbox {
+  right: auto;
+  left: 1px;
+}
+
+.categorypage .topdishestabpart .nav-tabs .nav-link .editinfobtnbox > .btnbox::after {
+  left: -12px;
+  right: auto ;
+  transform: rotateY(135deg);
+  bottom: auto;
+  top: 36px;
+}
+ 
 
 @media (max-width: 767px) {
   .btn1,
