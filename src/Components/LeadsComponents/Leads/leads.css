@@ -28,6 +28,8 @@
   fill: #ea6a12;
 }
 
+
+
 .popupinnerbox {
   border-radius: 12px;
   padding: 30px;
@@ -44,9 +46,8 @@
   -ms-transform: translate(-50%, -40%);
   transform: translate(-50%, -40%);
   z-index: 1;
-
-
 }
+
 /* .popupinnerbox::after {
   content: "";
   top: 0;

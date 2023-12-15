@@ -31,6 +31,7 @@ import PaymentHistory from './Components/DashboardComponents/PaymentHistory/Paym
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import rotateimage from "./images/rotateimage.png"
 /* import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 i18n.use(initReactI18next).init({
@@ -111,7 +112,7 @@ function App() {
 
   return (
     <>
-      <div className={languageDAta == "ar" ? "arabic" : ""} dir={languageDAta == "ar" ? "rtl" : ""}>
+      <div className={languageDAta == "ar" ? "arabic rotate" : "rotate"} dir={languageDAta == "ar" ? "rtl" : ""}>
         {Token &&
           <Routes>
             {/* <Route path="/emailotpverification" element={<EmailOtpVerification  translaterFun={t} />}></Route> // Please do not remove this comment... */}

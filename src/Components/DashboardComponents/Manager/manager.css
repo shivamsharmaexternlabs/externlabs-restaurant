@@ -186,24 +186,12 @@
   overflow: auto;
 }
 
-.addmanagerpopup.popup {
-  align-items: normal; 
-}
 
-.addmanagerpopup .popupinner {
-  border-radius: 12px;
-  padding: 30px;
-  max-width: 700px;
-  width: 90%;
-  max-width: 700px;
-  background-color: rgba(255, 255, 255, 1);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -40%);
-  -o-transform: translate(-50%, -40%);
-  -ms-transform: translate(-50%, -40%);
-  transform: translate(-50%, -40%);
+.addmanagerpopup .popupinnerbox {
+  position: static;
+  transform: none;
+  height: 90%;
+  max-height: 670px;
 }
 
 .addmanagerpopup .popuptitle h2 {
@@ -212,9 +200,18 @@
   line-height: 1.2;
   margin-bottom: 50px;
 }
+.addmanagerpopup .popupbody {
+  position: relative;
+ 
+}
+
 
 .addmanagerpopup .popupbody form {
   position: relative;
+  height: calc(100vh - 270px);
+  overflow: auto;
+ 
+  /* overflow: auto; */
 }
 
 .addmanagerpopup .popupbody .managerimg {
@@ -397,3 +394,11 @@ direction: ltr;
 }
 
 /* scrollbar css end  */
+
+
+@media(min-width:768px) {
+
+
+
+
+}

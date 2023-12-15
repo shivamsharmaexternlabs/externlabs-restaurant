@@ -292,14 +292,13 @@ const Manager = ({ translaterFun }) => {
                         </div>
                         <div className='popupbody'>
 
+                            <img src={manager} alt='manager img' className='managerimg' />
                             <Formik
                                 initialValues={defaultValue}
                                 validationSchema={Validate}
                                 onSubmit={handleSubmit}
-
                             >
                                 <Form>
-                                    <img src={manager} alt='manager img' className='managerimg' />
                                     <div className="formbox mb-3">
                                         <label>
                                         {translaterFun("name")}  </label>

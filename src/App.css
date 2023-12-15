@@ -108,4 +108,17 @@ ul,li,ol {
 }
 
 
+ 
+@media  (min-height:1px) and  (max-height:700px) and  (orientation:landscape) {
+ 
+  .rotate {
+    background: url(./images/rotateimage.png) center center no-repeat #E2AD88  !important;
+    width: 100vw;
+    height: 100vh;
+  }
+  .rotate > div {
+    display: none;
+  }
+ 
+}
 

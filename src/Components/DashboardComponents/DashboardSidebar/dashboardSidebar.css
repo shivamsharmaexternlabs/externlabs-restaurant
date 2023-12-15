@@ -109,18 +109,21 @@
 /*************************** scrollbar css start ***************************/
 
 .dasboardbody .contentpart::-webkit-scrollbar,
-.addmenupopup .popupinnerbox .popupbody::-webkit-scrollbar  {
+.addmenupopup .popupinnerbox .popupbody::-webkit-scrollbar,
+.editmenupopup .popupinnerbox .popupbody::-webkit-scrollbar  {
     width: 5px;
     background-color: #EF9456B2;
     border-radius: 100px;
 }
 
 .dasboardbody .contentpart::-webkit-scrollbar-thumb,
-.addmenupopup .popupinnerbox .popupbody::-webkit-scrollbar-thumb  {
+.addmenupopup .popupinnerbox .popupbody::-webkit-scrollbar-thumb,
+.editmenupopup .popupinnerbox .popupbody::-webkit-scrollbar-thumb  {
     width: 5px;
     background-color: #c65b13b2;
     border-radius: 100px;
 }
+
 
 /*************************** scrollbar css end ***************************/
 

@@ -506,10 +506,6 @@
   justify-content: center;
 }
 
-/* .sarbox::after {
-    content: "Sar";
-    width: 37px;
-} */
 
 .caloriesbox::after {
   content: "kcal";
@@ -590,10 +586,18 @@
 
 .editmenupopup .popupinnerbox {
   max-width: 620px;
+  position: static;
+  transform: none;
 }
 
 .editmenupopup .popuptitle{
   margin-bottom: 25px;
+}
+
+.editmenupopup .popupinnerbox .popupbody {
+  overflow: auto;
+  height: calc(100vh - 270px);  
+  margin: 0 -12px;
 }
 
 

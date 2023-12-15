@@ -168,12 +168,28 @@ font-weight: normal;
     background: linear-gradient(90.18deg, #8EC22C 2.36%, #379640 99.96%);
 }
 
+@media(max-width:767px){ 
+
+    .loginpage {
+        background: url(../../images/mobilebg.png) top center no-repeat ;
+        background-size: 100% 100%;
+        align-items: flex-end;
+        padding-bottom: 50px;
+    }
+
+    .login-box {
+        width: 100%;
+    }
+
+}
+
 
 @media(max-width:580px){
     .forgortext {
         display: block;
     }
 
+   
 
     
 }

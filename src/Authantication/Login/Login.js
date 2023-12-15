@@ -89,7 +89,6 @@ const Login = () => {
           validationSchema={Validate}
           onSubmit={handleSubmit}
         >
-          <div className="loginpage">
             <div className="login-box">
               <div className="title">
                 <h2>Sign In</h2>
@@ -143,7 +142,7 @@ const Login = () => {
                 <button type="submit" className="btn"> Sign in </button>
               </Form>
               {/* <div className="alreadytext"> Don’t have an account?  <span onClick={(e)=>navigate("/signup")}>Click here to sign up. </span></div> */}
-            </div>
+         
           </div>
         </Formik>
 
