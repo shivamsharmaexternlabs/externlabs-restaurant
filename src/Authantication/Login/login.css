@@ -154,6 +154,21 @@ font-weight: normal;
 }
 
 
+.passwordbox {
+    position: relative;
+}
+.passwordbox input.form-control {
+    padding-right: 40px;
+
+}
+
+.passwordbox .password_eye {
+    position: absolute;
+    top: 8px;
+    right: 17px;
+    z-index: 1;
+    cursor: pointer;
+}
 
 .loginpage::-webkit-scrollbar,
 .login-box::-webkit-scrollbar {

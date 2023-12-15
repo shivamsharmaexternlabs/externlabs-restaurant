@@ -6,6 +6,7 @@ import "./login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { SignInSlice } from "../../Redux/slices/SignInSlice";
 import { reactLocalStorage } from "reactjs-localstorage";
+import PasswordEye from "../../ReusableComponents/PasswordEye/PasswordEye";
 // import LodingSpiner from "../LoadinSpinner";
 
 const Login = () => {
@@ -112,12 +113,13 @@ const Login = () => {
 
                 <div className="formbox">
                   <label>Password </label>
-                  <Field
+                  <PasswordEye/>
+                  {/* <Field
                     name="password"
                     type={showPassword ? "text" : "password"}
                     className="form-control"
                     placeholder="Password"
-                  />
+                  /> */}
                   <p className="text-danger">
                     <ErrorMessage name="password" />
                   </p>
