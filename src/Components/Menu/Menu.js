@@ -9,6 +9,7 @@ import pizza from '../../images/pizza.png'
 import icon4 from '../../images/icon4.svg'
 import icon5 from '../../images/icon5.svg'
 import calorie from '../../images/calorie.png'
+import defaultImage from '../../images/defaultimg.png'
 
 import globe from '../../images/Globe.svg'
 
@@ -310,7 +311,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
                             </div>
                             <div className='rightpart'>
                               <span className='pricetext'>{CategoryItem?.currency} {CategoryItem?.item_price} </span>
-                              {CategoryItem?.image != null && <figure> <img src={CategoryItem?.image} alt='img' /> </figure>}
+                               <figure> <img src={CategoryItem?.image === null ? defaultImage : CategoryItem?.image} alt='img' /> </figure>
 
                               {/* <figure> <img src={item1} alt='img' /> </figure> */}
                             </div>

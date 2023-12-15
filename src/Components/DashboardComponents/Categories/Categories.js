@@ -458,6 +458,7 @@ const Categories = ({ translaterFun }) => {
   };
 
   const handleUploadCategoryImage = (e) => { 
+    console.log("bhgvfcdx", e.target?.files)
     setuploadCategoryImage(e?.target?.files[0]);
     // const formData = new FormData()
     // formData.append("file", payload?.file);
@@ -1890,7 +1891,7 @@ const Categories = ({ translaterFun }) => {
                             <input
                               type="file"
                               accept=".png"
-                              value={uploadCategoryImage?.name}
+                              // value
                               onChange={(e) => handleUploadCategoryImage(e)}
                             />
                           </div>
