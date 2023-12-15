@@ -23,18 +23,18 @@ import { MenuSlice, favoriteMenuSlice } from '../../../Redux/slices/menuSlice'
 import { PaymentHistorySlice } from '../../../Redux/slices/paymentSlice';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
- import {useTranslation} from "react-i18next"
+import { useTranslation } from "react-i18next"
+import currencyToSymbolMap from 'currency-symbol-map/map'
 
 
-
-const Dashboard = ({translaterFun}) => {
+const Dashboard = ({ translaterFun }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
   const [data, setData] = useState({ results: [] });
   const [QrImage, setQrImage] = useState("")
-  const [LoadSpiner, setLoadSpiner] = useState(false) 
+  const [LoadSpiner, setLoadSpiner] = useState(false)
 
   const [ActiveCategory, setActiveCategory] = useState({});
   const [WellWishes, setWellWishes] = useState("")
@@ -50,6 +50,8 @@ const Dashboard = ({translaterFun}) => {
   let BearerToken = reactLocalStorage.get("Token", false);
   let languageSet = reactLocalStorage.get("languageSet", false);
 
+
+console.log("ndbvfchgbndmd",currencyToSymbolMap)
 
   useEffect(() => {
     setData(ManagerApiSelectorData?.data)
@@ -149,7 +151,7 @@ const Dashboard = ({translaterFun}) => {
     <>
       <DashboardLayout  >
         <div className='dasboardbody'>
-          <DashboardSidebar   />
+          <DashboardSidebar />
           <div className='contentpart dashboardpage'>
             <div className='bannerbox'>
               <h2> {WellWishes}</h2>
@@ -161,8 +163,8 @@ const Dashboard = ({translaterFun}) => {
                 <div className='topdishespart'>
                   <div className='title'>
                     <h2>{translaterFun("menu-items")}
-                     {/* Menu Items */}
-                      </h2> <button type='button' onClick={() => { navigate(`/${RestaurantIdLocalData}/admin/categories`) }}> {translaterFun("view-all")}<img src={arrow2} alt='img' /> </button>
+                      {/* Menu Items */}
+                    </h2> <button type='button' onClick={() => { navigate(`/${RestaurantIdLocalData}/admin/categories`) }}> {translaterFun("view-all")}<img src={arrow2} alt='img' /> </button>
                   </div>
 
                   <div className='topdishestabpart'>
@@ -247,25 +249,25 @@ const Dashboard = ({translaterFun}) => {
                       <div class="tab-pane fade show active" id="nav-dishes1" role="tabpanel" aria-labelledby="nav-dishes1-tab" tabindex="0">
                         <ul>
                           {
-                            ActiveCategory?.item_id?.slice(0, 4).map((Item, DishesId) => { 
+                            ActiveCategory?.item_id?.slice(0, 4).map((Item, DishesId) => {
                               return <li>
-                                <h4>{languageSet === "en" ? Item?.item_name_en :Item?.item_name_native }</h4>
+                                <h4>{languageSet === "en" ? Item?.item_name_en : Item?.item_name_native}</h4>
                                 <h5 className='mt-1'> {Item?.calories} {Item?.calories_unit}</h5>
                                 <div className='tabinfo'>
-                                  <div className='leftpart'>                                   
+                                  <div className='leftpart'>
                                     <p>
-                                    {
-                                          (languageSet == "en") ? 
+                                      {
+                                        (languageSet == "en") ?
                                           <>
 
-                                            { Item?.description_en?.length > 45 ? Item?.description_en.slice(0, 45) + "..." : Item?.description_en}
-                                        <span>{Item?.description_en?.length > 45 ? <b>{translaterFun("more")} <div className=''>{Item?.description_en} </div> </b> : ""}  </span>
+                                            {Item?.description_en?.length > 45 ? Item?.description_en.slice(0, 45) + "..." : Item?.description_en}
+                                            <span>{Item?.description_en?.length > 45 ? <b>{translaterFun("more")} <div className=''>{Item?.description_en} </div> </b> : ""}  </span>
                                           </>
-                                        :
-                                        <>
-                                        {Item?.description_native?.length > 45 ? Item?.description_native.slice(0, 45) + "..." : Item?.description_native}
-                                        <span>{Item?.description_native?.length > 45 ? <b>{translaterFun("more")} <div className=''>{Item?.description_native} </div> </b> : ""}  </span>
-                                        </>
+                                          :
+                                          <>
+                                            {Item?.description_native?.length > 45 ? Item?.description_native.slice(0, 45) + "..." : Item?.description_native}
+                                            <span>{Item?.description_native?.length > 45 ? <b>{translaterFun("more")} <div className=''>{Item?.description_native} </div> </b> : ""}  </span>
+                                          </>
                                       }
                                       {/* {Item?.description?.length > 45 ? Item?.description.slice(0, 45) + "..." : Item?.description}
                                       <span>{Item?.description?.length > 45 ? <b>{translaterFun("more")}<div className=''>{Item?.description} </div> </b> : ""}  </span> */}
@@ -357,8 +359,8 @@ const Dashboard = ({translaterFun}) => {
                 <div className='managerstablepart'>
                   <div className='title'>
                     <h2>{translaterFun("managers")}</h2>
-                    <button type='button' onClick={(e) => navigate(`/${RestaurantIdLocalData}/admin/manager`)}> 
-                    {translaterFun("view-all")} <img src={arrow2} alt='img' /> </button>
+                    <button type='button' onClick={(e) => navigate(`/${RestaurantIdLocalData}/admin/manager`)}>
+                      {translaterFun("view-all")} <img src={arrow2} alt='img' /> </button>
                   </div>
                   <div class="managerstable">
                     <table className='table'>
@@ -372,7 +374,7 @@ const Dashboard = ({translaterFun}) => {
                         <th> Assigned to </th> */}
                       </tr>
                       {data?.results?.slice(0, 2)?.map((items, id) => {
-                        console.log("zjdcghdcvsd",items)
+                        console.log("zjdcghdcvsd", items)
                         return <tr>
                           <td> <img src={user} alt='img' /> </td>
                           <td>{`${items?.first_name}`}</td>
@@ -392,11 +394,13 @@ const Dashboard = ({translaterFun}) => {
                     <h3> {translaterFun("subscription-plan")} </h3>
                     <button type='button' onClick={() => navigate(`/${RestaurantIdLocalData}/admin/paymenthistory`)}> {translaterFun("view-all")} <img src={arrow2} alt='arrow img' />  </button>
                   </div>
+                  {console.log("xchjvhgcvc", PaymentSelectorData)}
                   <div className='info'>
                     <div className='leftpart'>
-                      <p>{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_name.charAt(0).toUpperCase() + PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_name.slice(1)} </p>
-                      <p>{translaterFun("start-date")} {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.start_date}</p>
-                      <p>{translaterFun("end-date")}{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.end_date}</p>
+                      <p>{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.price_id?.plan_id
+                        ?.name} {translaterFun("plan")} </p>
+                      <p>{translaterFun("start-date")} :  {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.created_at.split("T")[0]}</p>
+                      <p>{translaterFun("end-date")} : {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.expiry_date}</p>
                     </div>
                     <div className='rightpart'>
                       <img src={item2} alt='img' />

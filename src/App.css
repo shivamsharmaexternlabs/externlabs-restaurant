@@ -122,3 +122,28 @@ ul,li,ol {
  
 }
 
+
+/* @media  (min-height:1px) and  (max-height:700px) and  (orientation:landscape) {
+ 
+  .rotateEn {
+    background: url(./images/rotateEn.gif) center center no-repeat #E2AD88  !important;
+    width: 100vw;
+    height: 100vh;
+  }
+  .rotateEn > div {
+    display: none;
+  }
+ 
+}
+@media  (min-height:1px) and  (max-height:700px) and  (orientation:landscape) {
+ 
+  .rotateAe {
+    background: url(./images/rotateAe.gif) center center no-repeat #E2AD88  !important;
+    width: 100vw;
+    height: 100vh;
+  }
+  .rotateAe > div {
+    display: none;
+  }
+ 
+} */

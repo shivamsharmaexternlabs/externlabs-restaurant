@@ -69,19 +69,22 @@ const PaymentHistory = ({translaterFun}) => {
 
     useEffect(() => {
 
-        if (subscriptionDetails && PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]) {
+        // if (subscriptionDetails && PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]) {
 
-            let filterProductObject = subscriptionDetails.filter((items) =>
-                items?.product?.id == PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_id
+        //     let filterProductObject = subscriptionDetails.filter((items) =>
+        //         items?.product?.id == PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_id
 
-            )
+        //     )
 
-            setPaymentHistoryDetails(filterProductObject)
-        }
+        //     setPaymentHistoryDetails(filterProductObject)
+        // }
+        if(PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]){
+        setPaymentHistoryDetails( PaymentSelectorData?.PaymentHistoryReducerData?.data)
+       }
 
     }, [PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]])
 
-
+console.log("mhvjvjdsdd",PaymentSelectorData?.PaymentHistoryReducerData)
     return (
         <>
             <DashboardLayout>
@@ -98,12 +101,12 @@ const PaymentHistory = ({translaterFun}) => {
                                 return <li key={id}>
                                     <div className='clear'>
                                         <select >
-                                            <option>{items?.recurring?.interval.charAt(0).toUpperCase() + items?.recurring?.interval.slice(1)} </option>
+                                            <option>{items?.price_id?.interval} </option>
                                         </select>
                                     </div>
-                                    <h3> {items?.product?.name.charAt(0).toUpperCase() + items?.product?.name.slice(1)} </h3>
-                                    <p>{items?.product?.description}</p>
-                                    <h4>{items?.currency?.toUpperCase()} {items?.unit_amount / 100}<span>/Per {items?.recurring?.interval.charAt(0).toUpperCase() + items?.recurring?.interval.slice(1)}</span></h4>
+                                    <h3> {items?.price_id?.plan_id?.name} </h3>
+                                    <p>{items?.price_id?.plan_id?.description}</p>
+                                    <h4>{items?.price_id?.currency} {items?.price_id?.amount }<span>/Per {items?.price_id?.interval}</span></h4>
                                 </li>
                             })}
                              
@@ -121,7 +124,7 @@ const PaymentHistory = ({translaterFun}) => {
 
                                 <th>{translaterFun("end-date")}</th>
 
-                                <th>{translaterFun("action")}</th>
+                                {/* <th>{translaterFun("action")}</th> */}
 
 
                                      
@@ -132,13 +135,14 @@ const PaymentHistory = ({translaterFun}) => {
                                     return <tr key={id}>
                                         <td><span className='dot dotgreen'></span> {item?.status ? "Current Plan" : "Cancelled Plan"}</td>
                                         <td>{item?.currency.toUpperCase()} {item?.amount}</td>
-                                        <td>{item?.start_date}</td>
+                                        <td>{item?.created_at.split("T")[0]}</td>
                                         <td>{item?.product_name} {translaterFun("plan")}</td>
                                         <td>{item?.end_date}</td>
 
-                                        <td> <button type='button' className='btn1'
+                                        {/* <td>
+                                             <button type='button' className='btn1'
                                             onClick={(e) => unsubscribePaymentFunc(e, item)}
-                                        > {translaterFun("cancel")}</button> </td>
+                                        > {translaterFun("cancel")}</button> </td> */}
                                     </tr>
                                 })} 
 
