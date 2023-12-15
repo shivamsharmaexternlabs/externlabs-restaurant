@@ -215,16 +215,18 @@ const Manager = ({ translaterFun }) => {
                             <h2>
                                 {translaterFun("managers")}
                             </h2>
-                            <button type='button' className='mangerbtn' onClick={(e) => PopUpToggleFun()}> <img src={plus} alt='plusimg' />                                  {translaterFun("add-manager")}
-                            </button>
+                            {/* ADD Manager button... */}
+                            {/* <button type='button' className='mangerbtn' onClick={(e) => PopUpToggleFun()}> <img src={plus} alt='plusimg' />
+                                {translaterFun("add-manager")}
+                            </button> */}
                         </div>
                         <div className='managertable'>
                             <table>
-                                <tr> 
+                                <tr>
                                     <th></th>
                                     <th>{translaterFun("user-name")}</th>
                                     <th>{translaterFun("email")}</th>
-                                    <th>{translaterFun("mobile-no")}</th> 
+                                    <th>{translaterFun("mobile-no")}</th>
                                     <th>{translaterFun("action")}</th>
                                 </tr>
 
@@ -237,8 +239,8 @@ const Manager = ({ translaterFun }) => {
                                         <td>{items?.email}</td>
                                         <td>{items?.phone_number}</td>
                                         <td>
-                                            <button className='asbtn' onClick={(e) => handleDelete(e, items)}> 
-                                            {translaterFun("delete")} </button>
+                                            <button className='asbtn' onClick={(e) => handleDelete(e, items)}>
+                                                {translaterFun("delete")} </button>
                                         </td>
                                     </tr>
                                 })}
@@ -246,11 +248,11 @@ const Manager = ({ translaterFun }) => {
                             </table>
                             <ReactPaginate
                                 // previousLabel={"Previous"}
-                                
-                                previousLabel= {translaterFun("previous")}
+
+                                previousLabel={translaterFun("previous")}
                                 i18nIsDynamicList={true}
                                 // nextLabel={"Next"}
-                                nextLabel= {translaterFun("next")}
+                                nextLabel={translaterFun("next")}
                                 pageCount={Math.ceil(data?.count / itemsPerPage)}
                                 onPageChange={handlePageClick}
                                 forcePage={CurrentPage}
@@ -274,7 +276,7 @@ const Manager = ({ translaterFun }) => {
 
 
 
-              
+
 
                 {popUpHook &&
                     <PopUpComponent
@@ -286,12 +288,13 @@ const Manager = ({ translaterFun }) => {
 
                         <div className='popuptitle'>
                             <h2>
-                                
-                            {translaterFun("add-new-manager")}                                  
-                                  </h2>
+
+                                {translaterFun("add-new-manager")}
+                            </h2>
                         </div>
                         <div className='popupbody'>
 
+                                    <img src={manager} alt='manager img' className='managerimg' />
                             <Formik
                                 initialValues={defaultValue}
                                 validationSchema={Validate}
@@ -299,16 +302,15 @@ const Manager = ({ translaterFun }) => {
 
                             >
                                 <Form>
-                                    <img src={manager} alt='manager img' className='managerimg' />
                                     <div className="formbox mb-3">
                                         <label>
-                                        {translaterFun("name")}  </label>
+                                            {translaterFun("name")}  </label>
                                         <Field
                                             name="first_name"
                                             type="text"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder={translaterFun("enter-your-name")} 
+                                            placeholder={translaterFun("enter-your-name")}
                                         />
                                         <p className="text-danger small">
                                             <ErrorMessage name="first_name" />
@@ -336,7 +338,7 @@ const Manager = ({ translaterFun }) => {
                                             type="email"
                                             className={`form-control `}
                                             autoComplete="off"
-                                            placeholder={translaterFun("email")} 
+                                            placeholder={translaterFun("email")}
 
                                         />
                                         <p className="text-danger">
@@ -399,8 +401,8 @@ const Manager = ({ translaterFun }) => {
                                     </div>
 
                                     <div className='text-end mt-5 submitbtnbox'>
-                                        <button type="btn" className="cancelbtn" onClick={(e) => CancelBtnFun(e)} >  {translaterFun("cancel")} 
-                                         </button>
+                                        <button type="btn" className="cancelbtn" onClick={(e) => CancelBtnFun(e)} >  {translaterFun("cancel")}
+                                        </button>
                                         <button type="submit" className="submitbtn"> {translaterFun("submit")} </button>
                                     </div>
                                 </Form>

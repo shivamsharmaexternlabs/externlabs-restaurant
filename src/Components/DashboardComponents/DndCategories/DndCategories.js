@@ -25,6 +25,8 @@ function DndCategories({translaterFun}) {
 
     const resId = localStorage.getItem("RestaurantId");
     const BearerToken = reactLocalStorage.get("Token", false);
+    let languageSet = reactLocalStorage.get("languageSet", false);
+
     const navigate = useNavigate();
 
 
@@ -213,7 +215,7 @@ function DndCategories({translaterFun}) {
                                                     <img src={item?.category_image} alt="img" width="55.381px" height={"55.381px"} />
                                                 </figure>
                                                 <div className=""></div>
-                                                <h3 className='itemCategory'>{item?.category}</h3>
+                                                <h3 className='itemCategory'>{languageSet == "en" ? item?.category_en : item?.category_native}</h3>
 
                                                 <div className="button-arrow">
                                                     <img src={line} />

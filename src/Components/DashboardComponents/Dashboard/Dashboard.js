@@ -48,6 +48,7 @@ const Dashboard = ({translaterFun}) => {
   let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
   let FirstName = reactLocalStorage.get("FirstName", false);
   let BearerToken = reactLocalStorage.get("Token", false);
+  let languageSet = reactLocalStorage.get("languageSet", false);
 
 
   useEffect(() => {
@@ -176,7 +177,7 @@ const Dashboard = ({translaterFun}) => {
                                 <figure>
                                   <img src={items?.category_image === null ? defaultImage : items?.category_image} alt="img" className="catg-img" />
                                 </figure>
-                                <h3>{items?.category}</h3>
+                                <h3>{languageSet == "en" ? items?.category_en : items?.category_native}</h3>
 
                                 {/* <div className='buttonbox'>
                                   <svg xmlns="http://www.w3.org/2000/svg" width="5" height="7" viewBox="0 0 5 7" fill="none">

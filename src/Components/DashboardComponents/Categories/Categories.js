@@ -67,8 +67,9 @@ const Categories = ({ translaterFun }) => {
     toggle: false,
     data: undefined
   });
-  const [Description, setDescription] = useState("");
-  const [EditDescription, setEditDescription] = useState("");
+  const [DescriptionEn, setDescriptionEn] = useState("");
+  const [DescriptionNative, setDescriptionNative] = useState(""); 
+
   const [uploadImage, setuploadImage] = useState("");
   const [CategoryId, setCategoryId] = useState("");
   const [MenuItemId, setMenuItemId] = useState("");
@@ -90,6 +91,7 @@ const Categories = ({ translaterFun }) => {
   })
 
   let BearerToken = reactLocalStorage.get("Token", false);
+  let languageSet = reactLocalStorage.get("languageSet", false);
 
   const CreateApiSelectorData = useSelector(
     (state) => state.CreateApiSelectorData
@@ -181,6 +183,19 @@ const Categories = ({ translaterFun }) => {
     // MenuApiSelectorData?.MenuSliceReducerData,
     // MenuApiSelectorData?.favoriteMenuSliceReducerData,
   ]);
+
+  // // MenuApiSelectorData?.DeleteMenuItemReducerData
+  // useEffect(() => {
+  //   if (MenuApiSelectorData?.DeleteMenuItemReducerData.status === 204) {
+
+  //   } else if (MenuApiSelectorData?.error == "Rejected") {
+  //     setLoadSpiner(false);
+  //   }
+
+
+  // }, [
+  //   MenuApiSelectorData?.DeleteMenuItemReducerData
+  // ]);
 
 
 
@@ -306,9 +321,10 @@ const Categories = ({ translaterFun }) => {
 
   const defaultValue = {
     restaurant_id: "",
-    description: "",
+    // description: "",
     image: "",
-    item_name: "",
+    item_name_en: "",
+    item_name_native: "",
     item_price: "",
     calories: "",
     menu_id: "",
@@ -318,7 +334,8 @@ const Categories = ({ translaterFun }) => {
   };
 
   const Validatemenu = yup.object({
-    item_name: yup.string().required(translaterFun("please-enter-item-name")),
+    item_name_en: yup.string().required("Please Enter Item Name"),
+    item_name_native: yup.string().required("الرجاء إدخال اسم الصنف"),
     item_price: yup.string().required(translaterFun("please-enter-price")),
     calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-calories")),
     menu_id: yup.string().required(translaterFun("please-enter-item-name")),
@@ -331,13 +348,16 @@ const Categories = ({ translaterFun }) => {
 
     const formData = new FormData();
     formData.append("restaurant_id", RestaurantIdLocalStorageData);
-    formData.append("description", Description);
+    formData.append("description_en", DescriptionEn);
+    formData.append("description_native", DescriptionNative);
     formData.append("image", uploadImage);
-    formData.append("item_name", values?.item_name);
+    formData.append("item_name_en", values?.item_name_en);
+    formData.append("item_name_native", values?.item_name_native);
     formData.append("item_price", values?.item_price);
     formData.append("calories", values?.calories);
     formData.append("menu_id", values?.menu_id);
-    formData.append("item_type", values?.item_type);
+    formData.append("is_veg", (values?.item_type === "VEG"));
+    formData.append("is_non_veg", (values?.item_type === "NON_VEG"));
     formData.append("currency", values?.currency);
     formData.append("calories_unit", caloriesunit);
 
@@ -375,7 +395,9 @@ const Categories = ({ translaterFun }) => {
 
 
 
-    setDescription("");
+    setDescriptionEn("");
+    setDescriptionNative("");
+
     popUpHookFun(false);
     // setTimeout(() => {
     //   let MenuSlicePayload = {
@@ -392,12 +414,14 @@ const Categories = ({ translaterFun }) => {
   };
 
   const defaultValueCategory = {
-    category: "",
+    category_en: "",
+    category_native: ""
   };
 
 
   const ValidateCategory = yup.object({
-    category: yup.string().required(translaterFun("please-create-category")),
+    category_en: yup.string().required("Please Create Category"),
+    category_native: yup.string().required("الرجاء إنشاء الفئة"),
   });
 
 
@@ -408,12 +432,13 @@ const Categories = ({ translaterFun }) => {
     let handleCategoryPayload = {
       "restaurant_id": RestaurantIdLocalStorageData,
       "category_image": uploadCategoryImage,
-      "category": values?.category,
+      "category_en": values?.category_en,
+      "category_native": values?.category_native,
       "token": TokenLocalStorageData
     }
     try {
       await dispatch(CreateCategorySlice(handleCategoryPayload));
-
+      setuploadCategoryImage("");
       popUpCategoriesHookFun(false);
 
       setTimeout(async () => {
@@ -432,7 +457,7 @@ const Categories = ({ translaterFun }) => {
     }
   };
 
-  const handleUploadCategoryImage = (e) => {
+  const handleUploadCategoryImage = (e) => { 
     setuploadCategoryImage(e?.target?.files[0]);
     // const formData = new FormData()
     // formData.append("file", payload?.file);
@@ -442,6 +467,10 @@ const Categories = ({ translaterFun }) => {
   const PopUpToggleEditFun = (e, itemData) => {
     setEditMenuData(itemData);
     setuploadImage(itemData?.image);
+
+    setDescriptionEn(itemData?.description_en)
+    setDescriptionNative(itemData?.description_native)
+
     popUpEditHookFun((o) => !o);
   };
 
@@ -455,35 +484,40 @@ const Categories = ({ translaterFun }) => {
 
 
   const defaultEditValue = {
-    restaurant_id: EditMenuData?.restaurant_id,
-    description: EditMenuData?.description,
+    restaurant_id: EditMenuData?.restaurant_id, 
+    description_en: DescriptionEn,
+    description_native: DescriptionNative,
     image: uploadImage,
-    item_name: EditMenuData?.item_name,
+    item_name_en: EditMenuData?.item_name_en,
+    item_name_native: EditMenuData?.item_name_native,
     item_price: EditMenuData?.item_price,
     calories: EditMenuData?.calories,
     menu_id: EditMenuData?.menu_id,
-    item_type: EditMenuData?.item_type,
+    item_type: (EditMenuData?.is_veg === true ? "VEG" : "NON_VEG"),
     currency: EditMenuData?.currency,
     calories_unit: EditMenuData?.calories_unit,
   };
 
   const Validateditemenu = yup.object({
-    item_name: yup.string().required(translaterFun("please-enter-item-name")),
+    item_name_en: yup.string().required("Please Enter Item Name"),
+    item_name_native: yup.string().required("الرجاء إدخال اسم الصنف"),
     item_price: yup.string().required(translaterFun("please-enter-price")),
     calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-menu")),
     menu_id: yup.string().required(translaterFun("please-enter-menu")),
     item_type: yup.string().required(translaterFun("please-enter-item-type")),
     currency: yup.string().required(translaterFun("please-enter-currency")),
-    description: yup.string().required(translaterFun("please-enter-description")),
+    // description: yup.string().required(translaterFun("please-enter-description")),
   });
 
   const handleEditMenuSubmit = async (values) => {
     let payload = {
       item_id: EditMenuData?.item_id,
       restaurant_id: values?.restaurant_id,
-      description: values?.description,
+      description_en: DescriptionEn,
+      description_native: DescriptionNative,
       image: uploadImage,
-      item_name: values?.item_name,
+      item_name_en: values?.item_name_en,
+      item_name_native: values?.item_name_native,
       item_price: values?.item_price,
       calories: values?.calories,
       menu_id: values?.menu_id,
@@ -496,6 +530,10 @@ const Categories = ({ translaterFun }) => {
     dispatch(LoadingSpinner(true))
     try {
       let responseData = await dispatch(EditMenuItemSlice(payload));
+      setDescriptionEn("");
+      setDescriptionNative("");
+
+      setuploadImage("");
       popUpEditHookFun(false);
 
 
@@ -540,11 +578,14 @@ const Categories = ({ translaterFun }) => {
   };
 
   const ValidateEditCategory = yup.object({
-    category: yup.string().required(translaterFun("please-create-category")),
+    category_en: yup.string().required(translaterFun("please-create-category")),
+    category_native: yup.string().required("الرجاء إنشاء الفئة"),
   });
 
   const defaultValueEditCategory = {
-    category: EditCategory?.category,
+    category_en: EditCategory?.category_en,
+    category_native: EditCategory?.category_native,
+
   };
 
   const handleUploadEditCategoryImage = (e) => {
@@ -558,7 +599,8 @@ const Categories = ({ translaterFun }) => {
       menu_id: EditCategory?.menu_id,
       restaurant_id: RestaurantIdLocalStorageData,
       category_image: uploadCategoryImage,
-      category: values?.category,
+      category_en: values?.category_en,
+      category_native: values?.category_native,
       BearerToken
     };
 
@@ -1055,7 +1097,7 @@ const Categories = ({ translaterFun }) => {
                                       className="catg-img"
                                     />
                                   </figure>
-                                  <h3>{item?.category}</h3>
+                                  <h3>{languageSet == "en" ? item?.category_en : item?.category_native}</h3>
                                 </div>
                               </button>
                             );
@@ -1122,7 +1164,7 @@ const Categories = ({ translaterFun }) => {
                                         className="catg-img"
                                       />
                                     </figure>
-                                    <h3>{item?.category}</h3>
+                                    <h3>{languageSet == "en" ? item?.category_en : item?.category_native}</h3>
                                   </div>
                                 </button>
                               </SwiperSlide>
@@ -1287,13 +1329,13 @@ const Categories = ({ translaterFun }) => {
                                           <div className='indx-div'>
                                             <span className='item-indx'>{ids + 1}</span>
                                           </div>
-                                          {items?.item_name}{" "}
+                                          {languageSet === "en" ? items?.item_name_en : items?.item_name_native}{" "}
                                         </h4>
                                       </div> :
                                       <div className="">
                                         <h4>
 
-                                          {items?.item_name}{" "}
+                                          {languageSet === "en" ? items?.item_name_en : items?.item_name_native}{" "}
 
                                         </h4>
                                       </div>
@@ -1347,8 +1389,21 @@ const Categories = ({ translaterFun }) => {
                                   <div className="tabinfo">
                                     <div className="leftpart">
                                       <p>
-                                        {items?.description?.length > 45 ? items?.description.slice(0, 45) + "..." : items?.description}
-                                        <span>{items?.description?.length > 45 ? <b>{translaterFun("more")} <div className=''>{items?.description} </div> </b> : ""}  </span>
+                                        {/* {languageSet == "en" ? items?.category_en : items?.category_native} */}
+                                        {
+                                          (languageSet == "en") ? 
+                                          <>
+
+                                            { items?.description_en?.length > 45 ? items?.description_en.slice(0, 45) + "..." : items?.description_en}
+                                        <span>{items?.description_en?.length > 45 ? <b>{translaterFun("more")} <div className=''>{items?.description_en} </div> </b> : ""}  </span>
+                                          </>
+                                        :
+                                        <>
+                                        {items?.description_native?.length > 45 ? items?.description_native.slice(0, 45) + "..." : items?.description_native}
+                                        <span>{items?.description_native?.length > 45 ? <b>{translaterFun("more")} <div className=''>{items?.description_native} </div> </b> : ""}  </span>
+                                        </>
+                                      }
+
                                       </p>
                                       <span className="price">{`${items?.currency} ${items?.item_price}`}</span>
                                     </div>
@@ -1461,7 +1516,7 @@ const Categories = ({ translaterFun }) => {
                                 <img src={item?.image == null ? defaultImage : item?.image} alt="img" />
                               </div>
                               <div className="rightpart">
-                                <h3>{item?.item_name}</h3>
+                                <h3>{languageSet === "en" ? item?.item_name_en : item?.item_name_native}</h3>
                                 <p>
                                   {item?.description}
                                 </p>
@@ -1481,774 +1536,738 @@ const Categories = ({ translaterFun }) => {
             </div>
 
             {popUpHook && (
-        <PopUpComponent
-          classNameValue={"addmenupopup d-block"}
-          PopUpToggleFun={PopUpToggleFun}
-          popUpHookFun={popUpHookFun}
-        >
-          {/* children part start */}
-          <div className="popuptitle">
-            <h2>{translaterFun("add-menu-item")}</h2>
-          </div>
-          <div className="popupbody">
-            <Formik
-              initialValues={defaultValue}
-              validationSchema={Validatemenu}
-              onSubmit={handleMenuSubmit}
-            >
-              <Form className="row">
-                <div className="col-12 mb-3">
-                  <div className="formbox ">
-                    <label>{translaterFun("name")} </label>
-                    <Field
-                      name="item_name"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder={translaterFun("enter-your-item-name")}
-                    />
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="item_name" />
-                    </p>
-                  </div>
+              <PopUpComponent
+                classNameValue={"addmenupopup"}
+                PopUpToggleFun={PopUpToggleFun}
+                popUpHookFun={popUpHookFun}
+              >
+                {/* children part start */}
+                <div className="popuptitle">
+                  <h2>{translaterFun("add-menu-item")}</h2>
                 </div>
-                <div className="col-md-4 mb-3">
-                  <div className="formbox ">
-                    <label>{translaterFun("item-price")}  </label>
-                    <div className="sarbox d-flex">
-                      <Field
-                        name="item_price"
-                        type="number"
-                        className={`form-control `}
-                        autoComplete="off"
-                        placeholder={translaterFun("enter-the-amount")}
-                      />
-                      <Field
-                        as="select"
-                        name="currency"
+                <div className="popupbody">
+                  <Formik
+                    initialValues={defaultValue}
+                    validationSchema={Validatemenu}
+                    onSubmit={handleMenuSubmit}
+                  >
+                    <Form className="row mx-0">
+                      <div className="col-md-6 mb-3">
+                        <div className="formbox ">
+                          <label>Name </label>
+                          <Field
+                            name="item_name_en"
+                            type="text"
+                            className={`form-control `}
+                            autoComplete="off"
+                            placeholder="Enter Your Item Name"
+                          />
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="item_name_en" />
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col-md-6 mb-3">
+                        <div className="formbox " dir="rtl" >
+                          <label >اسم </label>
+                          <Field
+                            name="item_name_native"
+                            type="text"
+                            className={`form-control `}
+                            autoComplete="off"
+                            placeholder="أدخل اسم الصنف الخاص بك"
+                          />
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="item_name_native" />
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col-md-6 mb-3">
+                        <div className="formbox ">
+                          <label>{translaterFun("item-price")}  </label>
+                          <div className="sarbox d-flex">
+                            <Field
+                              name="item_price"
+                              type="number"
+                              className={`form-control `}
+                              autoComplete="off"
+                              placeholder={translaterFun("enter-the-amount")}
+                            />
+                            <Field
+                              as="select"
+                              name="currency"
 
-                      >
-                        {currencyData?.map((item, id) => {
-                          return (
-                            <option value={item.currency_code}>
-                              {item.currency_code}
+                            >
+                              {currencyData?.map((item, id) => {
+                                return (
+                                  <option value={item.currency_code}>
+                                    {item.currency_code}
+                                  </option>
+                                );
+                              })}
+                            </Field>
+                          </div>
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="item_price" />
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="col-md-6 mb-3">
+                        <div className="formbox ">
+                          <label>{translaterFun("calories")} </label>
+                          <div className="caloriesbox">
+                            <Field
+                              name="calories"
+                              type="text"
+                              className={`form-control `}
+                              autoComplete="off"
+                              placeholder={translaterFun("type-here")}
+                            />
+                          </div>
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="calories" />
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="col-md-6 mb-3">
+                        <div className="formbox">
+                          <label>{translaterFun("category")} </label>
+                          <Field
+                            as="select"
+                            name="menu_id"
+                            className={`form-control `}
+                          >
+                            <option value="select">
+                              {translaterFun("please-select-category")}
                             </option>
-                          );
-                        })}
-                      </Field>
-                    </div>
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="item_price" />
-                    </p>
-                  </div>
-                </div>
+                            {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
+                              (item, id) => {
+                                return (
+                                  <option value={item?.menu_id}>
+                                    {languageSet == "en" ? item?.category_en : item?.category_native}
+                                  </option>
+                                );
+                              }
+                            )}
 
-                <div className="col-md-8 mb-3">
-                  <div className="formbox ">
-                    <label>{translaterFun("calories")} </label>
-                    <div className="caloriesbox">
-                      <Field
-                        name="calories"
-                        type="text"
-                        className={`form-control `}
-                        autoComplete="off"
-                        placeholder={translaterFun("type-here")}
-                      />
-                    </div>
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="calories" />
-                    </p>
-                  </div>
-                </div>
+                          </Field>
 
-                <div className="col-12 mb-3">
-                  <div className="formbox">
-                    <label>{translaterFun("category")} </label>
-                    <Field
-                      as="select"
-                      name="menu_id"
-                      className={`form-control `}
-                    >
-                      <option value="select">
-                        {translaterFun("please-select-category")}
-                      </option>
-                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
-                        (item, id) => {
-                          return (
-                            <option value={item?.menu_id}>
-                              {item?.category}
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="menu_id" />
+                          </p>
+                        </div>
+                      </div>
+
+
+
+
+                      <div className="col-md-6 mb-3">
+                        <div className="formbox">
+                          <label>{translaterFun("item-type")} </label>
+                          <Field
+                            as="select"
+                            name="item_type"
+                            className={`form-control`}
+                          >
+                            <option value="select">
+                              {translaterFun("please-select-item-type")}
                             </option>
-                          );
-                        }
-                      )}
+                            <option value="VEG">{translaterFun("veg")}</option>
+                            <option value="NON_VEG">{translaterFun("non-veg")}</option>
+                          </Field>
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="item_type" />
+                          </p>
+                        </div>
+                      </div>
 
-                    </Field>
-
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="menu_id" />
-                    </p>
-                  </div>
-                </div>
-                <div className="col-12 mb-3">
-                  <div className="formbox">
-                    <label>{translaterFun("item-type")} </label>
-                    <Field
-                      as="select"
-                      name="item_type"
-                      className={`form-control`}
-                    >
-                      <option value="select">
-                        {translaterFun("please-select-item-type")}
-                      </option>
-                      <option value="VEG">{translaterFun("veg")}</option>
-                      <option value="NON_VEG">{translaterFun("non-veg")}</option>
-                    </Field>
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="item_type" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-12 mb-3">
-                  <div className="formbox ">
-                    <label>{translaterFun("description")} </label>
-                    <textarea
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder={translaterFun("type-here")}
-                      value={Description}
-                      onChange={(e) => setDescription(e.target.value)}
-                    ></textarea>
-                    {/* <p className="text-danger small mb-0">
+                      <div className="col-md-12 mb-3" dir="ltr">
+                        <div className="formbox ">
+                          <label>Description (Optional)</label>
+                          <textarea
+                            className={`form-control `}
+                            autoComplete="off"
+                            placeholder="Type Here..."
+                            value={DescriptionEn}
+                            onChange={(e) => setDescriptionEn(e.target.value)}
+                          ></textarea>
+                          {/* <p className="text-danger small mb-0">
                       <ErrorMessage name="first_name" />
                     </p> */}
-                  </div>
-                </div>
+                        </div>
+                      </div>
 
-                <div className="col-md-12 mb-3">
-                  <div className="formbox ">
-                    <label className="d-block">{translaterFun("upload-image")} </label>
-                    <div className=" uploadwrapper ">
-                      <button type="button">
-                        {" "}
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
-                        >
-                          <path
-                            d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
-                            fill="#8D8D8D"
-                          />
-                        </svg>{" "}
-                        {translaterFun("upload")}{" "}
-                      </button>
-                      <input
-                        type="file"
-                        accept=".png"
-                        onChange={(e) => handleUploadImage(e)}
-                      />
-                    </div>
-                    <p className="text-danger small mb-0">
+                      <div className="col-md-12 mb-3" dir="rtl">
+                        <div className="formbox ">
+                          <label>الوصف (اختياري) </label>
+                          <textarea
+                            className={`form-control `}
+                            autoComplete="off"
+                            placeholder="أكتب هنا..."
+                            value={DescriptionNative}
+                            onChange={(e) => setDescriptionNative(e.target.value)}
+                          ></textarea>
+                          {/* <p className="text-danger small mb-0">
                       <ErrorMessage name="first_name" />
-                    </p>
-                  </div>
-                </div>
+                    </p> */}
+                        </div>
+                      </div>
 
-                <div className="col-12 text-end">
-                  <button
-                    type="button"
-                    className="btn3"
-                    onClick={(e) => CancelBtnFun(e)}
-                  >
-                    {" "}
-                    {translaterFun("cancel")}{" "}
-                  </button>
-                  <button type="submit" className="btn2 submit mx-3">
-                    {" "}
-                    {translaterFun("submit")}{" "}
-                  </button>
-                </div>
-              </Form>
-            </Formik>
-          </div>
+                      <div className="col-md-12 mb-3">
+                        <div className="formbox ">
+                          <label className="d-block">{translaterFun("upload-image")} </label>
+                          <div className=" uploadwrapper ">
+                            <button type="button">
+                              {" "}
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                              >
+                                <path
+                                  d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
+                                  fill="#8D8D8D"
+                                />
+                              </svg>{" "}
+                              {translaterFun("upload")}{" "}
+                            </button>
+                            <input
+                              type="file"
+                              accept=".png"
+                               
+                              onChange={(e) => handleUploadImage(e)}
+                            />
+                          </div>
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="first_name" />
+                          </p>
+                        </div>
+                      </div>
 
-          {/* children part end */}
-        </PopUpComponent>
-      )}
-
-      {
-        deletePopup &&
-        <PopUpComponent
-          classNameValue={"popup wantmanager "}
-          PopUpToggleFun={PopUpToggleFun}
-          popUpHookFun={popUpHookFun}
-        >
-          {/* children part start */}
-
-          <div className='popupinner'>
-            <div className='popupbody'>
-              <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
-              <h2>{translaterFun("delete-category-confirmation-message")}</h2>
-              <div className='text-center'>
-                <button type="button" onClick={(e) => deletePopUpFun(false)}>{translaterFun("cancel")} </button>
-                <button type="button" className='ms-4' onClick={(e) => confirmDelete(e, CategoryId)}>{translaterFun("confirm-delete-button")}</button>
-              </div>
-            </div>
-          </div>
-
-          {/* children part end */}
-
-        </PopUpComponent>
-      }
-
-
-
-      {
-        deleteCategoryPopup &&
-        <PopUpComponent
-          classNameValue={"popup wantmanager "}
-          PopUpToggleFun={PopUpToggleFun}
-          popUpHookFun={popUpHookFun}
-        >
-          {/* children part start */}
-
-          <div className='popupinner'>
-            <div className='popupbody'>
-              <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
-              <h2>{translaterFun("delete-menu-item-confirmation-message")}</h2>
-              <div className='text-center'>
-                <button type="button" onClick={(e) => deleteCategoryPopupFun(false)}>{translaterFun("cancel")} </button>
-                <button type="button" className='ms-4' onClick={(e) => ConfirmDeleteItemFun(e, MenuItemId)}>{translaterFun("confirm-delete-button")}</button>
-              </div>
-            </div>
-          </div>
-
-          {/* children part end */}
-
-        </PopUpComponent>
-      }
-      {popUpcategoriesHook && (
-        <PopUpComponent
-          classNameValue={"addcategorypopup"}
-          PopUpToggleFun={PopUpCategoriesToggleFun}
-          popUpHookFun={popUpCategoriesHookFun}
-        >
-          {/* children part start */}
-
-          <div className="popuptitle mb-5">
-            <h2>{translaterFun("add-category")} </h2>
-          </div>
-          <div className="popupbody">
-            <Formik
-              initialValues={defaultValueCategory}
-              validationSchema={ValidateCategory}
-              onSubmit={handleCategorySubmit}
-            >
-              <Form className="row">
-                <img src={category} alt="manager img" class="categoryimg" />
-                <div className="formbox mb-3">
-                  <label> {translaterFun("category-name")}</label>
-                  <Field
-                    name="category"
-                    type="text"
-                    className={`form-control `}
-                    autoComplete="off"
-                    placeholder={translaterFun("enter-your-name")}
-                  />
-                  <p className="text-danger small mb-0">
-                    <ErrorMessage name="category" />
-                  </p>
-                </div>
-
-                <div className="col-md-12 mb-3">
-                  <div className="formbox ">
-                    <label className="d-block">{translaterFun("upload-image")} </label>
-                    <div className=" uploadwrapper ">
-                      <button type="button">
-                        {" "}
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
+                      <div className="col-12 text-end">
+                        <button
+                          type="button"
+                          className="btn3"
+                          onClick={(e) => CancelBtnFun(e)}
                         >
-                          <path
-                            d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
-                            fill="#8D8D8D"
+                          {" "}
+                          {translaterFun("cancel")}{" "}
+                        </button>
+                        <button type="submit" className="btn2 submit mx-3">
+                          {" "}
+                          {translaterFun("submit")}{" "}
+                        </button>
+                      </div>
+                    </Form>
+                  </Formik>
+                </div>
+
+                {/* children part end */}
+              </PopUpComponent>
+            )}
+
+            {
+              deletePopup &&
+              <PopUpComponent
+                classNameValue={"popup wantmanager "}
+                PopUpToggleFun={PopUpToggleFun}
+                popUpHookFun={popUpHookFun}
+              >
+                {/* children part start */}
+
+                <div className='popupinner'>
+                  <div className='popupbody'>
+                    <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
+                    <h2>{translaterFun("delete-category-confirmation-message")}</h2>
+                    <div className='text-center'>
+                      <button type="button" onClick={(e) => deletePopUpFun(false)}>{translaterFun("cancel")} </button>
+                      <button type="button" className='ms-4' onClick={(e) => confirmDelete(e, CategoryId)}>{translaterFun("confirm-delete-button")}</button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* children part end */}
+
+              </PopUpComponent>
+            }
+
+
+
+            {
+              deleteCategoryPopup &&
+              <PopUpComponent
+                classNameValue={"popup wantmanager "}
+                PopUpToggleFun={PopUpToggleFun}
+                popUpHookFun={popUpHookFun}
+              >
+                {/* children part start */}
+
+                <div className='popupinner'>
+                  <div className='popupbody'>
+                    <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
+                    <h2>{translaterFun("delete-menu-item-confirmation-message")}</h2>
+                    <div className='text-center'>
+                      <button type="button" onClick={(e) => deleteCategoryPopupFun(false)}>{translaterFun("cancel")} </button>
+                      <button type="button" className='ms-4' onClick={(e) => ConfirmDeleteItemFun(e, MenuItemId)}>{translaterFun("confirm-delete-button")}</button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* children part end */}
+
+              </PopUpComponent>
+            }
+            {popUpcategoriesHook && (
+              <PopUpComponent
+                classNameValue={"addcategorypopup  "}
+                PopUpToggleFun={PopUpCategoriesToggleFun}
+                popUpHookFun={popUpCategoriesHookFun}
+              >
+                {/* children part start */}
+
+                <div className="popuptitle">
+                  <h2>{translaterFun("add-category")} </h2>
+                </div>
+                <div className="popupbody">
+                  <Formik
+                    initialValues={defaultValueCategory}
+                    validationSchema={ValidateCategory}
+                    onSubmit={handleCategorySubmit}
+                  >
+                    <Form className="row">
+                      <img src={category} alt="manager img" class="categoryimg" />
+                      <div className="formbox mb-3" dir='ltr'>
+                        <label>Category Name</label>
+                        <Field
+                          name="category_en"
+                          type="text"
+                          className={`form-control `}
+                          autoComplete="off"
+                          placeholder="Enter Your Name"
+                        />
+                        <p className="text-danger small mb-0">
+                          <ErrorMessage name="category_en" />
+                        </p>
+                      </div>
+                      <div className="formbox mb-3" dir='rtl'>
+                        <label>  اسم التصنيف </label>
+                        <Field
+                          name="category_native"
+                          type="text"
+                          className={`form-control `}
+                          autoComplete="off"
+                          placeholder="أدخل أسمك"
+                        />
+                        <p className="text-danger small mb-0">
+                          <ErrorMessage name="category_native" />
+                        </p>
+                      </div>
+
+                      <div className="col-md-12 mb-3">
+                        <div className="formbox ">
+                          <label className="d-block">{translaterFun("upload-image")} </label>
+                          <div className=" uploadwrapper ">
+                            <button type="button">
+                              {" "}
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                              >
+                                <path
+                                  d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
+                                  fill="#8D8D8D"
+                                />
+                              </svg>{" "}
+                              {translaterFun("upload")}{" "}
+                            </button>
+                            <input
+                              type="file"
+                              accept=".png"
+                              value={uploadCategoryImage?.name}
+                              onChange={(e) => handleUploadCategoryImage(e)}
+                            />
+                          </div>
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="first_name" />
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="col-12 text-end mt-3">
+                        <button
+                          type="button"
+                          className="btn3"
+                          onClick={(e) => CancelCategoryBtnFun(e)}
+                        >
+                          {translaterFun("cancel")}
+                        </button>
+                        <button type="submit" className="submit btn2 mx-3">
+                          {" "}
+                          {translaterFun("submit")}{" "}
+                        </button>
+                      </div>
+                    </Form>
+
+
+                  </Formik>
+                </div>
+
+                {/* children part end */}
+              </PopUpComponent>
+            )}
+
+
+            {popUpEditHook && (
+              <PopUpComponent
+                classNameValue={"editmenupopup"}
+                PopUpToggleFun={PopUpToggleEditFun}
+                popUpHookFun={popUpEditHookFun}
+              >
+                {/* children part start */}
+                <div className="popuptitle">
+                  <h2>{translaterFun("edit-menu-item")}</h2>
+                </div>
+                <div className="popupbody">
+                  <Formik
+                    initialValues={defaultEditValue}
+                    validationSchema={Validateditemenu}
+                    onSubmit={handleEditMenuSubmit}
+                  >
+                    <Form className="row mx-0">
+
+                      <div className="col-md-6 mb-3" dir='ltr'>
+                        <div className="formbox ">
+                          <label>Name </label>
+                          <Field
+                            name="item_name_en"
+                            type="text"
+                            className={`form-control `}
+                            autoComplete="off"
+                            placeholder="Enter Your Item Name"
                           />
-                        </svg>{" "}
-                        {translaterFun("upload")}{" "}
-                      </button>
-                      <input
-                        type="file"
-                        accept=".png"
-                        onChange={(e) => handleUploadCategoryImage(e)}
-                      />
-                    </div>
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="first_name" />
-                    </p>
-                  </div>
-                </div>
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="item_name_en" />
+                          </p>
+                        </div>
+                      </div>
 
-                <div className="col-12 text-end mt-3">
-                  <button
-                    type="button"
-                    className="btn3"
-                    onClick={(e) => CancelCategoryBtnFun(e)}
-                  >
-                    {translaterFun("cancel")}
-                  </button>
-                  <button type="submit" className="submit btn2 mx-3">
-                    {" "}
-                    {translaterFun("submit")}{" "}
-                  </button>
-                </div>
-              </Form>
-            </Formik>
-          </div>
+                      <div className="col-md-6 mb-3" dir='rtl'>
+                        <div className="formbox ">
+                          <label>الاسم </label>
+                          <Field
+                            name="item_name_native"
+                            type="text"
+                            className={`form-control `}
+                            autoComplete="off"
+                            placeholder="أدخل اسم الصنف الخاص بك"
+                          />
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="item_name_native" />
+                          </p>
+                        </div>
+                      </div>
 
-          {/* children part end */}
-        </PopUpComponent>
-      )}
-      {popUpcategoriesHook && (
-        <PopUpComponent
-          classNameValue={"addmanagerpopup d-none"}
-          PopUpToggleFun={PopUpCategoriesToggleFun}
-          popUpHookFun={popUpCategoriesHookFun}
-        >
-          {/* children part start */}
-
-          <div className="popuptitle">
-            <h2>{translaterFun("add-menu-item")} </h2>
-          </div>
-          <div className="popupbody">
-            <Formik
-            // initialValues={defaultValue}
-            // validationSchema={Validate}
-            // onSubmit={handleSubmit}
-            >
-              <Form>
-                <img src={manager} alt="manager img" />
-                <div className="formbox mb-3">
-                  <label>Onboarding </label>
-                  <Field
-                    name="first_name"
-                    type="text"
-                    className={`form-control `}
-                    autoComplete="off"
-                    placeholder="Enter your First Name"
-                  />
-
-                  <p className="text-danger small">
-                    <ErrorMessage name="first_name" />
-                  </p>
-                </div>
-
-                <div className="formbox mb-3">
-                  <label>Last Name </label>
-                  <Field
-                    name="last_name"
-                    type="text"
-                    className={`form-control `}
-                    autoComplete="off"
-                    placeholder="Enter your Last Name"
-                  />
-
-                  <p className="text-danger small">
-                    <ErrorMessage name="last_name" />
-                  </p>
-                </div>
-                <div className="formbox mb-3">
-                  <label>Email </label>
-                  <Field
-                    name="email"
-                    type="email"
-                    className={`form-control `}
-                    autoComplete="off"
-                    placeholder="Email"
-                  />
-                  <p className="text-danger">
-                    <ErrorMessage name="email" />
-                  </p>
-                </div>
-
-                <div className="formbox mb-3">
-                  <label>Mobile Number </label>
-                  <Field
-                    name="phone_number"
-                    type="number"
-                    className={`form-control `}
-                    autoComplete="off"
-                    placeholder="Enter your mobile number"
-                  />
-                  <p className="text-danger">
-                    <ErrorMessage name="phone_number" />
-                  </p>
-                </div>
-
-                <div className="formbox mb-3">
-                  <label>Password </label>
-                  <Field
-                    name="password"
-                    type="text"
-                    className={`form-control `}
-                    autoComplete="off"
-                    placeholder="************"
-                  />
-                  <p className="text-danger">
-                    <ErrorMessage name="password" />
-                  </p>
-                </div>
-
-                <div className="formbox mb-3">
-                  <label>Confirm Password </label>
-                  <Field
-                    name="confirm_password"
-                    type="text"
-                    className={`form-control `}
-                    autoComplete="off"
-                    placeholder="************"
-                  />
-                  <p className="text-danger">
-                    <ErrorMessage name="confirm_password" />
-                  </p>
-                </div>
-
-                <div className="formbox">
-                  <label>Assign to Restaurant (optional) </label>
-                  <select className={`form-control `}>
-                    <option> Assign to Restaurant (optional) </option>
-                    <option> Assign to Restaurant (optional) </option>
-                    <option> Assign to Restaurant (optional) </option>
-                    <option> Assign to Restaurant (optional) </option>
-                  </select>
-
-                  <p className="text-danger">
-                    <ErrorMessage name="email" />
-                  </p>
-                </div>
-
-                <div className="text-end mt-5">
-                  <button
-                    type="btn"
-                    className="cancelbtn"
-                    onClick={(e) => CancelCategoryBtnFun(e)}
-                  >
-                    {" "}
-                    {translaterFun("cancel")} {" "}
-                  </button>
-                  <button type="submit" className="submit mx-3">
-                    {" "}
-                    {translaterFun("submit")}{" "}
-                  </button>
-                </div>
-              </Form>
-            </Formik>
-          </div>
-
-          {/* children part end */}
-        </PopUpComponent>
-      )}
-      {popUpEditHook && (
-        <PopUpComponent
-          classNameValue={"addmenupopup d-block"}
-          PopUpToggleFun={PopUpToggleEditFun}
-          popUpHookFun={popUpEditHookFun}
-        >
-          {/* children part start */}
-          <div className="popuptitle">
-            <h2>{translaterFun("edit-menu-item")}</h2>
-          </div>
-          <div className="popupbody">
-            <Formik
-              initialValues={defaultEditValue}
-              validationSchema={Validateditemenu}
-              onSubmit={handleEditMenuSubmit}
-            >
-              <Form className="row">
-                <div className="col-12 mb-3">
-                  <div className="formbox ">
-                    <label>Name </label>
-                    <Field
-                      name="item_name"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder={translaterFun("enter-your-item-name")}
-                    />
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="item_name" />
-                    </p>
-                  </div>
-                </div>
-                <div className="col-md-4 mb-3">
-                  <div className="formbox ">
-                    <label>{translaterFun("item-price")} </label>
-                    <div className="sarbox d-flex">
-                      <Field
-                        name="item_price"
-                        type="number"
-                        className={`form-control `}
-                        autoComplete="off"
-                        placeholder={translaterFun("enter-the-amount")}
-                      />
-                      <Field
-                        as="select"
-                        name="currency"
-                      >
-                        {currencyData?.map((item, id) => {
-                          return (
-                            <option value={item.currency_code}>
-                              {item.currency_code}
-                            </option>
-                          );
-                        })}
-                      </Field>
-                    </div>
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="item_price" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-8 mb-3">
-                  <div className="formbox ">
-                    <label> {translaterFun("calories")} </label>
-                    <div className="caloriesbox">
-                      <Field
-                        name="calories"
-                        type="text"
-                        className={`form-control `}
-                        autoComplete="off"
-                        placeholder={translaterFun("type-here")}
-                      />
-                    </div>
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="calories" />
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-12 mb-3">
-                  <div className="formbox">
-                    <label> {translaterFun("category")} </label>
-                    <Field
-                      as="select"
-                      name="menu_id"
-                      className={`form-control `}
-                    >
-                      <option
-                      // selected={ EditMenuData?.menu_id ? "selected" : "select category"}
-                      >
-                        {EditMenuData?.category}
-                      </option>
-
-                      {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
-                        (item, id) => {
-                          return (
-                            <option
-                              // name="menu_id"
-                              // selected={item?.menu_id ==  EditMenuData?.menu_id ? "selected" : ""}
-                              value={item?.menu_id}
+                      <div className="col-md-6 mb-3">
+                        <div className="formbox ">
+                          <label>{translaterFun("item-price")} </label>
+                          <div className="sarbox d-flex">
+                            <Field
+                              name="item_price"
+                              type="number"
+                              className={`form-control `}
+                              autoComplete="off"
+                              placeholder={translaterFun("enter-the-amount")}
+                            />
+                            <Field
+                              as="select"
+                              name="currency"
                             >
-                              {item?.category}
+                              {currencyData?.map((item, id) => {
+                                return (
+                                  <option value={item.currency_code}>
+                                    {item.currency_code}
+                                  </option>
+                                );
+                              })}
+                            </Field>
+                          </div>
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="item_price" />
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="col-md-6 mb-3">
+                        <div className="formbox ">
+                          <label> {translaterFun("calories")} </label>
+                          <div className="caloriesbox">
+                            <Field
+                              name="calories"
+                              type="text"
+                              className={`form-control `}
+                              autoComplete="off"
+                              placeholder={translaterFun("type-here")}
+                            />
+                          </div>
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="calories" />
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="col-md-6 mb-3">
+                        <div className="formbox">
+                          <label> {translaterFun("category")} </label>
+                          <Field
+                            as="select"
+                            name="menu_id"
+                            className={`form-control `}
+                          >
+                            <option
+                            // selected={ EditMenuData?.menu_id ? "selected" : "select category"}
+                            >
+                              {/* {EditMenuData?.category} */}
+                              {languageSet == "en" ? EditMenuData?.category_en : EditMenuData?.category_native}
                             </option>
-                          );
-                        }
-                      )}
-                    </Field>
 
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="menu_id" />
-                    </p>
-                  </div>
-                </div>
-                <div className="col-12 mb-3">
-                  <div className="formbox">
-                    <label>{translaterFun("item-type")} </label>
-                    <Field
-                      as="select"
-                      name="item_type"
-                      className={`form-control `}
-                    >
-                      <option value="select">
-                        {translaterFun("please-select-item-type")}
-                      </option>
-                      <option value="VEG">{translaterFun("veg")}</option>
-                      <option value="NON_VEG">{translaterFun("non-veg")}</option>
-                    </Field>
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="item_type" />
-                    </p>
-                  </div>
-                </div>
-                <div className="col-md-12 mb-3">
-                  <div className="formbox ">
-                    <label>{translaterFun("description")} </label>
-                    <Field
-                      name="description"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder={translaterFun("please-enter-description")}
-                    />
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="description" />
-                    </p>
-                    
-                  </div>
-                </div>
+                            {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
+                              (item, id) => {
+                                return (
+                                  <option
+                                    // name="menu_id"
+                                    // selected={item?.menu_id ==  EditMenuData?.menu_id ? "selected" : ""}
+                                    value={item?.menu_id}
+                                  >
+                                    {languageSet == "en" ? item?.category_en : item?.category_native}
+                                    {/* {item?.category} */}
+                                  </option>
+                                );
+                              }
+                            )}
+                          </Field>
 
-                <div className="col-md-12 mb-3">
-                  <div className="formbox ">
-                    <label className="d-block">{translaterFun("upload-image")} </label>
-                    <div className=" uploadwrapper ">
-                      <button type="button">
-                        {" "}
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="menu_id" />
+                          </p>
+                        </div>
+                      </div>
+
+
+
+                      <div className="col-md-6 mb-3">
+                        <div className="formbox">
+                          <label>{translaterFun("item-type")} </label>
+                          <Field
+                            as="select"
+                            name="item_type"
+                            className={`form-control `}
+                          >
+                            <option value="select">
+                              {translaterFun("please-select-item-type")}
+                            </option>
+                            <option value="VEG">{translaterFun("veg")}</option>
+                            <option value="NON_VEG">{translaterFun("non-veg")}</option>
+                          </Field>
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="item_type" />
+                          </p>
+                        </div>
+                      </div>
+                      <div className="col-md-12 mb-3" dir="ltr">
+                        <div className="formbox ">
+                          <label>Description (Optional)</label>
+                          <textarea
+                            className={`form-control `}
+                            autoComplete="off"
+                            placeholder="Type Here..."
+                            value={DescriptionEn}
+                            onChange={(e) => setDescriptionEn(e.target.value)}
+                          ></textarea>
+                          
+                        </div>
+                      </div>
+
+                      <div className="col-md-12 mb-3" dir="rtl">
+                        <div className="formbox ">
+                          <label>الوصف (اختياري) </label>
+                          <textarea
+                            className={`form-control `}
+                            autoComplete="off"
+                            placeholder="أكتب هنا..."
+                            value={DescriptionNative}
+                            onChange={(e) => setDescriptionNative(e.target.value)}
+                          ></textarea>
+                          
+                        </div>
+                      </div>
+                      
+
+                      <div className="col-md-12 mb-3">
+                        <div className="formbox ">
+                          <label className="d-block">{translaterFun("upload-image")} </label>
+                          <div className=" uploadwrapper ">
+                            <button type="button">
+                              {" "}
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                              >
+                                <path
+                                  d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
+                                  fill="#8D8D8D"
+                                />
+                              </svg>{" "}
+                              {translaterFun("upload")}{" "}
+                            </button>
+                            <input
+                              type="file"
+                              accept=".png"
+                              onChange={(e) => handleUploadImage(e)}
+                            />
+                          </div>
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="first_name" />
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="col-12 text-end">
+                        <button
+                          type="button"
+                          className="btn3"
+                          onClick={(e) => CancelEditBtnFun(e)}
                         >
-                          <path
-                            d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
-                            fill="#8D8D8D"
-                          />
-                        </svg>{" "}
-                        {translaterFun("upload")}{" "}
-                      </button>
-                      <input
-                        type="file"
-                        accept=".png"
-                        onChange={(e) => handleUploadImage(e)}
-                      />
-                    </div>
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="first_name" />
-                    </p>
-                  </div>
+                          {" "}
+                          {translaterFun("cancel")}{" "}
+                        </button>
+                        <button type="submit" className="btn2 submit mx-3">
+                          {" "}
+                          {translaterFun("submit")}{" "}
+                        </button>
+                      </div>
+
+                    </Form>
+                  </Formik>
                 </div>
 
-                <div className="col-12 text-end">
-                  <button
-                    type="button"
-                    className="btn3"
-                    onClick={(e) => CancelEditBtnFun(e)}
+                {/* children part end */}
+              </PopUpComponent>
+            )}
+            {popUpEditcategoriesHook && (
+              <PopUpComponent
+                classNameValue={"addcategorypopup rrsefgesfseefsf"}
+                PopUpToggleFun={PopUpEditCategoriesToggleFun}
+                popUpHookFun={popUpEditcategoriesHookFun}
+              >
+                {/* children part start */}
+
+                <div className="popuptitle">
+                  <h2>{translaterFun("edit-category")}</h2>
+                </div>
+                <div className="popupbody">
+                  <Formik
+                    initialValues={defaultValueEditCategory}
+                    validationSchema={ValidateEditCategory}
+                    onSubmit={handleCategoryeditSubmit}
                   >
-                    {" "}
-                    {translaterFun("cancel")}{" "}
-                  </button>
-                  <button type="submit" className="btn2 submit mx-3">
-                    {" "}
-                    {translaterFun("submit")}{" "}
-                  </button>
-                </div>
-              </Form>
-            </Formik>
-          </div>
+                    <Form className="row mx-0 ">
+                      <img src={category} alt="manager img" class="categoryimg" />
+                      <div className="formbox mb-3 px-0" dir='ltr' >
+                        <label>Category Name </label>
+                        <Field
+                          name="category_en"
+                          type="text"
+                          className={`form-control `}
+                          autoComplete="off"
+                          placeholder="Enter Your Name"
+                        />
+                        <p className="text-danger small mb-0">
+                          <ErrorMessage name="category_en" />
+                        </p>
+                      </div>
+                      <div className="formbox mb-3 px-0 " dir='rtl'>
+                        <label>اسم التصنيف </label>
+                        <Field
+                          name="category_native"
+                          type="text"
+                          className={`form-control `}
+                          autoComplete="off"
+                          placeholder="أدخل أسمك"
+                        />
+                        <p className="text-danger small mb-0">
+                          <ErrorMessage name="category_native" />
+                        </p>
+                      </div>
 
-          {/* children part end */}
-        </PopUpComponent>
-      )}
-      {popUpEditcategoriesHook && (
-        <PopUpComponent
-          classNameValue={"addcategorypopup"}
-          PopUpToggleFun={PopUpEditCategoriesToggleFun}
-          popUpHookFun={popUpEditcategoriesHookFun}
-        >
-          {/* children part start */}
+                      <div className="col-md-12 mb-3 px-0">
+                        <div className="formbox ">
+                          <label className="d-block">{translaterFun("upload-image")} </label>
+                          <div className=" uploadwrapper ">
+                            <button type="button">
+                              {" "}
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                              >
+                                <path
+                                  d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
+                                  fill="#8D8D8D"
+                                />
+                              </svg>{" "}
+                              {translaterFun("upload")}{" "}
+                            </button>
+                            <input
+                              type="file"
+                              accept=".png"
+                              onChange={(e) => handleUploadEditCategoryImage(e)}
+                            />
+                          </div>
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="category_image" />
+                          </p>
+                        </div>
+                      </div>
 
-          <div className="popuptitle mb-5">
-            <h2>{translaterFun("edit-category")}</h2>
-          </div>
-          <div className="popupbody">
-            <Formik
-              initialValues={defaultValueEditCategory}
-              validationSchema={ValidateEditCategory}
-              onSubmit={handleCategoryeditSubmit}
-            >
-              <Form className="row">
-                <img src={category} alt="manager img" class="categoryimg" />
-                <div className="formbox mb-3">
-                  <label>{translaterFun("category-name")} </label>
-                  <Field
-                    name="category"
-                    type="text"
-                    className={`form-control `}
-                    autoComplete="off"
-                    placeholder={translaterFun("enter-your-name")}
-                  />
-                  <p className="text-danger small mb-0">
-                    <ErrorMessage name="category" />
-                  </p>
-                </div>
-
-                <div className="col-md-12 mb-3">
-                  <div className="formbox ">
-                    <label className="d-block">{translaterFun("upload-image")} </label>
-                    <div className=" uploadwrapper ">
-                      <button type="button">
-                        {" "}
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
+                      <div className="col-12 px-0 text-end mt-3">
+                        <button
+                          type="button"
+                          className="btn3"
+                          onClick={(e) => CancelCategoryEditBtnFun(e)}
                         >
-                          <path
-                            d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
-                            fill="#8D8D8D"
-                          />
-                        </svg>{" "}
-                        {translaterFun("upload")}{" "}
-                      </button>
-                      <input
-                        type="file"
-                        accept=".png"
-                        onChange={(e) => handleUploadEditCategoryImage(e)}
-                      />
-                    </div>
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="category_image" />
-                    </p>
-                  </div>
+                          {translaterFun("cancel")}
+                        </button>
+                        <button type="submit" className="submit btn2 mx-3">
+                          {" "}
+                          {translaterFun("submit")}{" "}
+                        </button>
+                      </div>
+                    </Form>
+                  </Formik>
                 </div>
 
-                <div className="col-12 text-end mt-3">
-                  <button
-                    type="button"
-                    className="btn3"
-                    onClick={(e) => CancelCategoryEditBtnFun(e)}
-                  >
-                    {translaterFun("cancel")}
-                  </button>
-                  <button type="submit" className="submit btn2 mx-3">
-                    {" "}
-                    {translaterFun("submit")}{" "}
-                  </button>
-                </div>
-              </Form>
-            </Formik>
-          </div>
-
-          {/* children part end */}
-        </PopUpComponent>
-      )}
+                {/* children part end */}
+              </PopUpComponent>
+            )}
 
 
           </div>
           {/* } */}
         </div>
       </DashboardLayout>
-     
+
       <LodingSpiner loadspiner={loadspiner} />
     </>
   );

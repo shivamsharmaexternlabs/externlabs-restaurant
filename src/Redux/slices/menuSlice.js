@@ -39,7 +39,8 @@ export const CreateCategorySlice = createAsyncThunk(
     const formData = new FormData();
     formData.append("restaurant_id", body?.restaurant_id);
     formData.append("category_image", body?.category_image);
-    formData.append("category", body?.category);
+    formData.append("category_en", body?.category_en);
+    formData.append("category_native", body?.category_native);
 
     try {
       const response = await axios.post(
@@ -143,7 +144,6 @@ export const UpdateMenuItemsAfterDragAndDrop = createAsyncThunk(
 
 
 // get menu category data
-// ${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId}&menu_id=${body?.MenuId===undefined?"":body?.MenuId}&search=${body?.searchValue===undefined?"":body?.searchValue}&item_type=${body?.itemTypeValue===undefined?"":body?.itemTypeValue}
 
 export const MenuSlice = createAsyncThunk(
   "MenuSlice",
@@ -153,7 +153,8 @@ export const MenuSlice = createAsyncThunk(
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId
         }&menu_id=${body?.MenuId === undefined ? "" : body?.MenuId}&search=${body?.searchValue === undefined ? "" : body?.searchValue
-        }&item_type=${body?.itemTypeValue === undefined ? "" : body?.itemTypeValue
+        }&is_veg=${body?.itemTypeValue === undefined || body?.itemTypeValue === "NON_VEG" ? "" : true
+        }&is_non_veg=${body?.itemTypeValue === undefined || body?.itemTypeValue === "VEG" ? "" : true
         }&index=true`,
         {
           headers: {
@@ -221,21 +222,26 @@ export const EditMenuItemSlice = createAsyncThunk(
     try {
       const formData = new FormData();
       formData.append("restaurant_id", body?.restaurant_id);
-      formData.append("description", body?.description);
-      // let imageValue = body?.image.split(":")
+      formData.append("description_en", body?.description_en);
+      formData.append("description_native", body?.description_native);
+
       if (typeof body.image === "string" || body.image === null) {
         delete body.image;
       } else {
         formData.append("image", body?.image);
       }
 
-      formData.append("item_name", body?.item_name);
+      formData.append("item_name_en", body?.item_name_en);
+      formData.append("item_name_native", body?.item_name_native);
       formData.append("item_price", body?.item_price);
       formData.append("calories", body?.calories);
       formData.append("menu_id", body?.menu_id);
-      formData.append("item_type", body?.item_type);
+      formData.append("is_veg", (body?.item_type === "VEG"));
+      formData.append("is_non_veg", (body?.item_type === "NON_VEG"));
       formData.append("currency", body?.currency);
       formData.append("calories_unit", body?.calories_unit);
+
+
       const response = await axios.patch(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/menuitems/${body?.item_id}/`,
         formData,
@@ -267,7 +273,8 @@ export const EditCategorySlice = createAsyncThunk(
         formData.append("category_image", body?.category_image);
       }
 
-      formData.append("category", body?.category);
+      formData.append("category_en", body?.category_en);
+      formData.append("category_native", body?.category_native);
 
       const response = await axios.patch(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/${body?.menu_id}/`,
@@ -475,6 +482,8 @@ export const menuReducer = createSlice({
       .addCase(DeleteMenuItemSlice.fulfilled, (state, action) => {
         state.loading = false;
         state.DeleteMenuItemReducerData = action.payload;
+        toast.success("Item Deleted Successfully");
+
       })
 
       .addCase(DeleteMenuItemSlice.rejected, (state, action) => {
