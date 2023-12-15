@@ -172,9 +172,9 @@ font-weight: normal;
 
     .loginpage {
         background: url(../../images/mobilebg.png) top center no-repeat ;
-        background-size: 100% 100%;
+        background-size: 100% 100vh;
         align-items: flex-end;
-        padding-bottom: 50px;
+        padding-bottom: 120px;
     }
 
     .login-box {
