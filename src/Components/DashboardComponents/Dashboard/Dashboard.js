@@ -393,7 +393,7 @@ const Dashboard = ({ translaterFun }) => {
                 <div className='subplanbox'>
                   <div className='title'>
                     <h3> {translaterFun("subscription-plan")} </h3>
-                    <button type='button' onClick={() => navigate(`/${RestaurantIdLocalData}/admin/paymenthistory`)}> {translaterFun("view-all")} <img src={arrow2} alt='arrow img' />  </button>
+                    <button type='button' className='cursor-pointer' onClick={() => navigate(`/${RestaurantIdLocalData}/admin/paymenthistory`)}> {translaterFun("view-all")} <img src={arrow2} alt='arrow img' />  </button>
                   </div>
                   {console.log("xchjvhgcvc", PaymentSelectorData)}
                   <div className='info'>

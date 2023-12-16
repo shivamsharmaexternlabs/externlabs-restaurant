@@ -1092,7 +1092,7 @@ const Categories = ({ translaterFun }) => {
                   </button>
                   <input
                     type="file"
-                    accept="xlxs"
+                    accept=".xlxs, .xlsx, .xls"
                     onChange={(e) => UploadMenuFile(e)}
                   />
                 </div>
@@ -1657,7 +1657,7 @@ const Categories = ({ translaterFun }) => {
                                       <>
 
                                         {item?.description_en?.length > 45 ? item?.description_en.slice(0, 45) + "..." : item?.description_en}
-                                        <span>{item?.description_en?.length > 45 ? <b>{translaterFun("more")} <div className=''>{item?.description_en} </div> </b> : ""}  </span>
+                                        <span className="moreHover">{item?.description_en?.length > 45 ? <b>{translaterFun("more")} <div className=''>{item?.description_en} </div> </b> : ""}  </span>
                                       </>
                                       :
                                       <>
@@ -1669,7 +1669,7 @@ const Categories = ({ translaterFun }) => {
                                 </p>
                                 <span className="price">
                                   {" "}
-                                  {`${item?.currency} ${item?.item_price}`}{" "}
+                                  {`${CurrencySymbol[0][item?.currency]} ${item?.item_price}`}{" "}
                                 </span>
                               </div>
                             </li>
@@ -1907,7 +1907,7 @@ const Categories = ({ translaterFun }) => {
                             </button>
                             <input
                               type="file"
-                              accept=".png"
+                              accept=".png, .jpg, .jpeg"
 
                               onChange={(e) => handleUploadImage(e)}
                             />
@@ -2057,7 +2057,7 @@ const Categories = ({ translaterFun }) => {
                             </button>
                             <input
                               type="file"
-                              accept=".png"
+                              accept=".png, .jpg, .jpeg"
                               // value
                               onChange={(e) => handleUploadCategoryImage(e)}
                             />
@@ -2299,7 +2299,7 @@ const Categories = ({ translaterFun }) => {
                             </button>
                             <input
                               type="file"
-                              accept=".png"
+                              accept=".png, .jpg, .jpeg"
                               onChange={(e) => handleUploadImage(e)}
                             />
                           </div>
@@ -2399,7 +2399,7 @@ const Categories = ({ translaterFun }) => {
                             </button>
                             <input
                               type="file"
-                              accept=".png"
+                              accept=".png, .jpg, .jpeg"
                               onChange={(e) => handleUploadEditCategoryImage(e)}
                             />
                           </div>

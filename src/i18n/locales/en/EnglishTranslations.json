@@ -247,6 +247,8 @@
   "payment-history": "Payment History",
   "leads": "Leads",
   "get-started" : "Get Started",
-  "confirm-upload" : "Replacing with new data: Existing menu will be deleted. Confirm?"
+  "confirm-upload" : "Replacing with new data: Existing menu will be deleted. Confirm?",
+  "save-profile" : "Save Profile"
+
   
 }

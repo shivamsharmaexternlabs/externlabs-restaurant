@@ -146,11 +146,11 @@ const Menu = ({ translaterFun }) => {
       type_value: "BESTSELLER",
       type_img: ""
     },
-    {
-      type_name: translaterFun("offer"),
-      type_value: "OFFER",
-      type_img: ""
-    }
+    // {
+    //   type_name: translaterFun("offer"),
+    //   type_value: "OFFER",
+    //   type_img: ""
+    // }
   ]
 
   let languageDAta = reactLocalStorage.get("languageSet", false);

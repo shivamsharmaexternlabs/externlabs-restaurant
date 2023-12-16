@@ -128,6 +128,7 @@
   display: flex;
   cursor: pointer;
   justify-content: end;
+  margin-bottom: 17px ;
 }
 
 .reorder-icon-div button {
@@ -435,6 +436,19 @@
   margin: 10px 0;
 }
 
+.bestsellerpart  ul li p span{
+  cursor: pointer;
+}
+
+.bestsellerpart  ul li p > span > b > div {
+  
+  display: none;
+}
+
+.bestsellerpart  ul li p > span > b:hover div {
+  display: block;
+}
+
 .bestsellerpart > ul > li > .rightpart .price {
   color: #ea6a12;
   font-size: 15px;
@@ -685,6 +699,13 @@
 }
 
 .categorypage .topdishestabpart .nav-tabs .nav-link .editinfobtnbox > .btnbox::after {
+  left: 54px;
+  right: auto ;
+  transform: rotateY(290deg);
+  bottom: auto;
+  top: 35px;
+}
+.arabic .categorypage .topdishestabpart .nav-tabs .nav-link .editinfobtnbox > .btnbox::after {
   left: -12px;
   right: auto ;
   transform: rotateY(135deg);

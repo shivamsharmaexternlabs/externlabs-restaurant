@@ -148,13 +148,14 @@ export const UpdateMenuItemsAfterDragAndDrop = createAsyncThunk(
 export const MenuSlice = createAsyncThunk(
   "MenuSlice",
   async (body, { rejectWithValue }) => {
-console.log("jhgfcgvhj", body);
+    console.log("jhgfcgvhj", body);
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/menu/?restaurant_id=${body?.RestaurantId
         }&menu_id=${body?.MenuId === undefined ? "" : body?.MenuId}&search=${body?.searchValue === undefined ? "" : body?.searchValue
-        }&is_veg=${body?.itemTypeValue === undefined || body?.itemTypeValue === "NON_VEG" || body?.itemTypeValue === "" ? "" : "True"
-        }&is_non_veg=${body?.itemTypeValue === undefined || body?.itemTypeValue === "VEG" || body?.itemTypeValue === "" ? "" : "True"
+        }&is_veg=${body?.itemTypeValue === "VEG" ? "True" : ""
+        }&is_non_veg=${body?.itemTypeValue === "NON_VEG" ? "True" : ""
+        }&is_favorite=${body?.itemTypeValue === "BESTSELLER" ? "True" : ""
         }&index=true`,
         {
           headers: {

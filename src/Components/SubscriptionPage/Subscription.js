@@ -13,9 +13,12 @@ import { reactLocalStorage } from 'reactjs-localstorage'
 import DashboardHeader from '../DashboardComponents/DashboardHeader/DashboardHeader'
 import usePopUpHook from '../../CustomHooks/usePopUpHook/usePopUpHook'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Subscription = ({ translaterFun }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
   let BearerToken = reactLocalStorage.get("Token", false);
   let languageSet = reactLocalStorage.get("languageSet", "en");
@@ -57,8 +60,9 @@ const Subscription = ({ translaterFun }) => {
   useEffect(() => {
     if (PaymentSelectorData?.PaymentPostReducerData?.status === 200) {
       // window.location.replace(PaymentSelectorData?.PaymentPostReducerData?.data?.url?.url)
-      console.log("jgvgfssdds",PaymentSelectorData)
-      window.open(PaymentSelectorData?.PaymentPostReducerData?.data?.url?.transaction?.url, "_blank", "noreferrer");
+      console.log("jgvgfssdds",PaymentSelectorData?.PaymentPostReducerData)
+      window.location.href = PaymentSelectorData?.PaymentPostReducerData?.data?.url?.transaction?.url;
+      // navigate(`/${PaymentSelectorData?.PaymentPostReducerData?.data?.url?.transaction?.url}`,);
     }
     else if (PaymentSelectorData?.error === "Rejected") {
 

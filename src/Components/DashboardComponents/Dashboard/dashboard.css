@@ -248,6 +248,10 @@
   display: flex;
   flex-wrap: wrap;
 }
+.cursor-pointer{
+  cursor: pointer !important;
+  z-index: 99;
+}
 
 .topdishestabpart .tab-content ul li {
   background-color: #fff;
