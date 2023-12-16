@@ -26,7 +26,7 @@ import close from "../../../images/close.svg";
 import { UpdateLeadsSlice } from '../../../Redux/slices/leadsSlice'
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 
-const RestaurantDetail = ({translaterFun}) => {
+const RestaurantDetail = ({ translaterFun }) => {
   const [SuccessPopup, setSuccessPopup] = useState(false);
   const [ResetPasswordPopup, setResetPasswordPopup] = useState(false);
   const [dataaa, setDataaa] = useState("")
@@ -35,22 +35,22 @@ const RestaurantDetail = ({translaterFun}) => {
   const [loadspiner, setLoadSpiner] = useState(false);
   const [popUpHook, popUpHookFun] = usePopUpHook("")
   const [CreateLeadOnBoardPayloadState, setCreateLeadOnBoardPayloadState] = useState("")
-  
+
   const [countrycode, setCountryCode] = useState("");
   const [phonenumber, setPhoneNumber] = useState("");
-  const [HandleFormData,setHandleFormData]=useState(false)
+  const [HandleFormData, setHandleFormData] = useState(false)
   const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
   const LeadsRestaurantSelectorData = useSelector((state) => state.LeadsRestaurantApiData);
   const LeadsSelectorData = useSelector((state) => state.LeadsApiData);
   const ResetPasswordSelectorData = useSelector((state) => state.ResetPasswordApiData);
-console.log("fhsga",HandleFormData)
+  console.log("fhsga", HandleFormData)
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   let BearerToken = reactLocalStorage.get("Token", false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-let submitAction = undefined;
+  let submitAction = undefined;
 
 
   const defaultSignUpValue = {
@@ -120,16 +120,18 @@ let submitAction = undefined;
     // phone_ext: yup.string().required(translaterFun('Phone Extension is required').matches(/^\S*$/, 'Phone Extension must not contain spaces'),
     // phone: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required(translaterFun('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces'),
     // shop_no: yup.string().required(translaterFun("shop-no-is-required")),
-    street: yup.string().required(translaterFun("street-name-is-required")),
+    // street: yup.string().required(translaterFun("street-name-is-required")),
     city: yup.string().required(translaterFun("city-name-is-required")),
     // landmark: yup.string().required(translaterFun("landmark-is-required")),
     pincode: yup.string().matches(/^[0-9]+$/, translaterFun("pincode-must-contain-only-digits")).required(translaterFun('pincode-is-required')).matches(/^\S*$/, translaterFun("pincode-must-not-contain-spaces")),
     state: yup.string().required(translaterFun("state-is-required")),
     country: yup.string().required(translaterFun("country-is-required")),
-    description: yup.string().required(translaterFun("description-is-required")),
+    // description: yup.string().required(translaterFun("description-is-required")),
   });
 
   const handleSubmitOnBoardPassAndConfPass = (values) => {
+
+    console.log("dmhvsvd", values)
 
     let SignUpForOnBoardPayload = {
       email: CreateLeadOnBoardPayloadState?.email,
@@ -243,7 +245,7 @@ let submitAction = undefined;
 
     if (routeData?.state?.page === "lead") {
       setOnBordPopUp(true)
-
+      console.log("jgsdhsdsbds", values)
       setCreateLeadOnBoardPayloadState(values)
 
       const updateLeadPayload = {
@@ -270,22 +272,22 @@ let submitAction = undefined;
 
     else {
       //  if(!HandleFormData==true){
-        let UpdateRestroPayload = {
-          restaurant_name: values?.restaurant_name,
-          shop_no: values?.shop_no,
-          street: values?.street,
-          city: values?.city,
-          landmark: values?.landmark,
-          pincode: values?.pincode,
-          state: values?.state,
-          country: values?.country,
-          description: values?.description,
-          Token: BearerToken,
-          RestaurantId: routeData?.state?.currentData?.restaurant_id
-        }
- 
-        dispatch(UpdateRestaurantSlice(UpdateRestroPayload)); 
-         setHandleFormData(false)
+      let UpdateRestroPayload = {
+        restaurant_name: values?.restaurant_name,
+        shop_no: values?.shop_no,
+        street: values?.street,
+        city: values?.city,
+        landmark: values?.landmark,
+        pincode: values?.pincode,
+        state: values?.state,
+        country: values?.country,
+        description: values?.description,
+        Token: BearerToken,
+        RestaurantId: routeData?.state?.currentData?.restaurant_id
+      }
+
+      dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
+      setHandleFormData(false)
 
       //  }
       // dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
@@ -326,7 +328,7 @@ let submitAction = undefined;
     }
 
     try {
-      
+
       await dispatch(ResetPasswordSlice(forgetPayload));
       await dispatch(LoadingSpinner(true))
 
@@ -388,32 +390,20 @@ let submitAction = undefined;
               <Formik
                 initialValues={defaultValue}
                 validationSchema={Validate}
-                // onSubmit={handleSubmit}
-              //   onSubmit={(values) => {
-              //     if(HandleFormData){
-              //        console.log("dhsgh")
-              //     }
-              //     else{
-              //       console.log("dhsgh111")
-              //       handleSubmit(values)
-              //     }
-              //     // if (submitAction === "primary") {
-              //     //     handleSubmit(values);
-              //     // }
-              //     // else {
-              //     //     CreateLeadOnBoard(values);
-              //     // }
-              // }}
-              onSubmit={(values) => {
-                if (submitAction === "primary") {
-                  console.log("dhgasjh")
+
+                onSubmit={(values) => {
+                  if (submitAction === "primary") {
+                    console.log("dhgasjh")
                     // handleSubmit(values);
-                }
-                else if(submitAction === "secondary"){
-                  console.log("dhgasjh11")
-                  handleSubmit(values);
-                }
-            }}
+                  }
+                  else if (routeData?.state?.page == "lead") {
+                    handleSubmit(values)
+                  }
+                  else if (submitAction === "secondary") {
+                    console.log("dhgasjh11")
+                    handleSubmit(values);
+                  }
+                }}
               >
                 {({ handleSubmit, initialValues, values }) => (<Form className="row">
                   <div className='col-md-6'>
@@ -629,43 +619,24 @@ let submitAction = undefined;
                   <div className='submitbox'>
 
                     {
-                      routeData?.state?.page === "restaurant" && <button type='button' className='btn2' onClick={(e) => resetPasswordFunc(e, routeData)}> 
-                      {translaterFun("reset-password")} </button>
+                      routeData?.state?.page === "restaurant" && <button type='button' className='btn2' onClick={(e) => resetPasswordFunc(e, routeData)}>
+                        {translaterFun("reset-password")} </button>
                     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     {
-                      routeData?.state?.page !== "restaurant" && <button type='submit' className='btn2 ms-3'  > 
-                      {translaterFun("onBoard-and-Create-Password")} </button>
+                      routeData?.state?.page !== "restaurant" && <button type='submit' className='btn2 ms-3'  >
+                        {translaterFun("onBoard-and-Create-Password")} </button>
                     }
                     {
                       <>
-                      {/* {routeData?.state?.page === "restaurant" && } */}
 
-                          { routeData?.state?.page === "restaurant" && !HandleFormData && 
-                        <button type="submit" className="btn1 mx-3"
-                          onClick={(e) => {
-                            submitAction = "primary";
-                            setHandleFormData(true)
-                            // handleSubmit(e)
-                          }}
-                        >{translaterFun("edit-profile")}</button>}
+                        {routeData?.state?.page === "restaurant" && !HandleFormData &&
+                          <button type="submit" className="btn1 mx-3"
+                            onClick={(e) => {
+                              submitAction = "primary";
+                              setHandleFormData(true)
+                            }}
+                          >{translaterFun("edit-profile")}</button>}
 
                         {HandleFormData && <button type="submit" className="btn2 mx-3"
                           onClick={(e) => {
@@ -673,10 +644,10 @@ let submitAction = undefined;
                             handleSubmit(e)
                           }}
                         > {translaterFun("save-profile")}</button>
-                        }  
- 
-                            </>
-                        
+                        }
+
+                      </>
+
                     }
 
                   </div>
@@ -688,6 +659,7 @@ let submitAction = undefined;
             </div>
           </div>
         </div>
+        
         {/* Password Confirm_password in onBoard leads */}
         {OnBordPopUp && (
           <PopUpComponent
