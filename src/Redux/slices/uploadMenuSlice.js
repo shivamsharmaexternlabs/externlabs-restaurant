@@ -22,7 +22,7 @@ export const UploadMenuSlice = createAsyncThunk("UploadMenuSlice",async (body, {
       return response;
 
     } catch (err) {
-      toast.error(err?.response?.data?.message);
+      toast.error(err?.response?.data?.error);
       return rejectWithValue(err);
     }
   }

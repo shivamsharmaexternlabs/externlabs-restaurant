@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './menucategories.css'
+import './Restaurant.css'
 import DashboardLayout from "../../DashboardComponents/DashboardLayout/DashboardLayout";
 import DashboardSidebar from "../../DashboardComponents/DashboardSidebar/DashboardSidebar";
 import LodingSpiner from "../../LoadingSpinner/LoadingSpinner";
@@ -74,7 +74,7 @@ const LeadsRestaurant = ({ translaterFun }) => {
   const RestaurantsDetailsFun = (e, items, AllData) => {
     navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
       state: {
-        page: "MenuCategory",
+        page: "restaurant",
         currentData: items,
       }
     })

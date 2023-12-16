@@ -25,7 +25,7 @@ export const CreateMenuSlice = createAsyncThunk(
       // toast.success(response?.data?.message);
       return response;
     } catch (err) {
-      toast.error(err?.response?.data?.error);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }
@@ -56,7 +56,7 @@ export const CreateCategorySlice = createAsyncThunk(
       toast.success(response?.data?.message);
       return response;
     } catch (err) {
-      toast.error(err?.response?.data?.message);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }
@@ -255,13 +255,13 @@ export const EditMenuItemSlice = createAsyncThunk(
       toast.success(response?.data?.message);
       return response;
     } catch (err) {
-      toast.error(err?.response?.data?.message);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }
 );
 
-// restaurant_app/menu/
+
 export const EditCategorySlice = createAsyncThunk(
   "EditCategorySlice",
   async (body, { rejectWithValue }) => {
@@ -290,7 +290,7 @@ export const EditCategorySlice = createAsyncThunk(
       toast.success(response?.data?.message);
       return response;
     } catch (err) {
-      toast.error(err?.response?.data?.message);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }
@@ -314,7 +314,7 @@ export const DeleteMenuItemSlice = createAsyncThunk(
 
       return response;
     } catch (err) {
-      // toast.error(err?.response?.data?.message);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }

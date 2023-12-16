@@ -92,7 +92,7 @@ const Leads = ({ translaterFun }) => {
 
 
 
-  const LeadsDetailsFun = (e, items, AllData) => {
+  const LeadsDetailsFun = (e, items) => {
 
     navigate(`/admin/restaurantdetail/${items?.lead_id}`, {
       state: {

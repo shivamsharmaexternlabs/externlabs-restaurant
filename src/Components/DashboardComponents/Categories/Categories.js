@@ -206,9 +206,12 @@ const Categories = ({ translaterFun }) => {
         
         
       }
+      // else{
+
+      // }
       // await dispatch(MenuSlice(UploadPayload));
 
-      // await dispatch(LoadingSpinner(false))
+      await dispatch(LoadingSpinner(false))
     } catch (error) {
       await dispatch(LoadingSpinner(false))
     }

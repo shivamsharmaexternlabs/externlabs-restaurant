@@ -145,11 +145,11 @@ const DashboardSidebar = () => {
           </li>
             <li>
               <NavLink
-                to=  {`/admin/menucategories`}  
-                className={` ${param.pathname === "/admin/menucategories" || param?.state?.currentData?.restaurant_id ? "active" : ""
+                to=  {`/admin/restaurant`}  
+                className={` ${param.pathname === "/admin/restaurant" || param?.state?.currentData?.restaurant_id ? "active" : ""
                   } `}
 
-            ><img src={icon10} alt='img' /> <span className='text'>{t("menu-categories")}</span>
+            ><img src={icon10} alt='img' /> <span className='text'>{t("restaurants")}</span>
             </NavLink>
           </li>
           </>}

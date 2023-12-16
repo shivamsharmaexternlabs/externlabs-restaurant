@@ -111,7 +111,7 @@ let submitAction = undefined;
 
   }, [routeData?.state?.currentData])
 
-console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
+  console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
   const Validate = yup.object({
     restaurant_name: yup.string().required(translaterFun("restaurant-name-is-required")),
@@ -140,7 +140,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
       type: "owner",
       token: BearerToken
     }
-   
+
 
     // Call signUp API Here...
     dispatch(SignUpSlice(SignUpForOnBoardPayload))
@@ -283,12 +283,9 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
           Token: BearerToken,
           RestaurantId: routeData?.state?.currentData?.restaurant_id
         }
-        console.log("shgajh",UpdateRestroPayload)
-        // setHandleFormData(false)
-
+ 
         dispatch(UpdateRestaurantSlice(UpdateRestroPayload)); 
-        // setHandleFormData(true)
-        setHandleFormData(false)
+         setHandleFormData(false)
 
       //  }
       // dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
@@ -387,7 +384,7 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
               </div>
             </div>
 
-            <div className={`mt-4 mb-2 editprofileform ${!HandleFormData?"":""}`}>
+            <div className={`mt-4 mb-2 editprofileform ${!HandleFormData ? "" : ""}`}>
               <Formik
                 initialValues={defaultValue}
                 validationSchema={Validate}
@@ -418,15 +415,15 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                 }
             }}
               >
-               {({ handleSubmit, initialValues, values }) => (  <Form className="row">
+                {({ handleSubmit, initialValues, values }) => (<Form className="row">
                   <div className='col-md-6'>
                     <div className="formbox mb-3 ">
                       <label>{translaterFun("restaurant-name")}</label>
                       <Field
                         name="restaurant_name"
                         type="text"
-                        className={` form-control ${HandleFormData ? ""  : "numbersdds"}`}
-                        disabled={HandleFormData? '':"true"}
+                        className={` form-control ${HandleFormData ? "" : "numbersdds"}`}
+                        disabled={HandleFormData ? '' : "true"}
                         autoComplete="off"
                         placeholder={translaterFun("enter-your-name")}
                       />
@@ -435,13 +432,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                       </p>
                     </div>
 
-                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3"  : "formbox mb-3"} `}>
+                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3" : "formbox mb-3"} `}>
                       <label> {translaterFun("owner-name")} </label>
                       <Field
                         name="owner_name"
                         type="text"
                         disabled="true"
-                        className={`form-control ${HandleFormData && routeData?.state?.page !== "lead" ? "numbersdds"  : "numbersdds"}`}
+                        className={`form-control ${HandleFormData && routeData?.state?.page !== "lead" ? "numbersdds" : "numbersdds"}`}
                         autoComplete="off"
                         placeholder={translaterFun("enter-owner-name")}
                       />
@@ -450,13 +447,13 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                       </p>
                     </div>
 
-                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3"  : "formbox mb-3"} `}>
+                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3" : "formbox mb-3"} `}>
                       <label>{translaterFun("email")} </label>
                       <Field
                         name="email"
                         type="email"
                         disabled='true'
-                        className={`form-control ${HandleFormData && routeData?.state?.page !== "lead" ? "numbersdds"  : "numbersdds"}`}
+                        className={`form-control ${HandleFormData && routeData?.state?.page !== "lead" ? "numbersdds" : "numbersdds"}`}
                         autoComplete="off"
                         placeholder={translaterFun("enter-your-email")}
                       />
@@ -469,14 +466,14 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                     <div className='row'>
 
                       <div className="col-md-12  mb-3">
-                        {<div className={`${HandleFormData&&routeData?.state?.page !== "lead" ? "formbox numbersdds" : "formbox numbersdds"} `}>
+                        {<div className={`${HandleFormData && routeData?.state?.page !== "lead" ? "formbox numbersdds" : "formbox numbersdds"} `}>
                           <label> {translaterFun("phone-number")} </label>
 
                           <PhoneInput
                             // country={"in"}
                             value={countrycode + phonenumber}
-                            onChange={routeData?.state?.page == "lead" ? handleOnChange1:""}
-                            className="input_filed" 
+                            onChange={routeData?.state?.page == "lead" ? handleOnChange1 : ""}
+                            className="input_filed"
                           />
                         </div>}
                       </div>
@@ -490,8 +487,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="shop_no"
                             type="text"
-                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
-                            disabled={HandleFormData? '':"true"}
+                            className={`form-control ${HandleFormData ? "" : "numbersdds"}`}
+                            disabled={HandleFormData ? '' : "true"}
                             autoComplete="off"
                             placeholder={translaterFun("enter-your-shop-no")}
                           />
@@ -507,8 +504,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="street"
                             type="text"
-                            disabled={HandleFormData? '':"true"}
-                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
+                            disabled={HandleFormData ? '' : "true"}
+                            className={`form-control ${HandleFormData ? "" : "numbersdds"}`}
                             autoComplete="off"
                             placeholder={translaterFun("enter-your-street-name")}
                           />
@@ -526,8 +523,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="city"
                             type="text"
-                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
-                            disabled={HandleFormData? '':"true"}
+                            className={`form-control ${HandleFormData ? "" : "numbersdds"}`}
+                            disabled={HandleFormData ? '' : "true"}
                             autoComplete="off"
                             placeholder={translaterFun("enter-your-city-name")}
                           />
@@ -542,8 +539,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="landmark"
                             type="text"
-                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
-                            disabled={HandleFormData? '':"true"}
+                            className={`form-control ${HandleFormData ? "" : "numbersdds"}`}
+                            disabled={HandleFormData ? '' : "true"}
                             autoComplete="off"
                             placeholder={translaterFun("nearby-landmark")}
                           />
@@ -563,8 +560,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="pincode"
                             type="text"
-                            disabled={HandleFormData? '':"true"}
-                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
+                            disabled={HandleFormData ? '' : "true"}
+                            className={`form-control ${HandleFormData ? "" : "numbersdds"}`}
                             autoComplete="off"
                             placeholder={translaterFun("pincode")}
                           />
@@ -580,8 +577,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="state"
                             type="text"
-                            disabled={HandleFormData? '':"true"}  
-                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
+                            disabled={HandleFormData ? '' : "true"}
+                            className={`form-control ${HandleFormData ? "" : "numbersdds"}`}
                             autoComplete="off"
                             placeholder={translaterFun("state")}
                           />
@@ -597,10 +594,10 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="country"
                             type="text"
-                            disabled={HandleFormData? '':"true"}
-                            className={`form-control ${HandleFormData?"":"numbersdds"}`}
+                            disabled={HandleFormData ? '' : "true"}
+                            className={`form-control ${HandleFormData ? "" : "numbersdds"}`}
                             autoComplete="off"
-                            placeholder={translaterFun("country")}  
+                            placeholder={translaterFun("country")}
                           />
                           <p className="text-danger small mb-0">
                             <ErrorMessage name="country" />
@@ -614,8 +611,8 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                           <Field
                             name="description"
                             type="text"
-                            disabled={HandleFormData? '':"true"}  
-                            className={`form-control ${HandleFormData?"":"numbersdds"}  `}
+                            disabled={HandleFormData ? '' : "true"}
+                            className={`form-control ${HandleFormData ? "" : "numbersdds"}  `}
                             autoComplete="off"
                             placeholder={translaterFun("type-here")}
                           />
@@ -630,201 +627,228 @@ console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
                     </div>
                   </div>
                   <div className='submitbox'>
-                    {routeData?.state?.page === "MenuCategory" && <button type='button' className='btn2' onClick={(e) => resetPasswordFunc(e, routeData)}>{translaterFun("reset-password")} </button>}
-                    {<>
-                    
 
-                      {!HandleFormData&&<button type="submit" className="btn1 mx-3" 
-                      onClick={(e) => {
-                        submitAction = "primary";
-                        setHandleFormData(true)
-                        // handleSubmit(e)
-                      }}
-                       >{translaterFun("edit-profile")}</button>}
+                    {
+                      routeData?.state?.page === "restaurant" && <button type='button' className='btn2' onClick={(e) => resetPasswordFunc(e, routeData)}> 
+                      {translaterFun("reset-password")} </button>
+                    }
 
-                      {HandleFormData&&<button type="submit" className="btn2 mx-3"
-                       onClick={(e) => {
-                        submitAction = "secondary";
-                        handleSubmit(e)
-                      }} 
-                      > {translaterFun("save-profile")}</button>}
-                      </>
-                                          //   <button type='submit' className='btn2 ms-3' onClick={()=>setHandleFormData(true)} >
-                                          //     {routeData?.state?.page === "MenuCategory" ? !HandleFormData ? translaterFun("edit-profile") 
-                    //     :"Save-profile": translaterFun("onBoard-and-Create-Password")} </button>
-                    // 
-                  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    {
+                      routeData?.state?.page !== "restaurant" && <button type='submit' className='btn2 ms-3'  > 
+                      {translaterFun("onBoard-and-Create-Password")} </button>
+                    }
+                    {
+                      <>
+                      {/* {routeData?.state?.page === "restaurant" && } */}
+
+                          { routeData?.state?.page === "restaurant" && !HandleFormData && 
+                        <button type="submit" className="btn1 mx-3"
+                          onClick={(e) => {
+                            submitAction = "primary";
+                            setHandleFormData(true)
+                            // handleSubmit(e)
+                          }}
+                        >{translaterFun("edit-profile")}</button>}
+
+                        {HandleFormData && <button type="submit" className="btn2 mx-3"
+                          onClick={(e) => {
+                            submitAction = "secondary";
+                            handleSubmit(e)
+                          }}
+                        > {translaterFun("save-profile")}</button>
+                        }  
+ 
+                            </>
+                        
+                    }
 
                   </div>
                 </Form>
-  )}
+                )}
 
               </Formik>
 
             </div>
           </div>
         </div>
-           {/* Password Confirm_password in onBoard leads */}
-      {OnBordPopUp && (
-        <PopUpComponent
-          classNameValue={"onboardingpopup "}
-          PopUpToggleFun={PopUpToggleFun}
-          popUpHookFun={popUpHookFun} >
-          <button type="button" className="closebtn" onClick={(e) => setOnBordPopUp(false)}> <img src={close} alt="close icon" /> </button>
+        {/* Password Confirm_password in onBoard leads */}
+        {OnBordPopUp && (
+          <PopUpComponent
+            classNameValue={"onboardingpopup "}
+            PopUpToggleFun={PopUpToggleFun}
+            popUpHookFun={popUpHookFun} >
+            <button type="button" className="closebtn" onClick={(e) => setOnBordPopUp(false)}> <img src={close} alt="close icon" /> </button>
 
 
-          <div className="popuptitle">
-            <h2>{translaterFun("onboarding" )}</h2>
-          </div>
-          <div className="popupbody">
-            <Formik
-              initialValues={defaultSignUpValue}
-              validationSchema={ValidateSignUp}
-              onSubmit={handleSubmitOnBoardPassAndConfPass}
-            >
-              <Form className="row">
-
-                <div className="col-md-12 mb-3">
-
-                  <div className="formbox">
-                    <label>{translaterFun("password" )} </label>
-                    <Field
-                      name="password"
-                      type="text"
-                      className={`form-control `}
-                      placeholder="************"
-                    />
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="password" />
-                    </p>
-                  </div>
-
-                </div>
-                <div className="col-md-12 mb-3">
-
-                  <div className="formbox mb-3">
-                    <label>{translaterFun("confirm-password" )} </label>
-                    <Field
-                      name="confirm_password"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="************"
-                    />
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="confirm_password" />
-                    </p>
-                  </div>
-
-                </div>
-                <div className='text-center mt-1'>
-                  <button type="submit" className="btn2 mx-3"> {translaterFun("submit" )} </button>
-                </div>
-              </Form>
-            </Formik>
-          </div>
-
-        </PopUpComponent>
-      )}
-
-
-      {/* reset password popup*/}
-      {ResetPasswordPopup && (
-        <PopUpComponent
-          classNameValue={"onboardingpopup "}
-          PopUpToggleFun={PopUpToggleFun}
-          popUpHookFun={popUpHookFun} >
-
-          <button type="button" className="closebtn" onClick={(e) => closeResetPasswordFun()}> <img src={close} alt="close icon" /> </button>
-          <div className="popuptitle">
-            <h2>{translaterFun("reset-password")} </h2>
-          </div>
-          <div className="popupbody">
-            <Formik
-              initialValues={defaultResetPasswordValue}
-              validationSchema={resetPasswordValidate}
-              onSubmit={resetPasswordSubmit}
-            >
-              <Form className="row">
-
-                <div className="col-md-12 mb-3">
-
-                  <div className="formbox">
-                    <label>{translaterFun("password")}  </label>
-                    <Field
-                      name="new_pass"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="************"
-                    />
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="new_pass" />
-                    </p>
-                  </div>
-
-                </div>
-                <div className="col-md-12 mb-3">
-
-                  <div className="formbox mb-3">
-                    <label>{translaterFun("confirm-password")} </label>
-                    <Field
-                      name="confirm_pass"
-                      type="text"
-                      className={`form-control `}
-                      autoComplete="off"
-                      placeholder="************"
-                    />
-                    <p className="text-danger small mb-0">
-                      <ErrorMessage name="confirm_pass" />
-                    </p>
-                  </div>
-
-                </div>
-                <div className='text-center mt-1'>
-                  <button type="submit" className="btn2 mx-3"> {translaterFun("submit")} </button>
-                </div>
-              </Form>
-            </Formik>
-          </div>
-
-        </PopUpComponent>
-      )}
-
-
-
-      {/* Successful sign up and Onboard (copy link and share part) */}
-      {SuccessPopup &&
-        <div className="popup successpopup ">
-          <div className="innerpopup">
-            <img src={imgicon} alt="img" />
-            <h3> {translaterFun("success")} !</h3>
-            <p>{translaterFun("successfully-registered")}</p>
-            <div className="sharebtnbox">
-              <span> <img src={share} alt="img" /> {translaterFun("link")} </span>
-              <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
-              <button type="button" className="copybtn"> <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} /> </button>
-              <button type="button" className="sharebtn">
-                <RWebShare data={{
-                  // text: "Web Share - GFG",
-                  url: LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url,
-                  // title: "Gfg"
-                }}
-                  onClick={() => console.log("Shared successfully!")} >
-
-                  <img src={share2} alt="img" />
-                </RWebShare>
-              </button>
-
+            <div className="popuptitle">
+              <h2>{translaterFun("onboarding")}</h2>
             </div>
-            <button className="btn2" onClick={(e) => BackToHomeFun()}> Back to home </button>
+            <div className="popupbody">
+              <Formik
+                initialValues={defaultSignUpValue}
+                validationSchema={ValidateSignUp}
+                onSubmit={handleSubmitOnBoardPassAndConfPass}
+              >
+                <Form className="row">
+
+                  <div className="col-md-12 mb-3">
+
+                    <div className="formbox">
+                      <label>{translaterFun("password")} </label>
+                      <Field
+                        name="password"
+                        type="text"
+                        className={`form-control `}
+                        placeholder="************"
+                      />
+                      <p className="text-danger small mb-0">
+                        <ErrorMessage name="password" />
+                      </p>
+                    </div>
+
+                  </div>
+                  <div className="col-md-12 mb-3">
+
+                    <div className="formbox mb-3">
+                      <label>{translaterFun("confirm-password")} </label>
+                      <Field
+                        name="confirm_password"
+                        type="text"
+                        className={`form-control `}
+                        autoComplete="off"
+                        placeholder="************"
+                      />
+                      <p className="text-danger small mb-0">
+                        <ErrorMessage name="confirm_password" />
+                      </p>
+                    </div>
+
+                  </div>
+                  <div className='text-center mt-1'>
+                    <button type="submit" className="btn2 mx-3"> {translaterFun("submit")} </button>
+                  </div>
+                </Form>
+              </Formik>
+            </div>
+
+          </PopUpComponent>
+        )}
+
+
+        {/* reset password popup*/}
+        {ResetPasswordPopup && (
+          <PopUpComponent
+            classNameValue={"onboardingpopup "}
+            PopUpToggleFun={PopUpToggleFun}
+            popUpHookFun={popUpHookFun} >
+
+            <button type="button" className="closebtn" onClick={(e) => closeResetPasswordFun()}> <img src={close} alt="close icon" /> </button>
+            <div className="popuptitle">
+              <h2>{translaterFun("reset-password")} </h2>
+            </div>
+            <div className="popupbody">
+              <Formik
+                initialValues={defaultResetPasswordValue}
+                validationSchema={resetPasswordValidate}
+                onSubmit={resetPasswordSubmit}
+              >
+                <Form className="row">
+
+                  <div className="col-md-12 mb-3">
+
+                    <div className="formbox">
+                      <label>{translaterFun("password")}  </label>
+                      <Field
+                        name="new_pass"
+                        type="text"
+                        className={`form-control `}
+                        autoComplete="off"
+                        placeholder="************"
+                      />
+                      <p className="text-danger small mb-0">
+                        <ErrorMessage name="new_pass" />
+                      </p>
+                    </div>
+
+                  </div>
+                  <div className="col-md-12 mb-3">
+
+                    <div className="formbox mb-3">
+                      <label>{translaterFun("confirm-password")} </label>
+                      <Field
+                        name="confirm_pass"
+                        type="text"
+                        className={`form-control `}
+                        autoComplete="off"
+                        placeholder="************"
+                      />
+                      <p className="text-danger small mb-0">
+                        <ErrorMessage name="confirm_pass" />
+                      </p>
+                    </div>
+
+                  </div>
+                  <div className='text-center mt-1'>
+                    <button type="submit" className="btn2 mx-3"> {translaterFun("submit")} </button>
+                  </div>
+                </Form>
+              </Formik>
+            </div>
+
+          </PopUpComponent>
+        )}
+
+
+
+        {/* Successful sign up and Onboard (copy link and share part) */}
+        {SuccessPopup &&
+          <div className="popup successpopup ">
+            <div className="innerpopup">
+              <img src={imgicon} alt="img" />
+              <h3> {translaterFun("success")} !</h3>
+              <p>{translaterFun("successfully-registered")}</p>
+              <div className="sharebtnbox">
+                <span> <img src={share} alt="img" /> {translaterFun("link")} </span>
+                <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
+                <button type="button" className="copybtn"> <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} /> </button>
+                <button type="button" className="sharebtn">
+                  <RWebShare data={{
+                    // text: "Web Share - GFG",
+                    url: LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url,
+                    // title: "Gfg"
+                  }}
+                    onClick={() => console.log("Shared successfully!")} >
+
+                    <img src={share2} alt="img" />
+                  </RWebShare>
+                </button>
+
+              </div>
+              <button className="btn2" onClick={(e) => BackToHomeFun()}> Back to home </button>
+            </div>
           </div>
-        </div>
-      }
+        }
 
       </DashboardLayout>
 
-        </>
+    </>
   )
 }
 

@@ -17,7 +17,7 @@ import Dashboard from './Components/DashboardComponents/Dashboard/Dashboard';
 import Manager from './Components/DashboardComponents/Manager/Manager';
 import Categories from './Components/DashboardComponents/Categories/Categories';
 import Leads from './Components/LeadsComponents/Leads/Leads';
-import Menucategories from './Components/LeadsComponents/MenuCategories/Menucategories';
+import Restaurant from './Components/LeadsComponents/Restaurant/Restaurant';
 import RestaurantDetail from './Components/DashboardComponents/RestaurantDetail/RestaurantDetail.js'
 import Subscription from './Components/SubscriptionPage/Subscription.js';
 import DndCategories from './Components/DashboardComponents/DndCategories/DndCategories.js';
@@ -127,7 +127,7 @@ function App() {
             <Route path="/:id/admin/allmedia" element={<AllMedia translaterFun={t} />}></Route>{/* convert in arabic  */}
             <Route path="/:id/admin/paymenthistory" element={<PaymentHistory translaterFun={t} />}></Route> {/* convert in arabic  */}
             <Route path='/admin/leads' element={<Leads translaterFun={t} />}></Route>
-            <Route path='/admin/menucategories' element={<Menucategories translaterFun={t} />}></Route> {/* convert in arabic  */}
+            <Route path='/admin/restaurant' element={<Restaurant translaterFun={t} />}></Route> {/* convert in arabic  */}
             <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail translaterFun={t} />}></Route>
             {payment_status =="false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
           </Routes>
