@@ -24,8 +24,8 @@ import { PaymentHistorySlice } from '../../../Redux/slices/paymentSlice';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import { useTranslation } from "react-i18next"
-import currencyToSymbolMap from 'currency-symbol-map/map'
-
+import { CurrencySymbol } from '../Categories/CurrencySymbol';
+ 
 
 const Dashboard = ({ translaterFun }) => {
   const dispatch = useDispatch();
@@ -51,8 +51,7 @@ const Dashboard = ({ translaterFun }) => {
   let languageSet = reactLocalStorage.get("languageSet", false);
 
 
-console.log("ndbvfchgbndmd",currencyToSymbolMap)
-
+ 
   useEffect(() => {
     setData(ManagerApiSelectorData?.data)
     setQrImage(QrApiSelectorData?.data?.results[0]?.qrcode)
@@ -146,6 +145,7 @@ console.log("ndbvfchgbndmd",currencyToSymbolMap)
     }
   })
 
+  let filterdata
 
   return (
     <>
@@ -274,7 +274,8 @@ console.log("ndbvfchgbndmd",currencyToSymbolMap)
                                     </p>
                                     {/* {Item?.description}
                                       {Item?.description?.length} */}
-                                    <span className='price'>{`${Item?.currency} ${Item?.item_price}`}</span>
+                                       
+                                    <span className='price'>{`${CurrencySymbol[0][Item?.currency]} ${Item?.item_price}`}</span>
                                   </div>
                                   <div className='rightpart'>
                                     <img src={Item?.image === null ? defaultImage : Item?.image} alt='img' />

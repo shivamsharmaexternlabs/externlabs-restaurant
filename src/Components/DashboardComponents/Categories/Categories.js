@@ -49,7 +49,9 @@ import { favoriteMenuItemSlice } from "../../../Redux/slices/favouriteSlice";
 import { toast } from "react-toastify";
 import DndCategories from "../DndCategories/DndCategories";
 import { currencyData } from "./currencyData"
-import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
+import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle"; 
+import {CurrencySymbol} from "./CurrencySymbol"
+
 
 const Categories = ({ translaterFun }) => {
   const dispatch = useDispatch();
@@ -95,6 +97,10 @@ const Categories = ({ translaterFun }) => {
   let BearerToken = reactLocalStorage.get("Token", false);
   let languageSet = reactLocalStorage.get("languageSet", false);
 
+  // console.log("smdbnsvds",currencyToSymbolMap)
+
+
+
   const CreateApiSelectorData = useSelector(
     (state) => state.CreateApiSelectorData
   );
@@ -126,6 +132,11 @@ const Categories = ({ translaterFun }) => {
   const CancelCategoryBtnFun = () => {
     popUpCategoriesHookFun(false);
   };
+
+
+  useEffect(()=>{
+
+  },[])
 
 
   const UploadMenuFile = async (e) => {
@@ -1524,7 +1535,8 @@ const Categories = ({ translaterFun }) => {
                                         }
 
                                       </p>
-                                      <span className="price">{`${items?.currency} ${items?.item_price}`}</span>
+                                     
+                                      <span className="price">{`${CurrencySymbol[0][items?.currency]} ${items?.item_price}`}</span>
                                     </div>
                                     <div className="rightpart">
                                       <img src={items?.image == null ? defaultImage : items?.image} alt="img" />
