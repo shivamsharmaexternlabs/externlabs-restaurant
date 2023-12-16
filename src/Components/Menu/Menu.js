@@ -10,6 +10,8 @@ import icon4 from '../../images/icon4.svg'
 import icon5 from '../../images/icon5.svg'
 import calorie from '../../images/calorie.png'
 import defaultImage from '../../images/defaultimg.png'
+import rotateAe from '../../images/rotateAe.gif'
+import rotateEn from '../../images/rotateEn.gif'
 
 import globe from '../../images/Globe.svg'
 
@@ -35,7 +37,7 @@ const Menu = ({ translaterFun }) => {
 
   const [languagesDataKey, setlanguagesDataKey] = useState("")
   const [languagesDataValue, setlanguagesDataValue] = useState("English")
-const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
+  const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
 
 
   const params = useLocation();
@@ -151,7 +153,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
     }
   ]
 
-  let languageDAta= reactLocalStorage.get("languageSet", false);
+  let languageDAta = reactLocalStorage.get("languageSet", false);
 
   const LanguageFun = (e) => {
     // i18n.changeLanguage(value)  
@@ -167,37 +169,45 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
 
   ]
 
-  useEffect(()=>{
-    if(languageDAta !==false ){
+  useEffect(() => {
+    if (languageDAta !== false) {
       setlanguageToggleValue(languageDAta)
       dispatch(LanguageChange(languageDAta))
 
     }
 
-       
 
 
-  },[languageDAta])
+
+  }, [languageDAta])
 
 
-  
 
-  const languageDataFun =(e,value,key)=>{
-    setlanguagesDataValue(  value=="English"?"عربي":"English")
+
+  const languageDataFun = (e, value, key) => {
+    setlanguagesDataValue(value == "English" ? "عربي" : "English")
     setlanguagesDataKey(key)
-    setSelectToggleSelectTogglealue(o=>!o)
+    setSelectToggleSelectTogglealue(o => !o)
     reactLocalStorage.set("languageSet", key);
   }
 
-  const openSelectToggleFun=()=>{
-    setSelectToggleSelectTogglealue(o=>!o)
+  const openSelectToggleFun = () => {
+    setSelectToggleSelectTogglealue(o => !o)
   }
-  
+
 
 
   return (
     <>
-      <div className={`menupage ${languageDAta=="en"?"rotateEn rotate":"rotateAe rotate"} `}>
+
+      <div className={languageDAta == "en"?"rotateen":"rotatear"}>
+        {
+          languageDAta == "en" ? <img src={rotateEn} alt='' className='' />
+            : <img src={rotateAe} alt='' />
+        }
+      </div>
+
+      <div className={`menupage `}>
         <div className='hadertopbar'>
           <div className='headerbox'>
             <div className='logo'>
@@ -206,15 +216,15 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
 
             <div className='languagebox'>
 
-            <div className='languaselist'>
-            <img src={globe} alt='Language img' className='globeimg'/>
-            <button className='' onClick={(e)=>openSelectToggleFun()}> {languagesDataValue} </button>
-            {SelectToggleValue && <ul className=''  >
-              {languageData?.map((items,id)=>{
-               return  <li onClick={(e)=>languageDataFun(e,items?.key,items?.value)}> {items?.key}  </li> 
-              })} 
-            </ul>}
-          </div>
+              <div className='languaselist'>
+                <img src={globe} alt='Language img' className='globeimg' />
+                <button className='' onClick={(e) => openSelectToggleFun()}> {languagesDataValue} </button>
+                {SelectToggleValue && <ul className=''  >
+                  {languageData?.map((items, id) => {
+                    return <li onClick={(e) => languageDataFun(e, items?.key, items?.value)}> {items?.key}  </li>
+                  })}
+                </ul>}
+              </div>
               {/* <select className='form-select' onChange={(e) => LanguageFun(e)}> 
                 {languageData?.map((items, id) => {
                   return <option selected={languageDAta==items?.value?"select":""} value={items?.value}>{items?.key}</option>
@@ -301,7 +311,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
                             <div className='leftpart'>
                               <div className='spbtn'>
                                 {CategoryItem?.is_non_veg ? <img src={icon5} alt='img' /> : <img src={icon4} alt='img' />}
-                                
+
                                 {CategoryItem?.is_favorite === true && <span className={`bestcallerBackgroun`}>{translaterFun("bestseller")}</span>}
                               </div>
                               <h3> {languageSet == "en" ? CategoryItem?.item_name_en : CategoryItem?.item_name_native} </h3>
@@ -311,7 +321,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
                             </div>
                             <div className='rightpart'>
                               <span className='pricetext'>{CategoryItem?.currency} {CategoryItem?.item_price} </span>
-                               <figure> <img src={CategoryItem?.image === null ? defaultImage : CategoryItem?.image} alt='img' /> </figure>
+                              <figure> <img src={CategoryItem?.image === null ? defaultImage : CategoryItem?.image} alt='img' /> </figure>
 
                               {/* <figure> <img src={item1} alt='img' /> </figure> */}
                             </div>
@@ -335,7 +345,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
             {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map((item, id) => {
               return <li li key={id} onClick={(e) => MenuCategoryIteamFun(e, item, id)}>
                 <a href={`#${item?.menu_id}`} className={`${item?.menu_id === ActiveCategory ? 'active' : ""} ,${item?.menu_id ? 'active' : ""} `}>
-                {languageSet == "en" ? item?.category_en : item?.category_native}
+                  {languageSet == "en" ? item?.category_en : item?.category_native}
                 </a>
               </li>
             })}

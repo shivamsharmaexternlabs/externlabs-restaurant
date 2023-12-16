@@ -1,6 +1,7 @@
 .dasboardbody {
     display: flex;
     justify-content: space-between;
+    background-color: rgba(252, 237, 227, 0.30);
 }
 
 .sidebar {

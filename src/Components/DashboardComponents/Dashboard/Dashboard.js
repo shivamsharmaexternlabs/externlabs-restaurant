@@ -401,7 +401,7 @@ const Dashboard = ({ translaterFun }) => {
                       <p>{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.price_id?.plan_id
                         ?.name} {translaterFun("plan")} </p>
                       <p>{translaterFun("start-date")} :  {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.created_at.split("T")[0]}</p>
-                      <p>{translaterFun("end-date")} : {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.expiry_date}</p>
+                      <p>{translaterFun("end-date")} &nbsp;: {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.expiry_date}</p>
                     </div>
                     <div className='rightpart'>
                       <img src={item2} alt='img' />

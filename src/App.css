@@ -31,10 +31,10 @@
   font-family: 'NeuzeitGro-Reg';
   src: url('./fonts/NeuzeitGro-Reg.eot');
   src: url('./fonts/NeuzeitGro-Reg.eot?#iefix') format('embedded-opentype'),
-      url('./fonts/NeuzeitGro-Reg.woff2') format('woff2'),
-      url('./fonts/NeuzeitGro-Reg.woff') format('woff'),
-      url('./fonts/NeuzeitGro-Reg.ttf') format('truetype'),
-      url('./fonts/NeuzeitGro-Reg.svg#NeuzeitGro-Reg') format('svg');
+    url('./fonts/NeuzeitGro-Reg.woff2') format('woff2'),
+    url('./fonts/NeuzeitGro-Reg.woff') format('woff'),
+    url('./fonts/NeuzeitGro-Reg.ttf') format('truetype'),
+    url('./fonts/NeuzeitGro-Reg.svg#NeuzeitGro-Reg') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -44,10 +44,10 @@
   font-family: 'NeuzeitGro-Lig';
   src: url('./fonts/NeuzeitGro-Lig.eot');
   src: url('./fonts/NeuzeitGro-Lig.eot?#iefix') format('embedded-opentype'),
-      url('./fonts/NeuzeitGro-Lig.woff2') format('woff2'),
-      url('./fonts/NeuzeitGro-Lig.woff') format('woff'),
-      url('./fonts/NeuzeitGro-Lig.ttf') format('truetype'),
-      url('./fonts/NeuzeitGro-Lig.svg#NeuzeitGro-Lig') format('svg');
+    url('./fonts/NeuzeitGro-Lig.woff2') format('woff2'),
+    url('./fonts/NeuzeitGro-Lig.woff') format('woff'),
+    url('./fonts/NeuzeitGro-Lig.ttf') format('truetype'),
+    url('./fonts/NeuzeitGro-Lig.svg#NeuzeitGro-Lig') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -57,10 +57,10 @@
   font-family: 'NeuzeitGro-Bla';
   src: url('./fonts/NeuzeitGro-Bla.eot');
   src: url('./fonts/NeuzeitGro-Bla.eot?#iefix') format('embedded-opentype'),
-      url('./fonts/NeuzeitGro-Bla.woff2') format('woff2'),
-      url('./fonts/NeuzeitGro-Bla.woff') format('woff'),
-      url('./fonts/NeuzeitGro-Bla.ttf') format('truetype'),
-      url('./fonts/NeuzeitGro-Bla.svg#NeuzeitGro-Bla') format('svg');
+    url('./fonts/NeuzeitGro-Bla.woff2') format('woff2'),
+    url('./fonts/NeuzeitGro-Bla.woff') format('woff'),
+    url('./fonts/NeuzeitGro-Bla.ttf') format('truetype'),
+    url('./fonts/NeuzeitGro-Bla.svg#NeuzeitGro-Bla') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -70,10 +70,10 @@
   font-family: 'NeuzeitGro-Bol';
   src: url('./fonts/NeuzeitGro-Bol.eot');
   src: url('./fonts/NeuzeitGro-Bol.eot?#iefix') format('embedded-opentype'),
-      url('./fonts/NeuzeitGro-Bol.woff2') format('woff2'),
-      url('./fonts/NeuzeitGro-Bol.woff') format('woff'),
-      url('./fonts/NeuzeitGro-Bol.ttf') format('truetype'),
-      url('./fonts/NeuzeitGro-Bol.svg#NeuzeitGro-Bol') format('svg');
+    url('./fonts/NeuzeitGro-Bol.woff2') format('woff2'),
+    url('./fonts/NeuzeitGro-Bol.woff') format('woff'),
+    url('./fonts/NeuzeitGro-Bol.ttf') format('truetype'),
+    url('./fonts/NeuzeitGro-Bol.svg#NeuzeitGro-Bol') format('svg');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -101,15 +101,29 @@ ul {
   padding-left: 0 !important;
 }
 
-ul,li,ol {
+ul,
+li,
+ol {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+.rotateen,
+.rotatear {
+    background: #feecdd ; 
+    display: none;
+}
+.rotateen img,
+.rotatear img {
+    max-width: 100vw;
+    height: 100vh;
+    display: block;
+    margin: 0 auto;
+}
 
- 
-@media  (min-height:1px) and  (max-height:700px) and  (orientation:landscape) {
+
+/* @media  (min-height:1px) and  (max-height:700px) and  (orientation:landscape) {
  
   .rotate {
     background: url(./images/rotateimage.png) center center no-repeat #E2AD88  !important;
@@ -120,22 +134,34 @@ ul,li,ol {
     display: none;
   }
  
-}
+} */
 
 
-/* @media  (min-height:1px) and  (max-height:700px) and  (orientation:landscape) {
- 
-  .rotateEn {
+@media (min-height:1px) and (max-height:700px) and (orientation:landscape) {
+
+  /* .rotateEn {
     background: url(./images/rotateEn.gif) center center no-repeat #E2AD88  !important;
     width: 100vw;
     height: 100vh;
   }
   .rotateEn > div {
     display: none;
+  } */
+
+  .rotateen,
+  .rotatear {
+    display: block;
   }
- 
+
+  .rotateen+div,
+  .rotatear+div {
+    display: none;
+  }
+
 }
-@media  (min-height:1px) and  (max-height:700px) and  (orientation:landscape) {
+
+
+/* @media  (min-height:1px) and  (max-height:700px) and  (orientation:landscape) {
  
   .rotateAe {
     background: url(./images/rotateAe.gif) center center no-repeat #E2AD88  !important;

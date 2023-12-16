@@ -478,6 +478,8 @@
 .addmenupopup .popupinnerbox {
   max-width: 640px;
   margin:  auto 0;
+  transform: translate(-50%, 0%);
+  top: 50px;
  
 }
 
@@ -595,7 +597,11 @@
 
 .editmenupopup .popupinnerbox {
   max-width: 620px;
-  margin-top: 50px;
+  margin:  auto ;
+  transform: translate(-50%, 0%);
+  top: 50px;
+
+  
 }
 
 .editmenupopup .popuptitle {
