@@ -224,6 +224,7 @@
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   color: #fff;
+  margin-right: 10px;
 }
 
 .btn2 svg {

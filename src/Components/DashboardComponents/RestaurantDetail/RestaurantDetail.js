@@ -25,6 +25,7 @@ import { ResetPasswordSlice } from '../../../Redux/slices/resetPasswordSlice'
 import close from "../../../images/close.svg";
 import { UpdateLeadsSlice } from '../../../Redux/slices/leadsSlice'
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
+import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 
 const RestaurantDetail = ({ translaterFun }) => {
   const [SuccessPopup, setSuccessPopup] = useState(false);
@@ -129,46 +130,55 @@ const RestaurantDetail = ({ translaterFun }) => {
     // description: yup.string().required(translaterFun("description-is-required")),
   });
 
-  const handleSubmitOnBoardPassAndConfPass = (values) => {
+  const handleSubmitOnBoardPassAndConfPass = async (values) => {
+    await dispatch(LoadingSpinner(true))
 
-    console.log("dmhvsvd", values)
+    try {
+      let SignUpForOnBoardPayload = {
+        email: CreateLeadOnBoardPayloadState?.email,
+        password: values?.password,
+        confirm_password: values?.confirm_password,
+        first_name: CreateLeadOnBoardPayloadState?.owner_name,
+        phone_number: countrycode + "-" + phonenumber,
+        type: "owner",
+        token: BearerToken
+      }
 
-    let SignUpForOnBoardPayload = {
-      email: CreateLeadOnBoardPayloadState?.email,
-      password: values?.password,
-      confirm_password: values?.confirm_password,
-      first_name: CreateLeadOnBoardPayloadState?.owner_name,
-      phone_number: countrycode + "-" + phonenumber,
-      type: "owner",
-      token: BearerToken
+      // Call signUp API Here...
+      await dispatch(SignUpSlice(SignUpForOnBoardPayload))
+    } catch (error) {
+      await dispatch(LoadingSpinner(false))
     }
-
-
-    // Call signUp API Here...
-    dispatch(SignUpSlice(SignUpForOnBoardPayload))
-
-
 
   }
 
-  const callBackFuncAfterSignUp = () => {
+  const callBackFuncAfterSignUp = async () => {
+    setOnBordPopUp(false)
 
+    await dispatch(LoadingSpinner(true))
 
-    const payloadOnBoard = {
-      "restaurant_name": CreateLeadOnBoardPayloadState?.restaurant_name,
-      "shop_no": CreateLeadOnBoardPayloadState?.shop_no,
-      "street": CreateLeadOnBoardPayloadState?.street,
-      "city": CreateLeadOnBoardPayloadState?.city,
-      "landmark": CreateLeadOnBoardPayloadState?.landmark,
-      "pincode": CreateLeadOnBoardPayloadState?.pincode,
-      "state": CreateLeadOnBoardPayloadState?.state,
-      "country": CreateLeadOnBoardPayloadState?.country,
-      "description": CreateLeadOnBoardPayloadState?.description,
-      "owner_id": SignUpSelectorData?.data?.data?.owner_id,
-      "Token": BearerToken
+    try {
+      const payloadOnBoard = {
+        "restaurant_name": CreateLeadOnBoardPayloadState?.restaurant_name,
+        "shop_no": CreateLeadOnBoardPayloadState?.shop_no,
+        "street": CreateLeadOnBoardPayloadState?.street,
+        "city": CreateLeadOnBoardPayloadState?.city,
+        "landmark": CreateLeadOnBoardPayloadState?.landmark,
+        "pincode": CreateLeadOnBoardPayloadState?.pincode,
+        "state": CreateLeadOnBoardPayloadState?.state,
+        "country": CreateLeadOnBoardPayloadState?.country,
+        "description": CreateLeadOnBoardPayloadState?.description,
+        "owner_id": SignUpSelectorData?.data?.data?.owner_id,
+        "Token": BearerToken
+      }
+
+      await dispatch(CreateRestaurantsOnBoardSlice(payloadOnBoard))
+      await dispatch(LoadingSpinner(false))
+
+    } catch (error) {
+      await dispatch(LoadingSpinner(false))
     }
 
-    dispatch(CreateRestaurantsOnBoardSlice(payloadOnBoard))
   }
 
   const CopyLinkFun = () => {
@@ -241,7 +251,8 @@ const RestaurantDetail = ({ translaterFun }) => {
   }, [LeadsSelectorData?.UpdateLeadReducerData]);
 
 
-  const handleSubmit = (values) => {
+  const handleSubmit =  (values) => {
+    // await dispatch(LoadingSpinner(true))
 
     if (routeData?.state?.page === "lead") {
       setOnBordPopUp(true)
@@ -265,7 +276,8 @@ const RestaurantDetail = ({ translaterFun }) => {
         Token: BearerToken
       }
 
-      dispatch(UpdateLeadsSlice(updateLeadPayload));
+      // Please do not remove this comment => UpdateLeadsSlice
+      // dispatch(UpdateLeadsSlice(updateLeadPayload));
 
     }
 
@@ -293,8 +305,6 @@ const RestaurantDetail = ({ translaterFun }) => {
       // dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
 
       // Patch API for restaurant edit will run
-
-
 
     }
 
@@ -659,7 +669,7 @@ const RestaurantDetail = ({ translaterFun }) => {
             </div>
           </div>
         </div>
-        
+
         {/* Password Confirm_password in onBoard leads */}
         {OnBordPopUp && (
           <PopUpComponent
@@ -819,7 +829,7 @@ const RestaurantDetail = ({ translaterFun }) => {
         }
 
       </DashboardLayout>
-
+      <LodingSpiner loadspiner={loadspiner} />
     </>
   )
 }

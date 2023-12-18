@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 // import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { SignUpSlice } from "../../Redux/slices/SignUpSlice";
-import { ToggleNewLeads } from "../../Redux/slices/sideBarToggle";
+import { LoadingSpinner, ToggleNewLeads } from "../../Redux/slices/sideBarToggle";
 // import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
 
 
@@ -123,23 +123,25 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
     });
 
-    const handleSubmitOnBoardPassAndConfPass = (values) => {
+    const handleSubmitOnBoardPassAndConfPass = async (values) => {
+        await dispatch(LoadingSpinner(true))
+        try {
+            let SignUpForOnBoardPayload = {
+                email: CreateLeadOnBoardPayloadState?.email,
+                password: values?.password,
+                confirm_password: values?.confirm_password,
+                first_name: CreateLeadOnBoardPayloadState?.owner_name,
+                // phone_number: `${phonenumber}`,
+                phone_number: `${countrycode}-${phonenumber}`,
+                type: "owner",
+                token: BearerToken
+            }
 
-        let SignUpForOnBoardPayload = {
-            email: CreateLeadOnBoardPayloadState?.email,
-            password: values?.password,
-            confirm_password: values?.confirm_password,
-            first_name: CreateLeadOnBoardPayloadState?.owner_name,
-            // phone_number: `${phonenumber}`,
-            phone_number: `${countrycode}-${phonenumber}`,
-            type: "owner",
-            token: BearerToken
+            // Call signUp API Here...
+            await dispatch(SignUpSlice(SignUpForOnBoardPayload))
+        } catch (error) {
+            dispatch(LoadingSpinner(false))
         }
-
-        // Call signUp API Here...
-        dispatch(SignUpSlice(SignUpForOnBoardPayload))
-
-
 
     }
 
@@ -208,25 +210,31 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
 
-    const callBackFuncAfterSignUp = () => {
+    const callBackFuncAfterSignUp = async () => {
         setOnBordPopUp(false)
+        
+        await dispatch(LoadingSpinner(true))
+        
+        try {
+            const payloadOnBoard = {
+                "restaurant_name": CreateLeadOnBoardPayloadState?.restaurant_name,
+                "shop_no": CreateLeadOnBoardPayloadState?.shop_no,
+                "street": CreateLeadOnBoardPayloadState?.street,
+                "city": CreateLeadOnBoardPayloadState?.city,
+                "landmark": CreateLeadOnBoardPayloadState?.landmark,
+                "pincode": CreateLeadOnBoardPayloadState?.pincode,
+                "state": CreateLeadOnBoardPayloadState?.state,
+                "country": CreateLeadOnBoardPayloadState?.country,
+                "description": CreateLeadOnBoardPayloadState?.description,
+                "owner_id": SignUpSelectorData?.data?.data?.owner_id,
+                "Token": BearerToken
+            }
 
-        const payloadOnBoard = {
-            "restaurant_name": CreateLeadOnBoardPayloadState?.restaurant_name,
-            "shop_no": CreateLeadOnBoardPayloadState?.shop_no,
-            "street": CreateLeadOnBoardPayloadState?.street,
-            "city": CreateLeadOnBoardPayloadState?.city,
-            "landmark": CreateLeadOnBoardPayloadState?.landmark,
-            "pincode": CreateLeadOnBoardPayloadState?.pincode,
-            "state": CreateLeadOnBoardPayloadState?.state,
-            "country": CreateLeadOnBoardPayloadState?.country,
-            "description": CreateLeadOnBoardPayloadState?.description,
-            "owner_id": SignUpSelectorData?.data?.data?.owner_id,
-            "Token": BearerToken
+            await dispatch(CreateRestaurantsOnBoardSlice(payloadOnBoard))
+            await dispatch(LoadingSpinner(false))
+        } catch (error) {
+            await dispatch(LoadingSpinner(false))
         }
-
-        dispatch(CreateRestaurantsOnBoardSlice(payloadOnBoard))
-
 
     }
 
@@ -273,6 +281,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
     useEffect(() => {
         if (SignUpSelectorData?.data?.status === 201) {
+
             setLoadSpiner(false);
             callBackFuncAfterSignUp();
 

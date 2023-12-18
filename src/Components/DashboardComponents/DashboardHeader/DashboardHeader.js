@@ -74,10 +74,17 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
   ]
 
   const languageDataFun =(e,value,key)=>{
+
+
     setlanguagesDataValue(  value=="English"?"عربي":"English")
     setlanguagesDataKey(key)
+    
     setSelectToggleSelectTogglealue(o=>!o)
-    reactLocalStorage.set("languageSet", key);
+    
+    if(key !== languageDAta){
+      window.location.reload()
+      reactLocalStorage.set("languageSet", key);
+    }
   }
 
   const openSelectToggleFun=()=>{
@@ -91,10 +98,10 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
         <div className='rightpart'>
           <div className='languaselist'>
             <img src={globe} alt='Language img' className='globeimg'/>
-            <button className='' onClick={(e)=>openSelectToggleFun()}> {languagesDataValue} </button>
+            <button className='' onClick={(e)=>openSelectToggleFun()}> { languageDAta === "en" ?  "عربي" : "English" } </button>
             {SelectToggleValue && <ul className=''  >
               {languageData?.map((items,id)=>{
-               return  <li onClick={(e)=>languageDataFun(e,items?.key,items?.value)}> {items?.key}  </li> 
+               return  <li onClick={(e)=>languageDataFun(e, items?.key, items?.value)}> {items?.key}  </li> 
               })} 
             </ul>}
           </div>

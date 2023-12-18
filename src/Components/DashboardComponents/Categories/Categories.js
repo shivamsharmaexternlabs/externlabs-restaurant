@@ -836,11 +836,11 @@ const Categories = ({ translaterFun }) => {
 
 
 
-  useEffect(() => {
-    if (MenuApiSelectorData?.DeleteMenucategoryReducerData?.status === 204) {
-      toast.success(translaterFun("delete-successfully"));
-    }
-  }, [MenuApiSelectorData?.DeleteMenucategoryReducerData]);
+  // useEffect(() => {
+  //   if (MenuApiSelectorData?.DeleteMenucategoryReducerData?.status === 204) {
+  //     toast.success(translaterFun("delete-successfully"));
+  //   }
+  // }, [MenuApiSelectorData?.DeleteMenucategoryReducerData]);
 
   useEffect(() => {
     if (MenuItemFavouriteApiSelectorData?.data?.status === 200) {

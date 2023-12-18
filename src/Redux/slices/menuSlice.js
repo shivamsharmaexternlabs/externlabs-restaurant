@@ -335,6 +335,9 @@ export const DeleteMenuCategorySlice = createAsyncThunk(
           },
         }
       );
+
+      languageSet &&    languageSet === "en" ? toast.success("Deleted Successfully") : toast.success("تم الحذف بنجاح")
+
       return response;
     } catch (err) {
       toast.error(err?.response?.data?.message);
@@ -498,6 +501,8 @@ export const menuReducer = createSlice({
       .addCase(DeleteMenuCategorySlice.fulfilled, (state, action) => {
         state.loading = false;
         state.DeleteMenucategoryReducerData = action.payload;
+        // (action?.payload?.status === 204)
+        // console.log("DeleteMenucategoryReducerData", action?.payload?.status === 204)
       })
 
       .addCase(DeleteMenuCategorySlice.rejected, (state, action) => {

@@ -84,6 +84,8 @@ const PaymentHistory = ({translaterFun}) => {
 
     }, [PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]])
 
+    console.log("PaymentSelectorData?.PaymentHistoryReducerData", PaymentSelectorData?.PaymentHistoryReducerData)
+
 console.log("mhvjvjdsdd",PaymentSelectorData?.PaymentHistoryReducerData)
     return (
         <>
@@ -137,7 +139,7 @@ console.log("mhvjvjdsdd",PaymentSelectorData?.PaymentHistoryReducerData)
                                         <td>{item?.currency.toUpperCase()} {item?.amount}</td>
                                         <td>{item?.created_at.split("T")[0]}</td>
                                         <td>{item?.product_name} {translaterFun("plan")}</td>
-                                        <td>{item?.end_date}</td>
+                                        <td>{item?.expiry_date}</td>
 
                                         {/* <td>
                                              <button type='button' className='btn1'
