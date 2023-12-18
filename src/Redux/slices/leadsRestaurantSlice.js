@@ -24,7 +24,7 @@ export const LeadsRestaurantSlice = createAsyncThunk("LeadsRestaurantSlice",asyn
 
     } catch (err) {
 
-      toast.error(err?.response?.data?.error[0]);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }
@@ -41,12 +41,13 @@ export const CreateLeadsRestaurantSlice = createAsyncThunk("CreateLeadsRestauran
           "Accept-Language": languageSet
         },
       }); 
+      console.log("bhgfcgvhj", response)
 
       return response;
 
     } catch (err) {
 
-      toast.error(err?.response?.data?.error[0]);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }
@@ -68,7 +69,7 @@ export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurants
       return response;
 
     } catch (err) { 
-      toast.error(err?.response?.data?.error[0]);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }
@@ -139,7 +140,8 @@ export const LeadsRestaurantReducer = createSlice({
       .addCase(CreateLeadsRestaurantSlice.fulfilled, (state, action) => { 
         state.loading = false;
         state.CreateLeadsRestaurantReducerData = action.payload;
-        toast.success("Lead Created Successfully")
+        console.log("CreateLeadsRestaurantReducerData", action.payload)
+        // toast.success("Lead Created Successfully")
       })
 
       .addCase(CreateLeadsRestaurantSlice.rejected, (state, action) => { 

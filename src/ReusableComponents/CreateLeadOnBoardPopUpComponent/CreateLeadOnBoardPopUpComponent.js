@@ -236,11 +236,14 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
             setLoadSpiner(false);
             popUpHookFun(false);
+            toast.success(LeadsRestaurantSelectorData?.CreateLeadsRestaurantReducerData?.data?.message)
+            // console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData?.CreateLeadsRestaurantReducerData)
             window.location.reload()
             // dispatch(ToggleNewLeads(false))
 
         }
         else if (LeadsRestaurantSelectorData?.error === "Rejected") {
+            toast.success(LeadsRestaurantSelectorData?.CreateLeadsRestaurantReducerData?.data?.error?.[0])
             setLoadSpiner(false);
             popUpHookFun(true);
         }

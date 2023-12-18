@@ -22,7 +22,8 @@ export const GetMediaLibrarySlice = createAsyncThunk(
       // toast.success(response?.data?.message);
       return response;
     } catch (err) {
-      toast.error(err?.response?.data?.error);
+      // console.log("bhjhgvhjnbhgc", err)
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }
@@ -36,14 +37,14 @@ export const PostMediaLibrarySlice = createAsyncThunk(
     try {
       const formData = new FormData();
 
-       formData.append("restaurant_id", body?.restaurant_id);
-     
+      formData.append("restaurant_id", body?.restaurant_id);
+
       if (body?.images) {
 
-        for(let i=0; i<body?.images.length; i++){ 
+        for (let i = 0; i < body?.images.length; i++) {
           formData.append("images", body?.images[i]);
-        } 
-      } 
+        }
+      }
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/bulk_image_upload/`,
         formData,
@@ -54,9 +55,14 @@ export const PostMediaLibrarySlice = createAsyncThunk(
           },
         }
       );
-
+      // console.log("hjgfhjkl", response.data.message)
+      toast.success(response?.data?.message);
       return response;
+
+
     } catch (err) {
+      // console.log("jhgvcfxgvhbjk", err?.response?.data?.error?.[0])
+      toast.error(err?.response?.data?.error?.[0]);
       // toast.error(err);
       return rejectWithValue(err);
     }
@@ -76,7 +82,7 @@ export const mediaLibraryReducer = createSlice({
 
   extraReducers: (builder) => {
     builder
-    // get media library reducer cases
+      // get media library reducer cases
       .addCase(GetMediaLibrarySlice.pending, (state) => {
         state.loading = true;
       })
@@ -92,7 +98,7 @@ export const mediaLibraryReducer = createSlice({
         state.error = action.error.message;
       })
 
-// Upload media library reducer cases
+      // Upload media library reducer cases
       .addCase(PostMediaLibrarySlice.pending, (state) => {
         state.loading = true;
       })
@@ -100,12 +106,15 @@ export const mediaLibraryReducer = createSlice({
       .addCase(PostMediaLibrarySlice.fulfilled, (state, action) => {
         state.loading = false;
         state.PostMediaLibraryReducerData = action.payload;
-        toast.success(action?.payload?.data?.message);
+        // toast.success(action?.payload?.data?.message);
       })
 
       .addCase(PostMediaLibrarySlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+        // console.log("hgfghjgcjhgjh", state.error)
+        // toast.error()
+
       })
   },
 });

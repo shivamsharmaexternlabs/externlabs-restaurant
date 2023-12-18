@@ -65,9 +65,9 @@ const AllMedia = ({translaterFun}) => {
 
             dispatch(GetMediaLibrarySlice({ RestaurantId, BearerToken }))
         }
-        else if (MediaLibrarySelectorData?.error === "Rejected") {
-            toast.success("Internal Server Error");
-        }
+        // else if (MediaLibrarySelectorData?.error === "Rejected") {
+        //     toast.success("Internal Server Error");
+        // }
     }, [MediaLibrarySelectorData?.PostMediaLibraryReducerData]);
 
 

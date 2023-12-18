@@ -248,7 +248,8 @@
   "leads": "Leads",
   "get-started" : "Get Started",
   "confirm-upload" : "Replacing with new data: Existing menu will be deleted. Confirm?",
-  "save-profile" : "Save Profile"
+  "save-profile" : "Save Profile",
+  "delete-successfully" : "Delete Successfully"
 
   
 }

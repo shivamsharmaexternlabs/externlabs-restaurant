@@ -17,7 +17,7 @@ export const UploadMenuSlice = createAsyncThunk("UploadMenuSlice",async (body, {
       }
       
       );
-      toast.success("Successful");
+      toast.success(response?.data?.message);
 
       return response;
 

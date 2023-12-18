@@ -838,7 +838,7 @@ const Categories = ({ translaterFun }) => {
 
   useEffect(() => {
     if (MenuApiSelectorData?.DeleteMenucategoryReducerData?.status === 204) {
-      toast.success("Delete Successfully");
+      toast.success(translaterFun("delete-successfully"));
     }
   }, [MenuApiSelectorData?.DeleteMenucategoryReducerData]);
 
