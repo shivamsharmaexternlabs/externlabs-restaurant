@@ -75,7 +75,7 @@ font-weight: normal;
 
 .subscriptiontabs .tab-content>.tab-pane>ul {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
 
 }

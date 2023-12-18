@@ -111,7 +111,8 @@
 
 .dasboardbody .contentpart::-webkit-scrollbar,
 .addmenupopup .popupinnerbox .popupbody::-webkit-scrollbar,
-.editmenupopup .popupinnerbox .popupbody::-webkit-scrollbar  {
+.editmenupopup .popupinnerbox .popupbody::-webkit-scrollbar,
+.leadpopup .popupinnerbox .popupbody .leadpopupforminner::-webkit-scrollbar   {
     width: 5px;
     background-color: #EF9456B2;
     border-radius: 100px;
@@ -119,7 +120,8 @@
 
 .dasboardbody .contentpart::-webkit-scrollbar-thumb,
 .addmenupopup .popupinnerbox .popupbody::-webkit-scrollbar-thumb,
-.editmenupopup .popupinnerbox .popupbody::-webkit-scrollbar-thumb  {
+.editmenupopup .popupinnerbox .popupbody::-webkit-scrollbar-thumb ,
+.leadpopup .popupinnerbox .popupbody .leadpopupforminner::-webkit-scrollbar-thumb {
     width: 5px;
     background-color: #c65b13b2;
     border-radius: 100px;

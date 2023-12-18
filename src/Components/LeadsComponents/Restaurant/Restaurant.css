@@ -44,12 +44,20 @@
 
 .leadpopup .popupinnerbox {
   max-width: 500px;
-  /* max-height: 90%; */
+  height: 90%;
+  max-height: 1100px;
+  position: static;
+  transform: none;
+
 }
 
 .leadpopup .popupinnerbox .popupbody {
-  /* height: calc(100% - 100px); */
-  /* overflow: auto; */
+  margin: 0 -12px;
+}
+
+.leadpopup .popupinnerbox .popupbody .leadpopupforminner {
+  height: calc(100vh - 350px) ;
+  overflow: auto;
 }
 
 
@@ -125,10 +133,5 @@
 .react-tel-input .form-control {
   width: 100%;
 }
-
-
-/*************Arabic css  ***********/
-
-
 
 
