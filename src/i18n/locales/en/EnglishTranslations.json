@@ -29,6 +29,8 @@
   "upload-images": "Upload Images",
   "payment-history": "Payment History",
   "basic": "Basic",
+  "yearly":"Yearly",
+  "monthly":"Monthly",
   "year": "Year",
   "month": "Month",
   "status": "Status",

@@ -140,11 +140,11 @@ const PaymentHistory = ({ translaterFun }) => {
                     <DashboardSidebar />
                     <div className='contentpart paymenthispage'>
                         <div className='title'>
-                            <h2> Subscription Plan </h2>
+                            <h2> {translaterFun("subscription-plan")} </h2>
                             <div className='selectmonth'>
                                 <select className='form-select' onChange={(e)=>PlanChangeFun(e)}>
-                                    <option value={"Month"}> Month </option>
-                                    <option  value={"Year"}> Year </option>
+                                    <option value={"Month"}> {translaterFun("monthly")} </option>
+                                    <option  value={"Year"}> {translaterFun("yearly")} </option>
                                 </select>
                             </div>
                         </div>
