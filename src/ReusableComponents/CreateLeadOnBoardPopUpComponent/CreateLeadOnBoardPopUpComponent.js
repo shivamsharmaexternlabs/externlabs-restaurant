@@ -41,7 +41,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
     const [countrycode, setCountryCode] = useState("+91");
 
-    const [phonenumber, setPhoneNumber] = useState("");
+    const [phonenumber, setPhoneNumber] = useState("1212121212");
 
 
 
@@ -67,18 +67,18 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
     const defaultValue = {
-        restaurant_name: "",
-        owner_name: "",
+        restaurant_name: "sam",
+        owner_name: "samm",
         email: "",
         // phone_ext: "",
         // phone: "",
         shop_no: "",
         street: "",
-        city: "",
+        city: "cityss",
         landmark: "",
-        pincode: "",
-        state: "",
-        country: "",
+        pincode: "121212",
+        state: "wqwqw",
+        country: "qwqwqw",
         description: ""
 
     };
@@ -108,8 +108,8 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
     const defaultSignUpValue = {
 
-        password: "",
-        confirm_password: "",
+        password: "Demo@123",
+        confirm_password: "Demo@123",
 
     };
 
@@ -205,6 +205,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
     };
 
     const CopyLinkFun = () => {
+        console.log("kjdhekjwee")
         navigator.clipboard.writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url);
     }
 

@@ -30,7 +30,7 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 const RestaurantDetail = ({ translaterFun }) => {
   const [SuccessPopup, setSuccessPopup] = useState(false);
   const [ResetPasswordPopup, setResetPasswordPopup] = useState(false);
-  const [dataaa, setDataaa] = useState("")
+  const [CopyValueToggle, setCopyValueToggle] = useState(false)
   const routeData = useLocation();
   const [OnBordPopUp, setOnBordPopUp] = useState(false);
   const [loadspiner, setLoadSpiner] = useState(false);
@@ -44,6 +44,8 @@ const RestaurantDetail = ({ translaterFun }) => {
   const LeadsRestaurantSelectorData = useSelector((state) => state.LeadsRestaurantApiData);
   const LeadsSelectorData = useSelector((state) => state.LeadsApiData);
   const ResetPasswordSelectorData = useSelector((state) => state.ResetPasswordApiData);
+  const [isShown, setIsShown] = useState(false);
+
   console.log("fhsga", HandleFormData)
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
@@ -182,7 +184,19 @@ const RestaurantDetail = ({ translaterFun }) => {
   }
 
   const CopyLinkFun = () => {
-    navigator.clipboard.writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url);
+    console.log("bnvdhgsdvsd1")
+    navigator.clipboard
+      .writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url)
+      .then(() => {
+        setCopyValueToggle(true)
+        setIsShown(false)
+        // alert("successfully copied");
+      })
+      .catch(() => {
+        setCopyValueToggle(false)
+        // alert("something went wrong");
+      });
+    // navigator.clipboard.writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url);
   }
 
   const BackToHomeFun = () => {
@@ -251,7 +265,7 @@ const RestaurantDetail = ({ translaterFun }) => {
   }, [LeadsSelectorData?.UpdateLeadReducerData]);
 
 
-  const handleSubmit =  (values) => {
+  const handleSubmit = (values) => {
     // await dispatch(LoadingSpinner(true))
 
     if (routeData?.state?.page === "lead") {
@@ -376,6 +390,17 @@ const RestaurantDetail = ({ translaterFun }) => {
     setPhoneNumber(myString);
   };
 
+
+  console.log("jdjhvdssd",isShown)
+
+
+  useEffect(()=>{
+
+    if(isShown){
+      setCopyValueToggle(false)
+    }
+
+  },[isShown])
 
 
   return (
@@ -800,16 +825,39 @@ const RestaurantDetail = ({ translaterFun }) => {
 
 
         {/* Successful sign up and Onboard (copy link and share part) */}
-        {SuccessPopup &&
+        {!SuccessPopup &&
           <div className="popup successpopup ">
             <div className="innerpopup">
               <img src={imgicon} alt="img" />
-              <h3> {translaterFun("success")} !</h3>
+              <h3> {translaterFun("success")} </h3>
               <p>{translaterFun("successfully-registered")}</p>
               <div className="sharebtnbox">
                 <span> <img src={share} alt="img" /> {translaterFun("link")} </span>
                 <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
-                <button type="button" className="copybtn"> <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} /> </button>
+                {/* <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+                  Copied
+                </button> */}
+
+                <div className='copybtnbox'>
+                  <div className='hoverCopyed'>
+                    <button type="button" class="btn   copytooltip" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"  
+                    >
+                      Copy Url
+                    </button>
+                    {
+                      CopyValueToggle && 
+                       <button type="button" class="btn     copytooltip" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
+                      Copied !
+                    </button>
+                    }
+                  </div>
+                  <button type="button" className="copybtn " 
+                  onMouseLeave={() => setIsShown(true)}
+                  // onMouseEnter={() => setIsShown(false)}
+                  >
+                    <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} />
+                  </button>
+                </div>
                 <button type="button" className="sharebtn">
                   <RWebShare data={{
                     // text: "Web Share - GFG",
