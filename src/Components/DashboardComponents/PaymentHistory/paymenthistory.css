@@ -1,10 +1,46 @@
+.paymenthispage>.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 35px;
+}
+
+
 .paymenthispage>.title>h2 {
     color: #000;
     font-size: 32px;
     font-style: normal;
-   font-family: 'NeuzeitGro-Bol';
-font-weight: normal;
-    margin: 0 0 35px;
+    font-family: 'NeuzeitGro-Bol';
+    font-weight: normal;
+    margin: 0 0 0px;
+}
+
+.selectmonth {
+    position: relative;
+    text-align: center;
+}
+
+.selectmonth::after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 9px;
+    background: url(../../../images/arrowy.svg) top center no-repeat;
+    background-size: contain;
+    width: 15px;
+    height: 9px;
+}
+
+.selectmonth .form-select {
+    box-shadow: none;
+    padding: 5px;
+    border: none;
+    text-align: center;
+    outline: none;
+    border-radius: 625.399px;
+    background: #FFF2E9;
+    min-width: 138px;
+    color: #EA6A12;
 }
 
 .paylist {
@@ -22,6 +58,7 @@ font-weight: normal;
     background: #F6F6F6;
     border-radius: 10px;
 }
+
 .paylist li select {
     float: right;
 }
@@ -65,22 +102,31 @@ font-weight: normal;
     color: #000;
     font-size: 50px;
     font-style: normal;
-   font-family: 'NeuzeitGro-Bol';
-font-weight: normal;
+    font-family: 'NeuzeitGro-Bol';
+    font-weight: normal;
     line-height: 1.2;
     margin: 0;
 }
 
 .paylist li:hover h4 {
-    color: #EA6A12; 
+    color: #EA6A12;
 }
 
 .paylist li h4 span {
     color: #42526B;
     font-size: 20px;
     line-height: 1;
-   font-family: 'NeuzeitGro-Reg';
-font-weight: normal;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
+}
+
+.paymenttile{
+    color: #000;
+    font-size: 32px;
+    font-style: normal;
+    font-family: 'NeuzeitGro-Bol';
+    font-weight: normal;
+    margin: 0 0 15px;
 }
 
 
@@ -93,13 +139,14 @@ font-weight: normal;
     align-items: center;
     justify-content: space-between;
 }
+
 .paymenttable table tr {
     padding: 10px 20px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.60);
     backdrop-filter: blur(21px);
     margin-bottom: 15px;
-    
+
 }
 
 .paymenttable table tr:first-child {
@@ -109,16 +156,16 @@ font-weight: normal;
 .paymenttable table tr th {
     color: #000;
     font-size: 18px;
-   font-family: 'NeuzeitGro-Reg';
-font-weight: normal;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
     line-height: 1.1;
 }
 
 .paymenttable table tr td {
     color: #000;
     font-size: 18px;
-   font-family: 'NeuzeitGro-Reg';
-font-weight: normal;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
     line-height: 1.1;
 }
 
@@ -134,15 +181,15 @@ font-weight: normal;
 
 }
 
-.dotred{
+.dotred {
     background-color: #CC0909;
 }
 
-.dotgreen{
-  background-color: #42B856;
+.dotgreen {
+    background-color: #42B856;
 }
 
-.dotyellow{
+.dotyellow {
     background-color: #FFCA28;
 }
 
@@ -157,37 +204,37 @@ font-weight: normal;
 }
 
 .paymenttable table th:nth-child(2),
-.paymenttable table td:nth-child(2){
+.paymenttable table td:nth-child(2) {
     width: 100px;
 }
 
 .paymenttable table th:nth-child(3),
-.paymenttable table td:nth-child(3){
+.paymenttable table td:nth-child(3) {
     width: 100px;
 }
 
 .paymenttable table th:nth-child(4),
-.paymenttable table td:nth-child(4){
+.paymenttable table td:nth-child(4) {
     width: 130px;
 }
 
 .paymenttable table th:nth-child(5),
-.paymenttable table td:nth-child(5){
-    width: 130px;   
+.paymenttable table td:nth-child(5) {
+    width: 130px;
 }
 
 .paymenttable table th:nth-child(6),
-.paymenttable table td:nth-child(6){
+.paymenttable table td:nth-child(6) {
     width: 180px;
 }
 
 .paymenttable table th:last-child,
-.paymenttable table td:last-child{
+.paymenttable table td:last-child {
     width: 100px;
     text-align: center;
 }
 
-.paymenttable{
+.paymenttable {
     width: 100%;
     overflow: auto;
 }
@@ -198,10 +245,12 @@ font-weight: normal;
 
 
 
+
+
 /******************** Arabic css ***********************/
 .arabic .categorypage .dot {
- margin-right: 0;
- margin-left: 5px;
+    margin-right: 0;
+    margin-left: 5px;
 }
 
 .arabic .paylist li select {
@@ -215,6 +264,7 @@ font-weight: normal;
     .paylist li h3 {
         font-size: 25px;
     }
+
     .paylist li p {
         font-size: 16px;
     }
@@ -229,10 +279,11 @@ font-weight: normal;
 }
 
 
-@media(max-width:767px){ 
+@media(max-width:767px) {
     .paymenthispage>.title>h2 {
         font-size: 25px;
     }
+
     .paymenttable table tr td,
     .paymenttable table tr th {
         font-size: 16px;
@@ -240,10 +291,11 @@ font-weight: normal;
 
 }
 
-@media(max-width:500px){ 
+@media(max-width:500px) {
     .paymenthispage>.title>h2 {
         font-size: 18px;
     }
+
     .paylist {
         flex-wrap: wrap;
     }
@@ -253,7 +305,3 @@ font-weight: normal;
         margin-bottom: 15px;
     }
 }
-
-
-
-

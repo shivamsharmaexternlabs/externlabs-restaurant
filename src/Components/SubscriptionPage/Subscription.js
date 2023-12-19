@@ -31,8 +31,7 @@ const Subscription = ({ translaterFun }) => {
   const LanguageSelected = reactLocalStorage.get("languageSet", false);
 
 
-  console.log("jhgf", LanguageSelected)
-  useEffect(() => {
+    useEffect(() => {
     const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
 
@@ -78,35 +77,8 @@ const Subscription = ({ translaterFun }) => {
 
   useEffect(() => {
 
-      let getPaymentApi = async (BearerToken1) => {
-
+      let getPaymentApi = async (BearerToken1) => { 
       
-      // try {
-
-      //   let headersList = {
-      //     "Accept": "*/*",
-      //     "Authorization": `Bearer ${BearerToken1}`
-      //   }
-  
-      //   let response = await fetch(`${process.env.REACT_APP_BASE_URL}payment/price/`, {
-      //     method: "GET",
-      //     headers: headersList
-      //   });
-  
-
-      //   // let data = await response;
-      //   console.log("sdfgdhfjger",response);
-
-      //   if (!response.ok) {
-      //     // throw new Error(`HTTP error! status: ${response.status}`);
-      //   }
-
-      // }
-      // catch (error) {
-      //   // console.log("mhjcgjs", error)
-
-      // }
-
       try {
         const response = await axios.get(`${process.env.REACT_APP_BASE_URL}payment/price/`,
         
@@ -125,8 +97,7 @@ const Subscription = ({ translaterFun }) => {
     } catch (err) {
         // toast.error(err?.response?.data?.message);
         // return rejectWithValue(err);
-    }
-
+    } 
 
     }
 
