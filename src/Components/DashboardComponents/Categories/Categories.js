@@ -529,7 +529,7 @@ const Categories = ({ translaterFun }) => {
 
     let handleCategoryPayload = {
       "restaurant_id": RestaurantIdLocalStorageData,
-      "category_image": uploadCategoryImage,
+      "category_image": uploadCategoryImage ? uploadCategoryImage : "",
       "category_en": values?.category_en,
       "category_native": values?.category_native,
       "token": TokenLocalStorageData
@@ -716,8 +716,8 @@ const Categories = ({ translaterFun }) => {
   }, ['category_en', 'category_native']);
 
   const defaultValueEditCategory = {
-    category_en: EditCategory?.category_en,
-    category_native: EditCategory?.category_native,
+    category_en: EditCategory?.category_en ? EditCategory?.category_en : "",
+    category_native: EditCategory?.category_native ? EditCategory?.category_native : "",
 
   };
 
@@ -731,7 +731,7 @@ const Categories = ({ translaterFun }) => {
     let payload = {
       menu_id: EditCategory?.menu_id,
       restaurant_id: RestaurantIdLocalStorageData,
-      category_image: uploadCategoryImage,
+      category_image: uploadCategoryImage ? uploadCategoryImage : "",
       category_en: values?.category_en,
       category_native: values?.category_native,
       BearerToken

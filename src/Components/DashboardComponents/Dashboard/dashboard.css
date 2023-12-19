@@ -334,7 +334,7 @@
   right: 3px;
   width: 70px;
   height: auto;
-  padding: 5px 8px;
+ 
   background-color: #ffeee7;
   border-radius: 4px;
 }
@@ -351,6 +351,9 @@
 
 .topdishestabpart .tab-content ul li > .title .editinfobtn > .btnbox button {
   font-size: 11px;
+  display: block;
+  width: 100%;
+  padding: 2px 5px;
 }
 
 .editinfobtn > .btnbox > button {

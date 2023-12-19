@@ -139,6 +139,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
             // Call signUp API Here...
             await dispatch(SignUpSlice(SignUpForOnBoardPayload))
+            dispatch(LoadingSpinner(false))
         } catch (error) {
             dispatch(LoadingSpinner(false))
         }
