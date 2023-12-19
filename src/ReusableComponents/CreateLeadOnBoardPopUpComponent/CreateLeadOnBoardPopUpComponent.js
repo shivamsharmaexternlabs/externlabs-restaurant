@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 import "react-phone-input-2/lib/style.css";
 import { SignUpSlice } from "../../Redux/slices/SignUpSlice";
 import { LoadingSpinner, ToggleNewLeads } from "../../Redux/slices/sideBarToggle";
+import SucessRegisteredPopup from "../SucessRegisteredPopup/SucessRegisteredPopup";
 // import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
 
 
@@ -688,31 +689,36 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                 {/* SuccessFull On Board */}
 
                 {SuccessPopup &&
-                    <div className="popup successpopup ">
-                        <div className="innerpopup">
-                            <img src={imgicon} alt="img" />
-                            <h3> {translaterFun("success")}</h3>
-                            <p>{translaterFun("successfully-registered")}</p>
-                            <div className="sharebtnbox">
-                                <span> <img src={share} alt="img" /> {translaterFun("link")}</span>
-                                <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
-                                <button type="button" className="copybtn"> <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} /> </button>
-                                <button type="button" className="sharebtn">
-                                    <RWebShare data={{
-                                        // text: "Web Share - GFG",
-                                        url: LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url,
-                                        // title: "Gfg"
-                                    }}
-                                        onClick={() => console.log("Shared successfully!")} >
+                <SucessRegisteredPopup 
+                translaterFun={translaterFun}
+                LeadsRestaurantSelectorData={LeadsRestaurantSelectorData}
+                BackToHomeFun={BackToHomeFun}
+                />
+                    // <div className="popup successpopup ">
+                    //     <div className="innerpopup">
+                    //         <img src={imgicon} alt="img" />
+                    //         <h3> {translaterFun("success")}</h3>
+                    //         <p>{translaterFun("successfully-registered")}</p>
+                    //         <div className="sharebtnbox">
+                    //             <span> <img src={share} alt="img" /> {translaterFun("link")}</span>
+                    //             <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
+                    //             <button type="button" className="copybtn"> <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} /> </button>
+                    //             <button type="button" className="sharebtn">
+                    //                 <RWebShare data={{
+                    //                     // text: "Web Share - GFG",
+                    //                     url: LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url,
+                    //                     // title: "Gfg"
+                    //                 }}
+                    //                     onClick={() => console.log("Shared successfully!")} >
 
-                                        <img src={share2} alt="img" />
-                                    </RWebShare>
-                                </button>
+                    //                     <img src={share2} alt="img" />
+                    //                 </RWebShare>
+                    //             </button>
 
-                            </div>
-                            <button className="btn2" onClick={(e) => BackToHomeFun()}>{translaterFun("back-to-home")} </button>
-                        </div>
-                    </div>
+                    //         </div>
+                    //         <button className="btn2" onClick={(e) => BackToHomeFun()}>{translaterFun("back-to-home")} </button>
+                    //     </div>
+                    // </div>
                 }
 
             </div>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './restaurantdetail.css'
-import imgicon from '../../../images/imgicon.svg'
+import './restaurantdetail.css' 
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
 import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComponent";
@@ -8,12 +7,7 @@ import editbanner from '../../../images/editbanner.png';
 import PhoneInput from "react-phone-input-2"
 import user from '../../../images/user.svg';
 import burgerimg from '../../../images/burgerimg.png';
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import share from '../../../images/share.svg'
-import share2 from '../../../images/share2.svg'
-// import close from "../../../images/close.svg";
-import { RWebShare } from "react-web-share";
-import copy from '../../../images/copy.svg'
+import { Formik, Form, Field, ErrorMessage } from "formik";  
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +20,7 @@ import close from "../../../images/close.svg";
 import { UpdateLeadsSlice } from '../../../Redux/slices/leadsSlice'
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
+import SucessRegisteredPopup from '../../../ReusableComponents/SucessRegisteredPopup/SucessRegisteredPopup'
 
 const RestaurantDetail = ({ translaterFun }) => {
   const [SuccessPopup, setSuccessPopup] = useState(false);
@@ -184,21 +179,21 @@ const RestaurantDetail = ({ translaterFun }) => {
 
   }
 
-  const CopyLinkFun = () => {
-    console.log("bnvdhgsdvsd1")
-    navigator.clipboard
-      .writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url)
-      .then(() => {
-        setCopyValueToggle(true)
-        setIsShown(false)
-        // alert("successfully copied");
-      })
-      .catch(() => {
-        setCopyValueToggle(false)
-        // alert("something went wrong");
-      });
-    // navigator.clipboard.writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url);
-  }
+  // const CopyLinkFun = () => {
+  //   console.log("bnvdhgsdvsd1")
+  //   navigator.clipboard
+  //     .writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url)
+  //     .then(() => {
+  //       setCopyValueToggle(true)
+  //       setIsShown(false)
+  //       // alert("successfully copied");
+  //     })
+  //     .catch(() => {
+  //       setCopyValueToggle(false)
+  //       // alert("something went wrong");
+  //     });
+  //   // navigator.clipboard.writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url);
+  // }
 
   const BackToHomeFun = () => {
     // window.location.reload(false)
@@ -826,55 +821,63 @@ const RestaurantDetail = ({ translaterFun }) => {
 
 
         {/* Successful sign up and Onboard (copy link and share part) */}
-        {!SuccessPopup &&
-          <div className="popup successpopup ">
-            <div className="innerpopup">
-              <img src={imgicon} alt="img" />
-              <h3> {translaterFun("success")} </h3>
-              <p>{translaterFun("successfully-registered")}</p>
-              <div className="sharebtnbox">
-                <span> <img src={share} alt="img" /> {translaterFun("link")} </span>
-                <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
-                {/* <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
-                  Copied
-                </button> */}
+        {SuccessPopup &&
 
-                <div className='copybtnbox'>
-                  <div className='hoverCopyed'>
-                    <button type="button" class="btn   copytooltip" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"  
-                    >
-                      Copy Url
-                    </button>
-                    {
-                      CopyValueToggle && 
-                       <button type="button" class="btn     copytooltip" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                      Copied !
-                    </button>
-                    }
-                  </div>
-                  <button type="button" className="copybtn " 
-                  onMouseLeave={() => setIsShown(true)}
-                  // onMouseEnter={() => setIsShown(false)}
-                  >
-                    <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} />
-                  </button>
-                </div>
-                <button type="button" className="sharebtn">
-                  <RWebShare data={{
-                    // text: "Web Share - GFG",
-                    url: LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url,
-                    // title: "Gfg"
-                  }}
-                    onClick={() => console.log("Shared successfully!")} >
+<SucessRegisteredPopup
 
-                    <img src={share2} alt="img" />
-                  </RWebShare>
-                </button>
+translaterFun={translaterFun}
+LeadsRestaurantSelectorData={LeadsRestaurantSelectorData}
+BackToHomeFun={BackToHomeFun}
+/>
 
-              </div>
-              <button className="btn2" onClick={(e) => BackToHomeFun()}> Back to home </button>
-            </div>
-          </div>
+          // <div className="popup successpopup ">
+          //   <div className="innerpopup">
+          //     <img src={imgicon} alt="img" />
+          //     <h3> {translaterFun("success")} </h3>
+          //     <p>{translaterFun("successfully-registered")}</p>
+          //     <div className="sharebtnbox">
+          //       <span> <img src={share} alt="img" /> {translaterFun("link")} </span>
+          //       <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
+          //       {/* <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+          //         Copied
+          //       </button> */}
+
+          //       <div className='copybtnbox'>
+          //         <div className='hoverCopyed'>
+          //           <button type="button" class="btn   copytooltip" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"  
+          //           >
+          //             Copy Url
+          //           </button>
+          //           {
+          //             CopyValueToggle && 
+          //              <button type="button" class="btn     copytooltip" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
+          //             Copied !
+          //           </button>
+          //           }
+          //         </div>
+          //         <button type="button" className="copybtn " 
+          //         onMouseLeave={() => setIsShown(true)}
+          //         // onMouseEnter={() => setIsShown(false)}
+          //         >
+          //           <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} />
+          //         </button>
+          //       </div>
+          //       <button type="button" className="sharebtn">
+          //         <RWebShare data={{
+          //           // text: "Web Share - GFG",
+          //           url: LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url,
+          //           // title: "Gfg"
+          //         }}
+          //           onClick={() => console.log("Shared successfully!")} >
+
+          //           <img src={share2} alt="img" />
+          //         </RWebShare>
+          //       </button>
+
+          //     </div>
+          //     <button className="btn2" onClick={(e) => BackToHomeFun()}> Back to home </button>
+          //   </div>
+          // </div>
         }
 
       </DashboardLayout>
