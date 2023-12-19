@@ -42,7 +42,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
     const [countrycode, setCountryCode] = useState("+91");
 
-    const [phonenumber, setPhoneNumber] = useState("1212121212");
+    const [phonenumber, setPhoneNumber] = useState("");
 
 
 
@@ -68,18 +68,18 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
     const defaultValue = {
-        restaurant_name: "sam",
-        owner_name: "samm",
+        restaurant_name: "",
+        owner_name: "",
         email: "",
         // phone_ext: "",
         // phone: "",
         shop_no: "",
         street: "",
-        city: "cityss",
+        city: "",
         landmark: "",
-        pincode: "121212",
-        state: "wqwqw",
-        country: "qwqwqw",
+        pincode: "",
+        state: "",
+        country: "",
         description: ""
 
     };
@@ -109,8 +109,8 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
     const defaultSignUpValue = {
 
-        password: "Demo@123",
-        confirm_password: "Demo@123",
+        password: "",
+        confirm_password: "",
 
     };
 
