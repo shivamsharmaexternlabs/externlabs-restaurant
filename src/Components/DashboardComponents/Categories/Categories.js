@@ -65,7 +65,6 @@ const Categories = ({ translaterFun }) => {
   const [deleteCategoryPopup, deleteCategoryPopupFun] = usePopUpHook("")
 
   const [EditCategory, setEditCategory] = useState("");
-  // const [ActiveCategory, setActiveCategory] = useState(undefined);
   const [ActiveCategory, setActiveCategory] = useState({
     toggle: false,
     data: undefined
@@ -96,10 +95,6 @@ const Categories = ({ translaterFun }) => {
 
   let BearerToken = reactLocalStorage.get("Token", false);
   let languageSet = reactLocalStorage.get("languageSet", false);
-
-  // console.log("smdbnsvds",currencyToSymbolMap)
-
-
 
   const CreateApiSelectorData = useSelector(
     (state) => state.CreateApiSelectorData
@@ -151,7 +146,6 @@ const Categories = ({ translaterFun }) => {
       };
       formData.append("file", payload?.file);
       formData.append("restaurant_id", payload?.restaurant_id);
-      // formData.append("BearerToken", BearerToken);
       const UploadPayload = {
         formData,
         BearerToken
@@ -181,7 +175,6 @@ const Categories = ({ translaterFun }) => {
     };
     formData.append("file", payload?.file);
     formData.append("restaurant_id", payload?.restaurant_id);
-    // formData.append("BearerToken", BearerToken);
     const UploadPayload = {
       formData,
       BearerToken
@@ -206,10 +199,6 @@ const Categories = ({ translaterFun }) => {
         
         
       }
-      // else{
-
-      // }
-      // await dispatch(MenuSlice(UploadPayload));
 
       await dispatch(LoadingSpinner(false))
     } catch (error) {
@@ -225,46 +214,10 @@ const Categories = ({ translaterFun }) => {
       setLoadSpiner(false);
     }
 
-    // if (MenuApiSelectorData?.MenuSliceReducerData.status === 200
-    //   && FavoriteValueStoreData.toggle == false
-    // ) {
-    //   setDragAndDropItems(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.item_id)
-    //   setLoadSpiner(false);
-    // }
-    // else if (MenuApiSelectorData?.error == "Rejected") {
-    //   setLoadSpiner(false);
-    // }
-
-    // if (MenuApiSelectorData?.favoriteMenuSliceReducerData.status === 200) {
-    //   setLoadSpiner(false);
-    // } else if (MenuApiSelectorData?.error == "Rejected") {
-    //   setLoadSpiner(false);
-    // }
-
-    // if(ActiveCategory?.toggle==true){
-    //   console.log("mnbhjjkghfhdjhg")
-    // }
-
   }, [
     MenuApiSelectorData?.GetMenuCategoryReducerData,
-    // MenuApiSelectorData?.MenuSliceReducerData,
-    // MenuApiSelectorData?.favoriteMenuSliceReducerData,
   ]);
-
-  // // MenuApiSelectorData?.DeleteMenuItemReducerData
-  // useEffect(() => {
-  //   if (MenuApiSelectorData?.DeleteMenuItemReducerData.status === 204) {
-
-  //   } else if (MenuApiSelectorData?.error == "Rejected") {
-  //     setLoadSpiner(false);
-  //   }
-
-
-  // }, [
-  //   MenuApiSelectorData?.DeleteMenuItemReducerData
-  // ]);
-
-
+ 
 
   // after Click on category it will give perticular category's data
   useEffect(() => {
@@ -558,8 +511,7 @@ const Categories = ({ translaterFun }) => {
   const handleUploadCategoryImage = (e) => {
     console.log("bhgvfcdx", e.target?.files)
     setuploadCategoryImage(e?.target?.files[0]);
-    // const formData = new FormData()
-    // formData.append("file", payload?.file);
+
   };
 
   // edit menu items
@@ -823,24 +775,7 @@ const Categories = ({ translaterFun }) => {
       }
 
     }, 1500);
-
-    // dispatch(ManagerDeleteSlice({item, BearerToken}))
-    //     deletePopUpFun(false)
-    //     setCurrentPage(0);
-    //     let ManagerSlicePayload = {
-    //         Token: BearerToken,
-    //         pageination: 1
-    //     }
-    //     dispatch(ManagerSlice(ManagerSlicePayload));
   }
-
-
-
-  // useEffect(() => {
-  //   if (MenuApiSelectorData?.DeleteMenucategoryReducerData?.status === 204) {
-  //     toast.success(translaterFun("delete-successfully"));
-  //   }
-  // }, [MenuApiSelectorData?.DeleteMenucategoryReducerData]);
 
   useEffect(() => {
     if (MenuItemFavouriteApiSelectorData?.data?.status === 200) {
@@ -1021,11 +956,6 @@ const Categories = ({ translaterFun }) => {
     else {
     }
 
-
-    // else if(MenuApiSelectorData?.UpdateMenuItemsAfterDragAndDropReducerData?.error === "Rejected") {
-    //     toast.error("detail error");
-    // }
-
   }, [MenuApiSelectorData?.UpdateMenuItemsAfterDragAndDropReducerData])
 
   const handleDragEnd = () => {
@@ -1045,7 +975,6 @@ const Categories = ({ translaterFun }) => {
       setOpenMenuActionToggle(items?.item_id);
     }
 
-    // setOpenMenuActionToggle(true)
   }
 
   const OpenActionToggleMenuFun = (e, items) => {
@@ -1056,7 +985,6 @@ const Categories = ({ translaterFun }) => {
       setOpenMenuActionToggle(items?.menu_id);
     }
 
-    // setOpenMenuActionToggle(true)
   }
 
 
@@ -1065,7 +993,6 @@ const Categories = ({ translaterFun }) => {
       <DashboardLayout>
         <div className="dasboardbody">
           <DashboardSidebar />
-          {/* {reorderCategory === true ? <DndCategories /> : */}
 
 
           <div className="contentpart categorypage">
@@ -1073,7 +1000,6 @@ const Categories = ({ translaterFun }) => {
               <h2>
                 {translaterFun("menu-categories")}
 
-                {/* <img src={order}  className="sort-order"   onClick={(e) => setReorderCategory(true)}/> */}
               </h2>
               <div className="btnbox">
                 <div className="btn1 uploadbtn-wrapper">
@@ -1309,85 +1235,7 @@ const Categories = ({ translaterFun }) => {
 
                       }
 
-                      {/* <Swiper
-                        slidesPerView={MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length > 7 ? 7 : Number(MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.length)}
-                         navigation={true}
-                        mousewheel={true}
-                        keyboard={true}
-                        modules={[Navigation, Mousewheel, Keyboard]}
-                        className="mySwiper"
-                      >
-                        {MenuApiSelectorData?.GetMenuCategoryReducerData?.data?.map(
-                          (item, id, index) => {
-                            return (
-                              <SwiperSlide>
-                                <button
-                                  onClick={(e) => CategoryTabFun(e, item)}
-                                  className={`${ActiveCategory === item?.menu_id ? "active" : "No-active"
-                                    } nav-link`}
-                                  key={id}
-                                  id="nav-dishes1-tab"
-                                  data-bs-toggle="tab"
-                                  data-bs-target="#nav-dishes1"
-                                  type="button"
-                                  role="tab"
-                                  aria-controls="nav-dishes1"
-                                  aria-selected="true"
-                                >
-
-                                  <div>
-                                    <figure>
-                                      <img
-                                        src={item?.category_image}
-                                        alt="img"
-                                        className="catg-img"
-                                      />
-                                    </figure>
-                                    <div className=""></div>
-
-                                    <h3>{item?.category}</h3>
-
-                                    <button className="editbtn">
-                                      <img
-                                        src={edit1}
-                                        alt="editbtn"
-                                        className="editactive "
-                                        onClick={(e) =>
-                                          PopUpEditCategoriesToggleFun(e, item)
-                                        }
-                                      />
-                                     </button>
-                                    <button className="deletebtn ms-1">
-                                      <img
-                                        src={deleteicon}
-                                        alt="deleteicon"
-                                        className=" "
-                                        onClick={(e) => DeleteCategoryfun(e, item)}
-                                      />
-                                     </button>
-                                    <div className="buttonbox">
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="5"
-                                        height="7"
-                                        viewBox="0 0 5 7"
-                                        fill="none"
-                                      >
-                                        <path
-                                          d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768"
-                                          stroke-width="1.10009"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                        />
-                                      </svg>
-                                    </div>
-                                  </div>
-                                </button>
-                              </SwiperSlide>
-                            );
-                          }
-                        )}
-                      </Swiper> */}
+                      
                     </div>
                   </nav>
 
@@ -1399,13 +1247,7 @@ const Categories = ({ translaterFun }) => {
                       aria-labelledby="nav-dishes1-tab"
                       tabindex="0"
                     >
-                      {/* <button
-                          type="button"
-                          className="categorybtn btn2"
-                          onClick={(e) => setDraggableSubcategory(true)}
-                        >
-                          Sort categories
-                        </button> */}
+                    
                       <div className="item-head">
                         <h2>{translaterFun("items")}</h2>
 
@@ -1427,10 +1269,7 @@ const Categories = ({ translaterFun }) => {
                         </div>
 
 
-                        {/* <div   className="ReorderCurese">
-                          <img src={order} className="sort-item-order me-3"  /> Reorder
-
-                        </div> */}
+                       
                       </div>
 
                       <ul>
@@ -1438,7 +1277,6 @@ const Categories = ({ translaterFun }) => {
 
 
                         {
-                          // dragItem.length == 0 ? MenuApiSelectorData?.MenuSliceReducerData?.data &&
 
                           DragAndDropItems?.map(
                             (items, ids) => {
@@ -1507,7 +1345,6 @@ const Categories = ({ translaterFun }) => {
                                             <img
                                               src={deleteicon}
                                               alt="delete icon "
-                                            // className="editactive "
                                             /> {translaterFun("delete")}
                                           </button>
                                         </div>}
@@ -1522,7 +1359,6 @@ const Categories = ({ translaterFun }) => {
                                   <div className="tabinfo">
                                     <div className="leftpart">
                                       <p>
-                                        {/* {languageSet == "en" ? items?.category_en : items?.category_native} */}
                                         {
                                           (languageSet == "en") ?
                                             <>
@@ -1549,82 +1385,6 @@ const Categories = ({ translaterFun }) => {
                               );
                             }
                           )
-
-                          // :
-
-
-                          // dragItem && dragItem?.map(
-                          //   (items, ids) => {
-                          //     return (
-                          //       <li
-                          //         key={ids}
-                          //         className={draggableSubcategory === true ? "drag-active" : "active"}
-                          //         draggable={draggableSubcategory}
-                          //         onDragStart={(e) => startDrag(e, items)}
-                          //         onDragOver={(e) => handleDragOver(e, items)}
-                          //         onDrop={(e) => handleDrop(e, items)}
-                          //         onDragEnd={handleDragEnd}
-                          //       >
-                          //         {<div className="title">
-                          //           <div className="">
-                          //             <h4>
-                          //               {items?.item_name}{" "}
-                          //               <button
-                          //                 type="button"
-                          //                 onClick={(e) => FavoriteFun(e, items)}
-                          //               >
-                          //                 {" "}
-                          //                 <img
-                          //                   src={
-                          //                     items?.is_favorite === true
-                          //                       ? starfill
-                          //                       : star
-                          //                   }
-                          //                   alt="img"
-                          //                   className="ms-1"
-                          //                 />{" "}
-                          //               </button>{" "}
-                          //             </h4>
-                          //           </div>
-                          //           <div className="btnbox">
-                          //             <button
-                          //               type="button"
-                          //               onClick={(e) =>
-                          //                 PopUpToggleEditFun(e, items)
-                          //               }
-                          //               className="editbtn"
-                          //             >
-                          //               {" "}
-                          //               <img src={edit1} alt="img" />{" "}
-                          //             </button>
-
-                          //             <button className="deletbtn">
-                          //               <img
-                          //                 src={deleteicon}
-                          //                 alt="delete icon "
-                          //                 onClick={(e) =>
-                          //                   DeleteItemfun(e, items)
-                          //                 }
-                          //               />
-                          //             </button>
-                          //           </div>
-                          //         </div>}
-
-                          //         <div className="tabinfo">
-                          //           <div className="leftpart">
-                          //             <p>
-                          //               {items?.description}
-                          //             </p>
-                          //             <span className="price">{`$${items?.item_price}`}</span>
-                          //           </div>
-                          //           <div className="rightpart">
-                          //             <img src={items?.image} alt="img" />
-                          //           </div>
-                          //         </div>
-                          //       </li>
-                          //     );
-                          //   }
-                          // )
 
 
                         }

@@ -1,77 +1,63 @@
+// Importing necessary dependencies from React and other libraries
 import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useNavigate,useLocation } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import * as yup from "yup";
 import './resetPassword.css'
-// import {Forgotpassword} from '../../Redux/slices/forgotPassword';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { ResetPasswordSlice } from '../../Redux/slices/resetPasswordSlice';
 import { reactLocalStorage } from 'reactjs-localstorage';
 
+// Functional component for ResetPassword page
 const ResetPassword = () => {
-
-
- 
+    // Initializing Redux dispatch function
     const dispatch = useDispatch();
-    const  params = useLocation();
-
+    // Hook for accessing the current location object
+    const params = useLocation();
+    // Retrieving BearerToken from local storage
     let BearerToken = reactLocalStorage.get("Token", false);
-    
+
+    // useEffect to extract and set BearerToken from the URL parameters
     useEffect(() => {
-        if(params?.pathname){
-
-            let splitdata =params?.pathname.split("/")[3] 
-            reactLocalStorage.set("Token",splitdata);
+        if (params?.pathname) {
+            let splitdata = params?.pathname.split("/")[3]
+            reactLocalStorage.set("Token", splitdata);
         }
-    }, [params])
-    
-    // const navigate = useNavigate();
-    // const [loadspiner, setLoadSpiner] = useState(false);
-    // const ForgotPasswordSelectorData = useSelector((state) => state?.Forgotpassword); 
+    }, [params]);
 
-    // useEffect(() => {
-    //     if (ForgotPasswordSelectorData?.data[0]?.status === 201) {
-    //       setLoadSpiner(false);
-    //       navigate("/emailotpverification");
-    //       window.location.reload(true);
-    //     }
-    //    else if (ForgotPasswordSelectorData?.error === "Rejected") {
-    //       setLoadSpiner(false);
-    //     }
-    //   }, [ForgotPasswordSelectorData]);
-
+    // Initial values for the Formik form
     const defaultValue = {
         new_pass: "",
         confirm_pass: ""
-      };
-    
-      const Validate = yup.object({
-        new_pass: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-        confirm_pass: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-      });
+    };
 
+    // Validation schema for the form using yup
+    const Validate = yup.object({
+        new_pass: yup.string().required("Password is required").matches(/^\S*$/, 'Password must not contain spaces'),
+        confirm_pass: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password must not contain spaces'),
+    });
 
-
+    // Handling form submission
     const handleSubmit = (values) => {
         values["BearerToken"] = BearerToken;
-        if(values.new_pass == values.confirm_pass){
+        // Checking if the new password matches the confirm password
+        if (values.new_pass === values.confirm_pass) {
             dispatch(ResetPasswordSlice(values));
-        }
-        else{
+        } else {
             toast.error("Password not matched");
         }
-        
-        // setLoadSpiner(true);
-      };
+    };
 
+    // JSX structure for the ResetPassword component
     return (
         <>
             <div className='resetpasswordpage'>
+                {/* Formik wrapper for form management */}
                 <Formik
-                  initialValues={defaultValue}
-                  validationSchema={Validate}
-                  onSubmit={handleSubmit}
+                    initialValues={defaultValue}
+                    validationSchema={Validate}
+                    onSubmit={handleSubmit}
                 >
                     <div className="loginpage">
                         <div className="login-box">
@@ -79,9 +65,11 @@ const ResetPassword = () => {
                                 <h2>Reset Password</h2>
                                 <p>Enter your new password</p>
                             </div>
+                            {/* Actual form inside the Formik wrapper */}
                             <Form>
                                 <div className="formbox">
                                     <label>Password </label>
+                                    {/* Input field for new password */}
                                     <Field
                                         name="new_pass"
                                         type="text"
@@ -89,13 +77,14 @@ const ResetPassword = () => {
                                         autoComplete="off"
                                         placeholder="**********"
                                     />
-                                    {/* <img src={sms} alt="sms img" className="imgsms" /> */}
+                                    {/* Error message for new password validation */}
                                     <p className="text-danger">
                                         <ErrorMessage name="new_pass" />
                                     </p>
                                 </div>
                                 <div className="formbox">
                                     <label>Confirm Password </label>
+                                    {/* Input field for confirming new password */}
                                     <Field
                                         name="confirm_pass"
                                         type="text"
@@ -103,25 +92,21 @@ const ResetPassword = () => {
                                         autoComplete="off"
                                         placeholder="***********"
                                     />
-                                    {/* <img src={sms} alt="sms img" className="imgsms" /> */}
+                                    {/* Error message for confirm password validation */}
                                     <p className="text-danger">
                                         <ErrorMessage name="confirm_pass" />
                                     </p>
                                 </div>
-
-
+                                {/* Submit button for the form */}
                                 <button type="submit" className="btn"> Reset </button>
                             </Form>
-
                         </div>
                     </div>
                 </Formik>
-                {/* <LodingSpiner loadspiner={loadspiner} /> */}
-
-
             </div>
         </>
-    )
+    );
 }
 
-export default ResetPassword
+// Exporting the ResetPassword component
+export default ResetPassword;
