@@ -146,6 +146,7 @@ const RestaurantDetail = ({ translaterFun }) => {
 
       // Call signUp API Here...
       await dispatch(SignUpSlice(SignUpForOnBoardPayload))
+      dispatch(LoadingSpinner(false))
     } catch (error) {
       await dispatch(LoadingSpinner(false))
     }
