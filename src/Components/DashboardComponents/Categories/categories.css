@@ -470,6 +470,10 @@
   margin: 10px 0;
 }
 
+.bestsellerpart > ul > li > .rightpart .demooo12:hover {
+   display: none;
+}
+
 .bestsellerpart ul li p span {
   cursor: pointer;
 }

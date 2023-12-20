@@ -1417,7 +1417,7 @@ const Categories = ({ translaterFun }) => {
                                       <>
 
                                         {item?.description_en?.length > 45 ? item?.description_en.slice(0, 45) + "..." : item?.description_en}
-                                        <span className="moreHover">{item?.description_en?.length > 45 ? <b>{translaterFun("more")} <div className=''>{item?.description_en} </div> </b> : ""}  </span>
+                                        <span className="moreHover">{item?.description_en?.length > 45 ? <b>  {translaterFun("more")}  <div className=''>{item?.description_en.slice(45, item?.description_en?.length)} </div> </b> : ""}  </span>
                                       </>
                                       :
                                       <>

@@ -426,6 +426,20 @@
   color: #000;
   display: none;
 }
+.topdishestabpart .bestsellerpart ul li p > span > b > div {
+  position: absolute;
+  padding: 8px;
+  border-radius: 6px;
+  background: #f8e0cf;
+  width: 185px;
+  color: #000;
+  display: none;
+}
+
+.topdishestabpart .bestsellerpart ul li p > span > b:hover div {
+  display: block;
+}
+ 
 
 .topdishestabpart .tab-content ul li p > span > b:hover div {
   display: block;
