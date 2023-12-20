@@ -247,7 +247,8 @@
 
   "confirm-upload" : "الاستبدال ببيانات جديدة: سيتم حذف القائمة الحالية. يتأكد؟",
   "save-profile" : "احفظ الملف",
-  "delete-successfully" : "تم الحذف بنجاح"
+  "delete-successfully" : "تم الحذف بنجاح",
+  "please-enter-your-number" : "الرجاء إدخال رقمك"
 
 
   

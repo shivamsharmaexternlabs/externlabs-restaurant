@@ -251,7 +251,8 @@
   "get-started" : "Get Started",
   "confirm-upload" : "Replacing with new data: Existing menu will be deleted. Confirm?",
   "save-profile" : "Save Profile",
-  "delete-successfully" : "Delete Successfully"
+  "delete-successfully" : "Delete Successfully",
+  "please-enter-your-number" : "Please Enter Your Number"
 
   
 }

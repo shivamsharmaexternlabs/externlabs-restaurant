@@ -171,7 +171,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
         }
         else {
-            toast.error("please enter your number");
+            toast.error(translaterFun("please-enter-your-number"));
 
         }
     }
@@ -188,7 +188,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
         }
         else {
-            toast.error("please enter your number");
+            toast.error(translaterFun("please-enter-your-number"));
 
         }
     }
@@ -249,7 +249,10 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
             popUpHookFun(false);
             toast.success(LeadsRestaurantSelectorData?.CreateLeadsRestaurantReducerData?.data?.message)
             // console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData?.CreateLeadsRestaurantReducerData)
-            window.location.reload()
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000);
+            
             // dispatch(ToggleNewLeads(false))
 
         }
@@ -537,7 +540,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
                                         <div className="col-md-3  mb-3 pe-md-1">
                                             <div className="formbox ">
-                                                <label>{translaterFun("")} Pincode </label>
+                                                <label>{translaterFun("pincode")}  </label>
                                                 <Field
                                                     name="pincode"
                                                     type="text"

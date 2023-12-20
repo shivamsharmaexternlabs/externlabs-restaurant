@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { reactLocalStorage } from "reactjs-localstorage";
 import usePopUpHook from "../../../CustomHooks/usePopUpHook/usePopUpHook";
 import { SignUpSlice } from "../../../Redux/slices/SignUpSlice";
-import { CreateRestaurantsOnBoardSlice, LeadsRestaurantSlice, UpdateRestaurantSlice } from '../../../Redux/slices/leadsRestaurantSlice';
+import { CreateRestaurantsOnBoardSlice, GetRestaurantsOnBoardSlice, LeadsRestaurantSlice, UpdateRestaurantSlice } from '../../../Redux/slices/leadsRestaurantSlice';
 import { ResetPasswordSlice } from '../../../Redux/slices/resetPasswordSlice'
 import close from "../../../images/close.svg";
 import { UpdateLeadsSlice } from '../../../Redux/slices/leadsSlice'
@@ -78,22 +78,25 @@ const RestaurantDetail = ({ translaterFun }) => {
     confirm_pass: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, translaterFun("password-not-contain-spaces")),
   });
 
-  const defaultValue = {
-    restaurant_name: routeData?.state?.currentData?.restaurant_name,
+  console.log("msvdsnd",LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData, routeData?.state?.page)
 
-    owner_name: routeData?.state?.currentData?.owner?.first_name === undefined ? routeData?.state?.currentData?.contact_name : routeData?.state?.currentData?.owner?.first_name,
-    email: routeData?.state?.currentData?.owner?.email === undefined ? routeData?.state?.currentData?.email : routeData?.state?.currentData?.owner?.email,
+  const defaultValue = {
+    restaurant_name: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.restaurant_name :routeData?.state?.currentData?.restaurant_name,
+    owner_name: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.owner?.first_name :routeData?.state?.currentData?.owner?.first_name === undefined ? routeData?.state?.currentData?.contact_name : routeData?.state?.currentData?.owner?.first_name,
+
+    // owner_name: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.owner?.first_name :routeData?.state?.currentData?.owner?.first_name === undefined ? routeData?.state?.currentData?.contact_name : routeData?.state?.currentData?.owner?.first_name,
+    email: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.owner?.email  :  routeData?.state?.currentData?.owner?.email === undefined ? routeData?.state?.currentData?.email : routeData?.state?.currentData?.owner?.email,
     // phone_ext: routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone?.split("-")[0] : routeData?.state?.currentData?.owner?.phone_number?.split("-")[0],
     // phone: routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone?.split("-")[1] : routeData?.state?.currentData?.owner?.phone_number?.split("-")[1],
 
-    shop_no: routeData?.state?.currentData?.shop_no === undefined ? routeData?.state?.currentData?.shop_number : routeData?.state?.currentData?.shop_no,
-    street: routeData?.state?.currentData?.street === undefined ? routeData?.state?.currentData?.street_name : routeData?.state?.currentData?.street,
-    city: routeData?.state?.currentData?.city,
-    landmark: routeData?.state?.currentData?.landmark,
-    pincode: routeData?.state?.currentData?.pincode,
-    state: routeData?.state?.currentData?.state,
-    country: routeData?.state?.currentData?.country,
-    description: routeData?.state?.currentData?.description,
+    shop_no: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.shop_no : routeData?.state?.currentData?.shop_no === undefined ? routeData?.state?.currentData?.shop_number : routeData?.state?.currentData?.shop_no,
+    street: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.street : routeData?.state?.currentData?.street === undefined ? routeData?.state?.currentData?.street_name : routeData?.state?.currentData?.street,
+    city: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.city : routeData?.state?.currentData?.city,
+    landmark: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.landmark : routeData?.state?.currentData?.landmark,
+    pincode: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.pincode : routeData?.state?.currentData?.pincode,
+    state: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.state : routeData?.state?.currentData?.state,
+    country: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.country : routeData?.state?.currentData?.country,
+    description: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.description : routeData?.state?.currentData?.description,
 
 
   };
@@ -109,7 +112,19 @@ const RestaurantDetail = ({ translaterFun }) => {
 
   }, [routeData?.state?.currentData])
 
-  console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
+
+
+  useEffect(() => {
+
+    // dispatch(LoadingSpinner(false))
+
+    if(routeData?.state?.page === "restaurant"){
+      dispatch(GetRestaurantsOnBoardSlice({RestaurantId : routeData?.state?.currentData?.restaurant_id, Token : BearerToken}))
+    }
+
+  }, [LeadsRestaurantSelectorData?.UpdateRestaurantReducerData])
+
+  console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data)
 
   const Validate = yup.object({
     restaurant_name: yup.string().required(translaterFun("restaurant-name-is-required")),
@@ -350,10 +365,10 @@ const RestaurantDetail = ({ translaterFun }) => {
     try {
 
       await dispatch(ResetPasswordSlice(forgetPayload));
-      await dispatch(LoadingSpinner(true))
+      await dispatch(LoadingSpinner(false))
 
     } catch (error) {
-      await dispatch(LoadingSpinner(true))
+      await dispatch(LoadingSpinner(false))
     }
 
   }
@@ -421,7 +436,7 @@ const RestaurantDetail = ({ translaterFun }) => {
               <Formik
                 initialValues={defaultValue}
                 validationSchema={Validate}
-
+                enableReinitialize
                 onSubmit={(values) => {
                   if (submitAction === "primary") {
                     console.log("dhgasjh")

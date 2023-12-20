@@ -54,6 +54,29 @@ export const CreateLeadsRestaurantSlice = createAsyncThunk("CreateLeadsRestauran
 );
 
 
+// get a single Restaurant
+export const GetRestaurantsOnBoardSlice = createAsyncThunk("GetRestaurantsOnBoardSlice",async (body, { rejectWithValue }) => { 
+  try {
+    console.log("bhgvcfcgvhb", body)
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant/${body?.RestaurantId}/`,
+    {
+      headers: {
+        Authorization: `Bearer ${body?.Token}`,
+        "Accept-Language": languageSet
+      },
+    }); 
+
+    return response;
+
+  } catch (err) { 
+    toast.error(err?.response?.data?.error?.[0]);
+    return rejectWithValue(err);
+  }
+}
+);
+
+
+
 
 // create Restaurant After SignUp Slice 
 export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurantsOnBoardSlice",async (body, { rejectWithValue }) => { 
@@ -106,6 +129,7 @@ export const LeadsRestaurantReducer = createSlice({
   initialState: {
     LeadsRestaurantReducerData: [],
     CreateLeadsRestaurantReducerData : [],
+    GetRestaurantsOnBoardSliceReducerData : [],
     RestaurantOnBoardReducerData : [],
     UpdateRestaurantReducerData : [],
     loading: false,
@@ -148,6 +172,21 @@ export const LeadsRestaurantReducer = createSlice({
         state.loading = false;
         state.error = action.payload;
         // state.error = action.error.message;
+      })
+
+
+      // Get a single Restaurant 
+      .addCase(GetRestaurantsOnBoardSlice.pending, (state) => { 
+        state.loading = true;
+      })
+
+      .addCase(GetRestaurantsOnBoardSlice.fulfilled, (state, action) => { 
+        state.GetRestaurantsOnBoardSliceReducerData = action.payload;
+      })
+
+      .addCase(GetRestaurantsOnBoardSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       })
 
 
