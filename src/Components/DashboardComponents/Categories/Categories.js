@@ -366,7 +366,8 @@ const Categories = ({ translaterFun }) => {
   }).shape({
     item_name_en: yup.string().when('item_name_native',
       (item_name_native_value) => {
-        if (item_name_native_value[0]) {
+        console.log("add_menu_item_item_name_native_value",item_name_native_value )
+        if (item_name_native_value?.[0]) {
           return yup.string()
         } else {
           return yup.string().required("Provide Item Name in English, Arabic, or both")
@@ -374,7 +375,7 @@ const Categories = ({ translaterFun }) => {
       }),
     item_name_native: yup.string().when('item_name_en',
       (item_name_en_value) => {
-        if (item_name_en_value[0]) {
+        if (item_name_en_value?.[0]) {
           return yup.string()
         } else {
           return yup.string().required("قم بتوفير اسم العنصر باللغة الإنجليزية أو العربية أو كليهما")
@@ -521,6 +522,8 @@ const Categories = ({ translaterFun }) => {
     setEditMenuData(itemData);
     setuploadImage(itemData?.image);
 
+    console.log("itemData", itemData)
+
     setDescriptionEn(itemData?.description_en)
     setDescriptionNative(itemData?.description_native)
 
@@ -541,8 +544,8 @@ const Categories = ({ translaterFun }) => {
     description_en: DescriptionEn,
     description_native: DescriptionNative,
     image: uploadImage,
-    item_name_en: EditMenuData?.item_name_en,
-    item_name_native: EditMenuData?.item_name_native,
+    item_name_en: EditMenuData?.item_name_en === null ? "" : EditMenuData?.item_name_en,
+    item_name_native: EditMenuData?.item_name_native === null ? "" : EditMenuData?.item_name_native,
     item_price: EditMenuData?.item_price,
     calories: EditMenuData?.calories,
     menu_id: EditMenuData?.menu_id,
@@ -563,6 +566,7 @@ const Categories = ({ translaterFun }) => {
   }).shape({
     item_name_en: yup.string().when('item_name_native',
       (item_name_native_value) => {
+        console.log("add_menu_item_item_name_native_value editedit",item_name_native_value )
         if (item_name_native_value[0]) {
           return yup.string()
         } else {
@@ -582,28 +586,32 @@ const Categories = ({ translaterFun }) => {
 
 
   const handleEditMenuSubmit = async (values) => {
-    let payload = {
-      item_id: EditMenuData?.item_id,
-      restaurant_id: values?.restaurant_id,
-      description_en: DescriptionEn,
-      description_native: DescriptionNative,
-      image: uploadImage,
-      item_name_en: values?.item_name_en,
-      item_name_native: values?.item_name_native,
-      item_price: values?.item_price,
-      calories: values?.calories,
-      menu_id: values?.menu_id,
-      item_type: values?.item_type,
-      currency: values?.currency,
-      calories_unit: EditMenuData?.calories_unit,
-      BearerToken
-    };
 
     dispatch(LoadingSpinner(true))
     try {
+      let payload = {
+        item_id: EditMenuData?.item_id,
+        restaurant_id: values?.restaurant_id,
+        description_en: DescriptionEn,
+        description_native: DescriptionNative,
+        image: uploadImage,
+        item_name_en: values?.item_name_en,
+        item_name_native: values?.item_name_native,
+        item_price: values?.item_price,
+        calories: values?.calories,
+        menu_id: values?.menu_id,
+        item_type: values?.item_type,
+        currency: values?.currency,
+        calories_unit: EditMenuData?.calories_unit,
+        BearerToken
+      };
+
       let responseData = await dispatch(EditMenuItemSlice(payload));
+
       setDescriptionEn("");
       setDescriptionNative("");
+
+      console.log("DescriptionNative", DescriptionNative)
 
       setuploadImage("");
       popUpEditHookFun(false);
@@ -1266,7 +1274,7 @@ const Categories = ({ translaterFun }) => {
                         {
                           DragAndDropItems?.map(
                             (items, ids) => {
-                              console.log("SDASFGH", items)
+                              {/* console.log("SDASFGH", items) */}
                               return (
                                 <li
                                   key={ids}
