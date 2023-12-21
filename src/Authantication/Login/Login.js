@@ -138,7 +138,7 @@ const Login = () => {
             </div>
             {/* Actual form inside the Formik wrapper */}
             <Form>
-              <div className="formbox">
+              <div className="formbox" dir={languageSetDAta == "ar" ? "rtl" : ""}>
                 <label>{t("email-or-phone-no")} </label>
                 {/* Input field for email or phone number */}
                 <Field
@@ -147,6 +147,7 @@ const Login = () => {
                   className={`form-control `}
                   autoComplete="off"
                   placeholder={t("email-or-phone-no")}
+                   
                 />
                 {/* Error message for email or phone validation */}
                 <p className="text-danger">
@@ -154,7 +155,7 @@ const Login = () => {
                 </p>
               </div>
 
-              <div className="formbox">
+              <div className="formbox" dir={languageSetDAta == "ar" ? "rtl" : ""}>
                 <label>{t("password")} </label>
                 {/* Password input field with optional visibility toggle */}
                 <PasswordEye  t={t}/>
