@@ -18,13 +18,13 @@ const DashboardHeader = ({ popUpHookFun }) => {
   const [LogOutToggle, setLogOutToggle] = useState(false)
   const [languagesDataKey, setlanguagesDataKey] = useState("")
   const [languagesDataValue, setlanguagesDataValue] = useState("English")
-const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
-  
+  const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
+
 
 
   const navigate = useNavigate()
   const dispatch = useDispatch();
-  const params=useLocation()
+  const params = useLocation()
   const { t, i18n } = useTranslation();
   let BearerToken = reactLocalStorage.get("Token", false);
 
@@ -33,10 +33,12 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
   let UserNameData = reactLocalStorage.get("FirstName", false);
   let languageSetData = reactLocalStorage.get("languageSet", false);
 
-  const handleLogout = () => {
-    // reactLocalStorage.remove("token")
-    navigate("/")
-    reactLocalStorage.clear()
+  const handleLogout = () => { 
+    navigate("/")   
+    var myItem = localStorage.getItem('languageSet');
+    localStorage.clear();
+    localStorage.setItem('languageSet', myItem);
+
     window.location.reload()
   }
 
@@ -67,33 +69,33 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
       dispatch(LanguageChange(languageDAta))
     }
   }, [languageDAta])
-  
+
   let languageData = [
     { value: "en", key: "English" },
     { value: "ar", key: "عربي" }
 
   ]
 
-  const languageDataFun =(e,value,key)=>{
+  const languageDataFun = (e, value, key) => {
 
 
-    setlanguagesDataValue(  value=="English"?"عربي":"English")
+    setlanguagesDataValue(value == "English" ? "عربي" : "English")
     setlanguagesDataKey(key)
-    
-    setSelectToggleSelectTogglealue(o=>!o)
-    
-    if(key !== languageDAta){
+
+    setSelectToggleSelectTogglealue(o => !o)
+
+    if (key !== languageDAta) {
       window.location.reload()
       reactLocalStorage.set("languageSet", key);
     }
   }
 
-  const openSelectToggleFun=()=>{
-    setSelectToggleSelectTogglealue(o=>!o)
+  const openSelectToggleFun = () => {
+    setSelectToggleSelectTogglealue(o => !o)
   }
 
   // useEffect(() => {
-    
+
   //   // i18n.changeLanguage(languageSetData) 
 
 
@@ -105,16 +107,16 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
         {/* <div className='leftpart'>  <form> <input type='search' placeholder='Search…' /> </form> </div> */}
         <div className='rightpart'>
           <div className='languaselist'>
-            <img src={globe} alt='Language img' className='globeimg'/>
-            <button className='' onClick={(e)=>openSelectToggleFun()}> { languageDAta === "en" ?  "عربي" : "English" } </button>
+            <img src={globe} alt='Language img' className='globeimg' />
+            <button className='' onClick={(e) => openSelectToggleFun()}> {languageDAta === "en" ? "عربي" : "English"} </button>
             {SelectToggleValue && <ul className=''  >
-              {languageData?.map((items,id)=>{
-               return  <li onClick={(e)=>languageDataFun(e, items?.key, items?.value)}> {items?.key}  </li> 
-              })} 
+              {languageData?.map((items, id) => {
+                return <li onClick={(e) => languageDataFun(e, items?.key, items?.value)}> {items?.key}  </li>
+              })}
             </ul>}
           </div>
 
-          {UserTypeData !== "owner" && params?.pathname?.split("/")?.[2] !=="restaurantdetail" && <button type='button' className="btn2 me-3"
+          {UserTypeData !== "owner" && params?.pathname?.split("/")?.[2] !== "restaurantdetail" && <button type='button' className="btn2 me-3"
             onClick={(e) => PopUpToggleFun()}
           >
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,7 +125,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
             {t("new-customer")}
           </button>}
 
-          <span className='notifyimg'> <img src={notify} alt='notify img'  /> </span>
+          <span className='notifyimg'> <img src={notify} alt='notify img' /> </span>
           <div className='user'  >
             <figure> <img src={user} alt='user img' />  </figure>
             <div className='userinfo'>

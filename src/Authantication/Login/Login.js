@@ -107,6 +107,9 @@ const Login = () => {
     // if(languageSet==false){
     //   setlanguageToggleValue()
     // }
+    if(languageSetDAta==false){
+      reactLocalStorage.set("languageSet", "en");
+    }
     i18n.changeLanguage(languageSetDAta)
   }, [languageSetDAta])
 
