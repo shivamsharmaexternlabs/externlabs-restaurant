@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import "./i18n/config.js"
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Login from "../src/Authantication/Login/Login";
 import Signup from './Authantication/SignUp/Signup';
 import './App.css';
@@ -32,6 +32,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import rotateimage from "./images/rotateimage.png"
+import DashboardHeader from './Components/DashboardComponents/DashboardHeader/DashboardHeader.js';
 /* import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 i18n.use(initReactI18next).init({
@@ -55,6 +56,8 @@ function App() {
 
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
+
+  const locationData =useLocation()
 
   const ManagerApiSelectorData = useSelector((state) => state.ToggleBarData);
 
@@ -105,11 +108,15 @@ function App() {
 
 
   useEffect(() => {
+    let splitOrderId = locationData?.pathname.split("/");  
+    if(locationData?.pathname !=="/" &&  locationData?.pathname !== `/${splitOrderId[1]}`){ 
     i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
+  }
+
+
   }, [ManagerApiSelectorData?.languagechange])
 
-
-
+ 
   return (
     <>
       <div className={languageDAta == "ar" ? "arabic  " : " "} dir={languageDAta == "ar" ? "rtl" : ""}>
@@ -133,6 +140,7 @@ function App() {
           </Routes>
         }
         <Routes>
+ 
           <Route path="/" element={<Login translaterFun={t} />}></Route>
           <Route path="/:id" element={<Login translaterFun={t} />}></Route> 
 

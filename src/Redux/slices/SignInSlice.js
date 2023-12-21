@@ -15,6 +15,7 @@ export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectW
           "Accept-Language": languageSet
         },
       });
+      console.log("khdgjdssd",response)
       toast.success("Successfully Loged In");
       reactLocalStorage.set("Token",response?.data?.token);
       reactLocalStorage.set("FirstName",response?.data?.first_name);

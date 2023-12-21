@@ -31,6 +31,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
   let UserTypeData = reactLocalStorage.get("Type", false);
 
   let UserNameData = reactLocalStorage.get("FirstName", false);
+  let languageSetData = reactLocalStorage.get("languageSet", false);
 
   const handleLogout = () => {
     // reactLocalStorage.remove("token")
@@ -91,6 +92,13 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
     setSelectToggleSelectTogglealue(o=>!o)
   }
 
+  // useEffect(() => {
+    
+  //   // i18n.changeLanguage(languageSetData) 
+
+
+  // }, [languageSetData])
+
   return (
     <>
       <header>
@@ -120,7 +128,7 @@ const [SelectToggleValue,setSelectToggleSelectTogglealue] = useState(false)
             <figure> <img src={user} alt='user img' />  </figure>
             <div className='userinfo'>
               <h3>{UserNameData}</h3>
-              <p>{UserTypeData}</p>
+              <p>{t(UserTypeData)} </p>
             </div>
             <div className='dropdownopt' onClick={(e) => LogoutFun()}>
               <span></span>

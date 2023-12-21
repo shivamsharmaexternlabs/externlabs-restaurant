@@ -9,20 +9,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { SignInSlice } from "../../Redux/slices/SignInSlice";
 import { reactLocalStorage } from "reactjs-localstorage";
 import PasswordEye from "../../ReusableComponents/PasswordEye/PasswordEye";
+import { useTranslation } from "react-i18next";
 
 // Functional component for the Login page
 const Login = () => {
   // Initializing Redux dispatch function
   const dispatch = useDispatch();
-  
+
   // Initializing navigation hook from react-router-dom
   const navigate = useNavigate();
-  
+
   // State for managing loading spinner
   const [loadspiner, setLoadSpiner] = useState(false);
-  
+
   // State for managing password visibility
   const [showPassword, setShowPassword] = useState(false);
+  const [languageToggleValue,setlanguageToggleValue] = useState(false);
 
   // Retrieving data from the Redux store using useSelector
   const User = useSelector((state) => state.SignInApiData);
@@ -30,12 +32,17 @@ const Login = () => {
   // Retrieving RestaurantId from local storage
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
+  let languageSetDAta = reactLocalStorage.get("languageSet", false);
+
+  const { t, i18n } = useTranslation()
+
+
   // useEffect to handle changes in the Redux store data
   useEffect(() => {
     // Checking if the status is 200, indicating successful login
     if (User?.data?.status === 200) {
       setLoadSpiner(false);
-      reactLocalStorage.set("languageSet", "en");
+      // reactLocalStorage.set("languageSet", "en");
 
       // Checking user type and redirecting accordingly
       if (User?.data?.data?.type !== "sales") {
@@ -65,9 +72,9 @@ const Login = () => {
 
   // Validation schema for the form using yup
   const Validate = yup.object({
-    email_or_phone: yup.string().required("Email or phone number is required"),
+    email_or_phone: yup.string().required(t("email-or-phone-number-is-required")),
 
-    password: yup.string().required("Password is required").matches(/^\S*$/, 'Password must not contain spaces'),
+    password: yup.string().required(t("password-is-required")).matches(/^\S*$/, t('password-must-not-contain-spaces')),
   });
 
   // Handling form submission
@@ -75,6 +82,35 @@ const Login = () => {
     dispatch(SignInSlice(values));
     setLoadSpiner(true);
   };
+
+  const languageSwitchFun = (e) => {
+
+    setlanguageToggleValue(e.target.checked)
+    console.log("jhgchvjhk", e.target.checked)
+    if(e.target.checked === true) { 
+      i18n.changeLanguage("ar")
+       reactLocalStorage.set("languageSet", "ar");
+      // window.location.reload()
+
+    }
+    else{ 
+      i18n.changeLanguage("en")
+      reactLocalStorage.set("languageSet", "en");
+      // window.location.reload()
+    }
+  }
+
+  
+  
+  useEffect(() => {
+    console.log("anbsddchsds",languageSetDAta)
+    // if(languageSet==false){
+    //   setlanguageToggleValue()
+    // }
+    i18n.changeLanguage(languageSetDAta)
+  }, [languageSetDAta])
+
+ console.log("sdvsdvs",languageSetDAta)
 
   // JSX structure for the Login component
   return (
@@ -88,20 +124,29 @@ const Login = () => {
         >
           <div className="login-box">
             <div className="title">
-              <h2>Sign In</h2>
-              <p>Sign in to stay connected.</p>
+              <h2>{t("sign-in-login")}</h2>
+              <p>{t("sign-in-to-stay-connected")}</p>
+              <div className="switchtogglebtn">
+                English
+                <label class="switch">
+                  <input type="checkbox" checked={languageSetDAta == "en" || languageSetDAta==false?false:true}   onChange={(e) => languageSwitchFun(e)} />
+                  <span class="slider round"></span>
+                </label>
+                عربي
+
+              </div>
             </div>
             {/* Actual form inside the Formik wrapper */}
             <Form>
               <div className="formbox">
-                <label>Email or Phone No </label>
+                <label>{t("email-or-phone-no")} </label>
                 {/* Input field for email or phone number */}
                 <Field
                   name="email_or_phone"
                   type="text"
                   className={`form-control `}
                   autoComplete="off"
-                  placeholder="Email or Phone No"
+                  placeholder={t("email-or-phone-no")}
                 />
                 {/* Error message for email or phone validation */}
                 <p className="text-danger">
@@ -110,9 +155,9 @@ const Login = () => {
               </div>
 
               <div className="formbox">
-                <label>Password </label>
+                <label>{t("password")} </label>
                 {/* Password input field with optional visibility toggle */}
-                <PasswordEye />
+                <PasswordEye  t={t}/>
                 {/* Error message for password validation */}
                 <p className="text-danger">
                   <ErrorMessage name="password" />
@@ -146,7 +191,7 @@ const Login = () => {
 
               {/* Submit button for the form */}
               <button type="submit" className="btn">
-                Sign in
+              {t("sign-in-login")}
               </button>
             </Form>
           </div>

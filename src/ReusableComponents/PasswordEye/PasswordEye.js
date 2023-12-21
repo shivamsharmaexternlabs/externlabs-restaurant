@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {  Field  } from "formik";
 
 
-const PasswordEye = () => {
+const PasswordEye = ({t}) => {
   const [password, setPassword] = useState("");
 
   const [showpassword, setShowPassword] = useState(false);
@@ -12,7 +12,7 @@ const PasswordEye = () => {
         name="password"
         type={showpassword ? "text" : "password"}
         className="form-control"
-        placeholder="Password"
+        placeholder={t("password")}
       />
       {/* <input
         maxLength={15}

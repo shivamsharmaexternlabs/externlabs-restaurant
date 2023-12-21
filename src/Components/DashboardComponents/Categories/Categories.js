@@ -14,6 +14,8 @@ import defaultImage from '../../../images/defaultimg.png'
 import dot from '../../../images/dot.svg'
 import star from "../../../images/starb.svg";
 import editw from "../../../images/editw.svg";
+import icon4 from '../../../images/icon4.svg'
+import icon5 from '../../../images/icon5.svg'
 import order from "../../../images/order.svg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
@@ -530,7 +532,7 @@ const Categories = ({ translaterFun }) => {
   };
   const QrCodeSampleDownloadFun = () => {
     let url = QrSampleImage;
-    saveAs(url, "Twitter-logo");
+    saveAs(url, "Sample-Menu");
   };
 
 
@@ -1115,7 +1117,6 @@ const Categories = ({ translaterFun }) => {
                               // aria-controls="nav-dishes1"
                               // aria-selected="true"
                               >
-
                                 <div className="editinfobtnbox" onClick={(e) => {
                                   OpenActionToggleMenuFun(e, item);
                                   CategoryTabFun(e, item, "3dots");
@@ -1124,11 +1125,7 @@ const Categories = ({ translaterFun }) => {
                                   <button type="button">
                                     <img src={dot} alt="img" />
                                   </button>
-
-
-
                                   {item?.menu_id === OpenMenuActionToggle && <div className="btnbox">
-
                                     <button type="button" className="editbtn"
                                       onClick={(e) =>
                                         PopUpEditCategoriesToggleFun(e, item)
@@ -1136,17 +1133,11 @@ const Categories = ({ translaterFun }) => {
                                     >
                                       <img src={edit1} alt="img" />{" "} {translaterFun("edit")}
                                     </button>
-
                                     <button className="deletbtn" onClick={(e) => DeleteCategoryfun(e, item)}>
                                       <img src={deleteicon} alt="delete icon " /> {translaterFun("delete")}
                                     </button>
-
                                   </div>}
-
-
                                 </div>
-
-
                                 <div>
                                   <figure className="curserer" >
                                     <img
@@ -1250,8 +1241,6 @@ const Categories = ({ translaterFun }) => {
                     
                       <div className="item-head">
                         <h2>{translaterFun("items")}</h2>
-
-
                         <div className="reorder-icon-div" onClick={(e) => setDraggableSubcategory(o => !o)}>
                           {!SaveActiveBtn &&
                             <>
@@ -1274,10 +1263,7 @@ const Categories = ({ translaterFun }) => {
 
                       <ul>
                         {/* CATEGORY ITEMS DATA MANAGEMENT */}
-
-
                         {
-
                           DragAndDropItems?.map(
                             (items, ids) => {
                               console.log("SDASFGH", items)
@@ -1355,7 +1341,10 @@ const Categories = ({ translaterFun }) => {
                                   </div>
                                   }
 
-                                  <h5 className='mt-1'> {items?.calories} {items?.calories_unit}</h5>
+                                  <h5 className='mt-1'> 
+                                  
+                                  {items?.is_veg==true?<img src={icon4} alt='img' className='me-1' />:<img src={icon5} alt='img' className='me-1' />}  {items?.calories} {items?.calories_unit}</h5>
+                                   
                                   <div className="tabinfo">
                                     <div className="leftpart">
                                       <p>
@@ -1400,9 +1389,8 @@ const Categories = ({ translaterFun }) => {
                   <h2>{translaterFun("bestseller")}</h2>
                   <ul>
                     {/* FAVORITE DISHES MANAGEMENT */}
-                    {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map(
-
-                      (items, favoriteId) => {
+                    {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map( 
+                      (items, favoriteId) => { 
                         return items?.item_id?.map((item, favoriteDishId) => {//no need this map every time it's 0'th index
                           return (
                             <li key={favoriteDishId}>
@@ -1410,7 +1398,12 @@ const Categories = ({ translaterFun }) => {
                                 <img src={item?.image == null ? defaultImage : item?.image} alt="img" />
                               </div>
                               <div className="rightpart">
-                                <h3>{languageSet === "en" ? item?.item_name_en : item?.item_name_native}</h3>
+                                <h3 className="bestseller-veg-non-veg">
+                                  
+                                 {item?.is_veg==true? <img src={icon4} alt='img' className='me-2  ' />:<img src={icon5} alt='img' className='me-2' /> }
+                                  
+                                   {languageSet === "en" ? item?.item_name_en : item?.item_name_native} </h3>
+                                 
                                 <p>
                                   {
                                     (languageSet == "en") ?

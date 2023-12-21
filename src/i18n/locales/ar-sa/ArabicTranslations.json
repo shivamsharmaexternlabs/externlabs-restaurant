@@ -39,7 +39,7 @@
   "per-year": "سنويا",
   "per-month": "شهريا",
   "delete": "حذف",
-
+  "yearly" : "سنوي",
   "-------------DashBoardData--------": "-------------DashBoardData--------",
 
   "good-afternoon": "نهارك سعيد",
@@ -50,6 +50,8 @@
   "subscription-plan": "خطة الاشتراك",
   "view-details": "عرض التفاصيل",
   "owner": "المالك",
+  "sales":"مبيعات",
+
   "basic": "أساسي",
   "start-date": "تاريخ البدء",
   "end-date": "تاريخ الانتهاء",
@@ -60,6 +62,8 @@
   "assigned-to": "تخصيص ل",
   "logout": "تسجيل خروج",
   "download-now": "التحميل الان",
+  "payment-montly":"شهريا",
+  "payment-yearly":"سنوي",
 
   "-------------RestaurantsLeadData--------": "-------------RestaurantsLeadData--------",
   "good-afternoon": "نهارك سعيد",
@@ -248,7 +252,12 @@
   "confirm-upload" : "الاستبدال ببيانات جديدة: سيتم حذف القائمة الحالية. يتأكد؟",
   "save-profile" : "احفظ الملف",
   "delete-successfully" : "تم الحذف بنجاح",
-  "please-enter-your-number" : "الرجاء إدخال رقمك"
+  "please-enter-your-number" : "الرجاء إدخال رقمك",
+  "sign-in-login" : "تسجيل الدخول",
+  "sign-in-to-stay-connected" : "تسجيل الدخول للبقاء على اتصال.",
+  "email-or-phone-no" : "البريد الإلكتروني أو رقم الهاتف",
+  "email-or-phone-number-is-required" : "مطلوب البريد الإلكتروني أو رقم الهاتف",
+  "password-must-not-contain-spaces" : "يجب ألا تحتوي كلمة المرور على مسافات"
 
 
   

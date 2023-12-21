@@ -153,7 +153,7 @@ const PaymentHistory = ({ translaterFun }) => {
 
                             { SelectedMonth != "Month" ? SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
                                 console.log("mndbsbsfds", items)
-                                return items?.interval === "year" && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
+                                return items?.interval ===  translaterFun("payment-yearly")  && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
 
                                     <h3> {items?.plan_id?.name} </h3>
                                     <p>{items?.plan_id?.description}</p>
@@ -165,7 +165,7 @@ const PaymentHistory = ({ translaterFun }) => {
                             }) :
                             SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
                                 console.log("mndbsbsfds", items)
-                                return items?.interval === "month" && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
+                                return items?.interval === translaterFun("payment-montly")   && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
 
                                     <h3> {items?.plan_id?.name} </h3>
                                     <p>{items?.plan_id?.description}</p>

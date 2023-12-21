@@ -52,6 +52,7 @@
   "subscription-plan": "Subscription Plan",
   "view-details": "View Details",
   "owner": "owner",
+  "sales":"sales",
   "basic": "Basic",
   "start-date": "Start Date",
   "end-date": "End Date",
@@ -218,7 +219,10 @@
   "password-not-contain-spaces": "Password name must not contain spaces",
   "owner-name-is-required": "owner name is required",
   "email-is-invalid": "Email is Invalid",
-  "sign-in": "Sign in to stay connected.",
+
+  "payment-montly":"month",
+  "payment-yearly":"year",
+  
   "logout": "Logout",
   "good-afternoon": "Good afternoon",
   "restaurants": "Restaurants",
@@ -252,7 +256,14 @@
   "confirm-upload" : "Replacing with new data: Existing menu will be deleted. Confirm?",
   "save-profile" : "Save Profile",
   "delete-successfully" : "Delete Successfully",
-  "please-enter-your-number" : "Please Enter Your Number"
+  "please-enter-your-number" : "Please Enter Your Number",
+  "sign-in-login" : "Sign In",
+  "sign-in-to-stay-connected" : "Sign in to stay connected.",
+  "email-or-phone-no" : "Email or Phone No",
+  "email-or-phone-number-is-required" : "Email or phone number is required",
+  "password-must-not-contain-spaces" : "Password must not contain spaces"
+  
+
 
   
 }
