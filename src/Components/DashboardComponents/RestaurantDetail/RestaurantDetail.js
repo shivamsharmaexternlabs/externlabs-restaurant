@@ -107,8 +107,8 @@ const RestaurantDetail = ({ translaterFun }) => {
     console.log("bhgcfxcgvh", routeData?.state.currentData)
 
     if (routeData?.state?.currentData) {
-      setPhoneNumber(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone : routeData?.state?.currentData?.owner?.phone_number?.split("-")[1])
-      setCountryCode(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.country_code : routeData?.state?.currentData?.owner?.phone_number?.split("-")[0])
+      setPhoneNumber(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone : routeData?.state?.currentData?.owner?.phone_number?.split("-")?.[1])
+      setCountryCode(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.country_code : routeData?.state?.currentData?.owner?.phone_number?.split("-")?.[0])
     }
 
   }, [routeData?.state?.currentData])
@@ -393,8 +393,8 @@ const RestaurantDetail = ({ translaterFun }) => {
   ) => {
     // we are not using all the parameters in this function , but all parameters are important becouse of this library
     let data = [];
-    let CountryCode = eventTargetValue.split(" ");
-    setCountryCode(CountryCode[0]);
+    let CountryCode = eventTargetValue?.split(" ");
+    setCountryCode(CountryCode?.[0]);
     CountryCode.slice(1).map((items, id) => {
       data.push(items);
     });

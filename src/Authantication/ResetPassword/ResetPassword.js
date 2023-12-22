@@ -21,7 +21,7 @@ const ResetPassword = () => {
     // useEffect to extract and set BearerToken from the URL parameters
     useEffect(() => {
         if (params?.pathname) {
-            let splitdata = params?.pathname.split("/")[3]
+            let splitdata = params?.pathname?.split("/")?.[3]
             reactLocalStorage.set("Token", splitdata);
         }
     }, [params]);

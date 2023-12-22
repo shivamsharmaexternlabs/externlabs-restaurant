@@ -346,8 +346,8 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
     ) => {
         // we are not using all the parameters in this function , but all parameters are important becouse of this library
         let data = [];
-        let CountryCode = eventTargetValue.split(" ");
-        setCountryCode(CountryCode[0]);
+        let CountryCode = eventTargetValue?.split(" ");
+        setCountryCode(CountryCode?.[0]);
         CountryCode.slice(1).map((items, id) => {
             data.push(items);
         });

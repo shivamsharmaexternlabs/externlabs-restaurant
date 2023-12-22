@@ -114,7 +114,7 @@ const AllMedia = ({ translaterFun }) => {
                                                     <img src={upload} alt='upload' />
                                                 </button>
                                             </figure>
-                                            <h4>{items.split("/")?.[4].split(".")?.[0]}</h4>
+                                            <h4>{items?.split("/")?.[4]?.split(".")?.[0]}</h4>
                                         </li>
                                     );
                                 })
