@@ -58,6 +58,7 @@
     padding: 15px;
     background: #F6F6F6;
     border-radius: 10px;
+    position: relative;
 }
 
 .paylist li select {
@@ -91,7 +92,37 @@
     font-size: 34px;
     color: #000;
     font-weight: 500;
+    padding-right: 120px;
 }
+
+.planbtn{
+    position: absolute;
+    top: 17px;
+    right: 16px;
+    margin: 0;
+    padding: 6px 20px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.planbtn .dott{
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    border-radius: 50%;
+    background-color: #42B856;
+    position: relative;
+    animation: blink infinite 1s ;
+
+}
+
+@keyframes blink {
+    0% { background-color: #fff; }
+    80% { background-color: #42B856; }
+    100% { background-color: #fff; }
+}
+
 
 .paylist li p {
     color: #000;

@@ -156,6 +156,12 @@ const PaymentHistory = ({ translaterFun }) => {
                                 return items?.interval ===  translaterFun("payment-yearly")  && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
 
                                     <h3> {items?.plan_id?.name} </h3>
+
+                                   {/* {items?.plan_id?.plan_id == PaymentHistoryDetails?.[0]?.price_id?.plan_id?.plan_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span>
+                                    
+                                      </button>} */}
+
+
                                     <p>{items?.plan_id?.description}</p>
                                     <h4>
                                          {/* {`${CurrencySymbol[0][items?.currency]} ${items?.amount}`} */}
@@ -168,6 +174,11 @@ const PaymentHistory = ({ translaterFun }) => {
                                 return items?.interval === translaterFun("payment-montly")   && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
 
                                     <h3> {items?.plan_id?.name} </h3>
+
+                                    {/* {items?.plan_id?.plan_id== PaymentHistoryDetails?.[0]?.price_id?.plan_id?.plan_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span> 
+                                    </button>} */}
+
+
                                     <p>{items?.plan_id?.description}</p>
                                     <h4>
                                     {/* {`${CurrencySymbol[0][items?.currency]} ${items?.amount}`} */}
