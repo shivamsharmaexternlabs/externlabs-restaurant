@@ -51,8 +51,8 @@ import { favoriteMenuItemSlice } from "../../../Redux/slices/favouriteSlice";
 import { toast } from "react-toastify";
 import DndCategories from "../DndCategories/DndCategories";
 import { currencyData } from "./currencyData"
-import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle"; 
-import {CurrencySymbol} from "./CurrencySymbol"
+import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
+import { CurrencySymbol } from "./CurrencySymbol"
 
 
 const Categories = ({ translaterFun }) => {
@@ -131,9 +131,9 @@ const Categories = ({ translaterFun }) => {
   };
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
-  },[])
+  }, [])
 
 
   const UploadMenuFile = async (e) => {
@@ -154,7 +154,24 @@ const Categories = ({ translaterFun }) => {
       }
 
       try {
-        await dispatch(UploadMenuSlice(UploadPayload));
+        let response = await dispatch(UploadMenuSlice(UploadPayload));
+
+
+        console.log("response", response)
+
+        if (response?.payload?.status === 200) {
+          // await dispatch(LoadingSpinner(true))
+
+          setTimeout(async () => {
+
+            await dispatch(GetMenuCategorySlice({
+              RestaurantId: RestaurantIdLocalStorageData,
+            }));
+            await dispatch(LoadingSpinner(false))
+          }, 1500);
+
+
+        }
         // setUploadMenuFileState("");
         confirmMenuUploadFilePopUpFun(o => !o);
 
@@ -188,18 +205,18 @@ const Categories = ({ translaterFun }) => {
       confirmMenuUploadFilePopUpFun(o => !o);
       console.log("response", response)
 
-      if(response?.payload?.status === 200){
+      if (response?.payload?.status === 200) {
         // await dispatch(LoadingSpinner(true))
 
         setTimeout(async () => {
-          
+
           await dispatch(GetMenuCategorySlice({
             RestaurantId: RestaurantIdLocalStorageData,
           }));
           await dispatch(LoadingSpinner(false))
         }, 1500);
-        
-        
+
+
       }
 
       await dispatch(LoadingSpinner(false))
@@ -219,7 +236,7 @@ const Categories = ({ translaterFun }) => {
   }, [
     MenuApiSelectorData?.GetMenuCategoryReducerData,
   ]);
- 
+
 
   // after Click on category it will give perticular category's data
   useEffect(() => {
@@ -366,7 +383,7 @@ const Categories = ({ translaterFun }) => {
   }).shape({
     item_name_en: yup.string().when('item_name_native',
       (item_name_native_value) => {
-        console.log("add_menu_item_item_name_native_value",item_name_native_value )
+        console.log("add_menu_item_item_name_native_value", item_name_native_value)
         if (item_name_native_value?.[0]) {
           return yup.string()
         } else {
@@ -566,7 +583,7 @@ const Categories = ({ translaterFun }) => {
   }).shape({
     item_name_en: yup.string().when('item_name_native',
       (item_name_native_value) => {
-        console.log("add_menu_item_item_name_native_value editedit",item_name_native_value )
+        console.log("add_menu_item_item_name_native_value editedit", item_name_native_value)
         if (item_name_native_value[0]) {
           return yup.string()
         } else {
@@ -1234,7 +1251,7 @@ const Categories = ({ translaterFun }) => {
 
                       }
 
-                      
+
                     </div>
                   </nav>
 
@@ -1246,7 +1263,7 @@ const Categories = ({ translaterFun }) => {
                       aria-labelledby="nav-dishes1-tab"
                       tabindex="0"
                     >
-                    
+
                       <div className="item-head">
                         <h2>{translaterFun("items")}</h2>
                         <div className="reorder-icon-div" onClick={(e) => setDraggableSubcategory(o => !o)}>
@@ -1266,7 +1283,7 @@ const Categories = ({ translaterFun }) => {
                         </div>
 
 
-                       
+
                       </div>
 
                       <ul>
@@ -1274,7 +1291,7 @@ const Categories = ({ translaterFun }) => {
                         {
                           DragAndDropItems?.map(
                             (items, ids) => {
-                              {/* console.log("SDASFGH", items) */}
+                              {/* console.log("SDASFGH", items) */ }
                               return (
                                 <li
                                   key={ids}
@@ -1349,10 +1366,10 @@ const Categories = ({ translaterFun }) => {
                                   </div>
                                   }
 
-                                  <h5 className='mt-1'> 
-                                  
-                                  {items?.is_veg==true?<img src={icon4} alt='img' className='me-1' />:<img src={icon5} alt='img' className='me-1' />}  {items?.calories} {items?.calories_unit}</h5>
-                                   
+                                  <h5 className='mt-1'>
+
+                                    {items?.is_veg == true ? <img src={icon4} alt='img' className='me-1' /> : <img src={icon5} alt='img' className='me-1' />}  {items?.calories} {items?.calories_unit}</h5>
+
                                   <div className="tabinfo">
                                     <div className="leftpart">
                                       <p>
@@ -1371,7 +1388,7 @@ const Categories = ({ translaterFun }) => {
                                         }
 
                                       </p>
-                                     
+
                                       <span className="price">{`${CurrencySymbol[0][items?.currency]} ${items?.item_price}`}</span>
                                     </div>
                                     <div className="rightpart">
@@ -1397,8 +1414,8 @@ const Categories = ({ translaterFun }) => {
                   <h2>{translaterFun("bestseller")}</h2>
                   <ul>
                     {/* FAVORITE DISHES MANAGEMENT */}
-                    {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map( 
-                      (items, favoriteId) => { 
+                    {MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map(
+                      (items, favoriteId) => {
                         return items?.item_id?.map((item, favoriteDishId) => {//no need this map every time it's 0'th index
                           return (
                             <li key={favoriteDishId}>
@@ -1407,11 +1424,11 @@ const Categories = ({ translaterFun }) => {
                               </div>
                               <div className="rightpart">
                                 <h3 className="bestseller-veg-non-veg">
-                                  
-                                 {item?.is_veg==true? <img src={icon4} alt='img' className='me-2  ' />:<img src={icon5} alt='img' className='me-2' /> }
-                                  
-                                   {languageSet === "en" ? item?.item_name_en : item?.item_name_native} </h3>
-                                 
+
+                                  {item?.is_veg == true ? <img src={icon4} alt='img' className='me-2  ' /> : <img src={icon5} alt='img' className='me-2' />}
+
+                                  {languageSet === "en" ? item?.item_name_en : item?.item_name_native} </h3>
+
                                 <p>
                                   {
                                     (languageSet == "en") ?

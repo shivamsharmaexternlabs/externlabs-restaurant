@@ -41,7 +41,7 @@ const RestaurantDetail = ({ translaterFun }) => {
   const ResetPasswordSelectorData = useSelector((state) => state.ResetPasswordApiData);
   const [isShown, setIsShown] = useState(false);
 
-  console.log("fhsga", HandleFormData)
+  console.log("fhsga", routeData)
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   let BearerToken = reactLocalStorage.get("Token", false);
@@ -104,10 +104,11 @@ const RestaurantDetail = ({ translaterFun }) => {
   useEffect(() => {
 
     // dispatch(LoadingSpinner(false))
+    console.log("bhgcfxcgvh", routeData?.state.currentData)
 
     if (routeData?.state?.currentData) {
-      setPhoneNumber(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone?.split("-")[1] : routeData?.state?.currentData?.owner?.phone_number?.split("-")[1])
-      setCountryCode(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone?.split("-")[0] : routeData?.state?.currentData?.owner?.phone_number?.split("-")[0])
+      setPhoneNumber(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone : routeData?.state?.currentData?.owner?.phone_number?.split("-")[1])
+      setCountryCode(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.country_code : routeData?.state?.currentData?.owner?.phone_number?.split("-")[0])
     }
 
   }, [routeData?.state?.currentData])
@@ -670,7 +671,7 @@ const RestaurantDetail = ({ translaterFun }) => {
                     }
 
                     {
-                      routeData?.state?.page !== "restaurant" && <button type='submit' className='btn2 ms-3'  >
+                      routeData?.state?.currentData?.status_type !== "On-Boarded" &&routeData?.state?.page !== "restaurant" && <button type='submit' className='btn2 ms-3'  >
                         {translaterFun("onBoard-and-Create-Password")} </button>
                     }
                     {

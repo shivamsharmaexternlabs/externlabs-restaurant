@@ -407,7 +407,7 @@ const Dashboard = ({ translaterFun }) => {
                   <div className='info'>
                     <div className='leftpart'>
                       <p>{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.price_id?.plan_id
-                        ?.name} {translaterFun("plan")} </p>
+                        ?.name}  </p>
                       <p>{translaterFun("start-date")} :  {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.created_at.split("T")[0]}</p>
                       <p>{translaterFun("end-date")} &nbsp;: {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.expiry_date}</p>
                     </div>

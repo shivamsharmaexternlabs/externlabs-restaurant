@@ -130,7 +130,9 @@ export const UpdateMenuItemsAfterDragAndDrop = createAsyncThunk(
           },
         }
       );
-      toast.success("Menu Items is Reorder ");
+
+      console.log("jhgfdfghjk", response?.data?.message)
+      toast.success(response?.data?.message);
       // toast.success(response?.data?.detail);
 
       return response;

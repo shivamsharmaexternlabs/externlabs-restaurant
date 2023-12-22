@@ -127,6 +127,7 @@ const Leads = ({ translaterFun }) => {
                   <th> {translaterFun("name")}</th>
                   <th> {translaterFun("mobile-no.")}</th>
                   <th> {translaterFun("email")}</th>
+                  <th> {translaterFun("status")}</th>
                   <th> {translaterFun("action")}</th>
 
                 </tr>
@@ -140,6 +141,7 @@ const Leads = ({ translaterFun }) => {
                     <td>{lead?.contact_name}</td>
                     <td>{lead?.phone}</td>
                     <td>{lead?.email}</td>
+                    <td>{lead?.status_type}</td>
                     <td>
 
                       <button className="asbtn" onClick={(e) => LeadsDetailsFun(e, lead)}>

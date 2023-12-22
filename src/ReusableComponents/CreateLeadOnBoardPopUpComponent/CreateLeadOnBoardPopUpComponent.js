@@ -162,7 +162,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                 "pincode": values?.pincode,
                 "state": values?.state,
                 "country": values?.country,
-                "status_type": "LEAD",
+                "status_type": "Lead",
                 "BearerToken": BearerToken
             }
 
