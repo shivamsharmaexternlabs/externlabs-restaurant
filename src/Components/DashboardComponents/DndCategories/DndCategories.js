@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
+import defaultImage from "../../../images/defaultImage.png";
 
 function DndCategories({translaterFun}) {
     const dispatch = useDispatch();
@@ -212,7 +213,7 @@ function DndCategories({translaterFun}) {
                                                     <span className='item-indx'>{index + 1}</span>
                                                 </div>
                                                 <figure className="drag-catg-img">
-                                                    <img src={item?.category_image} alt="img" width="55.381px" height={"55.381px"} />
+                                                    <img src={item?.category_image ? item?.category_image : defaultImage} alt="img" width="55.381px" height={"55.381px"} />
                                                 </figure>
                                                 <div className=""></div>
                                                 <h3 className='itemCategory'>{languageSet == "en" ? item?.category_en : item?.category_native}</h3>

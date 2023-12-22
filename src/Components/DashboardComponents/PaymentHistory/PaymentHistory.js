@@ -218,7 +218,7 @@ const PaymentHistory = ({ translaterFun }) => {
                                         <td><span className='dot dotgreen'></span> {item?.status ? "Current Plan" : "Cancelled Plan"}</td>
                                         <td>{item?.currency?.toUpperCase()} {item?.amount}</td>
                                         <td>{item?.created_at?.split("T")?.[0]}</td>
-                                        <td>{item?.price_id?.plan_id?.name} {translaterFun("plan")}</td>
+                                        <td>{item?.price_id?.plan_id?.name} </td>
                                         <td>{item?.expiry_date}</td>
 
                                         {/* <td>
