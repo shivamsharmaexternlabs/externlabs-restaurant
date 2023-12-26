@@ -26,6 +26,7 @@ import "react-phone-input-2/lib/style.css";
 import { SignUpSlice } from "../../Redux/slices/SignUpSlice";
 import { LoadingSpinner, ToggleNewLeads } from "../../Redux/slices/sideBarToggle";
 import SucessRegisteredPopup from "../SucessRegisteredPopup/SucessRegisteredPopup";
+import LodingSpiner from "../../Components/LoadingSpinner/LoadingSpinner";
 // import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
 
 
@@ -36,7 +37,8 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
     let submitAction = undefined;
     const itemsPerPage = 5;
 
-    const [loadspiner, setLoadSpiner] = useState(false);
+    // const [loadspiner, setLoadSpiner] = useState(false);
+    const [LoadSpiner, setLoadSpiner] = useState(false)
     const [popUpHook, popUpHookFun] = usePopUpHook("")
     const [CreateLeadOnBoardPayloadState, setCreateLeadOnBoardPayloadState] = useState("")
 
@@ -92,12 +94,13 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
         // phone: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces'),
         // shop_no: yup.string().required("shop_no is required"),    
         // street: yup.string().required("street name is required"),
-        city: yup.string().required(translaterFun("city-name-is-required")),
+        // city: yup.string().required(translaterFun("city-name-is-required")),
         // landmark: yup.string().required("landmark is required"),
-        pincode: yup.string().matches(/^[0-9]+$/, translaterFun('pincode-must-contain-only-digits')).required(translaterFun('pincode-is-required')).matches(/^\S*$/, translaterFun('pincode-must-not-contain-spaces')),
-        state: yup.string().required(translaterFun("state-is-required")),
-        country: yup.string().required(translaterFun("country-is-required")),
-        // description: yup.string().required("description is required"),
+        // pincode: yup.string().matches(/^[0-9]+$/, translaterFun('pincode-must-contain-only-digits')).required(translaterFun('pincode-is-required')).matches(/^\S*$/, translaterFun('pincode-must-not-contain-spaces')),
+        pincode: yup.string().matches(/^[0-9]+$/, translaterFun('pincode-must-contain-only-digits')).matches(/^\S*$/, translaterFun('pincode-must-not-contain-spaces')),
+        // state: yup.string().required(translaterFun("state-is-required")),
+        // country: yup.string().required(translaterFun("country-is-required")),
+        description: yup.string().required("description is required"),
         // password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
         // confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
 
@@ -147,33 +150,42 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
     }
 
-    const CreateLeadBtnFun = (values) => {
-        if (countrycode !== "" && phonenumber !== "") {
-            let createLeadPayload = {
-                "description": values?.description,
-                "restaurant_name": values?.restaurant_name,
-                "contact_name": values?.owner_name,
-                "email": values?.email,
-                "phone": `${countrycode}-${phonenumber}`,
-                "shop_number": values?.shop_no,
-                "street_name": values?.street,
-                "city": values?.city,
-                "landmark": values?.landmark,
-                "pincode": values?.pincode,
-                "state": values?.state,
-                "country": values?.country,
-                "status_type": "Lead",
-                "BearerToken": BearerToken
+    const CreateLeadBtnFun = async (values) => {
+        await dispatch(LoadingSpinner(true))
+        try {
+            if (countrycode !== "" && phonenumber !== "") {
+                let createLeadPayload = {
+                    "description": values?.description,
+                    "restaurant_name": values?.restaurant_name,
+                    "contact_name": values?.owner_name,
+                    "email": values?.email,
+                    "phone": `${countrycode}-${phonenumber}`,
+                    "shop_number": values?.shop_no,
+                    "street_name": values?.street,
+                    "city": values?.city,
+                    "landmark": values?.landmark,
+                    "pincode": values?.pincode,
+                    "state": values?.state,
+                    "country": values?.country,
+                    "status_type": "Lead",
+                    "BearerToken": BearerToken
+                }
+
+
+                await dispatch(CreateLeadsRestaurantSlice(createLeadPayload))
+                await dispatch(LoadingSpinner(false))
             }
-
-
-            dispatch(CreateLeadsRestaurantSlice(createLeadPayload))
-
+            else {
+                toast.error(translaterFun("please-enter-your-number"));
+                console.log("jhgfghjklp")
+                await dispatch(LoadingSpinner(false))
+            }
+            
+        } catch (error) {
+            await dispatch(LoadingSpinner(false))
         }
-        else {
-            toast.error(translaterFun("please-enter-your-number"));
 
-        }
+
     }
 
 
@@ -215,9 +227,9 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
     const callBackFuncAfterSignUp = async () => {
         setOnBordPopUp(false)
-        
+
         await dispatch(LoadingSpinner(true))
-        
+
         try {
             const payloadOnBoard = {
                 "restaurant_name": CreateLeadOnBoardPayloadState?.restaurant_name,
@@ -252,7 +264,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
             setTimeout(() => {
                 window.location.reload()
             }, 1000);
-            
+
             // dispatch(ToggleNewLeads(false))
 
         }
@@ -301,19 +313,24 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
 
-    const BackToHomeFun = () => {
-        window.location.reload(false)
-        setSuccessPopup(false)
-        let LeadsRestaurantSlicePayload = {
-            Token: BearerToken,
-            RestaurantId: RestaurantId,
-            pagination: 1,
-        };
-        dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
+    const BackToHomeFun = async () => {
 
+        dispatch(LoadingSpinner(true))
+        try {
+            window.location.reload(false)
+            setSuccessPopup(false)
+            let LeadsRestaurantSlicePayload = {
+                Token: BearerToken,
+                RestaurantId: RestaurantId,
+                pagination: 1,
+            };
+            await dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
+            dispatch(LoadingSpinner(false))
+        } catch (error) {
+            dispatch(LoadingSpinner(false))
+        }
     }
-    // let  RestaurantId= reactLocalStorage.get("RestaurantId",false);
-
+    
     const RestaurantsDetailsFun = (e, items, AllData) => {
         navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
             state: {
@@ -692,11 +709,11 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                 {/* SuccessFull On Board */}
 
                 {SuccessPopup &&
-                <SucessRegisteredPopup 
-                translaterFun={translaterFun}
-                LeadsRestaurantSelectorData={LeadsRestaurantSelectorData}
-                BackToHomeFun={BackToHomeFun}
-                />
+                    <SucessRegisteredPopup
+                        translaterFun={translaterFun}
+                        LeadsRestaurantSelectorData={LeadsRestaurantSelectorData}
+                        BackToHomeFun={BackToHomeFun}
+                    />
                     // <div className="popup successpopup ">
                     //     <div className="innerpopup">
                     //         <img src={imgicon} alt="img" />
@@ -725,7 +742,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                 }
 
             </div>
-
+            <LodingSpiner loadspiner={LoadSpiner} />
         </>
     )
 }

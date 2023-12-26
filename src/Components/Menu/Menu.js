@@ -188,6 +188,11 @@ const Menu = ({ translaterFun }) => {
     setlanguagesDataValue(value == "English" ? "عربي" : "English")
     setlanguagesDataKey(key)
     setSelectToggleSelectTogglealue(o => !o)
+    if (languageDAta !== key) {
+      window.location.reload();
+    }
+
+
     reactLocalStorage.set("languageSet", key);
   }
 
@@ -200,7 +205,7 @@ const Menu = ({ translaterFun }) => {
   return (
     <>
 
-      <div className={languageDAta == "en"?"rotateen":"rotatear"}>
+      <div className={languageDAta == "en" ? "rotateen" : "rotatear"}>
         {
           languageDAta == "en" ? <img src={rotateEn} alt='' className='' />
             : <img src={rotateAe} alt='' />
