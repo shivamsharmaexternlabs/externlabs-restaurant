@@ -124,6 +124,8 @@ const Categories = ({ translaterFun }) => {
     popUpCategoriesHookFun((o) => !o);
   };
   const CancelBtnFun = () => {
+    setDescriptionEn("")
+    setDescriptionNative("")
     popUpHookFun(false);
   };
   const CancelCategoryBtnFun = () => {
@@ -548,6 +550,8 @@ const Categories = ({ translaterFun }) => {
   };
 
   const CancelEditBtnFun = () => {
+    setDescriptionEn("")
+    setDescriptionNative("")
     popUpEditHookFun(false);
   };
   const QrCodeSampleDownloadFun = () => {
