@@ -53,6 +53,7 @@
     "build": "react-scripts build",
     "build:dev": "env-cmd -f .dev.env npm run build",
     "build:prod": "env-cmd -f .prod.env npm run build",
+    "deploy:dev" : "aws s3 cp ./build/ s3://restaurant-frontend --recursive",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

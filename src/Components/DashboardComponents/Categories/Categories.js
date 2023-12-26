@@ -613,8 +613,8 @@ const Categories = ({ translaterFun }) => {
       let payload = {
         item_id: EditMenuData?.item_id,
         restaurant_id: values?.restaurant_id,
-        description_en: DescriptionEn,
-        description_native: DescriptionNative,
+        description_en: DescriptionEn === null ? "" : DescriptionEn,
+        description_native: DescriptionNative === null ? "" : DescriptionNative,
         image: uploadImage,
         item_name_en: values?.item_name_en,
         item_name_native: values?.item_name_native,
