@@ -151,8 +151,10 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
     }
 
     const CreateLeadBtnFun = async (values) => {
-        await dispatch(LoadingSpinner(true))
+         dispatch(LoadingSpinner(true))
         try {
+            console.log("jhgfgh", countrycode)
+            console.log("jhgfghphonenumber",  phonenumber)
             if (countrycode !== "" && phonenumber !== "") {
                 let createLeadPayload = {
                     "description": values?.description,
@@ -173,16 +175,17 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
                 await dispatch(CreateLeadsRestaurantSlice(createLeadPayload))
-                await dispatch(LoadingSpinner(false))
+                 dispatch(LoadingSpinner(false))
             }
             else {
                 toast.error(translaterFun("please-enter-your-number"));
-                console.log("jhgfghjklp")
-                await dispatch(LoadingSpinner(false))
+                 dispatch(LoadingSpinner(false))
+                console.log("jhhfghhhp")
+                
             }
-            
+             dispatch(LoadingSpinner(false))
         } catch (error) {
-            await dispatch(LoadingSpinner(false))
+             dispatch(LoadingSpinner(false))
         }
 
 
