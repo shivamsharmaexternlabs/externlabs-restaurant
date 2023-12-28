@@ -251,6 +251,27 @@
     background: linear-gradient(90.18deg, #8EC22C 2.36%, #379640 99.96%);
 }
 
+
+/************  Arabic css  ****************/
+
+
+.arabic .passwordbox input.form-control {
+    padding-left: 40px;
+    padding-right: 16px;
+}
+.arabic .passwordbox .password_eye {
+    right: auto;
+    left: 17px;
+}
+
+.arabic .login-box form .btn {
+    width: 156px;
+}
+
+
+
+
+
 @media(max-width:767px) {
 
     .loginpage {

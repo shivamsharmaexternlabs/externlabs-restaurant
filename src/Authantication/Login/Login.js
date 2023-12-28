@@ -104,6 +104,7 @@ const Login = () => {
       reactLocalStorage.set("languageSet", "en");
       // window.location.reload()
     }
+    window.location.reload()
   }
 
   
