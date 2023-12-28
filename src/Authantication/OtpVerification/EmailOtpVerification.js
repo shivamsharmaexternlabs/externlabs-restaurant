@@ -37,7 +37,7 @@ const EmailOtpVerification = () => {
             toast.success("Verified Phone successfully");
             navigate("/success");
         } catch (err) {
-            toast.warn(err.response.data.message);
+            toast.warn(err?.response?.data?.message);
         }
     };
 
@@ -82,10 +82,10 @@ const EmailOtpVerification = () => {
                 }
             )
             .then((response) => {
-                toast.success(response.data.message);
+                toast.success(response?.data?.message);
             })
             .catch((err) => {
-                toast.warn(err?.response.data.error.non_field_errors[0]);
+                toast.warn(err?.response?.data?.error?.non_field_errors?.[0]);
             });
     }
 

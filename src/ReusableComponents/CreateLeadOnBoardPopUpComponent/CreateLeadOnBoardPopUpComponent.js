@@ -100,7 +100,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
         pincode: yup.string().matches(/^[0-9]+$/, translaterFun('pincode-must-contain-only-digits')).matches(/^\S*$/, translaterFun('pincode-must-not-contain-spaces')),
         // state: yup.string().required(translaterFun("state-is-required")),
         // country: yup.string().required(translaterFun("country-is-required")),
-        description: yup.string().required("description is required"),
+        description: yup.string().required(translaterFun("description-is-required")),
         // password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
         // confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
 

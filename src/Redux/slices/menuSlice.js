@@ -488,7 +488,7 @@ export const menuReducer = createSlice({
       .addCase(DeleteMenuItemSlice.fulfilled, (state, action) => {
         state.loading = false;
         state.DeleteMenuItemReducerData = action.payload;
-        toast.success("Item Deleted Successfully");
+        (languageSet && languageSet === "en") ? toast.success("Item Deleted Successfully") : toast.success("تم حذف العنصر بنجاح")
 
       })
 

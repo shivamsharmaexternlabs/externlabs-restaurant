@@ -15,8 +15,8 @@ export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectW
           "Accept-Language": languageSet
         },
       });
-      console.log("khdgjdssd",response)
-      toast.success("Successfully Loged In");
+      // console.log("khdgjdssd",response?.data?.message)
+      toast.success(response?.data?.message);
       reactLocalStorage.set("Token",response?.data?.token);
       reactLocalStorage.set("FirstName",response?.data?.first_name);
       if(response?.data?.type!=="sales"){
@@ -41,7 +41,7 @@ export const SignInSlice = createAsyncThunk("SignInSlice",async (body, { rejectW
 
     } catch (err) {
 
-      toast.error(err?.response?.data?.error[0]);
+      toast.error(err?.response?.data?.error?.[0]);
       return rejectWithValue(err);
     }
   }
