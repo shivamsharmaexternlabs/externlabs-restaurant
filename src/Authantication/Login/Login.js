@@ -45,7 +45,7 @@ const Login = () => {
       // reactLocalStorage.set("languageSet", "en");
 
       // Checking user type and redirecting accordingly
-      if (User?.data?.data?.type !== "sales") {
+      if (User?.data?.data?.type == "owner") {
         reactLocalStorage.set("payment_status", User?.data?.data?.payment_status);
 
         if (User?.data?.data?.payment_status === false) {
@@ -62,6 +62,10 @@ const Login = () => {
     if (User?.error?.response?.status === 400) {
       setLoadSpiner(false);
     }
+
+    if(User?.data.length == 0){
+      reactLocalStorage.remove("payment_status")
+    }
   }, [User]);
 
   // Initial values for the Formik form
@@ -69,6 +73,8 @@ const Login = () => {
     email_or_phone: "",
     password: "",
   };
+
+  console.log("User",User)
 
   // Validation schema for the form using yup
   const Validate = yup.object({

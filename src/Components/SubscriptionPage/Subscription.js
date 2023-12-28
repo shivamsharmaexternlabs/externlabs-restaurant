@@ -282,7 +282,7 @@ const Subscription = ({ translaterFun }) => {
                         <img src={subicon1} alt='img' className='img' />
                         <img src={subicon1h} alt='img' className='activeimg' />
                       </div>
-                      <h3>{items?.currency?.toUpperCase()} {items?.amount}<span>/{translaterFun("per")} {items?.plan_id?.interval}</span></h3>
+                      <h3>{items?.currency?.toUpperCase()} {items?.amount}<span>/{translaterFun("per")} {translaterFun(items?.interval)}</span></h3>
                     </div>
                     <div className='info'>
                       <h4>{items?.plan_id?.name}</h4>
@@ -320,7 +320,7 @@ const Subscription = ({ translaterFun }) => {
                         <img src={subicon1} alt='img' className='img' />
                         <img src={subicon1h} alt='img' className='activeimg' />
                       </div>
-                      <h3>{items?.currency.toUpperCase()} {items?.amount}<span>/{translaterFun("per")} {items?.plan_id?.interval}</span></h3>
+                      <h3>{items?.currency.toUpperCase()} {items?.amount}<span>/{translaterFun("per")} {translaterFun(items?.interval)}</span></h3>
                     </div>
                     <div className='info'>
                       <h4>{items?.plan_id?.name}</h4>

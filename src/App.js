@@ -57,7 +57,7 @@ function App() {
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
 
-  const locationData =useLocation()
+  const locationData = useLocation()
 
   const ManagerApiSelectorData = useSelector((state) => state.ToggleBarData);
 
@@ -108,15 +108,15 @@ function App() {
 
 
   useEffect(() => {
-    let splitOrderId = locationData?.pathname?.split?.("/");  
-    if(locationData?.pathname !=="/" &&  locationData?.pathname !== `/${splitOrderId[1]}`){ 
-    i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
-  }
+    let splitOrderId = locationData?.pathname?.split?.("/");
+    if (locationData?.pathname !== "/" && locationData?.pathname !== `/${splitOrderId[1]}`) {
+      i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
+    }
 
 
   }, [ManagerApiSelectorData?.languagechange])
 
- 
+
   return (
     <>
       <div className={languageDAta == "ar" ? "arabic  " : " "} dir={languageDAta == "ar" ? "rtl" : ""}>
@@ -126,23 +126,23 @@ function App() {
             {/* <Route path="/signup" element={<Signup  translaterFun={t} />}></Route> // Please do not remove this comment... */}
             {/* <Route path='/success' element={<Success  translaterFun={t} />}></Route>   // Please do not remove this comment...*/}
             {/* <Route path="/forgotpassword" element={<ForgotPassword  translaterFun={t} />}></Route> // Please do not remove this comment... */}
-            <Route path="/user_auth/resetpassword/:id" element={payment_status =="false" ? <Subscription translaterFun={t} /> : <ResetPassword translaterFun={t} />}></Route>
-            <Route path="/:id/admin/dashboard" element={payment_status =="false" ? <Subscription translaterFun={t} /> : <Dashboard translaterFun={t} />}> </Route>  {/* convert in arabic  */}
-            <Route path="/:id/admin/categories" element={payment_status =="false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><Categories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
-            <Route path="/:id/admin/categories/reorder/" element={payment_status =="false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><DndCategories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
-            <Route path="/:id/admin/manager" element={payment_status =="false" ? <Subscription translaterFun={t} /> : <Manager translaterFun={t} />}></Route> {/* convert in arabic  */}
-            <Route path="/:id/admin/allmedia" element={payment_status =="false" ? <Subscription translaterFun={t} /> : <AllMedia translaterFun={t} />}></Route>{/* convert in arabic  */}
-            <Route path="/:id/admin/paymenthistory" element={payment_status =="false" ? <Subscription translaterFun={t} /> : <PaymentHistory translaterFun={t} />}></Route> {/* convert in arabic  */}
-            <Route path='/admin/leads' element={payment_status =="false" ? <Subscription translaterFun={t} /> : <Leads translaterFun={t} />}></Route>
-            <Route path='/admin/restaurant' element={payment_status =="false" ? <Subscription translaterFun={t} /> : <Restaurant translaterFun={t} />}></Route> {/* convert in arabic  */}
-            <Route path='/admin/restaurantdetail/:id' element={payment_status =="false" ? <Subscription translaterFun={t} /> : <RestaurantDetail translaterFun={t} />}></Route>
-            {payment_status =="false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
+            <Route path="/user_auth/resetpassword/:id" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <ResetPassword translaterFun={t} />}></Route>
+            <Route path="/:id/admin/dashboard" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <Dashboard translaterFun={t} />}> </Route>  {/* convert in arabic  */}
+            <Route path="/:id/admin/categories" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><Categories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
+            <Route path="/:id/admin/categories/reorder/" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><DndCategories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
+            <Route path="/:id/admin/manager" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <Manager translaterFun={t} />}></Route> {/* convert in arabic  */}
+            <Route path="/:id/admin/allmedia" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <AllMedia translaterFun={t} />}></Route>{/* convert in arabic  */}
+            <Route path="/:id/admin/paymenthistory" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <PaymentHistory translaterFun={t} />}></Route> {/* convert in arabic  */}
+            <Route path='/admin/leads' element={<Leads translaterFun={t} />}></Route>
+            <Route path='/admin/restaurant' element={<Restaurant translaterFun={t} />}></Route> {/* convert in arabic  */}
+            <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail translaterFun={t} />}></Route>
+            {payment_status == "false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
           </Routes>
         }
         <Routes>
- 
+
           <Route path="/" element={<Login translaterFun={t} />}></Route>
-          <Route path="/:id" element={<Login translaterFun={t} />}></Route> 
+          <Route path="/:id" element={<Login translaterFun={t} />}></Route>
 
         </Routes>
 
