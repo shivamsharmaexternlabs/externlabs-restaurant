@@ -9,6 +9,8 @@ import pizza from '../../images/pizza.png'
 import icon4 from '../../images/icon4.svg'
 import icon5 from '../../images/icon5.svg'
 import calorie from '../../images/calorie.png'
+import calorieicon from '../../images/calorie.svg'
+
 import defaultImage from '../../images/defaultimg.png'
 import rotateAe from '../../images/rotateAe.gif'
 import rotateEn from '../../images/rotateEn.gif'
@@ -322,7 +324,7 @@ const Menu = ({ translaterFun }) => {
                               <h3> {languageSet == "en" ? CategoryItem?.item_name_en : CategoryItem?.item_name_native} </h3>
                               <p> {languageSet == "en" ? CategoryItem?.description_en : CategoryItem?.description_native} </p>
                               {/* <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div> */}
-                              <div className='startxt'> <img src={calorie} alt="img" /> {CategoryItem?.calories + " " + CategoryItem?.calories_unit}</div>
+                              <div className='startxt'> <img src={calorieicon} alt="img" /> {CategoryItem?.calories + " " + CategoryItem?.calories_unit}</div>
                             </div>
                             <div className='rightpart'>
                               <span className='pricetext'>{CategoryItem?.currency} {CategoryItem?.item_price} </span>

@@ -378,6 +378,7 @@
 
 .spbtn>img {
     margin-right: 10px;
+    width: 17px;
 }
 
 .spbtn>span {
@@ -417,6 +418,9 @@
 
 .startxt img {
     margin-right: 5px;
+    width: 15px;
+    margin-top: -5px;
+    display: inline-block;
 }
 
 .menuitemlist li .rightpart {
