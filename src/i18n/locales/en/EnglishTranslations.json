@@ -261,7 +261,8 @@
   "sign-in-to-stay-connected" : "Sign in to stay connected.",
   "email-or-phone-no" : "Email or Phone No",
   "email-or-phone-number-is-required" : "Email or phone number is required",
-  "password-must-not-contain-spaces" : "Password must not contain spaces"
+  "password-must-not-contain-spaces" : "Password must not contain spaces",
+  "description-is-required" : "Description is Required"
   
 
 
