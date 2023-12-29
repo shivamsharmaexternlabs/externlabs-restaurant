@@ -1049,7 +1049,7 @@ const Categories = ({ translaterFun }) => {
                   </button>
                   <input
                     type="file"
-                    accept=".xlxs, .xlsx, .xls"
+                    accept=".xlxs, .xlsx, .xls, .pdf"
                     onChange={(e) => UploadMenuFile(e)}
                   />
                 </div>

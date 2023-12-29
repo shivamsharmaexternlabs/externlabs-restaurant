@@ -8,7 +8,7 @@ let languageSet = reactLocalStorage.get("languageSet", "en");
 
 export const UploadMenuSlice = createAsyncThunk("UploadMenuSlice",async (body, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}restaurant_app/menuupload/`,body?.formData,
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}restaurant_app/menu_upload/`,body?.formData,
       {
         headers: {
           Authorization: `Bearer ${body?.BearerToken}`,
