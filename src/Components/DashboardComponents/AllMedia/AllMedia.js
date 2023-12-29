@@ -109,7 +109,7 @@ const AllMedia = ({ translaterFun }) => {
                                     return (
                                         <li key={id}>
                                             <figure>
-                                                <img src={items} alt='margerita - img' />
+                                                <img src={items} alt='' />
                                                 <button type='button' className='btn' onClick={(e) => DownlodImageFun(e, items)}>
                                                     <img src={upload} alt='upload' />
                                                 </button>
