@@ -322,6 +322,15 @@ const Menu = ({ translaterFun }) => {
                                 {CategoryItem?.is_favorite === true && <span className={`bestcallerBackgroun`}>{translaterFun("bestseller")}</span>}
                               </div>
                               <h3> {languageSet == "en" ? CategoryItem?.item_name_en : CategoryItem?.item_name_native} </h3>
+                              
+                              {/* <ul className='varientlist'>
+                                <li> Variants 4 </li>
+                                <li> Variants 4 </li>
+                                <li> Variants 4 </li>
+                                <li> Variants 4 </li>
+                                <li> Variants 4 </li>
+                              </ul> */}
+                              
                               <p> {languageSet == "en" ? CategoryItem?.description_en : CategoryItem?.description_native} </p>
                               {/* <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div> */}
                               <div className='startxt'> <img src={calorieicon} alt="img" /> {CategoryItem?.calories + " " + CategoryItem?.calories_unit}</div>

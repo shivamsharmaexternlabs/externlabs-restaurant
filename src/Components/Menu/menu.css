@@ -1,7 +1,3 @@
-
-
- 
-
 .menupage {
     width: 100%;
     margin: 0 auto;
@@ -35,7 +31,7 @@
 }
 
 .headerbox .languaselist>button::after {
-    top: 9px; 
+    top: 9px;
 }
 
 .headerbox .languaselist>button {
@@ -44,7 +40,8 @@
     width: 115px;
     text-align: left;
 }
-.headerbox > ul {
+
+.headerbox>ul {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -62,7 +59,7 @@
 }
 
 .searchbox {
-    display: block; 
+    display: block;
     position: relative;
     margin: 25px auto;
     width: calc(100% - 30px);
@@ -355,19 +352,19 @@
     margin-bottom: 0;
 }
 
-.menuitemlist li {
+.menuitemlist>li {
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
     min-height: 137px;
 }
 
-.menuitemlist li:not(:last-child) {
+.menuitemlist>li:not(:last-child) {
     border-bottom: 1px solid #F4F0F0;
 }
 
-.menuitemlist li .leftpart {
-    width: 60%;
+.menuitemlist>li .leftpart {
+    width: calc(100% - 250px);
     padding-right: 5px;
 }
 
@@ -389,7 +386,7 @@
 }
 
 
-.menuitemlist li .leftpart h3 {
+.menuitemlist > li .leftpart h3 {
     color: #000;
     font-size: 14px;
     font-family: 'NeuzeitGro-Bol';
@@ -397,8 +394,31 @@
     line-height: 1.2;
     margin: 10px 0;
 }
+.varientlist {
+    display: flex;
+    flex-wrap: wrap;
+}
+.varientlist li {
+    border-radius: 1023.946px;
+    background: #FFF2EA;
+    color: #000;
+    text-align: center;
+    font-size: 9.815px;
+    font-weight: 400;
+    letter-spacing: 0.196px;
+    padding:3px 10px;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
 
-.menuitemlist li .leftpart p {
+.varientlist li:hover {
+    color: #fff;
+    border-radius: 1023.946px;
+background: #EA6A12;
+}
+
+.menuitemlist > li .leftpart p {
     color: #5F5F5F;
     font-size: 12px;
     font-family: 'NeuzeitGro-Reg';
@@ -423,27 +443,27 @@
     display: inline-block;
 }
 
-.menuitemlist li .rightpart {
-    width: 30%;
+.menuitemlist > li .rightpart {
+    width: 250px;
     text-align: right;
     padding-left: 5px;
 }
 
-.menuitemlist li .rightpart .pricetext {
+.menuitemlist > li .rightpart .pricetext {
     color: #000;
     font-size: 12px;
     line-height: 1.5;
     font-weight: 500;
 }
 
-.menuitemlist li .rightpart figure {
+.menuitemlist  > li .rightpart figure {
     margin: 15px 0 0;
     width: 100%;
     margin-left: auto;
     height: 85px;
 }
 
-.menuitemlist li .rightpart figure img {
+.menuitemlist > li .rightpart figure img {
     border-radius: 10px;
     width: 100%;
     height: 100%;
@@ -541,12 +561,12 @@
     margin-left: 10px;
 }
 
-.arabic .menuitemlist li .leftpart {
+.arabic .menuitemlist > li .leftpart {
     padding-left: 5px;
     padding-right: 0px;
 }
 
-.arabic .menuitemlist li .rightpart {
+.arabic .menuitemlist > li .rightpart {
     padding-right: 5px;
     padding-left: 0px;
 }
@@ -555,44 +575,52 @@
 
 /******************* media css *********************/
 
-@media(min-width:768px){
+@media(min-width:768px) {
 
-    
+
 
     .itemlistbtn li {
-        font-size: 16px;        
+        font-size: 16px;
     }
-    
-    .menuitemtab h2{
+
+    .menuitemtab h2 {
         font-size: 28px;
     }
 
-    .menuitemlist li .leftpart h3 {
+    .menuitemlist > li .leftpart h3 {
         font-size: 20px;
     }
 
-    .menuitemlist li .leftpart p {
+    .menuitemlist > li .leftpart p {
         font-size: 16px;
     }
 
     .startxt {
-        font-size: 18px;   
-    }
-
-    .menuitemlist li .rightpart .pricetext {
         font-size: 18px;
     }
 
-    .menuitemlist li .rightpart figure {
+    .menuitemlist > li .rightpart .pricetext {
+        font-size: 18px;
+    }
+
+    .menuitemlist > li .rightpart figure {
         height: 150px;
         max-width: 200px;
     }
 
+}
 
+@media(max-width: 680px) {
+    .menuitemlist>li .leftpart {
+        width: 70%;
+    }
+    .menuitemlist>li .rightpart {
+        width: 30%;
+    }
 }
 
 
-@media(max-width:450px){
+@media(max-width:450px) {
     .headerbox .logo {
         max-width: 160px;
     }
@@ -601,7 +629,5 @@
         width: 100%;
     }
 
-    
+
 }
-
-
