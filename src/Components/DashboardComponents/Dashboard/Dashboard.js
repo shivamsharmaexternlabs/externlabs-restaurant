@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from "react-helmet";
 import './dashboard.css'
 import { saveAs } from "file-saver";
 import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
@@ -28,7 +29,7 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import { useTranslation } from "react-i18next"
 import { CurrencySymbol } from '../Categories/CurrencySymbol';
- 
+
 
 const Dashboard = ({ translaterFun }) => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ const Dashboard = ({ translaterFun }) => {
   let languageSet = reactLocalStorage.get("languageSet", false);
 
 
- 
+
   useEffect(() => {
     setData(ManagerApiSelectorData?.data)
     setQrImage(QrApiSelectorData?.data?.results[0]?.qrcode)
@@ -152,6 +153,10 @@ const Dashboard = ({ translaterFun }) => {
 
   return (
     <>
+      <Helmet>
+        <title>Dashboard 1</title>
+        <meta  name="description"  content="dashoard jhvgcgvhbjkjbhv" />
+      </Helmet>
       <DashboardLayout  >
         <div className='dasboardbody'>
           <DashboardSidebar />
@@ -247,21 +252,21 @@ const Dashboard = ({ translaterFun }) => {
 
                       </div>
                     </nav>
-                 {/*-------------------- menu Category items ---------------------------*/}
+                    {/*-------------------- menu Category items ---------------------------*/}
 
                     <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-dishes1" role="tabpanel" aria-labelledby="nav-dishes1-tab" tabindex="0">
+                      <div class="tab-pane fade show active" id="nav-dishes1" role="tabpanel" aria-labelledby="nav-dishes1-tab" tabindex="0">
                         <ul>
                           {
                             ActiveCategory?.item_id?.slice(0, 4).map((Item, DishesId) => {
-                              console.log("sjkdgjdhs",Item)
+                              console.log("sjkdgjdhs", Item)
                               return <li>
                                 <h4>{languageSet === "en" ? Item?.item_name_en : Item?.item_name_native}</h4>
-                                <h5 className='mt-1 d-flex align-items-center '> 
-                              {Item?.is_veg==true?  <img src={icon4} alt='img' className='me-1' /> : <img src={icon5} alt='img' className='me-1'  />} 
+                                <h5 className='mt-1 d-flex align-items-center '>
+                                  {Item?.is_veg == true ? <img src={icon4} alt='img' className='me-1' /> : <img src={icon5} alt='img' className='me-1' />}
 
-                                {Item?.calories} {Item?.calories_unit}</h5>
-                                 
+                                  {Item?.calories} {Item?.calories_unit}</h5>
+
                                 <div className='tabinfo'>
                                   <div className='leftpart'>
                                     <p>
@@ -282,7 +287,7 @@ const Dashboard = ({ translaterFun }) => {
                                     </p>
                                     {/* {Item?.description}
                                       {Item?.description?.length} */}
-                                       
+
                                     <span className='price'>{`${CurrencySymbol[0][Item?.currency]} ${Item?.item_price}`}</span>
                                   </div>
                                   <div className='rightpart'>
