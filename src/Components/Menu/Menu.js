@@ -35,6 +35,8 @@ const Menu = ({ translaterFun }) => {
   const [MenuItemTypeValue, setMenuItemTypeValue] = useState("")
   const [MenuItemSearchValue, setMenuItemSearchValue] = useState("")
   const [loadspiner, setLoadSpiner] = useState(false);
+  // const [VariantSelected, setVariantSelected] = useState(0);
+  const [VariantSelectedObj, setVariantSelectedObj] = useState(0);
 
 
   const [languagesDataKey, setlanguagesDataKey] = useState("")
@@ -63,6 +65,28 @@ const Menu = ({ translaterFun }) => {
     }
     if (MenuApiSelectorData?.MenuSliceReducerData.status === 200) {
       setLoadSpiner(false);
+
+      // Handling variant 
+      // console.log("MenuApiSelectorData?.MenuSliceReducerData", MenuApiSelectorData?.MenuSliceReducerData?.data)
+      let variantObj = {};
+
+      MenuApiSelectorData?.MenuSliceReducerData?.data?.map((category) => {
+        // console.log("bhgvfcgvhbjn", category);
+        category?.item_id?.map((menuItem) => {
+          console.log("bhgvfcgvhbjn", menuItem);
+          if (menuItem?.variant?.length === 0) {
+            variantObj[menuItem?.item_id] = -1;
+          }
+          else {
+            variantObj[menuItem?.item_id] = 0;
+          }
+
+        });
+      });
+
+
+      console.log("variantObj", variantObj)
+      setVariantSelectedObj(variantObj);
 
     }
     else if (MenuApiSelectorData?.error == "Rejected") {
@@ -202,6 +226,14 @@ const Menu = ({ translaterFun }) => {
     setSelectToggleSelectTogglealue(o => !o)
   }
 
+  const variantToggleFun = (e, ItemId, variantId) => {
+    // console.log("kjhghj", ItemId, variantId)
+    setVariantSelectedObj(previousState => {
+      previousState[ItemId] = variantId;
+      return { ...previousState }
+    });
+
+  }
 
 
   return (
@@ -322,21 +354,29 @@ const Menu = ({ translaterFun }) => {
                                 {CategoryItem?.is_favorite === true && <span className={`bestcallerBackgroun`}>{translaterFun("bestseller")}</span>}
                               </div>
                               <h3> {languageSet == "en" ? CategoryItem?.item_name_en : CategoryItem?.item_name_native} </h3>
-                              
-                              {/* <ul className='varientlist'>
-                                <li> Variants 4 </li>
-                                <li> Variants 4 </li>
-                                <li> Variants 4 </li>
-                                <li> Variants 4 </li>
-                                <li> Variants 4 </li>
-                              </ul> */}
-                              
+
+                              <ul className='varientlist'>
+                                {CategoryItem?.variant?.map((variantItem, variantId) => {
+
+                                  return <li
+                                    className={VariantSelectedObj[CategoryItem?.item_id] === variantId ? "active" : ""}
+                                    key={variantId} onClick={(e) => variantToggleFun(e, CategoryItem?.item_id, variantId)}>
+                                    {languageSet == "en" ? variantItem?.variant_name_en : variantItem?.variant_name_native}
+                                  </li>
+                                })
+                                }
+
+                              </ul>
+
                               <p> {languageSet == "en" ? CategoryItem?.description_en : CategoryItem?.description_native} </p>
-                              {/* <div className='startxt'> <img src={star} alt="img" />  4.5 (100+) </div> */}
-                              <div className='startxt'> <img src={calorieicon} alt="img" /> {CategoryItem?.calories + " " + CategoryItem?.calories_unit}</div>
+
+
+                              <div className='startxt'> <img src={calorieicon} alt="img" /> {CategoryItem?.calories !== null ? CategoryItem?.calories : ""}  {CategoryItem?.calories_unit !== null ? CategoryItem?.calories_unit : ""}</div>
+
                             </div>
                             <div className='rightpart'>
-                              <span className='pricetext'>{CategoryItem?.currency} {CategoryItem?.item_price} </span>
+
+                              <span className='pricetext'>{CategoryItem?.currency} {VariantSelectedObj[CategoryItem?.item_id] == -1 ? CategoryItem?.item_price : CategoryItem?.variant?.[VariantSelectedObj[CategoryItem?.item_id]]?.amount} </span>
                               <figure> <img src={CategoryItem?.image === null ? defaultImage : CategoryItem?.image} alt='img' /> </figure>
 
                               {/* <figure> <img src={item1} alt='img' /> </figure> */}

@@ -411,6 +411,12 @@
     margin-right: 5px;
     margin-bottom: 10px;
 }
+.varientlist .active{
+
+    background-color:  #EA6A12;
+color: white;
+
+}
 
 .varientlist li:hover {
     color: #fff;
