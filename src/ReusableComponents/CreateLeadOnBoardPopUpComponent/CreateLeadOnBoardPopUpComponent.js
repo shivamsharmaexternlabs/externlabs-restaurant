@@ -45,6 +45,8 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
     const [countrycode, setCountryCode] = useState("+91");
 
     const [phonenumber, setPhoneNumber] = useState("");
+    const [uploadLogoImage, setuploadLogoImage] = useState("");
+
 
 
 
@@ -151,10 +153,10 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
     }
 
     const CreateLeadBtnFun = async (values) => {
-         dispatch(LoadingSpinner(true))
+        dispatch(LoadingSpinner(true))
         try {
             console.log("jhgfgh", countrycode)
-            console.log("jhgfghphonenumber",  phonenumber)
+            console.log("jhgfghphonenumber", phonenumber)
             if (countrycode !== "" && phonenumber !== "") {
                 let createLeadPayload = {
                     "description": values?.description,
@@ -175,17 +177,17 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
                 await dispatch(CreateLeadsRestaurantSlice(createLeadPayload))
-                 dispatch(LoadingSpinner(false))
+                dispatch(LoadingSpinner(false))
             }
             else {
                 toast.error(translaterFun("please-enter-your-number"));
-                 dispatch(LoadingSpinner(false))
+                dispatch(LoadingSpinner(false))
                 console.log("jhhfghhhp")
-                
+
             }
-             dispatch(LoadingSpinner(false))
+            dispatch(LoadingSpinner(false))
         } catch (error) {
-             dispatch(LoadingSpinner(false))
+            dispatch(LoadingSpinner(false))
         }
 
 
@@ -245,7 +247,8 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                 "country": CreateLeadOnBoardPayloadState?.country,
                 "description": CreateLeadOnBoardPayloadState?.description,
                 "owner_id": SignUpSelectorData?.data?.data?.owner_id,
-                "Token": BearerToken
+                "Token": BearerToken,
+                "Logo" : uploadLogoImage
             }
 
             await dispatch(CreateRestaurantsOnBoardSlice(payloadOnBoard))
@@ -333,7 +336,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
             dispatch(LoadingSpinner(false))
         }
     }
-    
+
     const RestaurantsDetailsFun = (e, items, AllData) => {
         navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
             state: {
@@ -373,6 +376,13 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
         });
         let myString = data.join("").replace(/\D/g, "");
         setPhoneNumber(myString);
+    };
+
+
+    const handleUploadLogoImage = (e) => {
+        console.log("bhgvfcdxjhghj", e.target?.files)
+        setuploadLogoImage(e?.target?.files?.[0]);
+
     };
 
 
@@ -622,6 +632,39 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                                                 <p className="text-danger small mb-0">
                                                     <ErrorMessage name="description" />
                                                 </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-md-12 mb-3">
+                                            <div className="formbox ">
+                                                <label className="d-block">{translaterFun("Logo")} </label>
+                                                <div className=" uploadwrapper ">
+                                                    <button type="button">
+                                                        {" "}
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="14"
+                                                            height="14"
+                                                            viewBox="0 0 14 14"
+                                                            fill="none"
+                                                        >
+                                                            <path
+                                                                d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
+                                                                fill="#8D8D8D"
+                                                            />
+                                                        </svg>{" "}
+                                                        {translaterFun("upload")}{" "}
+                                                    </button>
+                                                    <input
+                                                        type="file"
+                                                        accept=".png, .jpg, .jpeg, .svg"
+                                                        // value
+                                                        onChange={(e) => handleUploadLogoImage(e)}
+                                                    />
+                                                </div>
+                                                {/* <p className="text-danger small mb-0">
+                                                    <ErrorMessage name="first_name" />
+                                                </p> */}
                                             </div>
                                         </div>
                                     </div>

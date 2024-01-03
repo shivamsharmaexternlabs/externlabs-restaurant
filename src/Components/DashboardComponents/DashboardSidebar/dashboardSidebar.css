@@ -10,6 +10,7 @@
     height: calc(100vh);
     padding: 10px 4px;
     background-color: #fff;
+    position: relative;
     margin-bottom: 0;
 }
 
@@ -62,6 +63,7 @@
     -webkit-transition: all.3s ease;
     transition: all .3s ease;
 }
+
 .normalicon {
     -webkit-transition: all.3s ease;
     transition: all .3s ease;
@@ -92,6 +94,47 @@
 
 .navmenu li a:hover .activeicon,
 .navmenu li a.active .activeicon { 
+    display: inline-block;
+    -webkit-transition: all.3s ease;
+    transition: all .3s ease;
+}
+
+.logoutbtn{
+    outline: none;
+    border: none;
+    box-shadow: none;
+    background: none;
+    position: absolute;
+    bottom: 23px;
+    left: 13px;
+    width: auto;
+    text-align: left;
+    display: block;
+    text-decoration: none;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
+    color: rgba(234, 106, 18, 1);
+    -webkit-transition: all.3s ease;
+    transition: all .3s ease;
+
+}
+
+
+.logoutbtn span {
+    display: none;
+    margin-left: 10px;  
+    -webkit-transition: all.3s ease;
+    transition: all .3s ease;
+}
+
+.fullsidebar .logoutbtn {
+    left: 18px;
+    -webkit-transition: all.3s ease;
+    transition: all .3s ease;
+}
+
+
+.fullsidebar .logoutbtn span {
     display: inline-block;
     -webkit-transition: all.3s ease;
     transition: all .3s ease;

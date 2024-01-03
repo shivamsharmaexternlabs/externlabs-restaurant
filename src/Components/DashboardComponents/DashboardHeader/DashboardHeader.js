@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next"
 
 const DashboardHeader = ({ popUpHookFun }) => {
 
-  const [LogOutToggle, setLogOutToggle] = useState(false)
+  // const [LogOutToggle, setLogOutToggle] = useState(false)
   const [languagesDataKey, setlanguagesDataKey] = useState("")
   const [languagesDataValue, setlanguagesDataValue] = useState("English")
   const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
@@ -50,11 +50,11 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
   };
 
-  const LogoutFun = () => {
+  // const LogoutFun = () => {
 
-    setLogOutToggle(o => !o)
+  //   // setLogOutToggle(o => !o)
 
-  }
+  // }
 
   let languageDAta = reactLocalStorage.get("languageSet", false);
 
@@ -132,13 +132,15 @@ const DashboardHeader = ({ popUpHookFun }) => {
               <h3>{UserNameData}</h3>
               <p>{t(UserTypeData)} </p>
             </div>
-            <div className='dropdownopt' onClick={(e) => LogoutFun()}>
+
+            
+            {/* <div className='dropdownopt' onClick={(e) => LogoutFun()}>
               <span></span>
               {LogOutToggle && <div className='dropdownoptbox'>
                 <button type='button' className='' onClick={(e) => handleLogout(e)}>
                   <img src={logout} alt='img' />
 
-                  {/*  */}
+                  
                   {t("logout")}
 
                 </button>
@@ -147,9 +149,12 @@ const DashboardHeader = ({ popUpHookFun }) => {
                 </button>
                 <button type='button' className='' onClick={(e) => LanguageFun("ar")}>
                   عربي
-                </button> */}
-              </div>}
-            </div>
+                </button> 
+              </div>
+            </div> */}
+
+
+
           </div>
         </div>
       </header>

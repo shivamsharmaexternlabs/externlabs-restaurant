@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './restaurantdetail.css' 
+import './restaurantdetail.css'
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
 import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComponent";
@@ -7,7 +7,7 @@ import editbanner from '../../../images/editbanner.png';
 import PhoneInput from "react-phone-input-2"
 import user from '../../../images/user.svg';
 import burgerimg from '../../../images/burgerimg.png';
-import { Formik, Form, Field, ErrorMessage } from "formik";  
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,7 +41,7 @@ const RestaurantDetail = ({ translaterFun }) => {
   const ResetPasswordSelectorData = useSelector((state) => state.ResetPasswordApiData);
   const [isShown, setIsShown] = useState(false);
 
-  console.log("fhsga", routeData)
+  console.log("fhsjhghjga", routeData)
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   let BearerToken = reactLocalStorage.get("Token", false);
@@ -78,25 +78,25 @@ const RestaurantDetail = ({ translaterFun }) => {
     confirm_pass: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, translaterFun("password-not-contain-spaces")),
   });
 
-  console.log("msvdsnd",LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData, routeData?.state?.page)
+  console.log("msvdsnd", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData, routeData?.state?.page)
 
   const defaultValue = {
-    restaurant_name: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.restaurant_name :routeData?.state?.currentData?.restaurant_name,
-    owner_name: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.owner?.first_name :routeData?.state?.currentData?.owner?.first_name === undefined ? routeData?.state?.currentData?.contact_name : routeData?.state?.currentData?.owner?.first_name,
+    restaurant_name: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.restaurant_name : routeData?.state?.currentData?.restaurant_name,
+    owner_name: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.owner?.first_name : routeData?.state?.currentData?.owner?.first_name === undefined ? routeData?.state?.currentData?.contact_name : routeData?.state?.currentData?.owner?.first_name,
 
     // owner_name: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.owner?.first_name :routeData?.state?.currentData?.owner?.first_name === undefined ? routeData?.state?.currentData?.contact_name : routeData?.state?.currentData?.owner?.first_name,
-    email: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.owner?.email  :  routeData?.state?.currentData?.owner?.email === undefined ? routeData?.state?.currentData?.email : routeData?.state?.currentData?.owner?.email,
+    email: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.owner?.email : routeData?.state?.currentData?.owner?.email === undefined ? routeData?.state?.currentData?.email : routeData?.state?.currentData?.owner?.email,
     // phone_ext: routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone?.split("-")[0] : routeData?.state?.currentData?.owner?.phone_number?.split("-")[0],
     // phone: routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone?.split("-")[1] : routeData?.state?.currentData?.owner?.phone_number?.split("-")[1],
 
-    shop_no: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.shop_no : routeData?.state?.currentData?.shop_no === undefined ? routeData?.state?.currentData?.shop_number : routeData?.state?.currentData?.shop_no,
-    street: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.street : routeData?.state?.currentData?.street === undefined ? routeData?.state?.currentData?.street_name : routeData?.state?.currentData?.street,
-    city: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.city : routeData?.state?.currentData?.city,
-    landmark: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.landmark : routeData?.state?.currentData?.landmark,
-    pincode: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.pincode === null ? "" : LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.pincode : routeData?.state?.currentData?.pincode === null ? "" : routeData?.state?.currentData?.pincode,
-    state: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.state : routeData?.state?.currentData?.state,
-    country: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.country : routeData?.state?.currentData?.country,
-    description: routeData?.state?.page === "restaurant" ?  LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.description : routeData?.state?.currentData?.description,
+    shop_no: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.shop_no : routeData?.state?.currentData?.shop_no === undefined ? routeData?.state?.currentData?.shop_number : routeData?.state?.currentData?.shop_no,
+    street: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.street : routeData?.state?.currentData?.street === undefined ? routeData?.state?.currentData?.street_name : routeData?.state?.currentData?.street,
+    city: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.city : routeData?.state?.currentData?.city,
+    landmark: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.landmark : routeData?.state?.currentData?.landmark,
+    pincode: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.pincode === null ? "" : LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.pincode : routeData?.state?.currentData?.pincode === null ? "" : routeData?.state?.currentData?.pincode,
+    state: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.state : routeData?.state?.currentData?.state,
+    country: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.country : routeData?.state?.currentData?.country,
+    description: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.description : routeData?.state?.currentData?.description,
 
 
   };
@@ -104,11 +104,11 @@ const RestaurantDetail = ({ translaterFun }) => {
   useEffect(() => {
 
     // dispatch(LoadingSpinner(false))
-    console.log("bhgcfxcgvh", routeData?.state.currentData)
+    console.log("logo", routeData?.state.currentData?.logo)
 
     if (routeData?.state?.currentData) {
-      setPhoneNumber(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone : routeData?.state?.currentData?.owner?.phone_number?.split("-")?.[1])
-      setCountryCode(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.country_code : routeData?.state?.currentData?.owner?.phone_number?.split("-")?.[0])
+      setPhoneNumber(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone : routeData?.state?.currentData?.owner?.phone_number)
+      setCountryCode(routeData?.state?.currentData?.owner?.country_code === undefined ? routeData?.state?.currentData?.country_code : routeData?.state?.currentData?.owner?.country_code)
     }
 
   }, [routeData?.state?.currentData])
@@ -119,8 +119,8 @@ const RestaurantDetail = ({ translaterFun }) => {
 
     // dispatch(LoadingSpinner(false))
 
-    if(routeData?.state?.page === "restaurant"){
-      dispatch(GetRestaurantsOnBoardSlice({RestaurantId : routeData?.state?.currentData?.restaurant_id, Token : BearerToken}))
+    if (routeData?.state?.page === "restaurant") {
+      dispatch(GetRestaurantsOnBoardSlice({ RestaurantId: routeData?.state?.currentData?.restaurant_id, Token: BearerToken }))
     }
 
   }, [LeadsRestaurantSelectorData?.UpdateRestaurantReducerData])
@@ -186,6 +186,8 @@ const RestaurantDetail = ({ translaterFun }) => {
         "Token": BearerToken
       }
 
+      console.log("hgcfxcgvhbjnk", CreateLeadOnBoardPayloadState)
+
       await dispatch(CreateRestaurantsOnBoardSlice(payloadOnBoard))
       await dispatch(LoadingSpinner(false))
 
@@ -194,7 +196,7 @@ const RestaurantDetail = ({ translaterFun }) => {
     }
 
   }
-
+  console.log("hjgcfghjklCreateLeadOnBoardPayloadState", CreateLeadOnBoardPayloadState)
   // const CopyLinkFun = () => {
   //   console.log("bnvdhgsdvsd1")
   //   navigator.clipboard
@@ -403,16 +405,16 @@ const RestaurantDetail = ({ translaterFun }) => {
   };
 
 
-  console.log("jdjhvdssd",isShown)
+  console.log("jdjhvdssd", isShown)
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    if(isShown){
+    if (isShown) {
       setCopyValueToggle(false)
     }
 
-  },[isShown])
+  }, [isShown])
 
 
   return (
@@ -660,6 +662,38 @@ const RestaurantDetail = ({ translaterFun }) => {
                         </div>
                       </div>
 
+                      <div className="col-md-12 mb-3">
+                        <div className="formbox ">
+                          <label className="d-block">{translaterFun("Logo")} </label>
+                          <div className=" uploadwrapper ">
+                            <button type="button">
+                              {" "}
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                              >
+                                <path
+                                  d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
+                                  fill="#8D8D8D"
+                                />
+                              </svg>{" "}
+                              {translaterFun("upload")}{" "}
+                            </button>
+                            <input
+                              type="file"
+                              accept=".png, .jpg, .jpeg, .svg"
+                              // value
+                              // onChange={(e) => handleUploadLogoImage(e)}
+                            />
+                          </div>
+                          {/* <p className="text-danger small mb-0">
+                                                    <ErrorMessage name="first_name" />
+                                                </p> */}
+                        </div>
+                      </div>
 
                     </div>
                   </div>
@@ -671,7 +705,7 @@ const RestaurantDetail = ({ translaterFun }) => {
                     }
 
                     {
-                      routeData?.state?.currentData?.status_type !== "On-Boarded" &&routeData?.state?.page !== "restaurant" && <button type='submit' className='btn2 ms-3'  >
+                      routeData?.state?.currentData?.status_type !== "On-Boarded" && routeData?.state?.page !== "restaurant" && <button type='submit' className='btn2 ms-3'  >
                         {translaterFun("onBoard-and-Create-Password")} </button>
                     }
                     {
@@ -839,12 +873,12 @@ const RestaurantDetail = ({ translaterFun }) => {
         {/* Successful sign up and Onboard (copy link and share part) */}
         {SuccessPopup &&
 
-<SucessRegisteredPopup
+          <SucessRegisteredPopup
 
-translaterFun={translaterFun}
-LeadsRestaurantSelectorData={LeadsRestaurantSelectorData}
-BackToHomeFun={BackToHomeFun}
-/>
+            translaterFun={translaterFun}
+            LeadsRestaurantSelectorData={LeadsRestaurantSelectorData}
+            BackToHomeFun={BackToHomeFun}
+          />
 
           // <div className="popup successpopup ">
           //   <div className="innerpopup">

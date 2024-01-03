@@ -154,8 +154,9 @@ const Dashboard = ({ translaterFun }) => {
   return (
     <>
       <Helmet>
-        <title>Dashboard 1</title>
-        <meta  name="description"  content="dashoard jhvgcgvhbjkjbhv" />
+        <title>Dashboard</title>
+        <meta  name="description"  content="dashoard meta description" />
+        {/* <link rel="icon" type="image/x-icon" href="./"/> */}
       </Helmet>
       <DashboardLayout  >
         <div className='dasboardbody'>

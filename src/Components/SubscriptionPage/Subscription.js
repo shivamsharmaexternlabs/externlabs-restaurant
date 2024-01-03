@@ -31,7 +31,7 @@ const Subscription = ({ translaterFun }) => {
   const LanguageSelected = reactLocalStorage.get("languageSet", false);
 
 
-    useEffect(() => {
+  useEffect(() => {
     const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET_KEY);
 
 
@@ -59,7 +59,7 @@ const Subscription = ({ translaterFun }) => {
   useEffect(() => {
     if (PaymentSelectorData?.PaymentPostReducerData?.status === 200) {
       // window.location.replace(PaymentSelectorData?.PaymentPostReducerData?.data?.url?.url)
-      console.log("jgvgfssdds",PaymentSelectorData?.PaymentPostReducerData)
+      console.log("jgvgfssdds", PaymentSelectorData?.PaymentPostReducerData)
       window.location.href = PaymentSelectorData?.PaymentPostReducerData?.data?.url?.transaction?.url;
       // navigate(`/${PaymentSelectorData?.PaymentPostReducerData?.data?.url?.transaction?.url}`,);
     }
@@ -77,31 +77,31 @@ const Subscription = ({ translaterFun }) => {
 
   useEffect(() => {
 
-      let getPaymentApi = async (BearerToken1) => { 
-      
+    let getPaymentApi = async (BearerToken1) => {
+
       try {
         const response = await axios.get(`${process.env.REACT_APP_BASE_URL}payment/price/`,
-        
-            {
-                headers: {
-                    Authorization: `Bearer ${BearerToken1}`,
-                    "Accept-Language": languageSet
-                },
-            }
+
+          {
+            headers: {
+              Authorization: `Bearer ${BearerToken1}`,
+              "Accept-Language": languageSet
+            },
+          }
         );
 
-        console.log("mnsbghdcshds",response)
+        console.log("mnsbghdcshds", response)
         setSubscriptionPlan(response?.data)
         return response;
 
-    } catch (err) {
+      } catch (err) {
         // toast.error(err?.response?.data?.message);
         // return rejectWithValue(err);
-    } 
+      }
 
     }
 
-    BearerToken &&  getPaymentApi(BearerToken)
+    BearerToken && getPaymentApi(BearerToken)
 
   }, [])
 
@@ -275,7 +275,7 @@ const Subscription = ({ translaterFun }) => {
               <ul>
 
                 {SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
-                  console.log("sjdhsjddf",items)
+                  console.log("sjdhsjddf", items)
                   return items?.interval === "month" && items?.is_active === true && items?.plan_id?.language === LanguageSelected && <li key={id} className=''>
                     <div className='title'>
                       <div className='iconbox'>
@@ -297,9 +297,23 @@ const Subscription = ({ translaterFun }) => {
                     </div>
                     <ul className='infolist'>
                       {items?.plan_id?.features?.map((item, id) => {
-                        return <li> <img src={checkbox} alt='checkbox icon' /><span>{item.name}</span> </li>
+                        return (<li className={item?.active != true ? "disable" : ""} >
+                          <img src={checkbox} alt='checkbox icon' />
+                          <span > {item?.name}</span>
+                        </li>)
                       })
                       }
+
+                      {/* {items?.plan_id?.features?.map((item, id) => {
+                        return (!item?.active && <li className={item?.active != true ? "disable" : ""} >
+                          <img src={checkbox} alt='checkbox icon' />
+                          <span > {item?.name}</span>
+                        </li>)
+                      })
+                      } */}
+                      {/* <li className='disable'> <img src={checkbox} alt='checkbox icon' /><span>Call to Action in Every Ads</span> </li> */}
+
+
 
                     </ul>
                   </li>
@@ -333,8 +347,16 @@ const Subscription = ({ translaterFun }) => {
                       </button>
                     </div>
                     <ul className='infolist'>
-                      {items?.plan_id?.features?.map((item, id) => {
+                      {/* {items?.plan_id?.features?.map((item, id) => {
                         return <li> <img src={checkbox} alt='checkbox icon' /><span>{item.name}</span> </li>
+                      })
+                      } */}
+
+                      {items?.plan_id?.features?.map((item, id) => {
+                        return (<li className={item?.active != true ? "disable" : ""} >
+                          <img src={checkbox} alt='checkbox icon' />
+                          <span > {item?.name}</span>
+                        </li>)
                       })
                       }
 

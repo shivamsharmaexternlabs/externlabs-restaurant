@@ -467,7 +467,7 @@ const Categories = ({ translaterFun }) => {
   };
 
   const handleUploadImage = (e) => {
-    setuploadImage(e?.target?.files[0]);
+    setuploadImage(e?.target?.files?.[0] ? e?.target?.files?.[0] : "");
     // const formData = new FormData()
     // formData.append("file", payload?.file);
   };
@@ -539,7 +539,7 @@ const Categories = ({ translaterFun }) => {
   // edit menu items
   const PopUpToggleEditFun = (e, itemData) => {
     setEditMenuData(itemData);
-    setuploadImage(itemData?.image);
+    setuploadImage(itemData?.image ? itemData?.image: "");
 
     console.log("itemData", itemData)
 

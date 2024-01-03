@@ -10,11 +10,11 @@ import icon9 from '../../../images/icon9.svg'
 import icon10 from '../../../images/icon10.svg'
 import icon10h from '../../../images/icon10h.svg'
 import icon11 from '../../../images/icon11.svg'
-
 import icon13 from '../../../images/icon13.svg'
 import icon13h from '../../../images/icon13h.svg'
 import icon14 from '../../../images/icon14.svg'
 import icon14h from '../../../images/icon14h.svg'
+import icon15 from '../../../images/icon15.svg'
 import { ToggleBar } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, NavLink, useNavigate, Route } from "react-router-dom";
@@ -31,7 +31,7 @@ const DashboardSidebar = () => {
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
 
-
+  const navigate = useNavigate()
   const [ToggleHeader, setToggleHeader] = useState()
 
   const dispatch = useDispatch();
@@ -54,6 +54,15 @@ const DashboardSidebar = () => {
   useEffect(() => {
     i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
   }, [ManagerApiSelectorData?.languagechange])
+
+  const handleLogout = () => { 
+    navigate("/")   
+    var myItem = localStorage.getItem('languageSet');
+    localStorage.clear();
+    localStorage.setItem('languageSet', myItem);
+
+    window.location.reload()
+  }
 
 
   return (
@@ -199,6 +208,7 @@ const DashboardSidebar = () => {
             </NavLink>
           </li> */}
         </ul>
+        <button  type='button' className='logoutbtn' onClick={(e) => handleLogout(e)}> <img src={icon15} alt='logout - img' /> <span>Log Out </span> </button>
       </div>
 
       {/* <div className='contentpart managerpage'>
