@@ -370,7 +370,9 @@ const Menu = ({ translaterFun }) => {
 
                               <p> {languageSet == "en" ? CategoryItem?.description_en : CategoryItem?.description_native} </p>
 
-                              <div className='startxt'> <img src={calorieicon} alt="img" /> {CategoryItem?.calories + " " + CategoryItem?.calories_unit}</div>
+
+                              <div className='startxt'> <img src={calorieicon} alt="img" /> {CategoryItem?.calories !== null ? CategoryItem?.calories : ""}  {CategoryItem?.calories_unit !== null ? CategoryItem?.calories_unit : ""}</div>
+
                             </div>
                             <div className='rightpart'>
 
