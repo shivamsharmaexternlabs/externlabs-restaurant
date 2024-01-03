@@ -32,6 +32,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import rotateimage from "./images/rotateimage.png"
 import DashboardHeader from './Components/DashboardComponents/DashboardHeader/DashboardHeader.js';
+import AdminProfilePage from "./Components/DashboardComponents/AdminProfilePage/AdminProfilePage.js";
 /* import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 i18n.use(initReactI18next).init({
@@ -131,10 +132,13 @@ function App() {
             <Route path="/:id/admin/categories/reorder/" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><DndCategories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
             <Route path="/:id/admin/manager" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <Manager translaterFun={t} />}></Route> {/* convert in arabic  */}
             <Route path="/:id/admin/allmedia" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <AllMedia translaterFun={t} />}></Route>{/* convert in arabic  */}
+
+            <Route path='/:id/admin/viewProfile' element={<AdminProfilePage translaterFun={t} />}></Route>
             <Route path="/:id/admin/paymenthistory" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <PaymentHistory translaterFun={t} />}></Route> {/* convert in arabic  */}
             <Route path='/admin/leads' element={<Leads translaterFun={t} />}></Route>
             <Route path='/admin/restaurant' element={<Restaurant translaterFun={t} />}></Route> {/* convert in arabic  */}
-            <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail translaterFun={t} />}></Route>
+            <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail translaterFun={t} />}></Route>  
+
             {payment_status == "false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
           </Routes>
         }

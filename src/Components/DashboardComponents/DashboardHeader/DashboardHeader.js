@@ -12,14 +12,17 @@ import { useState } from 'react'
 
 
 import { useTranslation } from "react-i18next"
+import { GetRestaurantsOnBoardSlice } from '../../../Redux/slices/leadsRestaurantSlice'
+import { useSelector } from 'react-redux'
 
 const DashboardHeader = ({ popUpHookFun }) => {
 
-  // const [LogOutToggle, setLogOutToggle] = useState(false)
+  const [LogOutToggle, setLogOutToggle] = useState(false)
   const [languagesDataKey, setlanguagesDataKey] = useState("")
   const [languagesDataValue, setlanguagesDataValue] = useState("English")
   const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
 
+  const LeadsRestaurantSelectorData = useSelector((state) => state.LeadsRestaurantApiData);
 
 
   const navigate = useNavigate()
@@ -33,8 +36,8 @@ const DashboardHeader = ({ popUpHookFun }) => {
   let UserNameData = reactLocalStorage.get("FirstName", false);
   let languageSetData = reactLocalStorage.get("languageSet", false);
 
-  const handleLogout = () => { 
-    navigate("/")   
+  const handleLogout = () => {
+    navigate("/")
     var myItem = localStorage.getItem('languageSet');
     localStorage.clear();
     localStorage.setItem('languageSet', myItem);
@@ -50,11 +53,11 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
   };
 
-  // const LogoutFun = () => {
+  const LogoutFun = () => {
 
-  //   // setLogOutToggle(o => !o)
+    setLogOutToggle(o => !o)
 
-  // }
+  }
 
   let languageDAta = reactLocalStorage.get("languageSet", false);
 
@@ -101,9 +104,44 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
   // }, [languageSetData])
 
+  const ViewProfileFun = async () => {
+    let dispatchDataGetRestaurantsOnBoardSlice = await dispatch(GetRestaurantsOnBoardSlice({ RestaurantId: params?.pathname?.split("/")?.[1], Token: BearerToken }))
+
+    console.log("sjdvhsdfsd0", dispatchDataGetRestaurantsOnBoardSlice?.payload.data)
+    // { RestaurantId: params?.pathname?.split("/")?.[1], Token: BearerToken }
+    // navigate(`/admin/viewProfile/${params?.pathname?.split("/")?.[1]}`) 
+
+    navigate(`/${params?.pathname?.split("/")?.[1]}/admin/viewProfile/`, {
+      state: {
+        page: "profilePage",
+        currentData: dispatchDataGetRestaurantsOnBoardSlice?.payload?.data,
+      }
+    })
+  }
+
+
+  // let data=[
+  // {ass:"a1212a",
+  // dasa:["q11a","q31a","q41a","q51a","q61a","q71a",]},
+
+  // {ass:"a12125a",
+  // dasa:["q11q","q33q","q44q","q15q","q16q","q77q",]}
+  //    ,
+
+  //    {ass:"a1213a",
+  //    dasa:["l11e","l13e","l42e","l53e","l63e","l77e",]},
+
+  //    {ass:"a1214a",
+  //    dasa:["n12s","n13s","n24s","n15s","n63s","n77s",]}
+
+  // ]
+console.log("hgfghjk", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data)
+
   return (
     <>
       <header>
+
+
         {/* <div className='leftpart'>  <form> <input type='search' placeholder='Search…' /> </form> </div> */}
         <div className='rightpart'>
           <div className='languaselist'>
@@ -127,31 +165,48 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
           <span className='notifyimg'> <img src={notify} alt='notify img' /> </span>
           <div className='user'  >
-            <figure> <img src={user} alt='user img' />  </figure>
+            <figure>
+
+              {UserTypeData !== "owner" && <img src={user} alt='user img' />}  
+              {UserTypeData === "owner" && <img src={LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo == "undefined" ? user :
+                LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo} alt='user img' />}
+
+
+            </figure>
             <div className='userinfo'>
               <h3>{UserNameData}</h3>
               <p>{t(UserTypeData)} </p>
             </div>
 
-            
-            {/* <div className='dropdownopt' onClick={(e) => LogoutFun()}>
+
+            <div className='dropdownopt' onClick={(e) => LogoutFun()}>
               <span></span>
               {LogOutToggle && <div className='dropdownoptbox'>
-                <button type='button' className='' onClick={(e) => handleLogout(e)}>
-                  <img src={logout} alt='img' />
 
-                  
+              {UserTypeData === "owner" && <button type='button' className='' onClick={(e) => ViewProfileFun(e)}>
+
+
+
+                  {t("view-profile")}
+
+                </button>}
+                <button type='button' className='' onClick={(e) => handleLogout(e)}>
+                  {/* <img src={logout} alt='img' /> */}
+
+
                   {t("logout")}
 
                 </button>
+
+
                 {/* <button type='button' className='' onClick={(e) => LanguageFun("en")}>
                   English
                 </button>
                 <button type='button' className='' onClick={(e) => LanguageFun("ar")}>
                   عربي
-                </button> 
-              </div>
-            </div> */}
+                </button> */}
+              </div>}
+            </div>
 
 
 

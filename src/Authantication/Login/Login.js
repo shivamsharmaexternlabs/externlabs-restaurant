@@ -10,6 +10,7 @@ import { SignInSlice } from "../../Redux/slices/SignInSlice";
 import { reactLocalStorage } from "reactjs-localstorage";
 import PasswordEye from "../../ReusableComponents/PasswordEye/PasswordEye";
 import { useTranslation } from "react-i18next";
+import { GetRestaurantsOnBoardSlice } from "../../Redux/slices/leadsRestaurantSlice";
 
 // Functional component for the Login page
 const Login = () => {
@@ -42,6 +43,9 @@ const Login = () => {
     // Checking if the status is 200, indicating successful login
     if (User?.data?.status === 200) {
       setLoadSpiner(false);
+      console.log("sdasfsdf",User?.data)
+
+      dispatch(GetRestaurantsOnBoardSlice({ RestaurantId: User?.data?.data?.restaurants?.[0]?.restaurant_id, Token: User?.data?.data?.token }))
       // reactLocalStorage.set("languageSet", "en");
 
       // Checking user type and redirecting accordingly

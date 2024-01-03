@@ -1,0 +1,42 @@
+.edituserimg {
+
+    cursor: pointer;
+    position: relative;
+}
+
+.edituserimgbutton {
+    position: absolute;
+    overflow: hidden;
+    display: inline-block;
+     
+    top: -4px;
+    right: 0px;
+    cursor: pointer !important;
+}
+
+.editprofilebanner .info .edituserimgbutton button {
+    border-radius: 0px;
+    padding: 0;
+    font-size: 0;
+    border: none;
+    outline: none; 
+    background-color: transparent;
+}
+
+.editprofilebanner .info .edituserimgbutton img {
+    width: 20px;
+    height: auto;
+    margin: 0;
+    border-radius: 0;
+    cursor: pointer !important;
+
+}
+
+.edituserimg input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer !important;
+}

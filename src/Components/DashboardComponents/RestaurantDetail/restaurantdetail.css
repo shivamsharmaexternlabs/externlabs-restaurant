@@ -1,4 +1,3 @@
-
 .restaurantdetailpage {
     position: relative;
     z-index: 1;
@@ -7,14 +6,16 @@
 .editprofileform {
     position: relative;
     z-index: 9;
-   
+
 }
- .burgerimg{
+
+.burgerimg {
     position: fixed;
     bottom: 0;
     right: 0;
     z-index: 2;
 }
+
 .numbersdds .react-tel-input .flag-dropdown {
     z-index: -1;
 }
@@ -41,32 +42,36 @@
     justify-content: space-between;
 }
 
-.editprofilebanner  figure {
+.editprofilebanner figure {
     margin: 0 0;
 }
 
-.editprofilebanner .info button{
+.editprofilebanner .info button {
     border-radius: 8px;
     padding: 13px 15px;
     font-size: 14px;
 }
 
-.editprofilebanner .info > img {
+.editprofilebanner .info .edituserimg >   img {
     margin: -55px 0 0;
-    width: 90px;
-    height: 90px;
+    width: 93px;
+    height: 93px;
     border-radius: 50%;
+    background-color:rgb(137, 135, 135) ;
+    padding: 0.5px;
 }
-.editprofileform  .numbersdds{
-    cursor: not-allowed;
-background-color: #80808029; 
-padding-bottom: 10px;
-}
-.numbersdds input{
-    z-index: -1;
- }
 
-.numbersdds .react-tel-input.input_filed .form-control  {
+.editprofileform .numbersdds {
+    cursor: not-allowed;
+    background-color: #80808029;
+    padding-bottom: 10px;
+}
+
+.numbersdds input {
+    z-index: -1;
+}
+
+.numbersdds .react-tel-input.input_filed .form-control {
     display: block;
 }
 
@@ -79,19 +84,20 @@ padding-bottom: 10px;
 }
 
 .hoverCopyed {
-    display: none !important; 
+    display: none !important;
 }
 
-.copybtnbox:hover .hoverCopyed{ 
-        display: block !important; 
+.copybtnbox:hover .hoverCopyed {
+    display: block !important;
 }
-.hoverCopyed button{
+
+.hoverCopyed button {
     background-color: #ea6a12 !important;
 }
 
 
 
-.arabic  .submitbox .btn2.ms-3 {
+.arabic .submitbox .btn2.ms-3 {
     margin-left: 0 !important;
     margin-right: 1rem;
 }
@@ -109,16 +115,6 @@ padding-bottom: 10px;
 }
 
 .arabic .fullsidebar .navmenu li>a .text {
-    margin-left:0;
+    margin-left: 0;
     margin-right: 10px;
 }
-
-
-
-
-
-
-
-
-
-

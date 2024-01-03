@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { reactLocalStorage } from "reactjs-localstorage";
+import { string } from "yup";
 
 
 let RestaurantId = reactLocalStorage.get("RestaurantId", false);
@@ -119,8 +120,28 @@ export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurants
 
 // Update Restaurant (PATCH REQUEST ...)
 export const UpdateRestaurantSlice = createAsyncThunk("UpdateRestaurantSlice", async (body, { rejectWithValue }) => {
+
+  const formData = new FormData();
+
+  formData.append("restaurant_name", body?.restaurant_name);
+  formData.append("shop_no", body?.shop_no);
+  formData.append("street", body?.street);
+  formData.append("city", body?.city);
+  formData.append("landmark", body?.landmark);
+  formData.append("pincode", body?.pincode);
+  formData.append("state", body?.state);
+  formData.append("country", body?.country);
+  formData.append("description", body?.description);
+  // formData.append("owner_id", body?.owner_id);
+  formData.append("RestaurantId", body?.RestaurantId);
+  if(typeof(body?.logo)!= "string"  )
+{
+  formData.append("logo", body?.logo)
+}   
+console.log("sdfdgfhgjh",typeof(body?.logo))
   try {
-    const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant/${body?.RestaurantId}/`, body,
+    const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant/${body?.RestaurantId}/`,  
+    formData  ,
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,
