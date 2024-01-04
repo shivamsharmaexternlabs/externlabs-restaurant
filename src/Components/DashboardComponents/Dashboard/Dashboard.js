@@ -9,21 +9,20 @@ import { ManagerSlice } from "../../../Redux/slices/managerSlice"
 import { GetQrCodeSlice } from "../../../Redux/slices/qrCodeSlice"
 // import defaultImage from '../../../images/defaultImage.png'
 import defaultImage from '../../../images/defaultimg.svg'
-
-import icon4 from '../../../images/icon4.svg'
-import icon5 from '../../../images/icon5.svg'
+import icon4 from '../../../images/icon4.svg';
+import icon5 from '../../../images/icon5.svg';
 
 import arrow2 from '../../../images/arrow2.svg'
-import dish1 from '../../../images/dish1.png'
-import dish2 from '../../../images/dish2.png'
-import dish3 from '../../../images/dish3.png'
-import user from '../../../images/user.png'
-import item2 from '../../../images/item2.svg'
-import qrimg from '../../../images/qr.png'
-import menimg from '../../../images/men.png'
-import { useNavigate } from 'react-router-dom'
-import { reactLocalStorage } from 'reactjs-localstorage'
-import { MenuSlice, favoriteMenuSlice } from '../../../Redux/slices/menuSlice'
+import dish1 from '../../../images/dish1.png';
+import dish2 from '../../../images/dish2.png';
+import dish3 from '../../../images/dish3.png';
+import user from '../../../images/user.png';
+import item2 from '../../../images/item2.svg';
+import qrimg from '../../../images/qr.png';
+import menimg from '../../../images/men.png';
+import { useNavigate } from 'react-router-dom';
+import { reactLocalStorage } from 'reactjs-localstorage';
+import { MenuSlice, favoriteMenuSlice } from '../../../Redux/slices/menuSlice';
 import { PaymentHistorySlice } from '../../../Redux/slices/paymentSlice';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
@@ -155,7 +154,7 @@ const Dashboard = ({ translaterFun }) => {
     <>
       <Helmet>
         <title>Dashboard</title>
-        <meta  name="description"  content="dashoard meta description" />
+        <meta name="description" content="dashoard meta description" />
         {/* <link rel="icon" type="image/x-icon" href="./"/> */}
       </Helmet>
       <DashboardLayout  >
@@ -264,7 +263,7 @@ const Dashboard = ({ translaterFun }) => {
                               return <li>
                                 <h4>{languageSet === "en" ? Item?.item_name_en : Item?.item_name_native}</h4>
                                 <h5 className='mt-1 d-flex align-items-center '>
-                                  {Item?.is_veg == true ? <img src={icon4} alt='img' className='me-1' /> : <img src={icon5} alt='img' className='me-1' />}
+                                  {Item?.is_veg == true ? <img src={icon4} alt='img' className='me-1 ms-2' /> : <img src={icon5} alt='img' className='me-1 ms-2 ' />}
 
                                   {Item?.calories} {Item?.calories_unit}</h5>
 
@@ -288,8 +287,12 @@ const Dashboard = ({ translaterFun }) => {
                                     </p>
                                     {/* {Item?.description}
                                       {Item?.description?.length} */}
-
+                                      <div className="" >
                                     <span className='price'>{`${CurrencySymbol[0][Item?.currency]} ${Item?.item_price}`}</span>
+                                    {Item?.variant?.length > 0 && <div className='variantbox'>
+                                      <span className='variant'>{`${Item?.variant?.length} ${translaterFun("variants")}`} <img src='' /> </span>
+                                    </div>}
+                                    </div>
                                   </div>
                                   <div className='rightpart'>
                                     <img src={Item?.image === null ? defaultImage : Item?.image} alt='img' />

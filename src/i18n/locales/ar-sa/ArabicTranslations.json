@@ -258,7 +258,8 @@
   "sign-in-to-stay-connected" : "تسجيل الدخول للبقاء على اتصال.",
   "email-or-phone-no" : "البريد الإلكتروني أو رقم الهاتف",
   "email-or-phone-number-is-required" : "مطلوب البريد الإلكتروني أو رقم الهاتف",
-  "password-must-not-contain-spaces" : "يجب ألا تحتوي كلمة المرور على مسافات"
+  "password-must-not-contain-spaces" : "يجب ألا تحتوي كلمة المرور على مسافات",
+  "variants" : "المتغيرات"
 
 
   

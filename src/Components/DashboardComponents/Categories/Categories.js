@@ -6,6 +6,7 @@ import DashboardSidebar from "../DashboardSidebar/DashboardSidebar";
 import LodingSpiner from "../../LoadingSpinner/LoadingSpinner";
 import dish1 from "../../../images/dish1.png";
 import dish2 from "../../../images/dish2.png";
+import icon19 from '../../../images/icon19.svg';
 import dish3 from "../../../images/dish3.png";
 import category from "../../../images/category.png";
 import edit1 from "../../../images/edit.svg";
@@ -77,6 +78,7 @@ const Categories = ({ translaterFun }) => {
   const [uploadImage, setuploadImage] = useState("");
   const [CategoryId, setCategoryId] = useState("");
   const [MenuItemId, setMenuItemId] = useState("");
+  const [MenuItemHoverClassName, setMenuItemHoverClassName] = useState("");
   const [caloriesunit, setCaloriesUnit] = useState("kcal");
   const [QrSampleImage, setQrSampleImage] = useState("");
   const [UploadMenuFileState, setUploadMenuFileState] = useState("");
@@ -1299,7 +1301,7 @@ const Categories = ({ translaterFun }) => {
                               return (
                                 <li
                                   key={ids}
-                                  className={draggableSubcategory === true ? "drag-active " : "active"}
+                                  className={` ${draggableSubcategory === true ? "drag-active " : "active"} ${MenuItemHoverClassName === items?.item_id ? "variantboxshow deactive" : ""}`}
                                   // key={item.menu_id}
                                   draggable={draggableSubcategory}
                                   onDragStart={(e) => draggableSubcategory && startDrag(e, items)}
@@ -1392,12 +1394,36 @@ const Categories = ({ translaterFun }) => {
                                         }
 
                                       </p>
+                                      <div className="" >
 
-                                      <span className="price">{`${CurrencySymbol[0][items?.currency]} ${items?.item_price}`}</span>
+                                        <span className="price">{`${CurrencySymbol?.[0]?.[items?.currency]} ${items?.item_price}`}</span>
+                                        {items?.variant?.length > 0 && <div className='variantbox'>
+                                          <span className='variant'
+                                            onMouseEnter={() => setMenuItemHoverClassName(items?.item_id)}
+                                            onMouseLeave={() => setMenuItemHoverClassName("")}
+                                          >
+                                            {`${items?.variant?.length} ${translaterFun("variants")}`}
+                                            <img src={icon19} alt="img" />
+                                          </span>
+
+
+                                        </div>
+
+                                        }
+                                      </div>
                                     </div>
                                     <div className="rightpart">
                                       <img src={items?.image == null ? defaultImage : items?.image} alt="img" />
                                     </div>
+
+                                    <ul className="variantlist">
+
+                                      {items?.variant?.map(
+                                        (variant, variantId) => {
+                                          return <li><b>{(languageSet == "en") ? variant?.variant_name_en : variant?.variant_name_native}</b> <span>{CurrencySymbol?.[0]?.[items?.currency]}  {variant?.amount}</span></li>
+                                        })
+                                      }
+                                    </ul>
                                   </div>
                                 </li>
                               );
