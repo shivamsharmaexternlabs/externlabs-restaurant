@@ -33,6 +33,8 @@ import { useSelector } from 'react-redux';
 import rotateimage from "./images/rotateimage.png"
 import DashboardHeader from './Components/DashboardComponents/DashboardHeader/DashboardHeader.js';
 import AdminProfilePage from "./Components/DashboardComponents/AdminProfilePage/AdminProfilePage.js";
+import { GetRestaurantsOnBoardSlice } from "./Redux/slices/leadsRestaurantSlice.js";
+import { useDispatch } from "react-redux";
 /* import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 i18n.use(initReactI18next).init({
@@ -56,15 +58,19 @@ function App() {
 
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
-
   const locationData = useLocation()
+  const dispatch = useDispatch();
+
 
   const ManagerApiSelectorData = useSelector((state) => state.ToggleBarData);
+  const User = useSelector((state) => state.SignInApiData);
+
 
 
   let Token = reactLocalStorage.get("Token", false)
   let payment_status = reactLocalStorage.get("payment_status", false)
   let UserTypeData = reactLocalStorage.get("Type", false);
+  let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   axios.interceptors.response.use(
 
@@ -115,6 +121,20 @@ function App() {
 
 
   }, [ManagerApiSelectorData?.languagechange])
+
+
+  useEffect(() => {
+    // Checking if the status is 200, indicating successful login
+    if (Token) {
+      
+      // Checking user type and redirecting accordingly
+      if (UserTypeData == "owner") { 
+        // This api is calling for user logo (on top right) 
+        dispatch(GetRestaurantsOnBoardSlice({ RestaurantId, Token }))
+      }
+    }
+
+  }, [Token]);
 
 
   return (

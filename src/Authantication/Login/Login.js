@@ -45,7 +45,7 @@ const Login = () => {
       setLoadSpiner(false);
       console.log("sdasfsdf",User?.data)
 
-      dispatch(GetRestaurantsOnBoardSlice({ RestaurantId: User?.data?.data?.restaurants?.[0]?.restaurant_id, Token: User?.data?.data?.token }))
+      // dispatch(GetRestaurantsOnBoardSlice({ RestaurantId: User?.data?.data?.restaurants?.[0]?.restaurant_id, Token: User?.data?.data?.token }))
       // reactLocalStorage.set("languageSet", "en");
 
       // Checking user type and redirecting accordingly
