@@ -19,6 +19,24 @@ const PaymentHistory = ({ translaterFun }) => {
     const [LoadSpiner, setLoadSpiner] = useState(false)
     const [SubscriptionPlan, setSubscriptionPlan] = useState([])
 
+    // const [inputs, setInputs] = useState([{ firstName: "", lastName: "" }]);
+
+    // const handleAddInput = () => {
+    //   setInputs([...inputs, { firstName: "", lastName: "" }]);
+    // };
+  
+    // const handleChange = (event, index) => {
+    //   let { name, value } = event.target;
+    //   let onChangeValue = [...inputs];
+    //   onChangeValue[index][name] = value;
+    //   setInputs(onChangeValue);
+    // };
+  
+    // const handleDeleteInput = (index) => {
+    //   const newArray = [...inputs];
+    //   newArray.splice(index, 1);
+    //   setInputs(newArray);
+    // };
 
 
     const dispatch = useDispatch();
@@ -138,6 +156,34 @@ const PaymentHistory = ({ translaterFun }) => {
             <DashboardLayout>
                 <div className='dasboardbody'>
                     <DashboardSidebar />
+
+                    {/* <div className="container">
+      {inputs.map((item, index) => (
+        <div className="input_container" key={index}>
+          <input
+            name="firstName"
+            type="text"
+            value={item.firstName}
+            onChange={(event) => handleChange(event, index)}
+          />
+          <input
+            name="lastName"
+            type="text"
+            value={item.lastName}
+            onChange={(event) => handleChange(event, index)}
+          />
+          {inputs.length > 1 && (
+            <button onClick={() => handleDeleteInput(index)}>Delete</button>
+          )}
+          {index === inputs.length - 1 && (
+            <button onClick={() => handleAddInput()}>Add</button>
+          )}
+        </div>
+      ))}
+
+      <div className="body"> {JSON.stringify(inputs)} </div>
+    </div> */}
+
                     <div className='contentpart paymenthispage'>
                         <div className='title'>
                             <h2> {translaterFun("subscription-plan")} </h2>
@@ -157,9 +203,9 @@ const PaymentHistory = ({ translaterFun }) => {
 
                                     <h3> {items?.plan_id?.name} </h3>
 
-                                   {/* {items?.plan_id?.plan_id == PaymentHistoryDetails?.[0]?.price_id?.plan_id?.plan_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span>
+                                   {items?.plan_id?.plan_id == PaymentHistoryDetails?.[0]?.price_id?.plan_id?.plan_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span>
                                     
-                                      </button>} */}
+                                      </button>}
 
 
                                     <p>{items?.plan_id?.description}</p>

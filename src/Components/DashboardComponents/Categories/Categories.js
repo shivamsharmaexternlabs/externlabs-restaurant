@@ -17,6 +17,7 @@ import editw from "../../../images/editw.svg";
 import icon4 from '../../../images/icon4.svg'
 import icon5 from '../../../images/icon5.svg'
 import order from "../../../images/order.svg";
+import icon16 from "../../../images/icon16.svg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { saveAs } from "file-saver";
@@ -81,7 +82,7 @@ const Categories = ({ translaterFun }) => {
   const [QrSampleImage, setQrSampleImage] = useState("");
   const [UploadMenuFileState, setUploadMenuFileState] = useState("");
   const [uploadCategoryImage, setuploadCategoryImage] = useState("");
-  const [EditMenuData, setEditMenuData] = useState("");
+  const [EditMenuData, setEditMenuData] = useState("");//get category item data after click 
   const [DeleteCategory, setDeleteCategory] = useState();
   const [draggedItem, setDraggedItem] = useState(null);
   const [draggableSubcategory, setDraggableSubcategory] = useState(false)
@@ -94,6 +95,60 @@ const Categories = ({ translaterFun }) => {
     toggle: false,
     data: ""
   })
+  const [inputs, setInputs] = useState([ ]);
+  const [editInputs, seteditInputs] = useState([ ]);
+
+
+  // -----------add variant  start-------------- 
+
+
+   
+
+    const handleAddInput = () => {
+      setInputs([...inputs, { variant_name_en: "", amount: "",variant_name_native:"" }]);
+    };
+  
+    const handleChange = (event, index) => {
+      let { name, value } = event.target;
+      let onChangeValue = [...inputs];
+      onChangeValue[index][name] = value;
+      setInputs(onChangeValue);
+    };
+  
+    const handleDeleteInput = (index) => {
+      const newArray = [...inputs];
+      newArray.splice(index, 1);
+      setInputs(newArray);
+    }; 
+ 
+
+  // -----------add variant end ----------------
+
+
+  // -----------edit variant  start-------------- 
+
+
+  
+
+    const handleEditInput = () => {
+      seteditInputs([...editInputs, { variant_name_en: "", amount: "",variant_name_native:"" }]);
+    };
+  
+    const handleEditChange = (event, index) => {
+      let { name, value } = event.target;
+      let onChangeValue = [...editInputs];
+      onChangeValue[index][name] = value;
+      seteditInputs(onChangeValue);
+    };
+  
+    const handleEditDeleteInput = (index) => {
+      const newArray = [...editInputs];
+      newArray.splice(index, 1);
+      seteditInputs(newArray);
+    }; 
+ 
+    console.log("dsvjvdsd",editInputs)
+  // -----------edit variant end ----------------
 
   let BearerToken = reactLocalStorage.get("Token", false);
   let languageSet = reactLocalStorage.get("languageSet", false);
@@ -124,6 +179,8 @@ const Categories = ({ translaterFun }) => {
     popUpCategoriesHookFun((o) => !o);
   };
   const CancelBtnFun = () => {
+
+    setInputs([])
     setDescriptionEn("")
     setDescriptionNative("")
     popUpHookFun(false);
@@ -420,6 +477,33 @@ const Categories = ({ translaterFun }) => {
     formData.append("currency", values?.currency);
     formData.append("calories_unit", caloriesunit);
 
+    const object={  }
+    inputs?.map((items,id)=>{
+
+     
+          let varentEnName=  `variant[${id}][variant_name_en]`
+          let varentArName=  `variant[${id}][variant_name_native]`
+
+          let varentAmount=  `variant[${id}][amount]`
+
+     
+    // object[varentEnName]=items?.variant_name_en
+    // object[varentArName]=items?.variant_name_native
+    // object[varentAmount]=items?.amount
+
+    formData.append(`variant[${id}][variant_name_en]`, items?.variant_name_en);
+
+    formData.append(`variant[${id}][variant_name_native]`, items?.variant_name_native);
+
+    formData.append(`variant[${id}][amount]`, items?.amount);
+
+     
+    
+    }) 
+    
+
+ 
+
     let MenuSubmitPayload = {
       formData,
       BearerToken
@@ -441,14 +525,18 @@ const Categories = ({ translaterFun }) => {
       // this condition will hold the menu on the category , it will not switch on the first category
 
       if (resposeData?.payload?.status == 201) {
+        
         let responseDataMenu = dispatch(MenuSlice(MenuSlicePayload));
         setActiveCategory({
           toggle: true,
           data: values?.menu_id
         });
+
+        setInputs([]);
       }
 
     } catch (error) {
+      setInputs([]);
       await dispatch(LoadingSpinner(false))
     }
 
@@ -465,6 +553,10 @@ const Categories = ({ translaterFun }) => {
     //   dispatch(GetMenuCategorySlice(MenuSlicePayload));
     // }, 1500)
   };
+
+ 
+   
+
 
   const handleUploadImage = (e) => {
     setuploadImage(e?.target?.files?.[0] ? e?.target?.files?.[0] : "");
@@ -539,9 +631,20 @@ const Categories = ({ translaterFun }) => {
   // edit menu items
   const PopUpToggleEditFun = (e, itemData) => {
     setEditMenuData(itemData);
-    setuploadImage(itemData?.image ? itemData?.image: "");
+    setuploadImage(itemData?.image ? itemData?.image : "");
 
     console.log("itemData", itemData)
+    // seteditInputs()
+    let newayy=[]
+    itemData?.variant?.map((items,id)=>{
+      newayy.push({
+        "variant_name_en":items?.variant_name_en,
+        "variant_name_native":items?.variant_name_native,
+        "amount":items?.amount
+      })
+
+    })
+    seteditInputs(newayy)
 
     setDescriptionEn(itemData?.description_en)
     setDescriptionNative(itemData?.description_native)
@@ -1634,6 +1737,84 @@ const Categories = ({ translaterFun }) => {
                           </p>
                         </div>
                       </div>
+                     
+                      <div className="varientbox">
+
+                         
+                        <div className="text-end mb-2  "> 
+                        <button className="btn   addvarentbtn" onClick={() => handleAddInput()}> 
+                           <label  >+ Add Variant</label> 
+                           </button>
+                           </div>
+                        
+                          {inputs?.map((item, index) => { 
+                            return <div className="row varientinnerbox mb-3">
+
+                      
+                          <div className="col-md-6 mb-3" dir="ltr">
+                            <div className="formbox ">
+                              <label>Name of Variant</label>
+                              <input
+
+                                name="variant_name_en"
+                                type="text"
+                                className={`form-control `} 
+                                placeholder="Enter Variant Name" 
+                                // value={item?.variant_name_en}
+                                onChange={(event) => handleChange(event, index)}          />
+                               
+                            </div>
+                          </div>
+                          <div className="col-md-6 mb-3" dir="rtl">
+                            <div className="formbox ">
+                              <label>اسم البديل</label>
+                              <input
+                                name="variant_name_native"
+                                type="text"
+                                className={`form-control `} 
+                                placeholder="أدخل اسم الصنف الخاص بك"
+                                // value={item?.variant_name_native}
+                                onChange={(event) => handleChange(event, index)}
+                              />
+                              
+                            </div>
+                          </div>
+                          <div className="col-md-12 mb-1" dir="ltr">
+                          
+                              <label>{translaterFun("item-price")} </label>
+                          </div>
+                          <div className="col-md-6" dir="ltr">
+                            <div className="formbox ">
+                              <div className="itembox">
+                                <input
+                                  name="amount"
+                                  type="text"
+                                  className={`form-control `} 
+                                  placeholder={translaterFun("item-price")}
+                                  // value={item?.amount}
+                                onChange={(event) => handleChange(event, index)}
+                                />
+                                {/* <span className="itemsarbox"> sar </span> */}
+                               
+                              </div>
+                              <p className="text-danger small mb-0">
+                                <ErrorMessage name="calories" />
+                              </p>
+                            </div>
+                          </div>
+                          <div className="col-md-6 mt-2"> 
+                          <div className="itemcheckbox">
+                                {/* {inputs.length > 1 && ( */}
+                                <button type="button" onClick={() => handleDeleteInput(index)}>                                  
+                                 <img src={deleteicon} alt="deleteicon" />  {translaterFun("delete")}
+                                  </button>
+                              {/* )} */}
+                                   
+                                  
+                                </div>
+                          </div>
+                        </div> })}
+                      </div>
 
                       <div className="col-md-12 mb-3" dir="ltr">
                         <div className="formbox ">
@@ -1645,9 +1826,7 @@ const Categories = ({ translaterFun }) => {
                             value={DescriptionEn}
                             onChange={(e) => setDescriptionEn(e.target.value)}
                           ></textarea>
-                          {/* <p className="text-danger small mb-0">
-                      <ErrorMessage name="first_name" />
-                    </p> */}
+                           
                         </div>
                       </div>
 
@@ -1661,9 +1840,7 @@ const Categories = ({ translaterFun }) => {
                             value={DescriptionNative}
                             onChange={(e) => setDescriptionNative(e.target.value)}
                           ></textarea>
-                          {/* <p className="text-danger small mb-0">
-                      <ErrorMessage name="first_name" />
-                    </p> */}
+                           
                         </div>
                       </div>
 
@@ -2030,6 +2207,94 @@ const Categories = ({ translaterFun }) => {
                           </p>
                         </div>
                       </div>
+
+{/*----------------- edit variant start -------------------------*/}
+
+
+
+                  <div className="varientbox">
+
+                         
+                        <div className="text-end mb-2  "> 
+                        <button className="btn   addvarentbtn" onClick={() => handleEditInput()}> 
+                           <label  >+ Add Variant</label> 
+                           </button>
+                           </div>
+                        
+                          {editInputs?.map((item, index) => { 
+                            return <div className="row varientinnerbox mb-3">
+
+                      
+                          <div className="col-md-6 mb-3" dir="ltr">
+                            <div className="formbox ">
+                              <label>Name of Variant</label>
+                              <input
+
+                                name="variant_name_en"
+                                type="text"
+                                className={`form-control `} 
+                                placeholder="Enter Variant Name" 
+                                value={item?.variant_name_en}
+                                onChange={(event) => handleEditChange(event, index)}          />
+                               
+                            </div>
+                          </div>
+                          <div className="col-md-6 mb-3" dir="rtl">
+                            <div className="formbox ">
+                              <label>اسم البديل</label>
+                              <input
+                                name="variant_name_native"
+                                type="text"
+                                className={`form-control `} 
+                                placeholder="أدخل اسم الصنف الخاص بك"
+                                value={item?.variant_name_native}
+                                onChange={(event) => handleEditChange(event, index)}
+                              />
+                              
+                            </div>
+                          </div>
+                          <div className="col-md-12 mb-1" dir="ltr">
+                          
+                              <label>{translaterFun("item-price")} </label>
+                          </div>
+                          <div className="col-md-6" dir="ltr">
+                            <div className="formbox ">
+                              <div className="itembox">
+                                <input
+                                  name="amount"
+                                  type="text"
+                                  className={`form-control `} 
+                                  placeholder={translaterFun("item-price")}
+                                  value={item?.amount}
+                                onChange={(event) => handleEditChange(event, index)}
+                                />
+                                {/* <span className="itemsarbox"> sar </span> */}
+                               
+                              </div>
+                              <p className="text-danger small mb-0">
+                                <ErrorMessage name="calories" />
+                              </p>
+                            </div>
+                          </div>
+                          <div className="col-md-6 mt-2"> 
+                          <div className="itemcheckbox">
+                                {/* {inputs.length > 1 && ( */}
+                                <button type="button" onClick={() => handleEditDeleteInput(index)}>                                  
+                                 <img src={deleteicon} alt="deleteicon" />  {translaterFun("delete")}
+                                  </button>
+                              {/* )} */}
+                                   
+                                  
+                                </div>
+                          </div>
+                        </div> })}
+                      </div>
+
+
+{/*----------------- edit variant end -------------------------*/}
+
+
+
                       <div className="col-md-12 mb-3" dir="ltr">
                         <div className="formbox ">
                           <label>Description (Optional)</label>
