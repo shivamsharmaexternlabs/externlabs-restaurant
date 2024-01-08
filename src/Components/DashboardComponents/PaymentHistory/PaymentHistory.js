@@ -10,7 +10,7 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 import axios from 'axios'
 import { CurrencySymbol } from '../Categories/CurrencySymbol'
-
+import { Helmet } from "react-helmet";
 
 const PaymentHistory = ({ translaterFun }) => {
 
@@ -24,14 +24,14 @@ const PaymentHistory = ({ translaterFun }) => {
     // const handleAddInput = () => {
     //   setInputs([...inputs, { firstName: "", lastName: "" }]);
     // };
-  
+
     // const handleChange = (event, index) => {
     //   let { name, value } = event.target;
     //   let onChangeValue = [...inputs];
     //   onChangeValue[index][name] = value;
     //   setInputs(onChangeValue);
     // };
-  
+
     // const handleDeleteInput = (index) => {
     //   const newArray = [...inputs];
     //   newArray.splice(index, 1);
@@ -144,15 +144,20 @@ const PaymentHistory = ({ translaterFun }) => {
     console.log("kjhjgjhdbsd", SubscriptionPlan)
 
 
-    const PlanChangeFun=(e)=>{
+    const PlanChangeFun = (e) => {
 
         setSelectedMonth(e.target.value)
     }
 
-    console.log("ldkjfsdf",SelectedMonth)
+    console.log("ldkjfsdf", SelectedMonth)
 
     return (
         <>
+            <Helmet>
+                <title>Track Payment History | Harbor Bites</title>
+                <meta name="description" content="Access a comprehensive record of your transaction history. Monitor payments, review invoices, and stay updated on your financial activity effortlessly." />
+                {/* <link rel="icon" type="image/x-icon" href="./"/> */}
+            </Helmet>
             <DashboardLayout>
                 <div className='dasboardbody'>
                     <DashboardSidebar />
@@ -188,51 +193,51 @@ const PaymentHistory = ({ translaterFun }) => {
                         <div className='title'>
                             <h2> {translaterFun("subscription-plan")} </h2>
                             <div className='selectmonth'>
-                                <select className='form-select' onChange={(e)=>PlanChangeFun(e)}>
+                                <select className='form-select' onChange={(e) => PlanChangeFun(e)}>
                                     <option value={"Month"}> {translaterFun("monthly")} </option>
-                                    <option  value={"Year"}> {translaterFun("yearly")} </option>
+                                    <option value={"Year"}> {translaterFun("yearly")} </option>
                                 </select>
                             </div>
                         </div>
 
                         <ul className='paylist'>
 
-                            { SelectedMonth != "Month" ? SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
+                            {SelectedMonth != "Month" ? SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
                                 console.log("mndbsbsfds", items)
-                                return items?.interval ===  translaterFun("payment-yearly")  && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
+                                return items?.interval === translaterFun("payment-yearly") && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
 
                                     <h3> {items?.plan_id?.name} </h3>
 
-                                   {items?.plan_id?.plan_id == PaymentHistoryDetails?.[0]?.price_id?.plan_id?.plan_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span>
-                                    
-                                      </button>}
+                                    {items?.plan_id?.plan_id == PaymentHistoryDetails?.[0]?.price_id?.plan_id?.plan_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span>
+
+                                    </button>}
 
 
                                     <p>{items?.plan_id?.description}</p>
                                     <h4>
-                                         {/* {`${CurrencySymbol[0][items?.currency]} ${items?.amount}`} */}
+                                        {/* {`${CurrencySymbol[0][items?.currency]} ${items?.amount}`} */}
                                         {items?.currency} {items?.amount}
-                                    <span>/ {items?.interval}</span></h4>
+                                        <span>/ {items?.interval}</span></h4>
                                 </li>
                             }) :
-                            SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
-                                console.log("mndbsbsfds", items)
-                                return items?.interval === translaterFun("payment-montly")   && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
+                                SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
+                                    console.log("mndbsbsfds", items)
+                                    return items?.interval === translaterFun("payment-montly") && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
 
-                                    <h3> {items?.plan_id?.name} </h3>
+                                        <h3> {items?.plan_id?.name} </h3>
 
-                                    {/* {items?.plan_id?.plan_id== PaymentHistoryDetails?.[0]?.price_id?.plan_id?.plan_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span> 
+                                        {/* {items?.plan_id?.plan_id== PaymentHistoryDetails?.[0]?.price_id?.plan_id?.plan_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span> 
                                     </button>} */}
 
 
-                                    <p>{items?.plan_id?.description}</p>
-                                    <h4>
-                                    {/* {`${CurrencySymbol[0][items?.currency]} ${items?.amount}`} */}
-                                        {items?.currency} {items?.amount}
-                                    
-                                    <span>/ {items?.interval}</span></h4>
-                                </li>
-                            })}
+                                        <p>{items?.plan_id?.description}</p>
+                                        <h4>
+                                            {/* {`${CurrencySymbol[0][items?.currency]} ${items?.amount}`} */}
+                                            {items?.currency} {items?.amount}
+
+                                            <span>/ {items?.interval}</span></h4>
+                                    </li>
+                                })}
 
                         </ul>
 
@@ -257,7 +262,7 @@ const PaymentHistory = ({ translaterFun }) => {
                                 </tr>
 
                                 {PaymentSelectorData?.PaymentHistoryReducerData?.data?.map((item, id) => {
-                                    console.log("msdvhdvsd",item
+                                    console.log("msdvhdvsd", item
                                     )
 
                                     return <tr key={id}>

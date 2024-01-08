@@ -12,6 +12,8 @@ import { LeadsSlice } from "../../../Redux/slices/leadsSlice";
 import { useNavigate } from "react-router-dom";
 import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
 import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
+import { Helmet } from "react-helmet";
+
 
 
 
@@ -109,6 +111,11 @@ const Leads = ({ translaterFun }) => {
 
   return (
     <>
+      <Helmet>
+        <title>Manage Your Leads | Harbor Bites</title>
+        <meta name="description" content="View, Manage and On-board Your Leads to Harbor Bites" />
+        {/* <link rel="icon" type="image/x-icon" href="./"/> */}
+      </Helmet>
       <DashboardLayout>
         <div className="dasboardbody">
           <DashboardSidebar />
@@ -181,7 +188,7 @@ const Leads = ({ translaterFun }) => {
       </DashboardLayout>
 
 
-       
+
 
 
       <LodingSpiner loadspiner={LoadSpiner} />

@@ -1,14 +1,12 @@
-.edituserimg {
-
-    cursor: pointer;
+.edituserimg,.editprofilebanner {
     position: relative;
 }
 
-.edituserimgbutton {
+.edituserimgbutton  {
     position: absolute;
     overflow: hidden;
-    display: inline-block;
-     
+    display:block;    
+    height: auto; 
     top: -4px;
     right: 0px;
     cursor: pointer !important;
@@ -24,19 +22,45 @@
 }
 
 .editprofilebanner .info .edituserimgbutton img {
-    width: 20px;
+    width: 25px;
     height: auto;
     margin: 0;
     border-radius: 0;
     cursor: pointer !important;
-
 }
 
-.edituserimg input[type=file] {
-    font-size: 100px;
+.editbannerimg  {
     position: absolute;
+    overflow: hidden;
+    display: block;
+    height: auto;
+    bottom: 78px;
+    right: 10px;
+    z-index: 2;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #000;
+}
+.editbannerimg  img {
+    width: 40px;
+}
+.editbanneimgbutton button{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.edituserimg input[type=file] ,
+.editbannerimg input[type=file]  {   
+     position: absolute;
     left: 0;
     top: 0;
     opacity: 0;
-    cursor: pointer !important;
+    width: auto;
+    display: block;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    line-height: normal;
 }

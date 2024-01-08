@@ -264,7 +264,8 @@
   "email-or-phone-number-is-required" : "Email or phone number is required",
   "password-must-not-contain-spaces" : "Password must not contain spaces",
   "description-is-required" : "Description is Required",
-  "variants" : "Variants"
+  "variants" : "Variants",
+  "add-variant" : "+ Add Variant"
   
 
 

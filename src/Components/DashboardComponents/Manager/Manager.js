@@ -19,6 +19,7 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 import { ManagerSlice, ManagerDeleteSlice } from '../../../Redux/slices/managerSlice'
 import ReactPaginate from 'react-paginate';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
+import { Helmet } from "react-helmet";
 
 const Manager = ({ translaterFun }) => {
     const itemsPerPage = 5;
@@ -207,6 +208,11 @@ const Manager = ({ translaterFun }) => {
     return (
 
         <>
+            <Helmet>
+                <title>Manage Your Team | Harbor Bites</title>
+                <meta name="description" content="View, Add, and Modify Your Team" />
+                {/* <link rel="icon" type="image/x-icon" href="./"/> */}
+            </Helmet>
             <DashboardLayout>
                 <div className='dasboardbody'>
                     <DashboardSidebar />
@@ -294,7 +300,7 @@ const Manager = ({ translaterFun }) => {
                         </div>
                         <div className='popupbody'>
 
-                                    <img src={manager} alt='manager img' className='managerimg' />
+                            <img src={manager} alt='manager img' className='managerimg' />
                             <Formik
                                 initialValues={defaultValue}
                                 validationSchema={Validate}

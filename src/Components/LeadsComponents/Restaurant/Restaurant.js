@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import "react-phone-input-2/lib/style.css";
 import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
 import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
+import { Helmet } from "react-helmet";
 
 
 
@@ -82,6 +83,11 @@ const LeadsRestaurant = ({ translaterFun }) => {
 
   return (
     <>
+      <Helmet>
+        <title>On-boarded Restaurants | Harbor Bites</title>
+        <meta name="description" content="Manage your onboarded restaurants within our network." />
+        {/* <link rel="icon" type="image/x-icon" href="./"/> */}
+      </Helmet>
       <DashboardLayout>
         <div className="dasboardbody">
           <DashboardSidebar />
@@ -98,8 +104,8 @@ const LeadsRestaurant = ({ translaterFun }) => {
                   <th>{translaterFun("email")}</th>
                   <th>{translaterFun("mobile-no")}</th>
                   <th>{translaterFun("generated-link")}</th>
-                  <th>{translaterFun("action")}</th> 
-                </tr> 
+                  <th>{translaterFun("action")}</th>
+                </tr>
 
                 {LeadsRestaurantSelectorData?.LeadsRestaurantReducerData?.data?.results?.map((items, id) => {
                   return <tr key={id}>
@@ -147,12 +153,12 @@ const LeadsRestaurant = ({ translaterFun }) => {
 
           </div>
         </div>
-        {ToggleBarSelectorData && <CreateLeadOnBoardPopUpComponent translaterFun={translaterFun}/>}
+        {ToggleBarSelectorData && <CreateLeadOnBoardPopUpComponent translaterFun={translaterFun} />}
 
       </DashboardLayout>
 
 
- 
+
 
 
 

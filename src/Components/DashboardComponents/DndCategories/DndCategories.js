@@ -12,8 +12,9 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import defaultImage from "../../../images/defaultImage.png";
+import { Helmet } from "react-helmet";
 
-function DndCategories({translaterFun}) {
+function DndCategories({ translaterFun }) {
     const dispatch = useDispatch();
     const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
     const [draggedItem, setDraggedItem] = useState(null);
@@ -163,6 +164,11 @@ function DndCategories({translaterFun}) {
 
     return (
         <>
+            <Helmet>
+                <title>Arrange Menu Categories | Harbor Bites</title>
+                <meta name="description" content="Easily customize the order of menu item categories. Tailor your menu organization effortlessly to suit your restaurant's needs." />
+                {/* <link rel="icon" type="image/x-icon" href="./"/> */}
+            </Helmet>
             <DashboardLayout>
                 <div className="dasboardbody">
                     <DashboardSidebar />
@@ -175,7 +181,7 @@ function DndCategories({translaterFun}) {
                                     type="button "
                                     className="categorybtn btn2"
                                     onClick={handleDndUpdate}
-                                    // style={{ width: "100px", height: "43px" }}
+                                // style={{ width: "100px", height: "43px" }}
                                 >
                                     {translaterFun("save")}
                                 </button>}
@@ -185,7 +191,7 @@ function DndCategories({translaterFun}) {
                                     onClick={(e) => {
                                         navigate(`/${resId}/admin/categories/`);
                                     }}
-                                    // style={{ width: "100px", height: "43px" }}
+                                // style={{ width: "100px", height: "43px" }}
                                 >
                                     {translaterFun("back")}
                                 </button>

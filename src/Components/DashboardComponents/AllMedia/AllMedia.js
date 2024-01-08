@@ -12,6 +12,7 @@ import { GetMediaLibrarySlice, PostMediaLibrarySlice } from '../../../Redux/slic
 import { toast } from "react-toastify";
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
+import { Helmet } from "react-helmet";
 
 // Functional component for the AllMedia page
 const AllMedia = ({ translaterFun }) => {
@@ -83,6 +84,11 @@ const AllMedia = ({ translaterFun }) => {
     // JSX structure for the AllMedia component
     return (
         <>
+            <Helmet>
+                <title>Media Library | Harbor Bites</title>
+                <meta name="description" content="Effortlessly manage your digital assets in one place. Access, organize, and utilize your media library for enhanced restaurant presentation." />
+                {/* <link rel="icon" type="image/x-icon" href="./"/> */}
+            </Helmet>
             <DashboardLayout>
                 <div className='dasboardbody'>
                     <DashboardSidebar />

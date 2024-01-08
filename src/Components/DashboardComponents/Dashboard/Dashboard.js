@@ -30,6 +30,7 @@ import { useTranslation } from "react-i18next"
 import { CurrencySymbol } from '../Categories/CurrencySymbol';
 
 
+
 const Dashboard = ({ translaterFun }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -153,8 +154,8 @@ const Dashboard = ({ translaterFun }) => {
   return (
     <>
       <Helmet>
-        <title>Dashboard</title>
-        <meta name="description" content="dashoard meta description" />
+        <title>Welcome to Harbor Bites Dashboard</title>
+        <meta name="description" content="Centralized control hub for your restaurant. Access vital tools, analytics, and key features from your personalized dashboard." />
         {/* <link rel="icon" type="image/x-icon" href="./"/> */}
       </Helmet>
       <DashboardLayout  >

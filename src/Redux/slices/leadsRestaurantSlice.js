@@ -134,14 +134,16 @@ export const UpdateRestaurantSlice = createAsyncThunk("UpdateRestaurantSlice", a
   formData.append("description", body?.description);
   // formData.append("owner_id", body?.owner_id);
   formData.append("RestaurantId", body?.RestaurantId);
-  if(typeof(body?.logo)!= "string"  )
-{
-  formData.append("logo", body?.logo)
-}   
-console.log("sdfdgfhgjh",typeof(body?.logo))
+  if (typeof (body?.logo) != "string") {
+    formData.append("logo", body?.logo)
+  }
+  if (typeof (body?.banner) != "string") {
+    formData.append("banner", body?.banner)
+  }
+  console.log("sdfdgfhgjh", typeof (body?.logo))
   try {
-    const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant/${body?.RestaurantId}/`,  
-    formData  ,
+    const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant/${body?.RestaurantId}/`,
+      formData,
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,

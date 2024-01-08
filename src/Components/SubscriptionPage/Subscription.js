@@ -14,10 +14,11 @@ import DashboardHeader from '../DashboardComponents/DashboardHeader/DashboardHea
 import usePopUpHook from '../../CustomHooks/usePopUpHook/usePopUpHook'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { Helmet } from "react-helmet";
 
 const Subscription = ({ translaterFun }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
   let BearerToken = reactLocalStorage.get("Token", false);
@@ -253,6 +254,11 @@ const Subscription = ({ translaterFun }) => {
 
   return (
     <>
+      <Helmet>
+        <title>Subscription Plans | Harbor Bites </title>
+        <meta name="description" content="Browse through tailored subscription plans exclusively designed for restaurants. Discover your options and features without the need for alterations. Find the ideal plan to elevate your establishment." />
+        {/* <link rel="icon" type="image/x-icon" href="./"/> */}
+      </Helmet>
       <DashboardHeader popUpHookFun={popUpHookFun} />
       <div className='subscriptionpage'>
         <div className='title'>

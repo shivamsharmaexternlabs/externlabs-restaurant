@@ -223,31 +223,16 @@ export const EditMenuItemSlice = createAsyncThunk(
   "EditMenuItemSlice",
   async (body, { rejectWithValue }) => {
     try {
-      const formData = new FormData();
-      formData.append("restaurant_id", body?.restaurant_id);
-      formData.append("description_en", body?.description_en);
-      formData.append("description_native", body?.description_native);
-
-      if (typeof body.image === "string" || body.image === null) {
-        delete body.image;
-      } else {
-        formData.append("image", body?.image);
-      }
-
-      formData.append("item_name_en", body?.item_name_en);
-      formData.append("item_name_native", body?.item_name_native);
-      formData.append("item_price", body?.item_price);
-      formData.append("calories", body?.calories);
-      formData.append("menu_id", body?.menu_id);
-      formData.append("is_veg", (body?.item_type === "VEG"));
-      formData.append("is_non_veg", (body?.item_type === "NON_VEG"));
-      formData.append("currency", body?.currency);
-      formData.append("calories_unit", body?.calories_unit);
-
+   
+      // if (typeof body.image === "string" || body.image === null) {
+      //   delete body.image;
+      // } else {
+      //   formData.append("image", body?.image);
+      // }
 
       const response = await axios.patch(
         `${process.env.REACT_APP_BASE_URL}restaurant_app/menuitems/${body?.item_id}/`,
-        formData,
+        body?.formData,
         {
           headers: {
             Authorization: `Bearer ${body?.BearerToken}`,

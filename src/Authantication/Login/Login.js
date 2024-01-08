@@ -11,6 +11,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
 import PasswordEye from "../../ReusableComponents/PasswordEye/PasswordEye";
 import { useTranslation } from "react-i18next";
 import { GetRestaurantsOnBoardSlice } from "../../Redux/slices/leadsRestaurantSlice";
+import { Helmet } from "react-helmet";
 
 // Functional component for the Login page
 const Login = () => {
@@ -25,7 +26,7 @@ const Login = () => {
 
   // State for managing password visibility
   const [showPassword, setShowPassword] = useState(false);
-  const [languageToggleValue,setlanguageToggleValue] = useState(false);
+  const [languageToggleValue, setlanguageToggleValue] = useState(false);
 
   // Retrieving data from the Redux store using useSelector
   const User = useSelector((state) => state.SignInApiData);
@@ -43,7 +44,7 @@ const Login = () => {
     // Checking if the status is 200, indicating successful login
     if (User?.data?.status === 200) {
       setLoadSpiner(false);
-      console.log("sdasfsdf",User?.data)
+      console.log("sdasfsdf", User?.data)
 
       // dispatch(GetRestaurantsOnBoardSlice({ RestaurantId: User?.data?.data?.restaurants?.[0]?.restaurant_id, Token: User?.data?.data?.token }))
       // reactLocalStorage.set("languageSet", "en");
@@ -67,7 +68,7 @@ const Login = () => {
       setLoadSpiner(false);
     }
 
-    if(User?.data.length == 0){
+    if (User?.data.length == 0) {
       reactLocalStorage.remove("payment_status")
     }
   }, [User]);
@@ -78,7 +79,7 @@ const Login = () => {
     password: "",
   };
 
-  console.log("User",User)
+  console.log("User", User)
 
   // Validation schema for the form using yup
   const Validate = yup.object({
@@ -97,13 +98,13 @@ const Login = () => {
 
     setlanguageToggleValue(e.target.checked)
     console.log("jhgchvjhk", e.target.checked)
-    if(e.target.checked === true) { 
+    if (e.target.checked === true) {
       i18n.changeLanguage("ar")
-       reactLocalStorage.set("languageSet", "ar");
+      reactLocalStorage.set("languageSet", "ar");
       // window.location.reload()
 
     }
-    else{ 
+    else {
       i18n.changeLanguage("en")
       reactLocalStorage.set("languageSet", "en");
       // window.location.reload()
@@ -111,24 +112,29 @@ const Login = () => {
     window.location.reload()
   }
 
-  
-  
+
+
   useEffect(() => {
-    console.log("anbsddchsds",languageSetDAta)
+    console.log("anbsddchsds", languageSetDAta)
     // if(languageSet==false){
     //   setlanguageToggleValue()
     // }
-    if(languageSetDAta==false){
+    if (languageSetDAta == false) {
       reactLocalStorage.set("languageSet", "en");
     }
     i18n.changeLanguage(languageSetDAta)
   }, [languageSetDAta])
 
- console.log("sdvsdvs",languageSetDAta)
+  console.log("sdvsdvs", languageSetDAta)
 
   // JSX structure for the Login component
   return (
     <>
+      <Helmet>
+        <title>Sign In to Your Account | Harbor Bites</title>
+        <meta name="description" content="Access your account with a simple sign-in. Log in securely to manage your restaurant details and explore subscription plans." />
+        {/* <link rel="icon" type="image/x-icon" href="./"/> */}
+      </Helmet>
       <div className="loginpage" dir="ltr">
         {/* Formik wrapper for form management */}
         <Formik
@@ -143,7 +149,7 @@ const Login = () => {
               <div className="switchtogglebtn">
                 English
                 <label class="switch">
-                  <input type="checkbox" checked={languageSetDAta == "en" || languageSetDAta==false?false:true}   onChange={(e) => languageSwitchFun(e)} />
+                  <input type="checkbox" checked={languageSetDAta == "en" || languageSetDAta == false ? false : true} onChange={(e) => languageSwitchFun(e)} />
                   <span class="slider round"></span>
                 </label>
                 عربي
@@ -161,7 +167,7 @@ const Login = () => {
                   className={`form-control `}
                   autoComplete="off"
                   placeholder={t("email-or-phone-no")}
-                   
+
                 />
                 {/* Error message for email or phone validation */}
                 <p className="text-danger">
@@ -172,7 +178,7 @@ const Login = () => {
               <div className="formbox" dir={languageSetDAta == "ar" ? "rtl" : ""}>
                 <label>{t("password")} </label>
                 {/* Password input field with optional visibility toggle */}
-                <PasswordEye  t={t}/>
+                <PasswordEye t={t} />
                 {/* Error message for password validation */}
                 <p className="text-danger">
                   <ErrorMessage name="password" />
@@ -206,7 +212,7 @@ const Login = () => {
 
               {/* Submit button for the form */}
               <button type="submit" className="btn">
-              {t("sign-in-login")}
+                {t("sign-in-login")}
               </button>
             </Form>
           </div>

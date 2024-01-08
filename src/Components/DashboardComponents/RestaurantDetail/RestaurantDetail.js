@@ -7,6 +7,7 @@ import editbanner from '../../../images/editbanner.png';
 import PhoneInput from "react-phone-input-2"
 import user from '../../../images/user.svg';
 import editimg from '../../../images/edit.svg'
+import upload2 from '../../../images/upload2.svg'
 
 import burgerimg from '../../../images/burgerimg.png';
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -23,6 +24,8 @@ import { UpdateLeadsSlice } from '../../../Redux/slices/leadsSlice'
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 import SucessRegisteredPopup from '../../../ReusableComponents/SucessRegisteredPopup/SucessRegisteredPopup'
+import { Helmet } from "react-helmet";
+
 
 const RestaurantDetail = ({ translaterFun }) => {
   const [SuccessPopup, setSuccessPopup] = useState(false);
@@ -44,10 +47,13 @@ const RestaurantDetail = ({ translaterFun }) => {
   const [isShown, setIsShown] = useState(false);
 
 
-  const [logoImage, setLogoImage] = useState("");
+  const [logoImage, setLogoImage] = useState(null);
   const [ViewLogoImage, setViewLogoImage] = useState(null);
 
-  console.log("fhsjhghjga", routeData)
+  const [BannerImage, setBannerImage] = useState(null);
+  const [ViewBannerImage, setViewBannerImage] = useState(null);
+
+  console.log("routeData", routeData)
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   let BearerToken = reactLocalStorage.get("Token", false);
@@ -110,24 +116,27 @@ const RestaurantDetail = ({ translaterFun }) => {
   useEffect(() => {
 
     // dispatch(LoadingSpinner(false))
-    console.log("logo", routeData?.state.currentData?.logo)
+    // console.log("logo", routeData?.state.currentData?.logo)
 
     if (routeData?.state?.currentData) {
       setPhoneNumber(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone : routeData?.state?.currentData?.owner?.phone_number)
       setCountryCode(routeData?.state?.currentData?.owner?.country_code === undefined ? routeData?.state?.currentData?.country_code : routeData?.state?.currentData?.owner?.country_code)
 
       setLogoImage(routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo : routeData?.state?.currentData?.logo)
+      setBannerImage(routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.banner : routeData?.state?.currentData?.banner)
+
     }
 
   }, [routeData?.state?.currentData])
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    if(LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData){
-      setLogoImage(routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo : routeData?.state?.currentData?.logo) 
+    if (LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData) {
+      setLogoImage(routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo : routeData?.state?.currentData?.logo)
+      setLogoImage(routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.banner : routeData?.state?.currentData?.banner)
     }
 
-  },[LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData])
+  }, [LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData])
 
 
 
@@ -296,8 +305,8 @@ const RestaurantDetail = ({ translaterFun }) => {
   }, [LeadsSelectorData?.UpdateLeadReducerData]);
 
 
-  const handleSubmit =async (values) => {
-      dispatch(LoadingSpinner(true))
+  const handleSubmit = async (values) => {
+    dispatch(LoadingSpinner(true))
 
     if (routeData?.state?.page === "lead") {
       setOnBordPopUp(true)
@@ -341,15 +350,16 @@ const RestaurantDetail = ({ translaterFun }) => {
         description: values?.description,
         Token: BearerToken,
         RestaurantId: routeData?.state?.currentData?.restaurant_id,
-        logo: logoImage
+        logo: logoImage,
+        banner: BannerImage
       }
 
-    let responseData=await  dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
-    console.log("msdvjvddsd",responseData)
+      let responseData = await dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
+      console.log("msdvjvddsd", responseData)
 
-    if(responseData?.payload.status==200){
-      dispatch(LoadingSpinner(false))
-    }
+      if (responseData?.payload.status == 200) {
+        dispatch(LoadingSpinner(false))
+      }
       setHandleFormData(false)
 
       //  }
@@ -440,15 +450,25 @@ const RestaurantDetail = ({ translaterFun }) => {
   }, [isShown])
 
 
-  const LogoImageUploadFun =(e)=>{
-    setLogoImage ( e.target.files[0])
+  const LogoImageUploadFun = (e) => {
+    setLogoImage(e.target.files[0])
     setViewLogoImage(URL.createObjectURL(e.target.files[0]))
   }
 
+  const BannerImageUploadFun = (e) => {
+    setBannerImage(e?.target?.files?.[0])
+    setViewBannerImage(URL.createObjectURL(e?.target?.files?.[0]))
+  }
 
 
+  console.log("ViewLogoImage", ViewLogoImage)
   return (
     <>
+      <Helmet>
+        <title>Manage Restaurant Details | Harbor Bites</title>
+        <meta name="description" content="Streamline your restaurant's information effortlessly. Edit and manage crucial details hassle-free to keep your digital presence accurate and engaging." />
+        {/* <link rel="icon" type="image/x-icon" href="./"/> */}
+      </Helmet>
 
       <DashboardLayout>
         <div className="dasboardbody">
@@ -456,26 +476,42 @@ const RestaurantDetail = ({ translaterFun }) => {
           <div className="contentpart restaurantdetailpage">
             <img src={burgerimg} alt='img' className='burgerimg' />
             <div className='editprofilebanner'>
+              <div className='editbannerimg'>
+                {HandleFormData != "" &&
+                  <div
+                    className={`   ${HandleFormData ? "editbanneimgbutton" : "numbersdds editbanneimgbutton"}`}
+
+                  >
+                    <button type='button'>
+                      <img src={upload2} alt='editimg' /></button>
+                    <input type="file"
+                      accept=".png, .jpg, .jpeg"
+                      onChange={(e) => BannerImageUploadFun(e)} />
+                  </div>
+                }
+              </div>
               <figure>
-                <img src={editbanner} alt='img' className='w-100' />
+              <img src={ViewBannerImage == null ? (BannerImage == null ? editbanner : BannerImage) : ViewBannerImage} alt='img'
+                  className='w-100' />
               </figure>
               <div className='info'>
-              <div className='edituserimg'>
-                  <img src={ViewLogoImage==null?logoImage:ViewLogoImage} alt='img' />
-                      { HandleFormData != "" &&
-                      <div
-                      className={`   ${HandleFormData ? "edituserimgbutton" : "numbersdds edituserimgbutton"}`}
-                      
-                      >
-                        <button type='button'>
-                          
-                          <img src={editimg} alt='editimg' /></button>
-                        <input type="file" 
-                        
-                        accept=".png, .jpg, .jpeg" 
-                          onChange={(e)=>LogoImageUploadFun(e)}/>                     
-                    </div>  
-                    }              
+                <div className='edituserimg'>
+                  <img src={ViewLogoImage == null ? logoImage === null ? user : logoImage : ViewLogoImage} alt='img' />
+
+                  {HandleFormData != "" &&
+                    <div
+                      className={`${HandleFormData ? "edituserimgbutton" : "numbersdds edituserimgbutton"}`}
+
+                    >
+                      <button type='button'>
+
+                        <img src={upload2} alt='editimg' /></button>
+                      <input type="file"
+
+                        accept=".png, .jpg, .jpeg"
+                        onChange={(e) => LogoImageUploadFun(e)} />
+                    </div>
+                  }
                 </div>
                 {/* <img src={user} alt='img' /> */}
 
@@ -709,35 +745,7 @@ const RestaurantDetail = ({ translaterFun }) => {
                         </div>
                       </div>
 
-                      {/* <div className="col-md-12 mb-3">
-                        <div className="formbox ">
-                          <label className="d-block">{translaterFun("Logo")} </label>
-                          <div className=" uploadwrapper ">
-                            <button type="button">
-                              {" "}
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="14"
-                                height="14"
-                                viewBox="0 0 14 14"
-                                fill="none"
-                              >
-                                <path
-                                  d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
-                                  fill="#8D8D8D"
-                                />
-                              </svg>{" "}
-                              {translaterFun("upload")}{" "}
-                            </button>
-                            <input
-                              type="file"
-                              accept=".png, .jpg, .jpeg, .svg"
-                               
-                            />
-                          </div>
-                           
-                        </div>
-                      </div> */}
+
 
                     </div>
                   </div>

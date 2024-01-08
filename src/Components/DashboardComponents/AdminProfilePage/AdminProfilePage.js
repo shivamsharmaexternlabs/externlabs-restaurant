@@ -6,6 +6,7 @@ import PopUpComponent from "../../../ReusableComponents/PopUpComponent/PopUpComp
 import editbanner from '../../../images/editbanner.png';
 import PhoneInput from "react-phone-input-2"
 import user from '../../../images/user.svg';
+import upload2 from '../../../images/upload2.svg';
 import burgerimg from '../../../images/burgerimg.png';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -22,6 +23,8 @@ import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 import SucessRegisteredPopup from '../../../ReusableComponents/SucessRegisteredPopup/SucessRegisteredPopup';
 import editimg from '../../../images/edit.svg'
+import { Helmet } from "react-helmet";
+
 
 const AdminProfilePage = ({ translaterFun }) => {
   const [SuccessPopup, setSuccessPopup] = useState(false);
@@ -43,6 +46,9 @@ const AdminProfilePage = ({ translaterFun }) => {
   const [isShown, setIsShown] = useState(false);
   const [logoImage, setLogoImage] = useState("");
   const [ViewLogoImage, setViewLogoImage] = useState(null);
+
+  const [BannerImage, setBannerImage] = useState(null);
+  const [ViewBannerImage, setViewBannerImage] = useState(null);
 
   console.log("fhsjhghjga", routeData)
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
@@ -115,18 +121,20 @@ const AdminProfilePage = ({ translaterFun }) => {
       setCountryCode(routeData?.state?.currentData?.owner?.country_code === undefined ? routeData?.state?.currentData?.country_code : routeData?.state?.currentData?.owner?.country_code)
 
       setLogoImage(routeData?.state?.page === "profilePage" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo : routeData?.state?.currentData?.logo)
+      setBannerImage(routeData?.state?.page === "profilePage" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.banner : routeData?.state?.currentData?.banner)
     }
 
   }, [routeData?.state?.currentData])
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    if(LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData){
-      setLogoImage(routeData?.state?.page === "profilePage" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo : routeData?.state?.currentData?.logo) 
+    if (LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData) {
+      setLogoImage(routeData?.state?.page === "profilePage" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo : routeData?.state?.currentData?.logo)
+      setBannerImage(routeData?.state?.page === "profilePage" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.banner : routeData?.state?.currentData?.banner)
     }
 
-  },[LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData])
+  }, [LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData])
 
 
 
@@ -294,8 +302,8 @@ const AdminProfilePage = ({ translaterFun }) => {
   }, [LeadsSelectorData?.UpdateLeadReducerData]);
 
 
-  const handleSubmit = async(values) => {
-      dispatch(LoadingSpinner(true))
+  const handleSubmit = async (values) => {
+    dispatch(LoadingSpinner(true))
 
     if (routeData?.state?.page === "lead") {
       setOnBordPopUp(true)
@@ -339,11 +347,12 @@ const AdminProfilePage = ({ translaterFun }) => {
         description: values?.description,
         Token: BearerToken,
         RestaurantId: routeData?.state?.currentData?.restaurant_id,
-        logo: logoImage
+        logo: logoImage,
+        banner: BannerImage
       }
 
-      let responseData=await dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
-      if(responseData?.payload.status==200){
+      let responseData = await dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
+      if (responseData?.payload.status == 200) {
         dispatch(LoadingSpinner(false))
       }
       setHandleFormData(false)
@@ -435,41 +444,67 @@ const AdminProfilePage = ({ translaterFun }) => {
 
   }, [isShown])
 
-  const LogoImageUploadFun =(e)=>{
-    setLogoImage ( e.target.files[0])
-    setViewLogoImage(URL.createObjectURL(e.target.files[0]))
+  const LogoImageUploadFun = (e) => {
+    setLogoImage(e?.target?.files?.[0])
+    setViewLogoImage(URL.createObjectURL(e?.target?.files?.[0]))
+  }
+
+  const BannerImageUploadFun = (e) => {
+    setBannerImage(e?.target?.files?.[0])
+    setViewBannerImage(URL.createObjectURL(e?.target?.files?.[0]))
   }
 
 
   return (
     <>
-
+      <Helmet>
+        <title>Manage Restaurant Details | Harbor Bites</title>
+        <meta name="description" content="Streamline your restaurant's information effortlessly. Edit and manage crucial details hassle-free to keep your digital presence accurate and engaging." />
+        {/* <link rel="icon" type="image/x-icon" href="./"/> */}
+      </Helmet>
       <DashboardLayout>
         <div className="dasboardbody">
           <DashboardSidebar />
           <div className="contentpart restaurantdetailpage">
             <img src={burgerimg} alt='img' className='burgerimg' />
             <div className='editprofilebanner'>
+              <div className='editbannerimg'>
+
+                {HandleFormData != "" &&
+                  <div
+                    className={`${HandleFormData ? "editbanneimgbutton" : "numbersdds editbanneimgbutton"}`}
+                  >
+                    <button type='button'>
+                      <img src={upload2} alt='editimg' /></button>
+                    <input type="file"
+                      accept=".png, .jpg, .jpeg"
+                      onChange={(e) => BannerImageUploadFun(e)} />
+                  </div>
+                }
+              </div>
               <figure>
-                <img src={editbanner} alt='img' className='w-100' />
+
+                <img src={ViewBannerImage == null ? (BannerImage == null ? editbanner : BannerImage) : ViewBannerImage} alt='img'
+                  className='w-100' />
+                {/* <img src={editbanner} alt='img' className='w-100' /> */}
               </figure>
               <div className='info'>
                 <div className='edituserimg'>
-                  <img src={ViewLogoImage==null?logoImage:ViewLogoImage} alt='img' />
-                      { HandleFormData != "" &&
-                      <div
+                  <img src={ViewLogoImage == null ? logoImage : ViewLogoImage} alt='img' />
+                  {HandleFormData != "" &&
+                    <div
                       className={`   ${HandleFormData ? "edituserimgbutton" : "numbersdds edituserimgbutton"}`}
-                      
-                      >
-                        <button type='button'>
-                          
-                          <img src={editimg} alt='editimg' /></button>
-                        <input type="file" 
-                        
-                        accept=".png, .jpg, .jpeg" 
-                          onChange={(e)=>LogoImageUploadFun(e)}/>                     
-                    </div>  
-                    }              
+
+                    >
+                      <button type='button'>
+
+                        <img src={upload2} alt='editimg' /></button>
+                      <input type="file"
+
+                        accept=".png, .jpg, .jpeg"
+                        onChange={(e) => LogoImageUploadFun(e)} />
+                    </div>
+                  }
                 </div>
                 {/* <img src={logoImage} alt='img' /> */}
 
