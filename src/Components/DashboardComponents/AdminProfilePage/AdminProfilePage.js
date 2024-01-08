@@ -44,7 +44,7 @@ const AdminProfilePage = ({ translaterFun }) => {
   const LeadsSelectorData = useSelector((state) => state.LeadsApiData);
   const ResetPasswordSelectorData = useSelector((state) => state.ResetPasswordApiData);
   const [isShown, setIsShown] = useState(false);
-  const [logoImage, setLogoImage] = useState("");
+  const [logoImage, setLogoImage] = useState(null);
   const [ViewLogoImage, setViewLogoImage] = useState(null);
 
   const [BannerImage, setBannerImage] = useState(null);

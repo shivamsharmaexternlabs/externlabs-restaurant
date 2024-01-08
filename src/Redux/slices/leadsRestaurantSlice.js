@@ -134,10 +134,10 @@ export const UpdateRestaurantSlice = createAsyncThunk("UpdateRestaurantSlice", a
   formData.append("description", body?.description);
   // formData.append("owner_id", body?.owner_id);
   formData.append("RestaurantId", body?.RestaurantId);
-  if (typeof (body?.logo) != "string") {
+  if (typeof (body?.logo) != "string" && body?.logo !== null && body?.logo) {
     formData.append("logo", body?.logo)
   }
-  if (typeof (body?.banner) != "string") {
+  if (typeof (body?.banner) != "string"&& body?.banner !== null && body?.banner) {
     formData.append("banner", body?.banner)
   }
   console.log("sdfdgfhgjh", typeof (body?.logo))
