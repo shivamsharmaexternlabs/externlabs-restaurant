@@ -30,6 +30,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
   const params = useLocation()
   const { t, i18n } = useTranslation();
   let BearerToken = reactLocalStorage.get("Token", false);
+  let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   let UserTypeData = reactLocalStorage.get("Type", false);
 
@@ -105,13 +106,9 @@ const DashboardHeader = ({ popUpHookFun }) => {
   // }, [languageSetData])
 
   const ViewProfileFun = async () => {
-    let dispatchDataGetRestaurantsOnBoardSlice = await dispatch(GetRestaurantsOnBoardSlice({ RestaurantId: params?.pathname?.split("/")?.[1], Token: BearerToken }))
+    let dispatchDataGetRestaurantsOnBoardSlice = await dispatch(GetRestaurantsOnBoardSlice({ RestaurantId, Token: BearerToken }))
 
-    console.log("sjdvhsdfsd0", dispatchDataGetRestaurantsOnBoardSlice?.payload.data)
-    // { RestaurantId: params?.pathname?.split("/")?.[1], Token: BearerToken }
-    // navigate(`/admin/viewProfile/${params?.pathname?.split("/")?.[1]}`) 
-
-    navigate(`/${params?.pathname?.split("/")?.[1]}/admin/viewProfile/`, {
+    navigate(`/${RestaurantId}/admin/viewProfile/`, {
       state: {
         page: "profilePage",
         currentData: dispatchDataGetRestaurantsOnBoardSlice?.payload?.data,
@@ -135,7 +132,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
   //    dasa:["n12s","n13s","n24s","n15s","n63s","n77s",]}
 
   // ]
-console.log("hgfghjk", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data)
+
 
   return (
     <>
