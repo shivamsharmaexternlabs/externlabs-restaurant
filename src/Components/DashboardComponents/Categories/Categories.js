@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./categories.css";
 import usePopUpHook from "../../../CustomHooks/usePopUpHook/usePopUpHook";
 import DashboardLayout from "../DashboardLayout/DashboardLayout";
@@ -100,6 +100,7 @@ const Categories = ({ translaterFun }) => {
   })
   const [inputs, setInputs] = useState([]);
   const [editInputs, seteditInputs] = useState([]);
+  const inputRef = useRef(null);
 
 
   // -----------add variant  start-------------- 
@@ -220,6 +221,7 @@ const Categories = ({ translaterFun }) => {
 
 
         console.log("response", response)
+        resetFileInput();
 
         if (response?.payload?.status === 200) {
           // await dispatch(LoadingSpinner(true))
@@ -263,6 +265,8 @@ const Categories = ({ translaterFun }) => {
 
     try {
       let response = await dispatch(UploadMenuSlice(UploadPayload));
+      
+      resetFileInput();
       setUploadMenuFileState("");
       confirmMenuUploadFilePopUpFun(o => !o);
       console.log("response", response)
@@ -285,6 +289,11 @@ const Categories = ({ translaterFun }) => {
     } catch (error) {
       await dispatch(LoadingSpinner(false))
     }
+  }
+
+
+  const resetFileInput = () => {
+    inputRef.current.value = null;
   }
 
 
@@ -1192,6 +1201,7 @@ const Categories = ({ translaterFun }) => {
                   <input
                     type="file"
                     accept=".xlxs, .xlsx, .xls, .pdf"
+                    ref={inputRef}
                     onChange={(e) => UploadMenuFile(e)}
                   />
                 </div>
@@ -1643,7 +1653,10 @@ const Categories = ({ translaterFun }) => {
                     <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
                     <h2>{translaterFun("confirm-upload")}</h2>
                     <div className='text-center'>
-                      <button type="button" onClick={(e) => confirmMenuUploadFilePopUpFun(false)}>{translaterFun("cancel")} </button>
+                      <button type="button" onClick={(e) =>{
+                         resetFileInput();
+                         confirmMenuUploadFilePopUpFun(false)
+                         }}>{translaterFun("cancel")} </button>
                       <button type="button" className='ms-4' onClick={(e) => confirmMenuUploadFile(e)}>{translaterFun("confirm-delete-button")}</button>
                     </div>
                   </div>
