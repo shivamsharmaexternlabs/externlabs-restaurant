@@ -423,6 +423,7 @@
   width: 185px;
   color: #000;
   display: none;
+  z-index: 9;
 }
 
 .topdishestabpart .bestsellerpart ul li p > span > b > div {

@@ -803,6 +803,11 @@
   top: 36px;
 }
 
+.dropdownBtnSize{
+  margin-left: 4px;
+  height: 7px;
+}
+
 @media (max-width: 767px) {
 
   .btn1,

@@ -1543,7 +1543,7 @@ const Categories = ({ translaterFun }) => {
                                             onMouseLeave={() => setMenuItemHoverClassName("")}
                                           >
                                             {`${items?.variant?.length} ${translaterFun("variants")}`}
-                                            <img src={icon19} alt="img" />
+                                            <img className="dropdownBtnSize" src={icon19} alt="img" />
                                           </span>
 
 
