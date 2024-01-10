@@ -94,6 +94,7 @@ export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurants
     formData.append("state", body?.state);
     formData.append("country", body?.country);
     formData.append("description", body?.description);
+    // formData.append("url_slug", body?.url_slug);
     formData.append("owner_id", body?.owner_id);
     formData.append("Token", body?.Token);
     formData.append("logo", body?.Logo);
@@ -132,12 +133,13 @@ export const UpdateRestaurantSlice = createAsyncThunk("UpdateRestaurantSlice", a
   formData.append("state", body?.state);
   formData.append("country", body?.country);
   formData.append("description", body?.description);
+  formData.append("url_slug", body?.url_slug);
   // formData.append("owner_id", body?.owner_id);
   formData.append("RestaurantId", body?.RestaurantId);
   if (typeof (body?.logo) != "string" && body?.logo !== null && body?.logo) {
     formData.append("logo", body?.logo)
   }
-  if (typeof (body?.banner) != "string"&& body?.banner !== null && body?.banner) {
+  if (typeof (body?.banner) != "string" && body?.banner !== null && body?.banner) {
     formData.append("banner", body?.banner)
   }
   console.log("sdfdgfhgjh", typeof (body?.logo))

@@ -261,8 +261,13 @@
   "email-or-phone-number-is-required" : "مطلوب البريد الإلكتروني أو رقم الهاتف",
   "password-must-not-contain-spaces" : "يجب ألا تحتوي كلمة المرور على مسافات",
   "variants" : "المتغيرات",
-  "add-variant" : "+ إضافة البديل"
+  "add-variant" : "+ إضافة البديل",
+  "deleted-successfully" : "حذف بنجاح",
+  "internal-server-error" : "خطأ في الخادم الداخلي",
 
+  "slug-must-not-contain-spaces" : "يجب ألا تحتوي سبيكة على مسافات",
+  "url-slug" : "سبيكة URL",
+  "please-enter-unique-slug" : "الرجاء إدخال سبيكة فريدة من نوعها"
 
   
 }

@@ -265,7 +265,16 @@
   "password-must-not-contain-spaces" : "Password must not contain spaces",
   "description-is-required" : "Description is Required",
   "variants" : "Variants",
-  "add-variant" : "+ Add Variant"
+  "add-variant" : "+ Add Variant",
+  "deleted-successfully" : "Deleted Successfully",
+  "internal-server-error" : "Internal Server Error",
+
+  "slug-must-not-contain-spaces" : "Slug must not contain spaces",
+  "url-slug" : "URL Slug",
+  "please-enter-unique-slug" : "Please Enter Unique Slug"
+
+
+
   
 
 

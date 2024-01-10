@@ -69,12 +69,39 @@ export const PostMediaLibrarySlice = createAsyncThunk(
   }
 );
 
+
+//  Delete a single Media Library Slice
+export const DeleteMediaLibrarySlice = createAsyncThunk(
+  "DeleteMediaLibrarySlice",
+  async (body, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}restaurant_app/bulk_image_upload/${body?.RestaurantId}/?media_url=${body?.media_url}`,
+        {
+          headers: {
+            Authorization: `Bearer ${body?.BearerToken}`,
+            "Accept-Language": languageSet
+          },
+        }
+      );
+
+      // toast.success(response?.data?.message);
+      return response;
+
+    } catch (err) {
+      toast.error(err?.response?.data?.error?.[0]);
+      return rejectWithValue(err);
+    }
+  }
+);
+
 // Reducer
 export const mediaLibraryReducer = createSlice({
   name: "mediaLibraryReducer",
   initialState: {
     GetMediaLibrarySliceReducerData: [],
     PostMediaLibraryReducerData: [],
+    DeleteMediaLibraryReducerData: [],
     loading: false,
     error: null,
   },
@@ -105,16 +132,27 @@ export const mediaLibraryReducer = createSlice({
 
       .addCase(PostMediaLibrarySlice.fulfilled, (state, action) => {
         state.loading = false;
-        state.PostMediaLibraryReducerData = action.payload;
-        // toast.success(action?.payload?.data?.message);
+        state.PostMediaLibraryReducerData = action.payload; 
       })
 
       .addCase(PostMediaLibrarySlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-        // console.log("hgfghjgcjhgjh", state.error)
-        // toast.error()
+      })
 
+      // Upload media library reducer cases
+      .addCase(DeleteMediaLibrarySlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(DeleteMediaLibrarySlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.DeleteMediaLibraryReducerData = action.payload; 
+      })
+
+      .addCase(DeleteMediaLibrarySlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       })
   },
 });

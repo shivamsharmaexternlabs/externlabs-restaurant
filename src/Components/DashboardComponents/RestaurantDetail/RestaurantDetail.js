@@ -8,7 +8,6 @@ import PhoneInput from "react-phone-input-2"
 import user from '../../../images/user.svg';
 import editimg from '../../../images/edit.svg'
 import upload2 from '../../../images/upload2.svg'
-
 import burgerimg from '../../../images/burgerimg.png';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -109,6 +108,7 @@ const RestaurantDetail = ({ translaterFun }) => {
     state: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.state : routeData?.state?.currentData?.state,
     country: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.country : routeData?.state?.currentData?.country,
     description: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.description : routeData?.state?.currentData?.description,
+    url_slug: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.url_slug : routeData?.state?.currentData?.url_slug,
 
 
   };
@@ -167,6 +167,7 @@ const RestaurantDetail = ({ translaterFun }) => {
     // state: yup.string().required(translaterFun("state-is-required")),
     // country: yup.string().required(translaterFun("country-is-required")),
     // description: yup.string().required(translaterFun("description-is-required")),
+    url_slug : yup.string().matches(/^\S*$/, translaterFun('slug-must-not-contain-spaces'))
   });
 
   const handleSubmitOnBoardPassAndConfPass = async (values) => {
@@ -306,29 +307,29 @@ const RestaurantDetail = ({ translaterFun }) => {
 
 
   const handleSubmit = async (values) => {
-    dispatch(LoadingSpinner(true))
+    // dispatch(LoadingSpinner(true))
 
     if (routeData?.state?.page === "lead") {
-      setOnBordPopUp(true)
-      console.log("jgsdhsdsbds", values)
       setCreateLeadOnBoardPayloadState(values)
 
-      const updateLeadPayload = {
-        description: values?.description,
-        restaurant_name: values?.restaurant_name,
-        contact_name: values?.owner_name,
-        email: values?.email,
-        phone: countrycode + "-" + phonenumber,
-        shop_number: values?.shop_no,
-        street_name: values?.street,
-        city: values?.city,
-        landmark: values?.landmark,
-        pincode: values?.pincode,
-        state: values?.state,
-        country: values?.country,
-        leadId: routeData?.state?.currentData?.lead_id,
-        Token: BearerToken
-      }
+      setOnBordPopUp(true)
+
+      // const updateLeadPayload = {
+      //   description: values?.description,
+      //   restaurant_name: values?.restaurant_name,
+      //   contact_name: values?.owner_name,
+      //   email: values?.email,
+      //   phone: countrycode + "-" + phonenumber,
+      //   shop_number: values?.shop_no,
+      //   street_name: values?.street,
+      //   city: values?.city,
+      //   landmark: values?.landmark,
+      //   pincode: values?.pincode,
+      //   state: values?.state,
+      //   country: values?.country,
+      //   leadId: routeData?.state?.currentData?.lead_id,
+      //   Token: BearerToken
+      // }
 
       // Please do not remove this comment => UpdateLeadsSlice
       // dispatch(UpdateLeadsSlice(updateLeadPayload));
@@ -338,6 +339,9 @@ const RestaurantDetail = ({ translaterFun }) => {
 
     else {
       //  if(!HandleFormData==true){
+
+      console.log("jhgfhjk valuesslug", values)
+
       let UpdateRestroPayload = {
         restaurant_name: values?.restaurant_name,
         shop_no: values?.shop_no,
@@ -350,6 +354,7 @@ const RestaurantDetail = ({ translaterFun }) => {
         description: values?.description,
         Token: BearerToken,
         RestaurantId: routeData?.state?.currentData?.restaurant_id,
+        url_slug : values?.url_slug,
         logo: logoImage,
         banner: BannerImage
       }
@@ -491,7 +496,7 @@ const RestaurantDetail = ({ translaterFun }) => {
                 }
               </div>
               <figure>
-              <img src={ViewBannerImage == null ? (BannerImage == null ? editbanner : BannerImage) : ViewBannerImage} alt='img'
+                <img src={ViewBannerImage == null ? (BannerImage == null ? editbanner : BannerImage) : ViewBannerImage} alt='img'
                   className='w-100' />
               </figure>
               <div className='info'>
@@ -723,6 +728,25 @@ const RestaurantDetail = ({ translaterFun }) => {
                           />
                           <p className="text-danger small mb-0">
                             <ErrorMessage name="country" />
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="col-md-6 mb-3 pe-md-1">
+                        <div className="formbox ">
+                          <label>{translaterFun("url-slug")} </label>
+                          <Field
+                            name="url_slug"
+                            type="text"
+                            disabled={HandleFormData ? '' : "true"}
+                            className={`form-control ${HandleFormData ? "" : "numbersdds"}  `}
+                            // className={`form-control `}
+                            autoComplete="off"
+                            placeholder={translaterFun("please-enter-unique-slug")}
+                          />
+
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="url_slug" />
                           </p>
                         </div>
                       </div>

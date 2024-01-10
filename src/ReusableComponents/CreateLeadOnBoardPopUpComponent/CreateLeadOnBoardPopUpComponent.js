@@ -84,7 +84,8 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
         pincode: "",
         state: "",
         country: "",
-        description: ""
+        description: "",
+        url_slug: ""
 
     };
 
@@ -105,7 +106,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
         description: yup.string().required(translaterFun("description-is-required")),
         // password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
         // confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-
+        url_slug: yup.string().matches(/^\S*$/, translaterFun('slug-must-not-contain-spaces'))
     });
 
 
@@ -155,8 +156,8 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
     const CreateLeadBtnFun = async (values) => {
         dispatch(LoadingSpinner(true))
         try {
-            console.log("jhgfgh", countrycode)
-            console.log("jhgfghphonenumber", phonenumber)
+            // console.log("jhgfgh", countrycode)
+            // console.log("jhgfghphonenumber", phonenumber)
             if (countrycode !== "" && phonenumber !== "") {
                 let createLeadPayload = {
                     "description": values?.description,
@@ -171,6 +172,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                     "pincode": values?.pincode,
                     "state": values?.state,
                     "country": values?.country,
+                    "url_slug": values?.url_slug,
                     "status_type": "Lead",
                     "BearerToken": BearerToken
                 }
@@ -195,7 +197,8 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
     const CreateLeadOnBoard = (values) => {
-
+        // console.log("hgfghjk", values)
+        // return;
         if (countrycode !== "" && phonenumber !== "") {
             setCreateLeadOnBoardPayloadState(values)
             setOnBordPopUp(true)
@@ -236,8 +239,10 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
         await dispatch(LoadingSpinner(true))
 
         try {
+            console.log("CreateLeadOnBoardPayloadStateuytfhgj", CreateLeadOnBoardPayloadState);
             const payloadOnBoard = {
                 "restaurant_name": CreateLeadOnBoardPayloadState?.restaurant_name,
+                // "url_slug": CreateLeadOnBoardPayloadState?.url_slug,
                 "shop_no": CreateLeadOnBoardPayloadState?.shop_no,
                 "street": CreateLeadOnBoardPayloadState?.street,
                 "city": CreateLeadOnBoardPayloadState?.city,
@@ -248,7 +253,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                 "description": CreateLeadOnBoardPayloadState?.description,
                 "owner_id": SignUpSelectorData?.data?.data?.owner_id,
                 "Token": BearerToken,
-                "Logo" : uploadLogoImage
+                "Logo": uploadLogoImage
             }
 
             await dispatch(CreateRestaurantsOnBoardSlice(payloadOnBoard))
@@ -309,7 +314,6 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
             setLoadSpiner(false);
             callBackFuncAfterSignUp();
 
-            // navigate("/emailotpverification");
         }
         else if (SignUpSelectorData?.error == "Rejected") {
             setLoadSpiner(false);
@@ -499,6 +503,24 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                                                 />
                                             </div>
                                         </div>
+
+                                        {/* <div className="col-md-6 mb-3 pe-md-1">
+                                            <div className="formbox ">
+                                                <label>{translaterFun("url-slug")} </label>
+                                                <Field
+                                                    name="url_slug"
+                                                    type="text"
+                                                    className={`form-control `}
+                                                    autoComplete="off"
+                                                    placeholder={translaterFun("please-enter-unique-slug")}
+                                                />
+
+                                                <p className="text-danger small mb-0">
+                                                    <ErrorMessage name="url_slug" />
+                                                </p>
+                                            </div>
+                                        </div> */}
+
 
                                         <div className="col-md-6 mb-3 pe-md-1">
                                             <div className="formbox ">

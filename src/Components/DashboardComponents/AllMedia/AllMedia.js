@@ -5,10 +5,11 @@ import DashboardLayout from '../DashboardLayout/DashboardLayout';
 import DashboardSidebar from '../DashboardSidebar/DashboardSidebar';
 import margerita from '../../../images/Margerita.png';
 import upload from '../../../images/upload.svg';
+import close from '../../../images/close2.svg'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { GetMediaLibrarySlice, PostMediaLibrarySlice } from '../../../Redux/slices/mediaLibrarySlice';
+import { DeleteMediaLibrarySlice, GetMediaLibrarySlice, PostMediaLibrarySlice } from '../../../Redux/slices/mediaLibrarySlice';
 import { toast } from "react-toastify";
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
@@ -73,13 +74,34 @@ const AllMedia = ({ translaterFun }) => {
         // else if (MediaLibrarySelectorData?.error === "Rejected") {
         //     toast.success("Internal Server Error");
         // }
-    }, [MediaLibrarySelectorData?.PostMediaLibraryReducerData]);
+    }, [MediaLibrarySelectorData?.PostMediaLibraryReducerData, MediaLibrarySelectorData?.DeleteMediaLibraryReducerData]);
 
     // Function to download an image
     const DownlodImageFun = (e, items) => {
         var FileSaver = require('file-saver');
         FileSaver.saveAs(items, "Downloaded.jpg");
     }
+
+    const DeleteImageFun = async (e, items) => {
+        await dispatch(LoadingSpinner(true))
+        try {
+            let response = await dispatch(DeleteMediaLibrarySlice({ RestaurantId, BearerToken, media_url: items }))
+
+            if(response?.payload?.status === 204){
+                toast.success(translaterFun("deleted-successfully"));
+                await dispatch(GetMediaLibrarySlice({ RestaurantId, BearerToken }))
+            }
+            else{
+                toast.success(translaterFun("internal-server-error"));
+            }
+
+            await dispatch(LoadingSpinner(false))
+        } catch (error) {
+            await dispatch(LoadingSpinner(false))
+        }
+    }
+
+    console.log("MediaLibrarySelectorData", MediaLibrarySelectorData)
 
     // JSX structure for the AllMedia component
     return (
@@ -115,10 +137,21 @@ const AllMedia = ({ translaterFun }) => {
                                     return (
                                         <li key={id}>
                                             <figure>
+
                                                 <img src={items} alt='' />
-                                                <button type='button' className='btn' onClick={(e) => DownlodImageFun(e, items)}>
+
+                                                <button type='button' className='btn uploadbutton' onClick={(e) => DownlodImageFun(e, items)}>
                                                     <img src={upload} alt='upload' />
                                                 </button>
+
+                                                <button type='button' className='btn closebtn' onClick={(e) => DeleteImageFun(e, items)}>
+                                                    <img src={close} alt='close upload' />
+                                                </button>
+
+
+                                                {/* <button type='button' className='btn' onClick={(e) => DeleteImageFun(e, items)}>
+                                                    <img src={"jhgfdghj"} alt='upload' />
+                                                </button> */}
                                             </figure>
                                             <h4>{items?.split("/")?.[4]?.split(".")?.[0]}</h4>
                                         </li>
