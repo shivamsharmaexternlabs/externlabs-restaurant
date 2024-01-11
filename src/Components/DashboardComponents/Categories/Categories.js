@@ -135,7 +135,7 @@ const Categories = ({ translaterFun }) => {
 
 
   const handleEditInput = () => {
-    seteditInputs([...editInputs, {variant_id: "" , variant_name_en: "", amount: "", variant_name_native: "" }]);
+    seteditInputs([...editInputs, { variant_id: "", variant_name_en: "", amount: "", variant_name_native: "" }]);
   };
 
   const handleEditChange = (event, index) => {
@@ -265,7 +265,7 @@ const Categories = ({ translaterFun }) => {
 
     try {
       let response = await dispatch(UploadMenuSlice(UploadPayload));
-      
+
       resetFileInput();
       setUploadMenuFileState("");
       confirmMenuUploadFilePopUpFun(o => !o);
@@ -447,7 +447,8 @@ const Categories = ({ translaterFun }) => {
     // item_name_en: yup.string().required("Please Enter Item Name"),
     // item_name_native: yup.string().required("الرجاء إدخال اسم الصنف"),
     item_price: yup.string().required(translaterFun("please-enter-price")),
-    calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-calories")),
+    // calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-calories")),
+    calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")),
     menu_id: yup.string().required(translaterFun("please-enter-item-name")),
     item_type: yup.string().required(translaterFun("please-enter-item-type")),
     currency: yup.string().required(translaterFun("please-enter-currency")),
@@ -683,7 +684,8 @@ const Categories = ({ translaterFun }) => {
     // item_name_en: yup.string().required("Please Enter Item Name"),
     // item_name_native: yup.string().required("الرجاء إدخال اسم الصنف"),
     item_price: yup.string().required(translaterFun("please-enter-price")),
-    calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-menu")),
+    calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")),
+    // calories: yup.string().matches(/^[0-9]+$/, translaterFun("calories-must-be-digit")).required(translaterFun("please-enter-menu")),
     menu_id: yup.string().required(translaterFun("please-enter-menu")),
     item_type: yup.string().required(translaterFun("please-enter-item-type")),
     currency: yup.string().required(translaterFun("please-enter-currency")),
@@ -734,16 +736,16 @@ const Categories = ({ translaterFun }) => {
       //   BearerToken
       // };
 
-      
+
 
       const formData = new FormData();
 
       if (typeof uploadImage === "string" || uploadImage === null) {
- 
+
       } else {
         formData.append("image", uploadImage);
       }
-      
+
       formData.append("item_id", EditMenuData?.item_id);
       formData.append("restaurant_id", values?.restaurant_id);
       formData.append("description_en", DescriptionEn === null ? "" : DescriptionEn);
@@ -759,7 +761,7 @@ const Categories = ({ translaterFun }) => {
       formData.append("currency", values?.currency);
       formData.append("calories_unit", EditMenuData?.calories_unit);
 
-      
+
       editInputs?.map((items, id) => {
         formData.append(`variant[${id}][variant_id]`, items?.variant_id);
         formData.append(`variant[${id}][variant_name_en]`, items?.variant_name_en);
@@ -770,7 +772,7 @@ const Categories = ({ translaterFun }) => {
       let payload = {
         formData,
         BearerToken,
-        item_id : EditMenuData?.item_id
+        item_id: EditMenuData?.item_id
       }
 
       let responseData = await dispatch(EditMenuItemSlice(payload));
@@ -1524,7 +1526,11 @@ const Categories = ({ translaterFun }) => {
 
                                   <h5 className='mt-1'>
 
-                                    {items?.is_veg == true ? <img src={icon4} alt='img' className='me-1' /> : <img src={icon5} alt='img' className='me-1' />}  {items?.calories} {items?.calories_unit}</h5>
+                                    {items?.is_veg == true && <img src={icon4} alt='img' className='me-1' />}
+
+                                    {items?.is_non_veg == true && <img src={icon5} alt='img' className='me-1' />}  {items?.calories} {items?.calories_unit}
+
+                                  </h5>
 
                                   <div className="tabinfo">
                                     <div className="leftpart">
@@ -1653,10 +1659,10 @@ const Categories = ({ translaterFun }) => {
                     <figure className='mb-0'> <img src={deleteimg} alt='deleteimg' /> </figure>
                     <h2>{translaterFun("confirm-upload")}</h2>
                     <div className='text-center'>
-                      <button type="button" onClick={(e) =>{
-                         resetFileInput();
-                         confirmMenuUploadFilePopUpFun(false)
-                         }}>{translaterFun("cancel")} </button>
+                      <button type="button" onClick={(e) => {
+                        resetFileInput();
+                        confirmMenuUploadFilePopUpFun(false)
+                      }}>{translaterFun("cancel")} </button>
                       <button type="button" className='ms-4' onClick={(e) => confirmMenuUploadFile(e)}>{translaterFun("confirm-delete-button")}</button>
                     </div>
                   </div>

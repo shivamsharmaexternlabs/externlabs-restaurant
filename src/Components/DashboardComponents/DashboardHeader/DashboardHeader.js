@@ -133,7 +133,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
   // ]
 
-
+console.log("jhvgcvhbjnk", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo)
   return (
     <>
       <header>
@@ -165,7 +165,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
             <figure>
 
               {UserTypeData !== "owner" && <img src={user} alt='user img' />}  
-              {UserTypeData === "owner" && <img src={LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo == "undefined" ? user :
+              {UserTypeData === "owner" && <img src={LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo == "undefined" || LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo == null ? user :
                 LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo} alt='user img' />}
 
 
