@@ -106,6 +106,7 @@ const AdminProfilePage = ({ translaterFun }) => {
     state: routeData?.state?.page === "profilePage" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.state : routeData?.state?.currentData?.state,
     country: routeData?.state?.page === "profilePage" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.country : routeData?.state?.currentData?.country,
     description: routeData?.state?.page === "profilePage" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.description : routeData?.state?.currentData?.description,
+    url_slug: routeData?.state?.page === "profilePage" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.url_slug : routeData?.state?.currentData?.url_slug,
 
 
 
@@ -164,6 +165,8 @@ const AdminProfilePage = ({ translaterFun }) => {
     // state: yup.string().required(translaterFun("state-is-required")),
     // country: yup.string().required(translaterFun("country-is-required")),
     // description: yup.string().required(translaterFun("description-is-required")),
+    url_slug : yup.string().matches(/^\S*$/, translaterFun('slug-must-not-contain-spaces'))
+
   });
 
   const handleSubmitOnBoardPassAndConfPass = async (values) => {
@@ -303,29 +306,30 @@ const AdminProfilePage = ({ translaterFun }) => {
 
 
   const handleSubmit = async (values) => {
-    dispatch(LoadingSpinner(true))
+    // dispatch(LoadingSpinner(true))
 
     if (routeData?.state?.page === "lead") {
-      setOnBordPopUp(true)
-      console.log("jgsdhsdsbds", values)
+      
+      
       setCreateLeadOnBoardPayloadState(values)
+      setOnBordPopUp(true)
 
-      const updateLeadPayload = {
-        description: values?.description,
-        restaurant_name: values?.restaurant_name,
-        contact_name: values?.owner_name,
-        email: values?.email,
-        phone: countrycode + "-" + phonenumber,
-        shop_number: values?.shop_no,
-        street_name: values?.street,
-        city: values?.city,
-        landmark: values?.landmark,
-        pincode: values?.pincode,
-        state: values?.state,
-        country: values?.country,
-        leadId: routeData?.state?.currentData?.lead_id,
-        Token: BearerToken
-      }
+      // const updateLeadPayload = {
+      //   description: values?.description,
+      //   restaurant_name: values?.restaurant_name,
+      //   contact_name: values?.owner_name,
+      //   email: values?.email,
+      //   phone: countrycode + "-" + phonenumber,
+      //   shop_number: values?.shop_no,
+      //   street_name: values?.street,
+      //   city: values?.city,
+      //   landmark: values?.landmark,
+      //   pincode: values?.pincode,
+      //   state: values?.state,
+      //   country: values?.country,
+      //   leadId: routeData?.state?.currentData?.lead_id,
+      //   Token: BearerToken
+      // }
 
       // Please do not remove this comment => UpdateLeadsSlice
       // dispatch(UpdateLeadsSlice(updateLeadPayload));
@@ -348,7 +352,8 @@ const AdminProfilePage = ({ translaterFun }) => {
         Token: BearerToken,
         RestaurantId: routeData?.state?.currentData?.restaurant_id,
         logo: logoImage,
-        banner: BannerImage
+        banner: BannerImage,
+        url_slug : values?.url_slug,
       }
 
       let responseData = await dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
@@ -716,6 +721,25 @@ const AdminProfilePage = ({ translaterFun }) => {
                           />
                           <p className="text-danger small mb-0">
                             <ErrorMessage name="country" />
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="col-md-6 mb-3 pe-md-1">
+                        <div className="formbox ">
+                          <label>{translaterFun("url-slug")} </label>
+                          <Field
+                            name="url_slug"
+                            type="text"
+                            disabled={HandleFormData ? '' : "true"}
+                            className={`form-control ${HandleFormData ? "" : "numbersdds"}  `}
+                            // className={`form-control `}
+                            autoComplete="off"
+                            placeholder={translaterFun("please-enter-unique-slug")}
+                          />
+
+                          <p className="text-danger small mb-0">
+                            <ErrorMessage name="url_slug" />
                           </p>
                         </div>
                       </div>
