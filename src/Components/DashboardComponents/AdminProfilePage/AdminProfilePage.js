@@ -165,7 +165,7 @@ const AdminProfilePage = ({ translaterFun }) => {
     // state: yup.string().required(translaterFun("state-is-required")),
     // country: yup.string().required(translaterFun("country-is-required")),
     // description: yup.string().required(translaterFun("description-is-required")),
-    url_slug : yup.string().matches(/^\S*$/, translaterFun('slug-must-not-contain-spaces'))
+    // url_slug: yup.string().matches(/^\S*$/, translaterFun('slug-must-not-contain-spaces'))
 
   });
 
@@ -309,8 +309,8 @@ const AdminProfilePage = ({ translaterFun }) => {
     // dispatch(LoadingSpinner(true))
 
     if (routeData?.state?.page === "lead") {
-      
-      
+
+
       setCreateLeadOnBoardPayloadState(values)
       setOnBordPopUp(true)
 
@@ -353,7 +353,7 @@ const AdminProfilePage = ({ translaterFun }) => {
         RestaurantId: routeData?.state?.currentData?.restaurant_id,
         logo: logoImage,
         banner: BannerImage,
-        url_slug : values?.url_slug,
+        url_slug: values?.url_slug,
       }
 
       let responseData = await dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
@@ -530,7 +530,6 @@ const AdminProfilePage = ({ translaterFun }) => {
                     handleSubmit(values)
                   }
                   else if (submitAction === "secondary") {
-                    console.log("dhgasjh11")
                     handleSubmit(values);
                   }
                 }}
