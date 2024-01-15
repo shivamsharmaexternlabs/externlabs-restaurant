@@ -673,12 +673,14 @@ const Categories = ({ translaterFun }) => {
     item_name_en: EditMenuData?.item_name_en === null ? "" : EditMenuData?.item_name_en,
     item_name_native: EditMenuData?.item_name_native === null ? "" : EditMenuData?.item_name_native,
     item_price: EditMenuData?.item_price,
-    calories: EditMenuData?.calories,
+    calories: EditMenuData?.calories === null ? "" : EditMenuData?.calories,
     menu_id: EditMenuData?.menu_id,
     item_type: (EditMenuData?.is_veg === true ? "VEG" : "NON_VEG"),
     currency: EditMenuData?.currency,
     calories_unit: EditMenuData?.calories_unit,
   };
+
+  console.log("defaultEditValue", defaultEditValue)
 
   const Validateditemenu = yup.object({
     // item_name_en: yup.string().required("Please Enter Item Name"),
@@ -693,7 +695,7 @@ const Categories = ({ translaterFun }) => {
   }).shape({
     item_name_en: yup.string().when('item_name_native',
       (item_name_native_value) => {
-        console.log("add_menu_item_item_name_native_value editedit", item_name_native_value)
+        // console.log("add_menu_item_item_name_native_value editedit", item_name_native_value)
         if (item_name_native_value[0]) {
           return yup.string()
         } else {

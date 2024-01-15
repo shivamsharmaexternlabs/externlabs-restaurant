@@ -25,7 +25,7 @@ export const CreateMenuSlice = createAsyncThunk(
       // toast.success(response?.data?.message);
       return response;
     } catch (err) {
-      toast.error(err?.response?.data?.error?.[0]);
+      toast.error(err?.response?.data?.error);
       return rejectWithValue(err);
     }
   }
@@ -243,7 +243,7 @@ export const EditMenuItemSlice = createAsyncThunk(
       toast.success(response?.data?.message);
       return response;
     } catch (err) {
-      toast.error(err?.response?.data?.error?.[0]);
+      toast.error(err?.response?.data?.error);
       return rejectWithValue(err);
     }
   }
@@ -302,7 +302,7 @@ export const DeleteMenuItemSlice = createAsyncThunk(
 
       return response;
     } catch (err) {
-      toast.error(err?.response?.data?.error?.[0]);
+      toast.error(err?.response?.data?.error);
       return rejectWithValue(err);
     }
   }

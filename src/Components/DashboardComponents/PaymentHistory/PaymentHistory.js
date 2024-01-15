@@ -141,7 +141,8 @@ const PaymentHistory = ({ translaterFun }) => {
 
     }, [PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]])
 
-    console.log("kjhjgjhdbsd", SubscriptionPlan)
+    console.log("SubscriptionPlan", SubscriptionPlan)
+    console.log("languageSet", languageSet)
 
 
     const PlanChangeFun = (e) => {
@@ -204,7 +205,7 @@ const PaymentHistory = ({ translaterFun }) => {
 
                             {SelectedMonth != "Month" ? SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
                                 console.log("mndbsbsfds", items)
-                                return items?.interval === translaterFun("payment-yearly") && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
+                                return items?.interval === translaterFun("payment-yearly") && items?.is_active === true && items?.plan_id?.language == languageSet && <li key={id}>
 
                                     <h3> {items?.plan_id?.name} </h3>
 
