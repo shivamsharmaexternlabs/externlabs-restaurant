@@ -1,3 +1,9 @@
+.logo >a>img{
+    width: 100%;
+    height: 70px;
+}
+
+
 .menupage {
     width: 100%;
     margin: 0 auto;
@@ -83,7 +89,10 @@
     display: none;
 }
 
-
+.newError{
+    background-color: #360305;
+    height: 100vh;
+}
 .searchbox button {
     border: none;
     outline: none;

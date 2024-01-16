@@ -382,7 +382,8 @@ export const menuReducer = createSlice({
 
       .addCase(MenuSlice.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.MenuSliceReducerData = action;
+        // state.error = action.error.message;
       })
 
       .addCase(favoriteMenuSlice.pending, (state) => {

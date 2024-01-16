@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './menu.css'
-import logo from '../../images/logo.svg'
+import blurred_logo from '../../images/blurred_logo.png'
 import icon1 from '../../images/icon1.svg'
 import icon2 from '../../images/icon2.svg'
 import icon3 from '../../images/icon3.svg'
+import error_subs from '../../images/error_subs.gif'
 import item1 from '../../images/item1.png'
 import pizza from '../../images/pizza.png'
 import icon4 from '../../images/icon4.svg'
@@ -67,13 +68,10 @@ const Menu = ({ translaterFun }) => {
       setLoadSpiner(false);
 
       // Handling variant 
-      // console.log("MenuApiSelectorData?.MenuSliceReducerData", MenuApiSelectorData?.MenuSliceReducerData?.data)
       let variantObj = {};
 
       MenuApiSelectorData?.MenuSliceReducerData?.data?.map((category) => {
-        // console.log("bhgvfcgvhbjn", category);
         category?.item_id?.map((menuItem) => {
-          console.log("bhgvfcgvhbjn", menuItem);
           if (menuItem?.variant?.length === 0) {
             variantObj[menuItem?.item_id] = -1;
           }
@@ -234,9 +232,13 @@ const Menu = ({ translaterFun }) => {
     });
 
   }
+  console.log("MenuApiSelectorData Plan", MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.user_active_plan);
+  console.log("MenuApiSelectorData Logo", MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.restaurant_id?.logo);
+  console.log("MenuApiSelectorData expired", MenuApiSelectorData?.MenuSliceReducerData);
 
-
-  return (
+  return (MenuApiSelectorData?.MenuSliceReducerData?.payload?.response?.status === 403 ?
+  <center  className='newError'>   <img src={error_subs} alt='' className='' />  </center>  
+    :
     <>
 
       <div className={languageDAta == "en" ? "rotateen" : "rotatear"}>
@@ -250,7 +252,7 @@ const Menu = ({ translaterFun }) => {
         <div className='hadertopbar'>
           <div className='headerbox'>
             <div className='logo'>
-              <a href='#'> <img src={logo} className='' alt='logoimg' /> </a>
+              <a href='#'> <img src={(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.user_active_plan == "Premium" || MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.user_active_plan == "غالي") && MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.restaurant_id?.logo ? MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.restaurant_id?.logo : blurred_logo} className='' alt='logoimg' /> </a>
             </div>
 
             <div className='languagebox'>

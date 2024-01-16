@@ -282,7 +282,7 @@ const Subscription = ({ translaterFun }) => {
 
                 {SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
                   console.log("sjdhsjddf", items)
-                  return items?.interval === "month" && items?.is_active === true && items?.plan_id?.language === LanguageSelected && <li key={id} className=''>
+                  return items?.interval === translaterFun("payment-montly") && items?.is_active === true && items?.plan_id?.language === LanguageSelected && <li key={id} className=''>
                     <div className='title'>
                       <div className='iconbox'>
                         <img src={subicon1} alt='img' className='img' />
@@ -334,7 +334,7 @@ const Subscription = ({ translaterFun }) => {
 
                 {SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
                   {/* let price_id = items?.id; */ }
-                  return items?.interval === "year" && items?.is_active === true && items?.plan_id?.language === LanguageSelected && <li className=''>
+                  return items?.interval === translaterFun("payment-yearly") && items?.is_active === true && items?.plan_id?.language === LanguageSelected && <li className=''>
                     <div className='title'>
                       <div className='iconbox'>
                         <img src={subicon1} alt='img' className='img' />

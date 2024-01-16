@@ -19,4 +19,4 @@ root.render(
     // </React.StrictMode> //because of this  React.StrictMode api will run 2 times
 );
 
- reportWebVitals();
+ reportWebVitals(console.log);
