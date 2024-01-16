@@ -237,7 +237,9 @@ const Menu = ({ translaterFun }) => {
   console.log("MenuApiSelectorData expired", MenuApiSelectorData?.MenuSliceReducerData);
 
   return (MenuApiSelectorData?.MenuSliceReducerData?.payload?.response?.status === 403 ?
-  <center  className='newError'>   <img src={error_subs} alt='' className='' />  </center>  
+    <div> 
+  <center  className='newError'>   <img src={error_subs} alt='' className=' erroImage' />  </center>  
+  </div>
     :
     <>
 

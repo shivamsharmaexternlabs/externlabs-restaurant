@@ -93,6 +93,9 @@
     background-color: #360305;
     height: 100vh;
 }
+.erroImage{
+    width: 100%;
+}
 .searchbox button {
     border: none;
     outline: none;
