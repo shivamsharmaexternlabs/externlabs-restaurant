@@ -97,7 +97,14 @@ export const CreateRestaurantsOnBoardSlice = createAsyncThunk("CreateRestaurants
     // formData.append("url_slug", body?.url_slug);
     formData.append("owner_id", body?.owner_id);
     formData.append("Token", body?.Token);
-    formData.append("logo", body?.Logo);
+    // if(body?.Logo){
+    //   formData.append("logo", body?.Logo);
+    // }
+
+    if (typeof (body?.Logo) != "string" && body?.Logo !== null && body?.Logo) {
+      formData.append("logo", body?.Logo)
+    }
+    
 
 
     const response = await axios.post(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant/`, formData,
