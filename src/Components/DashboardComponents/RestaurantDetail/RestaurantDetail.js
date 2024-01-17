@@ -108,7 +108,7 @@ const RestaurantDetail = ({ translaterFun }) => {
     state: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.state : routeData?.state?.currentData?.state,
     country: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.country : routeData?.state?.currentData?.country,
     description: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.description : routeData?.state?.currentData?.description,
-    url_slug: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.url_slug : routeData?.state?.currentData?.url_slug,
+    url_slug: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.url_slug ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.url_slug : "" : routeData?.state?.currentData?.url_slug,
 
 
   };
