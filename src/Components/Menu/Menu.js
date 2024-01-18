@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import './menu.css'
 import blurred_logo from '../../images/blurred_logo.png'
-import icon1 from '../../images/icon1.svg'
-import icon2 from '../../images/icon2.svg'
 import icon3 from '../../images/icon3.svg'
-import error_subs from '../../images/error_subs.gif'
-import item1 from '../../images/item1.png'
-import pizza from '../../images/pizza.png'
 import icon4 from '../../images/icon4.svg'
 import icon5 from '../../images/icon5.svg'
-import calorie from '../../images/calorie.png'
 import calorieicon from '../../images/calorie.svg'
-
+import errorimg from '../../images/errorimg.png'
 import defaultImage from '../../images/defaultimg.png'
 import rotateAe from '../../images/rotateAe.gif'
 import rotateEn from '../../images/rotateEn.gif'
@@ -38,6 +32,7 @@ const Menu = ({ translaterFun }) => {
   const [loadspiner, setLoadSpiner] = useState(false);
   // const [VariantSelected, setVariantSelected] = useState(0);
   const [VariantSelectedObj, setVariantSelectedObj] = useState(0);
+  const [PremiumUserLogo, setPremiumUserLogo] = useState("");
 
 
   const [languagesDataKey, setlanguagesDataKey] = useState("")
@@ -67,6 +62,13 @@ const Menu = ({ translaterFun }) => {
     if (MenuApiSelectorData?.MenuSliceReducerData.status === 200) {
       setLoadSpiner(false);
 
+      if (PremiumUserLogo?.logoUrlToggle !== true) {
+        setPremiumUserLogo({
+          logoUrl: MenuApiSelectorData?.MenuSliceReducerData?.data?.[0],
+          logoUrlToggle: true
+        }
+        );
+      }
       // Handling variant 
       let variantObj = {};
 
@@ -92,6 +94,8 @@ const Menu = ({ translaterFun }) => {
     }
   }, [MenuApiSelectorData?.GetMenuCategoryReducerData, MenuApiSelectorData?.MenuSliceReducerData]);
 
+  console.log("bvcdvnsdsd", PremiumUserLogo)
+
   useEffect(() => {
     if (params?.pathname) {
       setLoadSpiner(true);
@@ -111,6 +115,7 @@ const Menu = ({ translaterFun }) => {
   }, [params])
 
 
+  console.log("bsdjsd", PremiumUserLogo)
   const MenuToggleBookFun = () => {
     setMenuToggleBookData(o => !o)
   }
@@ -232,14 +237,45 @@ const Menu = ({ translaterFun }) => {
     });
 
   }
-  console.log("MenuApiSelectorData Plan", MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.user_active_plan);
-  console.log("MenuApiSelectorData Logo", MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.restaurant_id?.logo);
-  console.log("MenuApiSelectorData expired", MenuApiSelectorData?.MenuSliceReducerData);
+
+
+
+  // useEffect(() => {
+
+  //   setTimeout(() => {
+
+  //     console.log("MenuApiSelectorDataiugfghogo", MenuApiSelectorData?.MenuSliceReducerData?.data);
+
+  //     setPremiumUserLogo(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.restaurant_id?.logo);
+  //   }, 2000);
+  // }, []);
+
+  // setTimeout(() => {
+  //   console.log("PremiumUserLogo", PremiumUserLogo)
+  // }, 2000);
+
+
+
+
+  // console.log("MenuApiSelectorData Plan", MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.user_active_plan);
+  // console.log("MenuApiSelectorData Logo", MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.restaurant_id?.logo);
+  // console.log("MenuApiSelectorData expired", MenuApiSelectorData?.MenuSliceReducerData);
 
   return (MenuApiSelectorData?.MenuSliceReducerData?.payload?.response?.status === 403 ?
-    <div> 
-  <center  className='newError'>   <img src={error_subs} alt='' className=' erroImage' />  </center>  
-  </div>
+    <div>
+      {/* WHEN SUBSCRIPTION EXPIRED */}
+
+
+      <div className='errorbox'>
+        <img src={errorimg} alt='' />
+        <h4>OOps!</h4>
+        <p>Something went wrong, Please contact to administrator</p>
+      </div>
+
+
+      {/* <center className='newError'>   <img src={error_subs} alt='' className=' erroImage' />  </center> */}
+
+    </div>
     :
     <>
 
@@ -254,7 +290,18 @@ const Menu = ({ translaterFun }) => {
         <div className='hadertopbar'>
           <div className='headerbox'>
             <div className='logo'>
-              <a href='#'> <img src={(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.user_active_plan == "Premium" || MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.user_active_plan == "غالي") && MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.restaurant_id?.logo ? MenuApiSelectorData?.MenuSliceReducerData?.data?.[0]?.restaurant_id?.logo : blurred_logo} className='' alt='logoimg' /> </a>
+              <a href='#'>
+                <img src={
+                  (PremiumUserLogo?.logoUrl?.user_active_plan == "Premium" 
+                  || 
+                  PremiumUserLogo?.logoUrl?.user_active_plan == "غالي")
+
+                    ?
+                    PremiumUserLogo?.logoUrl?.restaurant_id?.logo ? PremiumUserLogo?.logoUrl?.restaurant_id?.logo : blurred_logo 
+                    : defaultImage
+                    } className={!PremiumUserLogo?.logoUrl?.restaurant_id?.logo ?"blurclass":""} alt='logoimg' />
+
+              </a>
             </div>
 
             <div className='languagebox'>

@@ -495,7 +495,7 @@ const AdminProfilePage = ({ translaterFun }) => {
               </figure>
               <div className='info'>
                 <div className='edituserimg'>
-                  <img src={ViewLogoImage == null ? logoImage : ViewLogoImage} alt='img' />
+                  <img src={ViewLogoImage == null ? (logoImage == null ? user : logoImage)  : ViewLogoImage} alt='img' />
                   {HandleFormData != "" &&
                     <div
                       className={`   ${HandleFormData ? "edituserimgbutton" : "numbersdds edituserimgbutton"}`}

@@ -16,6 +16,8 @@ const PaymentHistory = ({ translaterFun }) => {
 
     const [SelectedMonth, setSelectedMonth] = useState("Month")
     const [PaymentHistoryDetails, setPaymentHistoryDetails] = useState([])
+    const [TransactionIdArr, setTransactionIdArr] = useState([])
+    const [TransactionIdObjCounter, setTransactionIdObjCounter] = useState({})
     const [LoadSpiner, setLoadSpiner] = useState(false)
     const [SubscriptionPlan, setSubscriptionPlan] = useState([])
 
@@ -95,7 +97,6 @@ const PaymentHistory = ({ translaterFun }) => {
     }, [])
 
 
-
     useEffect(() => {
         const myFunc = async () => {
 
@@ -116,41 +117,62 @@ const PaymentHistory = ({ translaterFun }) => {
     }, [BearerToken]);
 
 
-    const unsubscribePaymentFunc = async (e, item) => {
+    // const unsubscribePaymentFunc = async (e, item) => {
 
-        let responseData = await dispatch(UnsubscribePaymentSlice({ subscription_id: item?.subscription_id, BearerToken }))
-        console.log("jhvsdvd", responseData)
-    }
+    //     let responseData = await dispatch(UnsubscribePaymentSlice({ subscription_id: item?.subscription_id, BearerToken }))
+    //     console.log("jhvsdvd", responseData)
+    // }
 
 
 
     useEffect(() => {
 
-        // if (subscriptionDetails && PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]) {
+        let newObj = {};
+        let newPaymentResponse = [];
 
-        //     let filterProductObject = subscriptionDetails.filter((items) =>
-        //         items?.product?.id == PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.product_id
+        let newObjCounter = {};
 
-        //     )
-
-        //     setPaymentHistoryDetails(filterProductObject)
-        // }
         if (PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]) {
-            setPaymentHistoryDetails(PaymentSelectorData?.PaymentHistoryReducerData?.data)
+
+            PaymentSelectorData?.PaymentHistoryReducerData?.data?.map((item) => {
+                if (newObjCounter[item?.transaction_id]) {
+                    newObjCounter[item?.transaction_id]++;
+                }
+                else {
+                    newObjCounter[item?.transaction_id] = 1;
+                }
+
+                if (newObj[item?.transaction_id]) {
+
+                }
+                else {
+                    newObj[item?.transaction_id] = item;
+                    newPaymentResponse.push(item)
+                }
+            })
+
+            newPaymentResponse.sort((a, b) => {
+                return b.id - a.id;
+            });
+
+
+            setTransactionIdArr(newPaymentResponse);
+            setTransactionIdObjCounter(newObjCounter);
+            // setPaymentHistoryDetails(PaymentSelectorData?.PaymentHistoryReducerData?.data)
+            setPaymentHistoryDetails(newPaymentResponse)
         }
 
+
+
+
+
     }, [PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]])
-
-    console.log("SubscriptionPlan", SubscriptionPlan)
-    console.log("languageSet", languageSet)
-
 
     const PlanChangeFun = (e) => {
 
         setSelectedMonth(e.target.value)
     }
 
-    console.log("ldkjfsdf", SelectedMonth)
 
     return (
         <>
@@ -163,32 +185,6 @@ const PaymentHistory = ({ translaterFun }) => {
                 <div className='dasboardbody'>
                     <DashboardSidebar />
 
-                    {/* <div className="container">
-      {inputs.map((item, index) => (
-        <div className="input_container" key={index}>
-          <input
-            name="firstName"
-            type="text"
-            value={item.firstName}
-            onChange={(event) => handleChange(event, index)}
-          />
-          <input
-            name="lastName"
-            type="text"
-            value={item.lastName}
-            onChange={(event) => handleChange(event, index)}
-          />
-          {inputs.length > 1 && (
-            <button onClick={() => handleDeleteInput(index)}>Delete</button>
-          )}
-          {index === inputs.length - 1 && (
-            <button onClick={() => handleAddInput()}>Add</button>
-          )}
-        </div>
-      ))}
-
-      <div className="body"> {JSON.stringify(inputs)} </div>
-    </div> */}
 
                     <div className='contentpart paymenthispage'>
                         <div className='title'>
@@ -204,12 +200,16 @@ const PaymentHistory = ({ translaterFun }) => {
                         <ul className='paylist'>
 
                             {SelectedMonth != "Month" ? SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
-                                console.log("mndbsbsfds", items)
+                                {/* console.log("SubscriptionPlan items", items?.plan_id?.plan_id); */}
+                                console.log("TransactionIdArr huygftyguhijoihugy", TransactionIdArr?.[TransactionIdArr.length - 1]?.price_id?.plan_id?.plan_id)
+                                
+
+
                                 return items?.interval === translaterFun("payment-yearly") && items?.is_active === true && items?.plan_id?.language == languageSet && <li key={id}>
 
                                     <h3> {items?.plan_id?.name} </h3>
 
-                                    {items?.plan_id?.plan_id == PaymentHistoryDetails?.[0]?.price_id?.plan_id?.plan_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span>
+                                    {items?.price_id === PaymentHistoryDetails?.[PaymentHistoryDetails.length - 1]?.price_id?.price_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span>
 
                                     </button>}
 
@@ -222,15 +222,11 @@ const PaymentHistory = ({ translaterFun }) => {
                                 </li>
                             }) :
                                 SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
-                                    console.log("mndbsbsfds", items)
+
                                     return items?.interval === translaterFun("payment-montly") && items?.is_active === true && items?.plan_id?.language === languageSet && <li key={id}>
 
                                         <h3> {items?.plan_id?.name} </h3>
-
-                                        {/* {items?.plan_id?.plan_id== PaymentHistoryDetails?.[0]?.price_id?.plan_id?.plan_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span> 
-                                    </button>} */}
-
-
+                                        {items?.price_id === PaymentHistoryDetails?.[PaymentHistoryDetails.length - 1]?.price_id?.price_id && <button type='button' className='btn2 planbtn' > Active <span className='dott'></span> </button>}
                                         <p>{items?.plan_id?.description}</p>
                                         <h4>
                                             {/* {`${CurrencySymbol[0][items?.currency]} ${items?.amount}`} */}
@@ -262,12 +258,12 @@ const PaymentHistory = ({ translaterFun }) => {
 
                                 </tr>
 
-                                {PaymentSelectorData?.PaymentHistoryReducerData?.data?.map((item, id) => {
-                                    console.log("msdvhdvsd", item
-                                    )
+                                {TransactionIdArr?.map((item, id) => {
+                                    console.log("msdvhdvsd", item?.transaction_id)
+
 
                                     return <tr key={id}>
-                                        <td><span className='dot dotgreen'></span> {item?.status ? "Current Plan" : "Cancelled Plan"}</td>
+                                        <td><span className={`dot ${TransactionIdObjCounter[item?.transaction_id] == 1 ? "dotgreen" : "dotred"}`}></span> {TransactionIdObjCounter[item?.transaction_id] == 1 ? "Current Plan" : "Expired Plan"}</td>
                                         <td>{item?.currency?.toUpperCase()} {item?.amount}</td>
                                         <td>{item?.created_at?.split("T")?.[0]}</td>
                                         <td>{item?.price_id?.plan_id?.name} </td>
