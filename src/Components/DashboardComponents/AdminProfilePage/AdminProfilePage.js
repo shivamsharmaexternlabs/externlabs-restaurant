@@ -50,7 +50,7 @@ const AdminProfilePage = ({ translaterFun }) => {
   const [BannerImage, setBannerImage] = useState(null);
   const [ViewBannerImage, setViewBannerImage] = useState(null);
 
-  console.log("fhsjhghjga", routeData)
+  //console.log("fhsjhghjga", routeData)
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   let BearerToken = reactLocalStorage.get("Token", false);
@@ -87,7 +87,7 @@ const AdminProfilePage = ({ translaterFun }) => {
     confirm_pass: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, translaterFun("password-not-contain-spaces")),
   });
 
-  console.log("msvdsnd", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData, routeData?.state?.page)
+  //console.log("msvdsnd", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData, routeData?.state?.page)
 
   const defaultValue = {
     restaurant_name: routeData?.state?.page === "profilePage" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.restaurant_name : routeData?.state?.currentData?.restaurant_name,
@@ -115,8 +115,7 @@ const AdminProfilePage = ({ translaterFun }) => {
   useEffect(() => {
 
     // dispatch(LoadingSpinner(false))
-    console.log("logo", routeData?.state.currentData?.logo)
-
+ 
     if (routeData?.state?.currentData) {
       setPhoneNumber(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone : routeData?.state?.currentData?.owner?.phone_number)
       setCountryCode(routeData?.state?.currentData?.owner?.country_code === undefined ? routeData?.state?.currentData?.country_code : routeData?.state?.currentData?.owner?.country_code)
@@ -149,7 +148,7 @@ const AdminProfilePage = ({ translaterFun }) => {
 
   }, [LeadsRestaurantSelectorData?.UpdateRestaurantReducerData])
 
-  console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data)
+  //console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data)
 
   const Validate = yup.object({
     restaurant_name: yup.string().required(translaterFun("restaurant-name-is-required")),
@@ -212,7 +211,7 @@ const AdminProfilePage = ({ translaterFun }) => {
         "Token": BearerToken
       }
 
-      console.log("hgcfxcgvhbjnk", CreateLeadOnBoardPayloadState)
+      //console.log("hgcfxcgvhbjnk", CreateLeadOnBoardPayloadState)
 
       await dispatch(CreateRestaurantsOnBoardSlice(payloadOnBoard))
       await dispatch(LoadingSpinner(false))
@@ -222,9 +221,9 @@ const AdminProfilePage = ({ translaterFun }) => {
     }
 
   }
-  console.log("hjgcfghjklCreateLeadOnBoardPayloadState", CreateLeadOnBoardPayloadState)
+  //console.log("hjgcfghjklCreateLeadOnBoardPayloadState", CreateLeadOnBoardPayloadState)
   // const CopyLinkFun = () => {
-  //   console.log("bnvdhgsdvsd1")
+  //   //console.log("bnvdhgsdvsd1")
   //   navigator.clipboard
   //     .writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url)
   //     .then(() => {
@@ -438,7 +437,7 @@ const AdminProfilePage = ({ translaterFun }) => {
   };
 
 
-  console.log("jdjhvdssd", isShown)
+  //console.log("jdjhvdssd", isShown)
 
 
   useEffect(() => {
@@ -523,7 +522,7 @@ const AdminProfilePage = ({ translaterFun }) => {
                 enableReinitialize
                 onSubmit={(values) => {
                   if (submitAction === "primary") {
-                    console.log("dhgasjh")
+                    //console.log("dhgasjh")
                     // handleSubmit(values);
                   }
                   else if (routeData?.state?.page == "profilePage") {

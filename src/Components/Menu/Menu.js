@@ -237,7 +237,26 @@ const Menu = ({ translaterFun }) => {
     });
 
   }
+  const logoFunction = () => {
 
+    console.log("PremiumUserLogo", (PremiumUserLogo?.logoUrl?.user_active_plan == "Premium"
+      ||
+      PremiumUserLogo?.logoUrl?.user_active_plan == "غالي")
+      ?
+      PremiumUserLogo?.logoUrl ? (PremiumUserLogo?.logoUrl?.restaurant_id?.logo ?
+        PremiumUserLogo?.logoUrl?.restaurant_id?.logo :
+        defaultImage) : blurred_logo
+      : defaultImage)
+
+    return (PremiumUserLogo?.logoUrl?.user_active_plan == "Premium"
+      ||
+      PremiumUserLogo?.logoUrl?.user_active_plan == "غالي")
+      ?
+      PremiumUserLogo?.logoUrl ? (PremiumUserLogo?.logoUrl?.restaurant_id?.logo ?
+        PremiumUserLogo?.logoUrl?.restaurant_id?.logo :
+        defaultImage) : blurred_logo
+      : defaultImage
+  }
 
 
   // useEffect(() => {
@@ -291,15 +310,16 @@ const Menu = ({ translaterFun }) => {
           <div className='headerbox'>
             <div className='logo'>
               <a href='#'>
-                <img src={
-                  (PremiumUserLogo?.logoUrl?.user_active_plan == "Premium" 
-                  || 
+                <img src={logoFunction()} className={(PremiumUserLogo?.logoUrl?.user_active_plan == "Premium"
+                  ||
                   PremiumUserLogo?.logoUrl?.user_active_plan == "غالي")
-
-                    ?
-                    PremiumUserLogo?.logoUrl?.restaurant_id?.logo ? PremiumUserLogo?.logoUrl?.restaurant_id?.logo : blurred_logo 
-                    : defaultImage
-                    } className={!PremiumUserLogo?.logoUrl?.restaurant_id?.logo ?"blurclass":""} alt='logoimg' />
+                  ?
+                  PremiumUserLogo?.logoUrl ? (PremiumUserLogo?.logoUrl?.restaurant_id?.logo ?
+                    "" :
+                    "") : "blurclass"
+                  : ""}
+                  // {  !PremiumUserLogo?.logoUrl?.restaurant_id?.logo ? "blurclass" : ""}
+                  alt='logoimg' />
 
               </a>
             </div>
