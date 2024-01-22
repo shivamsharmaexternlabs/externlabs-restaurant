@@ -87,11 +87,11 @@ const AllMedia = ({ translaterFun }) => {
         try {
             let response = await dispatch(DeleteMediaLibrarySlice({ RestaurantId, BearerToken, media_url: items }))
 
-            if(response?.payload?.status === 204){
+            if (response?.payload?.status === 204) {
                 toast.success(translaterFun("deleted-successfully"));
                 await dispatch(GetMediaLibrarySlice({ RestaurantId, BearerToken }))
             }
-            else{
+            else {
                 toast.success(translaterFun("internal-server-error"));
             }
 
@@ -143,10 +143,10 @@ const AllMedia = ({ translaterFun }) => {
                                                 <button type='button' className='btn uploadbutton' onClick={(e) => DownlodImageFun(e, items)}>
                                                     <img src={upload} alt='upload' />
                                                 </button>
-
-                                                <button type='button' className='btn closebtn' onClick={(e) => DeleteImageFun(e, items)}>
+                                                {/* DELETE BUTTON IN MEDIA LIBRARY */}
+                                                {/* <button type='button' className='btn closebtn' onClick={(e) => DeleteImageFun(e, items)}>
                                                     <img src={close} alt='close upload' />
-                                                </button>
+                                                </button> */}
 
 
                                                 {/* <button type='button' className='btn' onClick={(e) => DeleteImageFun(e, items)}>
