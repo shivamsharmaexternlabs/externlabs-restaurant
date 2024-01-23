@@ -72,22 +72,24 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
     const defaultValue = {
-        restaurant_name: "",
-        owner_name: "",
-        email: "",
-        // phone_ext: "",
-        // phone: "",
-        shop_no: "",
-        street: "",
-        city: "",
-        landmark: "",
-        pincode: "",
-        state: "",
-        country: "",
-        description: "",
-        url_slug: ""
-
+        restaurant_name:CreateLeadOnBoardPayloadState?.restaurant_name,
+        owner_name: CreateLeadOnBoardPayloadState?.owner_name,
+        email: CreateLeadOnBoardPayloadState?.email,
+        // phone_ext: CreateLeadOnBoardPayloadState?.restaurant_name,
+        // phone: CreateLeadOnBoardPayloadState?.restaurant_name,
+        shop_no: CreateLeadOnBoardPayloadState?.shop_no,
+        street: CreateLeadOnBoardPayloadState?.street,
+        city: CreateLeadOnBoardPayloadState?.city,
+        landmark: CreateLeadOnBoardPayloadState?.landmark,
+        pincode: CreateLeadOnBoardPayloadState?.pincode,
+        state: CreateLeadOnBoardPayloadState?.state,
+        country: CreateLeadOnBoardPayloadState?.country,
+        description: CreateLeadOnBoardPayloadState?.description,
+        url_slug: CreateLeadOnBoardPayloadState?.url_slug
     };
+ 
+
+    console.log("CreateLeadOnBoardPayloadStateuytfhgj", CreateLeadOnBoardPayloadState);
 
 
     const Validate = yup.object({
@@ -197,8 +199,9 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
     const CreateLeadOnBoard = (values) => {
-        // console.log("hgfghjk", values)
+        console.log("hgfghjk", countrycode, phonenumber)
         // return;
+
         if (countrycode !== "" && phonenumber !== "") {
             setCreateLeadOnBoardPayloadState(values)
             setOnBordPopUp(true)
@@ -239,7 +242,6 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
         await dispatch(LoadingSpinner(true))
 
         try {
-            console.log("CreateLeadOnBoardPayloadStateuytfhgj", CreateLeadOnBoardPayloadState);
             const payloadOnBoard = {
                 "restaurant_name": CreateLeadOnBoardPayloadState?.restaurant_name,
                 // "url_slug": CreateLeadOnBoardPayloadState?.url_slug,
@@ -360,9 +362,9 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
     const closeOnBoardFun = () => {
         // dispatch(ToggleNewLeads(true))
         setOnBordPopUp(false)
-        // setLeadPopupToggle(true)
+        setLeadPopupToggle(true)
 
-        window.location.reload()
+        // window.location.reload()
     }
 
     const handleOnChange1 = (
@@ -408,6 +410,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                     </div>
                     <div className="popupbody">
                         <Formik
+                            enableReinitialize
                             initialValues={defaultValue}
                             validationSchema={Validate}
                             onSubmit={(values) => {
@@ -497,7 +500,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                                                 <label>{translaterFun("phone-number")} </label>
                                                 <PhoneInput
                                                     country={"in"}
-                                                    // value={phonenumber}
+                                                    value={`${countrycode}-${phonenumber}`}
                                                     onChange={handleOnChange1}
                                                     className="input_filed"
                                                 />
@@ -723,9 +726,11 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                         </div>
                         <div className="popupbody">
                             <Formik
+                                enableReinitialize
                                 initialValues={defaultSignUpValue}
                                 validationSchema={ValidateSignUp}
                                 onSubmit={handleSubmitOnBoardPassAndConfPass}
+
                             >
                                 <Form className="row">
 
