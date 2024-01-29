@@ -26,7 +26,7 @@ const Menu = ({ translaterFun }) => {
   const [ActiveCategory, setActiveCategory] = useState("")
   const [MenuToggleBookData, setMenuToggleBookData] = useState(false)
   const [languageToggleValue, setlanguageToggleValue] = useState("")
-  const [MenuItemTypeToggleData, setMenuItemTypeToggleData] = useState(null)
+  const [MenuItemTypeToggleData, setMenuItemTypeToggleData] = useState(0)
   const [MenuItemTypeValue, setMenuItemTypeValue] = useState("")
   const [MenuItemSearchValue, setMenuItemSearchValue] = useState("")
   const [loadspiner, setLoadSpiner] = useState(false);
@@ -159,6 +159,11 @@ const Menu = ({ translaterFun }) => {
   }
 
   const MenuItemType = [
+    {
+      type_name: translaterFun("all"),
+      type_value: "",
+      // type_img: <img src={icon4} alt='img' />
+    },
     {
       type_name: translaterFun("veg"),
       type_value: "VEG",
@@ -367,6 +372,7 @@ const Menu = ({ translaterFun }) => {
           <div className='line'></div>
           <ul className='itemlistbtn'>
             {MenuItemType?.map((itemType, id) => {
+              {/* console.log("bvgcfgh", id) */}
               return <li key={id} onClick={(e) => MenuItemTypeToggleFun(e, itemType, id)}
                 className={`${id === MenuItemTypeToggleData ? 'MenuItemActive' : ""}`}
               >

@@ -162,6 +162,31 @@ function App() {
             {payment_status == "false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
           </Routes>
         }
+
+        {!Token &&
+          <Routes>
+            {/* <Route path="/emailotpverification" element={<EmailOtpVerification  translaterFun={t} />}></Route> // Please do not remove this comment... */}
+            {/* <Route path="/signup" element={<Signup  translaterFun={t} />}></Route> // Please do not remove this comment... */}
+            {/* <Route path='/success' element={<Success  translaterFun={t} />}></Route>   // Please do not remove this comment...*/}
+            {/* <Route path="/forgotpassword" element={<ForgotPassword  translaterFun={t} />}></Route> // Please do not remove this comment... */}
+            <Route path="/user_auth/resetpassword/:id" element={<Login translaterFun={t} />}></Route>
+            <Route path="/:id/admin/dashboard" element={<Login translaterFun={t} />}> </Route>  {/* convert in arabic  */}
+            <Route path="/:id/admin/categories" element={<Login translaterFun={t} />}></Route>  {/* convert in arabic  */}
+            <Route path="/:id/admin/categories/reorder/" element={<Login translaterFun={t} />}></Route>  {/* convert in arabic  */}
+            <Route path="/:id/admin/manager" element={<Login translaterFun={t} />}></Route> {/* convert in arabic  */}
+            <Route path="/:id/admin/allmedia" element={<Login translaterFun={t} />}></Route>{/* convert in arabic  */}
+
+            <Route path='/:id/admin/viewProfile' element={<Login translaterFun={t} />}></Route>
+            <Route path="/:id/admin/paymenthistory" element={<Login translaterFun={t} />}></Route> {/* convert in arabic  */}
+            <Route path='/admin/leads' element={<Login translaterFun={t} />}></Route>
+            <Route path='/admin/restaurant' element={<Login translaterFun={t} />}></Route> {/* convert in arabic  */}
+            <Route path='/admin/restaurantdetail/:id' element={<Login translaterFun={t} />}></Route>  
+
+            {payment_status == "false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
+          </Routes>
+        }
+
+
         <Routes>
 
           <Route path="/" element={<Login translaterFun={t} />}></Route>
