@@ -48,7 +48,7 @@ const Menu = ({ translaterFun }) => {
 
 
   let splitdata = params?.pathname?.split("/")?.[1]
-  reactLocalStorage.set("RestaurantId", splitdata);
+  // reactLocalStorage.set("RestaurantId", splitdata);
   let languageSet = reactLocalStorage.get("languageSet", false);
 
   useEffect(() => {

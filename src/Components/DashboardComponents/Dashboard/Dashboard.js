@@ -264,7 +264,7 @@ const Dashboard = ({ translaterFun }) => {
                               return <li>
                                 <h4>{languageSet === "en" ? Item?.item_name_en : Item?.item_name_native}</h4>
                                 <h5 className='mt-1 d-flex align-items-center '>
-                                  {Item?.is_veg == true ? <img src={icon4} alt='img' className='me-1 ms-2' /> : <img src={icon5} alt='img' className='me-1 ms-2 ' />}
+                                  {Item?.is_non_veg == true ? <img src={icon5} alt='img' className='me-1 ms-2 ' /> : <img src={icon4} alt='img' className='me-1 ms-2' /> }
 
                                   {Item?.calories} {Item?.calories_unit}</h5>
 

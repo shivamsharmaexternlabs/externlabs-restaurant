@@ -1,3 +1,4 @@
+// Import React and necessary dependencies
 import React, { useEffect, useState } from 'react'
 import './adminProfilePage.css'
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
@@ -25,17 +26,19 @@ import SucessRegisteredPopup from '../../../ReusableComponents/SucessRegisteredP
 import editimg from '../../../images/edit.svg'
 import { Helmet } from "react-helmet";
 
-
+// Owner Profile Edit Page Component 
 const AdminProfilePage = ({ translaterFun }) => {
+
+  // State and variable Declaration
   const [SuccessPopup, setSuccessPopup] = useState(false);
   const [ResetPasswordPopup, setResetPasswordPopup] = useState(false);
   const [CopyValueToggle, setCopyValueToggle] = useState(false)
   const routeData = useLocation();
   const [OnBordPopUp, setOnBordPopUp] = useState(false);
   const [loadspiner, setLoadSpiner] = useState(false);
+
   const [popUpHook, popUpHookFun] = usePopUpHook("")
   const [CreateLeadOnBoardPayloadState, setCreateLeadOnBoardPayloadState] = useState("")
-
   const [countrycode, setCountryCode] = useState("");
   const [phonenumber, setPhoneNumber] = useState("");
   const [HandleFormData, setHandleFormData] = useState(false)
@@ -50,9 +53,8 @@ const AdminProfilePage = ({ translaterFun }) => {
   const [BannerImage, setBannerImage] = useState(null);
   const [ViewBannerImage, setViewBannerImage] = useState(null);
 
-  //console.log("fhsjhghjga", routeData)
+  // get from local storage to perform certain task by using this...
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
-
   let BearerToken = reactLocalStorage.get("Token", false);
 
   const dispatch = useDispatch();
@@ -61,10 +63,8 @@ const AdminProfilePage = ({ translaterFun }) => {
 
 
   const defaultSignUpValue = {
-
     password: "",
     confirm_password: "",
-
   };
 
   const ValidateSignUp = yup.object({
@@ -111,11 +111,14 @@ const AdminProfilePage = ({ translaterFun }) => {
 
 
   };
-
+  /**
+     * @useEffect
+     * fill data from the route data's current data...
+     *
+     * @dependencies 
+     */
   useEffect(() => {
 
-    // dispatch(LoadingSpinner(false))
- 
     if (routeData?.state?.currentData) {
       setPhoneNumber(routeData?.state?.currentData?.owner?.phone_number === undefined ? routeData?.state?.currentData?.phone : routeData?.state?.currentData?.owner?.phone_number)
       setCountryCode(routeData?.state?.currentData?.owner?.country_code === undefined ? routeData?.state?.currentData?.country_code : routeData?.state?.currentData?.owner?.country_code)
@@ -126,7 +129,12 @@ const AdminProfilePage = ({ translaterFun }) => {
 
   }, [routeData?.state?.currentData])
 
-
+  /**
+       * @useEffect
+       * setting logo and banner if it is in the Api response...
+       *
+       * @dependencies GetRestaurantsOnBoardSliceReducerData
+       */
   useEffect(() => {
 
     if (LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData) {
@@ -137,7 +145,12 @@ const AdminProfilePage = ({ translaterFun }) => {
   }, [LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData])
 
 
-
+  /**
+       * @useEffect
+       * After updating restaurant data , It should show updated data...
+       *
+       * @dependencies UpdateRestaurantReducerData
+       */
   useEffect(() => {
 
     // dispatch(LoadingSpinner(false))
@@ -148,7 +161,6 @@ const AdminProfilePage = ({ translaterFun }) => {
 
   }, [LeadsRestaurantSelectorData?.UpdateRestaurantReducerData])
 
-  //console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data)
 
   const Validate = yup.object({
     restaurant_name: yup.string().required(translaterFun("restaurant-name-is-required")),
@@ -168,6 +180,8 @@ const AdminProfilePage = ({ translaterFun }) => {
 
   });
 
+
+//  SignUp APi will be called 
   const handleSubmitOnBoardPassAndConfPass = async (values) => {
     await dispatch(LoadingSpinner(true))
 
@@ -191,6 +205,7 @@ const AdminProfilePage = ({ translaterFun }) => {
 
   }
 
+  // After Sign Up API give response, then Creating Restaurant Api will be called...
   const callBackFuncAfterSignUp = async () => {
     setOnBordPopUp(false)
 
@@ -211,8 +226,6 @@ const AdminProfilePage = ({ translaterFun }) => {
         "Token": BearerToken
       }
 
-      //console.log("hgcfxcgvhbjnk", CreateLeadOnBoardPayloadState)
-
       await dispatch(CreateRestaurantsOnBoardSlice(payloadOnBoard))
       await dispatch(LoadingSpinner(false))
 
@@ -221,38 +234,7 @@ const AdminProfilePage = ({ translaterFun }) => {
     }
 
   }
-  //console.log("hjgcfghjklCreateLeadOnBoardPayloadState", CreateLeadOnBoardPayloadState)
-  // const CopyLinkFun = () => {
-  //   //console.log("bnvdhgsdvsd1")
-  //   navigator.clipboard
-  //     .writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url)
-  //     .then(() => {
-  //       setCopyValueToggle(true)
-  //       setIsShown(false)
-  //       // alert("successfully copied");
-  //     })
-  //     .catch(() => {
-  //       setCopyValueToggle(false)
-  //       // alert("something went wrong");
-  //     });
-  //   // navigator.clipboard.writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url);
-  // }
-
-  const BackToHomeFun = () => {
-    // window.location.reload(false)
-    setSuccessPopup(false)
-
-    let LeadsRestaurantSlicePayload = {
-      Token: BearerToken,
-      RestaurantId: RestaurantId,
-      pagination: 1,
-    };
-    dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
-    navigate(`/admin/leads`)
-    window.location.reload(false);
-  }
-
-
+ 
   useEffect(() => {
     if (LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.status === 201) {
       setSuccessPopup(true)
@@ -282,10 +264,6 @@ const AdminProfilePage = ({ translaterFun }) => {
   useEffect(() => {
     if (LeadsRestaurantSelectorData?.UpdateRestaurantReducerData?.status === 200) {
       setLoadSpiner(false);
-
-      // callBackFuncAfterSignUp();
-
-      // navigate("/emailotpverification");
     }
     else if (LeadsRestaurantSelectorData?.error == "Rejected") {
       setLoadSpiner(false);
@@ -361,63 +339,50 @@ const AdminProfilePage = ({ translaterFun }) => {
       }
       setHandleFormData(false)
 
-      //  }
-      // dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
-
-      // Patch API for restaurant edit will run
-
     }
-
-    // setDataaa(values)
   }
 
 
-  const PopUpToggleFun = () => {
-    popUpHookFun((o) => !o);
-  };
+  // const PopUpToggleFun = () => {
+  //   popUpHookFun((o) => !o);
+  // };
 
-  useEffect(() => {
-    if (ResetPasswordSelectorData?.data?.status === 200) {
-      setLoadSpiner(false);
-      setResetPasswordPopup(false);
-      // navigate("/emailotpverification");
-    }
-    else if (ResetPasswordSelectorData?.error == "Rejected") {
-      setLoadSpiner(false);
-    }
-  }, [ResetPasswordSelectorData]);
+  // useEffect(() => {
+  //   if (ResetPasswordSelectorData?.data?.status === 200) {
+  //     setLoadSpiner(false);
+  //     setResetPasswordPopup(false);
+  //     // navigate("/emailotpverification");
+  //   }
+  //   else if (ResetPasswordSelectorData?.error == "Rejected") {
+  //     setLoadSpiner(false);
+  //   }
+  // }, [ResetPasswordSelectorData]);
 
-  const resetPasswordSubmit = async (values) => {
-    await dispatch(LoadingSpinner(true));
+  // const resetPasswordSubmit = async (values) => {
+  //   await dispatch(LoadingSpinner(true));
 
-    let forgetPayload = {
-      restaurant_id: routeData?.state?.currentData?.restaurant_id,
-      new_pass: values?.new_pass,
-      confirm_pass: values?.confirm_pass,
-      BearerToken
-    }
+  //   let forgetPayload = {
+  //     restaurant_id: routeData?.state?.currentData?.restaurant_id,
+  //     new_pass: values?.new_pass,
+  //     confirm_pass: values?.confirm_pass,
+  //     BearerToken
+  //   }
 
-    try {
+  //   try {
 
-      await dispatch(ResetPasswordSlice(forgetPayload));
-      await dispatch(LoadingSpinner(false))
+  //     await dispatch(ResetPasswordSlice(forgetPayload));
+  //     await dispatch(LoadingSpinner(false))
 
-    } catch (error) {
-      await dispatch(LoadingSpinner(false))
-    }
+  //   } catch (error) {
+  //     await dispatch(LoadingSpinner(false))
+  //   }
 
-  }
+  // }
 
-  const resetPasswordFunc = (e, routeData) => {
-    setResetPasswordPopup(true)
-
-
-  }
-
-  const closeResetPasswordFun = () => {
-    setResetPasswordPopup(false)
-    window.location.reload()
-  }
+  // const closeResetPasswordFun = () => {
+  //   setResetPasswordPopup(false)
+  //   window.location.reload()
+  // }
 
   const handleOnChange1 = (
     currentValue,
@@ -436,8 +401,6 @@ const AdminProfilePage = ({ translaterFun }) => {
     setPhoneNumber(myString);
   };
 
-
-  //console.log("jdjhvdssd", isShown)
 
 
   useEffect(() => {
@@ -489,12 +452,11 @@ const AdminProfilePage = ({ translaterFun }) => {
               <figure>
 
                 <img src={ViewBannerImage == null ? (BannerImage == null ? editbanner : BannerImage) : ViewBannerImage} alt='img'
-                  className='w-100' />
-                {/* <img src={editbanner} alt='img' className='w-100' /> */}
+                  className='w-100' /> 
               </figure>
               <div className='info'>
                 <div className='edituserimg'>
-                  <img src={ViewLogoImage == null ? (logoImage == null ? user : logoImage)  : ViewLogoImage} alt='img' />
+                  <img src={ViewLogoImage == null ? (logoImage == null ? user : logoImage) : ViewLogoImage} alt='img' />
                   {HandleFormData != "" &&
                     <div
                       className={`   ${HandleFormData ? "edituserimgbutton" : "numbersdds edituserimgbutton"}`}
@@ -509,8 +471,7 @@ const AdminProfilePage = ({ translaterFun }) => {
                         onChange={(e) => LogoImageUploadFun(e)} />
                     </div>
                   }
-                </div>
-                {/* <img src={logoImage} alt='img' /> */}
+                </div> 
 
               </div>
             </div>
@@ -521,11 +482,7 @@ const AdminProfilePage = ({ translaterFun }) => {
                 validationSchema={Validate}
                 enableReinitialize
                 onSubmit={(values) => {
-                  if (submitAction === "primary") {
-                    //console.log("dhgasjh")
-                    // handleSubmit(values);
-                  }
-                  else if (routeData?.state?.page == "profilePage") {
+                  if (routeData?.state?.page == "profilePage") {
                     handleSubmit(values)
                   }
                   else if (submitAction === "secondary") {
@@ -760,38 +717,6 @@ const AdminProfilePage = ({ translaterFun }) => {
                         </div>
                       </div>
 
-                      {/* <div className="col-md-12 mb-3"> */}
-                      {/* <div className="formbox ">
-                          <label className="d-block">{translaterFun("Logo")} </label>
-                          <div className=" uploadwrapper ">
-                            <button type="button">
-                              {" "}
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="14"
-                                height="14"
-                                viewBox="0 0 14 14"
-                                fill="none"
-                              >
-                                <path
-                                  d="M6.5 10.577V1.927L4.17 4.257L3.462 3.538L7 0L10.538 3.538L9.831 4.258L7.5 1.927V10.577H6.5ZM1.615 14C1.155 14 0.771 13.846 0.463 13.538C0.154333 13.2293 0 12.845 0 12.385V9.962H1V12.385C1 12.5383 1.064 12.6793 1.192 12.808C1.32067 12.936 1.46167 13 1.615 13H12.385C12.5383 13 12.6793 12.936 12.808 12.808C12.936 12.6793 13 12.5383 13 12.385V9.962H14V12.385C14 12.845 13.846 13.229 13.538 13.537C13.2293 13.8457 12.845 14 12.385 14H1.615Z"
-                                  fill="#8D8D8D"
-                                />
-                              </svg>{" "}
-                              {translaterFun("upload")}{" "}
-                            </button>
-                            <input
-                              type="file"
-                              accept=".png, .jpg, .jpeg, .svg"
-                               
-                            />
-                          </div> */}
-                      {/* <p className="text-danger small mb-0">
-                                                    <ErrorMessage name="first_name" />
-                                                </p> */}
-                      {/* </div>
-                      </div> */}
-
                     </div>
                   </div>
                   <div className='submitbox'>
@@ -838,72 +763,11 @@ const AdminProfilePage = ({ translaterFun }) => {
           </div>
         </div>
 
-        {/* Password Confirm_password in onBoard leads */}
-        {OnBordPopUp && (
-          <PopUpComponent
-            classNameValue={"onboardingpopup "}
-            PopUpToggleFun={PopUpToggleFun}
-            popUpHookFun={popUpHookFun} >
-            <button type="button" className="closebtn" onClick={(e) => setOnBordPopUp(false)}> <img src={close} alt="close icon" /> </button>
-
-
-            <div className="popuptitle">
-              <h2>{translaterFun("onboarding")}</h2>
-            </div>
-            <div className="popupbody">
-              <Formik
-                initialValues={defaultSignUpValue}
-                validationSchema={ValidateSignUp}
-                onSubmit={handleSubmitOnBoardPassAndConfPass}
-              >
-                <Form className="row">
-
-                  <div className="col-md-12 mb-3">
-
-                    <div className="formbox">
-                      <label>{translaterFun("password")} </label>
-                      <Field
-                        name="password"
-                        type="text"
-                        className={`form-control `}
-                        placeholder="************"
-                      />
-                      <p className="text-danger small mb-0">
-                        <ErrorMessage name="password" />
-                      </p>
-                    </div>
-
-                  </div>
-                  <div className="col-md-12 mb-3">
-
-                    <div className="formbox mb-3">
-                      <label>{translaterFun("confirm-password")} </label>
-                      <Field
-                        name="confirm_password"
-                        type="text"
-                        className={`form-control `}
-                        autoComplete="off"
-                        placeholder="************"
-                      />
-                      <p className="text-danger small mb-0">
-                        <ErrorMessage name="confirm_password" />
-                      </p>
-                    </div>
-
-                  </div>
-                  <div className='text-center mt-1'>
-                    <button type="submit" className="btn2 mx-3"> {translaterFun("submit")} </button>
-                  </div>
-                </Form>
-              </Formik>
-            </div>
-
-          </PopUpComponent>
-        )}
+        
 
 
         {/* reset password popup*/}
-        {ResetPasswordPopup && (
+        {/* {ResetPasswordPopup && (
           <PopUpComponent
             classNameValue={"onboardingpopup "}
             PopUpToggleFun={PopUpToggleFun}
@@ -963,69 +827,8 @@ const AdminProfilePage = ({ translaterFun }) => {
             </div>
 
           </PopUpComponent>
-        )}
+        )} */}
 
-
-
-        {/* Successful sign up and Onboard (copy link and share part) */}
-        {SuccessPopup &&
-
-          <SucessRegisteredPopup
-
-            translaterFun={translaterFun}
-            LeadsRestaurantSelectorData={LeadsRestaurantSelectorData}
-            BackToHomeFun={BackToHomeFun}
-          />
-
-          // <div className="popup successpopup ">
-          //   <div className="innerpopup">
-          //     <img src={imgicon} alt="img" />
-          //     <h3> {translaterFun("success")} </h3>
-          //     <p>{translaterFun("successfully-registered")}</p>
-          //     <div className="sharebtnbox">
-          //       <span> <img src={share} alt="img" /> {translaterFun("link")} </span>
-          //       <input type="text" placeholder={translaterFun("link")} value={LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url} />
-          //       {/* <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
-          //         Copied
-          //       </button> */}
-
-          //       <div className='copybtnbox'>
-          //         <div className='hoverCopyed'>
-          //           <button type="button" class="btn   copytooltip" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top"  
-          //           >
-          //             Copy Url
-          //           </button>
-          //           {
-          //             CopyValueToggle && 
-          //              <button type="button" class="btn     copytooltip" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-          //             Copied !
-          //           </button>
-          //           }
-          //         </div>
-          //         <button type="button" className="copybtn " 
-          //         onMouseLeave={() => setIsShown(true)}
-          //         // onMouseEnter={() => setIsShown(false)}
-          //         >
-          //           <img src={copy} alt="img" onClick={(e) => CopyLinkFun(e)} />
-          //         </button>
-          //       </div>
-          //       <button type="button" className="sharebtn">
-          //         <RWebShare data={{
-          //           // text: "Web Share - GFG",
-          //           url: LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url,
-          //           // title: "Gfg"
-          //         }}
-          //           onClick={() => console.log("Shared successfully!")} >
-
-          //           <img src={share2} alt="img" />
-          //         </RWebShare>
-          //       </button>
-
-          //     </div>
-          //     <button className="btn2" onClick={(e) => BackToHomeFun()}> Back to home </button>
-          //   </div>
-          // </div>
-        }
 
       </DashboardLayout>
       <LodingSpiner loadspiner={loadspiner} />

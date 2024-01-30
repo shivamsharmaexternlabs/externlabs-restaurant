@@ -1527,10 +1527,10 @@ const Categories = ({ translaterFun }) => {
                                   }
 
                                   <h5 className='mt-1'>
-
-                                    {items?.is_veg == true && <img src={icon4} alt='img' className='me-1' />}
-
-                                    {items?.is_non_veg == true && <img src={icon5} alt='img' className='me-1' />}  {items?.calories} {items?.calories_unit}
+                                    {items?.is_non_veg == true ? <img src={icon5} alt='img' className='me-1 ms-2 ' /> : <img src={icon4} alt='img' className='me-1 ms-2' />}
+                                    {/* {items?.is_veg == true && <img src={icon4} alt='img' className='me-1' />}
+                                    {items?.is_non_veg == true && <img src={icon5} alt='img' className='me-1' />}  */}
+                                    {items?.calories} {items?.calories_unit}
 
                                   </h5>
 
@@ -1613,7 +1613,8 @@ const Categories = ({ translaterFun }) => {
                               <div className="rightpart">
                                 <h3 className="bestseller-veg-non-veg">
 
-                                  {item?.is_veg == true ? <img src={icon4} alt='img' className='me-2  ' /> : <img src={icon5} alt='img' className='me-2' />}
+                                  {/* {item?.is_veg == true ? <img src={icon4} alt='img' className='me-2  ' /> : <img src={icon5} alt='img' className='me-2' />} */}
+                                  {item?.is_non_veg == true ? <img src={icon5} alt='img' className='me-1 ms-2 ' /> : <img src={icon4} alt='img' className='me-1 ms-2' />}
 
                                   {languageSet === "en" ? item?.item_name_en : item?.item_name_native} </h3>
 
