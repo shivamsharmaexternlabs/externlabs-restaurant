@@ -26,6 +26,7 @@ import { toast } from "react-toastify";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import AllMedia from './Components/DashboardComponents/AllMedia/AllMedia.js';
+import ManageOrder from './Components/DashboardComponents/ManageOrder/ManageOrder.js';
 import PaymentHistory from './Components/DashboardComponents/PaymentHistory/PaymentHistory.js';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -152,6 +153,7 @@ function App() {
             <Route path="/:id/admin/categories/reorder/" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><DndCategories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
             <Route path="/:id/admin/manager" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <Manager translaterFun={t} />}></Route> {/* convert in arabic  */}
             <Route path="/:id/admin/allmedia" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <AllMedia translaterFun={t} />}></Route>{/* convert in arabic  */}
+            <Route path="/:id/admin/manageorder" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <ManageOrder translaterFun={t} />}></Route>{/* convert in arabic  */}
 
             <Route path='/:id/admin/viewProfile' element={<AdminProfilePage translaterFun={t} />}></Route>
             <Route path="/:id/admin/paymenthistory" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <PaymentHistory translaterFun={t} />}></Route> {/* convert in arabic  */}
@@ -175,6 +177,7 @@ function App() {
             <Route path="/:id/admin/categories/reorder/" element={<Login translaterFun={t} />}></Route>  {/* convert in arabic  */}
             <Route path="/:id/admin/manager" element={<Login translaterFun={t} />}></Route> {/* convert in arabic  */}
             <Route path="/:id/admin/allmedia" element={<Login translaterFun={t} />}></Route>{/* convert in arabic  */}
+            <Route path="/:id/admin/manageorder" element={<Login translaterFun={t} />}></Route>{/* convert in arabic  */}
 
             <Route path='/:id/admin/viewProfile' element={<Login translaterFun={t} />}></Route>
             <Route path="/:id/admin/paymenthistory" element={<Login translaterFun={t} />}></Route> {/* convert in arabic  */}

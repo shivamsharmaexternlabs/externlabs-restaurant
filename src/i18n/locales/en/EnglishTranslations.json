@@ -272,9 +272,10 @@
 
   "slug-must-not-contain-spaces" : "Slug must not contain spaces",
   "url-slug" : "URL Slug",
-  "please-enter-unique-slug" : "Please Enter Unique Slug"
+  "please-enter-unique-slug" : "Please Enter Unique Slug",
 
-
+  "--------------------manage order ------------" : "============Manager Order =====================",
+  "manage-orders" : "Manage Orders"
 
   
 

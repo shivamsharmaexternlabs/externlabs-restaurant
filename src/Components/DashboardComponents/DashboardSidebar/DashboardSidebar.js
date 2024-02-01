@@ -150,6 +150,20 @@ const DashboardSidebar = () => {
                 </NavLink>
               </li>
 
+              <li>
+                <NavLink to={`/${RestaurantId}/admin/manageorder`} className={` ${param.pathname === ":id/admin/manageorder" ? "active" : ""
+                  } `}>
+
+                  <div className='normalicon'>
+                    <img src={icon14} alt='img' /> <span className='text'>{t("manage-orders")}</span>
+                  </div>
+
+                  <div className='activeicon'>
+                    <img src={icon14h} alt='icon8h img' /> <span className='text'>{t("manage-orders")}</span>
+                  </div>
+                </NavLink>
+              </li>
+
               {/* <li>
                 <NavLink
                   to="#/admin/categories"

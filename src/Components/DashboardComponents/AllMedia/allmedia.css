@@ -70,23 +70,23 @@
 }
 
 .medialist li figure > button {
-    width: 30px;
+  width: 30px;
   border: none;
   outline: none;
   box-shadow: none;
   padding: 0;
 }
 
-.uploadbutton{
-    position: absolute;
-    bottom: 10px;
-    right: 10px;   
+.uploadbutton {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 
-.closebtn{
-    position: absolute;
-    top: 5px;
-    right: 5px;
+.closebtn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 .medialist li figure > button > img {
@@ -103,6 +103,107 @@
   margin: 0;
   word-break: break-all;
 }
+
+/******************** infotable *********/
+
+.infotable {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.infotable > div {
+  font-family: "NeuzeitGro-Reg";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.02em;
+}
+.infotable > div + div {
+  margin-left: 15px;
+}
+.infotable > div > span {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: sub;
+  background: #d9d9d9;
+}
+
+.actable {
+  margin: 10px 0;
+}
+
+.actable h2 {
+  font-family: "NeuzeitGro-Reg";
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 35px;
+  letter-spacing: 0.02em;
+  color: #EA6A12;
+  margin: 0 0 10px;
+}
+
+.actablelist  {
+  width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+}
+
+.actablelist  > li {
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "NeuzeitGro-Reg";
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  width: calc(100%/10 - 50px);
+  margin-right: 35px;
+  position: relative;
+}
+
+.actablelist  > li>:nth-child(10n+10) {
+  margin-left: 0;
+}
+
+.manageorderpage .uploadbtn-wrapper>button {
+  color: #fff;
+  cursor: pointer;
+}
+
+.manageorderpage .uploadbtn-wrapper:hover >button {
+  color: #ea6a12;
+}
+
+.acedittable {
+  position: absolute;
+  top:0;
+  left: 0;
+}
+
+.acedittable > button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: auto;
+  height: auto;
+}
+.acedittable > button > img {
+  display: block;
+}
+
+.acedittable .btnbox   {
+  display: none;
+}
+
+
 
 /**************** Arabic css **************/
 

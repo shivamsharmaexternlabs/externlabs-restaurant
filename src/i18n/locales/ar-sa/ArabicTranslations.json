@@ -268,7 +268,10 @@
 
   "slug-must-not-contain-spaces" : "يجب ألا تحتوي سبيكة على مسافات",
   "url-slug" : "سبيكة URL",
-  "please-enter-unique-slug" : "الرجاء إدخال سبيكة فريدة من نوعها"
+  "please-enter-unique-slug" : "الرجاء إدخال سبيكة فريدة من نوعها",
+
+  "--------------------manage order ------------" : "============Manager Order =====================",
+  "manage-orders" : "إدارة الطلبات"
 
   
 }
