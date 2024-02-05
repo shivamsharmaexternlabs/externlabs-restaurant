@@ -35,6 +35,8 @@ import DashboardHeader from './Components/DashboardComponents/DashboardHeader/Da
 import AdminProfilePage from "./Components/DashboardComponents/AdminProfilePage/AdminProfilePage.js";
 import { GetRestaurantsOnBoardSlice } from "./Redux/slices/leadsRestaurantSlice.js";
 import { useDispatch } from "react-redux";
+import KdsScreen from "./Components/DashboardComponents/KDS/KdsScreen.js";
+
 /* import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 i18n.use(initReactI18next).init({
@@ -192,7 +194,7 @@ function App() {
           <Route path="/" element={<Login translaterFun={t} />}></Route>
           <Route path="/:id" element={<Login translaterFun={t} />}></Route>
           <Route path="/:id/menu" element={<Menu translaterFun={t} />}></Route>
-
+          <Route path="/:id/kds/kdsScreen" element={<KdsScreen/>}></Route>
         </Routes>
 
         <ToastContainer autoClose={2000} />
