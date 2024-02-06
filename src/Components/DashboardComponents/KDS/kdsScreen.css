@@ -16,6 +16,22 @@
     z-index: 1;
 }
 
+.kds-logout{
+    outline: none;
+    border: none;
+    box-shadow: none;
+    background: none;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
+    color: rgba(234, 106, 18, 1);
+    transition: all .3s ease;
+}
+
+.kds-logoutimg{
+    width: 18px;
+    margin: 14px;
+}
+
 .contentpart {
     overflow: auto;
     min-height: 500px;
@@ -46,7 +62,7 @@
 
 .kgcardtitle {
     border-radius: 14px 14px 0 0;
-    padding: 10px;
+    padding: 16px;                                            /*//if time than 10px */
     background-color: #EABB36;
     display: flex;
     justify-content: space-between;
