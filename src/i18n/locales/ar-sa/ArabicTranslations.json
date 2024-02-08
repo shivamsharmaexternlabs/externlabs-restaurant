@@ -280,7 +280,12 @@
   "staff-members":"طاقم العمل",
   "add-member":"إضافة عضو",
   "designation":"تعيين",
-  "download-QR":"تحميل QR"
+  "download-QR":"تحميل QR",
+  "bulk-upload":"تحميل مجمع",
+  "role-is-required":"الدور مطلوب",
+  "select-role":" حدد الدور..."
+
+
 
 
 

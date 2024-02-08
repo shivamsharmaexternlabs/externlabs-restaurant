@@ -202,7 +202,7 @@ padding-right: 10px;
 }
 
 .actable {
-  margin: 10px 0;
+  margin: 40px 0;
 }
 
 .actable h2 {
@@ -223,7 +223,7 @@ padding-right: 10px;
 }
 
 .actablelist  > li {
-  width: 80px;
+  width: 80px !important;
   height: 80px;
   border-radius: 6px;
   display: flex;

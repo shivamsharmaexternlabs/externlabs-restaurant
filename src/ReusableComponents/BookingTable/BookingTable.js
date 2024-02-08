@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import dot from '../../images/dot.svg'
 import edit1 from "../../images/edit.svg";
 import downloadimg from "../../images/download.png";
 import {TableStatusData} from '../../Components/DashboardComponents/ManageOrder/TableStatusColor';
 import usePopUpHook from '../../CustomHooks/usePopUpHook/usePopUpHook';
 import CreateEditTable from '../../Components/DashboardComponents/ManageOrder/CreateEditTable';
+import { useDispatch } from 'react-redux';
+import { reactLocalStorage } from 'reactjs-localstorage';
+import { GetManageOrderTableSlice } from '../../Redux/slices/manageOrderTableSlice';
+import { useSelector } from 'react-redux';
 
 
 const BookingTable = ({ translaterFun }) => {
@@ -17,7 +21,14 @@ const BookingTable = ({ translaterFun }) => {
         Booleanvalue:null
         })
 
+        const ManageOrderTableSelectorData = useSelector((state) => state.ManageOrderTableApiData);
+
+
         const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
+      const dispatch=  useDispatch()
+
+      let BearerToken = reactLocalStorage.get("Token", false);
+      let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
 
     const OpenActionFun = (e, id) => {
@@ -42,8 +53,21 @@ const BookingTable = ({ translaterFun }) => {
         popUpCategoriesHookFun(true); 
     }
     
-    console.log("dsfsdfsdfsdfdew",false+1)
+     useEffect(()=>{ 
 
+        if(BearerToken !== false ){ 
+            dispatch(GetManageOrderTableSlice({RestaurantId,BearerToken})) 
+        }
+
+        
+         
+        // GetManageOrderTableSlice
+
+     },[])
+
+
+     console.log("kshdhgjhsd",ManageOrderTableSelectorData?.GetManageOrderTableData
+     )
      
     return (
         <>

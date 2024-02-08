@@ -282,5 +282,9 @@
   "staff-members":"Staff Members",
   "add-member":"Add Member",
   "designation":"Designation",
-  "download-QR":"Download QR"
+  "download-QR":"Download QR",
+  "bulk-upload":"Bulk Upload",
+  "role-is-required":"Role is required",
+  "select-role":" Select Role..."
+
 }

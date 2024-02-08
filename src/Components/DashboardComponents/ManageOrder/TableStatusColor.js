@@ -5,15 +5,16 @@ export let TableStatusData = [
         "colorCode" : "#D9D9D9"
     },
     {
-        "name" : "disabled-table",
-        "color" : "dark Blue",
-        "colorCode" : "#7F7F7F"
-    },
-    {
         "name" : "running-table",
         "color" : "Blue",
         "colorCode" : "#42B856"
     },
+    {
+        "name" : "disabled-table",
+        "color" : "dark Blue",
+        "colorCode" : "#7F7F7F"
+    },
+     
     // {
     //     "name" : "Paid Table",
     //     "color" : "Orange",

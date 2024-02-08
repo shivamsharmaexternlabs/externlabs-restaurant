@@ -191,8 +191,9 @@
 .addmanagerpopup .popupinnerbox {
   position: static;
   transform: none;
-  height: 90%;
-  max-height: 670px;
+  /* height: 90%; */
+  /* max-height: 790px; */
+  height: auto;
 }
 
 .addmanagerpopup .popuptitle h2 {
@@ -209,7 +210,8 @@
 
 .addmanagerpopup .popupbody form {
   position: relative;
-  height: calc(100vh - 270px);
+  /* height: calc(100vh - 270px); */
+  height: auto;
   overflow: auto;
  
   /* overflow: auto; */

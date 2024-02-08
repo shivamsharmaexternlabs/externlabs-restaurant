@@ -67,7 +67,7 @@ const ManageOrder = ({ translaterFun }) => {
 
                             <div className="uploadbtn-wrapper btn2">
                                 <button type="button" className=''>
-                                    {translaterFun("upload-menu")}
+                                    {translaterFun("bulk-upload")}
                                 </button>
                                 <input type="file" accept=".xlxs, .xlsx, .xls, .pdf"
                                 // ref={inputRef}

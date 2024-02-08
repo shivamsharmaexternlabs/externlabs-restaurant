@@ -7,7 +7,7 @@ let languageSet = reactLocalStorage.get("languageSet", "en");
 
 export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejectWithValue }) => { 
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/?page=${body?.pageination}`,
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/staff/?page=${body?.pageination}`,
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,
@@ -30,7 +30,7 @@ export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejec
 
 export const ManagerDeleteSlice = createAsyncThunk("ManagerDeleteSlice",async (body, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/${body?.item}/`,
+      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}restaurant_app/staff/${body?.item}/`,
       {
         headers: {
           Authorization: `Bearer ${body?.BearerToken}`,
@@ -63,6 +63,7 @@ export const StaffRoleSlice = createAsyncThunk("StaffRoleSlice",async (body, { r
     
     );  
 
+    console.log("hvdgsddd",response)
     return response;
 
   } catch (err) {
@@ -80,6 +81,7 @@ export const managerReducer = createSlice({
   initialState: {
     data: [],  
     managerDeleteReducer:[],
+    StaffRoleSliceData:[],
     loading: false,
     error: null,
   },
@@ -124,7 +126,7 @@ export const managerReducer = createSlice({
 
       .addCase(StaffRoleSlice.fulfilled, (state, action) => {
         state.loading = false;
-        state.StaffRoleReducer = action.payload;
+        state.StaffRoleSliceData = action.payload;
         toast.success(action?.payload?.data?.message);
       }
       )

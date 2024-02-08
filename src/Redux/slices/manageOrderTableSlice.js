@@ -10,22 +10,47 @@ let languageSet = reactLocalStorage.get("languageSet", "en");
  export const PostManageOrderTableSlice = createAsyncThunk("PostManageOrderTableSlice",async (body, { rejectWithValue }) => {
   console.log("snbdvhgsvdcsd0",body)
   try {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/`,{
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/`,
       body
-    },
+    ,
     {
       headers: {
+        Authorization: `Bearer ${body?.token}`,
         "Accept-Language": languageSet
       },
     }
     
     );
-    // toast.success("Successful"); 
+    toast.success(response?.data?.message); 
 
     return response;
 
   } catch (err) {
-    // toast.error(err?.response?.data?.message);
+    toast.error(err?.response?.data?.message);
+    return rejectWithValue(err);
+  }
+}
+);
+
+export const GetManageOrderTableSlice = createAsyncThunk("GetManageOrderTableSlice",async (body, { rejectWithValue }) => {
+  console.log("snbdvhgsvdcsd0",body)
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/?restaurant_id=${body?.RestaurantId}` 
+    ,
+    {
+      headers: {
+        Authorization: `Bearer ${body?.BearerToken}`,
+        "Accept-Language": languageSet
+      },
+    }
+    
+    );
+    toast.success(response?.data?.message); 
+
+    return response;
+
+  } catch (err) {
+    toast.error(err?.response?.data?.message);
     return rejectWithValue(err);
   }
 }
@@ -36,6 +61,7 @@ export const ManageOrderTableReducer = createSlice({
     name: "manageOrderTableReducer",
     initialState: {
       data : [],
+      GetManageOrderTableData:[],
       loading: false,
       error: null,
     },
@@ -54,6 +80,20 @@ export const ManageOrderTableReducer = createSlice({
         )
   
         .addCase(PostManageOrderTableSlice.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.error.message;
+        })
+        .addCase(GetManageOrderTableSlice.pending, (state) => {
+          state.loading = true;
+        })
+  
+        .addCase(GetManageOrderTableSlice.fulfilled, (state, action) => {
+          state.loading = false;
+          state.GetManageOrderTableData = action.payload;
+        }
+        )
+  
+        .addCase(GetManageOrderTableSlice.rejected, (state, action) => {
           state.loading = false;
           state.error = action.error.message;
         })

@@ -11,70 +11,70 @@ import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { PostManageOrderTableSlice } from '../../../Redux/slices/manageOrderTableSlice';
 
-const CreateEditTable = ({translaterFun,openPopup,closePopup,tableProperty}) => {
+const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty }) => {
 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const dispatch = useDispatch();
 
 
     let BearerToken = reactLocalStorage.get("Token", false);
-    let languageSet = reactLocalStorage.get("languageSet", false); 
+    let languageSet = reactLocalStorage.get("languageSet", false);
     const RestaurantIdLocalStorageData = reactLocalStorage.get(
         "RestaurantId",
         false
-      );
+    );
 
     const defaultValueCategory = {
         category_en: "",
         Capacity: "",
-        TableNo:""
-      };
+        TableNo: ""
+    };
 
-      const ValidateCategory = yup.object({
+    const ValidateCategory = yup.object({
         category_en: yup.string().required(translaterFun("enter-category-name")),
         Capacity: yup.string().required(translaterFun("enter-capacity")),
         TableNo: yup.string().required(translaterFun("enter-table-no")),
-      });
+    });
 
-      const handleCategorySubmit = async (values) => {
+    const handleCategorySubmit = async (values) => {
 
-        await dispatch(LoadingSpinner(true))
-    
+        // await dispatch(LoadingSpinner(true))
+
         let handleCategoryPayload = {
-          "restaurant_id": RestaurantIdLocalStorageData,
-          "category": values?.category_en,
-          "no_of_persons": values?.Capacity,
-          "table_number": values?.TableNo,
-          "token": BearerToken
+            "restaurant_id": RestaurantIdLocalStorageData,
+            "category": values?.category_en,
+            "no_of_persons": values?.Capacity,
+            "table_number": values?.TableNo,
+            "token": BearerToken
         }
         try {
-          await dispatch(PostManageOrderTableSlice(handleCategoryPayload)); 
-    
-          await dispatch(LoadingSpinner(false))
+            // let responseData = await dispatch(PostManageOrderTableSlice(handleCategoryPayload));
+
+            // console.log("mhjhsdsd", responseData?.payload.status == 201)
+            // if (responseData?.payload.status == 201) {
+            //     closePopup(false);
+            //     await dispatch(LoadingSpinner(false))
+
+            // }
+
         }
         catch (error) {
-          await dispatch(LoadingSpinner(false))
+            await dispatch(LoadingSpinner(false))
         }
-      };
+    };
 
 
     const PopUpCategoriesToggleFun = () => {
         popUpCategoriesHookFun((o) => !o);
-      };
+    };
 
-      const CancelCategoryBtnFun = () => {
-        // popUpCategoriesHookFun(false);
+    const CancelCategoryBtnFun = () => { 
         closePopup(false)
-      }; 
+    };
 
-      const handleUploadCategoryImage = (e) => {
-        // console.log("bhgvfcdx", e.target?.files)
-        // setuploadCategoryImage(e?.target?.files[0]);
     
-      };
 
-      console.log("khdsgjhsd",popUpcategoriesHook)
-
+    
     return (
         <div>
 

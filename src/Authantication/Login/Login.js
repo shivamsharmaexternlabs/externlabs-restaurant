@@ -51,6 +51,7 @@ const Login = () => {
 
       // Checking user type and redirecting accordingly
       if (User?.data?.data?.type == "owner") {
+
         reactLocalStorage.set("payment_status", User?.data?.data?.payment_status);
 
         if (User?.data?.data?.payment_status === false) {
@@ -58,8 +59,13 @@ const Login = () => {
         } else if (User?.data?.data?.payment_status === true) {
           navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}/admin/dashboard`);
         }
-      } else {
+
+      } else if(User?.data?.data?.type == "sales") {
         navigate(`/admin/leads`);
+      }
+
+      else{
+        navigate(`/`);
       }
     }
 
@@ -77,6 +83,7 @@ const Login = () => {
   const defaultValue = {
     email_or_phone: "",
     password: "",
+    transFun:t
   };
 
   console.log("User", User)
@@ -90,6 +97,7 @@ const Login = () => {
 
   // Handling form submission
   const handleSubmit = (values) => {
+
     dispatch(SignInSlice(values));
     setLoadSpiner(true);
   };

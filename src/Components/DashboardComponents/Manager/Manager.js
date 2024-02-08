@@ -20,7 +20,9 @@ import { ManagerSlice, ManagerDeleteSlice, StaffRoleSlice } from '../../../Redux
 import ReactPaginate from 'react-paginate';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 import { Helmet } from "react-helmet";
-import { currencyData } from '../Categories/currencyData'
+import { currencyData } from '../Categories/currencyData';
+import { toast } from "react-toastify";
+
 
 const Manager = ({ translaterFun }) => {
     const itemsPerPage = 5;
@@ -38,20 +40,22 @@ const Manager = ({ translaterFun }) => {
     const [phonenumber, setPhoneNumber] = useState("");
 
 
-    const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data);
+    const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData);
 
 
 
     useEffect(() => {
-        setData(ManagerApiSelectorData?.data)
+        setData(ManagerApiSelectorData?.data?.data)
     }, [ManagerApiSelectorData]);
+
+    console.log("sgdvchgsds", data)
 
     useEffect(() => {
 
         (async function () {
             if (BearerToken !== false) {
                 dispatch(LoadingSpinner(true))
-                dispatch(StaffRoleSlice({Token:BearerToken}))
+                dispatch(StaffRoleSlice({ Token: BearerToken }))
                 try {
                     let ManagerSlicePayload = {
                         Token: BearerToken,
@@ -113,9 +117,8 @@ const Manager = ({ translaterFun }) => {
         email: "",
         first_name: "",
         password: "",
-        confirm_password: "",
-        type: "manager",
-        type:"",
+        confirm_password: "", 
+        selectRole: "",
         token: BearerToken
 
     };
@@ -125,17 +128,19 @@ const Manager = ({ translaterFun }) => {
         first_name: yup.string().required(translaterFun("first-name-is-required")).matches(/^[\w\-\s\u0600-\u06FF]+$/, 'Name must not contain special characters'),
         // first_name: yup.string().required("first name is required").matches(/^\S*$/, 'First name must not contain spaces'),
         // last_name: yup.string().required("last name is required").matches(/^[a-zA-Z0-9]+$/, 'Last name must not contain contain spaces & special characters'),
+        selectRole: yup.string().required(translaterFun("role-is-required")),
+
         password: yup.string().required(translaterFun("password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
 
-        selectRole: yup.string().required(translaterFun("role-is-required")) ,
-
+ 
         confirm_password: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
         // phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces')
     });
 
 
     const handleSubmit = async (values) => {
-        dispatch(LoadingSpinner(true))
+         
+         
         let SignUpForOnBoardPayload = {
             email: values?.email,
             password: values?.password,
@@ -147,8 +152,23 @@ const Manager = ({ translaterFun }) => {
             token: BearerToken
         }
         try {
-            await dispatch(SignUpSlice(SignUpForOnBoardPayload))
-            dispatch(LoadingSpinner(false))
+            if (countrycode !== "" && phonenumber !== "") {
+                dispatch(LoadingSpinner(true))
+                // setCreateLeadOnBoardPayloadState(values)
+                // setOnBordPopUp(true)
+                // popUpHookFun((o) => !o);
+                // dispatch(ToggleNewLeads(false))
+                // setLeadPopupToggle(false)
+                await dispatch(SignUpSlice(SignUpForOnBoardPayload))
+                dispatch(LoadingSpinner(false))
+    
+            }
+            else {
+                toast.error(translaterFun("please-enter-your-number"));
+    
+            }
+
+            
         } catch (error) {
             dispatch(LoadingSpinner(false))
         }
@@ -211,7 +231,7 @@ const Manager = ({ translaterFun }) => {
         setPhoneNumber(myString);
     };
 
-
+console.log("bsdvhhdsd",data?.results)
     return (
 
         <>
@@ -251,8 +271,8 @@ const Manager = ({ translaterFun }) => {
                                         <td> <img src={user} alt='img' /> </td>
                                         <td>{`${items?.first_name}`}</td>
                                         <td>{items?.email}</td>
-                                        <td>{items?.phone_number}</td>
-                                        <td>{items?.type}</td>
+                                        <td> {items?.country_code} {items?.phone_number}</td>
+                                        <td>{items?.groups?.[0]?.name}</td>
                                         <td>
                                             <button className='asbtn' onClick={(e) => handleDelete(e, items)}>
                                                 {translaterFun("delete")} </button>
@@ -261,7 +281,7 @@ const Manager = ({ translaterFun }) => {
                                 })}
 
                             </table>
-                            <ReactPaginate
+                           {data?.length !==0 && <ReactPaginate
                                 // previousLabel={"Previous"}
 
                                 previousLabel={translaterFun("previous")}
@@ -284,7 +304,7 @@ const Manager = ({ translaterFun }) => {
                                 containerClassName="pagination"
                                 activeClassName="active"
                                 renderOnZeroPageCount={null}
-                            />
+                            />}
                         </div>
                     </div>
                 </div>
@@ -375,13 +395,14 @@ const Manager = ({ translaterFun }) => {
                                     </div> */}
 
 
-                                    <div className="formbox mb-3">
+                                    <div className="formbox mb-3"  >
                                         <label>{translaterFun("phone-number")} </label>
                                         <PhoneInput
                                             country={"in"}
                                             // value={phonenumber}
                                             onChange={handleOnChange1}
                                             className="input_filed"
+                                            
                                         />
                                     </div>
 
@@ -393,23 +414,21 @@ const Manager = ({ translaterFun }) => {
                                             name="selectRole"
 
                                         >
-                                            <option value="">
-                                                        select role
-                                                    </option>
-                                            {currencyData?.map((item, id) => {
+                                            <option value={false}>
+                                                {translaterFun("select-role")}
+                                            </option>
+                                            {ManagerApiSelectorData?.StaffRoleSliceData?.data?.groups?.map((item, id) => {
                                                 return (
-                                                    <option value={item.currency_code}>
-                                                        {item.currency_code}
+                                                    <option value={item}>
+                                                        {item}
                                                     </option>
                                                 );
                                             })}
                                         </Field>
-                                        <p className="text-danger small mb-0">
-                            <ErrorMessage name="selectRole" />
-                          </p>
+                                        <p className="text-danger small  ">
+                                            <ErrorMessage name="selectRole" />
+                                        </p>
                                     </div>
-
-
 
 
                                     <div className="formbox mb-3">
@@ -445,6 +464,7 @@ const Manager = ({ translaterFun }) => {
                                         </button>
                                         <button type="submit" className="submitbtn"> {translaterFun("submit")} </button>
                                     </div>
+
                                 </Form>
                             </Formik>
                         </div>
