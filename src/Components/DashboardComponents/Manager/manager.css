@@ -12,6 +12,7 @@
   font-family: "NeuzeitGro-Bol";
   font-weight: normal;
 }
+ 
 
 .managertitle .mangerbtn {
   border-radius: 100px;
@@ -238,6 +239,22 @@
   outline: none;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.roleselectbox select{
+  font-size: 16px;
+  padding: 10px 15px; 
+  font-family: "NeuzeitGro-Reg";
+  font-weight: normal;
+  color: #000;
+  border: none;
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 40px;
+  width: 100%;
+  border-radius: 3px;
+  
 }
 
 .addmanagerpopup .popupinner button {

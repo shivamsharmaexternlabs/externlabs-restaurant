@@ -1,0 +1,35 @@
+.overlayout{
+    background-color: #7F7F7F !important;
+    position: relative;
+}
+
+.overlayout::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width:100%;
+    background:url("../../../images/block.png") center center no-repeat;
+
+}
+
+.colorDefine{
+    background-color: #7F7F7F !important;
+    position: relative;
+}
+.downloadQrclass{
+ white-space:nowrap
+ ;}
+ 
+.colorDefine::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: 12px !important;
+    height: 100%;
+    width:100%;
+    background:url("../../../images/block.png") center center no-repeat;
+
+}

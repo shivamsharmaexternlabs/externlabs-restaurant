@@ -15,6 +15,9 @@ import icon13h from '../../../images/icon13h.svg'
 import icon14 from '../../../images/icon14.svg'
 import icon14h from '../../../images/icon14h.svg'
 import icon15 from '../../../images/icon15.svg'
+import managerorder  from "../../../images/managerorder.png"
+import managerOrderDArk  from "../../../images/managerOrderDArk.png"
+
 import { ToggleBar } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, NavLink, useNavigate, Route } from "react-router-dom";
@@ -155,11 +158,11 @@ const DashboardSidebar = () => {
                   } `}>
 
                   <div className='normalicon'>
-                    <img src={icon14} alt='img' /> <span className='text'>{t("manage-orders")}</span>
+                    <img src={managerOrderDArk} alt='img' /> <span className='text'>{t("manage-orders")}</span>
                   </div>
 
                   <div className='activeicon'>
-                    <img src={icon14h} alt='icon8h img' /> <span className='text'>{t("manage-orders")}</span>
+                    <img src={managerorder} alt='icon8h img' /> <span className='text'>{t("manage-orders")}</span>
                   </div>
                 </NavLink>
               </li>

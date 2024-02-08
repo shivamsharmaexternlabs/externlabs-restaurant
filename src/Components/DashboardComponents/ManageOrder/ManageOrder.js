@@ -1,18 +1,25 @@
 // Importing necessary dependencies and assets
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import "./ManageOrder.css"
 import "./ManageOrder.js"
 import DashboardLayout from '../DashboardLayout/DashboardLayout';
 import DashboardSidebar from '../DashboardSidebar/DashboardSidebar';
-
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import { Helmet } from "react-helmet";
 import TableStatus from '../../../ReusableComponents/TableStatus/TableStatus.js';
 import BookingTable from '../../../ReusableComponents/BookingTable/BookingTable.js';
-import TableStatusData from "./TableStatusColor.js";
+import { TableStatusData, TableTypeData } from "./TableStatusColor.js";
+import usePopUpHook from '../../../CustomHooks/usePopUpHook/usePopUpHook.js';
+import CreateEditTable from './CreateEditTable.js';
+import arrow from '../../../images/arrowy.svg'
+
 
 // Functional component for the ManageOrder page
 const ManageOrder = ({ translaterFun }) => {
-    console.log("TableStatusData", TableStatusData)
+
+    const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
+    const [ItemData, setItemData] = useState("")
+    const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
 
     // Hooks for managing state and navigation
     // const dispatch = useDispatch();
@@ -26,6 +33,24 @@ const ManageOrder = ({ translaterFun }) => {
     // const MediaLibrarySelectorData = useSelector((state) => state?.MediaLibraryApiData);
 
     // JSX structure for the ManageOrder component
+
+
+
+    const AddTableFun = () => {
+        popUpCategoriesHookFun(true);
+    }
+
+    const TableTypeFun = (e, item) => {
+        setItemData(translaterFun(item?.name))
+        setSelectToggleSelectTogglealue(o => !o)
+    }
+    const openSelectToggleFun = () => {
+        setSelectToggleSelectTogglealue(o => !o)
+      }
+      useEffect(()=>{
+        setItemData(translaterFun(TableTypeData?.[0]?.name))
+      },[])
+
     return (
         <>
             <Helmet>
@@ -41,55 +66,51 @@ const ManageOrder = ({ translaterFun }) => {
                             {/* <button type='button' className='btn2'> Bulk Upload  </button> */}
 
                             <div className="uploadbtn-wrapper btn2">
-                                <button type="button" className=''>                                    
+                                <button type="button" className=''>
                                     {translaterFun("upload-menu")}
                                 </button>
-                                <input
-                                    type="file"
-                                    accept=".xlxs, .xlsx, .xls, .pdf"
-                                    // ref={inputRef}
-                                    // onChange={(e) => UploadMenuFile(e)}
+                                <input type="file" accept=".xlxs, .xlsx, .xls, .pdf"
+                                // ref={inputRef}
+                                // onChange={(e) => UploadMenuFile(e)}
                                 />
                             </div>
 
-                            <button type='button' className='btn2 me-0'>
+                            <button type='button' className='btn2 me-0' onClick={(e) => AddTableFun(e)}>
                                 <svg width="13" height="13" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
                                 </svg>
-                                Add Table
+                                {translaterFun("add-table")}
                             </button>
 
                         </div>
                         <div className='infotable'>
-                            {
-                                TableStatusData?.map((item, id) => {
-                                    return (
-                                        <div>
-                                            <TableStatus
-                                                statusName={item?.name}
-                                                colorCode={item?.colorCode}
+                            <div className='leftpart'>
+                                <button type='button'  onClick={(e) => openSelectToggleFun()}> {ItemData} <img src={arrow} alt='img' /> </button>
+                                {SelectToggleValue && <ul>
+                                    {TableTypeData.map((item, id) => {
+                                        return <li className={` ${ translaterFun(item?.name)===ItemData?"activeselect":""}`} onClick={(e) => TableTypeFun(e, item)}> {translaterFun(item?.name)} </li>
+                                    })}
 
-                                            />
-                                        </div>
-                                    )
-                                })
-                            }
+                                </ul>}
+                            </div>
+                            <div className='rightpart'>
+                                <TableStatus
+
+                                    translaterFun={translaterFun}
+                                />
+                            </div>
+
 
                         </div>
 
                         <div>
                             <div className='actable'>
-                                <h2>AC</h2>
+                                <h2>{ItemData}</h2>
                                 <ul className='actablelist'>
-                                    {TableStatusData?.map((item, id) => {
-                                        return (
-                                            <BookingTable
-                                            translaterFun={translaterFun}
-                                                statusName={item?.name}
-                                                colorCode={item?.colorCode}
-                                            />
-                                        )
-                                    })}
+                                    <BookingTable
+                                        translaterFun={translaterFun}
+                                    />
+
                                 </ul>
                             </div>
 
@@ -98,6 +119,18 @@ const ManageOrder = ({ translaterFun }) => {
                 </div>
 
             </DashboardLayout>
+
+            <div>
+                {/* add table start*/}
+                <CreateEditTable
+                    translaterFun={translaterFun}
+                    openPopup={popUpcategoriesHook}
+                    closePopup={popUpCategoriesHookFun}
+                    tableProperty={"add-new-table"}
+                />
+
+                {/* add table end */}
+            </div>
             <LodingSpiner />
         </>
     )

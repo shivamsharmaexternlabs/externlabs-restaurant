@@ -26,6 +26,8 @@ export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejec
   }
 );
 
+
+
 export const ManagerDeleteSlice = createAsyncThunk("ManagerDeleteSlice",async (body, { rejectWithValue }) => {
     try {
       const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}restaurant_app/manager/${body?.item}/`,
@@ -46,6 +48,30 @@ export const ManagerDeleteSlice = createAsyncThunk("ManagerDeleteSlice",async (b
     }
   }
 );
+
+
+
+export const StaffRoleSlice = createAsyncThunk("StaffRoleSlice",async (body, { rejectWithValue }) => { 
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}user_auth/groups/`,
+    {
+      headers: {
+        Authorization: `Bearer ${body?.Token}`,
+        "Accept-Language": languageSet
+      },
+    }
+    
+    );  
+
+    return response;
+
+  } catch (err) {
+     toast.error(err?.response?.data?.message);
+    return rejectWithValue(err);
+  }
+}
+);
+
 
 // Reducer
 
@@ -88,6 +114,22 @@ export const managerReducer = createSlice({
       )
 
       .addCase(ManagerDeleteSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      
+      .addCase(StaffRoleSlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(StaffRoleSlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.StaffRoleReducer = action.payload;
+        toast.success(action?.payload?.data?.message);
+      }
+      )
+
+      .addCase(StaffRoleSlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

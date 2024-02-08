@@ -1,29 +1,53 @@
-let TableStatusData = [
+export let TableStatusData = [
     {
-        "name" : "Blank Table",
+        "name" : "blank-table",
         "color" : "Grey",
         "colorCode" : "#D9D9D9"
     },
     {
-        "name" : "Running Table",
-        "color" : "Blue",
-        "colorCode" : "#00B2FF"
+        "name" : "disabled-table",
+        "color" : "dark Blue",
+        "colorCode" : "#7F7F7F"
     },
     {
-        "name" : "Printed Table",
+        "name" : "running-table",
         "color" : "Blue",
         "colorCode" : "#42B856"
     },
+    // {
+    //     "name" : "Paid Table",
+    //     "color" : "Orange",
+    //     "colorCode" : "#FFD4AC"
+    // },
     {
-        "name" : "Paid Table",
-        "color" : "Orange",
-        "colorCode" : "#FFD4AC"
-    },
-    {
-        "name" : "Running KOT Table",
+        "name" : "running-KOT-table",
         "color" : "Yellow",
         "colorCode" : "#FFBC00"
     }
 ]
 
-export default TableStatusData;
+export  let TableTypeData = [
+    {
+        "name" : "non-ac",
+        "color" : "Grey",
+        "colorCode" : "#D9D9D9"
+    },
+    {
+        "name" : "ac",
+        "color" : "dark Blue",
+        "colorCode" : "#7F7F7F"
+    },
+    {
+        "name" : "family",
+        "color" : "Blue",
+        "colorCode" : "#42B856"
+    },
+    
+    {
+        "name" : "outdoor",
+        "color" : "Yellow",
+        "colorCode" : "#FFBC00"
+    }
+]
+
+ 

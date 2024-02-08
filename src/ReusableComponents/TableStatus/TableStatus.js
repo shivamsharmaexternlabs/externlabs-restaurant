@@ -1,13 +1,22 @@
 import React from 'react'
+import {TableStatusData} from '../../Components/DashboardComponents/ManageOrder/TableStatusColor';
 
-const TableStatus = ({ statusName, colorCode }) => {
+const TableStatus = ({ translaterFun }) => {
     return (
         <>
+            {TableStatusData?.map((item, id) => {
+                return <> 
+                    <span style={{ background: item?.colorCode }}  className={`${item?.name =="disabled-table"?"colorDefine":""} me-1`}>
 
-             <span style={ { background: colorCode}} ></span> {statusName}
+                    </span>
+                    <div>  { translaterFun( item?.name)}
+                    </div>
+                </>
+            })}
+
         </>
 
-        
+
     )
 }
 

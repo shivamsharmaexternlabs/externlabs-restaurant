@@ -16,10 +16,11 @@ import { reactLocalStorage } from 'reactjs-localstorage'
 import { SignUpSlice } from '../../../Redux/slices/SignUpSlice'
 import { useNavigate } from 'react-router-dom'
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
-import { ManagerSlice, ManagerDeleteSlice } from '../../../Redux/slices/managerSlice'
+import { ManagerSlice, ManagerDeleteSlice, StaffRoleSlice } from '../../../Redux/slices/managerSlice'
 import ReactPaginate from 'react-paginate';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 import { Helmet } from "react-helmet";
+import { currencyData } from '../Categories/currencyData'
 
 const Manager = ({ translaterFun }) => {
     const itemsPerPage = 5;
@@ -50,6 +51,7 @@ const Manager = ({ translaterFun }) => {
         (async function () {
             if (BearerToken !== false) {
                 dispatch(LoadingSpinner(true))
+                dispatch(StaffRoleSlice({Token:BearerToken}))
                 try {
                     let ManagerSlicePayload = {
                         Token: BearerToken,
@@ -86,6 +88,7 @@ const Manager = ({ translaterFun }) => {
             setLoadSpiner(false);
             popUpHookFun(true);
         }
+        //  
     }, [SignUpSelectorData]);
 
     // useEffect(() => {
@@ -112,6 +115,7 @@ const Manager = ({ translaterFun }) => {
         password: "",
         confirm_password: "",
         type: "manager",
+        type:"",
         token: BearerToken
 
     };
@@ -122,6 +126,9 @@ const Manager = ({ translaterFun }) => {
         // first_name: yup.string().required("first name is required").matches(/^\S*$/, 'First name must not contain spaces'),
         // last_name: yup.string().required("last name is required").matches(/^[a-zA-Z0-9]+$/, 'Last name must not contain contain spaces & special characters'),
         password: yup.string().required(translaterFun("password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
+
+        selectRole: yup.string().required(translaterFun("role-is-required")) ,
+
         confirm_password: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
         // phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces')
     });
@@ -136,7 +143,7 @@ const Manager = ({ translaterFun }) => {
             first_name: values?.first_name,
             // last_name: values?.last_name,
             phone_number: `${countrycode}-${phonenumber}`,
-            type: "manager",
+            type: values?.selectRole,
             token: BearerToken
         }
         try {
@@ -219,12 +226,12 @@ const Manager = ({ translaterFun }) => {
                     <div className='contentpart managerpage'>
                         <div className='managertitle'>
                             <h2>
-                                {translaterFun("managers")}
+                                {translaterFun("staff-members")}
                             </h2>
                             {/* ADD Manager button... */}
-                            {/* <button type='button' className='mangerbtn' onClick={(e) => PopUpToggleFun()}> <img src={plus} alt='plusimg' />
-                                {translaterFun("add-manager")}
-                            </button> */}
+                            <button type='button' className='mangerbtn' onClick={(e) => PopUpToggleFun()}> <img src={plus} alt='plusimg' />
+                                {translaterFun("add-member")}
+                            </button>
                         </div>
                         <div className='managertable'>
                             <table>
@@ -233,6 +240,7 @@ const Manager = ({ translaterFun }) => {
                                     <th>{translaterFun("user-name")}</th>
                                     <th>{translaterFun("email")}</th>
                                     <th>{translaterFun("mobile-no")}</th>
+                                    <th>{translaterFun("designation")}</th>
                                     <th>{translaterFun("action")}</th>
                                 </tr>
 
@@ -244,6 +252,7 @@ const Manager = ({ translaterFun }) => {
                                         <td>{`${items?.first_name}`}</td>
                                         <td>{items?.email}</td>
                                         <td>{items?.phone_number}</td>
+                                        <td>{items?.type}</td>
                                         <td>
                                             <button className='asbtn' onClick={(e) => handleDelete(e, items)}>
                                                 {translaterFun("delete")} </button>
@@ -295,7 +304,7 @@ const Manager = ({ translaterFun }) => {
                         <div className='popuptitle'>
                             <h2>
 
-                                {translaterFun("add-new-manager")}
+                                {translaterFun("add-new-member")}
                             </h2>
                         </div>
                         <div className='popupbody'>
@@ -375,6 +384,32 @@ const Manager = ({ translaterFun }) => {
                                             className="input_filed"
                                         />
                                     </div>
+
+
+                                    <div className="formbox mb-3 col-sm-12 roleselectbox">
+
+                                        <Field
+                                            as="select"
+                                            name="selectRole"
+
+                                        >
+                                            <option value="">
+                                                        select role
+                                                    </option>
+                                            {currencyData?.map((item, id) => {
+                                                return (
+                                                    <option value={item.currency_code}>
+                                                        {item.currency_code}
+                                                    </option>
+                                                );
+                                            })}
+                                        </Field>
+                                        <p className="text-danger small mb-0">
+                            <ErrorMessage name="selectRole" />
+                          </p>
+                                    </div>
+
+
 
 
                                     <div className="formbox mb-3">
