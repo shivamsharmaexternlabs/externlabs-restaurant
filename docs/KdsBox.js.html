@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kds documentation KdsBox.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">kds documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/shivamsharmaexternlabs/externlabs-restaurant"
+                        >
+                            Respository
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>KDS</h2><h3>Global</h3><ul><li><a href="global.html#KdsBox">KdsBox</a></li><li><a href="global.html#KdsScreen">KdsScreen</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>KdsBox.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from 'react'
+import './kdsScreen.css'
+import foodparcel from '../../../images/food-parcel.svg'
+import cooking from '../../../images/cooking.svg'
+import DineIn from '../../../images/plate.svg'
+import takeAwayVerified from '../../../images/take-away-verified.svg'
+import DineInVerified from '../../../images/dineInVerified.svg'
+
+
+  /**
+ * KdsBox component displays kitchen display system (KDS) information.
+ * @returns {JSX.Element} KdsBox component JSX
+ *  @category KDS
+ */
+function KdsBox() {
+  /**
+   * State to hold KDS data.
+   * @type {Array&lt;object>}
+   */
+
+  const [data, setdata] = useState([
+    {
+      id: 1,
+      name: "Table",
+      tableNo: 1,
+      orderType: "take Away",
+      orderNo: "#2309",
+      orderDetails: [
+        {
+          name: "Sandwich",
+          quantity: 1,
+          extras: "Extra cheese",
+          status: "cooking",
+        },
+        {
+          name: " Vegetable Pizza",
+          quantity: 2,
+          extras: "Extra cheese",
+          status: "cooking",
+        },
+        {
+          name: "Mocktails",
+          quantity: 2,
+          extras: "",
+          status: "done",
+        },
+      ],
+    },
+    {
+      id: 2,
+      name: "Table",
+      tableNo: 2,
+      orderType: "Dine In",
+      orderNo: "#2309",
+      orderDetails: [
+        {
+          name: "Sandwich",
+          quantity: 1,
+          extras: "Extra cheese",
+          status: "cooking",
+        },
+        {
+          name: " Vegetable Pizza",
+          quantity: 2,
+          extras: "Extra cheese",
+          status: "cooking",
+        },
+        {
+          name: "Mocktails",
+          quantity: 2,
+          extras: "",
+          status: "done",
+        },
+      ],
+    },
+    {
+      id: 3,
+      name: "Table",
+      tableNo: 3,
+      orderType: "take Away",
+      orderNo: "#2309",
+      orderDetails: [
+        {
+          name: "Sandwich",
+          quantity: 1,
+          extras: "Extra cheese",
+          status: "done",
+        },
+        {
+          name: " Vegetable Pizza",
+          quantity: 2,
+          extras: "Extra cheese",
+          status: "cooking",
+        },
+        {
+          name: "Mocktails",
+          quantity: 2,
+          extras: "",
+          status: "done",
+        },
+      ],
+    },
+    {
+      id: 4,
+      name: "Table",
+      tableNo: 4,
+      orderType: "Dine In",
+      orderNo: "#2309",
+      orderDetails: [
+        {
+          name: "Sandwich",
+          quantity: 1,
+          extras: "Extra cheese",
+          status: "cooking",
+        },
+        {
+          name: " Vegetable Pizza",
+          quantity: 2,
+          extras: "Extra cheese",
+          status: "cooking",
+        },
+        {
+          name: "Mocktails",
+          quantity: 2,
+          extras: "",
+          status: "done",
+        },
+      ],
+    },
+    {
+      id: 5,
+      name: "Table",
+      tableNo: 5,
+      orderType: "take Away",
+      orderNo: "#2309",
+      orderDetails: [
+        {
+          name: "Sandwich",
+          quantity: 1,
+          extras: "Extra cheese",
+          status: "cooking",
+        },
+        {
+          name: " Vegetable Pizza",
+          quantity: 2,
+          extras: "Extra cheese",
+          status: "cooking",
+        },
+        {
+          name: "Mocktails",
+          quantity: 7,
+          extras: "",
+          status: "cooking",
+        },
+      ],
+    },
+  ]);
+
+  return (
+    &lt;div>
+      &lt;div className='kgcardpart'>
+        {data.map((item) => (
+          &lt;div className='kgcardbox'>
+            &lt;div className='kgcardtitle'
+              style={{
+                backgroundColor:
+                  item.orderType === "take Away" ? "#eabb36" : "#42B856",
+              }}>
+              &lt;div className='leftpart'>
+                &lt;h3>{item.name}&lt;/h3>
+                {/* &lt;h4>00:10:53 &lt;/h4> */}
+              &lt;/div>
+              &lt;div className='rightpart'>
+                &lt;h2> Table No.{item.tableNo}&lt;/h2>
+              &lt;/div>
+            &lt;/div>
+            {/* &lt;div className='deliveryinfo'>
+                &lt;h3> &lt;img src={item.orderType == "take Away" ? foodparcel : DineIn} alt='img' /> {item.orderType}&lt;/h3>
+                &lt;h4>{item.orderNo}&lt;/h4>
+              &lt;/div> */}
+            &lt;ul className='kgcardlist' key={item.id}>
+              {item.orderDetails.map((order, index) => {
+                return (
+                  &lt;>
+                    &lt;li key={index}>
+                      &lt;div className='leftpart'>
+                        &lt;h3> {order.quantity} X {order.name}&lt;/h3>
+                        &lt;p>{order.extras}&lt;/p>
+                      &lt;/div>
+                      &lt;div className='rightpart'>
+                        &lt;button
+                          type="button"
+                          style={{
+                            borderColor:
+                              item.orderType === "take Away"
+                                ? "#eabb36"
+                                : "#42B856",
+                            color:
+                              item.orderType === "take Away"
+                                ? "#eabb36"
+                                : "#42B856",
+                          }}
+                        >
+                          {order.status === "done"
+                            ? "Mark as done"
+                            : "Start Cooking"}{" "}
+                          &lt;img
+                            src={
+                              order.status === "done"
+                                ? item.orderType === "take Away"
+                                  ? takeAwayVerified
+                                  : DineInVerified
+                                : cooking
+                            }
+                            alt="img"
+                          />
+                        &lt;/button>
+                      &lt;/div>
+                    &lt;/li>
+                  &lt;/>
+                )
+              })}
+            &lt;/ul>
+          &lt;/div>
+        ))}
+      &lt;/div>
+    &lt;/div>
+  )
+}
+
+export default KdsBox</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+
+</body>
+</html>

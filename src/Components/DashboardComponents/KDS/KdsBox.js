@@ -7,7 +7,16 @@ import takeAwayVerified from '../../../images/take-away-verified.svg'
 import DineInVerified from '../../../images/dineInVerified.svg'
 
 
+  /**
+ * KdsBox component displays kitchen display system (KDS) information.
+ * @returns {JSX.Element} KdsBox component JSX
+ *  @category KDS
+ */
 function KdsBox() {
+  /**
+   * State to hold KDS data.
+   * @type {Array<object>}
+   */
 
   const [data, setdata] = useState([
     {

@@ -1,13 +1,21 @@
 import React from 'react'
-import kdslogo from '../../../images/logo2.svg'
+import kdslogo from '../../../images/kdslogo.svg'
 import './kdsScreen.css'
 // import KdsNotification from '../../../images/KdsNotification.svg'
 import Logout from '../../../images/logout.svg'
 import KdsBox from './KdsBox'
 
 
+/**
+ * KdsScreen component represents the main screen of the kitchen display system (KDS).
+ * @returns {JSX.Element} KdsScreen component JSX
+ *  @category KDS
+ *
+ */
 function KdsScreen() {
-
+    /**
+     * Handles the logout action.
+     */
     const handleLogout = () => {
         alert("logout successfull")
     }
@@ -22,7 +30,7 @@ function KdsScreen() {
                         <span>Log Out</span>
                     </button>
                 </div>
-                
+
                 <div className='contentpart'>
                     <KdsBox />
                 </div>
