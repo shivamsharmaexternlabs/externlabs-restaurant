@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { PostManageOrderTableSlice } from '../../../Redux/slices/manageOrderTableSlice';
 
-const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty }) => {
+const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty,EditTableData }) => {
 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const dispatch = useDispatch();
@@ -30,6 +30,12 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty }
         TableNo: ""
     };
 
+    const defaultEditValueCategory = {
+        category_en: EditTableData?.category,
+        Capacity:EditTableData?.no_of_persons  ,
+        TableNo:EditTableData ?.table_number  
+    };
+
     const ValidateCategory = yup.object({
         category_en: yup.string().required(translaterFun("enter-category-name")),
         Capacity: yup.string().required(translaterFun("enter-capacity")),
@@ -40,6 +46,8 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty }
 
         // await dispatch(LoadingSpinner(true))
 
+        console.log("gdcfghds",values)
+
         let handleCategoryPayload = {
             "restaurant_id": RestaurantIdLocalStorageData,
             "category": values?.category_en,
@@ -48,14 +56,14 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty }
             "token": BearerToken
         }
         try {
-            // let responseData = await dispatch(PostManageOrderTableSlice(handleCategoryPayload));
+            let responseData = await dispatch(PostManageOrderTableSlice(handleCategoryPayload));
 
-            // console.log("mhjhsdsd", responseData?.payload.status == 201)
-            // if (responseData?.payload.status == 201) {
-            //     closePopup(false);
-            //     await dispatch(LoadingSpinner(false))
+            console.log("mhjhsdsd", responseData?.payload.status == 201)
+            if (responseData?.payload.status == 201) {
+                closePopup(false);
+                await dispatch(LoadingSpinner(false))
 
-            // }
+            }
 
         }
         catch (error) {
@@ -72,8 +80,8 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty }
         closePopup(false)
     };
 
-    
-
+//     let dataaa=  editData.bind()
+console.log("msngfgsdms",EditTableData )
     
     return (
         <div>
@@ -91,7 +99,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty }
                     </div>
                     <div className="popupbody">
                         <Formik
-                            initialValues={defaultValueCategory}
+                            initialValues={EditTableData?.length=="0"?defaultValueCategory:defaultEditValueCategory}
                             validationSchema={ValidateCategory}
                             onSubmit={handleCategorySubmit}
                         >
