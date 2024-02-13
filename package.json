@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "apexcharts": "^3.42.0",
     "axios": "^1.4.0",
+    "better-docs": "^2.7.3",
     "bootstrap": "^5.3.0",
     "currency-symbol-map": "^5.1.0",
     "env-cmd": "^10.1.0",
@@ -17,6 +18,7 @@
     "formik": "^2.4.3",
     "i18next": "^23.7.7",
     "js-file-download": "^0.4.12",
+    "jsdoc": "^4.0.2",
     "multiselect-react-dropdown": "^2.0.25",
     "react": "^18.2.0",
     "react-anchor-link-smooth-scroll": "^1.0.12",
@@ -57,7 +59,8 @@
     "deploy:dev": "aws s3 cp ./build/ s3://restaurant-frontend --recursive",
     "deploy:prod": "aws s3 cp ./build/ s3://app.harborbites.com --recursive",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "docs": "jsdoc -c jsdoc.conf.json" 
   },
   "eslintConfig": {
     "extends": [

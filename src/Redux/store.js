@@ -14,6 +14,7 @@ import LeadsRestaurantReducer  from "./slices/leadsRestaurantSlice";
 import PaymentReducer from "./slices/paymentSlice";
 import mediaLibraryReducer from "./slices/mediaLibrarySlice";
 import  ManageOrderTableReducer  from "./slices/manageOrderTableSlice";
+import  kdsReducer  from "./slices/KdsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -31,6 +32,7 @@ export const store = configureStore({
     LeadsRestaurantApiData: LeadsRestaurantReducer,
     PaymentApiData : PaymentReducer,
     MediaLibraryApiData : mediaLibraryReducer,
-    ManageOrderTableApiData:ManageOrderTableReducer
+    ManageOrderTableApiData:ManageOrderTableReducer,
+    KdsApiData:kdsReducer,
   },
 });

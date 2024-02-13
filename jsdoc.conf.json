@@ -1,0 +1,42 @@
+{
+  "tags": {
+      "allowUnknownTags": true,
+      "dictionaries": ["jsdoc"]
+  },
+  "plugins": [
+      "plugins/markdown",
+      "node_modules/better-docs/typescript",
+      "node_modules/better-docs/component",
+      "node_modules/better-docs/category"
+  ],
+  "opts": {
+      "destination": "docs",
+      "encoding": "utf8",
+      "readme": "README.md",
+      "recurse": true,
+      "verbose": true,
+      "template": "./node_modules/better-docs"
+  },
+  "source": {
+      "include": [ "./src" ],
+      "exclude": [ "./src/**/*.text,tsx", "./src/**/*.test.ts" ],
+      "includePattern": "\\.(jsx|js|ts|tsx)$",
+      "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "templates": {
+      "cleverLinks": false,
+      "monospaceLinks": false,
+      "search": true,
+      "better-docs": {
+          "name": "kds documentation",
+          "title": "kds documentation",
+          "hideGenerator": false,
+          "navLinks": [
+              {
+                  "label": "Respository",
+                  "href": "https://github.com/shivamsharmaexternlabs/externlabs-restaurant"
+              }
+          ]
+      }
+  }
+}

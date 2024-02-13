@@ -1,0 +1,46 @@
+import React from 'react'
+import kdslogo from '../../../images/kdslogo.svg'
+import './kdsScreen.css'
+// import KdsNotification from '../../../images/KdsNotification.svg'
+import Logout from '../../../images/logout.svg'
+import KdsBox from './KdsBox'
+import { useNavigate} from 'react-router-dom'
+import PopUpComponent from '../../../ReusableComponents/PopUpComponent/PopUpComponent'
+
+
+/**
+ * KdsScreen component represents the main screen of the kitchen display system (KDS).
+ * @returns {JSX.Element} KdsScreen component JSX
+ *  @category KDS
+ *
+ */
+function KdsScreen() {
+    const navigate=useNavigate()
+    /**
+     * Handles the logout action.
+     */
+    const handleLogout = () => {
+        navigate('/')
+    }
+
+    return (
+        <>
+            <div className='kdspage'>
+                <div className='kds-header'>
+                    <img className='kdslogoimg' alt='logo_img' src={kdslogo} />
+                    <button className='kds-logout' onClick={handleLogout}>
+                        <img className="kds-logoutimg" alt="Notification_Icon" src={Logout} />
+                        <span>Log Out</span>
+                    </button>
+                </div>
+
+                <div className='contentpart'>
+                    <KdsBox />
+                </div>
+            </div>
+        </>
+
+    )
+}
+
+export default KdsScreen
