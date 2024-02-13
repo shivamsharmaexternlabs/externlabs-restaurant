@@ -101,11 +101,11 @@ const DashboardSidebar = () => {
                     } `}
                 >
                   <div className='normalicon'>
-                    <img src={icon8} alt='img' /> <span className='text'>{t("managers")}</span>
+                    <img src={icon8} alt='img' /> <span className='text'>{t("staff-members")}</span>
                   </div>
 
                   <div className='activeicon'>
-                    <img src={icon8h} alt='icon8h img' /> <span className='text'>{t("managers")}</span>
+                    <img src={icon8h} alt='icon8h img' /> <span className='text'>{t("staff-members")}</span>
                   </div>
 
                 </NavLink>
