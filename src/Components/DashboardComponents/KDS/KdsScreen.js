@@ -4,6 +4,8 @@ import './kdsScreen.css'
 // import KdsNotification from '../../../images/KdsNotification.svg'
 import Logout from '../../../images/logout.svg'
 import KdsBox from './KdsBox'
+import { useNavigate} from 'react-router-dom'
+import PopUpComponent from '../../../ReusableComponents/PopUpComponent/PopUpComponent'
 
 
 /**
@@ -13,11 +15,12 @@ import KdsBox from './KdsBox'
  *
  */
 function KdsScreen() {
+    const navigate=useNavigate()
     /**
      * Handles the logout action.
      */
     const handleLogout = () => {
-        alert("logout successfull")
+        navigate('/')
     }
 
     return (

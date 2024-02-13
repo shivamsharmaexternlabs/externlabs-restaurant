@@ -146,8 +146,44 @@
 }
 
 
-
-
+ .popupbody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.popupbody h2{
+    font-family: Neuzeit Grotesk;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 43px;
+    letter-spacing: 0.02em;
+    text-align: center;
+}
+.popupbody p{
+    font-family: Neuzeit Grotesk;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0.02em;
+    text-align: center;
+}
+.popup-btn{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin:10px
+}
+.popup-btn button{
+    width: 131px;
+    height: 38px;
+    top: 241px;
+    left: 47px;
+    border-radius: 563.03px;   
+    color:white;
+    border:none;
+    background-color: #B7B7B7CC;   
+}
 
 
 /**************************** scroll bar css  *********************************/

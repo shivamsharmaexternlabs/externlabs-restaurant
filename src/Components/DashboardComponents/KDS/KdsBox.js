@@ -5,20 +5,21 @@ import cooking from '../../../images/cooking.svg'
 import DineIn from '../../../images/plate.svg'
 import takeAwayVerified from '../../../images/take-away-verified.svg'
 import DineInVerified from '../../../images/dineInVerified.svg'
+import PopUpComponent from '../../../ReusableComponents/PopUpComponent/PopUpComponent'
 
 
-  /**
- * KdsBox component displays kitchen display system (KDS) information.
- * @returns {JSX.Element} KdsBox component JSX
- *  @category KDS
- */
+/**
+* KdsBox component displays kitchen display system (KDS) information.
+* @returns {JSX.Element} KdsBox component JSX
+*  @category KDS
+*/
 function KdsBox() {
   /**
    * State to hold KDS data.
    * @type {Array<object>}
    */
 
-  const [data, setdata] = useState([
+  const [data, setData] = useState([
     {
       id: 1,
       name: "Table",
@@ -41,8 +42,8 @@ function KdsBox() {
         {
           name: "Mocktails",
           quantity: 2,
-          extras: "",
-          status: "done",
+          extras: "without sugar",
+          status: "cooking",
         },
       ],
     },
@@ -68,8 +69,8 @@ function KdsBox() {
         {
           name: "Mocktails",
           quantity: 2,
-          extras: "",
-          status: "done",
+          extras: "without sugar",
+          status: "cooking",
         },
       ],
     },
@@ -84,7 +85,7 @@ function KdsBox() {
           name: "Sandwich",
           quantity: 1,
           extras: "Extra cheese",
-          status: "done",
+          status: "cooking",
         },
         {
           name: " Vegetable Pizza",
@@ -95,8 +96,8 @@ function KdsBox() {
         {
           name: "Mocktails",
           quantity: 2,
-          extras: "",
-          status: "done",
+          extras: "without sugar",
+          status: "cooking",
         },
       ],
     },
@@ -122,8 +123,8 @@ function KdsBox() {
         {
           name: "Mocktails",
           quantity: 2,
-          extras: "",
-          status: "done",
+          extras: "without sugar",
+          status: "cooking",
         },
       ],
     },
@@ -149,81 +150,116 @@ function KdsBox() {
         {
           name: "Mocktails",
           quantity: 7,
-          extras: "",
+          extras: "without sugar",
           status: "cooking",
         },
       ],
     },
   ]);
 
+
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [currentOrder, setCurrentOrder] = useState(null);
+
+  const handleStartCooking = (itemIndex, orderIndex) => {
+    setCurrentOrder({ itemIndex, orderIndex });
+    setShowConfirmation(true);
+  };
+
+  const handleConfirmation = (confirmed) => {
+    if (confirmed) {
+      const newData = [...data];
+      const { itemIndex, orderIndex } = currentOrder;
+      const currentStatus = newData[itemIndex].orderDetails[orderIndex].status;
+      if (currentStatus === "cooking") {
+        newData[itemIndex].orderDetails[orderIndex].status = "done";
+      } else if (currentStatus === "done") {
+        newData[itemIndex].orderDetails.splice(orderIndex, 1);
+        // newData[itemIndex].orderDetails[orderIndex].status = "completed";
+      }
+      setData(newData);
+    }
+    setShowConfirmation(false);
+  };
+
   return (
     <div>
       <div className='kgcardpart'>
-        {data.map((item) => (
-          <div className='kgcardbox'>
-            <div className='kgcardtitle'
-              style={{
-                backgroundColor:
-                  item.orderType === "take Away" ? "#eabb36" : "#42B856",
-              }}>
+        {data.map((item, itemIndex) => (
+          <div className='kgcardbox' key={itemIndex}>
+            <div className='kgcardtitle' style={{ backgroundColor: item.orderType === "take Away" ? "#eabb36" : "#42B856" }}>
               <div className='leftpart'>
                 <h3>{item.name}</h3>
-                {/* <h4>00:10:53 </h4> */}
               </div>
               <div className='rightpart'>
-                <h2> Table No.{item.tableNo}</h2>
+                <h2>Table No.{item.tableNo}</h2>
               </div>
             </div>
-            {/* <div className='deliveryinfo'>
-                <h3> <img src={item.orderType == "take Away" ? foodparcel : DineIn} alt='img' /> {item.orderType}</h3>
-                <h4>{item.orderNo}</h4>
-              </div> */}
             <ul className='kgcardlist' key={item.id}>
-              {item.orderDetails.map((order, index) => {
-                return (
-                  <>
-                    <li key={index}>
-                      <div className='leftpart'>
-                        <h3> {order.quantity} X {order.name}</h3>
-                        <p>{order.extras}</p>
-                      </div>
-                      <div className='rightpart'>
-                        <button
-                          type="button"
-                          style={{
-                            borderColor:
-                              item.orderType === "take Away"
-                                ? "#eabb36"
-                                : "#42B856",
-                            color:
-                              item.orderType === "take Away"
-                                ? "#eabb36"
-                                : "#42B856",
-                          }}
-                        >
-                          {order.status === "done"
-                            ? "Mark as done"
-                            : "Start Cooking"}{" "}
-                          <img
-                            src={
-                              order.status === "done"
-                                ? item.orderType === "take Away"
-                                  ? takeAwayVerified
-                                  : DineInVerified
-                                : cooking
-                            }
-                            alt="img"
-                          />
-                        </button>
-                      </div>
-                    </li>
-                  </>
-                )
-              })}
+              {item.orderDetails.map((order, orderIndex) => (
+                <li key={orderIndex}>
+                  <div className='leftpart'>
+                    <h3>{order.quantity} X {order.name}</h3>
+                    <p>{order.extras}</p>
+                  </div>
+                  <div className='rightpart'>
+                    <button
+                      type="button"
+                      style={{
+                        borderColor: item.orderType === "take Away" ? "#eabb36" : "#42B856",
+                        color: item.orderType === "take Away" ? "#eabb36" : "#42B856",
+                      }}
+                      onClick={() => handleStartCooking(itemIndex, orderIndex)}
+                    >
+                      {order.status === "done"
+                        ? "Mark as done"
+                        : "Start Cooking"}
+                      <img
+                        src={
+                          order.status === "done"
+                            ? item.orderType === "take Away"
+                              ? takeAwayVerified
+                              : DineInVerified
+                            : cooking
+                        }
+                        alt="img"
+                      />
+                    </button>
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
         ))}
       </div>
+      {showConfirmation && (
+        <PopUpComponent classNameValue={"kds-popup"}>
+          <div className="popupbody">
+            <img src={cooking} alt='Cookig pan' height={"130px"} width={"130px"} />
+            <h2>Are you sure?</h2>
+            <p>
+              You are{" "}
+              {currentOrder &&
+                data[currentOrder.itemIndex].orderDetails[currentOrder.orderIndex]
+                  .status === "cooking"
+                ? "starting Cooking"
+                : "marking as done"}
+            </p>
+            <div className="popup-btn">
+              <button onClick={() => setShowConfirmation(false)}>Cancel</button>
+              <button
+                onClick={() => {
+                  handleConfirmation(true);
+                  setShowConfirmation(false);
+                }}
+                style={{ backgroundColor: "#EA6A12" }}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </PopUpComponent>
+      )}
     </div>
   )
 }
