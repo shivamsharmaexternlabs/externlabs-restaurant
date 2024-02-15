@@ -9,10 +9,11 @@ let languageSet = reactLocalStorage.get("languageSet", "en");
 // get menu category 
  export const GetQrCodeSlice = createAsyncThunk("GetQrCodeSlice",async (body, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/qrcodes/?restaurant_id=${body}`,
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/qrcodes/?restaurant_id=${body?.restaurant_id}&table_id=${body?.table_id ? body?.table_id : ""}&type=${body?.type ? body?.type : ""}`,
     {
       headers: {
-        "Accept-Language": languageSet
+        "Accept-Language": languageSet,
+        Authorization : `Bearer ${body?.BearerToken}`
       },
     }
     

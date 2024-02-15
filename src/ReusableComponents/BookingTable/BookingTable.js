@@ -7,7 +7,8 @@ import usePopUpHook from '../../CustomHooks/usePopUpHook/usePopUpHook';
 import CreateEditTable from '../../Components/DashboardComponents/ManageOrder/CreateEditTable';
 import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { GetManageOrderTableSlice, GetTableQrCodeSlice } from '../../Redux/slices/manageOrderTableSlice';
+import { GetManageOrderTableSlice } from '../../Redux/slices/manageOrderTableSlice';
+import { GetQrCodeSlice } from '../../Redux/slices/qrCodeSlice';
 import { useSelector } from 'react-redux';
 import { LoadingSpinner } from '../../Redux/slices/sideBarToggle';
 import useDownloadQr from '../../CustomHooks/useDownloadQr';
@@ -18,7 +19,7 @@ const BookingTable = ({ translaterFun }) => {
 
     const [openAction, setOpenAction] = useState(null)
     const [OpenMenuActionToggle, setOpenMenuActionToggle] = useState(null)
-    const [EditTableData, setEditTableData] = useState([]) 
+    const [EditTableData, setEditTableData] = useState([])
     const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
 
     const [TableDiableValue, setTableDiableValue] = useState({
@@ -27,7 +28,8 @@ const BookingTable = ({ translaterFun }) => {
     })
 
     const ManageOrderTableSelectorData = useSelector((state) => state.ManageOrderTableApiData);
-
+    const QrDownloadSelectorData = useSelector((state) => state.QrCodeApiData);
+    console.log("ManageOrderTableSelectorData", ManageOrderTableSelectorData)
 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const dispatch = useDispatch()
@@ -72,8 +74,7 @@ const BookingTable = ({ translaterFun }) => {
     }, [])
 
 
-    console.log("kshdhgjhsd", ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.results
-    )
+    console.log("kshdhgjhsd", ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.results)
 
 
     const EditTableFun = (e, items) => {
@@ -88,27 +89,28 @@ const BookingTable = ({ translaterFun }) => {
 
 
 
-        let responseData = await dispatch(GetTableQrCodeSlice({
-            restaurant_id: item?.restaurant_id, table_id: item?.table_id,
+        let responseData = await dispatch(GetQrCodeSlice({
+            restaurant_id: item?.restaurant_id,
+            table_id: item?.table_id,
             BearerToken
         }))
 
-        console.log("mhjhsdsd", responseData?.payload?.data?.results?.[0]  )
+        console.log("mhjhsdsd", responseData?.payload?.data?.results?.[0])
 
         if (responseData?.payload.status == 200) {
-             
+
 
             await dispatch(LoadingSpinner(false))
 
-            DownloadQrSetFun( responseData?.payload?.data?.results )
-           
+            DownloadQrSetFun(responseData?.payload?.data?.results)
+
         }
         else {
             await dispatch(LoadingSpinner(false))
         }
     }
 
-    
+    // dispatch( GetQrCodeSlice())
 
     return (
         <>
