@@ -28,6 +28,7 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import { useTranslation } from "react-i18next"
 import { CurrencySymbol } from '../Categories/CurrencySymbol';
+import useDownloadQr from '../../../CustomHooks/useDownloadQr';
 
 
 
@@ -39,6 +40,7 @@ const Dashboard = ({ translaterFun }) => {
   const [data, setData] = useState({ results: [] });
   const [QrImage, setQrImage] = useState("")
   const [LoadSpiner, setLoadSpiner] = useState(false)
+  const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
 
   const [ActiveCategory, setActiveCategory] = useState({});
   const [WellWishes, setWellWishes] = useState("")
@@ -96,8 +98,8 @@ const Dashboard = ({ translaterFun }) => {
 
 
   const QrCodeDownloadFun = () => {
-    var FileSaver = require('file-saver');
-    FileSaver.saveAs(`${QrImage}`, "QrDownload");
+    DownloadQrSetFun( QrApiSelectorData?.data?.results )
+     
   }
 
 

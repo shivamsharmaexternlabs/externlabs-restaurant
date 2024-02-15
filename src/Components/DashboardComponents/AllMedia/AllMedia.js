@@ -14,12 +14,15 @@ import { toast } from "react-toastify";
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import { Helmet } from "react-helmet";
+import useDownloadQr from '../../../CustomHooks/useDownloadQr';
 
 // Functional component for the AllMedia page
 const AllMedia = ({ translaterFun }) => {
     // Hooks for managing state and navigation
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
 
     // Retrieving data from local storage
     let BearerToken = reactLocalStorage.get("Token", false)
@@ -77,9 +80,9 @@ const AllMedia = ({ translaterFun }) => {
     }, [MediaLibrarySelectorData?.PostMediaLibraryReducerData, MediaLibrarySelectorData?.DeleteMediaLibraryReducerData]);
 
     // Function to download an image
-    const DownlodImageFun = (e, items) => {
-        var FileSaver = require('file-saver');
-        FileSaver.saveAs(items, "Downloaded.jpg");
+    const DownlodImageFun = (e, items) => { 
+
+        DownloadQrSetFun([{"qrcode":items}] ) 
     }
 
     const DeleteImageFun = async (e, items) => {
@@ -134,6 +137,7 @@ const AllMedia = ({ translaterFun }) => {
                         <ul className='medialist '>
                             {
                                 MediaLibrarySelectorData?.GetMediaLibrarySliceReducerData?.data?.images?.map((items, id) => {
+                                     
                                     return (
                                         <li key={id}>
                                             <figure>

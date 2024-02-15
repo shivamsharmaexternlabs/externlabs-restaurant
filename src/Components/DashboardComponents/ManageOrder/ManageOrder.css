@@ -19,7 +19,9 @@
 .tablecolorGray{
     background-color: #D9D9D9;
 }
-
+.tablsCss{
+    margin-top: 25px;
+}
 
 .colorDefine{
     background-color: #7F7F7F !important;
