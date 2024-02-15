@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from "react-router-dom"
 import './dashboardHeader.css'
 import user from '../../../images/user.png'
@@ -8,7 +8,6 @@ import globe from '../../../images/Globe.svg'
 import { reactLocalStorage } from "reactjs-localstorage";
 import { LanguageChange, ToggleNewLeads } from '../../../Redux/slices/sideBarToggle'
 import { useDispatch } from 'react-redux'
-import { useState } from 'react'
 
 
 import { useTranslation } from "react-i18next"
@@ -23,8 +22,23 @@ const DashboardHeader = ({ popUpHookFun }) => {
   // const [languagesDataValue, setlanguagesDataValue] = useState("English")
   // const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
 
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const buttonRef = useRef(null);
+  const listRef = useRef(null);
+  const logoutBtnRef = useRef(null);
+  const logoutRef = useRef(null);
+
+  const closeLangModal = () => {
+    setModalOpen(false);
+  };
+
+  const closeLogModal = () => {
+    setLogOutToggle(false);
+  };
+
   const LeadsRestaurantSelectorData = useSelector((state) => state.LeadsRestaurantApiData);
-  console.log("LeadsRestaurantSelectorData",LeadsRestaurantSelectorData)
+  console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData)
 
 
   const navigate = useNavigate()
@@ -36,18 +50,15 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
   let UserTypeData = reactLocalStorage.get("Type", false);
 
-  let UserNameData = reactLocalStorage.get("FirstName", false);
-  let languageSetData = reactLocalStorage.get("languageSet", false);
+  let UserNameData = reactLocalStorage.get("FirstName", false); 
 
   const handleLogout = () => {
     navigate("/")
     var myItem = localStorage.getItem('languageSet');
     localStorage.clear();
     localStorage.setItem('languageSet', myItem);
-
     window.location.reload()
   }
-
 
 
   const PopUpToggleFun = () => {
@@ -83,7 +94,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
   // ]
 
   // const languageDataFun = (e, value, key) => {
-
+  // closeLangModal()
 
   //   setlanguagesDataValue(value == "English" ? "عربي" : "English")
   //   setlanguagesDataKey(key)
@@ -106,6 +117,32 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
 
   // }, [languageSetData])
+
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (buttonRef.current && !buttonRef.current.contains(e.target) &&
+        listRef.current && !listRef.current.contains(e.target)) {
+        closeLangModal();
+      }
+    };
+
+    const handleLogoutOutsideClick = (e) => {
+      if (logoutBtnRef.current && !logoutBtnRef.current.contains(e.target) &&
+        logoutRef.current && !logoutRef.current.contains(e.target)) {
+        closeLogModal();
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('mousedown', handleLogoutOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('mousedown', handleLogoutOutsideClick);
+    };
+  }, [closeLangModal, closeLogModal]);
+
 
   const ViewProfileFun = async () => {
     let dispatchDataGetRestaurantsOnBoardSlice = await dispatch(GetRestaurantsOnBoardSlice({ RestaurantId, Token: BearerToken }))
@@ -135,7 +172,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
   // ]
 
-console.log("jhvgcvhbjnk", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo)
+  console.log("jhvgcvhbjnk", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo)
   return (
     <>
       <header>
@@ -167,7 +204,7 @@ console.log("jhvgcvhbjnk", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSli
           <div className='user'  >
             <figure>
 
-              {UserTypeData !== "owner" && <img src={user} alt='user img' />}  
+              {UserTypeData !== "owner" && <img src={user} alt='user img' />}
               {UserTypeData === "owner" && <img src={LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo == "undefined" || LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo == null ? user :
                 LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.logo} alt='user img' />}
 
@@ -179,20 +216,16 @@ console.log("jhvgcvhbjnk", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSli
             </div>
 
 
-            <div className='dropdownopt' onClick={(e) => LogoutFun()}>
+            <div className='dropdownopt' ref={logoutBtnRef} onClick={(e) => LogoutFun()}>
               <span></span>
               {LogOutToggle && <div className='dropdownoptbox'>
 
-              {UserTypeData === "owner" && <button type='button' className='' onClick={(e) => ViewProfileFun(e)}>
-
-
+                {UserTypeData === "owner" && <button type='button' className='' onClick={(e) => ViewProfileFun(e)}>
 
                   {t("view-profile")}
 
                 </button>}
-                <button type='button' className='' onClick={(e) => handleLogout(e)}>
-                  {/* <img src={logout} alt='img' /> */}
-
+                <button type='button' className='' ref={logoutRef} onClick={(e) => handleLogout(e)}>
 
                   {t("logout")}
 
