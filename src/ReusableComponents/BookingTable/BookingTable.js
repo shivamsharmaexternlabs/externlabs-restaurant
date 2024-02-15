@@ -82,7 +82,7 @@ const BookingTable = ({ translaterFun }) => {
 
     return (
         <>
-            {ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.results?.map((item, id) => {
+            {ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.map((item, id) => {
                 return <>
                     {<li
                         //   style={{ background: item?.colorCode }}

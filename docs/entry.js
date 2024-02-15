@@ -22,5 +22,5 @@
 
     import './styles/iframe.css';
 
-  import Component0 from '../src/Components/DashboardComponents/KDS/KdsScreen.js';
-reactComponents['KdsScreen'] = Component0;
+  import Component0 from '../src/Authantication/ForgotPassword/ForgotPassword.js';
+reactComponents['ForgotPassword'] = Component0;

@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harbour Bites FE documentation Authantication/Login/Login.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Harbour Bites FE documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/shivamsharmaexternlabs/externlabs-restaurant"
+                        >
+                            Respository
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul></div><div class="category"><h2>Authentication</h2><h3>Global</h3><ul><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li></ul></div><div class="category"><h2>Custom PopUp Hook</h2><h3>Global</h3><ul><li><a href="global.html#usePopUpHook">usePopUpHook</a></li></ul></div><div class="category"><h2>KDS</h2><h3>Global</h3><ul><li><a href="global.html#KdsBox">KdsBox</a></li><li><a href="global.html#KdsScreen">KdsScreen</a></li></ul></div><div class="category"><h2>Login</h2><h3>Global</h3><ul><li><a href="global.html#Login">Login</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#languageSwitchFun">languageSwitchFun</a></li><li><a href="global.html#useEffect">useEffect</a></li></ul></div><div class="category"><h2>i18n</h2><h3>Global</h3><ul><li><a href="global.html#middleware">middleware</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>Authantication/Login/Login.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+// Importing necessary dependencies from React and other libraries
+import React, { useEffect, useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import "./login.css";
+import { useDispatch, useSelector } from "react-redux";
+import { SignInSlice } from "../../Redux/slices/SignInSlice";
+import { reactLocalStorage } from "reactjs-localstorage";
+import PasswordEye from "../../ReusableComponents/PasswordEye/PasswordEye";
+import { useTranslation } from "react-i18next";
+import { GetRestaurantsOnBoardSlice } from "../../Redux/slices/leadsRestaurantSlice";
+import { Helmet } from "react-helmet";
+
+/**
+ * Login functional component for Login.
+ * @returns {JSX.Element} Login form component.
+ * @category Login
+ * @subcategory Login
+ */
+const Login = () => {
+  // Initializing Redux dispatch function
+  const dispatch = useDispatch();
+
+  // Initializing navigation hook from react-router-dom
+  const navigate = useNavigate();
+
+  // State for managing loading spinner
+  const [loadspiner, setLoadSpiner] = useState(false);
+
+  // State for managing password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [languageToggleValue, setlanguageToggleValue] = useState(false);
+
+  // Retrieving data from the Redux store using useSelector
+  const User = useSelector((state) => state.SignInApiData);
+
+  // Retrieving RestaurantId from local storage
+  let RestaurantId = reactLocalStorage.get("RestaurantId", false);
+
+  let languageSetDAta = reactLocalStorage.get("languageSet", false);
+
+  const { t, i18n } = useTranslation()
+
+
+  // useEffect to handle changes in the Redux store data
+  useEffect(() => {
+    // Checking if the status is 200, indicating successful login
+    if (User?.data?.status === 200) {
+      setLoadSpiner(false);
+      console.log("sdasfsdf", User?.data)
+
+      // dispatch(GetRestaurantsOnBoardSlice({ RestaurantId: User?.data?.data?.restaurants?.[0]?.restaurant_id, Token: User?.data?.data?.token }))
+      // reactLocalStorage.set("languageSet", "en");
+
+      // Checking user type and redirecting accordingly
+      if (User?.data?.data?.type == "owner") {
+
+        reactLocalStorage.set("payment_status", User?.data?.data?.payment_status);
+
+        if (User?.data?.data?.payment_status === false) {
+          navigate(`/subscription/page`);
+        } else if (User?.data?.data?.payment_status === true) {
+          navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}/admin/dashboard`);
+        }
+
+      } else if (User?.data?.data?.type == "sales") {
+        navigate(`/admin/leads`);
+      }
+
+      else {
+        navigate(`/`);
+      }
+    }
+
+    // Checking for a 400 status error in the Redux store data
+    if (User?.error?.response?.status === 400) {
+      setLoadSpiner(false);
+    }
+
+    if (User?.data.length == 0) {
+      reactLocalStorage.remove("payment_status")
+    }
+  }, [User]);
+
+  // Initial values for the Formik form
+  const defaultValue = {
+    email_or_phone: "",
+    password: "",
+    transFun: t
+  };
+
+  /**
+   * Validation schema for the form using yup
+   * @type {Object}
+   */
+  const Validate = yup.object({
+    email_or_phone: yup.string().required(t("email-or-phone-number-is-required")),
+
+    password: yup.string().required(t("password-is-required")).matches(/^\S*$/, t('password-must-not-contain-spaces')),
+  });
+
+  // Handling form submission
+  /**
+   * Handles form submission.
+   * @function handleSubmit
+   * @param {Object} values - Object containing the form field values.
+   * @returns {void}
+   * @category Login
+   */
+  const handleSubmit = (values) => {
+
+    dispatch(SignInSlice(values));
+    setLoadSpiner(true);
+  };
+  /**
+     * Handles Language Change.
+     * @function languageSwitchFun
+     * @param {Object} e - event e on form input.
+     * @returns {void}
+     * @category Login
+     */
+  const languageSwitchFun = (e) => {
+
+    setlanguageToggleValue(e.target.checked)
+    console.log("jhgchvjhk", e.target.checked)
+    if (e.target.checked === true) {
+      i18n.changeLanguage("ar")
+      reactLocalStorage.set("languageSet", "ar");
+
+    }
+    else {
+      i18n.changeLanguage("en")
+      reactLocalStorage.set("languageSet", "en");
+    }
+    window.location.reload()
+  }
+
+
+  /**
+     * UseEffect for Language change.
+     * @function useEffect
+     * @category Login
+     */
+  useEffect(() => {
+    console.log("anbsddchsds", languageSetDAta)
+
+    if (languageSetDAta == false) {
+      reactLocalStorage.set("languageSet", "en");
+    }
+    i18n.changeLanguage(languageSetDAta)
+  }, [languageSetDAta])
+
+
+  // JSX structure for the Login component
+  return (
+    &lt;>
+      &lt;Helmet>
+        &lt;title>Sign In to Your Account | Harbor Bites&lt;/title>
+        &lt;meta name="description" content="Access your account with a simple sign-in. Log in securely to manage your restaurant details and explore subscription plans." />
+        {/* &lt;link rel="icon" type="image/x-icon" href="./"/> */}
+      &lt;/Helmet>
+      &lt;div className="loginpage" dir="ltr">
+        {/* Formik wrapper for form management */}
+        &lt;Formik
+          initialValues={defaultValue}
+          validationSchema={Validate}
+          onSubmit={handleSubmit}
+        >
+          &lt;div className="login-box">
+            &lt;div className="title">
+              &lt;h2>{t("sign-in-login")}&lt;/h2>
+              &lt;p>{t("sign-in-to-stay-connected")}&lt;/p>
+              &lt;div className="switchtogglebtn">
+                English
+                &lt;label class="switch">
+                  &lt;input type="checkbox" checked={languageSetDAta == "en" || languageSetDAta == false ? false : true} onChange={(e) => languageSwitchFun(e)} />
+                  &lt;span class="slider round">&lt;/span>
+                &lt;/label>
+                عربي
+
+              &lt;/div>
+            &lt;/div>
+            {/* Actual form inside the Formik wrapper */}
+            &lt;Form>
+              &lt;div className="formbox" dir={languageSetDAta == "ar" ? "rtl" : ""}>
+                &lt;label>{t("email-or-phone-no")} &lt;/label>
+                {/* Input field for email or phone number */}
+                &lt;Field
+                  name="email_or_phone"
+                  type="text"
+                  className={`form-control `}
+                  autoComplete="off"
+                  placeholder={t("email-or-phone-no")}
+
+                />
+                {/* Error message for email or phone validation */}
+                &lt;p className="text-danger">
+                  &lt;ErrorMessage name="email_or_phone" />
+                &lt;/p>
+              &lt;/div>
+
+              &lt;div className="formbox" dir={languageSetDAta == "ar" ? "rtl" : ""}>
+                &lt;label>{t("password")} &lt;/label>
+                {/* Password input field with optional visibility toggle */}
+                &lt;PasswordEye t={t} />
+                {/* Error message for password validation */}
+                &lt;p className="text-danger">
+                  &lt;ErrorMessage name="password" />
+                &lt;/p>
+                {showPassword ? (
+                  // Eye icon for hiding password
+                  &lt;span className="imgcloseeye" onClick={() => setShowPassword(false)}>
+                    &lt;svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      &lt;path
+                        d="M1.11775 10.967C0.96075 10.676 0.96075 10.323 1.11775 10.032C3.00975 6.533 6.50475 3.5 9.99975 3.5C13.4948 3.5 16.9898 6.533 18.8818 10.033C19.0388 10.324 19.0388 10.677 18.8818 10.968C16.9898 14.467 13.4948 17.5 9.99975 17.5C6.50475 17.5 3.00975 14.467 1.11775 10.967Z"
+                        stroke="#A3ABA8"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      &lt;path
+                        d="M12.1213 8.37868C13.2929 9.55025 13.2929 11.4497 12.1213 12.6213C10.9497 13.7929 9.05025 13.7929 7.87868 12.6213C6.70711 11.4497 6.70711 9.55025 7.87868 8.37868C9.05025 7.20711 10.9497 7.20711 12.1213 8.37868Z"
+                        stroke="#A3ABA8"
+                        stroke-width="1.4286"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    &lt;/svg>
+                  &lt;/span>
+                ) : (
+                  // Empty fragment for conditional rendering
+                  &lt;>
+                  &lt;/>
+                )}
+              &lt;/div>
+
+              {/* Submit button for the form */}
+              &lt;button type="submit" className="btn">
+                {t("sign-in-login")}
+              &lt;/button>
+            &lt;/Form>
+          &lt;/div>
+        &lt;/Formik>
+      &lt;/div>
+    &lt;/>
+  );
+};
+
+// Exporting the Login component
+export default Login;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+
+</body>
+</html>

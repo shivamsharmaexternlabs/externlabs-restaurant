@@ -57,6 +57,13 @@ i18n.use(initReactI18next).init({
 
 i18n.languages = ['en', 'ar']; */
 
+
+/**
+ * App functional component for Routing.
+ * @returns {JSX.Element} App JSX which has all the routes logic.
+ * @category App
+ * @subcategory App
+ */
 function App() {
 
   const navigate = useNavigate()
@@ -75,6 +82,14 @@ function App() {
   let UserTypeData = reactLocalStorage.get("Type", false);
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
+  /**
+   * Handles form submission for SignUp.
+   * @function axios.interceptors
+   * @param {Object} response - Object containing the response from the dispatcher.
+   * @returns {void}
+   * @category App
+   * @subcategory App
+   */
   axios.interceptors.response.use(
 
     (response) => {
@@ -113,6 +128,7 @@ function App() {
   //   }
 
   // },[Token])
+  
   let languageDAta = reactLocalStorage.get("languageSet", false);
 
 

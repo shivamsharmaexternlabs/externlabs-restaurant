@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
-
+/**
+ * Custom Hook for PopUpHook.
+ * @returns {JSX.Element} Custom Hook for PopUp.
+ * @category Custom PopUp Hook
+ * @subcategory ForgotPassword
+ */
 const usePopUpHook = () => {
 
     const [state,setState] = useState()

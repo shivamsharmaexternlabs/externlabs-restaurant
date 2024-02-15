@@ -13,7 +13,12 @@ import { useTranslation } from "react-i18next";
 import { GetRestaurantsOnBoardSlice } from "../../Redux/slices/leadsRestaurantSlice";
 import { Helmet } from "react-helmet";
 
-// Functional component for the Login page
+/**
+ * Login functional component for Login.
+ * @returns {JSX.Element} Login form component.
+ * @category Login
+ * @subcategory Login
+ */
 const Login = () => {
   // Initializing Redux dispatch function
   const dispatch = useDispatch();
@@ -60,11 +65,11 @@ const Login = () => {
           navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}/admin/dashboard`);
         }
 
-      } else if(User?.data?.data?.type == "sales") {
+      } else if (User?.data?.data?.type == "sales") {
         navigate(`/admin/leads`);
       }
 
-      else{
+      else {
         navigate(`/`);
       }
     }
@@ -83,12 +88,13 @@ const Login = () => {
   const defaultValue = {
     email_or_phone: "",
     password: "",
-    transFun:t
+    transFun: t
   };
 
-  console.log("User", User)
-
-  // Validation schema for the form using yup
+  /**
+   * Validation schema for the form using yup
+   * @type {Object}
+   */
   const Validate = yup.object({
     email_or_phone: yup.string().required(t("email-or-phone-number-is-required")),
 
@@ -96,12 +102,25 @@ const Login = () => {
   });
 
   // Handling form submission
+  /**
+   * Handles form submission.
+   * @function handleSubmit
+   * @param {Object} values - Object containing the form field values.
+   * @returns {void}
+   * @category Login
+   */
   const handleSubmit = (values) => {
 
     dispatch(SignInSlice(values));
     setLoadSpiner(true);
   };
-
+  /**
+     * Handles Language Change.
+     * @function languageSwitchFun
+     * @param {Object} e - event e on form input.
+     * @returns {void}
+     * @category Login
+     */
   const languageSwitchFun = (e) => {
 
     setlanguageToggleValue(e.target.checked)
@@ -109,31 +128,30 @@ const Login = () => {
     if (e.target.checked === true) {
       i18n.changeLanguage("ar")
       reactLocalStorage.set("languageSet", "ar");
-      // window.location.reload()
 
     }
     else {
       i18n.changeLanguage("en")
       reactLocalStorage.set("languageSet", "en");
-      // window.location.reload()
     }
     window.location.reload()
   }
 
 
-
+  /**
+     * UseEffect for Language change.
+     * @function useEffect
+     * @category Login
+     */
   useEffect(() => {
     console.log("anbsddchsds", languageSetDAta)
-    // if(languageSet==false){
-    //   setlanguageToggleValue()
-    // }
+
     if (languageSetDAta == false) {
       reactLocalStorage.set("languageSet", "en");
     }
     i18n.changeLanguage(languageSetDAta)
   }, [languageSetDAta])
 
-  console.log("sdvsdvs", languageSetDAta)
 
   // JSX structure for the Login component
   return (

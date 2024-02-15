@@ -8,34 +8,37 @@ import LodingSpiner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { ForgotPasswordSlice } from '../../Redux/slices/forgotPasswordSlice';
 
 // Functional component for the ForgotPassword page
+/**
+ * Forgot Password functional component for forget password.
+ * @returns {JSX.Element} ForgotPassword form componentkjhgh ugyftyghuij ygftyguhij gytdtfyguhi ugyftdfgbn gyftdfyuyi ugyftufyguhij hugyftfyguhijo hugyftyguhijo hugyftdfyguhijn uiyfcvb kyutyfyguhinjb bbhbuhbhv bbhiugvh vbbjnhgvcjg bnnhugvch vnbjhgvgcj bnmnkhghvj bnnmnkhgvhj bnmn,hghvj bnmnkhughv nnkhughkv.
+ * @category Authentication
+ * @subcategory ForgotPassword
+ */
+
+
 const ForgotPassword = () => {
-    // Initializing Redux dispatch function
     const dispatch = useDispatch();
-    
-    // State for managing loading spinner
+
     const [loadspiner, setLoadSpiner] = useState(false);
-    
-    // Retrieving data from the Redux store using useSelector
+
     const ForgotPasswordSelectorData = useSelector((state) => state?.ForgotPasswordApiData);
 
-    // useEffect to handle changes in the Redux store data
     useEffect(() => {
-        // Checking if the status is 200, indicating success
         if (ForgotPasswordSelectorData?.data[0]?.status === 200) {
             setLoadSpiner(false);
         }
-        // Checking if there is an error in the Redux store data
         else if (ForgotPasswordSelectorData?.error === "Rejected") {
             setLoadSpiner(false);
         }
     }, [ForgotPasswordSelectorData]);
 
-    // Initial values for the Formik form
     const defaultValue = {
         email: ""
     };
-    
-    // Validation schema for the form using yup
+    /**
+     * Validation schema for the forgot password mail form.
+     * @type {Object}
+     */
     const Validate = yup.object({
         email: yup.string()
             .required("Email is required")
@@ -43,13 +46,20 @@ const ForgotPassword = () => {
             .matches(/^\S*$/, 'Email Number must not contain spaces'),
     });
 
-    // Handling form submission
+
+    /**
+         * Handles form submission for SignUp.
+         * @function handleSubmit
+         * @param {Object} values - Object containing the form field values.
+         * @returns {void}
+         * @category Authentication
+         * @subcategory ForgotPassword
+         */
     const handleSubmit = (values) => {
         dispatch(ForgotPasswordSlice(values));
         setLoadSpiner(true);
     };
 
-    // JSX structure for the ForgotPassword component
     return (
         <>
             <div className='resetpasswordpage'>
