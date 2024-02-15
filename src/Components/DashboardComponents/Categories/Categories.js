@@ -101,13 +101,65 @@ const Categories = ({ translaterFun }) => {
   const [inputs, setInputs] = useState([]);
   const [editInputs, seteditInputs] = useState([]);
   const inputRef = useRef(null);
+  // ===== If We click on outside 3 dot then dropdown will close ==========
+  //  ========================= STARTS HERE =======================
+  const [dotModalOpen, setdotModalOpen] = useState(false);
+  const [dotItemModalOpen, setdotItemModalOpen] = useState(false);
+
+
+  const dotRef = useRef(null);
+  const dotBtnRef = useRef(null);
+  const dotItemsRef = useRef(null);
+  const dotItemsBtnRef = useRef(null);
+
+
+  const openDotModal = () => {
+    setdotModalOpen(true);
+    closeItemDotModal();
+  };
+
+  const closeDotModal = () => {
+    setdotModalOpen(false);
+  };
+
+  const openItemDotModal = () => {
+    setdotItemModalOpen(true);
+    closeDotModal();
+  };
+
+  const closeItemDotModal = () => {
+    setdotItemModalOpen(false);
+  };
+
+  const handleDotOutsideClick = (e) => {
+    if (dotRef.current && !dotRef.current.contains(e.target) &&
+      dotBtnRef.current && !dotBtnRef.current.contains(e.target)) {
+      closeDotModal();
+    }
+  };
+
+  const handleItemDotOutsideClick = (e) => {
+    if (dotItemsRef.current && !dotItemsRef.current.contains(e.target) &&
+      dotItemsBtnRef.current && !dotItemsBtnRef.current.contains(e.target)) {
+      closeItemDotModal();
+    }
+  };
+
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleDotOutsideClick);
+    document.addEventListener('mousedown', handleItemDotOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleDotOutsideClick);
+      document.removeEventListener('mousedown', handleItemDotOutsideClick);
+    };
+  }, [closeDotModal, closeItemDotModal]);
+  // ========= If We click on outside 3 dot then dropdown will close ============
+  //  ========================== ENDS HERE =======================
 
 
   // -----------add variant  start-------------- 
-
-
-
-
   const handleAddInput = () => {
     setInputs([...inputs, { variant_name_en: "", amount: "", variant_name_native: "" }]);
   };
@@ -1302,15 +1354,19 @@ const Categories = ({ translaterFun }) => {
                               // aria-controls="nav-dishes1"
                               // aria-selected="true"
                               >
-                                <div className="editinfobtnbox" onClick={(e) => {
+                                <div className="editinfobtnbox" ref={dotRef} onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
                                   OpenActionToggleMenuFun(e, item);
                                   CategoryTabFun(e, item, "3dots");
+                                  openDotModal()
                                 }}
                                 >
                                   <button type="button">
                                     <img src={dot} alt="img" />
                                   </button>
-                                  {item?.menu_id === OpenMenuActionToggle && <div className="btnbox">
+                                  {item?.menu_id === OpenMenuActionToggle && dotModalOpen && 
+                                  <div ref={dotBtnRef} className="btnbox">
                                     <button type="button" className="editbtn"
                                       onClick={(e) =>
                                         PopUpEditCategoriesToggleFun(e, item)
@@ -1488,16 +1544,18 @@ const Categories = ({ translaterFun }) => {
                                         <img src={items?.is_favorite === true ? starfill : star} alt="img" />
                                       </button>
 
-                                      <div className="editinfobtn" onClick={(e) => OpenActionToggleFun(e, items)}>
+                                      <div className="editinfobtn" ref={dotItemsRef} onClick={(e) => {
+                                        OpenActionToggleFun(e, items)
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        openItemDotModal()
+                                      }}>
                                         <button type="button" >
 
                                           <img src={dot} alt="dot img" />
-
-
-
                                         </button>
 
-                                        {items?.item_id == OpenMenuActionToggle && <div className="btnbox">
+                                        {items?.item_id == OpenMenuActionToggle && dotItemModalOpen && <div ref={dotItemsBtnRef} className="btnbox">
                                           <button
                                             type="button"
                                             onClick={(e) =>
@@ -1508,7 +1566,7 @@ const Categories = ({ translaterFun }) => {
                                             <img src={edit1} alt="img" />{" "} {translaterFun("edit")}
                                           </button>
 
-                                          <button className="deletbtn"
+                                          <button ref={dotItemsBtnRef} className="deletbtn"
                                             onClick={(e) =>
                                               DeleteItemfun(e, items)
                                             }
