@@ -21,6 +21,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { reactLocalStorage } from 'reactjs-localstorage'
 import LodingSpiner from '../LoadingSpinner/LoadingSpinner'
 import { LanguageChange } from '../../Redux/slices/sideBarToggle'
+import LanguageComponent from '../../ReusableComponents/LanguageComponent/LanguageComponent'
 
 const Menu = ({ translaterFun }) => {
   const [ActiveCategory, setActiveCategory] = useState("")
@@ -189,19 +190,19 @@ const Menu = ({ translaterFun }) => {
 
   let languageDAta = reactLocalStorage.get("languageSet", false);
 
-  const LanguageFun = (e) => {
-    // i18n.changeLanguage(value)  
-    dispatch(LanguageChange(e.target.value))
-    setlanguageToggleValue(e.target.value)
-    reactLocalStorage.set("languageSet", e.target.value);
+  // const LanguageFun = (e) => {
+  //   // i18n.changeLanguage(value)  
+  //   dispatch(LanguageChange(e.target.value))
+  //   setlanguageToggleValue(e.target.value)
+  //   reactLocalStorage.set("languageSet", e.target.value);
 
 
-  }
-  let languageData = [
-    { value: "en", key: "English" },
-    { value: "ar", key: "عربي" }
+  // }
+  // let languageData = [
+  //   { value: "en", key: "English" },
+  //   { value: "ar", key: "عربي" }
 
-  ]
+  // ]
 
   useEffect(() => {
     if (languageDAta !== false) {
@@ -218,21 +219,21 @@ const Menu = ({ translaterFun }) => {
 
 
 
-  const languageDataFun = (e, value, key) => {
-    setlanguagesDataValue(value == "English" ? "عربي" : "English")
-    setlanguagesDataKey(key)
-    setSelectToggleSelectTogglealue(o => !o)
-    if (languageDAta !== key) {
-      window.location.reload();
-    }
+  // const languageDataFun = (e, value, key) => {
+  //   setlanguagesDataValue(value == "English" ? "عربي" : "English")
+  //   setlanguagesDataKey(key)
+  //   setSelectToggleSelectTogglealue(o => !o)
+  //   if (languageDAta !== key) {
+  //     window.location.reload();
+  //   }
 
 
-    reactLocalStorage.set("languageSet", key);
-  }
+  //   reactLocalStorage.set("languageSet", key);
+  // }
 
-  const openSelectToggleFun = () => {
-    setSelectToggleSelectTogglealue(o => !o)
-  }
+  // const openSelectToggleFun = () => {
+  //   setSelectToggleSelectTogglealue(o => !o)
+  // }
 
   const variantToggleFun = (e, ItemId, variantId) => {
     // console.log("kjhghj", ItemId, variantId)
@@ -332,13 +333,14 @@ const Menu = ({ translaterFun }) => {
             <div className='languagebox'>
 
               <div className='languaselist'>
-                <img src={globe} alt='Language img' className='globeimg' />
+                {/* <img src={globe} alt='Language img' className='globeimg' />
                 <button className='' onClick={(e) => openSelectToggleFun()}> {languagesDataValue} </button>
                 {SelectToggleValue && <ul className=''  >
                   {languageData?.map((items, id) => {
                     return <li onClick={(e) => languageDataFun(e, items?.key, items?.value)}> {items?.key}  </li>
                   })}
-                </ul>}
+                </ul>} */}
+                <LanguageComponent/>
               </div>
               {/* <select className='form-select' onChange={(e) => LanguageFun(e)}> 
                 {languageData?.map((items, id) => {
@@ -468,7 +470,7 @@ const Menu = ({ translaterFun }) => {
               })
             }
 
-          </div>
+          </div>         
 
 
         </div>
