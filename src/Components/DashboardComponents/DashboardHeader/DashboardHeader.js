@@ -14,15 +14,17 @@ import { useState } from 'react'
 import { useTranslation } from "react-i18next"
 import { GetRestaurantsOnBoardSlice } from '../../../Redux/slices/leadsRestaurantSlice'
 import { useSelector } from 'react-redux'
+import LanguageComponent from '../../../ReusableComponents/LanguageComponent/LanguageComponent'
 
 const DashboardHeader = ({ popUpHookFun }) => {
 
   const [LogOutToggle, setLogOutToggle] = useState(false)
-  const [languagesDataKey, setlanguagesDataKey] = useState("")
-  const [languagesDataValue, setlanguagesDataValue] = useState("English")
-  const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
+  // const [languagesDataKey, setlanguagesDataKey] = useState("")
+  // const [languagesDataValue, setlanguagesDataValue] = useState("English")
+  // const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
 
   const LeadsRestaurantSelectorData = useSelector((state) => state.LeadsRestaurantApiData);
+  console.log("LeadsRestaurantSelectorData",LeadsRestaurantSelectorData)
 
 
   const navigate = useNavigate()
@@ -60,7 +62,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
 
   }
 
-  let languageDAta = reactLocalStorage.get("languageSet", false);
+  // let languageDAta = reactLocalStorage.get("languageSet", false);
 
   // const LanguageFun = (value) => {
   //   // i18n.changeLanguage(value)  
@@ -68,35 +70,35 @@ const DashboardHeader = ({ popUpHookFun }) => {
   //   dispatch(LanguageChange(value))
   // }
 
-  useEffect(() => {
-    if (languageDAta !== false) {
-      dispatch(LanguageChange(languageDAta))
-    }
-  }, [languageDAta])
+  // useEffect(() => {
+  //   if (languageDAta !== false) {
+  //     dispatch(LanguageChange(languageDAta))
+  //   }
+  // }, [languageDAta])
 
-  let languageData = [
-    { value: "en", key: "English" },
-    { value: "ar", key: "عربي" }
+  // let languageData = [
+  //   { value: "en", key: "English" },
+  //   { value: "ar", key: "عربي" }
 
-  ]
+  // ]
 
-  const languageDataFun = (e, value, key) => {
+  // const languageDataFun = (e, value, key) => {
 
 
-    setlanguagesDataValue(value == "English" ? "عربي" : "English")
-    setlanguagesDataKey(key)
+  //   setlanguagesDataValue(value == "English" ? "عربي" : "English")
+  //   setlanguagesDataKey(key)
 
-    setSelectToggleSelectTogglealue(o => !o)
+  //   setSelectToggleSelectTogglealue(o => !o)
 
-    if (key !== languageDAta) {
-      window.location.reload()
-      reactLocalStorage.set("languageSet", key);
-    }
-  }
+  //   if (key !== languageDAta) {
+  //     window.location.reload()
+  //     reactLocalStorage.set("languageSet", key);
+  //   }
+  // }
 
-  const openSelectToggleFun = () => {
-    setSelectToggleSelectTogglealue(o => !o)
-  }
+  // const openSelectToggleFun = () => {
+  //   setSelectToggleSelectTogglealue(o => !o)
+  // }
 
   // useEffect(() => {
 
@@ -142,13 +144,14 @@ console.log("jhvgcvhbjnk", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSli
         {/* <div className='leftpart'>  <form> <input type='search' placeholder='Search…' /> </form> </div> */}
         <div className='rightpart'>
           <div className='languaselist'>
-            <img src={globe} alt='Language img' className='globeimg' />
+            {/* <img src={globe} alt='Language img' className='globeimg' />
             <button className='' onClick={(e) => openSelectToggleFun()}> {languageDAta === "en" ? "عربي" : "English"} </button>
             {SelectToggleValue && <ul className=''  >
               {languageData?.map((items, id) => {
                 return <li onClick={(e) => languageDataFun(e, items?.key, items?.value)}> {items?.key}  </li>
               })}
-            </ul>}
+            </ul>} */}
+            <LanguageComponent />
           </div>
 
           {UserTypeData !== "owner" && params?.pathname?.split("/")?.[2] !== "restaurantdetail" && <button type='button' className="btn2 me-3"
