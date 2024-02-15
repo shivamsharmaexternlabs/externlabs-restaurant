@@ -7,8 +7,10 @@ import usePopUpHook from '../../CustomHooks/usePopUpHook/usePopUpHook';
 import CreateEditTable from '../../Components/DashboardComponents/ManageOrder/CreateEditTable';
 import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { GetManageOrderTableSlice } from '../../Redux/slices/manageOrderTableSlice';
+import { GetManageOrderTableSlice, GetTableQrCodeSlice } from '../../Redux/slices/manageOrderTableSlice';
 import { useSelector } from 'react-redux';
+import { LoadingSpinner } from '../../Redux/slices/sideBarToggle';
+import useDownloadQr from '../../CustomHooks/useDownloadQr';
 
 
 const BookingTable = ({ translaterFun }) => {
@@ -16,7 +18,8 @@ const BookingTable = ({ translaterFun }) => {
 
     const [openAction, setOpenAction] = useState(null)
     const [OpenMenuActionToggle, setOpenMenuActionToggle] = useState(null)
-    const [EditTableData, setEditTableData] = useState([])
+    const [EditTableData, setEditTableData] = useState([]) 
+    const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
 
     const [TableDiableValue, setTableDiableValue] = useState({
         id: null,
@@ -72,13 +75,40 @@ const BookingTable = ({ translaterFun }) => {
     console.log("kshdhgjhsd", ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.results
     )
 
- 
+
     const EditTableFun = (e, items) => {
         // setEditTableData( items)
-        return items  
-      }
+        return items
+    }
 
-   console.log('ksjdgfjdksd',EditTableFun)  
+    const DownloadQrFun = async (e, item) => {
+        console.log("smhdjsdd", item)
+        await dispatch(LoadingSpinner(false))
+
+
+
+
+        let responseData = await dispatch(GetTableQrCodeSlice({
+            restaurant_id: item?.restaurant_id, table_id: item?.table_id,
+            BearerToken
+        }))
+
+        console.log("mhjhsdsd", responseData?.payload?.data?.results?.[0]  )
+
+        if (responseData?.payload.status == 200) {
+             
+
+            await dispatch(LoadingSpinner(false))
+
+            DownloadQrSetFun( responseData?.payload?.data?.results )
+           
+        }
+        else {
+            await dispatch(LoadingSpinner(false))
+        }
+    }
+
+    
 
     return (
         <>
@@ -86,7 +116,7 @@ const BookingTable = ({ translaterFun }) => {
                 return <>
                     {<li
                         //   style={{ background: item?.colorCode }}
-                        className={`${TableDiableValue?.id == id ? TableDiableValue?.Booleanvalue === true ? "overlayout" : "" : ""}  ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen"} `}>
+                        className={`${TableDiableValue?.id == id ? TableDiableValue?.Booleanvalue === true ? "overlayout" : "" : ""}  ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen"} tablsCss`}>
                         {item?.table_number}
                         <div className='acedittable'>
                             <button type="button" class="" onClick={(e) => OpenActionFun(e, id)}>  <img src={dot} alt='img' /> </button>
@@ -108,7 +138,7 @@ const BookingTable = ({ translaterFun }) => {
                                     <span> {translaterFun("disabled")} </span>
                                 </button>
                                 <button className=" mt-1 "
-                                // onClick={(e) => DeleteCategoryfun(e, item)}
+                                    onClick={(e) => DownloadQrFun(e, item)}
                                 >
                                     <img src={downloadimg} alt="delete icon " />    <span className='downloadQrclass'>  {translaterFun("download-QR")} </span>
                                 </button>

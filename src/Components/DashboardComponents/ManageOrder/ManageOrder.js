@@ -47,6 +47,7 @@ const ManageOrder = ({ translaterFun }) => {
     const openSelectToggleFun = () => {
         setSelectToggleSelectTogglealue(o => !o)
       }
+      
       useEffect(()=>{
         setItemData(translaterFun(TableTypeData?.[0]?.name))
       },[])

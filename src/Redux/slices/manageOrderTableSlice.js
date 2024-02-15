@@ -26,7 +26,7 @@ let languageSet = reactLocalStorage.get("languageSet", "en");
     return response;
 
   } catch (err) {
-    toast.error(err?.response?.data?.message);
+    toast.error(err?.response?.data?.error?.[0]);
     return rejectWithValue(err);
   }
 }
@@ -55,6 +55,34 @@ export const GetManageOrderTableSlice = createAsyncThunk("GetManageOrderTableSli
   }
 }
 );
+
+
+// 
+
+export const GetTableQrCodeSlice = createAsyncThunk("GetTableQrCodeSlice",async (body, { rejectWithValue }) => {
+  console.log("sdafafsfa",body)
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/qrcodes/?table_id=${body?.table_id}&restaurant_id=${body?.restaurant_id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${body?.BearerToken}`,
+        "Accept-Language": languageSet
+      },
+    }
+    
+    );
+
+    console.log("zdcsdfsfad",response)
+    // toast.success("Successful"); 
+
+    return response;
+
+  } catch (err) {
+    // toast.error(err?.response?.data?.message);
+    return rejectWithValue(err);
+  }
+}
+);
 // Reducer
 
 export const ManageOrderTableReducer = createSlice({
@@ -62,6 +90,7 @@ export const ManageOrderTableReducer = createSlice({
     initialState: {
       data : [],
       GetManageOrderTableData:[],
+      GetTableQrCodeData:[],
       loading: false,
       error: null,
     },
@@ -94,6 +123,21 @@ export const ManageOrderTableReducer = createSlice({
         )
   
         .addCase(GetManageOrderTableSlice.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.error.message;
+        })
+
+        .addCase(GetTableQrCodeSlice.pending, (state) => {
+          state.loading = true;
+        })
+  
+        .addCase(GetTableQrCodeSlice.fulfilled, (state, action) => {
+          state.loading = false;
+          state.GetTableQrCodeData = action.payload;
+        }
+        )
+  
+        .addCase(GetTableQrCodeSlice.rejected, (state, action) => {
           state.loading = false;
           state.error = action.error.message;
         })

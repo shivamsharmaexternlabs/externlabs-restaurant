@@ -44,7 +44,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty,E
 
     const handleCategorySubmit = async (values) => {
 
-        // await dispatch(LoadingSpinner(true))
+        await dispatch(LoadingSpinner(true))
 
         console.log("gdcfghds",values)
 
@@ -63,6 +63,9 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty,E
                 closePopup(false);
                 await dispatch(LoadingSpinner(false))
 
+            }
+            else{
+                await dispatch(LoadingSpinner(false)) 
             }
 
         }
