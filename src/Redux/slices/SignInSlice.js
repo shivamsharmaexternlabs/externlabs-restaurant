@@ -18,7 +18,7 @@ export const SignInSlice = createAsyncThunk("SignInSlice", async (body, { reject
         },
       });
     // console.log("khdgjdssd",response?.data?.message)
-    if (response?.data?.type == "owner" || response?.data?.type == "sales") {
+    if (response?.data?.type == "owner" || response?.data?.type == "sales"|| response?.data?.type == "kitchen_admin") {
       toast.success(response?.data?.message);
 
     } else {

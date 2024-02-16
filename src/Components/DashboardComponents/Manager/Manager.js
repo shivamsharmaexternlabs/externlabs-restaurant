@@ -419,8 +419,8 @@ console.log("bsdvhhdsd",data?.results)
                                             </option>
                                             {ManagerApiSelectorData?.StaffRoleSliceData?.data?.groups?.map((item, id) => {
                                                 return (
-                                                    <option value={item}>
-                                                        {item}
+                                                    <option value={item?.value}>
+                                                        {item?.name}
                                                     </option>
                                                 );
                                             })}
