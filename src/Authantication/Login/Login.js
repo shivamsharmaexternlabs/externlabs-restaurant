@@ -109,7 +109,6 @@ const Login = () => {
    * Handles form submission.
    * @function handleSubmit
    * @param {Object} values - Object containing the form field values.
-   * @returns {void}
    * @category Login
    */
   const handleSubmit = (values) => {
@@ -120,8 +119,7 @@ const Login = () => {
   /**
      * Handles Language Change.
      * @function languageSwitchFun
-     * @param {Object} e - event e on form input.
-     * @returns {void}
+     * @param {Event} e - event e on form input.
      * @category Login
      */
   const languageSwitchFun = (e) => {

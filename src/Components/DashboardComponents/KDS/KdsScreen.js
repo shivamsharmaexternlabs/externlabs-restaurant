@@ -5,7 +5,7 @@ import Logout from '../../../images/logout.svg'
 import KdsBox from './KdsBox'
 import LanguageComponent from '../../../ReusableComponents/LanguageComponent/LanguageComponent'
 import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
- 
+
 
 /**
  * KdsScreen component represents the main screen of the kitchen display system (KDS).
@@ -14,11 +14,14 @@ import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
  *
  */
 function KdsScreen() {
-    const[logoutHookFun]=useLogoutHook('')
+    const [logoutHookFun] = useLogoutHook('')
 
-    /**
-     * Handles the logout action.
-     */
+     /**
+   * Handles logout  .
+   * @function handleLogout
+   * @category KdsScreen function
+   * @subCategory Dashboard Component
+   */
     const handleLogout = () => {
         logoutHookFun()
     }

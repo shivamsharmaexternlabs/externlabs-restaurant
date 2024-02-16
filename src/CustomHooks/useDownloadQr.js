@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 /**
  * Custom Hook for PopUpHook.
  * @returns {JSX.Element} Custom Hook for PopUp.
- * @category Custom PopUp Hook
- * @subcategory ForgotPassword
+ * @category Custom Hook
  */
 const useDownloadQr = () => {
                                 // this hook used in these files : AllMedia.js, Dashboard.js, ManageOrder.js, BookingTable

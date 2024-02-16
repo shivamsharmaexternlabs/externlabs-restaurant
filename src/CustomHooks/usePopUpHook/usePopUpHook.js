@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 /**
  * Custom Hook for PopUpHook.
  * @returns {JSX.Element} Custom Hook for PopUp.
- * @category Custom PopUp Hook
- * @subcategory ForgotPassword
+ * @category Custom Hook
  */
 const usePopUpHook = () => {        // this hook uses in files: AdminProfilePage.js ,Categories.js, DashboardLayout.js, CreateEditTable.js,
                                     //ManageOrder.js, Manager.js,  RestaurantDetail.js, Leads.js, Resturant.js, Subscription.js, BookingTable.js,

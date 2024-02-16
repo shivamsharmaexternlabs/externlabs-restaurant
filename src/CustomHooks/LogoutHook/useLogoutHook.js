@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 /**
- * Custom Hook for PopUpHook.
- * @returns {JSX.Element} Custom Hook for PopUp.
- * @category Custom PopUp Hook
- * @subcategory ForgotPassword
+ * Custom Hook for logout.
+ * @returns {JSX.Element} Custom Hook for logout.
+ * @category Custom Hook
  */
 const useLogoutHook = () => {
 
