@@ -6,8 +6,9 @@ import React, { useState } from 'react'
  * @subcategory ForgotPassword
  */
 const useDownloadQr = () => {
-
+                                // this hook used in these files : AllMedia.js, Dashboard.js, ManageOrder.js, BookingTable
     const [state, setState] = useState()
+                                         
 
     const QrDownloadHookFun = (parameterData) => {
 

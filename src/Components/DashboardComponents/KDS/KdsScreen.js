@@ -3,8 +3,8 @@ import kdslogo from '../../../images/kdslogo.svg'
 import './kdsScreen.css'
 import Logout from '../../../images/logout.svg'
 import KdsBox from './KdsBox'
-import { useNavigate } from 'react-router-dom'
 import LanguageComponent from '../../../ReusableComponents/LanguageComponent/LanguageComponent'
+import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
  
 
 /**
@@ -14,13 +14,13 @@ import LanguageComponent from '../../../ReusableComponents/LanguageComponent/Lan
  *
  */
 function KdsScreen() {
-    const navigate = useNavigate()
+    const[logoutHookFun]=useLogoutHook('')
 
     /**
      * Handles the logout action.
      */
     const handleLogout = () => {
-        navigate('/')
+        logoutHookFun()
     }
 
     return (

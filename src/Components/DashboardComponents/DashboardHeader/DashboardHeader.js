@@ -14,10 +14,12 @@ import { useTranslation } from "react-i18next"
 import { GetRestaurantsOnBoardSlice } from '../../../Redux/slices/leadsRestaurantSlice'
 import { useSelector } from 'react-redux'
 import LanguageComponent from '../../../ReusableComponents/LanguageComponent/LanguageComponent'
+import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
 
 const DashboardHeader = ({ popUpHookFun }) => {
 
   const [LogOutToggle, setLogOutToggle] = useState(false)
+  const[logoutHookFun]=useLogoutHook('')
   // const [languagesDataKey, setlanguagesDataKey] = useState("")
   // const [languagesDataValue, setlanguagesDataValue] = useState("English")
   // const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
@@ -53,11 +55,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
   let UserNameData = reactLocalStorage.get("FirstName", false); 
 
   const handleLogout = () => {
-    navigate("/")
-    var myItem = localStorage.getItem('languageSet');
-    localStorage.clear();
-    localStorage.setItem('languageSet', myItem);
-    window.location.reload()
+    logoutHookFun()
   }
 
 

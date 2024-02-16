@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, NavLink, useNavigate, Route } from "react-router-dom";
 import { reactLocalStorage } from 'reactjs-localstorage'
 import { useTranslation } from 'react-i18next';
+import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
 
 const DashboardSidebar = () => {
 
@@ -33,7 +34,7 @@ const DashboardSidebar = () => {
 
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
-
+  const[logoutHookFun]=useLogoutHook('')
   const navigate = useNavigate()
   const [ToggleHeader, setToggleHeader] = useState()
 
@@ -58,13 +59,8 @@ const DashboardSidebar = () => {
     i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
   }, [ManagerApiSelectorData?.languagechange])
 
-  const handleLogout = () => { 
-    navigate("/")   
-    var myItem = localStorage.getItem('languageSet');
-    localStorage.clear();
-    localStorage.setItem('languageSet', myItem);
-
-    window.location.reload()
+  const handleLogout = () => {   
+    logoutHookFun()
   }
 
 
