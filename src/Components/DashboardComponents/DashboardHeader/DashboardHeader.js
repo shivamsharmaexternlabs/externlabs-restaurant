@@ -18,9 +18,6 @@ import LanguageComponent from '../../../ReusableComponents/LanguageComponent/Lan
 const DashboardHeader = ({ popUpHookFun }) => {
 
   const [LogOutToggle, setLogOutToggle] = useState(false)
-  // const [languagesDataKey, setlanguagesDataKey] = useState("")
-  // const [languagesDataValue, setlanguagesDataValue] = useState("English")
-  // const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
 
   const [modalOpen, setModalOpen] = useState(false);
 

@@ -9,20 +9,20 @@ const useDownloadQr = () => {
 
     const [state, setState] = useState()
 
-    const QrDownloadHookFun = (parameterData) => {
+    const QrDownloadHookFun = (parameterData, fileName) => {
 
         console.log("dbncshgds", parameterData)
 
         parameterData?.map((item, id) => {
 
             var FileSaver = require('file-saver');
-            FileSaver.saveAs(`${item?.qrcode}`, `${item?.table_number?`Table No ${item?.table_number}`:"DownloadQr"}`);
+            FileSaver.saveAs(`${item?.qrcode}`, fileName ? fileName : `${item?.table_number ? `Table No ${item?.table_number}` : "DownloadQr"}`);
 
         })
 
 
     }
-    
+
     return [state, QrDownloadHookFun]
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import dot from '../../images/dot.svg'
 import edit1 from "../../images/edit.svg";
 import downloadimg from "../../images/download.png";
@@ -7,7 +7,7 @@ import usePopUpHook from '../../CustomHooks/usePopUpHook/usePopUpHook';
 import CreateEditTable from '../../Components/DashboardComponents/ManageOrder/CreateEditTable';
 import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { GetManageOrderTableSlice } from '../../Redux/slices/manageOrderTableSlice';
+import { GetManageOrderTableSlice, UpdateManageOrderTableSlice } from '../../Redux/slices/manageOrderTableSlice';
 import { GetQrCodeSlice } from '../../Redux/slices/qrCodeSlice';
 import { useSelector } from 'react-redux';
 import { LoadingSpinner } from '../../Redux/slices/sideBarToggle';
@@ -20,16 +20,22 @@ const BookingTable = ({ translaterFun }) => {
     const [openAction, setOpenAction] = useState(null)
     const [OpenMenuActionToggle, setOpenMenuActionToggle] = useState(null)
     const [EditTableData, setEditTableData] = useState([])
-    const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
 
-    const [TableDiableValue, setTableDiableValue] = useState({
+
+    const dotButtonRef = useRef(null);
+    const dotEditRef = useRef(null);
+    const dotDisableRef = useRef(null);
+    const dotDownloadQRRef = useRef(null);
+    // const dotOrderRef = useRef(null);
+
+    const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
+    const [TableDisableValue, setTableDisableValue] = useState({
         id: null,
-        Booleanvalue: null
+        Booleanvalue: false
     })
 
     const ManageOrderTableSelectorData = useSelector((state) => state.ManageOrderTableApiData);
     const QrDownloadSelectorData = useSelector((state) => state.QrCodeApiData);
-    console.log("ManageOrderTableSelectorData", ManageOrderTableSelectorData)
 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const dispatch = useDispatch()
@@ -38,23 +44,46 @@ const BookingTable = ({ translaterFun }) => {
     let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
 
-    const OpenActionFun = (e, id) => {
-        console.log("sbdjshdjhd", id)
-        // setOpenAction(id)
-        if (OpenMenuActionToggle === id) {
-            setOpenMenuActionToggle(null);
-        } else {
-            setOpenMenuActionToggle(id);
-        }
+    const TableDisableFun = async (e, item) => {
 
-    }
-
-    const TableDiableFun = (e, id) => {
-        setTableDiableValue({
-            id: id,
+        setTableDisableValue({
+            id: "id",
             Booleanvalue: e.target.checked
         })
-        console.log("msbdsd", e.target.checked)
+
+
+        await dispatch(LoadingSpinner(true))
+
+        console.log("msbdjhgfhjkhgsd", e.target.checked, item)
+
+
+        let handleDisableTablePayload = {
+            "restaurant_id": RestaurantId,
+            "table_id": item?.table_id,
+            "is_active": !e.target.checked ? "True" : "False",
+            BearerToken
+        }
+        try {
+            let responseData = await dispatch(UpdateManageOrderTableSlice(handleDisableTablePayload));
+
+            console.log("mhjhsdsd", responseData)
+            if (responseData?.payload?.status == 200) {
+                await dispatch(LoadingSpinner(false))
+                setOpenMenuActionToggle(null);
+
+            }
+            else {
+                await dispatch(LoadingSpinner(false))
+            }
+
+            setTimeout(async () => {
+                await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }))
+            }, 500)
+
+        }
+        catch (error) {
+            await dispatch(LoadingSpinner(false))
+        }
 
     }
     const PopUpEditCategoriesToggleFun = () => {
@@ -74,11 +103,52 @@ const BookingTable = ({ translaterFun }) => {
     }, [])
 
 
-    console.log("kshdhgjhsd", ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.results)
+
+    const OpenActionFun = (e, id, item) => {
+        // console.log("sbdjshdjhd", OpenMenuActionToggle, item?.table_id, OpenMenuActionToggle === item?.table_id)
+        // setOpenAction(id)
+
+
+        if (OpenMenuActionToggle === item?.table_id) {
+            setOpenMenuActionToggle(null);
+        } else {
+            setOpenMenuActionToggle(item?.table_id);
+        }
+        // setOpenMenuActionToggle(item?.table_id);
+
+        setTableDisableValue({
+            id: "id",
+            Booleanvalue: item?.is_active !== "True" ? true : false
+        })
+    }
+    useEffect(() => {
+
+        const handleOutsideClick = (e) => {
+            
+            if (dotButtonRef.current && !dotButtonRef.current.contains(e.target) &&
+                dotEditRef.current && !dotEditRef.current.contains(e.target) &&
+                dotDisableRef.current && !dotDisableRef.current.contains(e.target) &&
+                dotDownloadQRRef.current && !dotDownloadQRRef.current.contains(e.target)
+            ) {
+
+                setTimeout(()=>{
+                    setOpenMenuActionToggle(null);
+                }, 200)
+                
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [OpenMenuActionToggle]);
 
 
     const EditTableFun = (e, items) => {
-        // setEditTableData( items)
+        setEditTableData(items)
+        setOpenMenuActionToggle(null);
         return items
     }
 
@@ -86,21 +156,18 @@ const BookingTable = ({ translaterFun }) => {
         console.log("smhdjsdd", item)
         await dispatch(LoadingSpinner(false))
 
-
-
-
         let responseData = await dispatch(GetQrCodeSlice({
             restaurant_id: item?.restaurant_id,
             table_id: item?.table_id,
             BearerToken
         }))
 
-        console.log("mhjhsdsd", responseData?.payload?.data?.results?.[0])
 
         if (responseData?.payload.status == 200) {
 
 
             await dispatch(LoadingSpinner(false))
+            setOpenMenuActionToggle(null);
 
             DownloadQrSetFun(responseData?.payload?.data?.results)
 
@@ -115,31 +182,36 @@ const BookingTable = ({ translaterFun }) => {
     return (
         <>
             {ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.map((item, id) => {
+                {/* console.log("hgfcgvhbjkl", item) */ }
                 return <>
-                    {<li
-                        //   style={{ background: item?.colorCode }}
-                        className={`${TableDiableValue?.id == id ? TableDiableValue?.Booleanvalue === true ? "overlayout" : "" : ""}  ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen"} tablsCss`}>
+                    {<li className={`${item?.is_active === "True" ? "" : "overlayout"}  ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen"} tablsCss`}
+                    >
                         {item?.table_number}
                         <div className='acedittable'>
-                            <button type="button" class="" onClick={(e) => OpenActionFun(e, id)}>  <img src={dot} alt='img' /> </button>
+                            <button type="button" class="" ref={dotButtonRef} onClick={(e) => OpenActionFun(e, id, item)}>  <img src={dot} alt='img' /> </button>
 
-                            {id == OpenMenuActionToggle && <div className="btnbox  ">
-                                <button type="button" className="editbtn"
-                                    onClick={(e) => PopUpEditCategoriesToggleFun(e, item)
-                                    }
+                            {item?.table_id == OpenMenuActionToggle && <div className="btnbox">
+                                <button type="button" className="editbtn" ref={dotEditRef}
+                                    onClick={(e) => PopUpEditCategoriesToggleFun(e, item)}
                                 >
-                                    <img src={edit1} alt="img" />{" "}    <span
-                                        onClick={(e) => EditTableFun(e, item)}>
-                                        {translaterFun("edit")} </span>
+                                    <img src={edit1} alt="img" />{" "}
+                                    <span onClick={(e) => EditTableFun(e, item)}>
+                                        {translaterFun("edit")}
+                                    </span>
                                 </button>
-                                <button type='button' className='switchbtn mt-1' >
+                                <button type='button' className='switchbtn mt-1' ref={dotDisableRef}>
                                     <label className="switch">
-                                        <input type="checkbox" onChange={(e) => TableDiableFun(e, id)} />
+                                        <input type="checkbox"
+
+                                            checked={TableDisableValue?.Booleanvalue}
+
+                                            onChange={(e) => TableDisableFun(e, item)} />
                                         <span className="slider round"></span>
                                     </label>
                                     <span> {translaterFun("disabled")} </span>
                                 </button>
                                 <button className=" mt-1 "
+                                    ref={dotDownloadQRRef}
                                     onClick={(e) => DownloadQrFun(e, item)}
                                 >
                                     <img src={downloadimg} alt="delete icon " />    <span className='downloadQrclass'>  {translaterFun("download-QR")} </span>
