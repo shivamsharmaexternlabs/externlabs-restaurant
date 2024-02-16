@@ -60,7 +60,7 @@ const BookingTable = ({ translaterFun }) => {
         let handleDisableTablePayload = {
             "restaurant_id": RestaurantId,
             "table_id": item?.table_id,
-            "is_active": !e.target.checked ? "True" : "False",
+            "is_active": !e.target.checked ? true : false,
             BearerToken
         }
         try {
@@ -118,7 +118,7 @@ const BookingTable = ({ translaterFun }) => {
 
         setTableDisableValue({
             id: "id",
-            Booleanvalue: item?.is_active !== "True" ? true : false
+            Booleanvalue: item?.is_active !==  true ? true : false
         })
     }
     useEffect(() => {
@@ -184,7 +184,7 @@ const BookingTable = ({ translaterFun }) => {
             {ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.map((item, id) => {
                 {/* console.log("hgfcgvhbjkl", item) */ }
                 return <>
-                    {<li className={`${item?.is_active === "True" ? "" : "overlayout"}  ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen"} tablsCss`}
+                    {<li className={`${item?.is_active === true ? "" : "overlayout"}  ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen"} tablsCss`}
                     >
                         {item?.table_number}
                         <div className='acedittable'>
