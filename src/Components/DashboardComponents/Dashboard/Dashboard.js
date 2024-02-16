@@ -81,7 +81,10 @@ const Dashboard = ({ translaterFun }) => {
 
           // we don't need token for these api's
 
-          await dispatch(GetQrCodeSlice(RestaurantIdLocalData))
+          await dispatch(GetQrCodeSlice({
+            restaurant_id : RestaurantIdLocalData,
+            BearerToken
+           }))
           await dispatch(MenuSlice({ "RestaurantId": RestaurantIdLocalData }));
 
           dispatch(LoadingSpinner(false))

@@ -68,6 +68,9 @@ const Login = () => {
       } else if (User?.data?.data?.type == "sales") {
         navigate(`/admin/leads`);
       }
+      else if (User?.data?.data?.type == "kitchen_admin") {
+        navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}/kds/kdsScreen`);
+      }
 
       else {
         navigate(`/`);
