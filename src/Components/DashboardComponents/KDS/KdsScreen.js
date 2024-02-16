@@ -1,12 +1,11 @@
 import React from 'react'
 import kdslogo from '../../../images/kdslogo.svg'
 import './kdsScreen.css'
-// import KdsNotification from '../../../images/KdsNotification.svg'
 import Logout from '../../../images/logout.svg'
 import KdsBox from './KdsBox'
-import { useNavigate} from 'react-router-dom'
-import PopUpComponent from '../../../ReusableComponents/PopUpComponent/PopUpComponent'
-
+import { useNavigate } from 'react-router-dom'
+import LanguageComponent from '../../../ReusableComponents/LanguageComponent/LanguageComponent'
+ 
 
 /**
  * KdsScreen component represents the main screen of the kitchen display system (KDS).
@@ -15,7 +14,8 @@ import PopUpComponent from '../../../ReusableComponents/PopUpComponent/PopUpComp
  *
  */
 function KdsScreen() {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
+
     /**
      * Handles the logout action.
      */
@@ -28,10 +28,16 @@ function KdsScreen() {
             <div className='kdspage'>
                 <div className='kds-header'>
                     <img className='kdslogoimg' alt='logo_img' src={kdslogo} />
-                    <button className='kds-logout' onClick={handleLogout}>
-                        <img className="kds-logoutimg" alt="Notification_Icon" src={Logout} />
-                        <span>Log Out</span>
-                    </button>
+                    <div className='kdsRight'>
+                        <div className='languaselist'>
+                            <LanguageComponent />
+                        </div>
+
+                        <button className='kds-logout' onClick={handleLogout}>
+                            <img className="kds-logoutimg" alt="Notification_Icon" src={Logout} />
+                            <span>Log Out</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div className='contentpart'>
