@@ -16,7 +16,7 @@ const useDownloadQr = () => {
         parameterData?.map((item, id) => {
 
             var FileSaver = require('file-saver');
-            FileSaver.saveAs(`${item?.qrcode}`, "QrDownload12");
+            FileSaver.saveAs(`${item?.qrcode}`, `${item?.table_number?`Table No ${item?.table_number}`:"DownloadQr"}`);
 
         })
 

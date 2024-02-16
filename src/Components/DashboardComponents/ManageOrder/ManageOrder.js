@@ -12,6 +12,10 @@ import { TableStatusData, TableTypeData } from "./TableStatusColor.js";
 import usePopUpHook from '../../../CustomHooks/usePopUpHook/usePopUpHook.js';
 import CreateEditTable from './CreateEditTable.js';
 import arrow from '../../../images/arrowy.svg'
+import { GetQrCodeSlice } from '../../../Redux/slices/qrCodeSlice.js';
+import { useDispatch } from 'react-redux';
+import useDownloadQr from '../../../CustomHooks/useDownloadQr.js';
+import { reactLocalStorage } from 'reactjs-localstorage';
 
 
 // Functional component for the ManageOrder page
@@ -20,9 +24,10 @@ const ManageOrder = ({ translaterFun }) => {
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const [ItemData, setItemData] = useState("")
     const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
+    const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
 
     // Hooks for managing state and navigation
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // const navigate = useNavigate();
 
     // Retrieving data from local storage
@@ -34,6 +39,8 @@ const ManageOrder = ({ translaterFun }) => {
 
     // JSX structure for the ManageOrder component
 
+    let BearerToken = reactLocalStorage.get("Token", false);
+    let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
 
     const AddTableFun = () => {
@@ -52,6 +59,24 @@ const ManageOrder = ({ translaterFun }) => {
         setItemData(translaterFun(TableTypeData?.[0]?.name))
       },[])
 
+
+      const BulkDownlod =async()=>{
+        let responseData = await dispatch(GetQrCodeSlice({
+            restaurant_id: RestaurantId,
+            table_id: "",
+            type:"all",
+            BearerToken
+        }))
+
+        if (responseData?.payload.status == 200) {
+
+
+            // await dispatch(LoadingSpinner(false))
+
+            DownloadQrSetFun(responseData?.payload?.data?.results)
+
+        }
+      }
     return (
         <>
             <Helmet>
@@ -74,6 +99,11 @@ const ManageOrder = ({ translaterFun }) => {
                                 // ref={inputRef}
                                 // onChange={(e) => UploadMenuFile(e)}
                                 />
+                            </div>
+                            <div className="uploadbtn-wrapper btn2"> 
+                            <button type="button" onClick={(e)=>BulkDownlod(e)}>
+                                all download
+                            </button>
                             </div>
 
                             <button type='button' className='btn2 me-0' onClick={(e) => AddTableFun(e)}>
