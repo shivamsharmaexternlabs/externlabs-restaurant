@@ -15,6 +15,11 @@
     position: relative;
     z-index: 1;
 }
+.kdsRight{
+    display:flex ;
+    justify-content: center;
+    align-items: center;
+}
 
 .kds-logout{
     outline: none;
@@ -89,7 +94,7 @@
 
 .deliveryinfo {
     padding: 15px 10px;
-    background-color: rgb(234 187 54 / 10%);
+    /* background-color: rgb(234 187 54 / 10%); */
 }
 
 .deliveryinfo>h3 {
@@ -99,6 +104,10 @@
     color: #000;
     margin-bottom: 0;
     font-family: 'NeuzeitGro-Reg';
+   
+}
+.deliveryinfo>h3>img{
+    margin-right: 5px;
 }
 
 .deliveryinfo>h4 {
@@ -152,7 +161,7 @@
     justify-content: center;
     align-items: center;
 }
-.popupbody h2{
+.popup-head{
     font-family: Neuzeit Grotesk;
     font-size: 40px;
     font-weight: 700;
@@ -160,7 +169,8 @@
     letter-spacing: 0.02em;
     text-align: center;
 }
-.popupbody p{
+
+.popup-para{
     font-family: Neuzeit Grotesk;
     font-size: 28px;
     font-weight: 400;
@@ -174,7 +184,27 @@
     justify-content: space-evenly;
     margin:10px
 }
-.popup-btn button{
+/* .popup-btn button{
+    width: 131px;
+    height: 38px;
+    top: 241px;
+    left: 47px;
+    border-radius: 563.03px;   
+    color:white;
+    border:none;
+    background-color: #B7B7B7CC;   
+} */
+.popup-cal-btn{
+    width: 131px;
+    height: 38px;
+    top: 241px;
+    left: 47px;
+    border-radius: 563.03px;   
+    color:white;
+    border:none;
+    background-color: #B7B7B7CC;     
+}
+.popup-yes-btn{
     width: 131px;
     height: 38px;
     top: 241px;
