@@ -1,4 +1,108 @@
-// Import React and necessary dependencies
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harbour Bites FE documentation Components/DashboardComponents/AdminProfilePage/AdminProfilePage.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Harbour Bites FE documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/shivamsharmaexternlabs/externlabs-restaurant"
+                        >
+                            Respository
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>AdminProfilePage Functions</h2><h3>Global</h3><ul><li><a href="global.html#BannerImageUploadFun">BannerImageUploadFun</a></li><li><a href="global.html#LogoImageUploadFun">LogoImageUploadFun</a></li><li><a href="global.html#callBackFuncAfterSignUp">callBackFuncAfterSignUp</a></li><li><a href="global.html#handleOnChange1">handleOnChange1</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li></ul></div><div class="category"><h2>AllMedia</h2><h3>Global</h3><ul><li><a href="global.html#AllMedia">AllMedia</a></li></ul></div><div class="category"><h2>AllMedia Function</h2><h3>Global</h3><ul><li><a href="global.html#DeleteImageFun">DeleteImageFun</a></li><li><a href="global.html#MultiUploadFun">MultiUploadFun</a></li></ul></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul></div><div class="category"><h2>Authentication</h2><h3>Global</h3><ul><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li></ul></div><div class="category"><h2>Custom Hook</h2><h3>Global</h3><ul><li><a href="global.html#useDownloadQr">useDownloadQr</a></li><li><a href="global.html#useLogoutHook">useLogoutHook</a></li><li><a href="global.html#usePopUpHook">usePopUpHook</a></li></ul></div><div class="category"><h2>Dashboard Component</h2><h3>Global</h3><ul><li><a href="global.html#AdminProfilePage">AdminProfilePage</a></li><li><a href="global.html#DndCategories">DndCategories</a></li></ul></div><div class="category"><h2>DndCategories function</h2><h3>Global</h3><ul><li><a href="global.html#handleDndUpdate">handleDndUpdate</a></li><li><a href="global.html#handleDragOver">handleDragOver</a></li><li><a href="global.html#handleDrop">handleDrop</a></li><li><a href="global.html#startDrag">startDrag</a></li></ul></div><div class="category"><h2>KDS</h2><h3>Global</h3><ul><li><a href="global.html#KdsBox">KdsBox</a></li><li><a href="global.html#KdsScreen">KdsScreen</a></li></ul></div><div class="category"><h2>KdsBox Functions</h2><h3>Global</h3><ul><li><a href="global.html#handleConfirmation">handleConfirmation</a></li><li><a href="global.html#handleStartCooking">handleStartCooking</a></li></ul></div><div class="category"><h2>KdsScreen function</h2><h3>Global</h3><ul><li><a href="global.html#handleLogout">handleLogout</a></li></ul></div><div class="category"><h2>Login</h2><h3>Global</h3><ul><li><a href="global.html#Login">Login</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#languageSwitchFun">languageSwitchFun</a></li><li><a href="global.html#useEffect">useEffect</a></li></ul></div><div class="category"><h2>i18n</h2><h3>Global</h3><ul><li><a href="global.html#middleware">middleware</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>Components/DashboardComponents/AdminProfilePage/AdminProfilePage.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Import React and necessary dependencies
 import React, { useEffect, useState } from 'react'
 import './adminProfilePage.css'
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
@@ -471,61 +575,61 @@ const AdminProfilePage = ({ translaterFun }) => {
   }
 
   return (
-    <>
-      <Helmet>
-        <title>Manage Restaurant Details | Harbor Bites</title>
-        <meta name="description" content="Streamline your restaurant's information effortlessly. Edit and manage crucial details hassle-free to keep your digital presence accurate and engaging." />
-        {/* <link rel="icon" type="image/x-icon" href="./"/> */}
-      </Helmet>
-      <DashboardLayout>
-        <div className="dasboardbody">
-          <DashboardSidebar />
-          <div className="contentpart restaurantdetailpage">
-            <img src={burgerimg} alt='img' className='burgerimg' />
-            <div className='editprofilebanner'>
-              <div className='editbannerimg'>
+    &lt;>
+      &lt;Helmet>
+        &lt;title>Manage Restaurant Details | Harbor Bites&lt;/title>
+        &lt;meta name="description" content="Streamline your restaurant's information effortlessly. Edit and manage crucial details hassle-free to keep your digital presence accurate and engaging." />
+        {/* &lt;link rel="icon" type="image/x-icon" href="./"/> */}
+      &lt;/Helmet>
+      &lt;DashboardLayout>
+        &lt;div className="dasboardbody">
+          &lt;DashboardSidebar />
+          &lt;div className="contentpart restaurantdetailpage">
+            &lt;img src={burgerimg} alt='img' className='burgerimg' />
+            &lt;div className='editprofilebanner'>
+              &lt;div className='editbannerimg'>
 
-                {HandleFormData != "" &&
-                  <div
+                {HandleFormData != "" &amp;&amp;
+                  &lt;div
                     className={`${HandleFormData ? "editbanneimgbutton" : "numbersdds editbanneimgbutton"}`}
                   >
-                    <button type='button'>
-                      <img src={upload2} alt='editimg' /></button>
-                    <input type="file"
+                    &lt;button type='button'>
+                      &lt;img src={upload2} alt='editimg' />&lt;/button>
+                    &lt;input type="file"
                       accept=".png, .jpg, .jpeg"
                       onChange={(e) => BannerImageUploadFun(e)} />
-                  </div>
+                  &lt;/div>
                 }
-              </div>
-              <figure>
+              &lt;/div>
+              &lt;figure>
 
-                <img src={ViewBannerImage == null ? (BannerImage == null ? editbanner : BannerImage) : ViewBannerImage} alt='img'
+                &lt;img src={ViewBannerImage == null ? (BannerImage == null ? editbanner : BannerImage) : ViewBannerImage} alt='img'
                   className='w-100' />
-              </figure>
-              <div className='info'>
-                <div className='edituserimg'>
-                  <img src={ViewLogoImage == null ? (logoImage == null ? user : logoImage) : ViewLogoImage} alt='img' />
-                  {HandleFormData != "" &&
-                    <div
+              &lt;/figure>
+              &lt;div className='info'>
+                &lt;div className='edituserimg'>
+                  &lt;img src={ViewLogoImage == null ? (logoImage == null ? user : logoImage) : ViewLogoImage} alt='img' />
+                  {HandleFormData != "" &amp;&amp;
+                    &lt;div
                       className={`   ${HandleFormData ? "edituserimgbutton" : "numbersdds edituserimgbutton"}`}
 
                     >
-                      <button type='button'>
+                      &lt;button type='button'>
 
-                        <img src={upload2} alt='editimg' /></button>
-                      <input type="file"
+                        &lt;img src={upload2} alt='editimg' />&lt;/button>
+                      &lt;input type="file"
 
                         accept=".png, .jpg, .jpeg"
                         onChange={(e) => LogoImageUploadFun(e)} />
-                    </div>
+                    &lt;/div>
                   }
-                </div>
+                &lt;/div>
 
-              </div>
-            </div>
+              &lt;/div>
+            &lt;/div>
 
-            <div className={`mt-4 mb-2 editprofileform ${!HandleFormData ? "" : ""}`}>
-              <Formik
+            &lt;div className={`mt-4 mb-2 editprofileform ${!HandleFormData ? "" : ""}`}>
+              &lt;Formik
                 initialValues={defaultValue}
                 validationSchema={Validate}
                 enableReinitialize
@@ -538,11 +642,11 @@ const AdminProfilePage = ({ translaterFun }) => {
                   }
                 }}
               >
-                {({ handleSubmit, initialValues, values }) => (<Form className="row">
-                  <div className='col-md-6'>
-                    <div className="formbox mb-3 ">
-                      <label>{translaterFun("restaurant-name")}</label>
-                      <Field
+                {({ handleSubmit, initialValues, values }) => (&lt;Form className="row">
+                  &lt;div className='col-md-6'>
+                    &lt;div className="formbox mb-3 ">
+                      &lt;label>{translaterFun("restaurant-name")}&lt;/label>
+                      &lt;Field
                         name="restaurant_name"
                         type="text"
                         className={` form-control ${HandleFormData ? "" : "numbersdds"}`}
@@ -550,64 +654,64 @@ const AdminProfilePage = ({ translaterFun }) => {
                         autoComplete="off"
                         placeholder={translaterFun("enter-your-name")}
                       />
-                      <p className="text-danger small mb-0">
-                        <ErrorMessage name="restaurant_name" />
-                      </p>
-                    </div>
+                      &lt;p className="text-danger small mb-0">
+                        &lt;ErrorMessage name="restaurant_name" />
+                      &lt;/p>
+                    &lt;/div>
 
-                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3" : "formbox mb-3"} `}>
-                      <label> {translaterFun("owner-name")} </label>
-                      <Field
+                    &lt;div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3" : "formbox mb-3"} `}>
+                      &lt;label> {translaterFun("owner-name")} &lt;/label>
+                      &lt;Field
                         name="owner_name"
                         type="text"
                         disabled="true"
-                        className={`form-control ${HandleFormData && routeData?.state?.page !== "lead" ? "numbersdds" : "numbersdds"}`}
+                        className={`form-control ${HandleFormData &amp;&amp; routeData?.state?.page !== "lead" ? "numbersdds" : "numbersdds"}`}
                         autoComplete="off"
                         placeholder={translaterFun("enter-owner-name")}
                       />
-                      <p className="text-danger small mb-0">
-                        <ErrorMessage name="owner_name" />
-                      </p>
-                    </div>
+                      &lt;p className="text-danger small mb-0">
+                        &lt;ErrorMessage name="owner_name" />
+                      &lt;/p>
+                    &lt;/div>
 
-                    <div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3" : "formbox mb-3"} `}>
-                      <label>{translaterFun("email")} </label>
-                      <Field
+                    &lt;div className={`${routeData?.state?.page !== "lead" ? "formbox mb-3" : "formbox mb-3"} `}>
+                      &lt;label>{translaterFun("email")} &lt;/label>
+                      &lt;Field
                         name="email"
                         type="email"
                         disabled='true'
-                        className={`form-control ${HandleFormData && routeData?.state?.page !== "lead" ? "numbersdds" : "numbersdds"}`}
+                        className={`form-control ${HandleFormData &amp;&amp; routeData?.state?.page !== "lead" ? "numbersdds" : "numbersdds"}`}
                         autoComplete="off"
                         placeholder={translaterFun("enter-your-email")}
                       />
-                      <p className="text-danger small mb-0">
-                        <ErrorMessage name="email" />
-                      </p>
-                    </div>
+                      &lt;p className="text-danger small mb-0">
+                        &lt;ErrorMessage name="email" />
+                      &lt;/p>
+                    &lt;/div>
 
 
-                    <div className='row'>
+                    &lt;div className='row'>
 
-                      <div className="col-md-12  mb-3">
-                        {<div className={`${HandleFormData && routeData?.state?.page !== "lead" ? "formbox numbersdds" : "formbox numbersdds"} `}>
-                          <label> {translaterFun("phone-number")} </label>
+                      &lt;div className="col-md-12  mb-3">
+                        {&lt;div className={`${HandleFormData &amp;&amp; routeData?.state?.page !== "lead" ? "formbox numbersdds" : "formbox numbersdds"} `}>
+                          &lt;label> {translaterFun("phone-number")} &lt;/label>
 
-                          <PhoneInput
+                          &lt;PhoneInput
                             // country={"in"}
                             value={countrycode + phonenumber}
                             onChange={routeData?.state?.page == "profilePage" ? handleOnChange1 : ""}
                             className="input_filed"
                           />
-                        </div>}
-                      </div>
+                        &lt;/div>}
+                      &lt;/div>
 
-                    </div>
+                    &lt;/div>
 
-                    <div className='row'>
-                      <div className='col-md-4'>
-                        <div className="formbox mb-3">
-                          <label>{translaterFun("shop-no-optional")}</label>
-                          <Field
+                    &lt;div className='row'>
+                      &lt;div className='col-md-4'>
+                        &lt;div className="formbox mb-3">
+                          &lt;label>{translaterFun("shop-no-optional")}&lt;/label>
+                          &lt;Field
                             name="shop_no"
                             type="text"
                             className={`form-control ${HandleFormData ? "" : "numbersdds"}`}
@@ -615,16 +719,16 @@ const AdminProfilePage = ({ translaterFun }) => {
                             autoComplete="off"
                             placeholder={translaterFun("enter-your-shop-no")}
                           />
-                          <p className="text-danger small mb-0">
-                            <ErrorMessage name="shop_no" />
-                          </p>
-                        </div>
-                      </div>
+                          &lt;p className="text-danger small mb-0">
+                            &lt;ErrorMessage name="shop_no" />
+                          &lt;/p>
+                        &lt;/div>
+                      &lt;/div>
 
-                      <div className='col-md-8'>
-                        <div className="formbox mb-3">
-                          <label>{translaterFun("street-name")} </label>
-                          <Field
+                      &lt;div className='col-md-8'>
+                        &lt;div className="formbox mb-3">
+                          &lt;label>{translaterFun("street-name")} &lt;/label>
+                          &lt;Field
                             name="street"
                             type="text"
                             disabled={HandleFormData ? '' : "true"}
@@ -632,18 +736,18 @@ const AdminProfilePage = ({ translaterFun }) => {
                             autoComplete="off"
                             placeholder={translaterFun("enter-your-street-name")}
                           />
-                          <p className="text-danger small mb-0">
-                            <ErrorMessage name="street" />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                          &lt;p className="text-danger small mb-0">
+                            &lt;ErrorMessage name="street" />
+                          &lt;/p>
+                        &lt;/div>
+                      &lt;/div>
+                    &lt;/div>
 
-                    <div className='row'>
-                      <div className='col-md-4'>
-                        <div className="formbox mb-3">
-                          <label>{translaterFun("city-name")}</label>
-                          <Field
+                    &lt;div className='row'>
+                      &lt;div className='col-md-4'>
+                        &lt;div className="formbox mb-3">
+                          &lt;label>{translaterFun("city-name")}&lt;/label>
+                          &lt;Field
                             name="city"
                             type="text"
                             className={`form-control ${HandleFormData ? "" : "numbersdds"}`}
@@ -651,15 +755,15 @@ const AdminProfilePage = ({ translaterFun }) => {
                             autoComplete="off"
                             placeholder={translaterFun("enter-your-city-name")}
                           />
-                          <p className="text-danger small mb-0">
-                            <ErrorMessage name="city" />
-                          </p>
-                        </div>
-                      </div>
-                      <div className='col-md-8'>
-                        <div className="formbox mb-3">
-                          <label>{translaterFun("landmark-optional")} </label>
-                          <Field
+                          &lt;p className="text-danger small mb-0">
+                            &lt;ErrorMessage name="city" />
+                          &lt;/p>
+                        &lt;/div>
+                      &lt;/div>
+                      &lt;div className='col-md-8'>
+                        &lt;div className="formbox mb-3">
+                          &lt;label>{translaterFun("landmark-optional")} &lt;/label>
+                          &lt;Field
                             name="landmark"
                             type="text"
                             className={`form-control ${HandleFormData ? "" : "numbersdds"}`}
@@ -667,20 +771,20 @@ const AdminProfilePage = ({ translaterFun }) => {
                             autoComplete="off"
                             placeholder={translaterFun("nearby-landmark")}
                           />
-                          <p className="text-danger small mb-0">
-                            <ErrorMessage name="landmark" />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                          &lt;p className="text-danger small mb-0">
+                            &lt;ErrorMessage name="landmark" />
+                          &lt;/p>
+                        &lt;/div>
+                      &lt;/div>
+                    &lt;/div>
+                  &lt;/div>
 
-                  <div className='col-md-6'>
-                    <div className='row'>
-                      <div className='col-md-3'>
-                        <div className="formbox mb-3">
-                          <label>{translaterFun("pincode")}  </label>
-                          <Field
+                  &lt;div className='col-md-6'>
+                    &lt;div className='row'>
+                      &lt;div className='col-md-3'>
+                        &lt;div className="formbox mb-3">
+                          &lt;label>{translaterFun("pincode")}  &lt;/label>
+                          &lt;Field
                             name="pincode"
                             type="text"
                             disabled={HandleFormData ? '' : "true"}
@@ -688,16 +792,16 @@ const AdminProfilePage = ({ translaterFun }) => {
                             autoComplete="off"
                             placeholder={translaterFun("pincode")}
                           />
-                          <p className="text-danger small mb-0">
-                            <ErrorMessage name="pincode" />
-                          </p>
-                        </div>
-                      </div>
+                          &lt;p className="text-danger small mb-0">
+                            &lt;ErrorMessage name="pincode" />
+                          &lt;/p>
+                        &lt;/div>
+                      &lt;/div>
 
-                      <div className='col-md-3'>
-                        <div className="formbox mb-3">
-                          <label>{translaterFun("state")}  </label>
-                          <Field
+                      &lt;div className='col-md-3'>
+                        &lt;div className="formbox mb-3">
+                          &lt;label>{translaterFun("state")}  &lt;/label>
+                          &lt;Field
                             name="state"
                             type="text"
                             disabled={HandleFormData ? '' : "true"}
@@ -705,16 +809,16 @@ const AdminProfilePage = ({ translaterFun }) => {
                             autoComplete="off"
                             placeholder={translaterFun("state")}
                           />
-                          <p className="text-danger small mb-0">
-                            <ErrorMessage name="state" />
-                          </p>
-                        </div>
-                      </div>
+                          &lt;p className="text-danger small mb-0">
+                            &lt;ErrorMessage name="state" />
+                          &lt;/p>
+                        &lt;/div>
+                      &lt;/div>
 
-                      <div className='col-md-6'>
-                        <div className="formbox mb-3">
-                          <label>{translaterFun("country")}  </label>
-                          <Field
+                      &lt;div className='col-md-6'>
+                        &lt;div className="formbox mb-3">
+                          &lt;label>{translaterFun("country")}  &lt;/label>
+                          &lt;Field
                             name="country"
                             type="text"
                             disabled={HandleFormData ? '' : "true"}
@@ -722,16 +826,16 @@ const AdminProfilePage = ({ translaterFun }) => {
                             autoComplete="off"
                             placeholder={translaterFun("country")}
                           />
-                          <p className="text-danger small mb-0">
-                            <ErrorMessage name="country" />
-                          </p>
-                        </div>
-                      </div>
+                          &lt;p className="text-danger small mb-0">
+                            &lt;ErrorMessage name="country" />
+                          &lt;/p>
+                        &lt;/div>
+                      &lt;/div>
 
-                      <div className="col-md-6 mb-3 pe-md-1">
-                        <div className="formbox ">
-                          <label>{translaterFun("url-slug")} </label>
-                          <Field
+                      &lt;div className="col-md-6 mb-3 pe-md-1">
+                        &lt;div className="formbox ">
+                          &lt;label>{translaterFun("url-slug")} &lt;/label>
+                          &lt;Field
                             name="url_slug"
                             type="text"
                             disabled={HandleFormData ? '' : "true"}
@@ -741,16 +845,16 @@ const AdminProfilePage = ({ translaterFun }) => {
                             placeholder={translaterFun("please-enter-unique-slug")}
                           />
 
-                          <p className="text-danger small mb-0">
-                            <ErrorMessage name="url_slug" />
-                          </p>
-                        </div>
-                      </div>
+                          &lt;p className="text-danger small mb-0">
+                            &lt;ErrorMessage name="url_slug" />
+                          &lt;/p>
+                        &lt;/div>
+                      &lt;/div>
 
-                      <div className="col-md-12  mb-3">
-                        <div className="formbox ">
-                          <label> {translaterFun("description")}  </label>
-                          <Field
+                      &lt;div className="col-md-12  mb-3">
+                        &lt;div className="formbox ">
+                          &lt;label> {translaterFun("description")}  &lt;/label>
+                          &lt;Field
                             name="description"
                             type="text"
                             disabled={HandleFormData ? '' : "true"}
@@ -759,129 +863,161 @@ const AdminProfilePage = ({ translaterFun }) => {
                             placeholder={translaterFun("type-here")}
                           />
 
-                          <p className="text-danger small mb-0">
-                            <ErrorMessage name="description" />
-                          </p>
-                        </div>
-                      </div>
+                          &lt;p className="text-danger small mb-0">
+                            &lt;ErrorMessage name="description" />
+                          &lt;/p>
+                        &lt;/div>
+                      &lt;/div>
 
-                    </div>
-                  </div>
-                  <div className='submitbox'>
+                    &lt;/div>
+                  &lt;/div>
+                  &lt;div className='submitbox'>
 
                     {/* {
-                      routeData?.state?.page === "restaurant" && <button type='button' className='btn2' onClick={(e) => resetPasswordFunc(e, routeData)}>
-                        {translaterFun("reset-password")} </button>
+                      routeData?.state?.page === "restaurant" &amp;&amp; &lt;button type='button' className='btn2' onClick={(e) => resetPasswordFunc(e, routeData)}>
+                        {translaterFun("reset-password")} &lt;/button>
                     } */}
 
                     {/* {
-                      routeData?.state?.currentData?.status_type !== "On-Boarded" && routeData?.state?.page !== "restaurant" && <button type='submit' className='btn2 ms-3'  >
-                        {translaterFun("onBoard-and-Create-Password")} </button>
+                      routeData?.state?.currentData?.status_type !== "On-Boarded" &amp;&amp; routeData?.state?.page !== "restaurant" &amp;&amp; &lt;button type='submit' className='btn2 ms-3'  >
+                        {translaterFun("onBoard-and-Create-Password")} &lt;/button>
                     } */}
                     {
-                      <>
+                      &lt;>
 
-                        {routeData?.state?.page === "profilePage" && !HandleFormData &&
-                          <button type="submit" className="btn1 mx-3"
+                        {routeData?.state?.page === "profilePage" &amp;&amp; !HandleFormData &amp;&amp;
+                          &lt;button type="submit" className="btn1 mx-3"
                             onClick={(e) => {
                               submitAction = "primary";
                               setHandleFormData(true)
                             }}
-                          >{translaterFun("edit-profile")}</button>}
+                          >{translaterFun("edit-profile")}&lt;/button>}
 
-                        {HandleFormData && <button type="submit" className="btn2 mx-3"
+                        {HandleFormData &amp;&amp; &lt;button type="submit" className="btn2 mx-3"
                           onClick={(e) => {
                             submitAction = "secondary";
                             handleSubmit(e)
                           }}
-                        > {translaterFun("save-profile")}</button>
+                        > {translaterFun("save-profile")}&lt;/button>
                         }
 
-                      </>
+                      &lt;/>
 
                     }
 
-                  </div>
-                </Form>
+                  &lt;/div>
+                &lt;/Form>
                 )}
 
-              </Formik>
+              &lt;/Formik>
 
-            </div>
-          </div>
-        </div>
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
 
 
 
 
         {/* reset password popup*/}
-        {/* {ResetPasswordPopup && (
-          <PopUpComponent
+        {/* {ResetPasswordPopup &amp;&amp; (
+          &lt;PopUpComponent
             classNameValue={"onboardingpopup "}
             PopUpToggleFun={PopUpToggleFun}
             popUpHookFun={popUpHookFun} >
 
-            <button type="button" className="closebtn" onClick={(e) => closeResetPasswordFun()}> <img src={close} alt="close icon" /> </button>
-            <div className="popuptitle">
-              <h2>{translaterFun("reset-password")} </h2>
-            </div>
-            <div className="popupbody">
-              <Formik
+            &lt;button type="button" className="closebtn" onClick={(e) => closeResetPasswordFun()}> &lt;img src={close} alt="close icon" /> &lt;/button>
+            &lt;div className="popuptitle">
+              &lt;h2>{translaterFun("reset-password")} &lt;/h2>
+            &lt;/div>
+            &lt;div className="popupbody">
+              &lt;Formik
                 initialValues={defaultResetPasswordValue}
                 validationSchema={resetPasswordValidate}
                 onSubmit={resetPasswordSubmit}
               >
-                <Form className="row">
+                &lt;Form className="row">
 
-                  <div className="col-md-12 mb-3">
+                  &lt;div className="col-md-12 mb-3">
 
-                    <div className="formbox">
-                      <label>{translaterFun("password")}  </label>
-                      <Field
+                    &lt;div className="formbox">
+                      &lt;label>{translaterFun("password")}  &lt;/label>
+                      &lt;Field
                         name="new_pass"
                         type="text"
                         className={`form-control `}
                         autoComplete="off"
                         placeholder="************"
                       />
-                      <p className="text-danger small mb-0">
-                        <ErrorMessage name="new_pass" />
-                      </p>
-                    </div>
+                      &lt;p className="text-danger small mb-0">
+                        &lt;ErrorMessage name="new_pass" />
+                      &lt;/p>
+                    &lt;/div>
 
-                  </div>
-                  <div className="col-md-12 mb-3">
+                  &lt;/div>
+                  &lt;div className="col-md-12 mb-3">
 
-                    <div className="formbox mb-3">
-                      <label>{translaterFun("confirm-password")} </label>
-                      <Field
+                    &lt;div className="formbox mb-3">
+                      &lt;label>{translaterFun("confirm-password")} &lt;/label>
+                      &lt;Field
                         name="confirm_pass"
                         type="text"
                         className={`form-control `}
                         autoComplete="off"
                         placeholder="************"
                       />
-                      <p className="text-danger small mb-0">
-                        <ErrorMessage name="confirm_pass" />
-                      </p>
-                    </div>
+                      &lt;p className="text-danger small mb-0">
+                        &lt;ErrorMessage name="confirm_pass" />
+                      &lt;/p>
+                    &lt;/div>
 
-                  </div>
-                  <div className='text-center mt-1'>
-                    <button type="submit" className="btn2 mx-3"> {translaterFun("submit")} </button>
-                  </div>
-                </Form>
-              </Formik>
-            </div>
+                  &lt;/div>
+                  &lt;div className='text-center mt-1'>
+                    &lt;button type="submit" className="btn2 mx-3"> {translaterFun("submit")} &lt;/button>
+                  &lt;/div>
+                &lt;/Form>
+              &lt;/Formik>
+            &lt;/div>
 
-          </PopUpComponent>
+          &lt;/PopUpComponent>
         )} */}
 
 
-      </DashboardLayout>
-      <LodingSpiner loadspiner={loadspiner} />
-    </>
+      &lt;/DashboardLayout>
+      &lt;LodingSpiner loadspiner={loadspiner} />
+    &lt;/>
   )
 }
 
 export default AdminProfilePage
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+
+</body>
+</html>

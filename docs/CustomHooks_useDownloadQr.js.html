@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Harbour Bites FE documentation CustomHooks/usePopUpHook/usePopUpHook.js</title>
+  <title>Harbour Bites FE documentation CustomHooks/useDownloadQr.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -93,7 +93,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>CustomHooks/usePopUpHook/usePopUpHook.js</h1>
+                    <h1>CustomHooks/useDownloadQr.js</h1>
                 </header>
                 
 
@@ -108,21 +108,29 @@
  * @returns {JSX.Element} Custom Hook for PopUp.
  * @category Custom Hook
  */
-const usePopUpHook = () => {        // this hook uses in files: AdminProfilePage.js ,Categories.js, DashboardLayout.js, CreateEditTable.js,
-                                    //ManageOrder.js, Manager.js,  RestaurantDetail.js, Leads.js, Resturant.js, Subscription.js, BookingTable.js,
-                                    //CreateLeadOnBoardPopUpComponent.js
-    const [state,setState] = useState()
-    
-    const toggleFun = (state)=>{
-      console.log("dbnsdsdd",state)
+const useDownloadQr = () => {
+                                // this hook used in these files : AllMedia.js, Dashboard.js, ManageOrder.js, BookingTable
+    const [state, setState] = useState()
+                                         
 
-        setState(state)
-        
+    const QrDownloadHookFun = (parameterData) => {
+
+        console.log("dbncshgds", parameterData)
+
+        parameterData?.map((item, id) => {
+
+            var FileSaver = require('file-saver');
+            FileSaver.saveAs(`${item?.qrcode}`, `${item?.table_number?`Table No ${item?.table_number}`:"DownloadQr"}`);
+
+        })
+
+
     }
-  return [state,toggleFun]
+    
+    return [state, QrDownloadHookFun]
 }
 
-export default usePopUpHook</code></pre>
+export default useDownloadQr</code></pre>
         </article>
     </section>
 

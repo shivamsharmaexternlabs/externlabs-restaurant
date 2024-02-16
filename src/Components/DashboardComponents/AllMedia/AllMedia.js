@@ -16,6 +16,15 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import { Helmet } from "react-helmet";
 import useDownloadQr from '../../../CustomHooks/useDownloadQr';
 
+
+
+/**
+ * AllMedia functional component for managing media.
+ * @returns {JSX.Element} AllMedia  component.
+ * @category AllMedia
+ * @subcategory Dasboard Component
+ */
+
 // Functional component for the AllMedia page
 const AllMedia = ({ translaterFun }) => {
     // Hooks for managing state and navigation
@@ -50,6 +59,13 @@ const AllMedia = ({ translaterFun }) => {
 
     }, [BearerToken])
 
+
+      /**
+   * Handles Multiple upload of file.
+   * @function MultiUploadFun
+   * @param {Event} e - event.
+   * @category AllMedia Function
+   */
     // Handling multiple file upload
     const MultiUploadFun = async (e) => {
         await dispatch(LoadingSpinner(true))
@@ -85,6 +101,14 @@ const AllMedia = ({ translaterFun }) => {
         DownloadQrSetFun([{"qrcode":items}] ) 
     }
 
+    
+      /**
+   * Handles deleting image.
+   * @function DeleteImageFun
+   * @param {Event} e - event.
+   * @param {object} items - items data.
+   * @category AllMedia Function
+   */
     const DeleteImageFun = async (e, items) => {
         await dispatch(LoadingSpinner(true))
         try {

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Harbour Bites FE documentation CustomHooks/usePopUpHook/usePopUpHook.js</title>
+  <title>Harbour Bites FE documentation CustomHooks/LogoutHook/useLogoutHook.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -93,7 +93,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>CustomHooks/usePopUpHook/usePopUpHook.js</h1>
+                    <h1>CustomHooks/LogoutHook/useLogoutHook.js</h1>
                 </header>
                 
 
@@ -103,26 +103,28 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 /**
- * Custom Hook for PopUpHook.
- * @returns {JSX.Element} Custom Hook for PopUp.
+ * Custom Hook for logout.
+ * @returns {JSX.Element} Custom Hook for logout.
  * @category Custom Hook
  */
-const usePopUpHook = () => {        // this hook uses in files: AdminProfilePage.js ,Categories.js, DashboardLayout.js, CreateEditTable.js,
-                                    //ManageOrder.js, Manager.js,  RestaurantDetail.js, Leads.js, Resturant.js, Subscription.js, BookingTable.js,
-                                    //CreateLeadOnBoardPopUpComponent.js
-    const [state,setState] = useState()
-    
-    const toggleFun = (state)=>{
-      console.log("dbnsdsdd",state)
+const useLogoutHook = () => {
 
-        setState(state)
-        
-    }
-  return [state,toggleFun]
+  const navigate = useNavigate()
+
+  const logoutHookFun = (state) => {    // hook use in these files:DashboarderHeader.js ,KdsSreen.js, DashboardSidebar.js
+    navigate("/")
+    var myItem = localStorage.getItem('languageSet');
+    localStorage.clear();
+    localStorage.setItem('languageSet', myItem);
+    window.location.reload()
+
+  }
+  return [logoutHookFun]
 }
 
-export default usePopUpHook</code></pre>
+export default useLogoutHook</code></pre>
         </article>
     </section>
 

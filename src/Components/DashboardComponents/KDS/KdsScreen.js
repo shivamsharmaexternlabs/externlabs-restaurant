@@ -3,9 +3,9 @@ import kdslogo from '../../../images/kdslogo.svg'
 import './kdsScreen.css'
 import Logout from '../../../images/logout.svg'
 import KdsBox from './KdsBox'
-import { useNavigate } from 'react-router-dom'
 import LanguageComponent from '../../../ReusableComponents/LanguageComponent/LanguageComponent'
- 
+import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
+
 
 /**
  * KdsScreen component represents the main screen of the kitchen display system (KDS).
@@ -14,13 +14,16 @@ import LanguageComponent from '../../../ReusableComponents/LanguageComponent/Lan
  *
  */
 function KdsScreen() {
-    const navigate = useNavigate()
+    const [logoutHookFun] = useLogoutHook('')
 
-    /**
-     * Handles the logout action.
-     */
+     /**
+   * Handles logout  .
+   * @function handleLogout
+   * @category KdsScreen function
+   * @subCategory Dashboard Component
+   */
     const handleLogout = () => {
-        navigate('/')
+        logoutHookFun()
     }
 
     return (

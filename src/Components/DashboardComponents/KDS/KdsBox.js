@@ -31,11 +31,29 @@ function KdsBox() {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [currentOrder, setCurrentOrder] = useState(null);
 
+  /**
+   * Handles current order status data .
+   * @function handleStartCooking
+   * @param {number} itemIndex - itemIndex contain index.
+   *  @param {number} orderIndex - orderIndex contain index.
+   * @param {object} order - order contain data.
+   * @category KdsBox Functions
+   * @subCategory Dashboard Component
+   */
   const handleStartCooking = (itemIndex, orderIndex, order) => {
     let kot_id = order?.kot_id
     setCurrentOrder({ itemIndex, orderIndex, kot_id });
     setShowConfirmation(true);
   };
+
+
+  /**
+  * Handles status confirmation .
+  * @function handleConfirmation
+  * @param {boolean} confirmed - parms contain confirmed for confirming the order status .
+  * @category KdsBox Functions
+  * @subCategory Dashboard Component
+  */
 
   const handleConfirmation = async (confirmed) => {
     if (confirmed && currentOrder && GetKdsReducerData && GetKdsReducerData.data) {

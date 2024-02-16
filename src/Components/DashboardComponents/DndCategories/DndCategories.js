@@ -14,6 +14,15 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import defaultImage from "../../../images/defaultImage.png";
 import { Helmet } from "react-helmet";
 
+/**
+ * DndCategories component for handling drag and drop functionality of menu categories.
+ * @category Dashboard Component
+ * @param {object} props - Component props.
+ * @param {function} props.translaterFun - Function for translating text.
+ * @returns {JSX.Element} DndCategories component.
+ * 
+ */
+
 function DndCategories({ translaterFun }) {
     const dispatch = useDispatch();
     const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
@@ -32,11 +41,28 @@ function DndCategories({ translaterFun }) {
     const navigate = useNavigate();
 
 
+    /**
+  * Handles startDrag .
+  * @function startDrag
+  * @param {event} e - e is the event..
+  * @param {object} item - item is the object.
+  * @category DndCategories function
+  * @subCategory Dashboard Component
+  */
     const startDrag = (e, item) => {
 
         e.dataTransfer.setData('text/plain', ''); // required for Firefox to enable drag
         setDraggedItem(item);
     };
+
+    /**
+   * Handles  dragging  .
+   * @function handleDragOver
+  * @param {event} e - e is the event..
+  * @param {object} item - item is the object.
+   * @category DndCategories function
+   * @subCategory Dashboard Component
+   */
 
     const handleDragOver = (e, item) => {
         e.preventDefault();
@@ -46,7 +72,14 @@ function DndCategories({ translaterFun }) {
     };
 
 
-
+    /**
+     * Handles dropping of item.
+     * @function handleDrop
+     * @param {event} e - e is the event..
+     * @param {object} item - item is the object.
+     * @category DndCategories function
+     * @subCategory Dashboard Component
+     */
     const handleDrop = (e, item) => {
 
         e.preventDefault();
@@ -94,10 +127,18 @@ function DndCategories({ translaterFun }) {
 
 
 
-
     const handleDragEnd = () => {
         setDraggedItem(null);
     };
+
+
+    /**
+    * Handles Dnd Update.
+    * @function handleDndUpdate 
+    * @returns {void}
+    * @category DndCategories function
+    * @subCategory Dashboard Component
+    */
 
     const handleDndUpdate = () => {
 
