@@ -1365,19 +1365,19 @@ const Categories = ({ translaterFun }) => {
                                   <button type="button">
                                     <img src={dot} alt="img" />
                                   </button>
-                                  {item?.menu_id === OpenMenuActionToggle && dotModalOpen && 
-                                  <div ref={dotBtnRef} className="btnbox">
-                                    <button type="button" className="editbtn"
-                                      onClick={(e) =>
-                                        PopUpEditCategoriesToggleFun(e, item)
-                                      }
-                                    >
-                                      <img src={edit1} alt="img" />{" "} {translaterFun("edit")}
-                                    </button>
-                                    <button className="deletbtn" onClick={(e) => DeleteCategoryfun(e, item)}>
-                                      <img src={deleteicon} alt="delete icon " /> {translaterFun("delete")}
-                                    </button>
-                                  </div>}
+                                  {item?.menu_id === OpenMenuActionToggle && dotModalOpen &&
+                                    <div ref={dotBtnRef} className="btnbox">
+                                      <button type="button" className="editbtn"
+                                        onClick={(e) =>
+                                          PopUpEditCategoriesToggleFun(e, item)
+                                        }
+                                      >
+                                        <img src={edit1} alt="img" />{" "} {translaterFun("edit")}
+                                      </button>
+                                      <button className="deletbtn" onClick={(e) => DeleteCategoryfun(e, item)}>
+                                        <img src={deleteicon} alt="delete icon " /> {translaterFun("delete")}
+                                      </button>
+                                    </div>}
                                 </div>
                                 <div>
                                   <figure className="curserer" >
@@ -1408,21 +1408,15 @@ const Categories = ({ translaterFun }) => {
                                 <button key={id}
                                   className={`${ActiveCategory?.data === item?.menu_id ? "active sadfs" : "No-active sadfs"
                                     } nav-link`}
-
-                                // id="nav-dishes1-tab"
-                                // data-bs-toggle="tab"
-                                // data-bs-target="#nav-dishes1"
-                                // type="button"
-                                // role="tab"
-                                // aria-controls="nav-dishes1"
-                                // aria-selected="true"
                                 >
 
-                                  <div className="editinfobtnbox" onClick={(e) => {
+                                  <div className="editinfobtnbox" ref={dotRef} onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
                                     OpenActionToggleMenuFun(e, item);
                                     CategoryTabFun(e, item, "3dots");
-                                  }}
-                                  >
+                                    openDotModal()
+                                  }}>
                                     <button type="button">
                                       <img src={dot} alt="img" />
                                     </button>

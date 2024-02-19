@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { GetManageOrderTableSlice, PostManageOrderTableSlice, UpdateManageOrderTableSlice } from '../../../Redux/slices/manageOrderTableSlice';
 
-const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData,OpenAction }) => {
+const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData, OpenActionFun }) => {
 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const dispatch = useDispatch();
@@ -34,40 +34,74 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
         TableNo: yup.string().required(translaterFun("enter-table-no")),
     });
 
-    const handleEditCategorySubmit = async (values) => {
+    const handleCreateEditTableSubmit = async (values) => {
         await dispatch(LoadingSpinner(true))
 
         console.log("gdcfghds", EditTableData, values)
+        console.log("bhdvsdsd", tableProperty)
 
-        let handleEditCategoryTablePayload = {
-            "restaurant_id": RestaurantIdLocalStorageData,
-            "table_id" : EditTableData?.table_id,
-            "category": values?.category_en,
-            "no_of_persons": values?.Capacity,
-            "table_number": values?.TableNo,
-            BearerToken
-        }
-        try {
-            let responseData = await dispatch(UpdateManageOrderTableSlice(handleEditCategoryTablePayload));
+        if (tableProperty === "add-new-table") {
+            try {
+                let handleCreateTablePayload = {
+                    "restaurant_id": RestaurantIdLocalStorageData,
+                    "category": values?.category_en,
+                    "no_of_persons": values?.Capacity,
+                    "table_number": values?.TableNo,
+                    BearerToken
+                }
 
-            console.log("mhjhsdsd", responseData)
-            if (responseData?.payload?.status == 200) {
-                closePopup(false)
-                // setOpenMenuActionToggle()
-                await dispatch(LoadingSpinner(false))
+                let responseData = await dispatch(PostManageOrderTableSlice(handleCreateTablePayload));
 
+                console.log("mhjhsdsd", responseData)
+                if (responseData?.payload?.status == 201) {
+                    closePopup(false)
+                    // setOpenMenuActionToggle()
+                    await dispatch(LoadingSpinner(false))
+
+                }
+                else {
+                    await dispatch(LoadingSpinner(false))
+                }
+
+                setTimeout(async () => {
+                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken }))
+                }, 500)
             }
-            else {
+            catch (error) {
                 await dispatch(LoadingSpinner(false))
             }
-
-            setTimeout(async () => {
-                await dispatch(GetManageOrderTableSlice({ RestaurantId : RestaurantIdLocalStorageData, BearerToken }))
-              }, 500)
-
         }
-        catch (error) {
-            await dispatch(LoadingSpinner(false))
+        else {
+            try {
+                let handleEditTablePayload = {
+                    "restaurant_id": RestaurantIdLocalStorageData,
+                    "table_id": EditTableData?.table_id,
+                    "category": values?.category_en,
+                    "no_of_persons": values?.Capacity,
+                    "table_number": values?.TableNo,
+                    BearerToken
+                }
+
+                let responseData = await dispatch(UpdateManageOrderTableSlice(handleEditTablePayload));
+
+                console.log("mhjhsdsd", responseData)
+                if (responseData?.payload?.status == 200) {
+                    closePopup(false)
+                    // setOpenMenuActionToggle()
+                    await dispatch(LoadingSpinner(false))
+
+                }
+                else {
+                    await dispatch(LoadingSpinner(false))
+                }
+
+                setTimeout(async () => {
+                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken }))
+                }, 500)
+            }
+            catch (error) {
+                await dispatch(LoadingSpinner(false))
+            }
         }
     };
 
@@ -78,11 +112,11 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
 
     const CancelCategoryBtnFun = () => {
         closePopup(false)
-        OpenAction(false)
+        OpenActionFun(false)
     };
 
 
-    console.log("bhdvsdsd",tableProperty)
+
 
     return (
         <div>
@@ -102,7 +136,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                         <Formik
                             initialValues={defaultEditValueCategory}
                             validationSchema={ValidateEditCategory}
-                            onSubmit={handleEditCategorySubmit}
+                            onSubmit={handleCreateEditTableSubmit}
                         >
                             <Form className="row">
                                 <img src={category} alt="manager img" class="categoryimg" />

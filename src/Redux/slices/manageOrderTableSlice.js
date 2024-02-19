@@ -15,7 +15,7 @@ export const PostManageOrderTableSlice = createAsyncThunk("PostManageOrderTableS
       ,
       {
         headers: {
-          Authorization: `Bearer ${body?.token}`,
+          Authorization: `Bearer ${body?.BearerToken}`,
           "Accept-Language": languageSet
         },
       }

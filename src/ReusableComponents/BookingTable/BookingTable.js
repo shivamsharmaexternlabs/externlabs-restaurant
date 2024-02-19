@@ -232,7 +232,7 @@ const BookingTable = ({ translaterFun }) => {
                 closePopup={popUpCategoriesHookFun}
                 tableProperty={"edit-table"}
                 EditTableData={EditTableData}
-                OpenAction={setOpenAction}
+                OpenActionFun={setOpenAction}
 
             />}
         </>
