@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { GetManageOrderTableSlice, PostManageOrderTableSlice, UpdateManageOrderTableSlice } from '../../../Redux/slices/manageOrderTableSlice';
 
-const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData }) => {
+const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData,OpenAction }) => {
 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const dispatch = useDispatch();
@@ -78,7 +78,11 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
 
     const CancelCategoryBtnFun = () => {
         closePopup(false)
+        OpenAction(false)
     };
+
+
+    console.log("bhdvsdsd",tableProperty)
 
     return (
         <div>

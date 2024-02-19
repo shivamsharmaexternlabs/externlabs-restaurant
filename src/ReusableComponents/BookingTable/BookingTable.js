@@ -149,7 +149,8 @@ const BookingTable = ({ translaterFun }) => {
     const EditTableFun = (e, items) => {
         setEditTableData(items)
         setOpenMenuActionToggle(null);
-        return items
+        setOpenAction(o=>!o)
+        
     }
 
     const DownloadQrFun = async (e, item) => {
@@ -225,14 +226,15 @@ const BookingTable = ({ translaterFun }) => {
                 </>
             })}
 
-            <CreateEditTable BookingTable
+          {openAction  &&  <CreateEditTable BookingTable
                 translaterFun={translaterFun}
                 openPopup={popUpcategoriesHook}
                 closePopup={popUpCategoriesHookFun}
                 tableProperty={"edit-table"}
                 EditTableData={EditTableData}
+                OpenAction={setOpenAction}
 
-            />
+            />}
         </>
     )
 }
