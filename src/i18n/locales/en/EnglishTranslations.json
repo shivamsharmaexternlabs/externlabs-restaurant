@@ -287,6 +287,7 @@
   "role-is-required":"Role is required",
   "select-role":" Select Role...",
   "staff-deleted-successfully" : "Staff Deleted Successfully",
-  "download-all-qr" : "Download All QR"
+  "download-all-qr" : "Download All QR",
+  "sample-download" : "Sample Download"
 
 }

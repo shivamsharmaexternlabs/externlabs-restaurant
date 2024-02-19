@@ -123,20 +123,20 @@ const ManageOrder = ({ translaterFun }) => {
             console.log("respokjhgfhnse", response)
             // resetFileInput();
 
-            if (response?.payload?.status === 200) { 
+            if (response?.payload?.status === 200) {
                 // await dispatch(LoadingSpinner(true))
 
                 setTimeout(async () => {
                     await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }))
                 }, 500)
-            }  
+            }
 
             await dispatch(LoadingSpinner(false))
         } catch (error) {
             await dispatch(LoadingSpinner(false))
         }
     }
-
+// console.log("TableTypeData", TableTypeData)
     return (
         <>
             <Helmet>
@@ -150,6 +150,11 @@ const ManageOrder = ({ translaterFun }) => {
                     <div className="contentpart manageorderpage">
                         <div className='text-end mb-3'>
                             {/* <button type='button' className='btn2'> Bulk Upload  </button> */}
+                            <div className="uploadbtn-wrapper btn2">
+                                <button type="button" onClick={(e) => SampleTableDownload(e)}>
+                                    {translaterFun("sample-download")}
+                                </button>
+                            </div>
 
                             <div className="uploadbtn-wrapper btn2">
                                 <button type="button" className=''>
@@ -175,12 +180,6 @@ const ManageOrder = ({ translaterFun }) => {
                                 </svg>
                                 {translaterFun("add-table")}
                             </button>
-
-                            <div className="uploadbtn-wrapper btn2">
-                                <button type="button" onClick={(e) => SampleTableDownload(e)}>
-                                    Sample Download
-                                </button>
-                            </div>
 
                         </div>
                         <div className='infotable'>
