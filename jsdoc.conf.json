@@ -1,7 +1,8 @@
 {
   "tags": {
       "allowUnknownTags": true,
-      "dictionaries": ["jsdoc"]
+      "dictionaries": ["jsdoc"],
+      "removeGlobal": "GLOBAL"
   },
   "plugins": [
       "plugins/markdown",
@@ -19,7 +20,7 @@
   },
   "source": {
       "include": [ "./src" ],
-      "exclude": [ "./src/**/*.text,tsx", "./src/**/*.test.ts" ],
+      "exclude": [ "./src/**/*.text", "./src/**/*.tsx", "./src/**/*.test.ts" ],
       "includePattern": "\\.(jsx|js|ts|tsx)$",
       "excludePattern": "(^|\\/|\\\\)_"
   },

@@ -129,6 +129,9 @@
     padding: 15px;
 
 }
+.kgcardlist>li > .leftpart {
+    width: calc(100% - 150px);
+}
 
 .kgcardlist>li h3 {
     font-size: 16px;
@@ -152,6 +155,7 @@
 
 .kgcardlist>li button img {
     width: 22px;
+    margin-left: 3px;
 }
 
 
@@ -229,6 +233,28 @@
     border-radius: 10px;
 }
 
+/* arabic Css    */
+
+
+.arabic .kgcardbox   {
+    margin-right: 0;
+    margin-left: 30px;
+}
+
+.arabic .kgcardbox:nth-child(4n+4) {
+    margin-left: 0;
+}
+.arabic  .deliveryinfo>h3>img {
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+.arabic .kgcardlist>li button img {
+    margin-left: 0;
+    margin-right: 3px;;
+
+}
+
 
 
 /**************************** Responsive css *********************************/
@@ -243,6 +269,15 @@
     }
 
     .kgcardbox:nth-child(3n+3) {
+        margin-right: 0;
+    }
+
+    .arabic .kgcardbox:nth-child(4n+4) {
+        margin-left: 30px;
+        margin-right: 0;
+    }
+    .arabic .kgcardbox:nth-child(3n+3) {
+        margin-left: 0;
         margin-right: 0;
     }
 }
@@ -288,6 +323,13 @@
         margin-right: 15px;
     }
 
+    .arabic .kgcardbox {
+        margin-left: 15px;
+    }
+    .arabic .kgcardbox:nth-child(4n+4){
+        margin-left: 15px;
+    }
+
 }
 
 
@@ -304,6 +346,10 @@
     .kgcardbox:nth-child(2n+2) {
         margin-right: 0;
     }
+    .arabic .kgcardbox,
+    .arabic .kgcardbox:nth-child(4n+4)  {
+        margin-left: 0;
+    }
 
 }
 
@@ -316,6 +362,9 @@
         margin-right: 0px;
     }
 }
+
+
+
 
 
 
