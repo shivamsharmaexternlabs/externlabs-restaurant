@@ -31,6 +31,32 @@ export const PostManageOrderTableSlice = createAsyncThunk("PostManageOrderTableS
   }
 });
 
+
+// Post Bulk Upload Order Table
+export const PostBulkTableUploadSlice = createAsyncThunk("PostBulkTableUploadSlice", async (body, { rejectWithValue }) => {
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}restaurant_app/bulk_table_upload/`,
+      body?.formData
+      ,
+      {
+        headers: {
+          Authorization: `Bearer ${body?.BearerToken}`,
+          "Accept-Language": languageSet
+        },
+      }
+
+    );
+    toast.success(response?.data?.message);
+
+    return response;
+
+  } catch (err) {
+    toast.error(err?.response?.data?.error);
+    return rejectWithValue(err);
+  }
+});
+
+
 // Update Manage Order Table
 export const UpdateManageOrderTableSlice = createAsyncThunk("UpdateManageOrderTableSlice", async (body, { rejectWithValue }) => {
 console.log("body", body)

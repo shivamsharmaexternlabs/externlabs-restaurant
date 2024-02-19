@@ -16,7 +16,7 @@ import { GetQrCodeSlice } from '../../../Redux/slices/qrCodeSlice.js';
 import { useDispatch } from 'react-redux';
 import useDownloadQr from '../../../CustomHooks/useDownloadQr.js';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { GetSampleTableDownloadSlice } from '../../../Redux/slices/manageOrderTableSlice.js';
+import { GetManageOrderTableSlice, GetSampleTableDownloadSlice, PostBulkTableUploadSlice } from '../../../Redux/slices/manageOrderTableSlice.js';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle.js';
 
 
@@ -62,7 +62,7 @@ const ManageOrder = ({ translaterFun }) => {
     }, [])
 
 
-    const BulkDownlod = async () => {
+    const BulkDownload = async () => {
         let responseData = await dispatch(GetQrCodeSlice({
             restaurant_id: RestaurantId,
             table_id: "",
@@ -82,12 +82,12 @@ const ManageOrder = ({ translaterFun }) => {
 
 
 
-    const SampleTableDownload = async(e) => {
+    const SampleTableDownload = async (e) => {
         try {
 
             let responseData = await dispatch(GetSampleTableDownloadSlice());
             if (responseData?.payload?.status === 200) {
-                DownloadQrSetFun([{"qrcode":responseData?.payload?.data}], "bulk_table_sample_file")
+                DownloadQrSetFun([{ "qrcode": responseData?.payload?.data }], "bulk_table_sample_file")
             }
             console.log("responseData", responseData)
 
@@ -97,7 +97,40 @@ const ManageOrder = ({ translaterFun }) => {
         }
 
     }
+    const UploadMenuFile = async (e) => {
+        await dispatch(LoadingSpinner(true))
 
+        const formData = new FormData();
+
+        formData.append("file", e?.target?.files?.[0]);
+        formData.append("restaurant_id", RestaurantId);
+
+        const UploadPayload = {
+            formData,
+            BearerToken
+        }
+
+        try {
+            // let response = await dispatch(UploadMenuSlice(UploadPayload));
+            let response = await dispatch(PostBulkTableUploadSlice(UploadPayload));
+
+
+            console.log("respokjhgfhnse", response)
+            // resetFileInput();
+
+            if (response?.payload?.status === 200) { 
+                // await dispatch(LoadingSpinner(true))
+
+                setTimeout(async () => {
+                    await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }))
+                }, 500)
+            }  
+
+            await dispatch(LoadingSpinner(false))
+        } catch (error) {
+            await dispatch(LoadingSpinner(false))
+        }
+    }
 
     return (
         <>
@@ -119,15 +152,15 @@ const ManageOrder = ({ translaterFun }) => {
                                 </button>
 
                                 <input type="file" accept=".xlxs, .xlsx, .xls, .pdf"
-                                // ref={inputRef}
-                                // onChange={(e) => UploadMenuFile(e)}
+                                    // ref={inputRef}
+                                    onChange={(e) => UploadMenuFile(e)}
                                 />
                             </div>
 
 
                             <div className="uploadbtn-wrapper btn2">
-                                <button type="button" onClick={(e) => BulkDownlod(e)}>
-                                    all download
+                                <button type="button" onClick={(e) => BulkDownload(e)}>
+                                    {translaterFun("download-all-qr")}
                                 </button>
                             </div>
 
@@ -138,11 +171,11 @@ const ManageOrder = ({ translaterFun }) => {
                                 {translaterFun("add-table")}
                             </button>
 
-                            {/* <div className="uploadbtn-wrapper btn2">
+                            <div className="uploadbtn-wrapper btn2">
                                 <button type="button" onClick={(e) => SampleTableDownload(e)}>
                                     Sample Download
                                 </button>
-                            </div> */}
+                            </div>
 
                         </div>
                         <div className='infotable'>

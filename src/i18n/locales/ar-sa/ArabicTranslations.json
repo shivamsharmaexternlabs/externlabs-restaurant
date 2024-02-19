@@ -283,7 +283,9 @@
   "download-QR":"تحميل QR",
   "bulk-upload":"تحميل مجمع",
   "role-is-required":"الدور مطلوب",
-  "select-role":" حدد الدور..."
+  "select-role":" حدد الدور...",
+  "staff-deleted-successfully" : "تم حذف الموظفين بنجاح",
+  "download-all-qr" : "تحميل جميع QR"
 
 
 

@@ -35,6 +35,7 @@ const Manager = ({ translaterFun }) => {
     const [UserId, setUserId] = useState("")
     const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
     let BearerToken = reactLocalStorage.get("Token", false);
+    let LanguageSet = reactLocalStorage.get("languageSet", false);
 
     const [countrycode, setCountryCode] = useState("+91");
     const [phonenumber, setPhoneNumber] = useState("");
@@ -78,6 +79,7 @@ const Manager = ({ translaterFun }) => {
 
 
     useEffect(() => {
+        console.log("SignUpSelectorData", SignUpSelectorData)
         if (SignUpSelectorData?.data?.status === 201) {
             setLoadSpiner(false);
             popUpHookFun(false);
@@ -159,13 +161,18 @@ const Manager = ({ translaterFun }) => {
                 // popUpHookFun((o) => !o);
                 // dispatch(ToggleNewLeads(false))
                 // setLeadPopupToggle(false)
-                await dispatch(SignUpSlice(SignUpForOnBoardPayload))
+                let responseData = await dispatch(SignUpSlice(SignUpForOnBoardPayload))
+
+                // if(responseData?.payload?.response?.status === 400){
+
+                // }
+
+                console.log("responseData", responseData);
                 dispatch(LoadingSpinner(false))
     
             }
             else {
                 toast.error(translaterFun("please-enter-your-number"));
-    
             }
 
             
@@ -196,7 +203,11 @@ const Manager = ({ translaterFun }) => {
         await dispatch(LoadingSpinner(true));
 
         try {
-            await dispatch(ManagerDeleteSlice({ item, BearerToken }))
+            let responseData = await dispatch(ManagerDeleteSlice({ item, BearerToken }))
+            console.log("responseDataresponseData", responseData, item)
+            if(responseData?.payload?.status === 204){
+                toast.success(translaterFun("staff-deleted-successfully"))
+            }
             deletePopUpFun(false)
             setCurrentPage(0);
             let ManagerSlicePayload = {
@@ -272,7 +283,7 @@ console.log("bsdvhhdsd",data?.results)
                                         <td>{`${items?.first_name}`}</td>
                                         <td>{items?.email}</td>
                                         <td> {items?.country_code} {items?.phone_number}</td>
-                                        <td>{items?.groups?.[0]?.name}</td>
+                                        <td>{LanguageSet === "en" ? items?.role?.[0]?.name : items?.role?.[0]?.name_native}</td>
                                         <td>
                                             <button className='asbtn' onClick={(e) => handleDelete(e, items)}>
                                                 {translaterFun("delete")} </button>

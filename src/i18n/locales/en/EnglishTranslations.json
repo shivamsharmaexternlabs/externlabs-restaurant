@@ -285,6 +285,8 @@
   "download-QR":"Download QR",
   "bulk-upload":"Bulk Upload",
   "role-is-required":"Role is required",
-  "select-role":" Select Role..."
+  "select-role":" Select Role...",
+  "staff-deleted-successfully" : "Staff Deleted Successfully",
+  "download-all-qr" : "Download All QR"
 
 }
