@@ -18,6 +18,7 @@ import useDownloadQr from '../../../CustomHooks/useDownloadQr.js';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { GetManageOrderTableSlice, GetSampleTableDownloadSlice, PostBulkTableUploadSlice } from '../../../Redux/slices/manageOrderTableSlice.js';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle.js';
+import ViewKot from './ViewKot.js';
 
 
 // Functional component for the ManageOrder page
@@ -73,8 +74,12 @@ const ManageOrder = ({ translaterFun }) => {
         if (responseData?.payload.status == 200) {
 
             // await dispatch(LoadingSpinner(false))
+            var blob = new Blob([responseData?.payload?.data], { type: "application/zip" });
+            var objectUrl = URL.createObjectURL(blob);
+            window.open(objectUrl);
 
-            DownloadQrSetFun(responseData?.payload?.data?.results)
+
+
 
         }
     }
@@ -226,6 +231,8 @@ const ManageOrder = ({ translaterFun }) => {
 
                 {/* add table end */}
             </div>
+            <ViewKot />
+
             <LodingSpiner />
         </>
     )

@@ -213,6 +213,7 @@
   /* height: calc(100vh - 270px); */
   height: auto;
   overflow: auto;
+  width: 100%;
  
   /* overflow: auto; */
 }

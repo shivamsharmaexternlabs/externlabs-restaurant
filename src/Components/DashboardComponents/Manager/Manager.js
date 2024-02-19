@@ -339,7 +339,6 @@ console.log("bsdvhhdsd",data?.results)
                             </h2>
                         </div>
                         <div className='popupbody'>
-
                             <img src={manager} alt='manager img' className='managerimg' />
                             <Formik
                                 initialValues={defaultValue}
