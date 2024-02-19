@@ -11,7 +11,7 @@ let languageSet = reactLocalStorage.get("languageSet", "en");
   try {
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/qrcodes/?restaurant_id=${body?.restaurant_id}&table_id=${body?.table_id ? body?.table_id : ""}&type=${body?.type ? body?.type : ""}`,
     {
-      responseType: "arraybuffer",
+      responseType: body?.type == "all" ? "arraybuffer" : "",
       headers: {
         "Accept-Language": languageSet, 
         Authorization : `Bearer ${body?.BearerToken}`

@@ -51,6 +51,9 @@ const Dashboard = ({ translaterFun }) => {
   const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
   const PaymentSelectorData = useSelector((state) => state.PaymentApiData);
 
+
+  console.log("QrApiSelectorData", QrApiSelectorData)
+
   let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
   let FirstName = reactLocalStorage.get("FirstName", false);
   let BearerToken = reactLocalStorage.get("Token", false);
@@ -60,8 +63,12 @@ const Dashboard = ({ translaterFun }) => {
 
   useEffect(() => {
     setData(ManagerApiSelectorData?.data)
-    setQrImage(QrApiSelectorData?.data?.results[0]?.qrcode)
+    setQrImage(QrApiSelectorData?.data?.results?.[0]?.qrcode)
   }, [ManagerApiSelectorData, QrApiSelectorData]);
+
+
+
+  console.log("QrImage", QrImage, QrApiSelectorData)
 
   useEffect(() => {
 
