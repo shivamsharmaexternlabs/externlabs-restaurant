@@ -237,12 +237,20 @@ padding-right: 10px;
   text-align: center;
   width: calc(100%/10 - 50px);
   margin-right: 35px;
+  flex-wrap: wrap;
   position: relative;
+  word-break: break-all;
+  line-height: 1;
 }
 
 .actablelist  > li>:nth-child(10n+10) {
   margin-left: 0;
 }
+
+.manageorderpage .btngroup {
+  text-align: right;
+}
+
 
 .manageorderpage .uploadbtn-wrapper>button {
   color: #fff;
@@ -403,6 +411,49 @@ padding-right: 10px;
   margin-left: 5px;
   margin-right: 0;
 }
+
+
+.arabic .manageorderpage .btngroup {
+  text-align: left;
+}
+.arabic  .manageorderpage .uploadbtn-wrapper {
+  margin-left: 0;
+  margin-right: 10px;
+}
+.arabic  .manageorderpage .infotable > div div {
+  padding-right: 5px;
+  margin-left: 10px;
+}
+
+.arabic .manageorderpage .infotable > div + div {
+  margin-left: 0;
+} 
+
+.arabic .actablelist > li {
+  margin-left: 35px;
+  margin-right: 0;
+}
+
+.arabic .acedittable {
+  position: absolute;
+  top: 5px;
+  left: auto;
+  right: 5px;
+}
+
+.arabic .acedittable > .btnbox {
+  top: 32px;
+  right: 2px;
+}
+
+.arabic .acedittable .btnbox:after {
+  left: auto;
+  transform: rotateX(148deg) rotateY(-14deg);
+  right: -6px;
+  top: -14px;
+}
+
+
 
 /***************** responsive css ***********************/
 

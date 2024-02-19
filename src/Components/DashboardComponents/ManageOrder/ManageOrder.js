@@ -147,8 +147,9 @@ const ManageOrder = ({ translaterFun }) => {
             <DashboardLayout>
                 <div className='dasboardbody'>
                     <DashboardSidebar />
-                    <div className="contentpart manageorderpage">
-                        <div className='text-end mb-3'>
+                    <div className="contentpart manageorderpage" >
+                        <div  > 
+                        <div className='btngroup mb-3'  >
                             {/* <button type='button' className='btn2'> Bulk Upload  </button> */}
                             <div className="uploadbtn-wrapper btn2">
                                 <button type="button" onClick={(e) => SampleTableDownload(e)}>
@@ -174,13 +175,14 @@ const ManageOrder = ({ translaterFun }) => {
                                 </button>
                             </div>
 
-                            <button type='button' className='btn2 me-0' onClick={(e) => AddTableFun(e)}>
+                            <button type='button' className='btn2' onClick={(e) => AddTableFun(e)}>
                                 <svg width="13" height="13" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
                                 </svg>
                                 {translaterFun("add-table")}
                             </button>
 
+                        </div>
                         </div>
                         <div className='infotable'>
                             <div className='leftpart'>
