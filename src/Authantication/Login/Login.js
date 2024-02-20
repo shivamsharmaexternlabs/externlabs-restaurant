@@ -12,6 +12,8 @@ import PasswordEye from "../../ReusableComponents/PasswordEye/PasswordEye";
 import { useTranslation } from "react-i18next";
 import { GetRestaurantsOnBoardSlice } from "../../Redux/slices/leadsRestaurantSlice";
 import { Helmet } from "react-helmet";
+import LodingSpiner from "../../Components/LoadingSpinner/LoadingSpinner";
+import { LoadingSpinner } from "../../Redux/slices/sideBarToggle";
 
 /**
  * Login functional component for Login.
@@ -27,7 +29,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   // State for managing loading spinner
-  const [loadspiner, setLoadSpiner] = useState(false);
+  const [LoadSpiner, setLoadSpiner] = useState(false);
 
   // State for managing password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -48,7 +50,8 @@ const Login = () => {
   useEffect(() => {
     // Checking if the status is 200, indicating successful login
     if (User?.data?.status === 200) {
-      setLoadSpiner(false);
+      // setLoadSpiner(false);
+      dispatch(LoadingSpinner(false))
       console.log("sdasfsdf", User?.data)
 
       // dispatch(GetRestaurantsOnBoardSlice({ RestaurantId: User?.data?.data?.restaurants?.[0]?.restaurant_id, Token: User?.data?.data?.token }))
@@ -79,7 +82,8 @@ const Login = () => {
 
     // Checking for a 400 status error in the Redux store data
     if (User?.error?.response?.status === 400) {
-      setLoadSpiner(false);
+      dispatch(LoadingSpinner(false))
+
     }
 
     if (User?.data.length == 0) {
@@ -113,8 +117,10 @@ const Login = () => {
    */
   const handleSubmit = (values) => {
 
+    dispatch(LoadingSpinner(true))
+
+
     dispatch(SignInSlice(values));
-    setLoadSpiner(true);
   };
   /**
      * Handles Language Change.
@@ -245,6 +251,7 @@ const Login = () => {
           </div>
         </Formik>
       </div>
+      <LodingSpiner loadspiner={LoadSpiner} />
     </>
   );
 };
