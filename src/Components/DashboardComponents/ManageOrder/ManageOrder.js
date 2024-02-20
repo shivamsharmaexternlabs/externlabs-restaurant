@@ -1,5 +1,5 @@
 // Importing necessary dependencies and assets
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import "./ManageOrder.css"
 import "./ManageOrder.js"
 import DashboardLayout from '../DashboardLayout/DashboardLayout';
@@ -28,6 +28,7 @@ const ManageOrder = ({ translaterFun }) => {
     const [ItemData, setItemData] = useState("")
     const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
     const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
+    const inputRefBulkTableUpload = useRef(null);
 
     // Hooks for managing state and navigation
     const dispatch = useDispatch();
@@ -102,6 +103,12 @@ const ManageOrder = ({ translaterFun }) => {
         }
 
     }
+
+    const resetFileInput = () => {
+        inputRefBulkTableUpload.current.value = null;
+    }
+
+
     const UploadMenuFile = async (e) => {
         await dispatch(LoadingSpinner(true))
 
@@ -121,7 +128,7 @@ const ManageOrder = ({ translaterFun }) => {
 
 
             console.log("respokjhgfhnse", response)
-            // resetFileInput();
+            resetFileInput();
 
             if (response?.payload?.status === 200) {
                 // await dispatch(LoadingSpinner(true))
@@ -136,7 +143,7 @@ const ManageOrder = ({ translaterFun }) => {
             await dispatch(LoadingSpinner(false))
         }
     }
-// console.log("TableTypeData", TableTypeData)
+    // console.log("TableTypeData", TableTypeData)
     return (
         <>
             <Helmet>
@@ -148,41 +155,41 @@ const ManageOrder = ({ translaterFun }) => {
                 <div className='dasboardbody'>
                     <DashboardSidebar />
                     <div className="contentpart manageorderpage" >
-                        <div  > 
-                        <div className='btngroup mb-3'  >
-                            {/* <button type='button' className='btn2'> Bulk Upload  </button> */}
-                            <div className="uploadbtn-wrapper btn2">
-                                <button type="button" onClick={(e) => SampleTableDownload(e)}>
-                                    {translaterFun("sample-download")}
+                        <div  >
+                            <div className='btngroup mb-3'  >
+                                {/* <button type='button' className='btn2'> Bulk Upload  </button> */}
+                                <div className="uploadbtn-wrapper btn2">
+                                    <button type="button" onClick={(e) => SampleTableDownload(e)}>
+                                        {translaterFun("sample-download")}
+                                    </button>
+                                </div>
+
+                                <div className="uploadbtn-wrapper btn2">
+                                    <button type="button" className=''>
+                                        {translaterFun("bulk-upload")}
+                                    </button>
+
+                                    <input type="file" accept=".xlxs, .xlsx, .xls, .pdf"
+                                        ref={inputRefBulkTableUpload}
+                                        onChange={(e) => UploadMenuFile(e)}
+                                    />
+                                </div>
+
+
+                                <div className="uploadbtn-wrapper btn2">
+                                    <button type="button" onClick={(e) => BulkDownload(e)}>
+                                        {translaterFun("download-all-qr")}
+                                    </button>
+                                </div>
+
+                                <button type='button' className='btn2' onClick={(e) => AddTableFun(e)}>
+                                    <svg width="13" height="13" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
+                                    </svg>
+                                    {translaterFun("add-table")}
                                 </button>
+
                             </div>
-
-                            <div className="uploadbtn-wrapper btn2">
-                                <button type="button" className=''>
-                                    {translaterFun("bulk-upload")}
-                                </button>
-
-                                <input type="file" accept=".xlxs, .xlsx, .xls, .pdf"
-                                    // ref={inputRef}
-                                    onChange={(e) => UploadMenuFile(e)}
-                                />
-                            </div>
-
-
-                            <div className="uploadbtn-wrapper btn2">
-                                <button type="button" onClick={(e) => BulkDownload(e)}>
-                                    {translaterFun("download-all-qr")}
-                                </button>
-                            </div>
-
-                            <button type='button' className='btn2' onClick={(e) => AddTableFun(e)}>
-                                <svg width="13" height="13" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 5.83488H5.8443V0H7.1557V5.83488H13V7.16512H7.1557V13H5.8443V7.16512H0V5.83488Z" />
-                                </svg>
-                                {translaterFun("add-table")}
-                            </button>
-
-                        </div>
                         </div>
                         <div className='infotable'>
                             <div className='leftpart'>
