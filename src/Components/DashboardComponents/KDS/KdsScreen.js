@@ -15,14 +15,17 @@ import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
  */
 function KdsScreen() {
     const [logoutHookFun] = useLogoutHook('')
+    const language = localStorage.getItem('languageSet');
 
-     /**
-   * Handles logout  .
-   * @function handleLogout
-   * @category KdsScreen function
-   * @subCategory Dashboard Component
-   */
-    const handleLogout = () => {
+
+    /**
+  * Handles logout  .
+  * @function handleLogout
+  * @category KdsScreen function
+  * @subCategory Dashboard Component
+  */
+
+    const handleLogout = (e) => {
         logoutHookFun()
     }
 
@@ -36,9 +39,9 @@ function KdsScreen() {
                             <LanguageComponent />
                         </div>
 
-                        <button className='kds-logout' onClick={handleLogout}>
+                        <button type='button' className='kds-logout' >
                             <img className="kds-logoutimg" alt="Notification_Icon" src={Logout} />
-                            <span>Log Out</span>
+                            <span onClick={(e) => handleLogout(e)}>{language == 'en' ? "Log Out" : "تسجيل خروج"}</span>
                         </button>
                     </div>
                 </div>
