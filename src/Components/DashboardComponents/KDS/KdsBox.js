@@ -42,7 +42,7 @@ function KdsBox() {
   function processKdsData(kdsData) {
     let dineIn = [];
     let takeAway = [];
-  
+
     if (kdsData && kdsData.data) {
       for (let i = 0; i < kdsData.data.length; i++) {
         dineIn.push({
@@ -56,7 +56,7 @@ function KdsBox() {
           items: [],
         });
       }
-  
+
       for (let table of kdsData.data) {
         for (let item of table.kds) {
           dineIn.forEach((insideTable) => {
@@ -80,14 +80,14 @@ function KdsBox() {
     } else {
       console.warn("KDS data is undefined or null");
     }
-  
+
     return dineIn.concat(takeAway);
   }
-  
+
   // Usage example:
   const data = processKdsData(GetKdsReducerData);
-  // console.log("data", data);
-  
+  console.log("data", data);
+
 
 
   /**
@@ -166,7 +166,7 @@ function KdsBox() {
                 <h3>
                   {item?.items[0]?.restaurant_table?.category}
                 </h3>
-                {/* <h4>00:10:53</h4> */}
+                <h4>{""}</h4>
               </div>
               <div className='rightpart'>
                 <h2>{language === 'en' ? "Table No." : "رقم الجدول"}
@@ -192,7 +192,7 @@ function KdsBox() {
                   <li key={orderIndex}>
                     <div className='leftpart'>
                       <h3 style={{ textDecoration: order.status === 'done' ? "line-through" : "none" }}>
-                        {order.quantity} X {language === 'en' ? order.item.item_name_en : order.item.item_name_native}
+                        {order.quantity} x {language === 'en' ? order.item.item_name_en : order.item.item_name_native}
                       </h3>
                       <p style={{ textDecoration: order.status === 'done' ? "line-through" : "none", color: "#998888" }}>
                         {language === 'en' ? order.variant.variant_name_en : order.variant.variant_name_native}
@@ -248,21 +248,35 @@ function KdsBox() {
               width={"100px"}
             />
             <h2 className='popup-head'>
-              {currentOrder &&
-                data[currentOrder.itemIndex].items[currentOrder.orderIndex]
-                  .status === "kot_generated"
-                ? "Are you sure?"
-                : "Do you want to \n Mark it as Done?"}
+              {language === "en"
+                ? currentOrder &&
+                  data[currentOrder.itemIndex].items[currentOrder.orderIndex]
+                    .status === "kot_generated"
+                  ? "Are you sure?"
+                  : "Do you want to \n Mark it as Done?"
+                : currentOrder &&
+                  data[currentOrder.itemIndex].items[currentOrder.orderIndex]
+                    .status === "kot_generated"
+                  ? "هل أنت متأكد؟"
+                  : "هل تريد وضع علامةعليه؟"}
             </h2>
+
             <p className='popup-para'>
-              {currentOrder &&
-                data[currentOrder.itemIndex].items[currentOrder.orderIndex]
-                  .status === "kot_generated"
-                ? "You are starting Cooking"
-                : ""}
+              {language === "en"
+                ? currentOrder &&
+                  data[currentOrder.itemIndex].items[currentOrder.orderIndex]
+                    .status === "kot_generated"
+                  ? "You are starting Cooking"
+                  : ""
+                : currentOrder &&
+                  data[currentOrder.itemIndex].items[currentOrder.orderIndex]
+                    .status === "kot_generated"
+                  ? "أنت بصدد بدء الطهي"
+                  : ""}
             </p>
+
             <div className="popup-btn">
-              <button onClick={() => setShowConfirmation(false)} className='popup-cal-btn'>Cancel</button>
+              <button onClick={() => setShowConfirmation(false)} className='popup-cal-btn'>  {language==="en"?"Cancel":"يلغي"}</button>
               <button
                 onClick={() => {
                   handleConfirmation(true);
@@ -271,7 +285,7 @@ function KdsBox() {
                 style={{ backgroundColor: "#EA6A12" }}
                 className='popup-yes-btn'
               >
-                Yes
+               {language==="en"?"Yes":"نعم"}
               </button>
             </div>
           </div>
