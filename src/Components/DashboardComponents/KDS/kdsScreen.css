@@ -1,3 +1,10 @@
+.kot-status{
+    display: flex;
+    width: 100%;
+    color: #EA6A12;
+    justify-content: center;
+}
+
 .kdspage {
     background: url(../../../images/bg.png) top center no-repeat;
     background-size: 100% 100%;
@@ -83,7 +90,7 @@
 }
 
 .kgcardtitle>.rightpart>h2 {
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .deliveryinfo {
@@ -118,6 +125,8 @@
 
 .kgcardlist {
     width: 100%;
+    height: 464px;
+    overflow: auto;
 }
 
 .kgcardlist>li {
@@ -128,6 +137,9 @@
     border-bottom: 1px solid #998888;
     padding: 15px;
 
+}
+.kgcardlist>li > .leftpart {
+    width: calc(100% - 150px);
 }
 
 .kgcardlist>li h3 {
@@ -152,6 +164,7 @@
 
 .kgcardlist>li button img {
     width: 22px;
+    margin-left: 3px;
 }
 
 
@@ -168,6 +181,7 @@
     line-height: 43px;
     letter-spacing: 0.02em;
     text-align: center;
+    max-width: 380px;
 }
 
 .popup-para{
@@ -229,6 +243,39 @@
     border-radius: 10px;
 }
 
+.kgcardlist::-webkit-scrollbar {
+    width: 6px;
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+.kgcardlist::-webkit-scrollbar-thumb {
+    background: #EABB36;
+    border-radius: 10px;
+}
+
+/* arabic Css    */
+
+
+.arabic .kgcardbox   {
+    margin-right: 0;
+    margin-left: 30px;
+}
+
+.arabic .kgcardbox:nth-child(4n+4) {
+    margin-left: 0;
+}
+.arabic  .deliveryinfo>h3>img {
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+.arabic .kgcardlist>li button img {
+    margin-left: 0;
+    margin-right: 3px;;
+
+}
+
 
 
 /**************************** Responsive css *********************************/
@@ -243,6 +290,15 @@
     }
 
     .kgcardbox:nth-child(3n+3) {
+        margin-right: 0;
+    }
+
+    .arabic .kgcardbox:nth-child(4n+4) {
+        margin-left: 30px;
+        margin-right: 0;
+    }
+    .arabic .kgcardbox:nth-child(3n+3) {
+        margin-left: 0;
         margin-right: 0;
     }
 }
@@ -288,6 +344,13 @@
         margin-right: 15px;
     }
 
+    .arabic .kgcardbox {
+        margin-left: 15px;
+    }
+    .arabic .kgcardbox:nth-child(4n+4){
+        margin-left: 15px;
+    }
+
 }
 
 
@@ -304,6 +367,10 @@
     .kgcardbox:nth-child(2n+2) {
         margin-right: 0;
     }
+    .arabic .kgcardbox,
+    .arabic .kgcardbox:nth-child(4n+4)  {
+        margin-left: 0;
+    }
 
 }
 
@@ -316,6 +383,9 @@
         margin-right: 0px;
     }
 }
+
+
+
 
 
 
