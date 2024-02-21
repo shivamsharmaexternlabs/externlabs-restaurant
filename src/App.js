@@ -178,7 +178,7 @@ function App() {
             <Route path='/admin/leads' element={<Leads translaterFun={t} />}></Route>
             <Route path='/admin/restaurant' element={<Restaurant translaterFun={t} />}></Route> {/* convert in arabic  */}
             <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail translaterFun={t} />}></Route>  
-
+            <Route path="/:id/kds/kdsScreen" element={<KdsScreen/>}></Route>
             {payment_status == "false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
           </Routes>
         }
@@ -213,7 +213,7 @@ function App() {
           <Route path="/" element={<Login translaterFun={t} />}></Route>
           <Route path="/:id" element={<Login translaterFun={t} />}></Route>
           <Route path="/:id/menu" element={<Menu translaterFun={t} />}></Route>
-         {/*documentation done*/} <Route path="/:id/kds/kdsScreen" element={<KdsScreen/>}></Route>
+         {/*documentation done*/} 
         </Routes>
 
         <ToastContainer autoClose={2000} />
