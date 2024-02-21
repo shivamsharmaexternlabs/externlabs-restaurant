@@ -16,6 +16,8 @@ import { GetQrCodeSlice } from '../../../Redux/slices/qrCodeSlice.js';
 import { useDispatch } from 'react-redux';
 import useDownloadQr from '../../../CustomHooks/useDownloadQr.js';
 import { reactLocalStorage } from 'reactjs-localstorage';
+import { GetSampleTableDownloadSlice } from '../../../Redux/slices/manageOrderTableSlice.js';
+import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle.js';
 
 
 // Functional component for the ManageOrder page
@@ -53,30 +55,50 @@ const ManageOrder = ({ translaterFun }) => {
     }
     const openSelectToggleFun = () => {
         setSelectToggleSelectTogglealue(o => !o)
-      }
-      
-      useEffect(()=>{
+    }
+
+    useEffect(() => {
         setItemData(translaterFun(TableTypeData?.[0]?.name))
-      },[])
+    }, [])
 
 
-      const BulkDownlod =async()=>{
+    const BulkDownlod = async () => {
         let responseData = await dispatch(GetQrCodeSlice({
             restaurant_id: RestaurantId,
             table_id: "",
-            type:"all",
+            type: "all",
             BearerToken
         }))
 
         if (responseData?.payload.status == 200) {
-
 
             // await dispatch(LoadingSpinner(false))
 
             DownloadQrSetFun(responseData?.payload?.data?.results)
 
         }
-      }
+    }
+
+
+
+
+    const SampleTableDownload = async(e) => {
+        try {
+
+            let responseData = await dispatch(GetSampleTableDownloadSlice());
+            if (responseData?.payload?.status === 200) {
+                DownloadQrSetFun([{"qrcode":responseData?.payload?.data}], "bulk_table_sample_file")
+            }
+            console.log("responseData", responseData)
+
+            dispatch(LoadingSpinner(false))
+        } catch (error) {
+            dispatch(LoadingSpinner(false))
+        }
+
+    }
+
+
     return (
         <>
             <Helmet>
@@ -95,15 +117,18 @@ const ManageOrder = ({ translaterFun }) => {
                                 <button type="button" className=''>
                                     {translaterFun("bulk-upload")}
                                 </button>
+
                                 <input type="file" accept=".xlxs, .xlsx, .xls, .pdf"
                                 // ref={inputRef}
                                 // onChange={(e) => UploadMenuFile(e)}
                                 />
                             </div>
-                            <div className="uploadbtn-wrapper btn2"> 
-                            <button type="button" onClick={(e)=>BulkDownlod(e)}>
-                                all download
-                            </button>
+
+
+                            <div className="uploadbtn-wrapper btn2">
+                                <button type="button" onClick={(e) => BulkDownlod(e)}>
+                                    all download
+                                </button>
                             </div>
 
                             <button type='button' className='btn2 me-0' onClick={(e) => AddTableFun(e)}>
@@ -113,13 +138,19 @@ const ManageOrder = ({ translaterFun }) => {
                                 {translaterFun("add-table")}
                             </button>
 
+                            {/* <div className="uploadbtn-wrapper btn2">
+                                <button type="button" onClick={(e) => SampleTableDownload(e)}>
+                                    Sample Download
+                                </button>
+                            </div> */}
+
                         </div>
                         <div className='infotable'>
                             <div className='leftpart'>
-                                <button type='button'  onClick={(e) => openSelectToggleFun()}> {ItemData} <img src={arrow} alt='img' /> </button>
+                                <button type='button' onClick={(e) => openSelectToggleFun()}> {ItemData} <img src={arrow} alt='img' /> </button>
                                 {SelectToggleValue && <ul>
                                     {TableTypeData.map((item, id) => {
-                                        return <li className={` ${ translaterFun(item?.name)===ItemData?"activeselect":""}`} onClick={(e) => TableTypeFun(e, item)}> {translaterFun(item?.name)} </li>
+                                        return <li className={` ${translaterFun(item?.name) === ItemData ? "activeselect" : ""}`} onClick={(e) => TableTypeFun(e, item)}> {translaterFun(item?.name)} </li>
                                     })}
 
                                 </ul>}

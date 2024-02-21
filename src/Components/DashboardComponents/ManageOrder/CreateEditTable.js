@@ -9,9 +9,9 @@ import PopUpComponent from '../../../ReusableComponents/PopUpComponent/PopUpComp
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { PostManageOrderTableSlice } from '../../../Redux/slices/manageOrderTableSlice';
+import { GetManageOrderTableSlice, PostManageOrderTableSlice, UpdateManageOrderTableSlice } from '../../../Redux/slices/manageOrderTableSlice';
 
-const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty,EditTableData }) => {
+const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData }) => {
 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const dispatch = useDispatch();
@@ -19,54 +19,51 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty,E
 
     let BearerToken = reactLocalStorage.get("Token", false);
     let languageSet = reactLocalStorage.get("languageSet", false);
-    const RestaurantIdLocalStorageData = reactLocalStorage.get(
-        "RestaurantId",
-        false
-    );
+    const RestaurantIdLocalStorageData = reactLocalStorage.get("RestaurantId", false);
 
-    const defaultValueCategory = {
-        category_en: "",
-        Capacity: "",
-        TableNo: ""
-    };
 
     const defaultEditValueCategory = {
         category_en: EditTableData?.category,
-        Capacity:EditTableData?.no_of_persons  ,
-        TableNo:EditTableData ?.table_number  
+        Capacity: EditTableData?.no_of_persons,
+        TableNo: EditTableData?.table_number
     };
 
-    const ValidateCategory = yup.object({
+    const ValidateEditCategory = yup.object({
         category_en: yup.string().required(translaterFun("enter-category-name")),
         Capacity: yup.string().required(translaterFun("enter-capacity")),
         TableNo: yup.string().required(translaterFun("enter-table-no")),
     });
 
-    const handleCategorySubmit = async (values) => {
-
+    const handleEditCategorySubmit = async (values) => {
         await dispatch(LoadingSpinner(true))
 
-        console.log("gdcfghds",values)
+        console.log("gdcfghds", EditTableData, values)
 
-        let handleCategoryPayload = {
+        let handleEditCategoryTablePayload = {
             "restaurant_id": RestaurantIdLocalStorageData,
+            "table_id" : EditTableData?.table_id,
             "category": values?.category_en,
             "no_of_persons": values?.Capacity,
             "table_number": values?.TableNo,
-            "token": BearerToken
+            BearerToken
         }
         try {
-            let responseData = await dispatch(PostManageOrderTableSlice(handleCategoryPayload));
+            let responseData = await dispatch(UpdateManageOrderTableSlice(handleEditCategoryTablePayload));
 
-            console.log("mhjhsdsd", responseData?.payload.status == 201)
-            if (responseData?.payload.status == 201) {
-                closePopup(false);
+            console.log("mhjhsdsd", responseData)
+            if (responseData?.payload?.status == 200) {
+                closePopup(false)
+                // setOpenMenuActionToggle()
                 await dispatch(LoadingSpinner(false))
 
             }
-            else{
-                await dispatch(LoadingSpinner(false)) 
+            else {
+                await dispatch(LoadingSpinner(false))
             }
+
+            setTimeout(async () => {
+                await dispatch(GetManageOrderTableSlice({ RestaurantId : RestaurantIdLocalStorageData, BearerToken }))
+              }, 500)
 
         }
         catch (error) {
@@ -79,13 +76,10 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty,E
         popUpCategoriesHookFun((o) => !o);
     };
 
-    const CancelCategoryBtnFun = () => { 
+    const CancelCategoryBtnFun = () => {
         closePopup(false)
     };
 
-//     let dataaa=  editData.bind()
-console.log("msngfgsdms",EditTableData )
-    
     return (
         <div>
 
@@ -102,9 +96,9 @@ console.log("msngfgsdms",EditTableData )
                     </div>
                     <div className="popupbody">
                         <Formik
-                            initialValues={EditTableData?.length=="0"?defaultValueCategory:defaultEditValueCategory}
-                            validationSchema={ValidateCategory}
-                            onSubmit={handleCategorySubmit}
+                            initialValues={defaultEditValueCategory}
+                            validationSchema={ValidateEditCategory}
+                            onSubmit={handleEditCategorySubmit}
                         >
                             <Form className="row">
                                 <img src={category} alt="manager img" class="categoryimg" />
