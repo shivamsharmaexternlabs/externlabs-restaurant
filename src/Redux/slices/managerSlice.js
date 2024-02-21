@@ -30,7 +30,7 @@ export const ManagerSlice = createAsyncThunk("ManagerSlice",async (body, { rejec
 
 export const ManagerDeleteSlice = createAsyncThunk("ManagerDeleteSlice",async (body, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}restaurant_app/staff/${body?.item}/`,
+      const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}restaurant_app/staff/${body?.item}/?restaurant_id=${body?.RestaurantId}`,
       {
         headers: {
           Authorization: `Bearer ${body?.BearerToken}`,

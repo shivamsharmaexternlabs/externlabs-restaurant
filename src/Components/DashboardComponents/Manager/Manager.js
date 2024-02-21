@@ -36,6 +36,7 @@ const Manager = ({ translaterFun }) => {
     const SignUpSelectorData = useSelector((state) => state.SignUpApiData);
     let BearerToken = reactLocalStorage.get("Token", false);
     let LanguageSet = reactLocalStorage.get("languageSet", false);
+    let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
     const [countrycode, setCountryCode] = useState("+91");
     const [phonenumber, setPhoneNumber] = useState("");
@@ -203,7 +204,7 @@ const Manager = ({ translaterFun }) => {
         await dispatch(LoadingSpinner(true));
 
         try {
-            let responseData = await dispatch(ManagerDeleteSlice({ item, BearerToken }))
+            let responseData = await dispatch(ManagerDeleteSlice({ item, BearerToken,RestaurantId }))
             console.log("responseDataresponseData", responseData, item)
             if(responseData?.payload?.status === 204){
                 toast.success(translaterFun("staff-deleted-successfully"))
