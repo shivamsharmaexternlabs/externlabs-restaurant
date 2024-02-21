@@ -14,13 +14,14 @@ import { LoadingSpinner } from '../../Redux/slices/sideBarToggle';
 import useDownloadQr from '../../CustomHooks/useDownloadQr';
 
 
-const BookingTable = ({ translaterFun }) => {
+const BookingTable = ({ translaterFun,ItemData }) => {
 
 
     const [openAction, setOpenAction] = useState(null)
     const [OpenMenuActionToggle, setOpenMenuActionToggle] = useState(null)
     const [EditTableData, setEditTableData] = useState([])
 
+    const [LoadSpiner, setLoadSpiner] = useState(false)
 
     const dotButtonRef = useRef(null);
     const dotEditRef = useRef(null);
@@ -77,7 +78,7 @@ const BookingTable = ({ translaterFun }) => {
             }
 
             setTimeout(async () => {
-                await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }))
+                await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken,category:ItemData?.category }))
             }, 500)
 
         }
@@ -90,17 +91,36 @@ const BookingTable = ({ translaterFun }) => {
         popUpCategoriesHookFun(true);
     }
 
-    useEffect(() => {
+    useEffect( () => {
+        let selcg =async()=>{
 
-        if (BearerToken !== false) {
-            dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }))
+        
+
+        if (BearerToken !== false && ItemData) {
+            dispatch(LoadingSpinner(true));
+            try {
+            let responseData =await  dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken, category:ItemData?.category }))
+
+            if (responseData?.payload?.status == 200) {
+                await dispatch(LoadingSpinner(false)) 
+
+            }
+            else {
+                await dispatch(LoadingSpinner(false))
+            }
+        }
+        catch (error) {
+            await dispatch(LoadingSpinner(false))
+        }
         }
 
+    }
+    selcg()
 
 
         // GetManageOrderTableSlice
 
-    }, [])
+    }, [ItemData])
 
 
 
@@ -180,6 +200,8 @@ const BookingTable = ({ translaterFun }) => {
 
     // dispatch( GetQrCodeSlice())
 
+    console.log("mjhzjhdcsugdc",ItemData)
+
     return (
         <>
             {ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.map((item, id) => {
@@ -235,6 +257,8 @@ const BookingTable = ({ translaterFun }) => {
                 OpenActionFun={setOpenAction}
 
             />}
+
+            <LoadingSpinner loadspiner={LoadSpiner}/>
         </>
     )
 }

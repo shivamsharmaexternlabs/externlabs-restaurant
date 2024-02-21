@@ -16,19 +16,21 @@ import { GetQrCodeSlice } from '../../../Redux/slices/qrCodeSlice.js';
 import { useDispatch } from 'react-redux';
 import useDownloadQr from '../../../CustomHooks/useDownloadQr.js';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { GetManageOrderTableSlice, GetSampleTableDownloadSlice, PostBulkTableUploadSlice } from '../../../Redux/slices/manageOrderTableSlice.js';
+import { GetCategoryTableSlice, GetManageOrderTableSlice, GetSampleTableDownloadSlice, PostBulkTableUploadSlice } from '../../../Redux/slices/manageOrderTableSlice.js';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle.js';
 import ViewKot from './ViewKot.js';
+import { useSelector } from 'react-redux';
 
 
 // Functional component for the ManageOrder page
 const ManageOrder = ({ translaterFun }) => {
 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
-    const [ItemData, setItemData] = useState("")
+    const [ItemData, setItemData] = useState([])
     const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
     const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
     const inputRefBulkTableUpload = useRef(null);
+    const [openAction, setOpenAction] = useState(null)
 
     // Hooks for managing state and navigation
     const dispatch = useDispatch();
@@ -39,7 +41,7 @@ const ManageOrder = ({ translaterFun }) => {
     // const RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
     // Selecting data from Redux store
-    // const MediaLibrarySelectorData = useSelector((state) => state?.MediaLibraryApiData);
+    const ManageOrderTableSelectorData = useSelector((state) => state?.ManageOrderTableApiData);
 
     // JSX structure for the ManageOrder component
 
@@ -52,7 +54,7 @@ const ManageOrder = ({ translaterFun }) => {
     }
 
     const TableTypeFun = (e, item) => {
-        setItemData(translaterFun(item?.name))
+        setItemData(item)
         setSelectToggleSelectTogglealue(o => !o)
     }
     const openSelectToggleFun = () => {
@@ -60,7 +62,24 @@ const ManageOrder = ({ translaterFun }) => {
     }
 
     useEffect(() => {
-        setItemData(translaterFun(TableTypeData?.[0]?.name))
+
+        ( async () => {
+            // setItemData(responseData?.payload?.data?.[0])
+            let responseData = await dispatch(GetCategoryTableSlice({
+                BearerToken: BearerToken,
+                RestaurantId: RestaurantId
+            }))
+
+            if (responseData?.payload?.status == 200) {
+
+                setItemData(responseData?.payload?.data?.[0])
+
+
+            }
+        })()
+        
+         
+
     }, [])
 
 
@@ -95,7 +114,6 @@ const ManageOrder = ({ translaterFun }) => {
             if (responseData?.payload?.status === 200) {
                 DownloadQrSetFun([{ "qrcode": responseData?.payload?.data }], "bulk_table_sample_file")
             }
-            console.log("responseData", responseData)
 
             dispatch(LoadingSpinner(false))
         } catch (error) {
@@ -127,7 +145,6 @@ const ManageOrder = ({ translaterFun }) => {
             let response = await dispatch(PostBulkTableUploadSlice(UploadPayload));
 
 
-            console.log("respokjhgfhnse", response)
             resetFileInput();
 
             if (response?.payload?.status === 200) {
@@ -143,7 +160,7 @@ const ManageOrder = ({ translaterFun }) => {
             await dispatch(LoadingSpinner(false))
         }
     }
-    // console.log("TableTypeData", TableTypeData)
+    console.log("TableTypeData", ManageOrderTableSelectorData?.GetCategoryTableData)
     return (
         <>
             <Helmet>
@@ -193,10 +210,15 @@ const ManageOrder = ({ translaterFun }) => {
                         </div>
                         <div className='infotable'>
                             <div className='leftpart'>
-                                <button type='button' onClick={(e) => openSelectToggleFun()}> {ItemData} <img src={arrow} alt='img' /> </button>
+                                <button type='button' onClick={(e) => openSelectToggleFun()}> {ItemData?.category} <img src={arrow} alt='img' /> </button>
                                 {SelectToggleValue && <ul>
-                                    {TableTypeData.map((item, id) => {
-                                        return <li className={` ${translaterFun(item?.name) === ItemData ? "activeselect" : ""}`} onClick={(e) => TableTypeFun(e, item)}> {translaterFun(item?.name)} </li>
+                                    {ManageOrderTableSelectorData?.GetCategoryTableData?.data.map((item, id) => {
+                                        return <li className={` ${item?.category === ItemData?.category ? "activeselect" : ""}`} onClick={(e) => TableTypeFun(e, item)}>
+
+
+
+                                            {item?.category}
+                                        </li>
                                     })}
 
                                 </ul>}
@@ -213,10 +235,11 @@ const ManageOrder = ({ translaterFun }) => {
 
                         <div>
                             <div className='actable'>
-                                <h2>{ItemData}</h2>
+                                <h2>{ItemData?.category}</h2>
                                 <ul className='actablelist'>
                                     <BookingTable
                                         translaterFun={translaterFun}
+                                        ItemData={ItemData}
                                     />
 
                                 </ul>

@@ -87,7 +87,7 @@ console.log("body", body)
 export const GetManageOrderTableSlice = createAsyncThunk("GetManageOrderTableSlice", async (body, { rejectWithValue }) => {
   console.log("snbdvhgsvdcsd0", body)
   try {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/?restaurant_id=${body?.RestaurantId}`
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/?restaurant_id=${body?.RestaurantId}&category=${body?.category}`
       ,
       {
         headers: {
@@ -108,6 +108,28 @@ export const GetManageOrderTableSlice = createAsyncThunk("GetManageOrderTableSli
 }
 );
 
+
+export const GetCategoryTableSlice = createAsyncThunk("GetCategoryTableSlice", async (body, { rejectWithValue }) => {
+   
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/category_table/?restaurant_id=${body?.RestaurantId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${body?.BearerToken}`,
+          "Accept-Language": languageSet
+        },
+      }
+
+    );
+    toast.success(response?.data?.message);
+
+    return response;
+
+  } catch (err) {
+    toast.error(err?.response?.data?.message);
+    return rejectWithValue(err);
+  }
+});
 
 
 // download sample bulk sheet 
@@ -141,6 +163,7 @@ export const ManageOrderTableReducer = createSlice({
   initialState: {
     data: [],
     GetManageOrderTableData: [],
+    GetCategoryTableData:[],
     loading: false,
     error: null,
   },
@@ -173,6 +196,21 @@ export const ManageOrderTableReducer = createSlice({
       )
 
       .addCase(GetManageOrderTableSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(GetCategoryTableSlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(GetCategoryTableSlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.GetCategoryTableData = action.payload;
+      }
+      )
+
+      .addCase(GetCategoryTableSlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
