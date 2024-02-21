@@ -30,7 +30,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
 
     const ValidateEditCategory = yup.object({
         category_en: yup.string().required(translaterFun("enter-category-name")),
-        Capacity: yup.string().required(translaterFun("enter-capacity")),
+        // Capacity: yup.string().required(translaterFun("enter-capacity")),
         TableNo: yup.string().required(translaterFun("enter-table-no")),
     });
 

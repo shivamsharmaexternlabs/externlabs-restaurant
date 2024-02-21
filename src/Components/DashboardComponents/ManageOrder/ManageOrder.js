@@ -30,7 +30,8 @@ const ManageOrder = ({ translaterFun }) => {
     const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
     const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
     const inputRefBulkTableUpload = useRef(null);
-    const [openAction, setOpenAction] = useState(null)
+    const [openAction, setOpenAction] = useState(true)
+    
 
     // Hooks for managing state and navigation
     const dispatch = useDispatch();
@@ -50,6 +51,7 @@ const ManageOrder = ({ translaterFun }) => {
 
 
     const AddTableFun = () => {
+        setOpenAction(true);
         popUpCategoriesHookFun(true);
     }
 
@@ -253,12 +255,15 @@ const ManageOrder = ({ translaterFun }) => {
 
             <div>
                 {/* add table start*/}
+                {openAction && 
                 <CreateEditTable
                     translaterFun={translaterFun}
                     openPopup={popUpcategoriesHook}
                     closePopup={popUpCategoriesHookFun}
                     tableProperty={"add-new-table"}
+                    OpenActionFun={setOpenAction}
                 />
+}
 
                 {/* add table end */}
             </div>
