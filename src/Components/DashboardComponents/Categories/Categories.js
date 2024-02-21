@@ -1325,7 +1325,7 @@ const Categories = ({ translaterFun }) => {
 
             <div className="categorycontent">
               <div className="leftpart">
-                <div className="topdishestabpart">
+                <div className={`${languageSet==="en"? "englishArrow":"ArabicArrow" } topdishestabpart`}>
                   <div className="reorder-icon-div"  >
                     <button onClick={(e) => reorderSubmit(e)}
                       type="button">

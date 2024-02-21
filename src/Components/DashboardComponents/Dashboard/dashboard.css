@@ -143,6 +143,14 @@
   width: 52px;
   height: 10px;
 }
+.ArabicArrow nav > .nav .swiper-button-next{
+  transform: rotate(0deg) !important;
+}
+.ArabicArrow nav > .nav .swiper-button-prev{
+  transform: rotate(180deg) !important;
+}
+
+/* transform: rotate(180deg); */
 
 .topdishestabpart nav > .nav .swiper-button-next {
   transform: rotate(-180deg);
