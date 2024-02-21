@@ -32,7 +32,7 @@ function KdsBox() {
 
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [currentOrder, setCurrentOrder] = useState(null);
-  const [isMounted, setIsMounted] = useState(true);
+  // const [isMounted, setIsMounted] = useState(true);
 
 
   /** 
@@ -144,38 +144,38 @@ function KdsBox() {
     setShowConfirmation(false);
   };
 
-  useEffect(() => {
-    if (!restaurant_id) {
-      console.warn("Restaurant ID not found in local storage.");
-    } else {
-      // Initial API call
-      dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
-
-      // Set up interval for subsequent API calls every 5 seconds
-      const intervalId = setInterval(() => {
-        dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
-        console.log("wow")
-      }, 5000);
-
-      // Cleanup function to clear interval when component unmounts
-      return () => {
-        clearInterval(intervalId);
-        console.log("ok bye!")
-        // Set isMounted to false to prevent further API calls after unmounting
-        setIsMounted(false);
-      };
-    }
-  }, []); // Empty dependency array to ensure this effect runs only once
-
   // useEffect(() => {
   //   if (!restaurant_id) {
-  //     console.warn("Restaurant ID not found in local storage.")
+  //     console.warn("Restaurant ID not found in local storage.");
   //   } else {
-  //     // setInterval(()=>{
-  //     dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }))
-  //     // },3000)     
+  //     // Initial API call
+  //     dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+
+  //     // Set up interval for subsequent API calls every 5 seconds
+  //     const intervalId = setInterval(() => {
+  //       dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+  //       console.log("wow")
+  //     }, 5000);
+
+  //     // Cleanup function to clear interval when component unmounts
+  //     return () => {
+  //       clearInterval(intervalId);
+  //       console.log("ok bye!")
+  //       // Set isMounted to false to prevent further API calls after unmounting
+  //       setIsMounted(false);
+  //     };
   //   }
-  // }, [])
+  // }, []); // Empty dependency array to ensure this effect runs only once
+
+  useEffect(() => {
+    if (!restaurant_id) {
+      console.warn("Restaurant ID not found in local storage.")
+    } else {
+      // setInterval(()=>{
+      dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }))
+      // },3000)     
+    }
+  }, [])
 
 
   return (
