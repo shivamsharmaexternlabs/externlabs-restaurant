@@ -208,7 +208,9 @@ function KdsBox() {
                           }}
                           onClick={() => handleStartCooking(index, orderIndex, order)}
                         >
-                          {(order.status === "kot_generated") ? "Start Cooking" : "Mark as done"}
+                          {(order.status === "kot_generated") ?
+                            (language === "en" ? "Start Cooking" : "ابدأ الطهي") :
+                            (language === "en" ? "Mark as done" : "اعتبره منته")}
                           <img
                             src={
                               order.status === "start_cooking"
@@ -230,7 +232,11 @@ function KdsBox() {
           </div>
 
 
-        })}
+        })
+        }
+
+
+
       </div>
       {showConfirmation && (
         <PopUpComponent classNameValue={"kds-popup"}>
@@ -276,7 +282,7 @@ function KdsBox() {
             </p>
 
             <div className="popup-btn">
-              <button onClick={() => setShowConfirmation(false)} className='popup-cal-btn'>  {language==="en"?"Cancel":"يلغي"}</button>
+              <button onClick={() => setShowConfirmation(false)} className='popup-cal-btn'>  {language === "en" ? "Cancel" : "يلغي"}</button>
               <button
                 onClick={() => {
                   handleConfirmation(true);
@@ -285,7 +291,7 @@ function KdsBox() {
                 style={{ backgroundColor: "#EA6A12" }}
                 className='popup-yes-btn'
               >
-               {language==="en"?"Yes":"نعم"}
+                {language === "en" ? "Yes" : "نعم"}
               </button>
             </div>
           </div>

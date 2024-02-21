@@ -41,7 +41,7 @@ function KdsScreen() {
 
                         <button type='button' className='kds-logout' >
                             <img className="kds-logoutimg" alt="Notification_Icon" src={Logout} />
-                            <span onClick={(e) => handleLogout(e)}>{language == 'en' ? "Log Out" : "تسجيل خروج"}</span>
+                            <span onClick={(e) => handleLogout(e)}>{language === 'en' ? "Log Out" : "تسجيل خروج"}</span>
                         </button>
                     </div>
                 </div>

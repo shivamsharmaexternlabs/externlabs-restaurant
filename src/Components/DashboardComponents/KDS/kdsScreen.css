@@ -1,3 +1,10 @@
+.kot-status{
+    display: flex;
+    width: 100%;
+    color: #EA6A12;
+    justify-content: center;
+}
+
 .kdspage {
     background: url(../../../images/bg.png) top center no-repeat;
     background-size: 100% 100%;
