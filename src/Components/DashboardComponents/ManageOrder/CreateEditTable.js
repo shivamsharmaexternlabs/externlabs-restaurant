@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import category from "../../../images/manager.png";
 
 
@@ -10,10 +10,12 @@ import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { GetManageOrderTableSlice, PostManageOrderTableSlice, UpdateManageOrderTableSlice } from '../../../Redux/slices/manageOrderTableSlice';
+import SelectAndSearchComponent from '../../../ReusableComponents/SelectAndSearchComponent/SelectAndSearchComponent';
 
-const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData, OpenActionFun , setItemData
+const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData, OpenActionFun, setItemData, ManageOrderTableSelectorDataProp
 }) => {
 
+    const [searchCategoryData, setSearchCategoryData] = useState("")
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const dispatch = useDispatch();
 
@@ -38,8 +40,10 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
     const handleCreateEditTableSubmit = async (values) => {
         await dispatch(LoadingSpinner(true))
 
-        console.log("gdcfghds", EditTableData, values)
-        console.log("bhdvsdsd", tableProperty)
+
+
+        // console.log("gdcfaeweghds", searchCategoryData)
+        // console.log("bhdvsdsd", tableProperty)
 
         if (tableProperty === "add-new-table") {
             try {
@@ -55,7 +59,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
 
                 console.log("mhjhsdsd", responseData)
                 if (responseData?.payload?.status == 201) {
-                    setItemData({category : handleCreateTablePayload?.category})
+                    setItemData({ category: handleCreateTablePayload?.category })
                     closePopup(false)
                     // setOpenMenuActionToggle()
                     await dispatch(LoadingSpinner(false))
@@ -66,7 +70,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 }
 
                 setTimeout(async () => {
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken, category : handleCreateTablePayload?.category }))
+                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken, category: handleCreateTablePayload?.category }))
                 }, 500)
             }
             catch (error) {
@@ -75,6 +79,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
         }
         else {
             try {
+
                 let handleEditTablePayload = {
                     "restaurant_id": RestaurantIdLocalStorageData,
                     "table_id": EditTableData?.table_id,
@@ -84,12 +89,13 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                     BearerToken
                 }
 
+
                 let responseData = await dispatch(UpdateManageOrderTableSlice(handleEditTablePayload));
 
                 console.log("mhjhsdsd", responseData)
                 if (responseData?.payload?.status == 200) {
                     closePopup(false)
-                    setItemData({category : handleEditTablePayload?.category})
+                    setItemData({ category: handleEditTablePayload?.category })
                     // setOpenMenuActionToggle()
                     await dispatch(LoadingSpinner(false))
 
@@ -99,7 +105,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 }
 
                 setTimeout(async () => {
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken, category : handleEditTablePayload?.category }))
+                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken, category: handleEditTablePayload?.category }))
                 }, 500)
             }
             catch (error) {
@@ -118,11 +124,16 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
         OpenActionFun(false)
     };
 
+    const newfunC = (searchData) => {
+        // setSearchCategoryData(searchData) 
+        defaultEditValueCategory.category_en = searchData
 
+    }
 
 
     return (
         <div>
+
 
             {openPopup && (
                 <PopUpComponent
@@ -135,6 +146,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                     <div className="popuptitle">
                         <h3>{translaterFun(tableProperty)} </h3>
                     </div>
+
                     <div className="popupbody">
                         <Formik
                             initialValues={defaultEditValueCategory}
@@ -145,13 +157,25 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                                 <img src={category} alt="manager img" class="categoryimg" />
                                 <div className="formbox mb-3" dir='ltr'>
                                     <label>{translaterFun("category")}</label>
-                                    <Field
+                                    {/* <Field
                                         name="category_en"
                                         type="text"
                                         className={`form-control `}
                                         autoComplete="off"
                                         placeholder={translaterFun("enter-category-name")}
+                                    />*/}
+
+
+                                    <SelectAndSearchComponent
+                                        EditTableData={EditTableData} 
+                                        newFun={newfunC} 
+                                        ManageOrderTableSelectorDataProp={ManageOrderTableSelectorDataProp}
+                                        // ManageOrderTableSelectorDataProp1={ManageOrderTableSelectorDataProp1}
+
+
                                     />
+
+
                                     <p className="text-danger small mb-0">
                                         <ErrorMessage name="category_en" />
                                     </p>

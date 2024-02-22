@@ -205,9 +205,11 @@ const BookingTable = ({ translaterFun,ItemData, setItemData }) => {
 
     const ViewOrderFun =(e, item)=>{
 
-        console.log("jhsfgfhdsd",item)
+        // console.log("jhsfgfhdsd",ManageOrderTableSelectorData?.GetManageOrderTableData?.data)
 
     }
+    console.log("jhsfgfhdsd",ManageOrderTableSelectorData?.GetManageOrderTableData?.data)
+
 
     return (
         <>
@@ -269,6 +271,7 @@ const BookingTable = ({ translaterFun,ItemData, setItemData }) => {
                 EditTableData={EditTableData}
                 OpenActionFun={setOpenAction}
                 setItemData = {setItemData}
+                ManageOrderTableSelectorDataProp={ManageOrderTableSelectorData?.GetCategoryTableData?.data}
             />}
 
             <LoadingSpinner loadspiner={LoadSpiner}/>

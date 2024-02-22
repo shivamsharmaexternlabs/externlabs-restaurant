@@ -211,10 +211,10 @@ const ManageOrder = ({ translaterFun }) => {
                             </div>
                         </div>
                         <div className='infotable'>
-                            <div className='leftpart'>
+                           { <div className={ `${ManageOrderTableSelectorData?.GetCategoryTableData?.data?.length === 0 ? "invisible":""} leftpart `}>
                                 <button type='button' onClick={(e) => openSelectToggleFun()}> {ItemData?.category} <img src={arrow} alt='img' /> </button>
                                 {SelectToggleValue && <ul>
-                                    {ManageOrderTableSelectorData?.GetCategoryTableData?.data.map((item, id) => {
+                                    {ManageOrderTableSelectorData?.GetCategoryTableData?.data?.map((item, id) => {
                                         return <li className={` ${item?.category === ItemData?.category ? "activeselect" : ""}`} onClick={(e) => TableTypeFun(e, item)}>
 
 
@@ -224,7 +224,7 @@ const ManageOrder = ({ translaterFun }) => {
                                     })}
 
                                 </ul>}
-                            </div>
+                            </div>}
                             <div className='rightpart'>
                                 <TableStatus
 
@@ -264,6 +264,7 @@ const ManageOrder = ({ translaterFun }) => {
                     tableProperty={"add-new-table"}
                     OpenActionFun={setOpenAction}
                     setItemData = {setItemData}
+                    ManageOrderTableSelectorDataProp= { ManageOrderTableSelectorData?.GetCategoryTableData?.data}
                 />
 }
 

@@ -169,6 +169,13 @@
     right: -15px;
     cursor: pointer;
 }
+.selected{
+    background-color: red;
+}
 
+.bg-red{
+    color: white;
+    background-color: #ea6a12;
+}
 
 
