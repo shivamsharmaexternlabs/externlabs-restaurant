@@ -24,6 +24,13 @@ import { currencyData } from '../Categories/currencyData';
 import { toast } from "react-toastify";
 
 
+/**
+ * Manager(Staff) functional component for Handling Staff .
+ * @param {Function} translaterFun - translation function for language change. 
+ * @returns {JSX.Element} Manager(Staff) form component.
+ * @category Staff
+ * @subcategory Staff
+ */
 const Manager = ({ translaterFun }) => {
     const itemsPerPage = 5;
     const [loadspiner, setLoadSpiner] = useState(false);
@@ -45,13 +52,23 @@ const Manager = ({ translaterFun }) => {
     const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData);
 
 
-
+    /**
+      * UseEffect for set data in data state related to staff from API.
+      * @function useEffect
+      * @param {Object} ManagerApiSelectorData - Dependent on Object storing information of Staff related. 
+      * @category Staff
+      */
     useEffect(() => {
         setData(ManagerApiSelectorData?.data?.data)
     }, [ManagerApiSelectorData]);
 
-    console.log("sgdvchgsds", data)
 
+    /**
+      * UseEffect for fetching data from API.
+      * @function useEffect
+      * @param {String} BearerToken - Dependent on Bearer Token. 
+      * @category Staff
+      */
     useEffect(() => {
 
         (async function () {
@@ -74,13 +91,23 @@ const Manager = ({ translaterFun }) => {
 
     }, [BearerToken])
 
+    /**
+     * Handles PopUp Toggle for all required toggle .
+     * @function PopUpToggleFun
+     * @returns {null} returns nothing. 
+     * @category Staff
+     */
     const PopUpToggleFun = () => {
         popUpHookFun(o => !o)
     }
 
-
+    /**
+      * UseEffect for fetching all Staff Information after form Fill-up.
+      * @function useEffect
+      * @param {Object} SignUpSelectorData - Dependent on Object SignUpSelectorData, Will run If Sign Up gives response(response will have status of 200 or having error which stores rejected as a value ). 
+      * @category Staff
+      */
     useEffect(() => {
-        console.log("SignUpSelectorData", SignUpSelectorData)
         if (SignUpSelectorData?.data?.status === 201) {
             setLoadSpiner(false);
             popUpHookFun(false);
@@ -120,12 +147,16 @@ const Manager = ({ translaterFun }) => {
         email: "",
         first_name: "",
         password: "",
-        confirm_password: "", 
+        confirm_password: "",
         selectRole: "",
         token: BearerToken
 
     };
 
+    /**
+     * Validation schema for the form using yup
+     * @type {Object}
+     */
     const Validate = yup.object({
         // email: yup.string().required("Email is required").matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Email is Invalid").matches(/^\S*$/, 'First name must not contain spaces'),
         first_name: yup.string().required(translaterFun("first-name-is-required")).matches(/^[\w\-\s\u0600-\u06FF]+$/, 'Name must not contain special characters'),
@@ -135,15 +166,21 @@ const Manager = ({ translaterFun }) => {
 
         password: yup.string().required(translaterFun("password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
 
- 
+
         confirm_password: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
         // phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces')
     });
 
 
+    /**
+      * Function which is responsible for Adding Staff to the Restaurant.
+      * @function handleSubmit
+      * @param {Object} values - Object containing the form field values.
+      * @category Staff
+      */
     const handleSubmit = async (values) => {
-         
-         
+
+
         let SignUpForOnBoardPayload = {
             email: values?.email,
             password: values?.password,
@@ -168,15 +205,14 @@ const Manager = ({ translaterFun }) => {
 
                 // }
 
-                console.log("responseData", responseData);
                 dispatch(LoadingSpinner(false))
-    
+
             }
             else {
                 toast.error(translaterFun("please-enter-your-number"));
             }
 
-            
+
         } catch (error) {
             dispatch(LoadingSpinner(false))
         }
@@ -185,6 +221,12 @@ const Manager = ({ translaterFun }) => {
         setLoadSpiner(true);
     };
 
+    /**
+      * Handles Pagination.
+      * @function handlePageClick
+      * @param {Number} selectedPage - selected Page stores current page number for pagination. 
+      * @category Staff
+      */
     const handlePageClick = (selectedPage) => {
         const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.
 
@@ -196,17 +238,29 @@ const Manager = ({ translaterFun }) => {
         setCurrentPage(page - 1);
     }
 
-    const handleDelete = (e, item) => {
+    /**
+      * Handles Delete of Staff.
+      * @function handleDelete
+      * @param {Object} item - item stores staff Information and Id which we have to delete.
+      * @category Staff
+      */
+    const handleDelete = (item) => {
         setUserId(item.user_id)
         deletePopUpFun(true)
     }
-    const confirmDelete = async (e, item) => {
+
+    /**
+      * Handles Delete of Staff(After clicking on Confirm delete button).
+      * @function confirmDelete
+      * @param {Object} item - item stores staff Information and Id which we have to delete.
+      * @category Staff
+      */
+    const confirmDelete = async (item) => {
         await dispatch(LoadingSpinner(true));
 
         try {
-            let responseData = await dispatch(ManagerDeleteSlice({ item, BearerToken,RestaurantId }))
-            console.log("responseDataresponseData", responseData, item)
-            if(responseData?.payload?.status === 204){
+            let responseData = await dispatch(ManagerDeleteSlice({ item, BearerToken, RestaurantId }))
+            if (responseData?.payload?.status === 204) {
                 toast.success(translaterFun("staff-deleted-successfully"))
             }
             deletePopUpFun(false)
@@ -222,14 +276,25 @@ const Manager = ({ translaterFun }) => {
         }
     }
 
+    /**
+      * Handles Cancelation after click on cancel button.
+      * @function CancelBtnFun
+      * @category Staff
+      */
     const CancelBtnFun = () => {
         popUpHookFun(false);
     }
 
-    const handleOnChange1 = (
-        currentValue,
-        objectValue,
-        eventData,
+    /**
+      * Handles Change in Phone Number.
+      * @function handleOnChange
+      * @param {Object} eventTargetValue - Object containing the form (Only Phone Number) field values.
+      * @category Staff
+      */
+    const handleOnChange = (
+        // currentValue,
+        // objectValue,
+        // eventData,
         eventTargetValue
     ) => {
         // we are not using all the parameters in this function , but all parameters are important becouse of this library
@@ -243,7 +308,6 @@ const Manager = ({ translaterFun }) => {
         setPhoneNumber(myString);
     };
 
-console.log("bsdvhhdsd",data?.results)
     return (
 
         <>
@@ -286,14 +350,14 @@ console.log("bsdvhhdsd",data?.results)
                                         <td> {items?.country_code} {items?.phone_number}</td>
                                         <td>{LanguageSet === "en" ? items?.role?.[0]?.name : items?.role?.[0]?.name_native}</td>
                                         <td>
-                                            <button className='asbtn' onClick={(e) => handleDelete(e, items)}>
+                                            <button className='asbtn' onClick={(e) => handleDelete(items)}>
                                                 {translaterFun("delete")} </button>
                                         </td>
                                     </tr>
                                 })}
 
                             </table>
-                           {data?.length !==0 && <ReactPaginate
+                            {data?.length !== 0 && <ReactPaginate
                                 // previousLabel={"Previous"}
 
                                 previousLabel={translaterFun("previous")}
@@ -411,9 +475,9 @@ console.log("bsdvhhdsd",data?.results)
                                         <PhoneInput
                                             country={"in"}
                                             // value={phonenumber}
-                                            onChange={handleOnChange1}
+                                            onChange={handleOnChange}
                                             className="input_filed"
-                                            
+
                                         />
                                     </div>
 
@@ -510,7 +574,7 @@ console.log("bsdvhhdsd",data?.results)
                                 <h2>{translaterFun("delete-manager")}</h2>
                                 <div className='text-center'>
                                     <button type="button" onClick={(e) => deletePopUpFun(false)}>{translaterFun("cancel")} </button>
-                                    <button type="button" className='ms-4' onClick={(e) => confirmDelete(e, UserId)}>{translaterFun("confirm-delete-button")}</button>
+                                    <button type="button" className='ms-4' onClick={() => confirmDelete(UserId)}>{translaterFun("confirm-delete-button")}</button>
                                 </div>
                             </div>
                         </div>
