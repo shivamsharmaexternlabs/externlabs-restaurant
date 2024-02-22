@@ -1,0 +1,34 @@
+
+
+/**
+ * Login functional component for Login.
+ * @returns {JSX.Element} Login form component.
+ * @category Login
+ * @subcategory Login
+ */ 
+
+/**
+   * Validation schema for the form using yup
+   * @type {Object}
+   */
+
+
+  /**
+   * Handles form submission.
+   * @function handleSubmit
+   * @param {Object} values - Object containing the form field values.
+   * @param {Object} values2 - Object containing the form field values.
+   * @category Login
+   */
+
+/**
+      * UseEffect for fetching data (Staff Data, Payment History Data, QR Code Image, and Menu Categories and menu item Data ) from API.
+      * @function useEffect
+      * @param {String} BearerToken - Dependent on Bearer Token
+      * @category Dashboard
+      */
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+ 

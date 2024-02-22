@@ -1,0 +1,651 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harbour Bites FE documentation Components/DashboardComponents/Dashboard/Dashboard.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Harbour Bites FE documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/shivamsharmaexternlabs/externlabs-restaurant"
+                        >
+                            Respository
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>AdminProfilePage Functions</h2><h3>Global</h3><ul><li><a href="global.html#BannerImageUploadFun">BannerImageUploadFun</a></li><li><a href="global.html#LogoImageUploadFun">LogoImageUploadFun</a></li><li><a href="global.html#callBackFuncAfterSignUp">callBackFuncAfterSignUp</a></li><li><a href="global.html#handleOnChange1">handleOnChange1</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li></ul></div><div class="category"><h2>AllMedia</h2><h3>Global</h3><ul><li><a href="global.html#AllMedia">AllMedia</a></li></ul></div><div class="category"><h2>AllMedia Function</h2><h3>Global</h3><ul><li><a href="global.html#DeleteImageFun">DeleteImageFun</a></li><li><a href="global.html#MultiUploadFun">MultiUploadFun</a></li></ul></div><div class="category"><h2>App</h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li></ul></div><div class="category"><h2>Authentication</h2><h3>Global</h3><ul><li><a href="global.html#ForgotPassword">ForgotPassword</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li></ul></div><div class="category"><h2>Custom Hook</h2><h3>Global</h3><ul><li><a href="global.html#useDownloadQr">useDownloadQr</a></li><li><a href="global.html#useLogoutHook">useLogoutHook</a></li><li><a href="global.html#usePopUpHook">usePopUpHook</a></li></ul></div><div class="category"><h2>Dashboard</h2><h3>Global</h3><ul><li><a href="global.html#CategoryTabFun">CategoryTabFun</a></li><li><a href="global.html#Dashboard">Dashboard</a></li><li><a href="global.html#QrCodeDownloadFun">QrCodeDownloadFun</a></li><li><a href="global.html#i18n-LanguageChange">i18n-LanguageChange</a></li><li><a href="global.html#useEffect">useEffect</a></li></ul></div><div class="category"><h2>Dashboard Component</h2><h3>Global</h3><ul><li><a href="global.html#AdminProfilePage">AdminProfilePage</a></li><li><a href="global.html#DndCategories">DndCategories</a></li></ul></div><div class="category"><h2>DndCategories function</h2><h3>Global</h3><ul><li><a href="global.html#handleDndUpdate">handleDndUpdate</a></li><li><a href="global.html#handleDragOver">handleDragOver</a></li><li><a href="global.html#handleDrop">handleDrop</a></li><li><a href="global.html#startDrag">startDrag</a></li></ul></div><div class="category"><h2>KDS</h2><h3>Global</h3><ul><li><a href="global.html#KdsBox">KdsBox</a></li><li><a href="global.html#KdsScreen">KdsScreen</a></li></ul></div><div class="category"><h2>KdsBox Functions</h2><h3>Global</h3><ul><li><a href="global.html#handleConfirmation">handleConfirmation</a></li><li><a href="global.html#handleStartCooking">handleStartCooking</a></li><li><a href="global.html#processKdsData">processKdsData</a></li></ul></div><div class="category"><h2>KdsScreen function</h2><h3>Global</h3><ul><li><a href="global.html#handleLogout">handleLogout</a></li></ul></div><div class="category"><h2>Login</h2><h3>Global</h3><ul><li><a href="global.html#Login">Login</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#languageSwitchFun">languageSwitchFun</a></li><li><a href="global.html#useEffect">useEffect</a></li></ul></div><div class="category"><h2>i18n</h2><h3>Global</h3><ul><li><a href="global.html#middleware">middleware</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>Components/DashboardComponents/Dashboard/Dashboard.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from "react-helmet";
+import './dashboard.css'
+import { saveAs } from "file-saver";
+import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
+import DashboardLayout from '../DashboardLayout/DashboardLayout'
+import { ManagerSlice } from "../../../Redux/slices/managerSlice"
+import { GetQrCodeSlice } from "../../../Redux/slices/qrCodeSlice"
+// import defaultImage from '../../../images/defaultImage.png'
+import defaultImage from '../../../images/defaultimg.svg'
+import icon4 from '../../../images/icon4.svg';
+import icon5 from '../../../images/icon5.svg';
+
+import arrow2 from '../../../images/arrow2.svg'
+import dish1 from '../../../images/dish1.png';
+import dish2 from '../../../images/dish2.png';
+import dish3 from '../../../images/dish3.png';
+import user from '../../../images/user.png';
+import item2 from '../../../images/item2.svg';
+import qrimg from '../../../images/qr.png';
+import menimg from '../../../images/men.png';
+import { useNavigate } from 'react-router-dom';
+import { reactLocalStorage } from 'reactjs-localstorage';
+import { MenuSlice, favoriteMenuSlice } from '../../../Redux/slices/menuSlice';
+import { PaymentHistorySlice } from '../../../Redux/slices/paymentSlice';
+import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
+import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
+import { useTranslation } from "react-i18next"
+import { CurrencySymbol } from '../Categories/CurrencySymbol';
+import useDownloadQr from '../../../CustomHooks/useDownloadQr';
+
+
+
+/**
+ * Component for Dashboard.
+ * Just after restaurant owner logged in they are redirected to dashboard page.
+ * @returns {JSX.Element} Dashboard JSX.
+ * @category Dashboard
+ * @subcategory Dashboard
+ */
+
+const Dashboard = ({ translaterFun }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+
+  const [data, setData] = useState({ results: [] });
+  const [QrImage, setQrImage] = useState("")
+  const [LoadSpiner, setLoadSpiner] = useState(false)
+  const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
+
+  const [ActiveCategory, setActiveCategory] = useState({});
+  const [WellWishes, setWellWishes] = useState("")
+
+
+  const ManagerApiSelectorData = useSelector((state) => state.ManagerApiData?.data);
+  const QrApiSelectorData = useSelector((state) => state.QrCodeApiData?.data)
+  const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
+  const PaymentSelectorData = useSelector((state) => state.PaymentApiData);
+
+
+  console.log("QrApiSelectorData", QrApiSelectorData)
+
+  let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
+  let FirstName = reactLocalStorage.get("FirstName", false);
+  let BearerToken = reactLocalStorage.get("Token", false);
+  let languageSet = reactLocalStorage.get("languageSet", false);
+
+
+  /**
+      * UseEffect for set Manager Data and set QR Code Image.
+      * @function useEffect
+      * @category Dashboard
+      */
+  useEffect(() => {
+    setData(ManagerApiSelectorData?.data)
+    setQrImage(QrApiSelectorData?.data?.results?.[0]?.qrcode)
+  }, [ManagerApiSelectorData, QrApiSelectorData]);
+
+
+
+  /**
+      * UseEffect for fetching data (Staff Data, Payment History Data, QR Code Image, and Menu Categories and menu item Data ) from API.
+      * @function useEffect
+      * @param {String} BearerToken - Dependent on Bearer Token
+      * @category Dashboard
+      */
+  useEffect(() => {
+
+    const GetApiCallFun = async () => {
+
+      if (BearerToken !== false) {
+        dispatch(LoadingSpinner(true))
+
+        try {
+          let ManagerSlicePayload = {
+            Token: BearerToken,
+            pageination: 1
+          }
+          await dispatch(ManagerSlice(ManagerSlicePayload))
+          await dispatch(PaymentHistorySlice(BearerToken));
+
+          // we don't need token for these api's
+
+          await dispatch(GetQrCodeSlice({
+            restaurant_id: RestaurantIdLocalData,
+            BearerToken
+          }))
+          await dispatch(MenuSlice({ "RestaurantId": RestaurantIdLocalData }));
+
+          dispatch(LoadingSpinner(false))
+
+        } catch (error) {
+          dispatch(LoadingSpinner(false))
+        }
+      }
+    }
+    GetApiCallFun()
+
+  }, [BearerToken])
+
+
+ /**
+   * Handles QR Download using custom Hooks .
+   * @function QrCodeDownloadFun
+   * @category Dashboard
+   */
+  const QrCodeDownloadFun = () => {
+    DownloadQrSetFun(QrApiSelectorData?.data?.results)
+
+  }
+
+
+
+  // for favorite top dishes don't delete this comment
+  // useEffect(() => {
+
+  //   setActiveFavoriteCategory(MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.[0])
+  // }, [MenuApiSelectorData?.favoriteMenuSliceReducerData])
+
+/**
+      * UseEffect for seting Active Category data from MenuApiSelectorData API.
+      * @function useEffect
+      * @param {String} "MenuApiSelectorData.MenuSliceReducerData" - Dependent on API Response (MenuApiSelectorData?.MenuSliceReducerData) 
+      * @category Dashboard
+      */
+  useEffect(() => {
+    setActiveCategory(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0])
+  }, [MenuApiSelectorData?.MenuSliceReducerData])
+
+  // for favorite top dishes  don't delete this comment
+  // const FavoriteCategoryTabFun = (e, categoryItem) => {
+  //   setActiveFavoriteCategory(categoryItem);
+  // }
+
+
+  /**
+   * Handles Active Category Tab.
+   * @function CategoryTabFun 
+   * @param {Object} categoryItem - Object containing relevant information of Category Items.
+   * @category Dashboard
+   */
+  const CategoryTabFun = (categoryItem) => {
+    setActiveCategory(categoryItem);
+  }
+
+
+
+
+/**
+      * UseEffect for greeting User On Dashboard Page.
+      * @function useEffect
+      * @param {null} "" - Dependency is empty i.e., runs if page is refreshed ) 
+      * @category Dashboard
+      */
+  useEffect(() => {
+
+    const time = new Date().getHours();
+    if (time &lt; 12) {
+      setWellWishes(translaterFun("good-morning"))
+    } else if (time &lt; 16) {
+      setWellWishes(translaterFun("good-afternoon"))
+    } else {
+      setWellWishes(translaterFun("good-evening"))
+    }
+
+  }, [])
+
+/**
+      * interalization for greeting User in their own language on Dashboard Page.
+      * @function i18n-LanguageChange
+      * @category Dashboard
+      */
+  i18n.on("languageChanged", () => {
+    const time = new Date().getHours();
+    if (time &lt; 12) {
+      setWellWishes(translaterFun("good-morning"))
+    } else if (time &lt; 16) {
+      setWellWishes(translaterFun("good-afternoon"))
+    } else {
+      setWellWishes(translaterFun("good-evening"))
+    }
+  })
+ 
+
+  return (
+    &lt;>
+      &lt;Helmet>
+        &lt;title>Welcome to Harbor Bites Dashboard&lt;/title>
+        &lt;meta name="description" content="Centralized control hub for your restaurant. Access vital tools, analytics, and key features from your personalized dashboard." />
+        {/* &lt;link rel="icon" type="image/x-icon" href="./"/> */}
+      &lt;/Helmet>
+      &lt;DashboardLayout  >
+        &lt;div className='dasboardbody'>
+          &lt;DashboardSidebar />
+          &lt;div className='contentpart dashboardpage'>
+            &lt;div className='bannerbox'>
+              &lt;h2> {WellWishes}&lt;/h2>
+              &lt;h3> {FirstName}&lt;/h3>
+            &lt;/div>
+
+            &lt;div className='viewall-part'>
+              &lt;div className='leftpart'>
+                &lt;div className='topdishespart'>
+                  &lt;div className='title'>
+                    &lt;h2>{translaterFun("menu-items")}
+                      {/* Menu Items */}
+                    &lt;/h2> &lt;button type='button' onClick={() => { navigate(`/${RestaurantIdLocalData}/admin/categories`) }}> {translaterFun("view-all")}&lt;img src={arrow2} alt='img' /> &lt;/button>
+                  &lt;/div>
+
+                  &lt;div className='topdishestabpart'>
+                    &lt;nav>
+                      &lt;div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+                        {/* MENU DISHES MANAGEMENT */}
+                        {
+                          MenuApiSelectorData?.MenuSliceReducerData?.data?.slice(0, 7)?.map((items, Id) => {
+                            return &lt;button key={Id} onClick={(e) => CategoryTabFun( items)} class={`nav-link ${items?.menu_id == ActiveCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
+                              &lt;div>
+                                &lt;figure>
+                                  &lt;img src={items?.category_image === null ? defaultImage : items?.category_image} alt="img" className="catg-img" />
+                                &lt;/figure>
+                                &lt;h3>{languageSet == "en" ? items?.category_en : items?.category_native}&lt;/h3>
+
+                                {/* &lt;div className='buttonbox'>
+                                  &lt;svg xmlns="http://www.w3.org/2000/svg" width="5" height="7" viewBox="0 0 5 7" fill="none">
+                                    &lt;path d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768" stroke-width="1.10009" stroke-linecap="round" stroke-linejoin="round" />
+                                  &lt;/svg>
+                                &lt;/div> */}
+
+                              &lt;/div>
+                            &lt;/button>
+
+                          })
+                        }
+
+
+                        {/* FAVORITE DISHES MANAGEMENT
+                        {
+                          MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map((items, favoriteId) => {
+                            return &lt;button key={favoriteId} onClick={(e) => FavoriteCategoryTabFun(items)} class={`nav-link ${items?.menu_id == ActiveFavoriteCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
+                              &lt;div>
+                                &lt;figure>
+                                  &lt;img src={items?.category_image === null ? defaultImage : items?.category_image} alt="img" className="catg-img" />
+                                &lt;/figure>
+                                &lt;h3>{items?.category}&lt;/h3>
+                                &lt;div className='buttonbox'>
+                                  &lt;svg xmlns="http://www.w3.org/2000/svg" width="5" height="7" viewBox="0 0 5 7" fill="none">
+                                    &lt;path d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768" stroke-width="1.10009" stroke-linecap="round" stroke-linejoin="round" />
+                                  &lt;/svg>
+                                &lt;/div>
+                              &lt;/div>
+                            &lt;/button>
+
+                          })
+                        } */}
+
+                        {/* &lt;button class="nav-link active" id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
+                          &lt;div>
+                            &lt;figure>
+                              &lt;img src={dish1} alt="img" />
+                            &lt;/figure>
+                            &lt;h3>Pizza&lt;/h3>
+                            &lt;div className='buttonbox'>
+                              &lt;svg xmlns="http://www.w3.org/2000/svg" width="5" height="7" viewBox="0 0 5 7" fill="none">
+                                &lt;path d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768" stroke-width="1.10009" stroke-linecap="round" stroke-linejoin="round" />
+                              &lt;/svg>
+                            &lt;/div>
+                          &lt;/div>
+                        &lt;/button>
+
+                        &lt;button class="nav-link " id="nav-dishes2-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes2" type="button" role="tab" aria-controls="nav-dishes2" aria-selected="true">
+                          &lt;div>
+                            &lt;figure>
+                              &lt;img src={dish2} alt="img" />
+                            &lt;/figure>
+                            &lt;h3>Pizza&lt;/h3>
+                            &lt;div className='buttonbox'>
+                              &lt;svg xmlns="http://www.w3.org/2000/svg" width="5" height="7" viewBox="0 0 5 7" fill="none">
+                                &lt;path d="M0.915527 1.23392L3.48241 3.8008L0.915527 6.36768" stroke-width="1.10009" stroke-linecap="round" stroke-linejoin="round" />
+                              &lt;/svg>
+                            &lt;/div>
+                          &lt;/div>
+                        &lt;/button> */}
+
+                      &lt;/div>
+                    &lt;/nav>
+                    {/*-------------------- menu Category items ---------------------------*/}
+
+                    &lt;div class="tab-content" id="nav-tabContent">
+                      &lt;div class="tab-pane fade show active" id="nav-dishes1" role="tabpanel" aria-labelledby="nav-dishes1-tab" tabindex="0">
+                        &lt;ul>
+                          {
+                            ActiveCategory?.item_id?.slice(0, 4).map((Item, DishesId) => {
+                              console.log("sjkdgjdhs", Item)
+                              return &lt;li>
+                                &lt;h4>{languageSet === "en" ? Item?.item_name_en : Item?.item_name_native}&lt;/h4>
+                                &lt;h5 className='mt-1 d-flex align-items-center '>
+                                  {Item?.is_non_veg == true ? &lt;img src={icon5} alt='img' className='me-1 ms-2 ' /> : &lt;img src={icon4} alt='img' className='me-1 ms-2' />}
+
+                                  {Item?.calories} {Item?.calories_unit}&lt;/h5>
+
+                                &lt;div className='tabinfo'>
+                                  &lt;div className='leftpart'>
+                                    &lt;p>
+                                      {
+                                        (languageSet == "en") ?
+                                          &lt;>
+                                            {Item?.description_en?.length > 45 ? Item?.description_en.slice(0, 45) + "..." : Item?.description_en}
+                                            &lt;span>{Item?.description_en?.length > 45 ? &lt;b>{translaterFun("more")} &lt;div className=''>{Item?.description_en} &lt;/div> &lt;/b> : ""}  &lt;/span>
+                                          &lt;/>
+                                          :
+                                          &lt;>
+                                            {Item?.description_native?.length > 45 ? Item?.description_native.slice(0, 45) + "..." : Item?.description_native}
+                                            &lt;span>{Item?.description_native?.length > 45 ? &lt;b>{translaterFun("more")} &lt;div className=''>{Item?.description_native} &lt;/div> &lt;/b> : ""}  &lt;/span>
+                                          &lt;/>
+                                      }
+                                      {/* {Item?.description?.length > 45 ? Item?.description.slice(0, 45) + "..." : Item?.description}
+                                      &lt;span>{Item?.description?.length > 45 ? &lt;b>{translaterFun("more")}&lt;div className=''>{Item?.description} &lt;/div> &lt;/b> : ""}  &lt;/span> */}
+                                    &lt;/p>
+                                    {/* {Item?.description}
+                                      {Item?.description?.length} */}
+                                    &lt;div className="" >
+                                      &lt;span className='price'>{`${CurrencySymbol[0][Item?.currency]} ${Item?.item_price}`}&lt;/span>
+                                      {Item?.variant?.length > 0 &amp;&amp; &lt;div className='variantbox'>
+                                        &lt;span className='variant'>{`${Item?.variant?.length} ${translaterFun("variants")}`} &lt;img src='' /> &lt;/span>
+                                      &lt;/div>}
+                                    &lt;/div>
+                                  &lt;/div>
+                                  &lt;div className='rightpart'>
+                                    &lt;img src={Item?.image === null ? defaultImage : Item?.image} alt='img' />
+                                  &lt;/div>
+                                &lt;/div>
+                              &lt;/li>
+
+                            })
+                          }
+
+                          {/* &lt;li>
+                            &lt;h4>Spaghetti&lt;/h4>
+                            &lt;div className='tabinfo'>
+                              &lt;div className='leftpart'>
+                                &lt;p>Lorem ipsum dolor sit amet consectetur.&lt;/p>
+                                &lt;span className='price'>$7.287789&lt;/span>
+                              &lt;/div>
+                              &lt;div className='rightpart'>
+                                &lt;img src={dish3} alt='img' />
+                              &lt;/div>
+                            &lt;/div>
+                          &lt;/li> */}
+
+
+                        &lt;/ul>
+                      &lt;/div>
+
+                      &lt;div class="tab-pane fade" id="nav-dishes2" role="tabpanel" aria-labelledby="nav-dishes2-tab" tabindex="0">
+                        &lt;ul>
+                          &lt;li>
+                            &lt;h4>Spaghetti&lt;/h4>
+                            &lt;p>Lorem ipsum dolor sit amet consectetur.&lt;/p>
+                            &lt;span className='price'>$7.29&lt;/span>
+                          &lt;/li>
+                          &lt;li>
+                            &lt;h4>Vegetable Pizza&lt;/h4>
+                            &lt;p>Lorem ipsum dolor sit amet consectetur.&lt;/p>
+                            &lt;span className='price'>$7.29&lt;/span>
+                          &lt;/li>
+                          &lt;li>
+                            &lt;h4>Mushroom Pizza&lt;/h4>
+                            &lt;p>Lorem ipsum dolor sit amet consectetur.&lt;/p>
+                            &lt;span className='price'>$7.29&lt;/span>
+                          &lt;/li>
+                          &lt;li>
+                            &lt;h4>OTC Pizza&lt;/h4>
+                            &lt;p>Lorem ipsum dolor sit amet consectetur.&lt;/p>
+                            &lt;span className='price'>$7.29&lt;/span>
+                          &lt;/li>
+                        &lt;/ul>
+                      &lt;/div>
+
+                      &lt;div class="tab-pane fade" id="nav-dishes3" role="tabpanel" aria-labelledby="nav-dishes3-tab" tabindex="0">
+                        &lt;ul>
+                          &lt;li>
+                            &lt;h4>Spaghetti&lt;/h4>
+                            &lt;p>Lorem ipsum dolor sit amet consectetur.&lt;/p>
+                            &lt;span className='price'>$7.29&lt;/span>
+                          &lt;/li>
+                          &lt;li>
+                            &lt;h4>Vegetable Pizza&lt;/h4>
+                            &lt;p>Lorem ipsum dolor sit amet consectetur.&lt;/p>
+                            &lt;span className='price'>$7.29&lt;/span>
+                          &lt;/li>
+                          &lt;li>
+                            &lt;h4>Mushroom Pizza&lt;/h4>
+                            &lt;p>Lorem ipsum dolor sit amet consectetur.&lt;/p>
+                            &lt;span className='price'>$7.29&lt;/span>
+                          &lt;/li>
+                          &lt;li>
+                            &lt;h4>OTC Pizza&lt;/h4>
+                            &lt;p>Lorem ipsum dolor sit amet consectetur.&lt;/p>
+                            &lt;span className='price'>$7.29&lt;/span>
+                          &lt;/li>
+                        &lt;/ul>
+                      &lt;/div>
+
+                    &lt;/div>
+                  &lt;/div>
+                &lt;/div>
+
+                &lt;div className='managerstablepart'>
+                  &lt;div className='title'>
+                    &lt;h2>{translaterFun("managers")}&lt;/h2>
+                    &lt;button type='button' onClick={(e) => navigate(`/${RestaurantIdLocalData}/admin/manager`)}>
+                      {translaterFun("view-all")} &lt;img src={arrow2} alt='img' /> &lt;/button>
+                  &lt;/div>
+                  &lt;div class="managerstable">
+                    &lt;table className='table'>
+                      &lt;tr className=''>
+                        &lt;th> &lt;/th>
+                        &lt;th> {translaterFun("user-name")} &lt;/th>
+                        &lt;th> {translaterFun("e-mail")} &lt;/th>
+                        &lt;th>{translaterFun("mobile-no")}&lt;/th>
+                        {/* &lt;th> User Name &lt;/th>
+                        &lt;th> E-mail &lt;/th>
+                        &lt;th> Assigned to &lt;/th> */}
+                      &lt;/tr>
+                      {data?.results?.slice(0, 2)?.map((items, id) => {
+                        console.log("zjdcghdcvsd", items)
+                        return &lt;tr>
+                          &lt;td> &lt;img src={user} alt='img' /> &lt;/td>
+                          &lt;td>{`${items?.first_name}`}&lt;/td>
+                          &lt;td>{items?.email}&lt;/td>
+                          &lt;td>{items?.phone_number}&lt;/td>                        &lt;/tr>
+                      })}
+
+                    &lt;/table>
+                  &lt;/div>
+                &lt;/div>
+              &lt;/div>
+
+              &lt;div className='rightpart'>
+
+                &lt;div className='subplanbox'>
+                  &lt;div className='title'>
+                    &lt;h3> {translaterFun("subscription-plan")} &lt;/h3>
+                    &lt;button type='button' className='cursor-pointer' onClick={() => navigate(`/${RestaurantIdLocalData}/admin/paymenthistory`)}> {translaterFun("view-all")} &lt;img src={arrow2} alt='arrow img' />  &lt;/button>
+                  &lt;/div>
+                  {console.log("xchjvhgcvc", PaymentSelectorData)}
+                  &lt;div className='info'>
+                    &lt;div className='leftpart'>
+                      &lt;p>{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.price_id?.plan_id
+                        ?.name}  &lt;/p>
+                      &lt;p>{translaterFun("start-date")} :  {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.created_at?.split("T")?.[0]}&lt;/p>
+                      &lt;p>{translaterFun("end-date")} &amp;nbsp;: {PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.expiry_date}&lt;/p>
+                    &lt;/div>
+                    &lt;div className='rightpart'>
+                      &lt;img src={item2} alt='img' />
+                    &lt;/div>
+                  &lt;/div>
+
+                &lt;/div>
+                &lt;div className='qrbox'>
+                  &lt;div className='menbox'>
+                    &lt;img src={QrImage} alt='uploadmenu' className='qrimg' />
+                    &lt;img src={menimg} alt='img' className='qrmenimg' />
+
+                  &lt;/div>
+                  &lt;div className='info'>
+                    {/* &lt;span>&lt;/span> */}
+                    &lt;button type='button'
+                      onClick={(e) => QrCodeDownloadFun()}
+                    >
+                      {/* &lt;a href={QrImage} download="my-file.png">Download &lt;/a> */}
+                      {/* Download Now */}
+                      {translaterFun("download-now")}
+                    &lt;/button>
+                  &lt;/div>
+                &lt;/div>
+
+              &lt;/div>
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+
+
+      &lt;/DashboardLayout>
+      &lt;LodingSpiner loadspiner={LoadSpiner} />
+
+
+    &lt;/>
+  )
+}
+
+export default Dashboard
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+
+</body>
+</html>

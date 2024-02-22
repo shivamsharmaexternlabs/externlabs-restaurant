@@ -32,6 +32,14 @@ import useDownloadQr from '../../../CustomHooks/useDownloadQr';
 
 
 
+/**
+ * Component for Dashboard.
+ * Just after restaurant owner logged in they are redirected to dashboard page.
+ * @returns {JSX.Element} Dashboard JSX.
+ * @category Dashboard
+ * @subcategory Dashboard
+ */
+
 const Dashboard = ({ translaterFun }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,7 +68,11 @@ const Dashboard = ({ translaterFun }) => {
   let languageSet = reactLocalStorage.get("languageSet", false);
 
 
-
+  /**
+      * UseEffect for set Manager Data and set QR Code Image.
+      * @function useEffect
+      * @category Dashboard
+      */
   useEffect(() => {
     setData(ManagerApiSelectorData?.data)
     setQrImage(QrApiSelectorData?.data?.results?.[0]?.qrcode)
@@ -68,10 +80,13 @@ const Dashboard = ({ translaterFun }) => {
 
 
 
-  console.log("QrImage", QrImage, QrApiSelectorData)
-
+  /**
+      * UseEffect for fetching data (Staff Data, Payment History Data, QR Code Image, and Menu Categories and menu item Data ) from API.
+      * @function useEffect
+      * @param {String} BearerToken - Dependent on Bearer Token
+      * @category Dashboard
+      */
   useEffect(() => {
-
 
     const GetApiCallFun = async () => {
 
@@ -89,9 +104,9 @@ const Dashboard = ({ translaterFun }) => {
           // we don't need token for these api's
 
           await dispatch(GetQrCodeSlice({
-            restaurant_id : RestaurantIdLocalData,
+            restaurant_id: RestaurantIdLocalData,
             BearerToken
-           }))
+          }))
           await dispatch(MenuSlice({ "RestaurantId": RestaurantIdLocalData }));
 
           dispatch(LoadingSpinner(false))
@@ -106,10 +121,14 @@ const Dashboard = ({ translaterFun }) => {
   }, [BearerToken])
 
 
-
+ /**
+   * Handles QR Download using custom Hooks .
+   * @function QrCodeDownloadFun
+   * @category Dashboard
+   */
   const QrCodeDownloadFun = () => {
-    DownloadQrSetFun( QrApiSelectorData?.data?.results )
-     
+    DownloadQrSetFun(QrApiSelectorData?.data?.results)
+
   }
 
 
@@ -120,7 +139,12 @@ const Dashboard = ({ translaterFun }) => {
   //   setActiveFavoriteCategory(MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.[0])
   // }, [MenuApiSelectorData?.favoriteMenuSliceReducerData])
 
-
+/**
+      * UseEffect for seting Active Category data from MenuApiSelectorData API.
+      * @function useEffect
+      * @param {String} "MenuApiSelectorData.MenuSliceReducerData" - Dependent on API Response (MenuApiSelectorData?.MenuSliceReducerData) 
+      * @category Dashboard
+      */
   useEffect(() => {
     setActiveCategory(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0])
   }, [MenuApiSelectorData?.MenuSliceReducerData])
@@ -130,14 +154,26 @@ const Dashboard = ({ translaterFun }) => {
   //   setActiveFavoriteCategory(categoryItem);
   // }
 
-  const CategoryTabFun = (e, categoryItem) => {
+
+  /**
+   * Handles Active Category Tab.
+   * @function CategoryTabFun 
+   * @param {Object} categoryItem - Object containing relevant information of Category Items.
+   * @category Dashboard
+   */
+  const CategoryTabFun = (categoryItem) => {
     setActiveCategory(categoryItem);
   }
 
 
 
 
-
+/**
+      * UseEffect for greeting User On Dashboard Page.
+      * @function useEffect
+      * @param {null} "" - Dependency is empty i.e., runs if page is refreshed ) 
+      * @category Dashboard
+      */
   useEffect(() => {
 
     const time = new Date().getHours();
@@ -150,6 +186,12 @@ const Dashboard = ({ translaterFun }) => {
     }
 
   }, [])
+
+/**
+      * interalization for greeting User in their own language on Dashboard Page.
+      * @function i18n-LanguageChange
+      * @category Dashboard
+      */
   i18n.on("languageChanged", () => {
     const time = new Date().getHours();
     if (time < 12) {
@@ -160,8 +202,7 @@ const Dashboard = ({ translaterFun }) => {
       setWellWishes(translaterFun("good-evening"))
     }
   })
-
-  let filterdata
+ 
 
   return (
     <>
@@ -195,7 +236,7 @@ const Dashboard = ({ translaterFun }) => {
                         {/* MENU DISHES MANAGEMENT */}
                         {
                           MenuApiSelectorData?.MenuSliceReducerData?.data?.slice(0, 7)?.map((items, Id) => {
-                            return <button key={Id} onClick={(e) => CategoryTabFun(e, items)} class={`nav-link ${items?.menu_id == ActiveCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
+                            return <button key={Id} onClick={(e) => CategoryTabFun( items)} class={`nav-link ${items?.menu_id == ActiveCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
                               <div>
                                 <figure>
                                   <img src={items?.category_image === null ? defaultImage : items?.category_image} alt="img" className="catg-img" />
@@ -218,7 +259,7 @@ const Dashboard = ({ translaterFun }) => {
                         {/* FAVORITE DISHES MANAGEMENT
                         {
                           MenuApiSelectorData?.favoriteMenuSliceReducerData?.data?.map((items, favoriteId) => {
-                            return <button key={favoriteId} onClick={(e) => FavoriteCategoryTabFun(e, items)} class={`nav-link ${items?.menu_id == ActiveFavoriteCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
+                            return <button key={favoriteId} onClick={(e) => FavoriteCategoryTabFun(items)} class={`nav-link ${items?.menu_id == ActiveFavoriteCategory?.menu_id ? "active" : ""}`} id="nav-dishes1-tab" data-bs-toggle="tab" data-bs-target="#nav-dishes1" type="button" role="tab" aria-controls="nav-dishes1" aria-selected="true">
                               <div>
                                 <figure>
                                   <img src={items?.category_image === null ? defaultImage : items?.category_image} alt="img" className="catg-img" />
@@ -276,7 +317,7 @@ const Dashboard = ({ translaterFun }) => {
                               return <li>
                                 <h4>{languageSet === "en" ? Item?.item_name_en : Item?.item_name_native}</h4>
                                 <h5 className='mt-1 d-flex align-items-center '>
-                                  {Item?.is_non_veg == true ? <img src={icon5} alt='img' className='me-1 ms-2 ' /> : <img src={icon4} alt='img' className='me-1 ms-2' /> }
+                                  {Item?.is_non_veg == true ? <img src={icon5} alt='img' className='me-1 ms-2 ' /> : <img src={icon4} alt='img' className='me-1 ms-2' />}
 
                                   {Item?.calories} {Item?.calories_unit}</h5>
 
@@ -300,11 +341,11 @@ const Dashboard = ({ translaterFun }) => {
                                     </p>
                                     {/* {Item?.description}
                                       {Item?.description?.length} */}
-                                      <div className="" >
-                                    <span className='price'>{`${CurrencySymbol[0][Item?.currency]} ${Item?.item_price}`}</span>
-                                    {Item?.variant?.length > 0 && <div className='variantbox'>
-                                      <span className='variant'>{`${Item?.variant?.length} ${translaterFun("variants")}`} <img src='' /> </span>
-                                    </div>}
+                                    <div className="" >
+                                      <span className='price'>{`${CurrencySymbol[0][Item?.currency]} ${Item?.item_price}`}</span>
+                                      {Item?.variant?.length > 0 && <div className='variantbox'>
+                                        <span className='variant'>{`${Item?.variant?.length} ${translaterFun("variants")}`} <img src='' /> </span>
+                                      </div>}
                                     </div>
                                   </div>
                                   <div className='rightpart'>

@@ -22,5 +22,5 @@
 
     import './styles/iframe.css';
 
-  import Component0 from '../src/Authantication/ForgotPassword/ForgotPassword.js';
-reactComponents['ForgotPassword'] = Component0;
+  import Component0 from '../src/Components/DashboardComponents/Dashboard/Dashboard.js';
+reactComponents['Dashboard'] = Component0;
