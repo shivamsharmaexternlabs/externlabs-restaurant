@@ -12,6 +12,7 @@ import { GetQrCodeSlice } from '../../Redux/slices/qrCodeSlice';
 import { useSelector } from 'react-redux';
 import { LoadingSpinner } from '../../Redux/slices/sideBarToggle';
 import useDownloadQr from '../../CustomHooks/useDownloadQr';
+import ViewKot from '../../Components/DashboardComponents/ManageOrder/ViewKot';
 
 
 const BookingTable = ({ translaterFun,ItemData, setItemData }) => {
@@ -202,6 +203,12 @@ const BookingTable = ({ translaterFun,ItemData, setItemData }) => {
 
     console.log("mjhzjhdcsugdc",ItemData)
 
+    const ViewOrderFun =(e, item)=>{
+
+        console.log("jhsfgfhdsd",item)
+
+    }
+
     return (
         <>
             {ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.map((item, id) => {
@@ -239,6 +246,12 @@ const BookingTable = ({ translaterFun,ItemData, setItemData }) => {
                                 >
                                     <img src={downloadimg} alt="delete icon " />    <span className='downloadQrclass'>  {translaterFun("download-QR")} </span>
                                 </button>
+                                <button className=" mt-1 "
+                                    ref={dotDownloadQRRef}
+                                    onClick={(e) => ViewOrderFun(e, item)}
+                                >
+                                    <img src={downloadimg} alt="delete icon " />    <span className='downloadQrclass'>  {translaterFun("view-order")} </span>
+                                </button>
                             </div>}
 
 
@@ -259,6 +272,8 @@ const BookingTable = ({ translaterFun,ItemData, setItemData }) => {
             />}
 
             <LoadingSpinner loadspiner={LoadSpiner}/>
+
+            <ViewKot/>
         </>
     )
 }

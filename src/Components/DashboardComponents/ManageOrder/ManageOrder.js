@@ -269,7 +269,7 @@ const ManageOrder = ({ translaterFun }) => {
 
                 {/* add table end */}
             </div>
-            <ViewKot />
+            {/* <ViewKot /> */}
 
             <LodingSpiner />
         </>

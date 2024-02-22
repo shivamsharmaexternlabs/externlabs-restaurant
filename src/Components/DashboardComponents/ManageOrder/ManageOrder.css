@@ -139,3 +139,36 @@
     width: 91px;
     height: 34px;
 }
+
+
+.totalbox {
+    margin: 25px 0 0 ;
+    background-color: #fff;
+    border-radius: 0 0px 21px 21px;
+    padding: 15px;
+}
+
+.totalbox > ul {
+    margin: 0;
+}
+
+
+.totalbox > ul > li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.totalbox > ul > li + li {
+    margin-top: 8px;
+}
+
+
+.itemtablepopup .closebtn{
+    top: -15px;
+    right: -15px;
+    cursor: pointer;
+}
+
+
+

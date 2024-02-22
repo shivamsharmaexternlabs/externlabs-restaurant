@@ -1,11 +1,14 @@
 import React from 'react'
-import PopUpComponent from '../../../ReusableComponents/PopUpComponent/PopUpComponent'
+import PopUpComponent from '../../../ReusableComponents/PopUpComponent/PopUpComponent';
+import closeicon from '../../../images/close.svg'
 
 const ViewKot = () => {
+  
   return (
     <>
 
-      <PopUpComponent classNameValue="itemtablepopup d-none">
+      <PopUpComponent classNameValue="itemtablepopup  d-none ">
+        <span className='closebtn'> <img src={closeicon} alt='img' /> </span>
         <div className='popuptitle'>
           <h3> Table no. 1</h3>
           <h4> Dine In</h4>
@@ -46,10 +49,12 @@ const ViewKot = () => {
             </table>
           </div>
 
-          <div className=''>
-            <ul>
-              <li></li>
-            </ul>
+          <div className='totalbox'>
+             <ul>
+              <li> <span> Sub Total </span> <span> Sar 480  </span>  </li>
+              <li> <span>Tax </span> <span> </span> Sar 480 </li>
+              <li> <span> <b> Total Payment </b></span> <span> <b>Sar480</b> </span> </li>
+             </ul>
           </div>
         </div>
 
@@ -58,4 +63,4 @@ const ViewKot = () => {
   )
 }
 
-export default ViewKot
+export default ViewKot ; 
