@@ -14,7 +14,7 @@ import { LoadingSpinner } from '../../Redux/slices/sideBarToggle';
 import useDownloadQr from '../../CustomHooks/useDownloadQr';
 
 
-const BookingTable = ({ translaterFun,ItemData }) => {
+const BookingTable = ({ translaterFun,ItemData, setItemData }) => {
 
 
     const [openAction, setOpenAction] = useState(null)
@@ -255,7 +255,7 @@ const BookingTable = ({ translaterFun,ItemData }) => {
                 tableProperty={"edit-table"}
                 EditTableData={EditTableData}
                 OpenActionFun={setOpenAction}
-
+                setItemData = {setItemData}
             />}
 
             <LoadingSpinner loadspiner={LoadSpiner}/>

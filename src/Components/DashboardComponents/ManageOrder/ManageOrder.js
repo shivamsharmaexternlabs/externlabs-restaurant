@@ -242,6 +242,7 @@ const ManageOrder = ({ translaterFun }) => {
                                     <BookingTable
                                         translaterFun={translaterFun}
                                         ItemData={ItemData}
+                                        setItemData = {setItemData}
                                     />
 
                                 </ul>
@@ -262,6 +263,7 @@ const ManageOrder = ({ translaterFun }) => {
                     closePopup={popUpCategoriesHookFun}
                     tableProperty={"add-new-table"}
                     OpenActionFun={setOpenAction}
+                    setItemData = {setItemData}
                 />
 }
 

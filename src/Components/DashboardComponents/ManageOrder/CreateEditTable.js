@@ -11,7 +11,8 @@ import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { GetManageOrderTableSlice, PostManageOrderTableSlice, UpdateManageOrderTableSlice } from '../../../Redux/slices/manageOrderTableSlice';
 
-const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData, OpenActionFun }) => {
+const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData, OpenActionFun , setItemData
+}) => {
 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const dispatch = useDispatch();
@@ -54,6 +55,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
 
                 console.log("mhjhsdsd", responseData)
                 if (responseData?.payload?.status == 201) {
+                    setItemData({category : handleCreateTablePayload?.category})
                     closePopup(false)
                     // setOpenMenuActionToggle()
                     await dispatch(LoadingSpinner(false))
@@ -64,7 +66,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 }
 
                 setTimeout(async () => {
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken }))
+                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken, category : handleCreateTablePayload?.category }))
                 }, 500)
             }
             catch (error) {
@@ -87,6 +89,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 console.log("mhjhsdsd", responseData)
                 if (responseData?.payload?.status == 200) {
                     closePopup(false)
+                    setItemData({category : handleEditTablePayload?.category})
                     // setOpenMenuActionToggle()
                     await dispatch(LoadingSpinner(false))
 
@@ -96,7 +99,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 }
 
                 setTimeout(async () => {
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken }))
+                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken, category : handleEditTablePayload?.category }))
                 }, 500)
             }
             catch (error) {
