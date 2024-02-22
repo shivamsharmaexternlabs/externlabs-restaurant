@@ -156,7 +156,7 @@ const Dashboard = ({ translaterFun }) => {
 
 
   /**
-   * Handles Active Category Tab.
+   * Handles Active Category Tab .
    * @function CategoryTabFun 
    * @param {Object} categoryItem - Object containing relevant information of Category Items.
    * @category Dashboard
