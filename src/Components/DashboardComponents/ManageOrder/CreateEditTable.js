@@ -34,16 +34,11 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
     const ValidateEditCategory = yup.object({
         category_en: yup.string().required(translaterFun("enter-category-name")),
         // Capacity: yup.string().required(translaterFun("enter-capacity")),
-        TableNo: yup.string().required(translaterFun("enter-table-no")),
+        TableNo: yup.string().matches(/^[\w- ]+$/, translaterFun("table-number-should-be-alphanumeric-or-with-hyphen")).required(translaterFun("enter-table-no")),
     });
 
     const handleCreateEditTableSubmit = async (values) => {
         await dispatch(LoadingSpinner(true))
-
-
-
-        // console.log("gdcfaeweghds", searchCategoryData)
-        // console.log("bhdvsdsd", tableProperty)
 
         if (tableProperty === "add-new-table") {
             try {

@@ -288,6 +288,7 @@
   "select-role":" Select Role...",
   "staff-deleted-successfully" : "Staff Deleted Successfully",
   "download-all-qr" : "Download All QR",
-  "sample-download" : "Sample Download"
+  "sample-download" : "Sample Download",
+  "table-number-should-be-alphanumeric-or-with-hyphen" : "Table Number Should be Alphanumeric or with Hyphen"
 
 }

@@ -286,7 +286,9 @@
   "select-role":" حدد الدور...",
   "staff-deleted-successfully" : "تم حذف الموظفين بنجاح",
   "download-all-qr" : "تحميل جميع QR",
-  "sample-download" : "تنزيل العينة"
+  "sample-download" : "تنزيل العينة",
+  "table-number-should-be-alphanumeric-or-with-hyphen" : "يجب أن يكون رقم الجدول أبجديًا رقميًا أو مع واصلة"
+
 
 
 
