@@ -31,7 +31,7 @@ const ManageOrder = ({ translaterFun }) => {
     const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
     const inputRefBulkTableUpload = useRef(null);
     const [openAction, setOpenAction] = useState(true)
-    
+
 
     // Hooks for managing state and navigation
     const dispatch = useDispatch();
@@ -65,7 +65,7 @@ const ManageOrder = ({ translaterFun }) => {
 
     useEffect(() => {
 
-        ( async () => {
+        (async () => {
             // setItemData(responseData?.payload?.data?.[0])
             let responseData = await dispatch(GetCategoryTableSlice({
                 BearerToken: BearerToken,
@@ -79,8 +79,8 @@ const ManageOrder = ({ translaterFun }) => {
 
             }
         })()
-        
-         
+
+
 
     }, [])
 
@@ -150,11 +150,14 @@ const ManageOrder = ({ translaterFun }) => {
             resetFileInput();
 
             if (response?.payload?.status === 200) {
-                // await dispatch(LoadingSpinner(true))
+                await dispatch(LoadingSpinner(true))
 
                 setTimeout(async () => {
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }))
-                }, 500)
+                    // await dispatch(LoadingSpinner(true))
+                    await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken, category: ManageOrderTableSelectorData?.GetCategoryTableData?.data?.[0]?.category }))
+                    await dispatch(GetCategoryTableSlice({ BearerToken: BearerToken, RestaurantId: RestaurantId }))
+
+                }, 2000)
             }
 
             await dispatch(LoadingSpinner(false))
@@ -162,7 +165,7 @@ const ManageOrder = ({ translaterFun }) => {
             await dispatch(LoadingSpinner(false))
         }
     }
-    console.log("TableTypeData", ManageOrderTableSelectorData?.GetCategoryTableData)
+    console.log("TableTypeData", ManageOrderTableSelectorData?.GetCategoryTableData?.data?.[0]?.category)
     return (
         <>
             <Helmet>
@@ -211,7 +214,7 @@ const ManageOrder = ({ translaterFun }) => {
                             </div>
                         </div>
                         <div className='infotable'>
-                           { <div className={ `${ManageOrderTableSelectorData?.GetCategoryTableData?.data?.length === 0 ? "invisible":""} leftpart `}>
+                            {<div className={`${ManageOrderTableSelectorData?.GetCategoryTableData?.data?.length === 0 ? "invisible" : ""} leftpart `}>
                                 <button type='button' onClick={(e) => openSelectToggleFun()}> {ItemData?.category} <img src={arrow} alt='img' /> </button>
                                 {SelectToggleValue && <ul>
                                     {ManageOrderTableSelectorData?.GetCategoryTableData?.data?.map((item, id) => {
@@ -242,7 +245,7 @@ const ManageOrder = ({ translaterFun }) => {
                                     <BookingTable
                                         translaterFun={translaterFun}
                                         ItemData={ItemData}
-                                        setItemData = {setItemData}
+                                        setItemData={setItemData}
                                     />
 
                                 </ul>
@@ -256,17 +259,17 @@ const ManageOrder = ({ translaterFun }) => {
 
             <div>
                 {/* add table start*/}
-                {openAction && 
-                <CreateEditTable
-                    translaterFun={translaterFun}
-                    openPopup={popUpcategoriesHook}
-                    closePopup={popUpCategoriesHookFun}
-                    tableProperty={"add-new-table"}
-                    OpenActionFun={setOpenAction}
-                    setItemData = {setItemData}
-                    ManageOrderTableSelectorDataProp= { ManageOrderTableSelectorData?.GetCategoryTableData?.data}
-                />
-}
+                {openAction &&
+                    <CreateEditTable
+                        translaterFun={translaterFun}
+                        openPopup={popUpcategoriesHook}
+                        closePopup={popUpCategoriesHookFun}
+                        tableProperty={"add-new-table"}
+                        OpenActionFun={setOpenAction}
+                        setItemData={setItemData}
+                        ManageOrderTableSelectorDataProp={ManageOrderTableSelectorData?.GetCategoryTableData?.data}
+                    />
+                }
 
                 {/* add table end */}
             </div>
