@@ -90,7 +90,7 @@ function KdsBox() {
 
   // Usage example:
   const data = processKdsData(GetKdsReducerData);
-  console.log("data", data);
+  // console.log("data", data);
 
   /**
    * Handles current order status data .
@@ -158,17 +158,17 @@ function KdsBox() {
       // Initial API call
       dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
 
-      // Set up interval for subsequent API calls every 5 seconds
-      // const intervalId = setInterval(() => {
-      //   dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));     
-      // }, 5000);
+      //Set up interval for subsequent API calls every 5 seconds
+      const intervalId = setInterval(() => {
+        dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));     
+      }, 5000);
 
-      // // Cleanup function to clear interval when component unmounts
-      // return () => {
-      //   clearInterval(intervalId);
-      //   // Set isMounted to false to prevent further API calls after unmounting
-      //   setIsMounted(false);
-      // };
+      // Cleanup function to clear interval when component unmounts
+      return () => {
+        clearInterval(intervalId);
+        // Set isMounted to false to prevent further API calls after unmounting
+        setIsMounted(false);
+      };
     }
   }, []); // Empty dependency array to ensure this effect runs only once
 
