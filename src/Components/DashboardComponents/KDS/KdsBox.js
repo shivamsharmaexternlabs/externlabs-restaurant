@@ -32,7 +32,7 @@ function KdsBox() {
 
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [currentOrder, setCurrentOrder] = useState(null);
-  // const [isMounted, setIsMounted] = useState(true);
+  const [isMounted, setIsMounted] = useState(true);
 
 
   /** 
@@ -90,7 +90,7 @@ function KdsBox() {
 
   // Usage example:
   const data = processKdsData(GetKdsReducerData);
-  // console.log("data", data);
+  console.log("data", data);
 
   /**
    * Handles current order status data .
@@ -134,48 +134,43 @@ function KdsBox() {
           UpdateKdsSlice({ kot_id: kot_id, status: newStatus, token: token })
         );
         if (updateKdsResponseData.payload.status === 200) {
-          dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
-          dispatch(LoadingSpinner(false))
+          let GetKdsSliceResponseData = await dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+          if (GetKdsSliceResponseData.payload.status === 200) {
+            dispatch(LoadingSpinner(false))
+          }
+          else{
+            dispatch(LoadingSpinner(false))
+          } 
+
         } else {
           dispatch(LoadingSpinner(false))
         }
+
       }
     }
     setShowConfirmation(false);
   };
 
-  // useEffect(() => {
-  //   if (!restaurant_id) {
-  //     console.warn("Restaurant ID not found in local storage.");
-  //   } else {
-  //     // Initial API call
-  //     dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
-
-  //     // Set up interval for subsequent API calls every 5 seconds
-  //     const intervalId = setInterval(() => {
-  //       dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
-  //       console.log("wow")
-  //     }, 5000);
-
-  //     // Cleanup function to clear interval when component unmounts
-  //     return () => {
-  //       clearInterval(intervalId);
-  //       console.log("ok bye!")
-  //       // Set isMounted to false to prevent further API calls after unmounting
-  //       setIsMounted(false);
-  //     };
-  //   }
-  // }, []); // Empty dependency array to ensure this effect runs only once
-
   useEffect(() => {
     if (!restaurant_id) {
-      console.warn("Restaurant ID not found in local storage.")
+      console.warn("Restaurant ID not found in local storage.");
     } else {
-      // setInterval(()=>{
-      dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }))
-      // },3000)     
+      // Initial API call
+      dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+
+      // Set up interval for subsequent API calls every 5 seconds
+      // const intervalId = setInterval(() => {
+      //   dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));     
+      // }, 5000);
+
+      // // Cleanup function to clear interval when component unmounts
+      // return () => {
+      //   clearInterval(intervalId);
+      //   // Set isMounted to false to prevent further API calls after unmounting
+      //   setIsMounted(false);
+      // };
     }
-  }, [])
+  }, []); // Empty dependency array to ensure this effect runs only once
 
 
   return (
@@ -330,4 +325,4 @@ function KdsBox() {
   )
 }
 
-export default KdsBox
+export default KdsBox 
