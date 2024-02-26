@@ -90,7 +90,7 @@ function KdsBox() {
 
   // Usage example:
   const data = processKdsData(GetKdsReducerData);
-  console.log("data", data);
+  // console.log("data", data);
 
   /**
    * Handles current order status data .
@@ -138,9 +138,9 @@ function KdsBox() {
           if (GetKdsSliceResponseData.payload.status === 200) {
             dispatch(LoadingSpinner(false))
           }
-          else{
+          else {
             dispatch(LoadingSpinner(false))
-          } 
+          }
 
         } else {
           dispatch(LoadingSpinner(false))
@@ -152,26 +152,38 @@ function KdsBox() {
   };
 
   useEffect(() => {
-    if (!restaurant_id) {
-      console.warn("Restaurant ID not found in local storage.");
-    } else {
-      // Initial API call
-      dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+    let fetchData = async () => {
+      dispatch(LoadingSpinner(true))
+      try {
+        if (!restaurant_id) {
+          console.warn("Restaurant ID not found in local storage.");
+        } else {
+          // Initial API call
+          const responseData = await dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+          if (responseData.payload.status === 200) {
+            dispatch(LoadingSpinner(false))
+          } else {
+            dispatch(LoadingSpinner(false))
+          }
+          //Set up interval for subsequent API calls every 5 seconds
+          const intervalId = setInterval(() => {
+            dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+          }, 5000);
 
-      //Set up interval for subsequent API calls every 5 seconds
-      const intervalId = setInterval(() => {
-        dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));     
-      }, 5000);
+          // Cleanup function to clear interval when component unmounts
+          return () => {
+            clearInterval(intervalId);
+            // Set isMounted to false to prevent further API calls after unmounting
+            setIsMounted(false);
+          };
+        }
+      } catch {
+        dispatch(LoadingSpinner(false))
+      }
 
-      // Cleanup function to clear interval when component unmounts
-      return () => {
-        clearInterval(intervalId);
-        // Set isMounted to false to prevent further API calls after unmounting
-        setIsMounted(false);
-      };
     }
-  }, []); // Empty dependency array to ensure this effect runs only once
-
+    fetchData()
+  }, [restaurant_id,token])
 
   return (
     <div>
