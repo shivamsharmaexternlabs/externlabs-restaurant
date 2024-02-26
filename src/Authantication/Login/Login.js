@@ -93,8 +93,8 @@ const Login = () => {
 
   // Initial values for the Formik form
   const defaultValue = {
-    email_or_phone: "as@gmail.com",
-    password: "Demo@123",
+    email_or_phone: "",
+    password: "",
     transFun: t
   };
 
