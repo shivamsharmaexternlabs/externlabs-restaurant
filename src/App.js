@@ -165,21 +165,21 @@ function App() {
             {/* <Route path="/signup" element={<Signup  translaterFun={t} />}></Route> // Please do not remove this comment... */}
             {/* <Route path='/success' element={<Success  translaterFun={t} />}></Route>   // Please do not remove this comment...*/}
             {/* <Route path="/forgotpassword" element={<ForgotPassword  translaterFun={t} />}></Route> // Please do not remove this comment... */}
-         {/* convert in arabic  */}    <Route path="/user_auth/resetpassword/:id" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <ResetPassword translaterFun={t} />}></Route>
+           {/*documentation done*/}   <Route path="/user_auth/resetpassword/:id" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <ResetPassword translaterFun={t} />}></Route>
             <Route path="/:id/admin/dashboard" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <Dashboard translaterFun={t} />}> </Route>  {/* convert in arabic  */}
             <Route path="/:id/admin/categories" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><Categories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
-          {/*documentation done*/}  <Route path="/:id/admin/categories/reorder/" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><DndCategories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
-            <Route path="/:id/admin/manager" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <Manager translaterFun={t} />}></Route> {/* convert in arabic  */}
+           {/*documentation done*/}  <Route path="/:id/admin/categories/reorder/" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><DndCategories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
+           {/*documentation done*/} <Route path="/:id/admin/manager" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <Manager translaterFun={t} />}></Route> {/* convert in arabic  */}
            {/*documentation done*/} <Route path="/:id/admin/allmedia" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <AllMedia translaterFun={t} />}></Route>{/* convert in arabic  */}
-            <Route path="/:id/admin/manageorder" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <ManageOrder translaterFun={t} />}></Route>{/* convert in arabic  */}
+           {/*documentation done*/}<Route path="/:id/admin/manageorder" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <ManageOrder translaterFun={t} />}></Route>{/* convert in arabic  */}
 
             {/*documentation done*/} <Route path='/:id/admin/viewProfile' element={<AdminProfilePage translaterFun={t} />}></Route>
-            <Route path="/:id/admin/paymenthistory" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <PaymentHistory translaterFun={t} />}></Route> {/* convert in arabic  */}
-            <Route path='/admin/leads' element={<Leads translaterFun={t} />}></Route>
-            <Route path='/admin/restaurant' element={<Restaurant translaterFun={t} />}></Route> {/* convert in arabic  */}
-            <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail translaterFun={t} />}></Route>  
-            <Route path="/:id/kds/kdsScreen" element={<KdsScreen/>}></Route>
-            {payment_status == "false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
+            {/*documentation done*/}<Route path="/:id/admin/paymenthistory" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <PaymentHistory translaterFun={t} />}></Route> {/* convert in arabic  */}
+            {/*documentation done*/}<Route path='/admin/leads' element={<Leads translaterFun={t} />}></Route>
+            {/*documentation done*/}<Route path='/admin/restaurant' element={<Restaurant translaterFun={t} />}></Route> {/* convert in arabic  */}
+            {/*documentation done*/}<Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail translaterFun={t} />}></Route>  
+            {/*documentation done*/}<Route path="/:id/kds/kdsScreen" element={<KdsScreen/>}></Route>
+            {/*documentation done*/} {payment_status == "false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
           </Routes>
         }
 
