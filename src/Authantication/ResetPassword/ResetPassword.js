@@ -10,6 +10,12 @@ import { ResetPasswordSlice } from '../../Redux/slices/resetPasswordSlice';
 import { reactLocalStorage } from 'reactjs-localstorage';
 
 // Functional component for ResetPassword page
+/**
+ * ResetPassword Component - Handles resetting the password.
+ * 
+ * @category Dashboard Component
+ * @returns {JSX.Element} - JSX Element representing the ResetPassword component.
+ */
 const ResetPassword = () => {
     // Initializing Redux dispatch function
     const dispatch = useDispatch();
@@ -39,6 +45,15 @@ const ResetPassword = () => {
     });
 
     // Handling form submission
+    /**
+     * Handles form submission.
+     * Dispatches the ResetPasswordSlice action if the new password matches the confirm password.
+     * Displays an error toast if the passwords do not match.
+     * @function handleSubmit
+     * @category ResetPassword Functions
+     * @param {Object} values - Form values containing the new and confirm passwords.
+     * @returns {void}
+     */
     const handleSubmit = (values) => {
         values["BearerToken"] = BearerToken;
         // Checking if the new password matches the confirm password

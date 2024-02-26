@@ -12,6 +12,14 @@ import axios from 'axios'
 import { CurrencySymbol } from '../Categories/CurrencySymbol'
 import { Helmet } from "react-helmet";
 
+
+/**
+ * PaymentHistory Component - Displays the payment history and subscription plans.
+ * 
+ * @category Dashboard Component
+ * @param {Function} translaterFun - Function for translating text.
+ * @returns {JSX.Element} - JSX Element representing the PaymentHistory component.
+ */
 const PaymentHistory = ({ translaterFun }) => {
 
     const [SelectedMonth, setSelectedMonth] = useState("Month")
@@ -81,7 +89,7 @@ const PaymentHistory = ({ translaterFun }) => {
                     }
                 );
 
-                console.log("mnsbghdcshds", response)
+                // console.log("mnsbghdcshds", response)
                 setSubscriptionPlan(response?.data)
                 return response;
 
@@ -168,6 +176,14 @@ const PaymentHistory = ({ translaterFun }) => {
 
     }, [PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]])
 
+     /**
+     * Handles the change in selected month for payment history.
+     *  @function PlanChangeFun
+     * @category payment history Functions
+     * @param {Event} e - The event object.
+     * @returns {void}
+     */
+
     const PlanChangeFun = (e) => {
 
         setSelectedMonth(e.target.value)
@@ -201,7 +217,7 @@ const PaymentHistory = ({ translaterFun }) => {
 
                             {SelectedMonth != "Month" ? SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
                                 {/* console.log("SubscriptionPlan items", items?.plan_id?.plan_id); */}
-                                console.log("TransactionIdArr huygftyguhijoihugy", TransactionIdArr?.[TransactionIdArr.length - 1]?.price_id?.plan_id?.plan_id)
+                                // console.log("TransactionIdArr huygftyguhijoihugy", TransactionIdArr?.[TransactionIdArr.length - 1]?.price_id?.plan_id?.plan_id)
                                 
 
 
@@ -259,7 +275,7 @@ const PaymentHistory = ({ translaterFun }) => {
                                 </tr>
 
                                 {TransactionIdArr?.map((item, id) => {
-                                    console.log("msdvhdvsd", item?.transaction_id)
+                                    // console.log("msdvhdvsd", item?.transaction_id)
 
 
                                     return <tr key={id}>

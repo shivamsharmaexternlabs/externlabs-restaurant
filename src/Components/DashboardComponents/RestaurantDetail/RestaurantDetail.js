@@ -25,7 +25,14 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 import SucessRegisteredPopup from '../../../ReusableComponents/SucessRegisteredPopup/SucessRegisteredPopup'
 import { Helmet } from "react-helmet";
 
-
+/**
+ * RestaurantDetail Component - Displays detailed information about a restaurant.
+ * 
+ * @category Dashboard Component
+ * @param {Object} props - Component props.
+ * @param {Function} props.translaterFun - A function for translating text.
+ * @returns {JSX.Element} - JSX Element representing the RestaurantDetail component.
+ */
 const RestaurantDetail = ({ translaterFun }) => {
   const [SuccessPopup, setSuccessPopup] = useState(false);
   const [ResetPasswordPopup, setResetPasswordPopup] = useState(false);
@@ -52,7 +59,6 @@ const RestaurantDetail = ({ translaterFun }) => {
   const [BannerImage, setBannerImage] = useState(null);
   const [ViewBannerImage, setViewBannerImage] = useState(null);
 
-  console.log("routeData", routeData)
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   let BearerToken = reactLocalStorage.get("Token", false);
@@ -89,7 +95,7 @@ const RestaurantDetail = ({ translaterFun }) => {
     confirm_pass: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, translaterFun("password-not-contain-spaces")),
   });
 
-  console.log("msvdsnd", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData, routeData?.state?.page)
+  // console.log("msvdsnd", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData, routeData?.state?.page)
 
   const defaultValue = {
     restaurant_name: routeData?.state?.page === "restaurant" ? LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data?.restaurant_name : routeData?.state?.currentData?.restaurant_name,
@@ -151,7 +157,7 @@ const RestaurantDetail = ({ translaterFun }) => {
 
   }, [LeadsRestaurantSelectorData?.UpdateRestaurantReducerData])
 
-  console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data)
+  // console.log("LeadsRestaurantSelectorData", LeadsRestaurantSelectorData?.GetRestaurantsOnBoardSliceReducerData?.data)
 
   const Validate = yup.object({
     restaurant_name: yup.string().required(translaterFun("restaurant-name-is-required")),
@@ -170,6 +176,14 @@ const RestaurantDetail = ({ translaterFun }) => {
     url_slug : yup.string().matches(/^\S*$/, translaterFun('slug-must-not-contain-spaces'))
   });
 
+  /**
+ * Handles form submission for onboarding pass and confirmation pass.
+ * Calls the necessary API to sign up and dispatches loading actions accordingly.
+ * @function handleSubmitOnBoardPassAndConfPass
+ * @category Resturant Detail Functions
+ * @param {Object} values - Form values including password and confirmation password.
+ * @returns {void}
+ */
   const handleSubmitOnBoardPassAndConfPass = async (values) => {
     await dispatch(LoadingSpinner(true))
 
@@ -193,6 +207,13 @@ const RestaurantDetail = ({ translaterFun }) => {
 
   }
 
+  /**
+ * Callback function executed after successful sign up.
+ * Sets on board pop-up to false and dispatches necessary actions.
+ * @function callBackFuncAfterSignUp
+ * @category Resturant Detail Functions
+ * @returns {void}
+ */
   const callBackFuncAfterSignUp = async () => {
     setOnBordPopUp(false)
 
@@ -213,7 +234,6 @@ const RestaurantDetail = ({ translaterFun }) => {
         "Token": BearerToken
       }
 
-      console.log("hgcfxcgvhbjnk", CreateLeadOnBoardPayloadState)
 
       await dispatch(CreateRestaurantsOnBoardSlice(payloadOnBoard))
       await dispatch(LoadingSpinner(false))
@@ -223,7 +243,6 @@ const RestaurantDetail = ({ translaterFun }) => {
     }
 
   }
-  console.log("hjgcfghjklCreateLeadOnBoardPayloadState", CreateLeadOnBoardPayloadState)
   // const CopyLinkFun = () => {
   //   console.log("bnvdhgsdvsd1")
   //   navigator.clipboard
@@ -240,6 +259,14 @@ const RestaurantDetail = ({ translaterFun }) => {
   //   // navigator.clipboard.writeText(LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.data?.url);
   // }
 
+
+  /**
+ * Handles navigation back to home after successful operation.
+ * Dispatches necessary actions and reloads the page.
+ * @function BackToHomeFun
+ * @category Resturant Detail Functions
+ * @returns {void}
+ */
   const BackToHomeFun = () => {
     // window.location.reload(false)
     setSuccessPopup(false)
@@ -253,7 +280,7 @@ const RestaurantDetail = ({ translaterFun }) => {
     navigate(`/admin/leads`)
     window.location.reload(false);
   }
-
+ 
 
   useEffect(() => {
     if (LeadsRestaurantSelectorData?.RestaurantOnBoardReducerData?.status === 201) {
@@ -306,6 +333,14 @@ const RestaurantDetail = ({ translaterFun }) => {
   }, [LeadsSelectorData?.UpdateLeadReducerData]);
 
 
+  /**
+ * Handles form submission for updating lead or restaurant information.
+ * Dispatches necessary actions based on the route data and form values.
+ * @function handleSubmit
+ * @category Resturant Detail Functions
+ * @param {Object} values - Form values containing updated information.
+ * @returns {void}
+ */
   const handleSubmit = async (values) => {
     // dispatch(LoadingSpinner(true))
 
@@ -340,7 +375,6 @@ const RestaurantDetail = ({ translaterFun }) => {
     else {
       //  if(!HandleFormData==true){
 
-      console.log("jhgfhjk valuesslug", values)
 
       let UpdateRestroPayload = {
         restaurant_name: values?.restaurant_name,
@@ -360,7 +394,6 @@ const RestaurantDetail = ({ translaterFun }) => {
       }
 
       let responseData = await dispatch(UpdateRestaurantSlice(UpdateRestroPayload));
-      console.log("msdvjvddsd", responseData)
 
       if (responseData?.payload.status == 200) {
         dispatch(LoadingSpinner(false))
@@ -377,7 +410,12 @@ const RestaurantDetail = ({ translaterFun }) => {
     // setDataaa(values)
   }
 
-
+/**
+ * Toggles the visibility of a pop-up.
+ * @function PopUpToggleFun
+ * @category Resturant Detail Functions
+ * @returns {void}
+ */
   const PopUpToggleFun = () => {
     popUpHookFun((o) => !o);
   };
@@ -393,6 +431,14 @@ const RestaurantDetail = ({ translaterFun }) => {
     }
   }, [ResetPasswordSelectorData]);
 
+  /**
+ * Handles the submission of a password reset request.
+ * Dispatches the necessary actions to reset the password.
+ * @function resetPasswordSubmit
+ * @category Resturant Detail Functions
+ * @param {Object} values - Form values containing the new and confirmed passwords.
+ * @returns {void}
+ */
   const resetPasswordSubmit = async (values) => {
     await dispatch(LoadingSpinner(true));
 
@@ -414,17 +460,42 @@ const RestaurantDetail = ({ translaterFun }) => {
 
   }
 
+  /**
+ * Displays the password reset pop-up.
+ * @function resetPasswordFunc
+ * @category Resturant Detail Functions
+ * @param {Event} e - Click event triggering the password reset.
+ * @param {Object} routeData - Data related to the current route.
+ * @returns {void}
+ */
   const resetPasswordFunc = (e, routeData) => {
     setResetPasswordPopup(true)
 
 
   }
 
+  /**
+ * Closes the password reset pop-up and reloads the page.
+ * @function closeResetPasswordFun
+ * @category Resturant Detail Functions
+ * @returns {void}
+ */
   const closeResetPasswordFun = () => {
     setResetPasswordPopup(false)
     window.location.reload()
   }
 
+  /**
+ * Handles the onChange event for country code and phone number input fields.
+ * Extracts and sets the country code and phone number from the input value.
+ * @function handleOnChange1
+ * @category Resturant Detail Functions
+ * @param {string} currentValue - The current value of the input field.
+ * @param {string} objectValue - The previous value of the input field.
+ * @param {Event} eventData - The event data.
+ * @param {string} eventTargetValue - The value of the event target.
+ * @returns {void}
+ */
   const handleOnChange1 = (
     currentValue,
     objectValue,
@@ -443,8 +514,6 @@ const RestaurantDetail = ({ translaterFun }) => {
   };
 
 
-  console.log("jdjhvdssd", isShown)
-
 
   useEffect(() => {
 
@@ -454,19 +523,33 @@ const RestaurantDetail = ({ translaterFun }) => {
 
   }, [isShown])
 
-
+/**
+ * Handles the upload of a logo image.
+ * Sets the logo image and its corresponding view URL.
+ * @function LogoImageUploadFun
+ * @category Resturant Detail Functions
+ * @param {Event} e - The event triggered by selecting a file.
+ * @returns {void}
+ */
   const LogoImageUploadFun = (e) => {
     setLogoImage(e.target.files[0])
     setViewLogoImage(URL.createObjectURL(e.target.files[0]))
   }
 
+  /**
+ * Handles the upload of a banner image.
+ * Sets the banner image and its corresponding view URL.
+ * @function BannerImageUploadFun
+ * @category Resturant Detail Functions
+ * @param {Event} e - The event triggered by selecting a file.
+ * @returns {void}
+ */
   const BannerImageUploadFun = (e) => {
     setBannerImage(e?.target?.files?.[0])
     setViewBannerImage(URL.createObjectURL(e?.target?.files?.[0]))
   }
 
 
-  console.log("ViewLogoImage", ViewLogoImage)
   return (
     <>
       <Helmet>
@@ -530,14 +613,13 @@ const RestaurantDetail = ({ translaterFun }) => {
                 enableReinitialize
                 onSubmit={(values) => {
                   if (submitAction === "primary") {
-                    console.log("dhgasjh")
+                    console.warn("dhgasjh")
                     // handleSubmit(values);
                   }
                   else if (routeData?.state?.page == "lead") {
                     handleSubmit(values)
                   }
                   else if (submitAction === "secondary") {
-                    console.log("dhgasjh11")
                     handleSubmit(values);
                   }
                 }}

@@ -90,7 +90,7 @@ function KdsBox() {
 
   // Usage example:
   const data = processKdsData(GetKdsReducerData);
-  // console.log("data", data);
+  console.log("data", data);
 
   /**
    * Handles current order status data .

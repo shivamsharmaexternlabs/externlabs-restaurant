@@ -23,7 +23,14 @@ import { Helmet } from "react-helmet";
 import { currencyData } from '../Categories/currencyData';
 import { toast } from "react-toastify";
 
-
+/**
+ * Manager Component - Manages various functionalities related to management.
+ * 
+ * @category Dashboard Component
+ * @param {Object} props - Component props.
+ * @param {Function} props.translaterFun - A function for translating text.
+ * @returns {JSX.Element} - JSX Element representing the Manager component.
+ */
 const Manager = ({ translaterFun }) => {
     const itemsPerPage = 5;
     const [loadspiner, setLoadSpiner] = useState(false);
@@ -50,7 +57,6 @@ const Manager = ({ translaterFun }) => {
         setData(ManagerApiSelectorData?.data?.data)
     }, [ManagerApiSelectorData]);
 
-    console.log("sgdvchgsds", data)
 
     useEffect(() => {
 
@@ -80,7 +86,7 @@ const Manager = ({ translaterFun }) => {
 
 
     useEffect(() => {
-        console.log("SignUpSelectorData", SignUpSelectorData)
+       
         if (SignUpSelectorData?.data?.status === 201) {
             setLoadSpiner(false);
             popUpHookFun(false);
@@ -140,7 +146,15 @@ const Manager = ({ translaterFun }) => {
         // phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces')
     });
 
-
+    /**
+ * Handles form submission for signing up a new user.
+ * Dispatches the SignUpSlice action with the provided form values.
+ * Displays an error toast if the phone number is not provided.
+ * @function handleSubmit
+ * @category manager Functions
+ * @param {Object} values - Form values containing user information.
+ * @returns {void}
+ */
     const handleSubmit = async (values) => {
          
          
@@ -168,7 +182,7 @@ const Manager = ({ translaterFun }) => {
 
                 // }
 
-                console.log("responseData", responseData);
+                // console.log("responseData", responseData);
                 dispatch(LoadingSpinner(false))
     
             }
@@ -185,6 +199,15 @@ const Manager = ({ translaterFun }) => {
         setLoadSpiner(true);
     };
 
+    /**
+ * Handles pagination click event.
+ * Dispatches the ManagerSlice action to fetch data for the selected page.
+ * @function handlePageClick
+ * @category manager Functions
+ * @param {Object} selectedPage - Selected page information.
+ * @returns {void}
+ */
+
     const handlePageClick = (selectedPage) => {
         const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.
 
@@ -196,16 +219,37 @@ const Manager = ({ translaterFun }) => {
         setCurrentPage(page - 1);
     }
 
+    /**
+ * Handles delete button click event for a manager.
+ * Sets the user ID for deletion and opens the delete confirmation pop-up.
+ * @function handleDelete
+ * @category manager Functions
+ * @param {Event} e - Click event.
+ * @param {Object} item - Manager item to be deleted.
+ * @returns {void}
+ */
     const handleDelete = (e, item) => {
         setUserId(item.user_id)
         deletePopUpFun(true)
     }
+
+    /**
+ * Confirms the deletion of a manager.
+ * Dispatches the ManagerDeleteSlice action to delete the manager.
+ * Closes the delete confirmation pop-up after successful deletion.
+ * @function confirmDelete
+ * @category manager Functions
+ * @param {Event} e - Click event.
+ * @param {Object} item - Manager item to be deleted.
+ * @returns {void}
+ */
+
     const confirmDelete = async (e, item) => {
         await dispatch(LoadingSpinner(true));
 
         try {
             let responseData = await dispatch(ManagerDeleteSlice({ item, BearerToken,RestaurantId }))
-            console.log("responseDataresponseData", responseData, item)
+            // console.log("responseDataresponseData", responseData, item)
             if(responseData?.payload?.status === 204){
                 toast.success(translaterFun("staff-deleted-successfully"))
             }
@@ -222,10 +266,29 @@ const Manager = ({ translaterFun }) => {
         }
     }
 
+    
+/**
+ * Cancels the pop-up for adding a new manager.
+ * @function CancelBtnFun
+ * @category manager Functions
+ * @returns {void}
+ */
     const CancelBtnFun = () => {
         popUpHookFun(false);
     }
 
+    
+/**
+ * Handles the onChange event for the phone number input field.
+ * Extracts and sets the country code and phone number from the input value.
+ * @function handleOnChange1
+ * @category manager Functions
+ * @param {string} currentValue - The current value of the input field.
+ * @param {string} objectValue - The previous value of the input field.
+ * @param {Event} eventData - The event data.
+ * @param {string} eventTargetValue - The value of the event target.
+ * @returns {void}
+ */
     const handleOnChange1 = (
         currentValue,
         objectValue,
@@ -243,8 +306,8 @@ const Manager = ({ translaterFun }) => {
         setPhoneNumber(myString);
     };
 
-console.log("bsdvhhdsd",data?.results)
-    return (
+
+    return ( 
 
         <>
             <Helmet>

@@ -16,6 +16,14 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Helmet } from "react-helmet";
 
+
+/**
+ * Subscription Component - Manages subscription details and payments.
+ * @category Dashboard Component
+ * @param {Object} props - Component props.
+ * @param {Function} props.translaterFun - A function for translating text.
+ * @returns {JSX.Element} - JSX Element representing the Subscription component.
+ */
 const Subscription = ({ translaterFun }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,14 +61,13 @@ const Subscription = ({ translaterFun }) => {
 
   }, []);
 
-  console.log("subscriptionDetailsdfgfds", subscriptionDetails)
 
 
 
   useEffect(() => {
     if (PaymentSelectorData?.PaymentPostReducerData?.status === 200) {
       // window.location.replace(PaymentSelectorData?.PaymentPostReducerData?.data?.url?.url)
-      console.log("jgvgfssdds", PaymentSelectorData?.PaymentPostReducerData)
+      // console.log("jgvgfssdds", PaymentSelectorData?.PaymentPostReducerData)
       window.location.href = PaymentSelectorData?.PaymentPostReducerData?.data?.url?.transaction?.url;
       // navigate(`/${PaymentSelectorData?.PaymentPostReducerData?.data?.url?.transaction?.url}`,);
     }
@@ -70,7 +77,14 @@ const Subscription = ({ translaterFun }) => {
   }, [PaymentSelectorData?.PaymentPostReducerData]);
 
 
-
+ /**
+    * Handles Payment.
+     * Fetches leads data for the selected page and updates the current page state.
+     * @function PaymentFunc
+     * @category Subscription Functions
+     * @subCategory Dashboard Component
+     *  @param {number} price_id - Selected page number.
+     */
   const PaymentFunc = (price_id) => {
     dispatch(PaymentPostSlice({ price_id, restaurant_id: RestaurantId, BearerToken }));
   }
@@ -91,7 +105,7 @@ const Subscription = ({ translaterFun }) => {
           }
         );
 
-        console.log("mnsbghdcshds", response)
+       
         setSubscriptionPlan(response?.data)
         return response;
 
@@ -281,7 +295,7 @@ const Subscription = ({ translaterFun }) => {
               <ul>
 
                 {SubscriptionPlan && SubscriptionPlan?.map((items, id) => {
-                  console.log("sjdhsjddf", items)
+               
                   return items?.interval === translaterFun("payment-montly") && items?.is_active === true && items?.plan_id?.language === LanguageSelected && <li key={id} className=''>
                     <div className='title'>
                       <div className='iconbox'>

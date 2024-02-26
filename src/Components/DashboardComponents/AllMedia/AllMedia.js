@@ -128,7 +128,6 @@ const AllMedia = ({ translaterFun }) => {
         }
     }
 
-    console.log("MediaLibrarySelectorData", MediaLibrarySelectorData)
 
     // JSX structure for the AllMedia component
     return (

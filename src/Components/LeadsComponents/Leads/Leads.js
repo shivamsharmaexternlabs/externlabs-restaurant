@@ -16,7 +16,14 @@ import { Helmet } from "react-helmet";
 
 
 
-
+/**
+ * Leads Component - Displays a list of leads with pagination functionality.
+ * 
+ * @category Dashboard Component
+ * @param {Object} props - Component props.
+ * @param {Function} props.translaterFun - A function for translating text.
+ * @returns {JSX.Element} - JSX Element representing the Leads component.
+ */
 const Leads = ({ translaterFun }) => {
 
   const itemsPerPage = 5;
@@ -80,7 +87,14 @@ const Leads = ({ translaterFun }) => {
   }, [BearerToken]);
 
 
-
+  /**
+    * Handles page change event.
+     * Fetches leads data for the selected page and updates the current page state.
+     * @function handlePageClick
+     * @category Leads Functions
+     * @subCategory Dashboard Component
+     *  @param {Object} selectedPage - Selected page object.
+     */
   const handlePageClick = (selectedPage) => {
     const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.
 
@@ -93,7 +107,13 @@ const Leads = ({ translaterFun }) => {
   }
 
 
-
+  /**
+     * Navigates to lead details page.
+     *  @function LeadsDetailsFun
+     * @category Leads Functions
+     * @param {Event} e - Click event.
+     * @param {Object} items - Lead item details.
+     */
   const LeadsDetailsFun = (e, items) => {
 
     navigate(`/admin/restaurantdetail/${items?.lead_id}`, {
