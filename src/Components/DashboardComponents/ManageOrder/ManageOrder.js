@@ -20,10 +20,17 @@ import { GetCategoryTableSlice, GetManageOrderTableSlice, GetSampleTableDownload
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle.js';
 import ViewKot from './ViewKot.js';
 import { useSelector } from 'react-redux';
+import { MultiSelect } from "react-multi-select-component";
 
 
 // Functional component for the ManageOrder page
 const ManageOrder = ({ translaterFun }) => {
+
+    const [selected, setSelected] = useState([]);
+    const [Options, setOptions] = useState([]);
+    const [AllTableData, setAllTableData] = useState([]);
+
+    console.log("selected", selected)
 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const [ItemData, setItemData] = useState([])
@@ -76,13 +83,30 @@ const ManageOrder = ({ translaterFun }) => {
 
                 setItemData(responseData?.payload?.data?.[0])
 
+                let options = [];
+                responseData?.payload?.data?.map((singleCategory) => {
+                    options.push({ label: singleCategory?.category, value: singleCategory?.category });
+                });
 
+                setOptions(options);
+
+                // By default all category is selected...
+                setSelected(options);
             }
+
+
+            let responseTableData = await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }));
+            
+            console.log("responseTableData", responseTableData)
+
+            if(responseTableData?.payload?.status === 200){
+                setAllTableData(responseTableData?.payload?.data);
+            }
+
+            
         })()
 
-
-
-    }, [])
+    }, [openAction])
 
 
     const BulkDownload = async () => {
@@ -99,10 +123,6 @@ const ManageOrder = ({ translaterFun }) => {
             var blob = new Blob([responseData?.payload?.data], { type: "application/zip" });
             var objectUrl = URL.createObjectURL(blob);
             window.open(objectUrl);
-
-
-
-
         }
     }
 
@@ -151,13 +171,13 @@ const ManageOrder = ({ translaterFun }) => {
 
             if (response?.payload?.status === 200) {
                 await dispatch(LoadingSpinner(true))
+                window.location.reload()
+                // setTimeout(async () => {
+                //     // await dispatch(LoadingSpinner(true))
+                //     await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }))
+                //     await dispatch(GetCategoryTableSlice({ BearerToken: BearerToken, RestaurantId: RestaurantId }))
 
-                setTimeout(async () => {
-                    // await dispatch(LoadingSpinner(true))
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken, category: ManageOrderTableSelectorData?.GetCategoryTableData?.data?.[0]?.category }))
-                    await dispatch(GetCategoryTableSlice({ BearerToken: BearerToken, RestaurantId: RestaurantId }))
-
-                }, 2000)
+                // }, 2000)
             }
 
             await dispatch(LoadingSpinner(false))
@@ -165,7 +185,11 @@ const ManageOrder = ({ translaterFun }) => {
             await dispatch(LoadingSpinner(false))
         }
     }
-    console.log("TableTypeData", ManageOrderTableSelectorData?.GetCategoryTableData?.data?.[0]?.category)
+
+
+
+
+
     return (
         <>
             <Helmet>
@@ -215,22 +239,45 @@ const ManageOrder = ({ translaterFun }) => {
                         </div>
                         <div className='infotable'>
                             {<div className={`${ManageOrderTableSelectorData?.GetCategoryTableData?.data?.length === 0 ? "invisible" : ""} leftpart `}>
-                                <button type='button' onClick={(e) => openSelectToggleFun()}> {ItemData?.category} <img src={arrow} alt='img' /> </button>
-                                {SelectToggleValue && <ul>
+                                <div>
+                                    {/* <h1>Select Fruits</h1> */}
+                                    {/* <pre>{JSON.stringify(selected)}</pre> */}
+                                    <MultiSelect
+                                        options={Options}
+                                        value={selected}
+                                        onChange={setSelected}
+                                        labelledBy="Select"
+                                        // hasSelectAll={false}
+                                        // isLoading={!selected?.length}
+                                        shouldToggleOnHover={true}
+                                        overrideStrings={
+                                            {
+                                                selectSomeItems: translaterFun("select-some-items"),
+                                                allItemsAreSelected: translaterFun("all-items-are-selected"),
+                                                selectAll: translaterFun("select-all"),
+                                                search: translaterFun("search"),
+                                            }
+                                        }
+                                    />
+                                </div>
+                                {/* <button type='button' onClick={(e) => openSelectToggleFun()}> {ItemData?.category} <img src={arrow} alt='img' /> </button> */}
+                                {/* {SelectToggleValue && <ul>
+                                    <li className="activeselect"
+                                        onClick={(e) => TableTypeFun(e, {category : "All"})}
+                                    >
+
+                                        {translaterFun("all")}
+                                    </li>
                                     {ManageOrderTableSelectorData?.GetCategoryTableData?.data?.map((item, id) => {
                                         return <li className={` ${item?.category === ItemData?.category ? "activeselect" : ""}`} onClick={(e) => TableTypeFun(e, item)}>
-
-
-
                                             {item?.category}
                                         </li>
                                     })}
 
-                                </ul>}
+                                </ul>} */}
                             </div>}
                             <div className='rightpart'>
                                 <TableStatus
-
                                     translaterFun={translaterFun}
                                 />
                             </div>
@@ -239,23 +286,32 @@ const ManageOrder = ({ translaterFun }) => {
                         </div>
 
                         <div>
-                            <div className='actable'>
-                                <h2>{ItemData?.category}</h2>
-                                <ul className='actablelist'>
-                                    <BookingTable
-                                        translaterFun={translaterFun}
-                                        ItemData={ItemData}
-                                        setItemData={setItemData}
-                                    />
 
-                                </ul>
-                            </div>
+                            {selected?.map((item, id) => {
+                                {/* console.log("jhsfgfhdsd under selected", item) */ }
+
+                                return <div key={id} className='actable'>
+                                    <h2>{item?.value}</h2>
+                                    <ul className='actablelist'>
+                                        <BookingTable translaterFun={translaterFun}
+                                            ItemData={ItemData}
+                                            setItemData={setItemData}
+                                            currentSelectedCategory={item}
+                                            allTableData={AllTableData}
+                                            setAllTableData={setAllTableData}
+                                        />
+
+
+                                    </ul>
+                                </div>
+                            })}
+
 
                         </div>
                     </div>
                 </div>
 
-            </DashboardLayout>
+            </DashboardLayout >
 
             <div>
                 {/* add table start*/}

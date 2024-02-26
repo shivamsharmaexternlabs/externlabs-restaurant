@@ -213,6 +213,7 @@ function App() {
           <Route path="/" element={<Login translaterFun={t} />}></Route>
           <Route path="/:id" element={<Login translaterFun={t} />}></Route>
           <Route path="/:id/menu" element={<Menu translaterFun={t} />}></Route>
+          <Route path="/:id/:tableId/menu" element={<Menu translaterFun={t} />}></Route>
          {/*documentation done*/} 
         </Routes>
 

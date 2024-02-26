@@ -14,14 +14,12 @@ import SelectAndSearchComponent from '../../../ReusableComponents/SelectAndSearc
 
 const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData, OpenActionFun, setItemData, ManageOrderTableSelectorDataProp
 }) => {
-
-    const [searchCategoryData, setSearchCategoryData] = useState("")
+ 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const dispatch = useDispatch();
 
 
-    let BearerToken = reactLocalStorage.get("Token", false);
-    let languageSet = reactLocalStorage.get("languageSet", false);
+    let BearerToken = reactLocalStorage.get("Token", false); 
     const RestaurantIdLocalStorageData = reactLocalStorage.get("RestaurantId", false);
 
 
@@ -54,7 +52,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
 
                 console.log("mhjhsdsd", responseData)
                 if (responseData?.payload?.status == 201) {
-                    setItemData({ category: handleCreateTablePayload?.category })
+                    // setItemData({ category: handleCreateTablePayload?.category })
                     closePopup(false)
                     // setOpenMenuActionToggle()
                     await dispatch(LoadingSpinner(false))
@@ -65,7 +63,8 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 }
 
                 setTimeout(async () => {
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken, category: handleCreateTablePayload?.category }))
+                    
+                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken }))
                 }, 500)
             }
             catch (error) {
@@ -90,7 +89,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 console.log("mhjhsdsd", responseData)
                 if (responseData?.payload?.status == 200) {
                     closePopup(false)
-                    setItemData({ category: handleEditTablePayload?.category })
+                    // setItemData({ category: handleEditTablePayload?.category })
                     // setOpenMenuActionToggle()
                     await dispatch(LoadingSpinner(false))
 
@@ -100,7 +99,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 }
 
                 setTimeout(async () => {
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken, category: handleEditTablePayload?.category }))
+                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken}))
                 }, 500)
             }
             catch (error) {
@@ -176,7 +175,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                                     </p>
                                 </div>
                                 <div className="formbox mb-3 col-sm-6"  >
-                                    <label>  {translaterFun("capacity")} </label>
+                                    <label>  {translaterFun("capacity-optional")} </label>
                                     <Field
                                         name="Capacity"
                                         type="text"

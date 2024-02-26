@@ -87,7 +87,7 @@ console.log("body", body)
 export const GetManageOrderTableSlice = createAsyncThunk("GetManageOrderTableSlice", async (body, { rejectWithValue }) => {
   console.log("snbdvhgsvdcsd0", body)
   try {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/?restaurant_id=${body?.RestaurantId}&category=${body?.category}`
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/?restaurant_id=${body?.RestaurantId}`
       ,
       {
         headers: {
@@ -97,6 +97,16 @@ export const GetManageOrderTableSlice = createAsyncThunk("GetManageOrderTableSli
       }
 
     );
+    // const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/?restaurant_id=${body?.RestaurantId}&category=${body?.category}`
+    //   ,
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${body?.BearerToken}`,
+    //       "Accept-Language": languageSet
+    //     },
+    //   }
+
+    // );
     toast.success(response?.data?.message);
 
     return response;

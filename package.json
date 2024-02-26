@@ -32,6 +32,7 @@
     "react-helmet": "^6.1.0",
     "react-i18next": "^13.5.0",
     "react-loader-spinner": "^5.3.4",
+    "react-multi-select-component": "^4.3.4",
     "react-otp-input": "^3.1.0",
     "react-paginate": "^8.2.0",
     "react-phone-input-2": "^2.15.1",
@@ -60,7 +61,7 @@
     "deploy:prod": "aws s3 cp ./build/ s3://app.harborbites.com --recursive",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "docs": "jsdoc -c jsdoc.conf.json" 
+    "docs": "jsdoc -c jsdoc.conf.json"
   },
   "eslintConfig": {
     "extends": [
