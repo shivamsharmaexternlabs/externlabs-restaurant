@@ -57,17 +57,19 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                     closePopup(false)
                     OpenActionFun(false)
                     // setOpenMenuActionToggle()
-                    await dispatch(LoadingSpinner(false))
+                    setTimeout(async () => {
+                    
+                        await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken }))
+                        await dispatch(LoadingSpinner(false))
+                    }, 500)
+                    // await dispatch(LoadingSpinner(false))
 
                 }
                 else {
                     await dispatch(LoadingSpinner(false))
                 }
 
-                setTimeout(async () => {
-                    
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken }))
-                }, 500)
+                
             }
             catch (error) {
                 await dispatch(LoadingSpinner(false))
@@ -94,16 +96,18 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                     // setItemData({ category: handleEditTablePayload?.category })
                     // setOpenMenuActionToggle()
                     OpenActionFun(false)
-                    await dispatch(LoadingSpinner(false))
+                    setTimeout(async () => {
+                        await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken}))
+                        await dispatch(LoadingSpinner(false))
+                    }, 500)
+                    // await dispatch(LoadingSpinner(false))
 
                 }
                 else {
                     await dispatch(LoadingSpinner(false))
                 }
 
-                setTimeout(async () => {
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken}))
-                }, 500)
+                
             }
             catch (error) {
                 await dispatch(LoadingSpinner(false))

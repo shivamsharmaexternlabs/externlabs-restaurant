@@ -97,6 +97,7 @@ const ManageOrder = ({ translaterFun }) => {
 
             let responseTableData = await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }));
             
+            
             console.log("responseTableData", responseTableData)
 
             if(responseTableData?.payload?.status === 200){
@@ -106,7 +107,7 @@ const ManageOrder = ({ translaterFun }) => {
             
         })()
 
-    }, [openAction])
+    }, [openAction, ManageOrderTableSelectorData?.UpdateManageOrderTableData, ManageOrderTableSelectorData?.data]) 
 
 
     const BulkDownload = async () => {

@@ -174,6 +174,7 @@ export const ManageOrderTableReducer = createSlice({
     data: [],
     GetManageOrderTableData: [],
     GetCategoryTableData:[],
+    UpdateManageOrderTableData : [],
     loading: false,
     error: null,
   },
@@ -221,6 +222,20 @@ export const ManageOrderTableReducer = createSlice({
       )
 
       .addCase(GetCategoryTableSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(UpdateManageOrderTableSlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(UpdateManageOrderTableSlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.UpdateManageOrderTableData = action.payload;
+      }
+      )
+
+      .addCase(UpdateManageOrderTableSlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
