@@ -120,6 +120,7 @@ const BookingTable = ({ translaterFun, ItemData, setItemData, allTableData, setA
 console.log("ItemDataItemData", ItemData)
 
     const OpenActionFun = (e, id, item) => {
+
         // console.log("sbdjshdjhd", OpenMenuActionToggle, item?.table_id, OpenMenuActionToggle === item?.table_id)
         // setOpenAction(id)
 
@@ -136,6 +137,8 @@ console.log("ItemDataItemData", ItemData)
             Booleanvalue: item?.is_active !== true ? true : false
         })
     }
+
+    console.log("OpenMenuActionToggle", OpenMenuActionToggle)
     useEffect(() => {
 
         const handleOutsideClick = (e) => {
@@ -212,7 +215,7 @@ console.log("ItemDataItemData", ItemData)
                 {/* console.log("tableAllData?.key ", tableAllData )
                 console.log("currentSelectedCategory?.value", currentSelectedCategory?.value) */}
                 return tableAllData?.key === currentSelectedCategory?.value &&  tableAllData?.value?.map((item, id) => {
-                    console.log("hgfghjk", item)
+                     
 
                     return <>
                         {<li className={`${item?.is_active === true ? "" : "overlayout"}  ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen"} tablsCss`}

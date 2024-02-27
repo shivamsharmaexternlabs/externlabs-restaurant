@@ -30,7 +30,8 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
     };
 
     const ValidateEditCategory = yup.object({
-        category_en: yup.string().required(translaterFun("enter-category-name")),
+        // [A-Za-z0-9-]
+        category_en: yup.string().matches(/^[A-Za-z\s_-]*$/, translaterFun("Category Name should be Alphabetic Character")).required(translaterFun("enter-category-name")),
         // Capacity: yup.string().required(translaterFun("enter-capacity")),
         TableNo: yup.string().matches(/^[\w- ]+$/, translaterFun("table-number-should-be-alphanumeric-or-with-hyphen")).required(translaterFun("enter-table-no")),
     });
@@ -54,6 +55,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 if (responseData?.payload?.status == 201) {
                     // setItemData({ category: handleCreateTablePayload?.category })
                     closePopup(false)
+                    OpenActionFun(false)
                     // setOpenMenuActionToggle()
                     await dispatch(LoadingSpinner(false))
 
@@ -91,6 +93,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                     closePopup(false)
                     // setItemData({ category: handleEditTablePayload?.category })
                     // setOpenMenuActionToggle()
+                    OpenActionFun(false)
                     await dispatch(LoadingSpinner(false))
 
                 }
