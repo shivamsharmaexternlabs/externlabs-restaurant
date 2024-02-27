@@ -238,8 +238,9 @@ const ManageOrder = ({ translaterFun }) => {
                             </div>
                         </div>
                         <div className='infotable'>
-                            {<div className={`${ManageOrderTableSelectorData?.GetCategoryTableData?.data?.length === 0 ? "invisible" : ""} leftpart `}>
-                                <div>
+
+                            {<div className={`${ManageOrderTableSelectorData?.GetCategoryTableData?.data?.length === 0 ? "invisible" : ""} leftpart multiselectDropdown`}>
+                                <div className=' '>
                                     {/* <h1>Select Fruits</h1> */}
                                     {/* <pre>{JSON.stringify(selected)}</pre> */}
                                     <MultiSelect
@@ -276,6 +277,7 @@ const ManageOrder = ({ translaterFun }) => {
 
                                 </ul>} */}
                             </div>}
+                            
                             <div className='rightpart'>
                                 <TableStatus
                                     translaterFun={translaterFun}
