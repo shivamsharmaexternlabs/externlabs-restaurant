@@ -9,6 +9,8 @@ import PopUpComponent from '../../../ReusableComponents/PopUpComponent/PopUpComp
 import markAsDone from '../../../images/mark-as-done.svg'
 import { useSelector, useDispatch } from 'react-redux';
 import { GetKdsSlice, UpdateKdsSlice } from '../../../Redux/slices/KdsSlice'
+import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
+import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 
 
 /**
@@ -30,12 +32,14 @@ function KdsBox() {
 
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [currentOrder, setCurrentOrder] = useState(null);
+  const [isMounted, setIsMounted] = useState(true);
 
-  /**
+
+  /** 
    * Handles current order status data .
    * @function processKdsData
    * @param {Array} kdsData - kdsData is an array of objects.
-   * @category KdsBox Functions
+   * @category KdsBox Functions 
    * @subCategory Dashboard Component
    */
 
@@ -86,9 +90,7 @@ function KdsBox() {
 
   // Usage example:
   const data = processKdsData(GetKdsReducerData);
-  console.log("data", data);
-
-
+  // console.log("data", data);
 
   /**
    * Handles current order status data .
@@ -127,32 +129,53 @@ function KdsBox() {
       }
 
       if (newStatus) {
+        dispatch(LoadingSpinner(true))
         const updateKdsResponseData = await dispatch(
           UpdateKdsSlice({ kot_id: kot_id, status: newStatus, token: token })
         );
         if (updateKdsResponseData.payload.status === 200) {
-          dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+          let GetKdsSliceResponseData = await dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+          if (GetKdsSliceResponseData.payload.status === 200) {
+            dispatch(LoadingSpinner(false))
+          }
+          else{
+            dispatch(LoadingSpinner(false))
+          } 
+
+        } else {
+          dispatch(LoadingSpinner(false))
         }
+
       }
     }
     setShowConfirmation(false);
   };
 
-
-
   useEffect(() => {
     if (!restaurant_id) {
-      console.warn("Restaurant ID not found in local storage.")
+      console.warn("Restaurant ID not found in local storage.");
     } else {
-      // setInterval(()=>{
-      dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }))
-      // },3000)     
+      // Initial API call
+      dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+
+      //Set up interval for subsequent API calls every 5 seconds
+      const intervalId = setInterval(() => {
+        dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));     
+      }, 5000);
+
+      // Cleanup function to clear interval when component unmounts
+      return () => {
+        clearInterval(intervalId);
+        // Set isMounted to false to prevent further API calls after unmounting
+        setIsMounted(false);
+      };
     }
-  }, [])
+  }, []); // Empty dependency array to ensure this effect runs only once
 
 
   return (
     <div>
+
       <div className='kgcardpart'>
         {data?.map((item, index) => {
 
@@ -206,11 +229,12 @@ function KdsBox() {
                             borderColor: order.order_type === "take_away" ? "#eabb36" : "#42B856",
                             color: order.order_type === "take_away" ? "#eabb36" : "#42B856",
                           }}
+                          className='order-status-btn'
                           onClick={() => handleStartCooking(index, orderIndex, order)}
                         >
-                          {(order.status === "kot_generated") ?
+                          <p>{(order.status === "kot_generated") ?
                             (language === "en" ? "Start Cooking" : "ابدأ الطهي") :
-                            (language === "en" ? "Mark as done" : "اعتبره منته")}
+                            (language === "en" ? "Mark as done" : "اعتبره منته")}</p>
                           <img
                             src={
                               order.status === "start_cooking"
@@ -234,7 +258,6 @@ function KdsBox() {
 
         })
         }
-
 
 
       </div>
@@ -297,9 +320,9 @@ function KdsBox() {
           </div>
         </PopUpComponent>
       )}
-
+      <LodingSpiner />
     </div>
   )
 }
 
-export default KdsBox
+export default KdsBox 

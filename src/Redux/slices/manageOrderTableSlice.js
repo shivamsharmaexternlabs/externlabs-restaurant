@@ -87,7 +87,7 @@ console.log("body", body)
 export const GetManageOrderTableSlice = createAsyncThunk("GetManageOrderTableSlice", async (body, { rejectWithValue }) => {
   console.log("snbdvhgsvdcsd0", body)
   try {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/?restaurant_id=${body?.RestaurantId}&category=${body?.category}`
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/?restaurant_id=${body?.RestaurantId}`
       ,
       {
         headers: {
@@ -97,6 +97,16 @@ export const GetManageOrderTableSlice = createAsyncThunk("GetManageOrderTableSli
       }
 
     );
+    // const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/?restaurant_id=${body?.RestaurantId}&category=${body?.category}`
+    //   ,
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${body?.BearerToken}`,
+    //       "Accept-Language": languageSet
+    //     },
+    //   }
+
+    // );
     toast.success(response?.data?.message);
 
     return response;
@@ -164,6 +174,7 @@ export const ManageOrderTableReducer = createSlice({
     data: [],
     GetManageOrderTableData: [],
     GetCategoryTableData:[],
+    UpdateManageOrderTableData : [],
     loading: false,
     error: null,
   },
@@ -211,6 +222,20 @@ export const ManageOrderTableReducer = createSlice({
       )
 
       .addCase(GetCategoryTableSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(UpdateManageOrderTableSlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(UpdateManageOrderTableSlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.UpdateManageOrderTableData = action.payload;
+      }
+      )
+
+      .addCase(UpdateManageOrderTableSlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })

@@ -39,9 +39,9 @@ function KdsScreen() {
                             <LanguageComponent />
                         </div>
 
-                        <button type='button' className='kds-logout' >
+                        <button type='button' className='kds-logout' onClick={(e) => handleLogout(e)}>
                             <img className="kds-logoutimg" alt="Notification_Icon" src={Logout} />
-                            <span onClick={(e) => handleLogout(e)}>{language === 'en' ? "Log Out" : "تسجيل خروج"}</span>
+                            <span >{language === 'en' ? "Log Out" : "تسجيل خروج"}</span>
                         </button>
                     </div>
                 </div>

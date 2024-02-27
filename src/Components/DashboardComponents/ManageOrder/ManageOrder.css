@@ -163,12 +163,33 @@
     margin-top: 8px;
 }
 
+.multiselectDropdown>div>div>div{
+    border: 1px solid #ea6a12 !important;
+     outline: #ea6a12 !important;
+}
+.multiselectDropdown>div>div>div:hover{
+    border: 1px solid #ea6a12 !important;
+     outline: #ea6a12 !important;
+}
+.rmsc .dropdown-container:focus-within {
+ box-shadow:  #ea6a12  0 0 0 1px  !important;
+}
+.infotable{
+    width: 100%;  
+}
 
 .itemtablepopup .closebtn{
     top: -15px;
     right: -15px;
     cursor: pointer;
 }
+.selected{
+    background-color: red;
+}
 
+.bg-red{
+    color: white;
+    background-color: #ea6a12;
+}
 
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import category from "../../../images/manager.png";
 
 
@@ -10,16 +10,16 @@ import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { GetManageOrderTableSlice, PostManageOrderTableSlice, UpdateManageOrderTableSlice } from '../../../Redux/slices/manageOrderTableSlice';
+import SelectAndSearchComponent from '../../../ReusableComponents/SelectAndSearchComponent/SelectAndSearchComponent';
 
-const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData, OpenActionFun , setItemData
+const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData, OpenActionFun, ManageOrderTableSelectorDataProp
 }) => {
-
+ 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const dispatch = useDispatch();
 
 
-    let BearerToken = reactLocalStorage.get("Token", false);
-    let languageSet = reactLocalStorage.get("languageSet", false);
+    let BearerToken = reactLocalStorage.get("Token", false); 
     const RestaurantIdLocalStorageData = reactLocalStorage.get("RestaurantId", false);
 
 
@@ -30,16 +30,14 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
     };
 
     const ValidateEditCategory = yup.object({
-        category_en: yup.string().required(translaterFun("enter-category-name")),
+        // [A-Za-z0-9-]
+        category_en: yup.string().matches(/^[A-Za-z\s_-]*$/, translaterFun("Category Name should be Alphabetic Character")).required(translaterFun("enter-category-name")),
         // Capacity: yup.string().required(translaterFun("enter-capacity")),
-        TableNo: yup.string().required(translaterFun("enter-table-no")),
+        TableNo: yup.string().matches(/^[\w- ]+$/, translaterFun("table-number-should-be-alphanumeric-or-with-hyphen")).required(translaterFun("enter-table-no")),
     });
 
     const handleCreateEditTableSubmit = async (values) => {
         await dispatch(LoadingSpinner(true))
-
-        console.log("gdcfghds", EditTableData, values)
-        console.log("bhdvsdsd", tableProperty)
 
         if (tableProperty === "add-new-table") {
             try {
@@ -55,19 +53,23 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
 
                 console.log("mhjhsdsd", responseData)
                 if (responseData?.payload?.status == 201) {
-                    setItemData({category : handleCreateTablePayload?.category})
+                    // setItemData({ category: handleCreateTablePayload?.category })
                     closePopup(false)
+                    OpenActionFun(false)
                     // setOpenMenuActionToggle()
-                    await dispatch(LoadingSpinner(false))
+                    setTimeout(async () => {
+                    
+                        await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken }))
+                        await dispatch(LoadingSpinner(false))
+                    }, 500)
+                    // await dispatch(LoadingSpinner(false))
 
                 }
                 else {
                     await dispatch(LoadingSpinner(false))
                 }
 
-                setTimeout(async () => {
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken, category : handleCreateTablePayload?.category }))
-                }, 500)
+                
             }
             catch (error) {
                 await dispatch(LoadingSpinner(false))
@@ -75,6 +77,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
         }
         else {
             try {
+
                 let handleEditTablePayload = {
                     "restaurant_id": RestaurantIdLocalStorageData,
                     "table_id": EditTableData?.table_id,
@@ -84,23 +87,27 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                     BearerToken
                 }
 
+
                 let responseData = await dispatch(UpdateManageOrderTableSlice(handleEditTablePayload));
 
                 console.log("mhjhsdsd", responseData)
                 if (responseData?.payload?.status == 200) {
                     closePopup(false)
-                    setItemData({category : handleEditTablePayload?.category})
+                    // setItemData({ category: handleEditTablePayload?.category })
                     // setOpenMenuActionToggle()
-                    await dispatch(LoadingSpinner(false))
+                    OpenActionFun(false)
+                    setTimeout(async () => {
+                        await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken}))
+                        await dispatch(LoadingSpinner(false))
+                    }, 500)
+                    // await dispatch(LoadingSpinner(false))
 
                 }
                 else {
                     await dispatch(LoadingSpinner(false))
                 }
 
-                setTimeout(async () => {
-                    await dispatch(GetManageOrderTableSlice({ RestaurantId: RestaurantIdLocalStorageData, BearerToken, category : handleEditTablePayload?.category }))
-                }, 500)
+                
             }
             catch (error) {
                 await dispatch(LoadingSpinner(false))
@@ -118,11 +125,16 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
         OpenActionFun(false)
     };
 
+    const newfunC = (searchData) => {
+        // setSearchCategoryData(searchData) 
+        defaultEditValueCategory.category_en = searchData
 
+    }
 
 
     return (
         <div>
+
 
             {openPopup && (
                 <PopUpComponent
@@ -135,6 +147,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                     <div className="popuptitle">
                         <h3>{translaterFun(tableProperty)} </h3>
                     </div>
+
                     <div className="popupbody">
                         <Formik
                             initialValues={defaultEditValueCategory}
@@ -145,19 +158,31 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                                 <img src={category} alt="manager img" class="categoryimg" />
                                 <div className="formbox mb-3" dir='ltr'>
                                     <label>{translaterFun("category")}</label>
-                                    <Field
+                                    {/* <Field
                                         name="category_en"
                                         type="text"
                                         className={`form-control `}
                                         autoComplete="off"
                                         placeholder={translaterFun("enter-category-name")}
+                                    />*/}
+
+
+                                    <SelectAndSearchComponent
+                                        EditTableData={EditTableData} 
+                                        newFun={newfunC} 
+                                        ManageOrderTableSelectorDataProp={ManageOrderTableSelectorDataProp}
+                                        // ManageOrderTableSelectorDataProp1={ManageOrderTableSelectorDataProp1}
+
+
                                     />
+
+
                                     <p className="text-danger small mb-0">
                                         <ErrorMessage name="category_en" />
                                     </p>
                                 </div>
                                 <div className="formbox mb-3 col-sm-6"  >
-                                    <label>  {translaterFun("capacity")} </label>
+                                    <label>  {translaterFun("capacity-optional")} </label>
                                     <Field
                                         name="Capacity"
                                         type="text"

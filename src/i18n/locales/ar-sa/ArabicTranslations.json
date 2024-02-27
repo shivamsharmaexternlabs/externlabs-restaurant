@@ -286,7 +286,14 @@
   "select-role":" حدد الدور...",
   "staff-deleted-successfully" : "تم حذف الموظفين بنجاح",
   "download-all-qr" : "تحميل جميع QR",
-  "sample-download" : "تنزيل العينة"
+  "sample-download" : "تنزيل العينة",
+  "table-number-should-be-alphanumeric-or-with-hyphen" : "يجب أن يكون رقم الجدول أبجديًا رقميًا أو مع واصلة",
+  "capacity-optional" : "السعة (اختياري)",
+  "select-some-items" : "حدد بعض فئات الجدول",
+  "all-items-are-selected" : "تم تحديد جميع الفئات",
+  "select-all" : "اختر الكل",
+  "search" : "يبحث"
+
 
 
 

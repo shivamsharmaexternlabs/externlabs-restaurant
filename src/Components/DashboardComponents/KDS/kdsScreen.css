@@ -92,6 +92,10 @@
 .kgcardtitle>.rightpart>h2 {
     font-size: 18px;
 }
+.order-status-btn{
+    display: flex;
+    flex-direction: row;
+}
 
 .deliveryinfo {
     display: flex;
