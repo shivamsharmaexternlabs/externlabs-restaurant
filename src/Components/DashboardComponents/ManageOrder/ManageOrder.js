@@ -96,18 +96,18 @@ const ManageOrder = ({ translaterFun }) => {
 
 
             let responseTableData = await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }));
-            
-            
+
+
             console.log("responseTableData", responseTableData)
 
-            if(responseTableData?.payload?.status === 200){
+            if (responseTableData?.payload?.status === 200) {
                 setAllTableData(responseTableData?.payload?.data);
             }
 
-            
+
         })()
 
-    }, [openAction, ManageOrderTableSelectorData?.UpdateManageOrderTableData, ManageOrderTableSelectorData?.data]) 
+    }, [openAction, ManageOrderTableSelectorData?.UpdateManageOrderTableData, ManageOrderTableSelectorData?.data])
 
 
     const BulkDownload = async () => {
@@ -260,6 +260,10 @@ const ManageOrder = ({ translaterFun }) => {
                                                 search: translaterFun("search"),
                                             }
                                         }
+                                        valueRenderer={
+                                            (selected, _options) => {
+                                                return selected.length > 0 ? selected.length > 4 ? selected?.slice(0, 5)?.map(({label}) =>   label + " , "):  selected?.map(({label}) =>   label + " , ") : "😶 No Items Selected"; }
+                                            }
                                     />
                                 </div>
                                 {/* <button type='button' onClick={(e) => openSelectToggleFun()}> {ItemData?.category} <img src={arrow} alt='img' /> </button> */}
@@ -278,7 +282,7 @@ const ManageOrder = ({ translaterFun }) => {
 
                                 </ul>} */}
                             </div>}
-                            
+
                             <div className='rightpart'>
                                 <TableStatus
                                     translaterFun={translaterFun}
