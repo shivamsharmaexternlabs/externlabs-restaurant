@@ -15,7 +15,7 @@ import useDownloadQr from '../../CustomHooks/useDownloadQr';
 import ViewKot from '../../Components/DashboardComponents/ManageOrder/ViewKot';
 
 
-const BookingTable = ({ translaterFun, ItemData, setItemData, allTableData, setAllTableData, currentSelectedCategory }) => {
+const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSelectedCategory }) => {
 
 
     const [openAction, setOpenAction] = useState(null)
@@ -94,7 +94,7 @@ const BookingTable = ({ translaterFun, ItemData, setItemData, allTableData, setA
 
     // useEffect(() => {
     //     let selcg = async () => {
-    //         if (BearerToken !== false && ItemData) {
+    //         if (BearerToken !== false) {
     //             dispatch(LoadingSpinner(true));
     //             try {
     //                 let responseData = await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken  }))
@@ -115,9 +115,8 @@ const BookingTable = ({ translaterFun, ItemData, setItemData, allTableData, setA
     //     }
     //     selcg()
     //     // GetManageOrderTableSlice
-    // }, [ItemData])
+    // }, [BearerToken])
 
-console.log("ItemDataItemData", ItemData)
 
     const OpenActionFun = (e, id, item) => {
 
@@ -273,7 +272,6 @@ console.log("ItemDataItemData", ItemData)
                 tableProperty={"edit-table"}
                 EditTableData={EditTableData}
                 OpenActionFun={setOpenAction}
-                setItemData={setItemData}
                 ManageOrderTableSelectorDataProp={ManageOrderTableSelectorData?.GetCategoryTableData?.data}
             />}
 

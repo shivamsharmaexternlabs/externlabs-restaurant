@@ -70,44 +70,57 @@ const ManageOrder = ({ translaterFun }) => {
         setSelectToggleSelectTogglealue(o => !o)
     }
 
+
     useEffect(() => {
 
-        (async () => {
-            // setItemData(responseData?.payload?.data?.[0])
-            let responseData = await dispatch(GetCategoryTableSlice({
-                BearerToken: BearerToken,
-                RestaurantId: RestaurantId
-            }))
+        (async () => { 
 
-            if (responseData?.payload?.status == 200) {
+            // let responseData = await dispatch(GetCategoryTableSlice({
+            //     BearerToken: BearerToken,
+            //     RestaurantId: RestaurantId
+            // }))
 
-                setItemData(responseData?.payload?.data?.[0])
 
-                let options = [];
-                responseData?.payload?.data?.map((singleCategory) => {
-                    options.push({ label: singleCategory?.category, value: singleCategory?.category });
-                });
+            // if (responseData?.payload?.status == 200) {
 
-                setOptions(options);
+            //     setItemData(responseData?.payload?.data?.[0])
 
-                // By default all category is selected...
-                setSelected(options);
-            }
+            //     let options = [];
+            //     responseData?.payload?.data?.map((singleCategory) => {
+            //         options.push({ label: singleCategory?.category, value: singleCategory?.category });
+            //     });
+
+            //     setOptions(options);
+
+            //     // By default all category is selected...
+            //     setSelected(options);
+            // }
 
 
             let responseTableData = await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }));
 
-
-            console.log("responseTableData", responseTableData)
-
             if (responseTableData?.payload?.status === 200) {
                 setAllTableData(responseTableData?.payload?.data);
+                
+                // setItemData(responseData?.payload?.data?.[0])
+
+                let options = [];
+                responseTableData?.payload?.data?.map((singleCategory) => {
+                    console.log("singleCategorysingleCategory", singleCategory)
+                    options.push({ label: singleCategory?.key, value: singleCategory?.key });
+                });
+
+                setOptions(options);
+
+                // // By default all category is selected...
+                setSelected(options);
             }
 
 
         })()
 
-    }, [openAction, ManageOrderTableSelectorData?.UpdateManageOrderTableData, ManageOrderTableSelectorData?.data])
+    // }, [openAction, ManageOrderTableSelectorData?.UpdateManageOrderTableData, ManageOrderTableSelectorData?.data])
+    }, [])
 
 
     const BulkDownload = async () => {
@@ -262,7 +275,7 @@ const ManageOrder = ({ translaterFun }) => {
                                         }
                                         valueRenderer={
                                             (selected, _options) => {
-                                                return selected.length > 0 ? selected.length > 4 ? selected?.slice(0, 5)?.map(({label}) =>   label + " , "):  selected?.map(({label}) =>   label + " , ") : "😶 No Items Selected"; }
+                                                return selected.length > 0 ? selected.length > 4 ? selected?.slice(0, 4)?.map(({label}) =>   label + " , "):  selected?.map(({label}) =>   label + " , ") : `😶 ${translaterFun("select-some-items")}`; }
                                             }
                                     />
                                 </div>
@@ -301,8 +314,7 @@ const ManageOrder = ({ translaterFun }) => {
                                     <h2>{item?.value}</h2>
                                     <ul className='actablelist'>
                                         <BookingTable translaterFun={translaterFun}
-                                            ItemData={ItemData}
-                                            setItemData={setItemData}
+                                            
                                             currentSelectedCategory={item}
                                             allTableData={AllTableData}
                                             setAllTableData={setAllTableData}
@@ -329,7 +341,7 @@ const ManageOrder = ({ translaterFun }) => {
                         closePopup={popUpCategoriesHookFun}
                         tableProperty={"add-new-table"}
                         OpenActionFun={setOpenAction}
-                        setItemData={setItemData}
+                        
                         ManageOrderTableSelectorDataProp={ManageOrderTableSelectorData?.GetCategoryTableData?.data}
                     />
                 }

@@ -12,7 +12,7 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import { GetManageOrderTableSlice, PostManageOrderTableSlice, UpdateManageOrderTableSlice } from '../../../Redux/slices/manageOrderTableSlice';
 import SelectAndSearchComponent from '../../../ReusableComponents/SelectAndSearchComponent/SelectAndSearchComponent';
 
-const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData, OpenActionFun, setItemData, ManageOrderTableSelectorDataProp
+const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData, OpenActionFun, ManageOrderTableSelectorDataProp
 }) => {
  
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
