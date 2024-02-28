@@ -59,7 +59,7 @@ function LanguageComponent() {
         closeLangModal();
 
         if (key !== languageDAta) {
-            window.location.reload()
+            // window.location.reload()
             reactLocalStorage.set("languageSet", key);
         }
     }

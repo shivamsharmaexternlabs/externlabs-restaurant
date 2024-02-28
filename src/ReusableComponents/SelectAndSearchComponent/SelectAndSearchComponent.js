@@ -1,53 +1,48 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-const SelectAndSearchComponent = ({ManageOrderTableSelectorDataProp,newFun,EditTableData}) => {
+const SelectAndSearchComponent = ({ ManageOrderTableSelectorDataProp, newFun, EditTableData }) => {
+
+  // search functionality
+  const [value, setValue] = useState("");
+  const [popupvalue, setPopupValue] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [popupisOpen, setPopupIsOpen] = useState(false);
+  const [CompanyName, setCompanyName] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [popupselectedIndex, setPopupSelectedIndex] = useState(-1);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [pageData, setPageData] = useState("");
+  const [CompanyFilterData, setCompanyFilterData] = useState([]);
+  const [EnteredValue, setEnteredValue] = useState("");
+  const [EnteredValueError, setEnteredValueError] = useState(false);
+  const dropdownRef = useRef(null);
 
 
-     
-   
-    // search functionality
-    const [value, setValue] = useState("");
-    const [popupvalue, setPopupValue] = useState("");
-    const [isOpen, setIsOpen] = useState(false);
-    const [popupisOpen, setPopupIsOpen] = useState(false);
-    const [CompanyName, setCompanyName] = useState(null);
-    const [selectedIndex, setSelectedIndex] = useState(-1);
-    const [popupselectedIndex, setPopupSelectedIndex] = useState(-1);
-    const [highlightedIndex, setHighlightedIndex] = useState(-1); 
-    const [pageData, setPageData] = useState("");   
-    const [CompanyFilterData, setCompanyFilterData] = useState([]);
-    const [EnteredValue, setEnteredValue] = useState(""); 
-    const [EnteredValueError, setEnteredValueError] = useState(false); 
-    const dropdownRef = useRef(null);
-   
+  const onChange = (e) => {
 
-    const onChange = (e) => {
+    setEnteredValueError(false);
+    setValue(e.target.value);
+    setIsOpen(true);
+    setCompanyName(null);
+    setHighlightedIndex(-1);
+    let array = [];
 
-        setEnteredValueError(false);
-        setValue(e.target.value);
-        setIsOpen(true);
-        setCompanyName(null);
-        setHighlightedIndex(-1);
-        let array = [];
+console.log("hsdfhgsd",e.target.value)
+    ManageOrderTableSelectorDataProp?.filter((item) => {
 
-        console.log("mnvcdsdsdd",ManageOrderTableSelectorDataProp)
+      const searchTerm = e.target.value.toLowerCase();
 
-        ManageOrderTableSelectorDataProp?.filter((item) => {
+      // const searchTerm = value.toLowerCase(); 
+      const name = item?.key?.toLowerCase();
+      console.log("jhgdjsvdd", item, searchTerm, name.includes(searchTerm))
+      return searchTerm && name.includes(searchTerm)
+    }).map((items) => { 
+      array.push(items?.key);
+    });
 
-          const searchTerm = e.target.value.toLowerCase();
-
-        console.log("jhgdjsvdd",item)
-        // const searchTerm = value.toLowerCase(); 
-          const name = item.category.toLowerCase();
-          return searchTerm && name.includes(searchTerm) }).map((items) => {
-
-            console.log("mcghjsdsdd",items)
-          array.push(items);
-        });
-
-        console.log("sbdvhsdsd",array,value)
-        setCompanyFilterData(array);
-      };
+    console.log("sbdvhsdsd", array )
+    setCompanyFilterData(array);
+  };
 
 
   const onKeyDown = (e) => {
@@ -79,13 +74,13 @@ const SelectAndSearchComponent = ({ManageOrderTableSelectorDataProp,newFun,EditT
   };
   const filteredData = ManageOrderTableSelectorDataProp?.filter((item) => {
     const searchTerm = value?.toLowerCase();
-    const name = item.category?.toLowerCase();
+    const name = item.key?.toLowerCase();
     return searchTerm && name?.includes(searchTerm);
   });
 
   const filteredpopupData = ManageOrderTableSelectorDataProp?.filter((item) => {
     const searchTerm = popupvalue?.toLowerCase();
-    const name = item?.category?.toLowerCase();
+    const name = item?.key?.toLowerCase();
     return searchTerm && name?.includes(searchTerm);
   });
 
@@ -114,116 +109,117 @@ const SelectAndSearchComponent = ({ManageOrderTableSelectorDataProp,newFun,EditT
     }
   }, [highlightedIndex]);
 
-   
+
 
   const onSearch = (searchTerm) => {
     setValue(searchTerm);
     setIsOpen(false);
     // newFun
 
-   
+
   };
 
   useEffect(() => {
-     
+
     ManageOrderTableSelectorDataProp && setPageData(ManageOrderTableSelectorDataProp);
   }, [ManageOrderTableSelectorDataProp]);
 
-  console.log("dfsdgdgd",ManageOrderTableSelectorDataProp)
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    if(value ||CompanyName){
-        newFun(CompanyName ?? value)
-    }
+    // if (value || CompanyName) {
+      console.log("hsdfhgsd",CompanyName ?? value)
+      newFun(CompanyName ?? value)
+    // }
 
-  },[CompanyName,value])
+  }, [CompanyName, value])
 
-useEffect(()=>{
+  console.log("dvbnbsdmdss",CompanyName, value)
+
+  useEffect(() => {
 
     // setCompanyName(EditTableData?.category)
-    setValue(EditTableData?.category)
+    setValue(EditTableData?.[0]?.category)
     // setCompanyFilterData([EditTableData])
-     
-},[EditTableData])
 
-// console.log("dfsdfgsdfsd",EditTableData)
+  }, [EditTableData])
 
-console.log("mnvcdsdsdd",ManageOrderTableSelectorDataProp)
+console.log("CompanyFilterDataCompanyFilterData", CompanyFilterData)
 
-    return (
-        <div>
+  return (
+    <div>
 
-            <input
-                className="form-control check-box"
-                type="text"
-                value={CompanyName ?? value}
-                onChange={onChange}
-                placeholder={"Search"}
-                onKeyDown={onKeyDown}
-              />
-            {isOpen ? (
+      <input
+        className="form-control check-box"
+        type="text"
+        value={CompanyName ?? value}
+        onChange={onChange}
+        placeholder={"Search"}
+        onKeyDown={onKeyDown}
+      />
+      
+      {isOpen ? (
+        <div
+          className={`dropdown companyDropDown`}
+          ref={dropdownRef}
+        >
+          {CompanyFilterData.length > 0 ? (
+            CompanyFilterData?.map((item, index) => {
+              return (
                 <div
-                    className={`dropdown companyDropDown`}
-                    ref={dropdownRef}
+                  className={`dropdown-row   ${(highlightedIndex === index
+                    ? " selected"
+                    : "",
+                    selectedIndex == -1
+                      ? index == 0
+                        ? "bg-red"
+                        : ""
+                      : selectedIndex == index
+                        ? "bg-red"
+                        : "")
+                    }`}
+                  onMouseEnter={() =>
+                    setHighlightedIndex(index)
+                  }
+                  onClick={() => {
+                    setCompanyName(item);
+                    onSearch(item);
+                  }}
+                  key={index}
                 >
-                    {CompanyFilterData.length > 0 ? (
-                        CompanyFilterData?.map((item, index) => {
-                            return (
-                                <div
-                                    className={`dropdown-row   ${(highlightedIndex === index
-                                            ? " selected"
-                                            : "",
-                                            selectedIndex == -1
-                                                ? index == 0
-                                                    ? "bg-red"
-                                                    : ""
-                                                : selectedIndex == index
-                                                    ? "bg-red"
-                                                    : "")
-                                        }`}
-                                    onMouseEnter={() =>
-                                        setHighlightedIndex(index)
-                                    }
-                                    onClick={() => {
-                                        setCompanyName(item.category);
-                                        onSearch(item.category);
-                                    }}
-                                    key={index}
-                                >
 
-                                    {item.category} 
+                  {item}
 
-                                </div>
-                            );
-                        })
-                    ) : (
-                        <div className="text-danger">
-                            {/* This category is not available ! */}
-                        </div>
-                    )}
-
-                    <div className="text-danger">
-                        {" "}
-                        {EnteredValueError == true
-                            ? ""
-                            // " This category is not available !"
-                            : ""}
-                    </div>
                 </div>
-            ) : (
-                !isOpen &&
-                EnteredValueError && (
-                    <div className="text-danger">
-                        {/* No Category Name is Available ! */}
-                    </div>
-                )
-            )}
+              );
+            })
+          ) : (
+            <div className="text-danger">
+              {/* This category is not available ! */}
+            </div>
+          )}
 
-
-
+          <div className="text-danger">
+            {" "}
+            {EnteredValueError == true
+              ? ""
+              // " This category is not available !"
+              : ""}
+          </div>
         </div>
-    )
+      ) : (
+        !isOpen &&
+        EnteredValueError && (
+          <div className="text-danger">
+            {/* No Category Name is Available ! */}
+          </div>
+        )
+      )}
+
+
+
+    </div>
+  )
 }
 
 export default SelectAndSearchComponent

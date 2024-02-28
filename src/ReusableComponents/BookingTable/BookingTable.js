@@ -210,12 +210,12 @@ const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSel
 
     return (
         <>
+ 
             {ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.map((tableAllData, id1) => {
                 {/* console.log("tableAllData?.key ", tableAllData )
                 console.log("currentSelectedCategory?.value", currentSelectedCategory?.value) */}
-                return tableAllData?.key === currentSelectedCategory?.value &&  tableAllData?.value?.map((item, id) => {
-                     
-
+                return <>
+               { tableAllData?.key === currentSelectedCategory?.value &&  tableAllData?.value?.map((item, id) => {
                     return <>
                         {<li className={`${item?.is_active === true ? "" : "overlayout"}  ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen"} tablsCss`}
                         >
@@ -262,7 +262,8 @@ const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSel
                         </li>}
 
                     </>
-                })
+                })}
+                </>
             })}
 
             {openAction && <CreateEditTable BookingTable
@@ -270,9 +271,9 @@ const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSel
                 openPopup={popUpcategoriesHook}
                 closePopup={popUpCategoriesHookFun}
                 tableProperty={"edit-table"}
-                EditTableData={EditTableData}
+                EditTableData={[EditTableData]}
                 OpenActionFun={setOpenAction}
-                ManageOrderTableSelectorDataProp={ManageOrderTableSelectorData?.GetCategoryTableData?.data}
+                ManageOrderTableSelectorDataProp={ManageOrderTableSelectorData?.GetManageOrderTableData?.data}
             />}
 
             <LoadingSpinner loadspiner={LoadSpiner} />

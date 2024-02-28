@@ -30,7 +30,7 @@ const ManageOrder = ({ translaterFun }) => {
     const [Options, setOptions] = useState([]);
     const [AllTableData, setAllTableData] = useState([]);
 
-    console.log("selected", selected)
+    console.log("selecte1111d", selected)
 
     const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
     const [ItemData, setItemData] = useState([])
@@ -51,6 +51,7 @@ const ManageOrder = ({ translaterFun }) => {
     // Selecting data from Redux store
     const ManageOrderTableSelectorData = useSelector((state) => state?.ManageOrderTableApiData);
 
+    console.log("ManageOrderTableSelectorData" ,ManageOrderTableSelectorData);
     // JSX structure for the ManageOrder component
 
     let BearerToken = reactLocalStorage.get("Token", false);
@@ -105,22 +106,48 @@ const ManageOrder = ({ translaterFun }) => {
                 // setItemData(responseData?.payload?.data?.[0])
 
                 let options = [];
+                let SelectedData = [];
                 responseTableData?.payload?.data?.map((singleCategory) => {
                     console.log("singleCategorysingleCategory", singleCategory)
-                    options.push({ label: singleCategory?.key, value: singleCategory?.key });
+                    SelectedData.push({ label: singleCategory?.key, value: singleCategory?.key});
+                    options.push({ label: singleCategory?.key, value: singleCategory?.key,lengthSize :singleCategory?.value.length });
+
                 });
 
                 setOptions(options);
 
                 // // By default all category is selected...
-                setSelected(options);
+                setSelected(SelectedData);
+
             }
+
 
 
         })()
 
     // }, [openAction, ManageOrderTableSelectorData?.UpdateManageOrderTableData, ManageOrderTableSelectorData?.data])
     }, [])
+
+
+    useEffect(() => {
+
+        (async () => {   
+
+                let options = [];
+                ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.map((singleCategory) => {
+                    console.log("singleCategorysingleCategory122", singleCategory)
+                    options.push({ label: singleCategory?.key, value: singleCategory?.key,lengthSize :singleCategory?.value?.length});
+                });
+
+                console.log("ngdhsdsddsd",options)
+                setOptions(options); 
+               
+
+        })()
+
+    // }, [openAction, ManageOrderTableSelectorData?.UpdateManageOrderTableData, ManageOrderTableSelectorData?.data])
+    }, [ManageOrderTableSelectorData?.GetManageOrderTableData?.data])
+
 
 
     const BulkDownload = async () => {
@@ -189,10 +216,13 @@ const ManageOrder = ({ translaterFun }) => {
                 // setTimeout(async () => {
                 //     // await dispatch(LoadingSpinner(true))
                 //     await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }))
-                //     await dispatch(GetCategoryTableSlice({ BearerToken: BearerToken, RestaurantId: RestaurantId }))
+                //     // await dispatch(GetCategoryTableSlice({ BearerToken: BearerToken, RestaurantId: RestaurantId }))
 
                 // }, 2000)
             }
+            // else{
+
+            // }
 
             await dispatch(LoadingSpinner(false))
         } catch (error) {
@@ -200,9 +230,13 @@ const ManageOrder = ({ translaterFun }) => {
         }
     }
 
+    const MultiSelectFun=(e)=>{
+        setSelected(e)
+        console.log("bvsbdsdsd",e)
+    }
 
 
-
+console.log("AllTableData", AllTableData)
 
     return (
         <>
@@ -260,7 +294,8 @@ const ManageOrder = ({ translaterFun }) => {
                                     <MultiSelect
                                         options={Options}
                                         value={selected}
-                                        onChange={setSelected}
+                                        onChange={MultiSelectFun}
+                                        // onChange={setSelected}
                                         labelledBy="Select"
                                         // hasSelectAll={false}
                                         // isLoading={!selected?.length}
@@ -275,7 +310,7 @@ const ManageOrder = ({ translaterFun }) => {
                                         }
                                         valueRenderer={
                                             (selected, _options) => {
-                                                return selected.length > 0 ? selected.length > 4 ? selected?.slice(0, 4)?.map(({label}) =>   label + " , "):  selected?.map(({label}) =>   label + " , ") : `😶 ${translaterFun("select-some-items")}`; }
+                                                return selected.length > 0 ? selected.length > 4 ? selected?.slice(0, 4)?.map(({label}) =>   label + " , "):  selected?.map(({label}) =>   label + " , ") : `${translaterFun("select-some-items")}`; }
                                             }
                                     />
                                 </div>
@@ -306,18 +341,19 @@ const ManageOrder = ({ translaterFun }) => {
                         </div>
 
                         <div>
-
+                        {/* {Options?.map((item, id) => { */}
                             {selected?.map((item, id) => {
-                                {/* console.log("jhsfgfhdsd under selected", item) */ }
-
+                                 console.log("jhsfgfhdsd1212", item)  
                                 return <div key={id} className='actable'>
+
                                     <h2>{item?.value}</h2>
+                                    
                                     <ul className='actablelist'>
                                         <BookingTable translaterFun={translaterFun}
                                             
                                             currentSelectedCategory={item}
-                                            allTableData={AllTableData}
-                                            setAllTableData={setAllTableData}
+                                            allTableData={AllTableData}//not using
+                                            setAllTableData={setAllTableData} //not using
                                         />
 
 
@@ -342,7 +378,7 @@ const ManageOrder = ({ translaterFun }) => {
                         tableProperty={"add-new-table"}
                         OpenActionFun={setOpenAction}
                         
-                        ManageOrderTableSelectorDataProp={ManageOrderTableSelectorData?.GetCategoryTableData?.data}
+                        ManageOrderTableSelectorDataProp={ManageOrderTableSelectorData?.GetManageOrderTableData?.data}
                     />
                 }
 
