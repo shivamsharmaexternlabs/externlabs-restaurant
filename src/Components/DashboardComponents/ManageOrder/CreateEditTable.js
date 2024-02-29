@@ -27,7 +27,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
 
     const defaultEditValueCategory = {
         // category_en: EditTableData?.[0]?.category,
-        Capacity: EditTableData?.[0]?.no_of_persons,
+        Capacity: EditTableData?.[0]?.no_of_persons ? EditTableData?.[0]?.no_of_persons : "",
         TableNo: EditTableData?.[0]?.table_number
     }; 
 
