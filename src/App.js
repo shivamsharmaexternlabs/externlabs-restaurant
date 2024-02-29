@@ -37,6 +37,7 @@ import AdminProfilePage from "./Components/DashboardComponents/AdminProfilePage/
 import { GetRestaurantsOnBoardSlice } from "./Redux/slices/leadsRestaurantSlice.js";
 import { useDispatch } from "react-redux";
 import KdsScreen from "./Components/DashboardComponents/KDS/KdsScreen.js";
+import { roles, routes } from "./Utils/constants.js";
 
 /* import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
@@ -65,7 +66,7 @@ i18n.languages = ['en', 'ar']; */
  * @subcategory App
  */
 function App() {
-
+  const {ROOT, DASHBOARD, RESET_PASSWORD, CATEGORIES, MANAGE_ORDER, MANAGER, ADMIN_PROFILE, PAYMENT_HISTORY, LEADS, RESTAURANT, RESTAURANT_DETAIL, KDS_SCREEN, SUBSCRIPTION } = routes
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
   const locationData = useLocation()
@@ -73,7 +74,7 @@ function App() {
 
 
   const ManagerApiSelectorData = useSelector((state) => state.ToggleBarData);
-  const User = useSelector((state) => state.SignInApiData);
+  // const User = useSelector((state) => state.SignInApiData);
 
 
 
@@ -99,56 +100,42 @@ function App() {
     (error) => {
       if (error?.response?.status == 401) {
         console.log("zasdfgnbsad", error?.response)
-        if (error?.response?.data?.error == "Token is invalid" || error?.response?.data?.error == "Token is expired") {
-
+        if (error?.response?.data?.error === "Token is invalid" || error?.response?.data?.error === "Token is expired") {
           reactLocalStorage.clear()
-          navigate("/")
+          navigate(ROOT)
           toast.error(error?.response?.data?.error);
           // window.location.reload()
-
         }
-
-
         // const myTimeout = setTimeout(sessionStorageClearFun, 2000);
       }
 
       return Promise.reject(error);
     }
   );
-  console.log("dfghjk", Token)
 
+  /* useEffect(()=>{
+    if(Token == false){
+      navigate("/")
+    }
+  },[Token]) */
 
-
-
-  // useEffect(()=>{
-
-  //   if(Token == false){
-
-  //     navigate("/")
-  //   }
-
-  // },[Token])
-  
   let languageDAta = reactLocalStorage.get("languageSet", false);
-
 
   useEffect(() => {
     let splitOrderId = locationData?.pathname?.split?.("/");
     if (locationData?.pathname !== "/" && locationData?.pathname !== `/${splitOrderId[1]}`) {
       i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
     }
-
-
   }, [ManagerApiSelectorData?.languagechange])
 
 
   useEffect(() => {
     // Checking if the status is 200, indicating successful login
     if (Token) {
-      
+
       // Checking user type and redirecting accordingly
-      if (UserTypeData == "owner") { 
-        // This api is calling for user logo (on top right) 
+      if (UserTypeData === roles.OWNER) {
+        // This api is calling for user logo (on top right)
         dispatch(GetRestaurantsOnBoardSlice({ RestaurantId, Token }))
       }
     }
@@ -165,9 +152,9 @@ function App() {
             {/* <Route path="/signup" element={<Signup  translaterFun={t} />}></Route> // Please do not remove this comment... */}
             {/* <Route path='/success' element={<Success  translaterFun={t} />}></Route>   // Please do not remove this comment...*/}
             {/* <Route path="/forgotpassword" element={<ForgotPassword  translaterFun={t} />}></Route> // Please do not remove this comment... */}
-         {/* convert in arabic  */}    <Route path="/user_auth/resetpassword/:id" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <ResetPassword translaterFun={t} />}></Route>
-            <Route path="/:id/admin/dashboard" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <Dashboard translaterFun={t} />}> </Route>  {/* convert in arabic  */}
-            <Route path="/:id/admin/categories" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><Categories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
+         {/* convert in arabic  */}    <Route path= {`${RESET_PASSWORD}/:id`} element={payment_status == "false" ? <Subscription translaterFun={t} /> : <ResetPassword translaterFun={t} />}></Route>
+            <Route path={`/:id${DASHBOARD}`} element={payment_status == "false" ? <Subscription translaterFun={t} /> : <Dashboard translaterFun={t} />}> </Route>  {/* convert in arabic  */}
+            <Route path={`"/:id${CATEGORIES}`} element={payment_status == "false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><Categories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
           {/*documentation done*/}  <Route path="/:id/admin/categories/reorder/" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <DndProvider backend={HTML5Backend}><DndCategories translaterFun={t} /></DndProvider>}></Route>  {/* convert in arabic  */}
             <Route path="/:id/admin/manager" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <Manager translaterFun={t} />}></Route> {/* convert in arabic  */}
            {/*documentation done*/} <Route path="/:id/admin/allmedia" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <AllMedia translaterFun={t} />}></Route>{/* convert in arabic  */}
@@ -177,7 +164,7 @@ function App() {
             <Route path="/:id/admin/paymenthistory" element={payment_status == "false" ? <Subscription translaterFun={t} /> : <PaymentHistory translaterFun={t} />}></Route> {/* convert in arabic  */}
             <Route path='/admin/leads' element={<Leads translaterFun={t} />}></Route>
             <Route path='/admin/restaurant' element={<Restaurant translaterFun={t} />}></Route> {/* convert in arabic  */}
-            <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail translaterFun={t} />}></Route>  
+            <Route path='/admin/restaurantdetail/:id' element={<RestaurantDetail translaterFun={t} />}></Route>
             <Route path="/:id/kds/kdsScreen" element={<KdsScreen/>}></Route>
             {payment_status == "false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
           </Routes>
@@ -201,7 +188,7 @@ function App() {
             <Route path="/:id/admin/paymenthistory" element={<Login translaterFun={t} />}></Route> {/* convert in arabic  */}
             <Route path='/admin/leads' element={<Login translaterFun={t} />}></Route>
             <Route path='/admin/restaurant' element={<Login translaterFun={t} />}></Route> {/* convert in arabic  */}
-            <Route path='/admin/restaurantdetail/:id' element={<Login translaterFun={t} />}></Route>  
+            <Route path='/admin/restaurantdetail/:id' element={<Login translaterFun={t} />}></Route>
 
             {payment_status == "false" && <Route path='/subscription/page' element={<Subscription translaterFun={t} />}></Route>}
           </Routes>
@@ -214,7 +201,7 @@ function App() {
           <Route path="/:id" element={<Login translaterFun={t} />}></Route>
           <Route path="/:id/menu" element={<Menu translaterFun={t} />}></Route>
           <Route path="/:id/:tableId/menu" element={<Menu translaterFun={t} />}></Route>
-         {/*documentation done*/} 
+         {/*documentation done*/}
         </Routes>
 
         <ToastContainer autoClose={2000} />

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Helmet } from "react-helmet";
 import './dashboard.css'
-import { saveAs } from "file-saver";
 import DashboardSidebar from '../DashboardSidebar/DashboardSidebar'
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import { ManagerSlice } from "../../../Redux/slices/managerSlice"
@@ -29,6 +28,7 @@ import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import { useTranslation } from "react-i18next"
 import { CurrencySymbol } from '../Categories/CurrencySymbol';
 import useDownloadQr from '../../../CustomHooks/useDownloadQr';
+import { routes } from '../../../Utils/constants';
 
 
 
@@ -43,7 +43,8 @@ import useDownloadQr from '../../../CustomHooks/useDownloadQr';
 const Dashboard = ({ translaterFun }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
+  const {CATEGORIES, MANAGER, PAYMENT_HISTORY} = routes
 
   const [data, setData] = useState({ results: [] });
   const [QrImage, setQrImage] = useState("")
@@ -60,19 +61,26 @@ const Dashboard = ({ translaterFun }) => {
   const PaymentSelectorData = useSelector((state) => state.PaymentApiData);
 
 
-  console.log("QrApiSelectorData", QrApiSelectorData)
 
   let RestaurantIdLocalData = reactLocalStorage.get("RestaurantId", false);
   let FirstName = reactLocalStorage.get("FirstName", false);
-  let BearerToken = reactLocalStorage.get("Token", false);
   let languageSet = reactLocalStorage.get("languageSet", false);
-
+  const updateGreeting = useCallback(() => {
+    const time = new Date().getHours();
+    if (time < 12) {
+      setWellWishes(translaterFun("good-morning"))
+    } else if (time < 16) {
+      setWellWishes(translaterFun("good-afternoon"))
+    } else {
+      setWellWishes(translaterFun("good-evening"))
+    }
+  }, [translaterFun])
 
   /**
-      * UseEffect for set Manager Data and set QR Code Image.
-      * @function useEffect
-      * @category Dashboard
-      */
+    * UseEffect for set Manager Data and set QR Code Image.
+    * @hook useEffect
+    * @category Dashboard
+    */
   useEffect(() => {
     setData(ManagerApiSelectorData?.data)
     setQrImage(QrApiSelectorData?.data?.results?.[0]?.qrcode)
@@ -81,18 +89,17 @@ const Dashboard = ({ translaterFun }) => {
 
 
   /**
-      * UseEffect for fetching data (Staff Data, Payment History Data, QR Code Image, and Menu Categories and menu item Data ) from API.
-      * @function useEffect
-      * @param {String} BearerToken - Dependent on Bearer Token
-      * @category Dashboard
-      */
+    * UseEffect for fetching data (Staff Data, Payment History Data, QR Code Image, and Menu Categories and menu item Data ) from API.
+    * @function useEffect
+    * @param {String} BearerToken - Dependent on Bearer Token
+    * @category Dashboard
+    */
   useEffect(() => {
 
     const GetApiCallFun = async () => {
-
+      let BearerToken = reactLocalStorage.get("Token", false);
       if (BearerToken !== false) {
         dispatch(LoadingSpinner(true))
-
         try {
           let ManagerSlicePayload = {
             Token: BearerToken,
@@ -118,11 +125,12 @@ const Dashboard = ({ translaterFun }) => {
     }
     GetApiCallFun()
 
-  }, [BearerToken])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
 
  /**
-   * Handles QR Download using custom Hooks .
+   * calls DownloadQrSetFun with passing `QrApiSelectorData?.data?.results`
    * @function QrCodeDownloadFun
    * @category Dashboard
    */
@@ -140,11 +148,11 @@ const Dashboard = ({ translaterFun }) => {
   // }, [MenuApiSelectorData?.favoriteMenuSliceReducerData])
 
 /**
-      * UseEffect for seting Active Category data from MenuApiSelectorData API.
-      * @function useEffect
-      * @param {String} "MenuApiSelectorData.MenuSliceReducerData" - Dependent on API Response (MenuApiSelectorData?.MenuSliceReducerData) 
-      * @category Dashboard
-      */
+  * UseEffect for seting Active Category data from MenuApiSelectorData API.
+  * @hook useEffect
+  * @dependency "MenuApiSelectorData.MenuSliceReducerData"
+  * @category Dashboard
+  */
   useEffect(() => {
     setActiveCategory(MenuApiSelectorData?.MenuSliceReducerData?.data?.[0])
   }, [MenuApiSelectorData?.MenuSliceReducerData])
@@ -156,8 +164,8 @@ const Dashboard = ({ translaterFun }) => {
 
 
   /**
-   * Handles Active Category Tab .
-   * @function CategoryTabFun 
+   * set active category with passed values `categoryItem`
+   * @function CategoryTabFun
    * @param {Object} categoryItem - Object containing relevant information of Category Items.
    * @category Dashboard
    */
@@ -167,42 +175,24 @@ const Dashboard = ({ translaterFun }) => {
 
 
 
-
-/**
-      * UseEffect for greeting User On Dashboard Page.
-      * @function useEffect
-      * @param {null} "" - Dependency is empty i.e., runs if page is refreshed ) 
-      * @category Dashboard
-      */
+  /**
+    * calls updateGreeting
+    * @hook useEffect
+    * @category Dashboard
+    */
   useEffect(() => {
+    updateGreeting()
+  }, [updateGreeting])
 
-    const time = new Date().getHours();
-    if (time < 12) {
-      setWellWishes(translaterFun("good-morning"))
-    } else if (time < 16) {
-      setWellWishes(translaterFun("good-afternoon"))
-    } else {
-      setWellWishes(translaterFun("good-evening"))
-    }
-
-  }, [])
-
-/**
-      * interalization for greeting User in their own language on Dashboard Page.
-      * @function i18n-LanguageChange
-      * @category Dashboard
-      */
+  /**
+    * call updateGreeing whenever languageChange event gets triggered
+    * @listener i18n-LanguageChange
+    * @category Dashboard
+    */
   i18n.on("languageChanged", () => {
-    const time = new Date().getHours();
-    if (time < 12) {
-      setWellWishes(translaterFun("good-morning"))
-    } else if (time < 16) {
-      setWellWishes(translaterFun("good-afternoon"))
-    } else {
-      setWellWishes(translaterFun("good-evening"))
-    }
+    updateGreeting()
   })
- 
+
 
   return (
     <>
@@ -226,7 +216,7 @@ const Dashboard = ({ translaterFun }) => {
                   <div className='title'>
                     <h2>{translaterFun("menu-items")}
                       {/* Menu Items */}
-                    </h2> <button type='button' onClick={() => { navigate(`/${RestaurantIdLocalData}/admin/categories`) }}> {translaterFun("view-all")}<img src={arrow2} alt='img' /> </button>
+                    </h2> <button type='button' onClick={() => { navigate(`/${RestaurantIdLocalData}${CATEGORIES}`) }}> {translaterFun("view-all")}<img src={arrow2} alt='img' /> </button>
                   </div>
 
                   <div className='topdishestabpart'>
@@ -431,7 +421,7 @@ const Dashboard = ({ translaterFun }) => {
                 <div className='managerstablepart'>
                   <div className='title'>
                     <h2>{translaterFun("managers")}</h2>
-                    <button type='button' onClick={(e) => navigate(`/${RestaurantIdLocalData}/admin/manager`)}>
+                    <button type='button' onClick={(e) => navigate(`/${RestaurantIdLocalData}${MANAGER}`)}>
                       {translaterFun("view-all")} <img src={arrow2} alt='img' /> </button>
                   </div>
                   <div class="managerstable">
@@ -464,9 +454,8 @@ const Dashboard = ({ translaterFun }) => {
                 <div className='subplanbox'>
                   <div className='title'>
                     <h3> {translaterFun("subscription-plan")} </h3>
-                    <button type='button' className='cursor-pointer' onClick={() => navigate(`/${RestaurantIdLocalData}/admin/paymenthistory`)}> {translaterFun("view-all")} <img src={arrow2} alt='arrow img' />  </button>
+                    <button type='button' className='cursor-pointer' onClick={() => navigate(`/${RestaurantIdLocalData}${PAYMENT_HISTORY}`)}> {translaterFun("view-all")} <img src={arrow2} alt='arrow img' />  </button>
                   </div>
-                  {console.log("xchjvhgcvc", PaymentSelectorData)}
                   <div className='info'>
                     <div className='leftpart'>
                       <p>{PaymentSelectorData?.PaymentHistoryReducerData?.data?.[0]?.price_id?.plan_id
