@@ -217,6 +217,9 @@
  
   /* overflow: auto; */
 }
+.arabicnumber{
+  float: right;
+}
 
 .addmanagerpopup .popupbody .managerimg {
   position: absolute;

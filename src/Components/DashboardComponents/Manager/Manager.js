@@ -20,7 +20,7 @@ import { ManagerSlice, ManagerDeleteSlice, StaffRoleSlice } from '../../../Redux
 import ReactPaginate from 'react-paginate';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 import { Helmet } from "react-helmet";
- import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 
 const Manager = ({ translaterFun }) => {
@@ -49,7 +49,7 @@ const Manager = ({ translaterFun }) => {
         setData(ManagerApiSelectorData?.data?.data)
     }, [ManagerApiSelectorData]);
 
- 
+
     useEffect(() => {
 
         (async function () {
@@ -78,7 +78,7 @@ const Manager = ({ translaterFun }) => {
 
 
     useEffect(() => {
-         if (SignUpSelectorData?.data?.status === 201) {
+        if (SignUpSelectorData?.data?.status === 201) {
             setLoadSpiner(false);
             popUpHookFun(false);
 
@@ -117,7 +117,7 @@ const Manager = ({ translaterFun }) => {
         email: "",
         first_name: "",
         password: "",
-        confirm_password: "", 
+        confirm_password: "",
         selectRole: "",
         token: BearerToken
 
@@ -132,15 +132,15 @@ const Manager = ({ translaterFun }) => {
 
         password: yup.string().required(translaterFun("password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
 
- 
+
         confirm_password: yup.string().required(translaterFun("confirm-password-is-required")).matches(/^\S*$/, 'Password name must not contain spaces'),
         // phone_number: yup.string().matches(/^[0-9]+$/, 'Phone number must contain only digits').required('Phone Number is required').matches(/^\S*$/, 'Phone Number must not contain spaces')
     });
 
 
     const handleSubmit = async (values) => {
-         
-         
+
+
         let SignUpForOnBoardPayload = {
             email: values?.email,
             password: values?.password,
@@ -165,14 +165,14 @@ const Manager = ({ translaterFun }) => {
 
                 // }
 
-                 dispatch(LoadingSpinner(false))
-    
+                dispatch(LoadingSpinner(false))
+
             }
             else {
                 toast.error(translaterFun("please-enter-your-number"));
             }
 
-            
+
         } catch (error) {
             dispatch(LoadingSpinner(false))
         }
@@ -200,8 +200,8 @@ const Manager = ({ translaterFun }) => {
         await dispatch(LoadingSpinner(true));
 
         try {
-            let responseData = await dispatch(ManagerDeleteSlice({ item, BearerToken,RestaurantId }))
-             if(responseData?.payload?.status === 204){
+            let responseData = await dispatch(ManagerDeleteSlice({ item, BearerToken, RestaurantId }))
+            if (responseData?.payload?.status === 204) {
                 toast.success(translaterFun("staff-deleted-successfully"))
             }
             deletePopUpFun(false)
@@ -238,7 +238,7 @@ const Manager = ({ translaterFun }) => {
         setPhoneNumber(myString);
     };
 
- 
+
 
     return (
 
@@ -279,7 +279,13 @@ const Manager = ({ translaterFun }) => {
                                         <td> <img src={user} alt='img' /> </td>
                                         <td>{`${items?.first_name}`}</td>
                                         <td>{items?.email}</td>
-                                        <td> {items?.phone_number}</td>
+                                        <td dir='ltr'>
+
+                                            {LanguageSet == "ar" ? <span className='arabicnumber'> {items?.country_code} {items?.phone_number}
+                                            </span> :
+
+                                                <span>  {items?.country_code} {items?.phone_number}</span>}
+                                        </td>
                                         <td>{LanguageSet === "en" ? items?.role?.[0]?.name : items?.role?.[0]?.name_native}</td>
                                         <td>
                                             <button className='asbtn' onClick={(e) => handleDelete(e, items)}>
@@ -289,7 +295,7 @@ const Manager = ({ translaterFun }) => {
                                 })}
 
                             </table>
-                           {data?.length !==0 && <ReactPaginate
+                            {data?.length !== 0 && <ReactPaginate
                                 // previousLabel={"Previous"}
 
                                 previousLabel={translaterFun("previous")}
@@ -409,7 +415,7 @@ const Manager = ({ translaterFun }) => {
                                             // value={phonenumber}
                                             onChange={handleOnChange1}
                                             className="input_filed"
-                                            
+
                                         />
                                     </div>
 

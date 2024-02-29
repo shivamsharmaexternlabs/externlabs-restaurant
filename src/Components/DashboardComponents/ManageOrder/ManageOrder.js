@@ -11,7 +11,7 @@ import BookingTable from '../../../ReusableComponents/BookingTable/BookingTable.
 import { TableStatusData, TableTypeData } from "./TableStatusColor.js";
 import usePopUpHook from '../../../CustomHooks/usePopUpHook/usePopUpHook.js';
 import CreateEditTable from './CreateEditTable.js';
- import { GetQrCodeSlice } from '../../../Redux/slices/qrCodeSlice.js';
+import { GetQrCodeSlice } from '../../../Redux/slices/qrCodeSlice.js';
 import { useDispatch } from 'react-redux';
 import useDownloadQr from '../../../CustomHooks/useDownloadQr.js';
 import { reactLocalStorage } from 'reactjs-localstorage';
@@ -121,13 +121,15 @@ const ManageOrder = ({ translaterFun }) => {
 
             })
 
+            setOptions(options);
+
             setSelected(datapush)
 
 
 
         })()
 
-     }, [ManageOrderTableSelectorData?.GetManageOrderTableData?.data])
+    }, [ManageOrderTableSelectorData?.GetManageOrderTableData?.data])
 
 
 
@@ -194,7 +196,9 @@ const ManageOrder = ({ translaterFun }) => {
 
             if (response?.payload?.status === 200) {
                 await dispatch(LoadingSpinner(true))
-                window.location.reload()
+                setTimeout(async () => {
+                    window.location.reload()
+                }, 2000)
                 // setTimeout(async () => {
                 //     // await dispatch(LoadingSpinner(true))
                 //     await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }))
@@ -223,7 +227,7 @@ const ManageOrder = ({ translaterFun }) => {
             <Helmet>
                 <title>Manage Order | Harbor Bites</title>
                 <meta name="description" content="Effortlessly manage your order in one place. " />
-             </Helmet>
+            </Helmet>
             <DashboardLayout>
                 <div className='dasboardbody'>
                     <DashboardSidebar />
@@ -267,15 +271,17 @@ const ManageOrder = ({ translaterFun }) => {
                         <div className='infotable'>
 
                             {<div className={`${ManageOrderTableSelectorData?.GetCategoryTableData?.data?.length === 0 ? "invisible" : ""} leftpart multiselectDropdown`}>
-                                <div className=' '> 
+                                <div className=' '>
                                     <MultiSelect
                                         options={Options}
                                         value={selected}
-                                        onChange={MultiSelectFun} 
+                                        onChange={MultiSelectFun}
+                                        // closeOnChangedValue={true}
                                         labelledBy="Select"
                                         // hasSelectAll={false}
                                         // isLoading={!selected?.length}
                                         shouldToggleOnHover={true}
+                                        className='deedee'
                                         overrideStrings={
                                             {
                                                 selectSomeItems: translaterFun("select-some-items"),
@@ -291,7 +297,7 @@ const ManageOrder = ({ translaterFun }) => {
                                         }
                                     />
                                 </div>
-                                
+
                             </div>}
 
                             <div className='rightpart'>

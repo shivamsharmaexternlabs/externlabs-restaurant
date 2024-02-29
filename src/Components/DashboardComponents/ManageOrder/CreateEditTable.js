@@ -123,7 +123,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
         else {
             
 
-            await dispatch(LoadingSpinner(true))
+            
             try {
 
 

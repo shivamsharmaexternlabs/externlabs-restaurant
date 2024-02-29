@@ -182,6 +182,13 @@
     width: 100%;  
 }
 
+.companyDropDown{
+    cursor: pointer;
+}
+.companyDropDown div:hover{
+    background-color: #ea6a12;
+    color: white;
+}
 .itemtablepopup .closebtn{
     top: -15px;
     right: -15px;
