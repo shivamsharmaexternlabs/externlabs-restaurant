@@ -42,6 +42,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
     const ValidateEditCategory = yup.object({
         // [A-Za-z0-9-]
         // category_en: yup.string().matches(/^[A-Za-z\s_-]*$/, translaterFun("Category Name should be Alphabetic Character")).required(translaterFun("enter-category-name")),
+        Capacity: yup.string().matches(/^[\d- ]+$/, translaterFun("capacity-should-be-numeric")),
         TableNo: yup.string().matches(/^[\d- ]+$/, translaterFun("table-number-should-be-numeric")).required(translaterFun("enter-table-no")),
     });
 
@@ -81,10 +82,10 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 let responseData 
 
                 if (!valueData.test(SearchCategoryData)) {
-                    setCategoryDataError("enter valid category")  
+                    setCategoryDataError(translaterFun("enter-valid-category"))  
                 }
                 else if(SearchCategoryData==null || SearchCategoryData==""){
-                    setCategoryDataError("please enter category")  
+                    setCategoryDataError(translaterFun("please-enter-category"))  
         
                 }
                 else {
@@ -138,10 +139,10 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 let responseData 
 
                 if (!valueData.test(SearchCategoryData)) {
-                    setCategoryDataError("enter valid category")  
+                    setCategoryDataError(translaterFun("enter-valid-category"))   
                 }
                 else if(SearchCategoryData==null || SearchCategoryData==""){
-                    setCategoryDataError("please enter category")  
+                    setCategoryDataError(translaterFun("please-enter-category"))  
         
                 }
                 else {

@@ -290,11 +290,15 @@
   "download-all-qr" : "Download All QR",
   "sample-download" : "Sample Download",
   "table-number-should-be-alphanumeric-or-with-hyphen" : "Table Number Should be Alphanumeric or with Hyphen",
+  "table-number-should-be-numeric" : "Table Number should be Numeric",
   "capacity-optional" : "Capacity (Optional)",
   "select-some-items" : "Select Some Table Categories",
   "all-items-are-selected" : "All Categories are Selected",
   "select-all" : "Select All",
-  "search" : "Search"
+  "search" : "Search",
+  "enter-valid-category" : "Enter Valid Category",
+  "please-enter-category" : "Please Enter Category",
+  "capacity-should-be-numeric" : "Capacity should be Numeric"
 
 
 }
