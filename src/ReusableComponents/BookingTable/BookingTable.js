@@ -15,7 +15,7 @@ import useDownloadQr from '../../CustomHooks/useDownloadQr';
 import ViewKot from '../../Components/DashboardComponents/ManageOrder/ViewKot';
 
 
-const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSelectedCategory }) => {
+const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
 
 
     const [openAction, setOpenAction] = useState(null)
@@ -56,8 +56,7 @@ const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSel
 
         await dispatch(LoadingSpinner(true))
 
-        console.log("msbdjhgfhjkhgsd", e.target.checked, item)
-
+ 
 
         let handleDisableTablePayload = {
             "restaurant_id": RestaurantId,
@@ -68,8 +67,7 @@ const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSel
         try {
             let responseData = await dispatch(UpdateManageOrderTableSlice(handleDisableTablePayload));
 
-            console.log("mhjhsdsd", responseData)
-            if (responseData?.payload?.status == 200) {
+             if (responseData?.payload?.status == 200) {
                 await dispatch(LoadingSpinner(false))
                 setOpenMenuActionToggle(null);
 
@@ -120,8 +118,7 @@ const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSel
 
     const OpenActionFun = (e, id, item) => {
 
-        // console.log("sbdjshdjhd", OpenMenuActionToggle, item?.table_id, OpenMenuActionToggle === item?.table_id)
-        // setOpenAction(id)
+        
 
 
         if (OpenMenuActionToggle === item?.table_id) {
@@ -137,8 +134,7 @@ const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSel
         })
     }
 
-    console.log("OpenMenuActionToggle", OpenMenuActionToggle)
-    useEffect(() => {
+     useEffect(() => {
 
         const handleOutsideClick = (e) => {
 
@@ -171,8 +167,7 @@ const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSel
     }
 
     const DownloadQrFun = async (e, item) => {
-        console.log("smhdjsdd", item)
-        await dispatch(LoadingSpinner(false))
+         await dispatch(LoadingSpinner(false))
 
         let responseData = await dispatch(GetQrCodeSlice({
             restaurant_id: item?.restaurant_id,
@@ -200,22 +195,16 @@ const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSel
 
     const ViewOrderFun = (e, item) => {
 
-        // console.log("jhsfgfhdsd",ManageOrderTableSelectorData?.GetManageOrderTableData?.data)
-
+ 
     }
-    console.log("jhsfgfhdsd all data", allTableData)
-    console.log("jhsfgfhdsd currentSelectedCategory", currentSelectedCategory)
-    console.log("jhsfgfhdsd aisa chahiye", ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.[0]?.value)
+     
 
 
     return (
         <>
  
-            {ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.map((tableAllData, id1) => {
-                {/* console.log("tableAllData?.key ", tableAllData )
-                console.log("currentSelectedCategory?.value", currentSelectedCategory?.value) */}
-                return <>
-               { tableAllData?.key === currentSelectedCategory?.value &&  tableAllData?.value?.map((item, id) => {
+            {     
+            currentSelectedCategory?.lengthSize?.map((item, id) => {
                     return <>
                         {<li className={`${item?.is_active === true ? "" : "overlayout"}  ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen"} tablsCss`}
                         >
@@ -263,8 +252,7 @@ const BookingTable = ({ translaterFun, allTableData, setAllTableData, currentSel
 
                     </>
                 })}
-                </>
-            })}
+                
 
             {openAction && <CreateEditTable BookingTable
                 translaterFun={translaterFun}

@@ -20,8 +20,7 @@ import { ManagerSlice, ManagerDeleteSlice, StaffRoleSlice } from '../../../Redux
 import ReactPaginate from 'react-paginate';
 import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle'
 import { Helmet } from "react-helmet";
-import { currencyData } from '../Categories/currencyData';
-import { toast } from "react-toastify";
+ import { toast } from "react-toastify";
 
 
 const Manager = ({ translaterFun }) => {
@@ -50,8 +49,7 @@ const Manager = ({ translaterFun }) => {
         setData(ManagerApiSelectorData?.data?.data)
     }, [ManagerApiSelectorData]);
 
-    console.log("sgdvchgsds", data)
-
+ 
     useEffect(() => {
 
         (async function () {
@@ -80,8 +78,7 @@ const Manager = ({ translaterFun }) => {
 
 
     useEffect(() => {
-        console.log("SignUpSelectorData", SignUpSelectorData)
-        if (SignUpSelectorData?.data?.status === 201) {
+         if (SignUpSelectorData?.data?.status === 201) {
             setLoadSpiner(false);
             popUpHookFun(false);
 
@@ -168,8 +165,7 @@ const Manager = ({ translaterFun }) => {
 
                 // }
 
-                console.log("responseData", responseData);
-                dispatch(LoadingSpinner(false))
+                 dispatch(LoadingSpinner(false))
     
             }
             else {
@@ -205,8 +201,7 @@ const Manager = ({ translaterFun }) => {
 
         try {
             let responseData = await dispatch(ManagerDeleteSlice({ item, BearerToken,RestaurantId }))
-            console.log("responseDataresponseData", responseData, item)
-            if(responseData?.payload?.status === 204){
+             if(responseData?.payload?.status === 204){
                 toast.success(translaterFun("staff-deleted-successfully"))
             }
             deletePopUpFun(false)
@@ -243,7 +238,8 @@ const Manager = ({ translaterFun }) => {
         setPhoneNumber(myString);
     };
 
-console.log("bsdvhhdsd",data?.results)
+ 
+
     return (
 
         <>
