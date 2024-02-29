@@ -279,7 +279,7 @@ const Manager = ({ translaterFun }) => {
                                         <td> <img src={user} alt='img' /> </td>
                                         <td>{`${items?.first_name}`}</td>
                                         <td>{items?.email}</td>
-                                        <td> {items?.country_code} {items?.phone_number}</td>
+                                        <td> {items?.phone_number}</td>
                                         <td>{LanguageSet === "en" ? items?.role?.[0]?.name : items?.role?.[0]?.name_native}</td>
                                         <td>
                                             <button className='asbtn' onClick={(e) => handleDelete(e, items)}>
