@@ -31,7 +31,6 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
         TableNo: EditTableData?.[0]?.table_number
     }; 
 
-    console.log("nbdvdsdd",EditTableData)
     const defaultValueCategory = {
         // category_en: SearchCategoryData, 
         // category_en: "", 
@@ -39,12 +38,11 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
         TableNo: ""
     };
 
-    // console.log("nbsbsdsdd", defaultEditValueCategory)
 
     const ValidateEditCategory = yup.object({
         // [A-Za-z0-9-]
-        // category_en: yup.string().matches(/^[A-Za-z\s_-]*$/,console.log("sdfsdfs"), translaterFun("Category Name should be Alphabetic Character")).required(translaterFun("enter-category-name")),
-        TableNo: yup.string().matches(/^[\w- ]+$/, translaterFun("table-number-should-be-alphanumeric-or-with-hyphen")).required(translaterFun("enter-table-no")),
+        // category_en: yup.string().matches(/^[A-Za-z\s_-]*$/, translaterFun("Category Name should be Alphabetic Character")).required(translaterFun("enter-category-name")),
+        TableNo: yup.string().matches(/^[\d- ]+$/, translaterFun("table-number-should-be-numeric")).required(translaterFun("enter-table-no")),
     });
 
     const handleCreateEditTableSubmit = async (values) => {
@@ -52,26 +50,21 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
         let valueData = /^[A-Za-z\s_-]*$/
 
          
-        if (!valueData.test(SearchCategoryData)) {
-            setCategoryDataError("enter valid category")
-
-            console.log("mbvdmsmdd", "enter valid category")
-
-        }
-        else if(SearchCategoryData==null || SearchCategoryData==""){
-            setCategoryDataError("please enter category")
-            console.log("mbvdmsmdd", "enter  category")
-
-        }
-        else {
-            setCategoryDataError("")
-            console.log("mbvdmsmdd", " valid category done")
-
-        }
+        // if (!valueData.test(SearchCategoryData)) {
+        //     setCategoryDataError("enter valid category")
 
 
-        // console.log("SearchCategoryData1111", values?.category_en.test(/^[A-Za-z\s_-]*$/).required("enter-category-name"))
-        // console.log("SearchCategoryData1111", values)
+        // }
+        // else if(SearchCategoryData==null || SearchCategoryData==""){
+        //     setCategoryDataError("please enter category")
+
+        // }
+        // else {
+        //     setCategoryDataError("")
+
+        // }
+
+
 
 
         //  
@@ -97,14 +90,12 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 else {
                     await dispatch(LoadingSpinner(true))
                     setCategoryDataError("")
-                    // console.log("mbvdmsmdd", " valid category done")
                     responseData = await dispatch(PostManageOrderTableSlice(handleCreateTablePayload));
 
         
                 }
 
  
-                // console.log("mhjhsdsd", responseData)
                 if (responseData?.payload?.status == 201) {
                     // setItemData({ category: handleCreateTablePayload?.category })
                     closePopup(false)
@@ -129,6 +120,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
             }
         }
         else {
+            
 
             await dispatch(LoadingSpinner(true))
             try {
@@ -143,10 +135,24 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                     BearerToken
                 }
 
+                let responseData 
 
-                let responseData = await dispatch(UpdateManageOrderTableSlice(handleEditTablePayload));
+                if (!valueData.test(SearchCategoryData)) {
+                    setCategoryDataError("enter valid category")  
+                }
+                else if(SearchCategoryData==null || SearchCategoryData==""){
+                    setCategoryDataError("please enter category")  
+        
+                }
+                else {
+                    await dispatch(LoadingSpinner(true))
+                    setCategoryDataError("")
+                    // responseData = await dispatch(PostManageOrderTableSlice(handleCreateTablePayload));
+                    responseData = await dispatch(UpdateManageOrderTableSlice(handleEditTablePayload));
+                }
 
-                // console.log("mhjhsdsd", responseData)
+                //  responseData = await dispatch(UpdateManageOrderTableSlice(handleEditTablePayload));
+
                 if (responseData?.payload?.status == 200) {
                     closePopup(false)
                     // setItemData({ category: handleEditTablePayload?.category })
@@ -182,16 +188,12 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
     };
 
     const newfunC = (searchData) => {
-        console.log("nbsbsdsdd", searchData)
         setSearchCategoryData(searchData)
         setCategoryDataError("")
         // defaultValueCategory.category_en = searchData;
-        // ValidateEditCategory.category_en=yup.string().matches(/^[A-Za-z\s_-]*$/,console.log("nbsbsdsdd1") ,translaterFun("Category Name should be Alphabetic Character")).required(translaterFun("enter-category-name"))
-        // console.log("defaultEditValueCategory", defaultEditValueCategory, searchData)
-        // console.log("bvhgsdsdfs", ValidateEditCategory)
+        // ValidateEditCategory.category_en=yup.string().matches(/^[A-Za-z\s_-]*$/ ,translaterFun("Category Name should be Alphabetic Character")).required(translaterFun("enter-category-name"))
     }
 
-    console.log("defaultEditValueCategory111", EditTableData?.length == "1", defaultValueCategory.category_en)
     return (
         <div>
 
