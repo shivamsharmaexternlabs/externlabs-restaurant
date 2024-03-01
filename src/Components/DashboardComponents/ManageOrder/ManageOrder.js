@@ -80,7 +80,7 @@ const ManageOrder = ({ translaterFun }) => {
 
                 let options = [];
                 let SelectedData = [];
-                responseTableData?.payload?.data?.map((singleCategory) => {
+                responseTableData?.payload?.data?.forEach((singleCategory) => {
                     SelectedData.push({ label: singleCategory?.key, value: singleCategory?.key, lengthSize: singleCategory?.value });
                     options.push({ label: singleCategory?.key, value: singleCategory?.key, lengthSize: singleCategory?.value });
 
@@ -104,14 +104,14 @@ const ManageOrder = ({ translaterFun }) => {
         (async () => {
 
             let options = [];
-            ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.map((singleCategory) => {
+            ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.forEach((singleCategory) => {
                 options.push({ label: singleCategory?.key, value: singleCategory?.key, lengthSize: singleCategory?.value });
             });
 
 
             let datapush = []
-            ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.map((items) => {
-                selected?.map((itemsSelect) => {
+            ManageOrderTableSelectorData?.GetManageOrderTableData?.data?.forEach((items) => {
+                selected?.forEach((itemsSelect) => {
                     if (items?.key == itemsSelect?.label) {
                         datapush.push({ label: items?.key, value: items?.key, lengthSize: items?.value })
                     }

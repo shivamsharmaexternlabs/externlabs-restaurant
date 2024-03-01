@@ -231,7 +231,7 @@ const Manager = ({ translaterFun }) => {
         let data = [];
         let CountryCode = eventTargetValue?.split(" ");
         setCountryCode(CountryCode[0]);
-        CountryCode.slice(1).map((items, id) => {
+        CountryCode.slice(1).forEach((items, id) => {
             data.push(items);
         });
         let myString = data.join("").replace(/\D/g, "");

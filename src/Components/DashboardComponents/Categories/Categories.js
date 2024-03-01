@@ -545,7 +545,7 @@ const Categories = ({ translaterFun }) => {
     formData.append("calories_unit", caloriesunit);
 
 
-    inputs?.map((items, id) => {
+    inputs?.forEach((items, id) => {
       // formData.append(`variant[${id}][variant_id]`, items?.variant_id);
       formData.append(`variant[${id}][variant_name_en]`, items?.variant_name_en);
       formData.append(`variant[${id}][variant_name_native]`, items?.variant_name_native);
@@ -690,7 +690,7 @@ const Categories = ({ translaterFun }) => {
     // console.log("itemDataedit", itemData)
 
     let newayy = []
-    itemData?.variant?.map((items, id) => {
+    itemData?.variant?.forEach((items, id) => {
       newayy.push({
         "variant_id": items?.variant_id,
         "variant_name_en": items?.variant_name_en,
@@ -818,7 +818,7 @@ const Categories = ({ translaterFun }) => {
       formData.append("calories_unit", EditMenuData?.calories_unit);
 
 
-      editInputs?.map((items, id) => {
+      editInputs?.forEach((items, id) => {
         formData.append(`variant[${id}][variant_id]`, items?.variant_id);
         formData.append(`variant[${id}][variant_name_en]`, items?.variant_name_en);
         formData.append(`variant[${id}][variant_name_native]`, items?.variant_name_native);
