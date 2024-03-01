@@ -24,9 +24,11 @@
     RESTAURANT: "/admin/restaurant",
     RESTAURANT_DETAIL: "/admin/restaurantdetail/",
     KDS_SCREEN: "/kds/kdsScreen",
-    SUBSCRIPTION: "/subscription/page"
+    SUBSCRIPTION: "/subscription/page",
+    REORDER:"admin/categories/reorder"
   };
 
   Object.freeze(roles)
   Object.freeze(routes)
+
  export {routes, roles, methods}
