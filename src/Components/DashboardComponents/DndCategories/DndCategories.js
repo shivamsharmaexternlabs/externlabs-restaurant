@@ -13,6 +13,7 @@ import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import defaultImage from "../../../images/defaultImage.png";
 import { Helmet } from "react-helmet";
+import { routes } from '../../../Utils/constants';
 
 /**
  * DndCategories component for handling drag and drop functionality of menu categories.
@@ -25,6 +26,7 @@ import { Helmet } from "react-helmet";
 
 function DndCategories({ translaterFun }) {
     const dispatch = useDispatch();
+    const { CATEGORIES} = routes
     const MenuApiSelectorData = useSelector((state) => state.MenuApiData);
     const [draggedItem, setDraggedItem] = useState(null);
     const [dndPayload, setDndPayload] = useState()
@@ -230,7 +232,7 @@ function DndCategories({ translaterFun }) {
                                     type="button"
                                     className="categorybtn btn2"
                                     onClick={(e) => {
-                                        navigate(`/${resId}/admin/categories/`);
+                                        navigate(`/${resId}${CATEGORIES}`);
                                     }}
                                 // style={{ width: "100px", height: "43px" }}
                                 >

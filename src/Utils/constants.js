@@ -25,7 +25,8 @@
     RESTAURANT_DETAIL: "/admin/restaurantdetail/",
     KDS_SCREEN: "/kds/kdsScreen",
     SUBSCRIPTION: "/subscription/page",
-    REORDER:"admin/categories/reorder"
+    REORDER:"admin/categories/reorder",
+    ADMIN:"admin/allmedia"
   };
 
   Object.freeze(roles)

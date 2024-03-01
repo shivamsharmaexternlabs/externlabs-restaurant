@@ -13,12 +13,12 @@ import { useNavigate } from "react-router-dom";
 import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
 import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
 import { Helmet } from "react-helmet";
-
+import { routes } from "../../../Utils/constants";
 
 
 
 const Leads = ({ translaterFun }) => {
-
+const{RESTAURANT_DETAIL}=routes
   const itemsPerPage = 5;
 
   const [popUpHook, popUpHookFun] = usePopUpHook("")
@@ -96,7 +96,7 @@ const Leads = ({ translaterFun }) => {
 
   const LeadsDetailsFun = (e, items) => {
 
-    navigate(`/admin/restaurantdetail/${items?.lead_id}`, {
+    navigate(`${RESTAURANT_DETAIL}${items?.lead_id}`, {
       state: {
         page: "lead",
         currentData: items,

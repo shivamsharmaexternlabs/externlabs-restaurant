@@ -10,7 +10,7 @@ export const GetKdsSlice = createAsyncThunk(
     async (body, { rejectWithValue }) => {
        try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}kds/kot/?restaurant_id=${body.restaurant_id}}`,
+          `${process.env.REACT_APP_BASE_URL}kds/kot/?restaurant_id=${body.restaurant_id}`,
           {
             headers: {
                 Authorization: `Bearer ${body.token}`                
@@ -29,9 +29,10 @@ export const GetKdsSlice = createAsyncThunk(
   export const UpdateKdsSlice = createAsyncThunk(
     "UpdateKdsSlice",
     async ( body , { rejectWithValue }) => {
+      console.log({body})
       try {
         const response = await axios.patch(
-          `${process.env.REACT_APP_BASE_URL}kds/kot/${body.kot_id}/`,
+          `${process.env.REACT_APP_BASE_URL}kds/kot/${body.kot_id}/?restaurant_id=${body.restaurant_id}`,
           {status:body.status},
           {
             headers: {

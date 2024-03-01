@@ -131,7 +131,7 @@ function KdsBox() {
       if (newStatus) {
         dispatch(LoadingSpinner(true))
         const updateKdsResponseData = await dispatch(
-          UpdateKdsSlice({ kot_id: kot_id, status: newStatus, token: token })
+          UpdateKdsSlice({ kot_id: kot_id, status: newStatus, token: token ,restaurant_id:restaurant_id})
         );
         if (updateKdsResponseData.payload.status === 200) {
           let GetKdsSliceResponseData = await dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));

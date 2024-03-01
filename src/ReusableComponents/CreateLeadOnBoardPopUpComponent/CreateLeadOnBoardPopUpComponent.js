@@ -29,11 +29,11 @@ import SucessRegisteredPopup from "../SucessRegisteredPopup/SucessRegisteredPopu
 import LodingSpiner from "../../Components/LoadingSpinner/LoadingSpinner";
 // import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
 
-
+import { routes } from "../../Utils/constants";
 
 
 const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
-
+    const{RESTAURANT_DETAIL}=routes
     let submitAction = undefined;
     const itemsPerPage = 5;
 
@@ -344,7 +344,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
     }
 
     const RestaurantsDetailsFun = (e, items, AllData) => {
-        navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
+        navigate(`${RESTAURANT_DETAIL}${items?.restaurant_id}`, {
             state: {
                 page: "MenuCategory",
                 currentData: items,

@@ -14,6 +14,7 @@ import { GetRestaurantsOnBoardSlice } from "../../Redux/slices/leadsRestaurantSl
 import { Helmet } from "react-helmet";
 import LodingSpiner from "../../Components/LoadingSpinner/LoadingSpinner";
 import { LoadingSpinner } from "../../Redux/slices/sideBarToggle";
+import {  routes } from ".././../Utils/constants";
 
 /**
  * Login functional component for Login.
@@ -22,6 +23,7 @@ import { LoadingSpinner } from "../../Redux/slices/sideBarToggle";
  * @subcategory Login
  */
 const Login = () => {
+  const {  LEADS,DASHBOARD,KDS_SCREEN,SUBSCRIPTION} = routes
   // Initializing Redux dispatch function
   const dispatch = useDispatch();
 
@@ -63,16 +65,16 @@ const Login = () => {
         reactLocalStorage.set("payment_status", User?.data?.data?.payment_status);
 
         if (User?.data?.data?.payment_status === false) {
-          navigate(`/subscription/page`);
+          navigate(`${SUBSCRIPTION}`);
         } else if (User?.data?.data?.payment_status === true) {
-          navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}/admin/dashboard`);
+          navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}${DASHBOARD}`);
         }
 
       } else if (User?.data?.data?.type == "sales") {
-        navigate(`/admin/leads`);
+        navigate(`${LEADS}`);
       }
       else if (User?.data?.data?.type == "kitchen_admin") {
-        navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}/kds/kdsScreen`);
+        navigate(`/${User?.data?.data?.restaurants?.[0]?.restaurant_id}${KDS_SCREEN}`);
       }
 
       else {

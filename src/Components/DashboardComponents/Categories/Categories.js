@@ -56,10 +56,12 @@ import { currencyData } from "./currencyData"
 import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
 import { CurrencySymbol } from "./CurrencySymbol"
 import { Helmet } from "react-helmet";
+import { routes } from "../../../Utils/constants";
 
 
 const Categories = ({ translaterFun }) => {
   const dispatch = useDispatch();
+  const { CATEGORIES} = routes
   const [popUpHook, popUpHookFun] = usePopUpHook("");
   const [confirmMenuUploadFilePopUp, confirmMenuUploadFilePopUpFun] = usePopUpHook("");
   const [popUpEditHook, popUpEditHookFun] = usePopUpHook("");
@@ -1196,7 +1198,7 @@ const Categories = ({ translaterFun }) => {
   };
 
   const reorderSubmit = (e) => {
-    navigate(`/${RestaurantIdLocalStorageData}/admin/categories/reorder/`);
+    navigate(`/${RestaurantIdLocalStorageData}${CATEGORIES}/reorder/`);
   }
 
 

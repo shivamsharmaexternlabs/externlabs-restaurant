@@ -18,16 +18,17 @@ import icon15 from '../../../images/icon15.svg'
 import managerorder  from "../../../images/managerorder.png"
 import managerOrderDArk  from "../../../images/managerOrderDArk.png"
 
-import { ToggleBar } from '../../../Redux/slices/sideBarToggle'
+import { ToggleBar } from '../../../Redux/slices/sideBarToggle'  
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, NavLink, useNavigate, Route } from "react-router-dom";
 import { reactLocalStorage } from 'reactjs-localstorage'
 import { useTranslation } from 'react-i18next';
 import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
+import {  routes } from "../../../Utils/constants";
 
 const DashboardSidebar = () => {
 
-
+  const {  DASHBOARD, CATEGORIES, MANAGE_ORDER, MANAGER,  PAYMENT_HISTORY, LEADS, RESTAURANT ,ADMIN} = routes
   const { t, i18n } = useTranslation()
 
   let UserTypeData = reactLocalStorage.get("Type", false);
@@ -78,8 +79,8 @@ const DashboardSidebar = () => {
 
               <li className="">
                 <NavLink
-                  to={`/${RestaurantId}/admin/dashboard`}
-                  className={` ${param.pathname === ":id/admin/dashboard" ? "active" : ""
+                  to={`/${RestaurantId}${DASHBOARD}`}
+                  className={` ${param.pathname === `:id${DASHBOARD}` ? "active" : ""
                     } `} >
                   <div className='normalicon'>
                     <img src={icon7} alt='img' /> <span className='text'>{t("dashboard")}</span>
@@ -92,8 +93,8 @@ const DashboardSidebar = () => {
               </li>
 
               <li>
-                <NavLink to={`/${RestaurantId}/admin/manager`}
-                  className={` ${param.pathname === ":id/admin/manager" ? "active" : ""
+                <NavLink to={`/${RestaurantId}${MANAGER}`}
+                  className={` ${param.pathname === `:id${MANAGER}` ? "active" : ""
                     } `}
                 >
                   <div className='normalicon'>
@@ -108,7 +109,7 @@ const DashboardSidebar = () => {
               </li>
 
               <li>
-                <NavLink to={`/${RestaurantId}/admin/categories`} className={` ${param.pathname === ":id/admin/categories" ? "active" : ""
+                <NavLink to={`/${RestaurantId}${CATEGORIES}`} className={` ${param.pathname === `:id${CATEGORIES}` ? "active" : ""
                   } `}>
                   <div className='normalicon'>
                     <img src={icon10} alt='img' /> <span className='text'>{t("menu-categories")}</span>
@@ -121,7 +122,7 @@ const DashboardSidebar = () => {
               </li>
 
               <li>
-                <NavLink to={`/${RestaurantId}/admin/allmedia`} className={` ${param.pathname === ":id/admin/allmedia" ? "active" : ""
+                <NavLink to={`/${RestaurantId}/${ADMIN}`} className={` ${param.pathname === `:id/${ADMIN}` ? "active" : ""
                   } `}>
 
                   <div className='normalicon'>
@@ -136,7 +137,7 @@ const DashboardSidebar = () => {
               </li>
 
               <li>
-                <NavLink to={`/${RestaurantId}/admin/paymenthistory`} className={` ${param.pathname === ":id/admin/paymenthistory" ? "active" : ""
+                <NavLink to={`/${RestaurantId}${PAYMENT_HISTORY}`} className={` ${param.pathname === `:id${PAYMENT_HISTORY}` ? "active" : ""
                   } `}>
 
                   <div className='normalicon'>
@@ -150,7 +151,7 @@ const DashboardSidebar = () => {
               </li>
 
               <li>
-                <NavLink to={`/${RestaurantId}/admin/manageorder`} className={` ${param.pathname === ":id/admin/manageorder" ? "active" : ""
+                <NavLink to={`/${RestaurantId}${MANAGE_ORDER}`} className={` ${param.pathname === `:id${MANAGE_ORDER}` ? "active" : ""
                   } `}>
 
                   <div className='normalicon'>
@@ -177,8 +178,8 @@ const DashboardSidebar = () => {
           }
           {UserTypeData === "sales" && <>  <li>
             <NavLink
-              to={`/admin/leads`}
-              className={` ${param.pathname === "/admin/leads" || param?.state?.currentData?.lead_id ? "active" : ""
+              to={`${LEADS}`}
+              className={` ${param.pathname === `${LEADS}` || param?.state?.currentData?.lead_id ? "active" : ""
                 } `}
 
             >
@@ -196,8 +197,8 @@ const DashboardSidebar = () => {
           </li>
             <li>
               <NavLink
-                to={`/admin/restaurant`}
-                className={` ${param.pathname === "/admin/restaurant" || param?.state?.currentData?.restaurant_id ? "active" : ""
+                to={`${RESTAURANT}`}
+                className={` ${param.pathname === `${RESTAURANT}` || param?.state?.currentData?.restaurant_id ? "active" : ""
                   } `}
 
               >

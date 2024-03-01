@@ -24,9 +24,10 @@ import { LoadingSpinner } from '../../../Redux/slices/sideBarToggle';
 import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 import SucessRegisteredPopup from '../../../ReusableComponents/SucessRegisteredPopup/SucessRegisteredPopup'
 import { Helmet } from "react-helmet";
-
+import { routes } from '../../../Utils/constants';
 
 const RestaurantDetail = ({ translaterFun }) => {
+  const { LEADS} = routes
   const [SuccessPopup, setSuccessPopup] = useState(false);
   const [ResetPasswordPopup, setResetPasswordPopup] = useState(false);
   const [CopyValueToggle, setCopyValueToggle] = useState(false)
@@ -250,7 +251,7 @@ const RestaurantDetail = ({ translaterFun }) => {
       pagination: 1,
     };
     dispatch(LeadsRestaurantSlice(LeadsRestaurantSlicePayload));
-    navigate(`/admin/leads`)
+    navigate(`${LEADS}`)
     window.location.reload(false);
   }
 

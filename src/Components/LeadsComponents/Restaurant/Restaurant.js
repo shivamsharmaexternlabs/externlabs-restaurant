@@ -14,12 +14,12 @@ import "react-phone-input-2/lib/style.css";
 import CreateLeadOnBoardPopUpComponent from "../../../ReusableComponents/CreateLeadOnBoardPopUpComponent/CreateLeadOnBoardPopUpComponent";
 import { LoadingSpinner } from "../../../Redux/slices/sideBarToggle";
 import { Helmet } from "react-helmet";
-
+import { routes } from "../../../Utils/constants";
 
 
 const LeadsRestaurant = ({ translaterFun }) => {
   const itemsPerPage = 5;
-
+const {RESTAURANT_DETAIL}=routes
   const [LoadSpiner, setLoadSpiner] = useState(false)
   const [popUpHook, popUpHookFun] = usePopUpHook("")
 
@@ -73,7 +73,7 @@ const LeadsRestaurant = ({ translaterFun }) => {
 
 
   const RestaurantsDetailsFun = (e, items, AllData) => {
-    navigate(`/admin/restaurantdetail/${items?.restaurant_id}`, {
+    navigate(`${RESTAURANT_DETAIL}${items?.restaurant_id}`, {
       state: {
         page: "restaurant",
         currentData: items,

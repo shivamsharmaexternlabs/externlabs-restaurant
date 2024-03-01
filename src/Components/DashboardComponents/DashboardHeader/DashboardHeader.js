@@ -15,9 +15,10 @@ import { GetRestaurantsOnBoardSlice } from '../../../Redux/slices/leadsRestauran
 import { useSelector } from 'react-redux'
 import LanguageComponent from '../../../ReusableComponents/LanguageComponent/LanguageComponent'
 import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
+import { routes } from '../../../Utils/constants'
 
 const DashboardHeader = ({ popUpHookFun }) => {
-
+  const {ADMIN_PROFILE} = routes
   const [LogOutToggle, setLogOutToggle] = useState(false)
   const[logoutHookFun]=useLogoutHook('')
   // const [languagesDataKey, setlanguagesDataKey] = useState("")
@@ -145,7 +146,7 @@ const DashboardHeader = ({ popUpHookFun }) => {
   const ViewProfileFun = async () => {
     let dispatchDataGetRestaurantsOnBoardSlice = await dispatch(GetRestaurantsOnBoardSlice({ RestaurantId, Token: BearerToken }))
 
-    navigate(`/${RestaurantId}/admin/viewProfile/`, {
+    navigate(`/${RestaurantId}${ADMIN_PROFILE}/`, {
       state: {
         page: "profilePage",
         currentData: dispatchDataGetRestaurantsOnBoardSlice?.payload?.data,
