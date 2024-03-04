@@ -1,9 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { toast } from "react-toastify";
-import { reactLocalStorage } from "reactjs-localstorage";
-
-
 
 export const GetKdsSlice = createAsyncThunk(
     "GetKdsSlice",
@@ -29,7 +25,6 @@ export const GetKdsSlice = createAsyncThunk(
   export const UpdateKdsSlice = createAsyncThunk(
     "UpdateKdsSlice",
     async ( body , { rejectWithValue }) => {
-      console.log({body})
       try {
         const response = await axios.patch(
           `${process.env.REACT_APP_BASE_URL}kds/kot/${body.kot_id}/?restaurant_id=${body.restaurant_id}`,
