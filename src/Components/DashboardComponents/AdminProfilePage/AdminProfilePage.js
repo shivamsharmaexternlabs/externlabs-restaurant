@@ -424,9 +424,9 @@ const AdminProfilePage = ({ translaterFun }) => {
   ) => {
     // we are not using all the parameters in this function , but all parameters are important becouse of this library
     let data = [];
-    let CountryCode = eventTargetValue?.split(" ");
-    setCountryCode(CountryCode?.[0]);
-    CountryCode.slice(1).forEach((items, id) => {
+    let countryCode = eventTargetValue?.split(" ");
+    setCountryCode(countryCode?.[0]);
+    countryCode.slice(1).forEach((items, id) => {
       data.push(items);
     });
     let myString = data.join("").replace(/\D/g, "");

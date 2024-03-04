@@ -27,7 +27,7 @@ function KdsBox() {
   const dispatch = useDispatch();
   const language = localStorage.getItem('languageSet');
   const { GetKdsReducerData } = useSelector((state) => state.KdsApiData);
-  const restaurant_id = localStorage.getItem('RestaurantId');
+  const restaurantId = localStorage.getItem('RestaurantId');
   const token = localStorage.getItem('Token');
 
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -131,10 +131,10 @@ function KdsBox() {
       if (newStatus) {
         dispatch(LoadingSpinner(true))
         const updateKdsResponseData = await dispatch(
-          UpdateKdsSlice({ kot_id: kot_id, status: newStatus, token: token ,restaurant_id:restaurant_id})
+          UpdateKdsSlice({ kot_id: kot_id, status: newStatus, token: token ,restaurant_id:restaurantId})
         );
         if (updateKdsResponseData.payload.status === 200) {
-          let GetKdsSliceResponseData = await dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+          let GetKdsSliceResponseData = await dispatch(GetKdsSlice({ restaurant_id: restaurantId, token: token }));
           if (GetKdsSliceResponseData.payload.status === 200) {
             dispatch(LoadingSpinner(false))
           }
@@ -152,15 +152,15 @@ function KdsBox() {
   };
 
   useEffect(() => {
-    if (!restaurant_id) {
+    if (!restaurantId) {
       console.warn("Restaurant ID not found in local storage.");
     } else {
       // Initial API call
-      dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));
+      dispatch(GetKdsSlice({ restaurant_id: restaurantId, token: token }));
 
       //Set up interval for subsequent API calls every 5 seconds
       const intervalId = setInterval(() => {
-        dispatch(GetKdsSlice({ restaurant_id: restaurant_id, token: token }));     
+        dispatch(GetKdsSlice({ restaurant_id: restaurantId, token: token }));     
       }, 5000);
 
       // Cleanup function to clear interval when component unmounts
