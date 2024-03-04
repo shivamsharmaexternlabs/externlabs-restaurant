@@ -61,7 +61,7 @@ import { routes } from "../../../Utils/constants";
 
 const Categories = ({ translaterFun }) => {
   const dispatch = useDispatch();
-  const { CATEGORIES} = routes
+  const { REORDER} = routes
   const [popUpHook, popUpHookFun] = usePopUpHook("");
   const [confirmMenuUploadFilePopUp, confirmMenuUploadFilePopUpFun] = usePopUpHook("");
   const [popUpEditHook, popUpEditHookFun] = usePopUpHook("");
@@ -1198,7 +1198,7 @@ const Categories = ({ translaterFun }) => {
   };
 
   const reorderSubmit = (e) => {
-    navigate(`/${RestaurantIdLocalStorageData}${CATEGORIES}/reorder/`);
+    navigate(`/${RestaurantIdLocalStorageData}${REORDER}`);
   }
 
 
