@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { LoadingSpinner } from '../../Redux/slices/sideBarToggle';
 import useDownloadQr from '../../CustomHooks/useDownloadQr';
 import ViewKot from '../../Components/DashboardComponents/ManageOrder/ViewKot';
+import { GetKdsSlice } from '../../Redux/slices/KdsSlice';
 
 
 const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
@@ -21,6 +22,8 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
     const [openAction, setOpenAction] = useState(null)
     const [OpenMenuActionToggle, setOpenMenuActionToggle] = useState(null)
     const [EditTableData, setEditTableData] = useState([])
+
+    const [viewKotPopup,setViewKotPopup]= useState(false)
 
     const [LoadSpiner, setLoadSpiner] = useState(false)
 
@@ -36,6 +39,8 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
         Booleanvalue: false
     })
 
+
+
     const ManageOrderTableSelectorData = useSelector((state) => state.ManageOrderTableApiData);
     const QrDownloadSelectorData = useSelector((state) => state.QrCodeApiData);
 
@@ -43,7 +48,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
     const dispatch = useDispatch()
 
     let BearerToken = reactLocalStorage.get("Token", false);
-    let RestaurantId = reactLocalStorage.get("RestaurantId", false);
+    let restaurantId = reactLocalStorage.get("RestaurantId", false);
 
 
     const TableDisableFun = async (e, item) => {
@@ -56,10 +61,10 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
 
         await dispatch(LoadingSpinner(true))
 
- 
+
 
         let handleDisableTablePayload = {
-            "restaurant_id": RestaurantId,
+            "restaurant_id": restaurantId,
             "table_id": item?.table_id,
             "is_active": !e.target.checked ? true : false,
             BearerToken
@@ -67,7 +72,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
         try {
             let responseData = await dispatch(UpdateManageOrderTableSlice(handleDisableTablePayload));
 
-             if (responseData?.payload?.status == 200) {
+            if (responseData?.payload?.status == 200) {
                 await dispatch(LoadingSpinner(false))
                 setOpenMenuActionToggle(null);
 
@@ -77,7 +82,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
             }
 
             setTimeout(async () => {
-                await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }))
+                await dispatch(GetManageOrderTableSlice({ "RestaurantId": restaurantId, BearerToken }))
             }, 500)
 
         }
@@ -95,7 +100,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
     //         if (BearerToken !== false) {
     //             dispatch(LoadingSpinner(true));
     //             try {
-    //                 let responseData = await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken  }))
+    //                 let responseData = await dispatch(GetManageOrderTableSlice({ restaurantId, BearerToken  }))
     //                 console.log("1111111111111111111111")
 
     //                 if (responseData?.payload?.status == 200) {
@@ -118,7 +123,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
 
     const OpenActionFun = (e, id, item) => {
 
-        
+
 
 
         if (OpenMenuActionToggle === item?.table_id) {
@@ -134,7 +139,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
         })
     }
 
-     useEffect(() => {
+    useEffect(() => {
 
         const handleOutsideClick = (e) => {
 
@@ -167,7 +172,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
     }
 
     const DownloadQrFun = async (e, item) => {
-         await dispatch(LoadingSpinner(false))
+        await dispatch(LoadingSpinner(false))
 
         let responseData = await dispatch(GetQrCodeSlice({
             restaurant_id: item?.restaurant_id,
@@ -193,20 +198,35 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
     // dispatch( GetQrCodeSlice())
 
 
-    const ViewOrderFun = (e, item) => {
+    const ViewOrderFun = async (e, item) => {
+        await dispatch(LoadingSpinner(true))
+        let responseData = await dispatch(GetKdsSlice({ restaurant_id: restaurantId, token: BearerToken, tableId: item?.table_id }));
+        //    console.log
 
- 
+        if (responseData?.payload?.status === 200) {
+            await dispatch(LoadingSpinner(false))
+            setViewKotPopup(true)
+        }
+        else{
+            await dispatch(LoadingSpinner(false))
+        }
+
+
     }
-     
+
 
 
     return (
         <>
- 
-            {     
-            currentSelectedCategory?.lengthSize?.map((item, id) => {
+
+            {
+                currentSelectedCategory?.lengthSize?.map((item, id) => {
                     return <>
-                        {<li className={`${item?.is_active === true ? "" : "overlayout"}  ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen"} tablsCss`}
+                        {<li className={`${item?.is_active === true ? "" : "overlayout"} 
+                         ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen" }
+                         ${item?.status == "Running" ? "tablecolorYellow" : "tablecolorGreen" }
+                        
+                        tablsCss`}
                         >
                             {item?.table_number}
                             <div className='acedittable'>
@@ -238,12 +258,14 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
                                     >
                                         <img src={downloadimg} alt="delete icon " />    <span className='downloadQrclass'>  {translaterFun("download-QR")} </span>
                                     </button>
-                                    <button className=" mt-1 "
+
+                                    {item?.is_active == true && item?.status == "Running" &&<button className=" mt-1 "
                                         ref={dotDownloadQRRef}
                                         onClick={(e) => ViewOrderFun(e, item)}
                                     >
                                         <img src={downloadimg} alt="delete icon " />    <span className='downloadQrclass'>  {translaterFun("view-order")} </span>
-                                    </button>
+                                    </button>}
+
                                 </div>}
 
 
@@ -252,7 +274,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
 
                     </>
                 })}
-                
+
 
             {openAction && <CreateEditTable BookingTable
                 translaterFun={translaterFun}
@@ -266,7 +288,10 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
 
             <LoadingSpinner loadspiner={LoadSpiner} />
 
-            <ViewKot />
+            <ViewKot 
+             ViewKotPopupState={setViewKotPopup}
+             viewKotPopupStateValue={viewKotPopup}
+            />
         </>
     )
 }

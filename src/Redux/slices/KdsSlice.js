@@ -4,9 +4,10 @@ import axios from "axios";
 export const GetKdsSlice = createAsyncThunk(
     "GetKdsSlice",
     async (body, { rejectWithValue }) => {
+      // kot/?restaurant_id=89c2cce5-c2c2-4159-9bb6-ff4dcfa17e82&table_id=51cd9a2d-83c6-4598-bbae-45b445962911'
        try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}kds/kot/?restaurant_id=${body.restaurant_id}`,
+          `${process.env.REACT_APP_BASE_URL}kds/kot/?restaurant_id=${body.restaurant_id}&table_id=${body?.tableId?body?.tableId:""}`,
           {
             headers: {
                 Authorization: `Bearer ${body.token}`                

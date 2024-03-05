@@ -72,31 +72,40 @@ const ManageOrder = ({ translaterFun }) => {
     useEffect(() => {
 
         (async () => {
-
             let responseTableData = await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }));
-
             if (responseTableData?.payload?.status === 200) {
                 setAllTableData(responseTableData?.payload?.data);
-
                 let options = [];
                 let SelectedData = [];
                 responseTableData?.payload?.data?.forEach((singleCategory) => {
                     SelectedData.push({ label: singleCategory?.key, value: singleCategory?.key, lengthSize: singleCategory?.value });
                     options.push({ label: singleCategory?.key, value: singleCategory?.key, lengthSize: singleCategory?.value });
-
                 });
-
                 setOptions(options);
-
                 // // By default all category is selected...
                 setSelected(SelectedData);
-
             }
 
-
-
         })()
+
     }, [])
+
+    useEffect(() => {
+        let interval
+        (async () => {
+            interval = setInterval(() => {
+                dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }));
+
+            }, 5000);
+        })()
+
+        return () => {
+            clearInterval(interval)
+        };
+
+    }, [])
+
+
 
 
     useEffect(() => {
@@ -348,7 +357,7 @@ const ManageOrder = ({ translaterFun }) => {
 
                 {/* add table end */}
             </div>
-            {/* <ViewKot /> */}
+            <ViewKot />
 
             <LodingSpiner />
         </>

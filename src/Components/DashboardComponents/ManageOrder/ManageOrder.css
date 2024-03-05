@@ -59,6 +59,21 @@
     color: #fff;
     margin: 0 0 15px;
 }
+.tablecolorYellow{
+    background-color: #eabb36;
+
+}
+.color_takeaway{
+    /* background-color: #eabb36; */
+    border: 1px solid #eabb36 !important;
+    color: #eabb36 !important;
+}
+.color_takeaway1{
+    /* background-color: #42B856; */
+
+    border: 1px solid #42B856 !important;
+    color: #42B856 !important;
+}
 
 .itemtablepopup .popuptitle h4 {
     border: 1px solid #EA6A12;

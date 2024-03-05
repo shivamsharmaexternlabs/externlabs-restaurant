@@ -17,7 +17,8 @@ export const SignInSlice = createAsyncThunk("SignInSlice", async (body, { reject
           "Accept-Language": languageSet
         },
       });
-    // console.log("khdgjdssd",response?.data?.message)
+    console.log("khdgjdssd",response?.data?.message)
+    reactLocalStorage.set("Logo", response?.data?.logo);
     if (response?.data?.type == "owner" || response?.data?.type == "sales"|| response?.data?.type == "kitchen_admin") {
       toast.success(response?.data?.message);
 

@@ -32,7 +32,7 @@ const DashboardSidebar = () => {
   const { t, i18n } = useTranslation()
 
   let UserTypeData = reactLocalStorage.get("Type", false);
-
+ 
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   const[logoutHookFun]=useLogoutHook('')
@@ -44,7 +44,7 @@ const DashboardSidebar = () => {
 
 
   const ToggleBarSelectorData = useSelector((state) => state?.ToggleBarData?.toggle);
-  const ManagerApiSelectorData = useSelector((state) => state.ToggleBarData);
+  const ManagerApiSelectorData = useSelector((state) => state.ToggleBarData); 
 
 
   const PopUpToggleFun = () => {
@@ -64,12 +64,11 @@ const DashboardSidebar = () => {
     logoutHookFun()
   }
 
-
-  return (
+   return (
     <>
       <div className='sidebar'>
         <figure className='logo' onClick={(e) => PopUpToggleFun(e, o => !o)}>
-          <img src={logo} alt='logoimg' className='smalllogo' />
+          <img src={ logo} alt='logoimg' className='smalllogo' />
           <img src={fulllogo} alt='logoimg' className='fulllogo' />
         </figure>
         <ul className='navmenu'>

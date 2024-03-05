@@ -5,6 +5,7 @@ import Logout from '../../../images/logout.svg'
 import KdsBox from './KdsBox'
 import LanguageComponent from '../../../ReusableComponents/LanguageComponent/LanguageComponent'
 import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
+import { reactLocalStorage } from 'reactjs-localstorage'
 
 
 /**
@@ -16,6 +17,7 @@ import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
 function KdsScreen() {
     const [logoutHookFun] = useLogoutHook('')
     const language = localStorage.getItem('languageSet');
+    let logoImage=reactLocalStorage.get("Logo", false);
 
 
     /**
@@ -33,7 +35,8 @@ function KdsScreen() {
         <>
             <div className='kdspage'>
                 <div className='kds-header'>
-                    <img className='kdslogoimg' alt='logo_img' src={kdslogo} />
+                    <img className='kdslogoimg' alt='logo_img'
+                     src={logoImage == ""? kdslogo:logoImage} />
                     <div className='kdsRight'>
                         <div className='languaselist'>
                             <LanguageComponent />

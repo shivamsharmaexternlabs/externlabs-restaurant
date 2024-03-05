@@ -13,6 +13,10 @@
     position: relative;
     margin-bottom: 0;
 }
+.logo>img{
+    height: 100px;
+    width: 65px;
+}
 
 .sidebar>.logo {
     text-align: center;
