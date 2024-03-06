@@ -86,13 +86,11 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue }) => {
       {viewKotPopupStateValue && <PopUpComponent classNameValue="itemtablepopup  ">
         <span className='closebtn' onClick={() => closePopupFun()}> <img src={closeicon} alt='img' /> </span>
         <div className='popuptitle'>
-          <h3> Table no. {GetKdsReducerData?.data?.[0]?.kds?.[0]?.restaurant_table?.table_number}</h3>
+          <h3> {language === 'en' ? "Table no." : "الجدول رقم."} {GetKdsReducerData?.data?.[0]?.kds?.[0]?.restaurant_table?.table_number}</h3>
         </div>
 
-
-
-        <div className='popupbody   '>
-          {dineInTakeAwayData?.[0]?.items?.length !== 0 &&<div className='popuptitle'>
+        <div className='popupbody'>
+          {dineInTakeAwayData?.[0]?.items?.length !== 0 && <div className='popuptitle'>
             <h4 className={dineInTakeAwayData?.[0]?.items?.order_type === "take_away" ? "color_takeaway" : " color_takeaway1"} >
 
               {dineInTakeAwayData?.[0]?.items?.order_type === 'take_away' ? (language === 'en' ? "Take Away" : "يبعد") :
@@ -102,11 +100,11 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue }) => {
             <div className='itemtable  '>
               <table  >
                 <tr>
-                  <th>Items </th>
-                  <th> Qty. </th>
-                  <th> Price </th>
+                  <th>{language === 'en' ? "Items" : "أغراض"} </th>
+                  <th> {language === 'en' ? "Qty" : "الكمية"}. </th>
+                  <th> {language === 'en' ? "Price" : "سعر"} </th>
                 </tr>
-                {  dineInTakeAwayData?.[0]?.items?.map((orderTypeData, id) => {
+                {dineInTakeAwayData?.[0]?.items?.map((orderTypeData, id) => {
                   console.log("dbncghcnasdads", orderTypeData)
                   return <tr>
                     <td>{language === 'en' ? orderTypeData?.item?.item_name_en : orderTypeData?.item?.item_name_native} </td>
@@ -119,7 +117,7 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue }) => {
           </div>}
 
 
-         {dineInTakeAwayData?.[1]?.items?.length !== 0 && <div className='popupbody popuptitle  pt-3'>
+          {dineInTakeAwayData?.[1]?.items?.length !== 0 && <div className='popupbody popuptitle  pt-3'>
             <h4 className={dineInTakeAwayData?.[1]?.items?.order_type !== "take_away" ? "color_takeaway" : " color_takeaway1"}  >
 
               {dineInTakeAwayData?.[1]?.items?.order_type !== 'take_away' ? (language === 'en' ? "Take Away" : "يبعد") :
@@ -129,11 +127,11 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue }) => {
             <div className='itemtable  '>
               <table  >
                 <tr>
-                  <th>Items </th>
-                  <th> Qty. </th>
-                  <th> Price </th>
+                  <th>{language === 'en' ? "Items" : "أغراض"} </th>
+                  <th> {language === 'en' ? "Qty" : "الكمية"}. </th>
+                  <th> {language === 'en' ? "Price" : "سعر"} </th>
                 </tr>
-                {  dineInTakeAwayData?.[1]?.items?.map((orderTypeData, id) => {
+                {dineInTakeAwayData?.[1]?.items?.map((orderTypeData, id) => {
                   console.log("dbncghcnasdads", orderTypeData)
                   return <tr>
                     <td>{language === 'en' ? orderTypeData?.item?.item_name_en : orderTypeData?.item?.item_name_native} </td>
@@ -150,7 +148,7 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue }) => {
             <ul>
               {/* <li> <span> Sub Total </span> <span> Sar 480  </span>  </li> */}
               {/* <li> <span>Tax </span> <span> </span> Sar 480 </li> */}
-              <li> <span> <b> Total Payment </b></span> <span> <b> {sum}</b> </span> </li>
+              <li> <span> <b> {language === 'en' ? "Total Payment" : "المبلغ الإجمالي"} </b></span> <span> <b> {sum}</b> </span> </li>
             </ul>
           </div>
         </div>
