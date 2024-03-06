@@ -13,9 +13,9 @@
     position: relative;
     margin-bottom: 0;
 }
-.logo>img{
-    height: 100px;
-    width: 65px;
+.logo>.smalllogo{
+    height: 41px;
+    width: 64px;
 }
 
 .sidebar>.logo {
