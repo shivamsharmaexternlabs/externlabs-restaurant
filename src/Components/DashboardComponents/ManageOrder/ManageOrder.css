@@ -15,11 +15,20 @@
 }
 
 .tablecolorGreen {
-    background-color: #42B856;
+    background: rgba(66, 184, 86, 0.2);
+    border: 1px solid #42B856;
 }
 
+
 .tablecolorGray {
+    border: 1px solid #D9D9D9;
     background-color: #D9D9D9;
+}
+
+.tablecolorYellow {
+    background: #FFBC0033;
+    border: 1px solid #eabb36;
+
 }
 
 .tablsCss {
@@ -59,16 +68,14 @@
     color: #fff;
     margin: 0 0 15px;
 }
-.tablecolorYellow{
-    background-color: #eabb36;
 
-}
-.color_takeaway{
+.color_takeaway {
     /* background-color: #eabb36; */
     border: 1px solid #eabb36 !important;
     color: #eabb36 !important;
 }
-.color_takeaway1{
+
+.color_takeaway1 {
     /* background-color: #42B856; */
 
     border: 1px solid #42B856 !important;
@@ -157,65 +164,69 @@
 
 
 .totalbox {
-    margin: 25px 0 0 ;
+    margin: 25px 0 0;
     background-color: #fff;
     border-radius: 0 0px 21px 21px;
     padding: 15px;
 }
 
-.totalbox > ul {
+.totalbox>ul {
     margin: 0;
 }
 
 
-.totalbox > ul > li {
+.totalbox>ul>li {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.totalbox > ul > li + li {
+.totalbox>ul>li+li {
     margin-top: 8px;
 }
 
-.multiselectDropdown>div>div>div{
+.multiselectDropdown>div>div>div {
     border: 1px solid #ea6a12 !important;
-     outline: #ea6a12 !important;
+    outline: #ea6a12 !important;
 }
-.multiselectDropdown>div>div>div:hover{
+
+.multiselectDropdown>div>div>div:hover {
     border: 1px solid #ea6a12 !important;
-     outline: #ea6a12 !important;
+    outline: #ea6a12 !important;
 }
+
 .rmsc .dropdown-container:focus-within {
- box-shadow:  #ea6a12  0 0 0 1px  !important;
+    box-shadow: #ea6a12 0 0 0 1px !important;
 }
 
 .infotable>.leftpart .rmsc {
     width: 300px;
 }
-.infotable{
-    width: 100%;  
+
+.infotable {
+    width: 100%;
 }
 
-.companyDropDown{
+.companyDropDown {
     cursor: pointer;
 }
-.companyDropDown div:hover{
+
+.companyDropDown div:hover {
     background-color: #ea6a12;
     color: white;
 }
-.itemtablepopup .closebtn{
+
+.itemtablepopup .closebtn {
     top: -15px;
     right: -15px;
     cursor: pointer;
 }
-.selected{
+
+.selected {
     background-color: red;
 }
 
-.bg-red{
+.bg-red {
     color: white;
     background-color: #ea6a12;
 }
-
-

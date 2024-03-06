@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import dot from '../../images/dot.svg'
 import edit1 from "../../images/edit.svg";
 import downloadimg from "../../images/download.png";
+import  viewkot from "../../images/Group.png"
 import { TableStatusData } from '../../Components/DashboardComponents/ManageOrder/TableStatusColor';
 import usePopUpHook from '../../CustomHooks/usePopUpHook/usePopUpHook';
 import CreateEditTable from '../../Components/DashboardComponents/ManageOrder/CreateEditTable';
@@ -217,7 +218,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
 
 
     return (
-        <>
+        <>  
 
             {
                 currentSelectedCategory?.lengthSize?.map((item, id) => {
@@ -241,7 +242,8 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
                                             {translaterFun("edit")}
                                         </span>
                                     </button>
-                                    <button type='button' className='switchbtn mt-1' ref={dotDisableRef}>
+
+                                    { item?.status !== "Reserved" && item?.status !== "Running" &&<button type='button' className='switchbtn mt-1' ref={dotDisableRef}>
                                         <label className="switch">
                                             <input type="checkbox"
 
@@ -251,7 +253,8 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
                                             <span className="slider round"></span>
                                         </label>
                                         <span> {translaterFun("disabled")} </span>
-                                    </button>
+                                    </button>}
+
                                     <button className=" mt-1 "
                                         ref={dotDownloadQRRef}
                                         onClick={(e) => DownloadQrFun(e, item)}
@@ -263,7 +266,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
                                         ref={dotDownloadQRRef}
                                         onClick={(e) => ViewOrderFun(e, item)}
                                     >
-                                        <img src={downloadimg} alt="delete icon " />    <span className='downloadQrclass'>  {translaterFun("view-order")} </span>
+                                        <img src={viewkot} alt="delete icon " />    <span className='downloadQrclass'>  {translaterFun("view-order")} </span>
                                     </button>}
 
                                 </div>}

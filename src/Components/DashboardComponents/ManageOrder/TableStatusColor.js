@@ -6,8 +6,8 @@ export let TableStatusData = [
     },
     {
         "name" : "running-table",
-        "color" : "Blue",
-        "colorCode" : "#42B856"
+        "color" : "green",
+        "colorCode" : "rgba(66, 184, 86, 0.2)"
     },
     {
         "name" : "disabled-table",
@@ -23,7 +23,7 @@ export let TableStatusData = [
     {
         "name" : "running-KOT-table",
         "color" : "Yellow",
-        "colorCode" : "#FFBC00"
+        "colorCode" : "#FFBC0033"
     }
 ]
 
