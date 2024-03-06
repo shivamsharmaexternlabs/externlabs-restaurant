@@ -296,7 +296,25 @@
   "search" : "يبحث",
   "enter-valid-category" : "أدخل فئة صالحة",
   "please-enter-category" : "الرجاء إدخال الفئة",
-  "capacity-should-be-numeric" : "يجب أن تكون السعة رقمية"
+  "capacity-should-be-numeric" : "يجب أن تكون السعة رقمية",
+  "table-no":"الجدول رقم",
+  "qty":"الكمية",
+  "price":"سعر",
+  "total-payment":"المبلغ الإجمالي",
+  "take-away":"يبعد",
+  "dine-in":"تناول الطعام في",
+  "start-cooking":"ابدأ الطهي",
+  "mark-as-done":"اعتبره منته",
+  "yes":"نعم",
+  "view-order":"مشاهدة الطلب"
+
+
+
+  
+
+
+
+
 
 
 

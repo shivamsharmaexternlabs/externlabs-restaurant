@@ -298,7 +298,17 @@
   "search" : "Search",
   "enter-valid-category" : "Enter Valid Category",
   "please-enter-category" : "Please Enter Category",
-  "capacity-should-be-numeric" : "Capacity should be Numeric"
+  "capacity-should-be-numeric" : "Capacity should be Numeric",
+  "table-no":"Table No.",
+  "qty":"Qty",
+  "price":"Price",
+  "total-payment":"Total Payment",
+  "take-away":"Take Away",
+  "dine-in":"Dine In",
+  "start-cooking":"Start Cooking",
+  "mark-as-done":"Mark as done",
+  "yes":"Yes",
+  "view-order":"View order"
 
 
 }

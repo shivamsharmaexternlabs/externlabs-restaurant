@@ -18,7 +18,7 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 * @returns {JSX.Element} KdsBox component JSX
 *  @category KDS
 */
-function KdsBox() {
+function KdsBox({translaterFun}) {
   /**
    * State to hold KDS data.
    * @type {Array<object>}
@@ -192,7 +192,7 @@ function KdsBox() {
                 <h4>{""}</h4>
               </div>
               <div className='rightpart'>
-                <h2>{language === 'en' ? "Table No." : "رقم الجدول"}
+                <h2>{translaterFun("table-no")}
                   {item.tableName}
                 </h2>
               </div>
@@ -204,8 +204,8 @@ function KdsBox() {
                 src={item?.items[0]?.order_type === 'take_away' ? foodparcel : DineIn}
                 alt='parcel' />
                 {item?.items[0]?.order_type === 'take_away' ?
-                  (language === 'en' ? "Take Away" : "يبعد") :
-                  (language === 'en' ? "Dine In" : "تناول الطعام في")}
+                  translaterFun("take-away") :
+                  translaterFun("dine-in")}
               </h3>
               <h4>{""}</h4>
             </div>
@@ -233,8 +233,8 @@ function KdsBox() {
                           onClick={() => handleStartCooking(index, orderIndex, order)}
                         >
                           <p>{(order.status === "kot_generated") ?
-                            (language === "en" ? "Start Cooking" : "ابدأ الطهي") :
-                            (language === "en" ? "Mark as done" : "اعتبره منته")}</p>
+                            translaterFun("start-cooking") :
+                            translaterFun("mark-as-done") }</p>
                           <img
                             src={
                               order.status === "start_cooking"
@@ -305,7 +305,7 @@ function KdsBox() {
             </p>
 
             <div className="popup-btn">
-              <button onClick={() => setShowConfirmation(false)} className='popup-cal-btn'>  {language === "en" ? "Cancel" : "يلغي"}</button>
+              <button onClick={() => setShowConfirmation(false)} className='popup-cal-btn'>  {translaterFun("cancel")}</button>
               <button
                 onClick={() => {
                   handleConfirmation(true);
@@ -314,7 +314,7 @@ function KdsBox() {
                 style={{ backgroundColor: "#EA6A12" }}
                 className='popup-yes-btn'
               >
-                {language === "en" ? "Yes" : "نعم"}
+            {translaterFun("yes")}
               </button>
             </div>
           </div>

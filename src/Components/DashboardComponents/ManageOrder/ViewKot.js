@@ -3,7 +3,7 @@ import PopUpComponent from '../../../ReusableComponents/PopUpComponent/PopUpComp
 import closeicon from '../../../images/close.svg'
 import { useSelector } from 'react-redux';
 
-const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue }) => {
+const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue,translaterFun }) => {
   const { GetKdsReducerData } = useSelector((state) => state.KdsApiData);
 
   // console.log("sdgvjsdcsd", GetKdsReducerData?.data?.[0]?.kds)
@@ -86,23 +86,23 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue }) => {
       {viewKotPopupStateValue && <PopUpComponent classNameValue="itemtablepopup  ">
         <span className='closebtn' onClick={() => closePopupFun()}> <img src={closeicon} alt='img' /> </span>
         <div className='popuptitle'>
-          <h3> {language === 'en' ? "Table no." : "الجدول رقم."} {GetKdsReducerData?.data?.[0]?.kds?.[0]?.restaurant_table?.table_number}</h3>
+          <h3>{translaterFun("table-no") } {GetKdsReducerData?.data?.[0]?.kds?.[0]?.restaurant_table?.table_number}</h3>
         </div>
 
         <div className='popupbody'>
           {dineInTakeAwayData?.[0]?.items?.length !== 0 && <div className='popuptitle'>
             <h4 className={dineInTakeAwayData?.[0]?.items?.order_type === "take_away" ? "color_takeaway" : " color_takeaway1"} >
 
-              {dineInTakeAwayData?.[0]?.items?.order_type === 'take_away' ? (language === 'en' ? "Take Away" : "يبعد") :
-                (language === 'en' ? "Dine In" : "تناول الطعام في")}
+              {dineInTakeAwayData?.[0]?.items?.order_type === 'take_away' ? translaterFun("take-away") :
+                translaterFun("dine-in")}
             </h4>
 
             <div className='itemtable  '>
               <table  >
                 <tr>
-                  <th>{language === 'en' ? "Items" : "أغراض"} </th>
-                  <th> {language === 'en' ? "Qty" : "الكمية"}. </th>
-                  <th> {language === 'en' ? "Price" : "سعر"} </th>
+                  <th>{translaterFun("items")} </th>
+                  <th> {translaterFun("qty")} </th>
+                  <th> {translaterFun("price")} </th>
                 </tr>
                 {dineInTakeAwayData?.[0]?.items?.map((orderTypeData, id) => {
                   console.log("dbncghcnasdads", orderTypeData)
@@ -120,16 +120,15 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue }) => {
           {dineInTakeAwayData?.[1]?.items?.length !== 0 && <div className='popupbody popuptitle  pt-3'>
             <h4 className={dineInTakeAwayData?.[1]?.items?.order_type !== "take_away" ? "color_takeaway" : " color_takeaway1"}  >
 
-              {dineInTakeAwayData?.[1]?.items?.order_type !== 'take_away' ? (language === 'en' ? "Take Away" : "يبعد") :
-                (language === 'en' ? "Dine In" : "تناول الطعام في")}
+              {dineInTakeAwayData?.[1]?.items?.order_type !== 'take_away' ? translaterFun("take-away") :translaterFun("dine-in")}
             </h4>
 
             <div className='itemtable  '>
               <table  >
                 <tr>
-                  <th>{language === 'en' ? "Items" : "أغراض"} </th>
-                  <th> {language === 'en' ? "Qty" : "الكمية"}. </th>
-                  <th> {language === 'en' ? "Price" : "سعر"} </th>
+                <th>{translaterFun("items")} </th>
+                  <th> {translaterFun("qty")} </th>
+                  <th> {translaterFun("price")} </th>
                 </tr>
                 {dineInTakeAwayData?.[1]?.items?.map((orderTypeData, id) => {
                   console.log("dbncghcnasdads", orderTypeData)
@@ -148,7 +147,7 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue }) => {
             <ul>
               {/* <li> <span> Sub Total </span> <span> Sar 480  </span>  </li> */}
               {/* <li> <span>Tax </span> <span> </span> Sar 480 </li> */}
-              <li> <span> <b> {language === 'en' ? "Total Payment" : "المبلغ الإجمالي"} </b></span> <span> <b> {sum}</b> </span> </li>
+              <li> <span> <b> {translaterFun("total-payment")} </b></span> <span> <b> {sum}</b> </span> </li>
             </ul>
           </div>
         </div>

@@ -292,6 +292,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
             <LoadingSpinner loadspiner={LoadSpiner} />
 
             <ViewKot 
+            translaterFun={translaterFun}
              ViewKotPopupState={setViewKotPopup}
              viewKotPopupStateValue={viewKotPopup}
             />
