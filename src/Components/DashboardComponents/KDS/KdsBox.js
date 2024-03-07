@@ -18,7 +18,7 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner'
 * @returns {JSX.Element} KdsBox component JSX
 *  @category KDS
 */
-function KdsBox({translaterFun}) {
+function KdsBox({ translaterFun }) {
   /**
    * State to hold KDS data.
    * @type {Array<object>}
@@ -44,48 +44,56 @@ function KdsBox({translaterFun}) {
    */
 
   function processKdsData(kdsData) {
-    let dineIn = [];
-    let takeAway = [];
-
     if (kdsData && kdsData.data) {
-      for (let i = 0; i < kdsData.data.length; i++) {
-        dineIn.push({
-          tableName: kdsData.data[i].kds[0].restaurant_table.table_number,
-          tableId: kdsData.data[i].kds[0].restaurant_table.table_id,
-          items: [],
-        });
-        takeAway.push({
-          tableName: kdsData.data[i].kds[0].restaurant_table.table_number,
-          tableId: kdsData.data[i].kds[0].restaurant_table.table_id,
-          items: [],
-        });
-      }
+      const dineIn = [];
+      const takeAway = [];
 
       for (let table of kdsData.data) {
         for (let item of table.kds) {
-          dineIn.forEach((insideTable) => {
-            if (
-              item.restaurant_table.table_number === insideTable.tableName &&
-              item.order_type === "dine_in"
-            ) {
-              insideTable.items.push(item);
+          const tableNumber = item.restaurant_table.table_number;
+          const tableId = item.restaurant_table.table_id;
+
+          if (item.order_type === "dine_in") {
+            let tableExists = dineIn.find(
+              insideTable =>
+                insideTable.tableName === tableNumber &&
+                insideTable.tableId === tableId
+            );
+
+            if (!tableExists) {
+              tableExists = {
+                tableName: tableNumber,
+                tableId: tableId,
+                items: []
+              };
+              dineIn.push(tableExists);
             }
-          });
-          takeAway.forEach((insideTable) => {
-            if (
-              item.restaurant_table.table_number === insideTable.tableName &&
-              item.order_type === "take_away"
-            ) {
-              insideTable.items.push(item);
+            tableExists.items.push(item);
+          } else if (item.order_type === "take_away") {
+            let tableExists = takeAway.find(
+              insideTable =>
+                insideTable.tableName === tableNumber &&
+                insideTable.tableId === tableId
+            );
+
+            if (!tableExists) {
+              tableExists = {
+                tableName: tableNumber,
+                tableId: tableId,
+                items: []
+              };
+              takeAway.push(tableExists);
             }
-          });
+            tableExists.items.push(item);
+          }
         }
       }
+
+      return dineIn.concat(takeAway);
     } else {
       console.warn("KDS data is undefined or null");
     }
 
-    return dineIn.concat(takeAway);
   }
 
   // Usage example:
@@ -131,16 +139,16 @@ function KdsBox({translaterFun}) {
       if (newStatus) {
         dispatch(LoadingSpinner(true))
         const updateKdsResponseData = await dispatch(
-          UpdateKdsSlice({ kot_id: kot_id, status: newStatus, token: token ,restaurant_id:restaurantId})
+          UpdateKdsSlice({ kot_id: kot_id, status: newStatus, token: token, restaurant_id: restaurantId })
         );
         if (updateKdsResponseData.payload.status === 200) {
           let GetKdsSliceResponseData = await dispatch(GetKdsSlice({ restaurant_id: restaurantId, token: token }));
           if (GetKdsSliceResponseData.payload.status === 200) {
             dispatch(LoadingSpinner(false))
           }
-          else{
+          else {
             dispatch(LoadingSpinner(false))
-          } 
+          }
 
         } else {
           dispatch(LoadingSpinner(false))
@@ -160,7 +168,7 @@ function KdsBox({translaterFun}) {
 
       //Set up interval for subsequent API calls every 5 seconds
       const intervalId = setInterval(() => {
-        dispatch(GetKdsSlice({ restaurant_id: restaurantId, token: token }));     
+        dispatch(GetKdsSlice({ restaurant_id: restaurantId, token: token }));
       }, 5000);
 
       // Cleanup function to clear interval when component unmounts
@@ -234,7 +242,7 @@ function KdsBox({translaterFun}) {
                         >
                           <p>{(order.status === "kot_generated") ?
                             translaterFun("start-cooking") :
-                            translaterFun("mark-as-done") }</p>
+                            translaterFun("mark-as-done")}</p>
                           <img
                             src={
                               order.status === "start_cooking"
@@ -254,8 +262,6 @@ function KdsBox({translaterFun}) {
             </ul>
 
           </div>
-
-
         })
         }
 
@@ -314,7 +320,7 @@ function KdsBox({translaterFun}) {
                 style={{ backgroundColor: "#EA6A12" }}
                 className='popup-yes-btn'
               >
-            {translaterFun("yes")}
+                {translaterFun("yes")}
               </button>
             </div>
           </div>
