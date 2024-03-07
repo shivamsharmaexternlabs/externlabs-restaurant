@@ -72,24 +72,24 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
     const defaultValue = {
-        restaurant_name:CreateLeadOnBoardPayloadState?.restaurant_name,
+        restaurant_name:CreateLeadOnBoardPayloadState?.restaurant_name,   
         owner_name: CreateLeadOnBoardPayloadState?.owner_name,
         email: CreateLeadOnBoardPayloadState?.email,
         // phone_ext: CreateLeadOnBoardPayloadState?.restaurant_name,
         // phone: CreateLeadOnBoardPayloadState?.restaurant_name,
-        shop_no: CreateLeadOnBoardPayloadState?.shop_no,
-        street: CreateLeadOnBoardPayloadState?.street,
-        city: CreateLeadOnBoardPayloadState?.city,
-        landmark: CreateLeadOnBoardPayloadState?.landmark,
-        pincode: CreateLeadOnBoardPayloadState?.pincode,
-        state: CreateLeadOnBoardPayloadState?.state,
-        country: CreateLeadOnBoardPayloadState?.country,
+        shop_no: CreateLeadOnBoardPayloadState?.shop_no === undefined?"":CreateLeadOnBoardPayloadState?.shop_no,
+        street: CreateLeadOnBoardPayloadState?.street === undefined?"":CreateLeadOnBoardPayloadState?.street,
+        city: CreateLeadOnBoardPayloadState?.city === undefined?"":CreateLeadOnBoardPayloadState?.city,
+        landmark: CreateLeadOnBoardPayloadState?.landmark === undefined?"":CreateLeadOnBoardPayloadState?.landmark,
+        pincode: CreateLeadOnBoardPayloadState?.pincode === undefined?"":CreateLeadOnBoardPayloadState?.pincode,
+        state: CreateLeadOnBoardPayloadState?.state === undefined?"":CreateLeadOnBoardPayloadState?.state,
+        country: CreateLeadOnBoardPayloadState?.country === undefined?"":CreateLeadOnBoardPayloadState?.country,
         description: CreateLeadOnBoardPayloadState?.description,
-        url_slug: CreateLeadOnBoardPayloadState?.url_slug
+        url_slug: CreateLeadOnBoardPayloadState?.url_slug=== undefined?"":CreateLeadOnBoardPayloadState?.url_slug
     };
  
 
-    console.log("CreateLeadOnBoardPayloadStateuytfhgj", CreateLeadOnBoardPayloadState);
+    console.log("CreateLeadOnBoardPayloadStateuytfhgj", defaultValue);
 
 
     const Validate = yup.object({
@@ -102,13 +102,13 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
         // city: yup.string().required(translaterFun("city-name-is-required")),
         // landmark: yup.string().required("landmark is required"),
         // pincode: yup.string().matches(/^[0-9]+$/, translaterFun('pincode-must-contain-only-digits')).required(translaterFun('pincode-is-required')).matches(/^\S*$/, translaterFun('pincode-must-not-contain-spaces')),
-        pincode: yup.string().matches(/^[0-9]+$/, translaterFun('pincode-must-contain-only-digits')).matches(/^\S*$/, translaterFun('pincode-must-not-contain-spaces')),
+        pincode: yup.string().matches(/^[0-9]+$/, translaterFun('pincode-must-contain-only-digits')).matches(/^\S*$/, translaterFun('pincode-must-not-contain-spaces')),//this is not mindatory filed becouse we are not using .required
         // state: yup.string().required(translaterFun("state-is-required")),
         // country: yup.string().required(translaterFun("country-is-required")),
         description: yup.string().required(translaterFun("description-is-required")),
         // password: yup.string().required("Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
         // confirm_password: yup.string().required("Confirm Password is required").matches(/^\S*$/, 'Password name must not contain spaces'),
-        url_slug: yup.string().matches(/^\S*$/, translaterFun('slug-must-not-contain-spaces'))
+        url_slug: yup.string().matches(/^\S*$/, translaterFun('slug-must-not-contain-spaces'))//this is not mindatory filed becouse we are not using .required
     });
 
 
@@ -179,6 +179,8 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
                     "BearerToken": BearerToken
                 }
 
+                console.log("nghddvvwehjvwew",createLeadPayload)
+
 
                 await dispatch(CreateLeadsRestaurantSlice(createLeadPayload))
                 dispatch(LoadingSpinner(false))
@@ -199,7 +201,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
     const CreateLeadOnBoard = (values) => {
-        console.log("hgfghjk", countrycode, phonenumber)
+        console.log("hgfghjk", countrycode, phonenumber,values)
         // return;
 
         if (countrycode !== "" && phonenumber !== "") {
