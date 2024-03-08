@@ -165,7 +165,7 @@ function App() {
             <Route path={`/:id${PAYMENT_HISTORY}`} element={payment_status == "false" ? <Subscription translaterFun={t} /> : <PaymentHistory translaterFun={t} />}></Route>
             <Route path={`${LEADS}`} element={<Leads translaterFun={t} />}></Route>
             <Route path={`${RESTAURANT}`} element={<Restaurant translaterFun={t} />}></Route>
-            <Route path={`${RESTAURANT_DETAIL}/:id`} element={<RestaurantDetail translaterFun={t} />}></Route>
+            <Route path={`${RESTAURANT_DETAIL}:id`} element={<RestaurantDetail translaterFun={t} />}></Route>
             <Route path={`/:id${KDS_SCREEN}`} element={<KdsScreen translaterFun={t}/>}></Route>
             {payment_status == "false" && <Route path={`${SUBSCRIPTION}`} element={<Subscription translaterFun={t} />}></Route>}
           </Routes>
