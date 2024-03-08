@@ -94,7 +94,10 @@
 
 
 .itemtablepopup .popupbody {
-    display: block;
+    display: block; 
+    overflow-y: overlay;
+    height: 600px;
+
 }
 
 .itemtablepopup .popupbody .itemtable table {

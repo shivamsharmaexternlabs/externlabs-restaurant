@@ -96,7 +96,7 @@ const ManageOrder = ({ translaterFun }) => {
             interval = setInterval(() => {
                 dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }));
 
-            }, 5000);
+            }, 10000);
         })()
 
         return () => {
