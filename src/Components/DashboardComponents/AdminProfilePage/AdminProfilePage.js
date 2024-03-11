@@ -65,6 +65,8 @@ const AdminProfilePage = ({ translaterFun }) => {
   // get from local storage to perform certain task by using this...
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
   let BearerToken = reactLocalStorage.get("Token", false);
+  let languageData = reactLocalStorage.get("languageSet", false);
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -483,13 +485,14 @@ const AdminProfilePage = ({ translaterFun }) => {
           <div className="contentpart restaurantdetailpage">
             <img src={burgerimg} alt='img' className='burgerimg' />
             <div className='editprofilebanner'>
-              <div className='editbannerimg'>
+              <div  className={`${languageData == "ar" ? "arabic editbannerimg1 " : " "} editbannerimg`}   >
 
                 {HandleFormData != "" &&
                   <div
+                   
                     className={`${HandleFormData ? "editbanneimgbutton" : "numbersdds editbanneimgbutton"}`}
                   >
-                    <button type='button'>
+                    <button type='button' >
                       <img src={upload2} alt='editimg' /></button>
                     <input type="file"
                       accept=".png, .jpg, .jpeg"

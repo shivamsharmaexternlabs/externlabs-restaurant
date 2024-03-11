@@ -268,10 +268,54 @@
   "add-table": "إضافة جدول",
   "blank-table": "جدول فارغ",
   "disabled-table":"جدول معطل",
-  "running-table": "جدول الجري",
+  "reserve": "احتياطي",
   "running-KOT-table": "تشغيل جدول KOT",
   "disabled":"عاجز",
   "edit-table":"تحرير الجدول",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   "non-ac":"غير مكيف",
   "ac":"تيار متردد  ",
   "family":"عائلة",

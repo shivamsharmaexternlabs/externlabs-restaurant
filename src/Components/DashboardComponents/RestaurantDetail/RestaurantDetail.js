@@ -114,6 +114,8 @@ const RestaurantDetail = ({ translaterFun }) => {
 
   };
 
+  console.log("mbdvsdsd",defaultValue)
+
   useEffect(() => {
 
     // dispatch(LoadingSpinner(false))

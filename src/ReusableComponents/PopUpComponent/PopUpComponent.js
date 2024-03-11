@@ -5,7 +5,7 @@ const PopUpComponent = ({ children ,classNameValue,PopUpToggleFun,}) => {
   return (
 
     <div className={`${classNameValue} popup`}>
-      <div className='popupinnerbox'>
+      <div className={`popupinnerbox`}  >
 
         {children}  
 

@@ -78,20 +78,24 @@ const Manager = ({ translaterFun }) => {
 
 
     useEffect(() => {
-        if (SignUpSelectorData?.data?.status === 201) {
-            setLoadSpiner(false);
-            popUpHookFun(false);
+        // if (SignUpSelectorData?.data?.status === 201) {
+        //     setLoadSpiner(false);
+        //     popUpHookFun(false);
 
-            let ManagerSlicePayload = {
-                Token: BearerToken,
-                pageination: 1
-            }
-            dispatch(ManagerSlice(ManagerSlicePayload));
-        }
-        else if (SignUpSelectorData?.error === "Rejected") {
-            setLoadSpiner(false);
-            popUpHookFun(true);
-        }
+        //     console.log("ngsdfhgsds1")
+
+        //     let ManagerSlicePayload = {
+        //         Token: BearerToken,
+        //         pageination: 1
+        //     }
+        //     dispatch(ManagerSlice(ManagerSlicePayload));
+        // }
+        // else if (SignUpSelectorData?.error === "Rejected") {
+        //     console.log("ngsdfhgsds")
+
+        //     setLoadSpiner(false);
+        //     popUpHookFun(true);
+        // }
         //  
     }, [SignUpSelectorData]);
 
@@ -160,6 +164,26 @@ const Manager = ({ translaterFun }) => {
                 // dispatch(ToggleNewLeads(false))
                 // setLeadPopupToggle(false)
                 let responseData = await dispatch(SignUpSlice(SignUpForOnBoardPayload))
+                if (responseData?.payload?.status === 201) {
+                    setLoadSpiner(false);
+                    popUpHookFun(false);
+        
+                    console.log("ngsdfhgsds1")
+        
+                    let ManagerSlicePayload = {
+                        Token: BearerToken,
+                        pageination: 1
+                    }
+                    dispatch(ManagerSlice(ManagerSlicePayload));
+                }
+                else
+                //  if (SignUpSelectorData?.error === "Rejected") 
+                 {
+                    console.log("ngsdfhgsds")
+        
+                    setLoadSpiner(false);
+                    popUpHookFun(true);
+                }
 
                 // if(responseData?.payload?.response?.status === 400){
 

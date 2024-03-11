@@ -41,6 +41,18 @@
     border-radius: 50%;
     box-shadow: 0 0 5px #000;
 }
+.editbannerimg1  {
+    position: absolute;
+    overflow: hidden;
+    display: block;
+    height: auto;
+    bottom: 78px;
+    right: 96%;
+    z-index: 2;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #000;
+}
 .editbannerimg  img {
     width: 40px;
 }

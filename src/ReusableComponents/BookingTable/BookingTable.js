@@ -126,6 +126,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
 
 
 
+        console.log("mzngfndncdsc",OpenMenuActionToggle)
 
         if (OpenMenuActionToggle === item?.table_id) {
             setOpenMenuActionToggle(null);
@@ -139,6 +140,8 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
             Booleanvalue: item?.is_active !== true ? true : false
         })
     }
+
+ 
 
     useEffect(() => {
 
@@ -234,14 +237,17 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
                                 <button type="button" class="" ref={dotButtonRef} onClick={(e) => OpenActionFun(e, id, item)}>  <img src={dot} alt='img' /> </button>
 
                                 {item?.table_id == OpenMenuActionToggle && <div className="btnbox">
-                                    <button type="button" className="editbtn" ref={dotEditRef}
+
+
+                                    {item?.status !== "Reserved" && item?.status !== "Running" &&<button type="button" className="editbtn" ref={dotEditRef}
                                         onClick={(e) => PopUpEditCategoriesToggleFun(e, item)}
                                     >
                                         <img src={edit1} alt="img" />{" "}
                                         <span onClick={(e) => EditTableFun(e, item)}>
                                             {translaterFun("edit")}
                                         </span>
-                                    </button>
+                                    </button>}
+
 
                                     { item?.status !== "Reserved" && item?.status !== "Running" &&<button type='button' className='switchbtn mt-1' ref={dotDisableRef}>
                                         <label className="switch">

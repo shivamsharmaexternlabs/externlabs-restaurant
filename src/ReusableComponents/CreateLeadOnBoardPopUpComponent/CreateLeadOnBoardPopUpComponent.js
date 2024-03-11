@@ -116,7 +116,6 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
     const defaultSignUpValue = {
-
         password: "",
         confirm_password: "",
 

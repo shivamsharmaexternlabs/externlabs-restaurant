@@ -39,7 +39,8 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue,translaterFun }) =>
               item.restaurant_table.table_number === insideTable.tableName &&
               item.order_type === "dine_in"
             ) {
-              sumDineInData.push(item?.item.item_price)
+              console.log("nbxccsd",item)
+              sumDineInData.push(item?.item.item_price*item?.quantity)
 
               insideTable.items.push(item);
             }
@@ -49,7 +50,7 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue,translaterFun }) =>
               item.restaurant_table.table_number === insideTable.tableName &&
               item.order_type === "take_away"
             ) {
-              sumTakeAwayData.push(item?.item.item_price)
+              sumTakeAwayData.push(item?.item.item_price*item?.quantity)
 
               insideTable.items.push(item);
             }
@@ -59,7 +60,7 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue,translaterFun }) =>
     } else {
       console.warn("KDS data is undefined or null");
     }
-
+console.log("nbvsdsdsd",sumDineInData)
 
     let totalConcat = sumDineInData.concat(sumTakeAwayData)
 
@@ -83,13 +84,13 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue,translaterFun }) =>
   return (
     <>
 
-      {viewKotPopupStateValue && <PopUpComponent classNameValue="itemtablepopup  ">
+      {viewKotPopupStateValue && <PopUpComponent classNameValue="itemtablepopup">
         <span className='closebtn' onClick={() => closePopupFun()}> <img src={closeicon} alt='img' /> </span>
         <div className='popuptitle'>
           <h3>{translaterFun("table-no") } {GetKdsReducerData?.data?.[0]?.kds?.[0]?.restaurant_table?.table_number}</h3>
         </div>
 
-        <div className='popupbody'>
+        <div className='popupbody scroller'>
           {dineInTakeAwayData?.[0]?.items?.length !== 0 && <div className='popuptitle'>
             <h4 className={dineInTakeAwayData?.[0]?.items?.order_type === "take_away" ? "color_takeaway" : " color_takeaway1"} >
 
@@ -108,8 +109,8 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue,translaterFun }) =>
                   console.log("dbncghcnasdads", orderTypeData)
                   return <tr>
                     <td>{language === 'en' ? orderTypeData?.item?.item_name_en : orderTypeData?.item?.item_name_native} </td>
-                    <td> <button type='button'>  {orderTypeData?.quantity}</button> </td>
-                    <td> {orderTypeData?.item?.item_price}  </td>
+                    <td> <button type='button'> {orderTypeData?.item?.item_price} x {orderTypeData?.quantity}</button> </td>
+                    <td> {orderTypeData?.quantity*orderTypeData?.item?.item_price}  </td>
                   </tr>
                 })}
               </table>
@@ -134,8 +135,8 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue,translaterFun }) =>
                   console.log("dbncghcnasdads", orderTypeData)
                   return <tr>
                     <td>{language === 'en' ? orderTypeData?.item?.item_name_en : orderTypeData?.item?.item_name_native} </td>
-                    <td> <button type='button'>  {orderTypeData?.quantity}</button> </td>
-                    <td> {orderTypeData?.item?.item_price}  </td>
+                    <td> <button type='button'> {orderTypeData?.item?.item_price} x {orderTypeData?.quantity}</button> </td>
+                    <td> {orderTypeData?.quantity*orderTypeData?.item?.item_price}  </td>
                   </tr>
                 })}
               </table>

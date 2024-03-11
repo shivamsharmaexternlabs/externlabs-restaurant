@@ -70,16 +70,17 @@
 }
 
 .color_takeaway {
-    /* background-color: #eabb36; */
+    background-color: #eabb36;
     border: 1px solid #eabb36 !important;
-    color: #eabb36 !important;
+    color: white !important;
 }
 
 .color_takeaway1 {
-    /* background-color: #42B856; */
+    background-color: #42B856;
 
     border: 1px solid #42B856 !important;
-    color: #42B856 !important;
+    color: rgb(255, 255, 255) !important;
+
 }
 
 .itemtablepopup .popuptitle h4 {
@@ -90,13 +91,15 @@
     font-weight: 400;
     border-radius: 7px;
     font-size: 17px;
+    width: 100%;
 }
 
 
-.itemtablepopup .popupbody {
+.itemtablepopup .scroller {
     display: block; 
     overflow-y: overlay;
-    height: 600px;
+    min-height: 200px;
+    max-height: 500px;
 
 }
 
