@@ -268,7 +268,7 @@
   "add-table": "إضافة جدول",
   "blank-table": "جدول فارغ",
   "disabled-table":"جدول معطل",
-  "reserve": "احتياطي",
+  "reserve-table": "احتياطي جدول ",
   "running-KOT-table": "تشغيل جدول KOT",
   "disabled":"عاجز",
   "edit-table":"تحرير الجدول",

@@ -5,7 +5,7 @@ export let TableStatusData = [
         "colorCode" : "#D9D9D9"
     },
     {
-        "name" : "reserve",
+        "name" : "reserve-table",
         "color" : "green",
         "colorCode" : "rgba(66, 184, 86, 0.2)"
     },
