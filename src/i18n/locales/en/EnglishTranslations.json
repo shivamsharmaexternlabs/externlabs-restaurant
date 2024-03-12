@@ -308,7 +308,15 @@
   "start-cooking":"Start Cooking",
   "mark-as-done":"Mark as done",
   "yes":"Yes",
-  "view-order":"View order"
-
+  "view-order":"View order",
+  "orders-history":"Order History",
+  "order-type":"Order Type",
+  "item-name":"Item Name",
+  "quantity":"Quantity",
+  "waiter-name":"Waiter Name",
+  "order":"Order",
+  "total-amount":"Total Amount",
+  "kot-history":"Kot History",
+  "kds-screen":"Kds Screen"
 
 }

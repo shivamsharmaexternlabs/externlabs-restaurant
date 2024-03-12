@@ -26,7 +26,9 @@
     KDS_SCREEN: "/kds/kdsScreen",
     SUBSCRIPTION: "/subscription/page",
     REORDER:"admin/categories/reorder",
-    ADMIN:"admin/allmedia"
+    ADMIN:"admin/allmedia",
+    ORDERS_HISTORY:"/orderhistory",
+    KDS_ORDER_HISTORY:"/kds_orderhistory"
   };
 
   Object.freeze(roles)

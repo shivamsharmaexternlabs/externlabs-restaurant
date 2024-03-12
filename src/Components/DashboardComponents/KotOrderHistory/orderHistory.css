@@ -1,0 +1,431 @@
+.ordertitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .order-type-dot{
+    margin-right: 5px;
+  }
+
+  .ordertitle h2 {
+    color: #000;
+    font-size: 32px;
+    margin-bottom: 0px;
+    font-family: "NeuzeitGro-Bol";
+    font-weight: normal;
+  }
+  
+  .ordertitle .mangerbtn {
+    border-radius: 100px;
+    color: #fff;
+    background: #ea6a12;
+    font-size: 16px;
+    font-family: "NeuzeitGro-Reg";
+    font-weight: normal;
+    border: none;
+    outline: none;
+    transition: all 0.3s;
+    padding: 8px 18px;
+  }
+  
+  .ordertitle .mangerbtn > img {
+    margin: -3px 2px 0 0px;
+    display: inline-block;
+  }
+  
+  .ordertable {
+    width: 100%;
+    overflow: auto;
+    padding: 5px 0;
+  }
+  
+  .ordertable table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 950px;
+    margin-bottom: 10px;
+  }
+  
+  .ordertable table th {
+    font-size: 18px;
+    color: #000;
+    font-family: "NeuzeitGro-Reg";
+    font-weight: normal;
+    padding: 10px 5px;
+    line-height: 1.2;
+  }
+  
+  .ordertable table th:first-child,
+  .ordertable table td:first-child {
+    min-width: 80px;
+    text-align: center;
+  }
+  
+  .ordertable table th:nth-child(2),
+  .ordertable table td:nth-child(2) {
+    min-width: 170px;
+    width: 25%;
+  }
+  
+  .ordertable table th:nth-child(3),
+  .ordertable table td:nth-child(3) {
+    min-width: 240px;
+    width: 25%;
+  }
+  
+  .ordertable table th:nth-child(4),
+  .ordertable table td:nth-child(4) {
+    min-width: 200px;
+    width: 25%;
+  }
+  
+  .ordertable table th:nth-child(5),
+  .ordertable table td:nth-child(5) {
+    min-width: 200px;
+    width: 20%;
+  }
+  
+  .ordertable table th:nth-child(6),
+  .ordertable table td:nth-child(6) {
+    min-width: 400px;
+    word-wrap: break-word;
+  }
+  
+  .ordertable table th:last-child,
+  .ordertable table td:last-child {
+    min-width: 140px;
+    text-align: center;
+  }
+  
+  .ordertable table th:last-child {
+    text-align: center;
+  }
+  
+  .ordertable table tr + tr {
+    margin-top: 15px;
+  }
+  
+  .ordertable table .userimg {
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+  }
+  
+  .ordertable table .userimg img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+  
+  .ordertable table td {
+    font-size: 16px;
+    color: #000;
+    font-family: "NeuzeitGro-Reg";
+    font-weight: normal;
+    line-height: 1.2;
+    padding: 10px 5px;
+    font-family: "NeuzeitGro-Reg";
+    font-weight: normal;
+  }
+  
+  .ordertable table tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 12px;
+  }
+  
+  .ordertable table tr:first-child {
+    background-color: rgba(239, 148, 86, 0.7);
+  }
+  
+  .ordertable table tr:not(:first-child) {
+    background: rgba(255, 255, 255, 0.6);
+  }
+  
+  .asbtn {
+    border: none;
+    outline: none;
+    border: 1px solid #cdcdcd;
+    border-radius: 100px;
+    color: rgba(205, 205, 205, 1);
+    font-size: 16px;
+    background: transparent;
+    font-family: "NeuzeitGro-Reg";
+    font-weight: normal;
+    transition: all 0.3s ease;
+    padding: 7px 20px;
+    font-family: "NeuzeitGro-Reg";
+    font-weight: normal;
+    line-height: 1;
+  }
+  
+  .asbtn:hover {
+    transition: all 0.3s ease;
+    border: 1px solid #ea6a12;
+    color: #ea6a12;
+  }
+  
+  .asbtn + .asbtn {
+    margin-left: 10px;
+  }
+  
+  /* popup css */
+  
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: rgba(0, 0, 0, 0.4); */
+    background-color:   rgb(199 199 199 / 40%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    z-index: 999;
+    overflow: auto;
+  }
+  
+  
+  .addmanagerpopup .popupinnerbox {
+    position: static;
+    transform: none;
+    /* height: 90%; */
+    /* max-height: 790px; */
+    height: auto;
+  }
+  
+  .addmanagerpopup .popuptitle h2 {
+    color: #000;
+    font-size: 30px;
+    line-height: 1.2;
+    margin-bottom: 50px;
+  }
+  .addmanagerpopup .popupbody {
+    position: relative;
+   
+  }
+  
+  
+  .addmanagerpopup .popupbody form {
+    position: relative;
+    /* height: calc(100vh - 270px); */
+    height: auto;
+    overflow: auto;
+    width: 100%;
+   
+    /* overflow: auto; */
+  }
+  .arabicnumber{
+    float: right;
+  }
+  
+  .addmanagerpopup .popupbody .managerimg {
+    position: absolute;
+    top: -85px;
+    right: 20px;
+  }
+  
+  .formbox label {
+    color: #000;
+    font-size: 16px;
+    font-family: "NeuzeitGro-Reg";
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .formbox .form-control {
+    font-size: 16px;
+    padding: 10px 15px; 
+    font-family: "NeuzeitGro-Reg";
+    font-weight: normal;
+    color: #000;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .roleselectbox select{
+    font-size: 16px;
+    padding: 10px 15px; 
+    font-family: "NeuzeitGro-Reg";
+    font-weight: normal;
+    color: #000;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 40px;
+    width: 100%;
+    border-radius: 3px;
+    
+  }
+  
+  .addmanagerpopup .popupinner button {
+    padding: 8px 25px;
+  }
+  
+  .submitbtnbox button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-family: 'NeuzeitGro-Reg';
+    font-weight: normal;
+    font-size: 16px;
+    padding: 5px 40px;
+    border-radius: 563.025px;
+    color: #fff;
+    border: 1px solid transparent;
+  }
+  
+  .submitbtnbox .submitbtn  { 
+    background: #EA6A12;
+  }
+  
+  .submitbtnbox .cancelbtn {
+    background:rgba(183, 183, 183, 0.8);
+    margin-right: 50px;
+  }
+  
+  .addmanagerpopup .react-tel-input .form-control ,
+  .leadpopup  .react-tel-input .form-control {
+    width: 100%;
+  }
+  
+  
+  
+  .wantmanager .popupinner {
+    max-width: 400px;
+    padding: 30px 15px;
+    border-radius: 20px;
+  }
+  
+  .wantmanager .popupbody {
+    text-align: center;
+  }
+  
+  .wantmanager .popupbody h2 {
+    font-size: 30px;
+    font-family: "NeuzeitGro-Bol";
+    font-weight: normal;
+    line-height: 1.2;
+    margin: 20px 0;
+  }
+  
+  .wantmanager .popupbody button {
+    border: none;
+    outline: none;
+    color: #fff;
+    padding: 5px 25px;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    background: rgba(205, 205, 205, 0.8);
+  }
+  
+  .wantmanager .popupbody button:hover {
+    transition: all 0.3s ease;
+    background: #ea6a12;
+  }
+  
+  .ordertable .pagination {
+    margin-top: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .ordertable .pagination .page-item a {
+    color: #000;
+    box-shadow: none;
+    cursor: pointer;
+  }
+  
+  .ordertable .pagination .active > .page-link {
+    border: 1px solid #c65b13b2;
+    background-color: #c65b13b2;
+    color: white;
+  }
+  
+  .ordertable .pagination .page-item:first-child a,
+  .ordertable .pagination .page-item:last-child a {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border-radius: 8px;
+    border: 1px solid #ea6a12;
+    background-color: #fff;
+  }
+  
+  .ordertable .pagination .page-item:first-child {
+    position: absolute;
+    left: 0;
+  }
+  
+  .ordertable .pagination .page-item:last-child {
+    position: absolute;
+    right: 0;
+  }
+  
+  .ordertable .pagination .page-item.disabled a {
+    border: 1px solid #e8e8e8;
+    color: #787878;
+  }
+  
+  
+  /***************  Arabic css  *****************/
+  
+  .arabic .ordertable .pagination .page-item:not(:first-child){
+    direction: ltr;
+  }
+  
+  .arabic .addmanagerpopup .popupbody .managerimg {
+  right: auto;
+  left: 20px;
+  }
+  
+  .arabic .react-tel-input.input_filed {
+  direction: ltr;
+  }
+  
+  .arabic .submitbtnbox .cancelbtn {
+    margin-left: 50px;
+    margin-right: 0;
+  }
+  
+  
+  
+  
+  
+  /* scrollbar css start  */
+  
+  .ordertable::-webkit-scrollbar,
+  .addmanagerpopup .popupbody::-webkit-scrollbar {
+    height: 5px;
+    width: 3px;
+    background-color: #ef9456b2;
+    border-radius: 100px;
+  }
+  
+  .ordertable::-webkit-scrollbar-thumb,
+  .addmanagerpopup .popupbody::-webkit-scrollbar-thumb {
+    height: 5px;
+    width: 3px;
+    background-color: #c65b13b2;
+    border-radius: 100px;
+  }
+  
+  /* scrollbar css end  */
+  
+  
+  @media(min-width:768px) {
+  
+  
+  
+  
+  }
+  

@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './kdsScreen.css'
 import Logout from '../../../images/logout.svg'
 import KdsBox from './KdsBox'
 import LanguageComponent from '../../../ReusableComponents/LanguageComponent/LanguageComponent'
 import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
 import { reactLocalStorage } from 'reactjs-localstorage'
-
+import { useNavigate } from 'react-router-dom'
+import OrderHistoryBox from '../KotOrderHistory/OrderHistoryBox'
 
 /**
  * KdsScreen component represents the main screen of the kitchen display system (KDS).
@@ -13,9 +14,12 @@ import { reactLocalStorage } from 'reactjs-localstorage'
  *  @category KDS
  *
  */
-function KdsScreen({translaterFun}) {
+function KdsScreen({ translaterFun }) {
     const [logoutHookFun] = useLogoutHook('')
-    let logoImage=reactLocalStorage.get("Logo", false);
+    const navigate = useNavigate()
+    let logoImage = reactLocalStorage.get("Logo", false);
+    const resturantId = reactLocalStorage.get("RestaurantId")
+    const [historyPage, setHistoryPage] = useState(false)
 
 
     /**
@@ -28,27 +32,33 @@ function KdsScreen({translaterFun}) {
     const handleLogout = (e) => {
         logoutHookFun()
     }
+    const handleClick = () => {
+        // navigate(`/${resturantId}/kds_orderhistory`)
+        setHistoryPage(!historyPage);
+    }
 
     return (
         <>
-            <div className='kdspage'>
-                <div className='kds-header'>
-                    <img className='kdslogoimg' alt='logo_img'
-                     src={logoImage} />
-                    <div className='kdsRight'>
-                        <div className='languaselist'>
+            <div className="kdspage">
+                <div className="kds-header">
+                    <img className="kdslogoimg" alt="logo_img" src={logoImage} />
+                    <div className="kdsRight">
+                        <button type="submit" className="history-btn" onClick={handleClick}>
+                            {historyPage ? translaterFun('kds-screen') : translaterFun('kot-history')}
+                        </button>
+                        <div className="languaselist">
                             <LanguageComponent />
                         </div>
 
-                        <button type='button' className='kds-logout' onClick={(e) => handleLogout(e)}>
+                        <button type="button" className="kds-logout" onClick={(e) => handleLogout(e)}>
                             <img className="kds-logoutimg" alt="Notification_Icon" src={Logout} />
-                            <span >{translaterFun("logout")}</span>
+                            <span>{translaterFun('logout')}</span>
                         </button>
                     </div>
                 </div>
 
-                <div className='contentpart'>
-                    <KdsBox translaterFun={translaterFun} />
+                <div className="contentpart">
+                    {historyPage ? <OrderHistoryBox translaterFun={translaterFun} /> : <KdsBox translaterFun={translaterFun} />}
                 </div>
             </div>
         </>
