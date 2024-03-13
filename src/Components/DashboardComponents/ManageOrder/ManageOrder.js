@@ -37,7 +37,7 @@ const ManageOrder = ({ translaterFun }) => {
     const inputRefBulkTableUpload = useRef(null);
     const [openAction, setOpenAction] = useState(true)
     const [OpenMenuActionToggle, setOpenMenuActionToggle] = useState()
-
+    const dotButtonRef = useRef(null);
 
 
     // Hooks for managing state and navigation
@@ -91,7 +91,7 @@ const ManageOrder = ({ translaterFun }) => {
         })()
     }, [])
 
-      useEffect(() => {
+    useEffect(() => {
         let interval
         (async () => {
             interval = setInterval(() => {
@@ -104,7 +104,7 @@ const ManageOrder = ({ translaterFun }) => {
             clearInterval(interval)
         };
 
-    }, []) 
+    }, [])
 
 
 
@@ -232,6 +232,23 @@ const ManageOrder = ({ translaterFun }) => {
 
 
 
+    useEffect(() => {
+
+        const handleOutsideClick = (e) => { 
+            if (dotButtonRef.current.contains(e.target)) { 
+                setOpenMenuActionToggle(null)
+            } 
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+
+    },[]);
+
+
+
     return (
         <>
             <Helmet>
@@ -241,7 +258,7 @@ const ManageOrder = ({ translaterFun }) => {
             <DashboardLayout>
                 <div className='dasboardbody'>
                     <DashboardSidebar />
-                    <div className="contentpart manageorderpage" >
+                    <div className="contentpart manageorderpage" ref={dotButtonRef} >
                         <div  >
                             <div className='btngroup mb-3'  >
                                 {/* <button type='button' className='btn2'> Bulk Upload  </button> */}
@@ -328,8 +345,8 @@ const ManageOrder = ({ translaterFun }) => {
                                     <ul className='actablelist'>
                                         <BookingTable translaterFun={translaterFun}
                                             currentSelectedCategory={item}
-                                            OpenMenuActionToggle ={OpenMenuActionToggle}
-                                            setOpenMenuActionToggle = {setOpenMenuActionToggle}
+                                            OpenMenuActionToggle={OpenMenuActionToggle}
+                                            setOpenMenuActionToggle={setOpenMenuActionToggle}
                                         />
                                     </ul>
                                 </div>

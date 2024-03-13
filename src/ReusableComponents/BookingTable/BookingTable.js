@@ -137,35 +137,8 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
             id: "id",
             Booleanvalue: item?.is_active !== true ? true : false
         })
-    }
-
-
-
-    useEffect(() => {
-
-        const handleOutsideClick = (e) => {
-
-            if (dotButtonRef.current && !dotButtonRef.current.contains(e.target) &&
-                dotEditRef.current && !dotEditRef.current.contains(e.target) &&
-                dotDisableRef.current && !dotDisableRef.current.contains(e.target) &&
-                dotDownloadQRRef.current && !dotDownloadQRRef.current.contains(e.target) &&
-                viewOrderRef.current && !viewOrderRef.current.contains(e.target)
-            ) {
-
-                setTimeout(() => {
-                    setOpenMenuActionToggle(null);
-                }, 200)
-
-            }
-        };
-
-        document.addEventListener('mousedown', handleOutsideClick);
-
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick);
-        };
-    }, [OpenMenuActionToggle]);
-
+    } 
+     
 
     const EditTableFun = (e, items) => {
         setEditTableData(items)
