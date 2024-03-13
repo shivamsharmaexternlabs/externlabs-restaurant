@@ -36,6 +36,8 @@ const ManageOrder = ({ translaterFun }) => {
     const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
     const inputRefBulkTableUpload = useRef(null);
     const [openAction, setOpenAction] = useState(true)
+    const [OpenMenuActionToggle, setOpenMenuActionToggle] = useState()
+
 
 
     // Hooks for managing state and navigation
@@ -87,10 +89,9 @@ const ManageOrder = ({ translaterFun }) => {
             }
 
         })()
-
     }, [])
 
-    useEffect(() => {
+/*     useEffect(() => {
         let interval
         (async () => {
             interval = setInterval(() => {
@@ -103,7 +104,7 @@ const ManageOrder = ({ translaterFun }) => {
             clearInterval(interval)
         };
 
-    }, [])
+    }, []) */
 
 
 
@@ -327,9 +328,9 @@ const ManageOrder = ({ translaterFun }) => {
                                     <ul className='actablelist'>
                                         <BookingTable translaterFun={translaterFun}
                                             currentSelectedCategory={item}
+                                            OpenMenuActionToggle ={OpenMenuActionToggle}
+                                            setOpenMenuActionToggle = {setOpenMenuActionToggle}
                                         />
-
-
                                     </ul>
                                 </div>
                             })}

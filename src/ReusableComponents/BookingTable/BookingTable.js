@@ -17,11 +17,10 @@ import ViewKot from '../../Components/DashboardComponents/ManageOrder/ViewKot';
 import { GetKdsSlice } from '../../Redux/slices/KdsSlice';
 
 
-const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
+const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionToggle,setOpenMenuActionToggle  }) => {
 
 
     const [openAction, setOpenAction] = useState(null)
-    const [OpenMenuActionToggle, setOpenMenuActionToggle] = useState(null)
     const [EditTableData, setEditTableData] = useState([])
 
     const [viewKotPopup,setViewKotPopup]= useState(false)
@@ -32,14 +31,13 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
     const dotEditRef = useRef(null);
     const dotDisableRef = useRef(null);
     const dotDownloadQRRef = useRef(null);
-    // const dotOrderRef = useRef(null);
+    const viewOrderRef = useRef(null);
 
     const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
     const [TableDisableValue, setTableDisableValue] = useState({
         id: null,
         Booleanvalue: false
     })
-
 
 
     const ManageOrderTableSelectorData = useSelector((state) => state.ManageOrderTableApiData);
@@ -141,7 +139,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
         })
     }
 
- 
+
 
     useEffect(() => {
 
@@ -150,7 +148,8 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
             if (dotButtonRef.current && !dotButtonRef.current.contains(e.target) &&
                 dotEditRef.current && !dotEditRef.current.contains(e.target) &&
                 dotDisableRef.current && !dotDisableRef.current.contains(e.target) &&
-                dotDownloadQRRef.current && !dotDownloadQRRef.current.contains(e.target)
+                dotDownloadQRRef.current && !dotDownloadQRRef.current.contains(e.target) &&
+                viewOrderRef.current && !viewOrderRef.current.contains(e.target)
             ) {
 
                 setTimeout(() => {
@@ -221,15 +220,15 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
 
 
     return (
-        <>  
+        <>
 
             {
                 currentSelectedCategory?.lengthSize?.map((item, id) => {
                     return <>
-                        {<li className={`${item?.is_active === true ? "" : "overlayout"} 
+                        {<li className={`${item?.is_active === true ? "" : "overlayout"}
                          ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen" }
                          ${item?.status == "Running" ? "tablecolorYellow" : "tablecolorGreen" }
-                        
+
                         tablsCss`}
                         >
                             {item?.table_number}
@@ -269,7 +268,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
                                     </button>
 
                                     {item?.is_active == true && item?.status == "Running" &&<button className=" mt-1 "
-                                        ref={dotDownloadQRRef}
+                                        ref={viewOrderRef}
                                         onClick={(e) => ViewOrderFun(e, item)}
                                     >
                                         <img src={viewkot} alt="delete icon " />    <span className='downloadQrclass'>  {translaterFun("view-order")} </span>
@@ -297,7 +296,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory }) => {
 
             <LoadingSpinner loadspiner={LoadSpiner} />
 
-            <ViewKot 
+            <ViewKot
             translaterFun={translaterFun}
              ViewKotPopupState={setViewKotPopup}
              viewKotPopupStateValue={viewKotPopup}
