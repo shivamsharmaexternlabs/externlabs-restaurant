@@ -185,6 +185,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-right: 10%;
 }
 
 .totalbox>ul>li+li {
