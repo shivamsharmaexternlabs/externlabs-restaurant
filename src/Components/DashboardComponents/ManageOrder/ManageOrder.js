@@ -91,7 +91,7 @@ const ManageOrder = ({ translaterFun }) => {
         })()
     }, [])
 
-/*     useEffect(() => {
+      useEffect(() => {
         let interval
         (async () => {
             interval = setInterval(() => {
@@ -104,7 +104,7 @@ const ManageOrder = ({ translaterFun }) => {
             clearInterval(interval)
         };
 
-    }, []) */
+    }, []) 
 
 
 
