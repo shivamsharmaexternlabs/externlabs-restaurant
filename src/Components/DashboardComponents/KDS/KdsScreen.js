@@ -5,20 +5,17 @@ import KdsBox from './KdsBox'
 import LanguageComponent from '../../../ReusableComponents/LanguageComponent/LanguageComponent'
 import useLogoutHook from '../../../CustomHooks/LogoutHook/useLogoutHook'
 import { reactLocalStorage } from 'reactjs-localstorage'
-import { useNavigate } from 'react-router-dom'
 import OrderHistoryBox from '../KotOrderHistory/OrderHistoryBox'
 
 /**
  * KdsScreen component represents the main screen of the kitchen display system (KDS).
  * @returns {JSX.Element} KdsScreen component JSX
  *  @category KDS
- *
  */
+
 function KdsScreen({ translaterFun }) {
     const [logoutHookFun] = useLogoutHook('')
-    const navigate = useNavigate()
     let logoImage = reactLocalStorage.get("Logo", false);
-    const resturantId = reactLocalStorage.get("RestaurantId")
     const [historyPage, setHistoryPage] = useState(false)
 
 
@@ -33,7 +30,6 @@ function KdsScreen({ translaterFun }) {
         logoutHookFun()
     }
     const handleClick = () => {
-        // navigate(`/${resturantId}/kds_orderhistory`)
         setHistoryPage(!historyPage);
     }
 
