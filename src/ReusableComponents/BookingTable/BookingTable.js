@@ -198,7 +198,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
             {
                 currentSelectedCategory?.lengthSize?.map((item, id) => {
                     return <>
-                        {<li className={`${item?.is_active === true ? "" : "overlayout"}
+                        {<li id="stopeToggle" className={`${item?.is_active === true ? "" : "overlayout"}
                          ${item?.status == "Available" ? "tablecolorGray" : "tablecolorGreen" }
                          ${item?.status == "Running" ? "tablecolorYellow" : "tablecolorGreen" }
 
@@ -206,7 +206,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
                         >
                             {item?.table_number}
                             <div className='acedittable'>
-                                <button type="button" class="" ref={dotButtonRef} onClick={(e) => OpenActionFun(e, id, item)}>  <img src={dot} alt='img' /> </button>
+                                <button type="button" class="" ref={dotButtonRef} onClick={(e) => OpenActionFun(e, id, item)}>  <img src={dot} alt='img' id="stopeToggle"/> </button>
 
                                 {item?.table_id == OpenMenuActionToggle && <div className="btnbox">
 
@@ -215,20 +215,20 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
                                         onClick={(e) => PopUpEditCategoriesToggleFun(e, item)}
                                     >
                                         <img src={edit1} alt="img" />{" "}
-                                        <span onClick={(e) => EditTableFun(e, item)}>
+                                        <span id="stopeToggle" onClick={(e) => EditTableFun(e, item)}>
                                             {translaterFun("edit")}
                                         </span>
                                     </button>}
 
 
-                                    { item?.status !== "Reserved" && item?.status !== "Running" &&<button type='button' className='switchbtn mt-1' ref={dotDisableRef}>
+                                    { item?.status !== "Reserved" && item?.status !== "Running" &&<button   type='button' className='switchbtn mt-1' ref={dotDisableRef}>
                                         <label className="switch">
                                             <input type="checkbox"
 
                                                 checked={TableDisableValue?.Booleanvalue}
 
                                                 onChange={(e) => TableDisableFun(e, item)} />
-                                            <span className="slider round"></span>
+                                            <span className="slider round" id="stopeToggle" ></span>
                                         </label>
                                         <span> {translaterFun("disabled")} </span>
                                     </button>}
@@ -237,14 +237,16 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
                                         ref={dotDownloadQRRef}
                                         onClick={(e) => DownloadQrFun(e, item)}
                                     >
-                                        <img src={downloadimg} alt="delete icon " />    <span className='downloadQrclass'>  {translaterFun("download-QR")} </span>
+                                        <img src={downloadimg} alt="delete icon " />    <span className='downloadQrclass' id="stopeToggle">  {translaterFun("download-QR")} </span>
                                     </button>
 
                                     {item?.is_active == true && item?.status == "Running" &&<button className=" mt-1 "
                                         ref={viewOrderRef}
                                         onClick={(e) => ViewOrderFun(e, item)}
                                     >
-                                        <img src={viewkot} alt="delete icon " />    <span className='downloadQrclass'>  {translaterFun("view-order")} </span>
+                                        <img src={viewkot} alt="delete icon " />    <span className='downloadQrclass'
+                                        id="stopeToggle"
+                                        >  {translaterFun("view-order")} </span>
                                     </button>}
 
                                 </div>}

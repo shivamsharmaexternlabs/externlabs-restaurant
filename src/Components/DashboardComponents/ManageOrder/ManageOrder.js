@@ -235,9 +235,14 @@ const ManageOrder = ({ translaterFun }) => {
     useEffect(() => {
 
         const handleOutsideClick = (e) => { 
-            if (dotButtonRef.current.contains(e.target)) { 
-                setOpenMenuActionToggle(null)
-            } 
+            console.log("dmvsdsds",e.target)
+            // if (dotButtonRef.current.contains(e.target)) { 
+            //     setOpenMenuActionToggle(null)
+            // } 
+
+            if(e.target.id !== "stopeToggle"){
+                setOpenMenuActionToggle(null) 
+            }
         };
 
         document.addEventListener('mousedown', handleOutsideClick);
