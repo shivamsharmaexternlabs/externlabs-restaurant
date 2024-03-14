@@ -12,12 +12,12 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import { GetManageOrderTableSlice, PostManageOrderTableSlice, UpdateManageOrderTableSlice } from '../../../Redux/slices/manageOrderTableSlice';
 import SelectAndSearchComponent from '../../../ReusableComponents/SelectAndSearchComponent/SelectAndSearchComponent';
 
-const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, EditTableData, OpenActionFun, ManageOrderTableSelectorDataProp
+const CreateEditTable = ({ translaterFun, tableProperty, EditTableData, OpenActionFun, ManageOrderTableSelectorDataProp
 }) => {
 
     const [SearchCategoryData, setSearchCategoryData] = useState(null)
     const [CategoryDataError, setCategoryDataError] = useState("")
-    const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
+    
     const dispatch = useDispatch();
 
 
@@ -99,8 +99,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
  
                 if (responseData?.payload?.status == 201) {
                     // setItemData({ category: handleCreateTablePayload?.category })
-                    closePopup(false)
-                    OpenActionFun(false)
+                     OpenActionFun(false)
                     // setOpenMenuActionToggle()
                     setTimeout(async () => {
 
@@ -155,8 +154,7 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
                 //  responseData = await dispatch(UpdateManageOrderTableSlice(handleEditTablePayload));
 
                 if (responseData?.payload?.status == 200) {
-                    closePopup(false)
-                    // setItemData({ category: handleEditTablePayload?.category })
+                     // setItemData({ category: handleEditTablePayload?.category })
                     // setOpenMenuActionToggle()
                     OpenActionFun(false)
                     setTimeout(async () => {
@@ -179,13 +177,10 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
     };
 
 
-    const PopUpCategoriesToggleFun = () => {
-        popUpCategoriesHookFun((o) => !o);
-    };
+    
 
     const CancelCategoryBtnFun = () => {
-        closePopup(false)
-        OpenActionFun(false)
+         OpenActionFun(false)
     };
 
     const newfunC = (searchData) => {
@@ -199,12 +194,10 @@ const CreateEditTable = ({ translaterFun, openPopup, closePopup, tableProperty, 
         <div>
 
 
-            {openPopup && (
+            { (
                 <PopUpComponent
 
-                    classNameValue={"addcategorypopup"}
-                    PopUpToggleFun={PopUpCategoriesToggleFun}
-                    popUpHookFun={popUpCategoriesHookFun}
+                    classNameValue={"addcategorypopup"}  
 
                 >
                     {/* children part start */}

@@ -17,10 +17,10 @@ import ViewKot from '../../Components/DashboardComponents/ManageOrder/ViewKot';
 import { GetKdsSlice } from '../../Redux/slices/KdsSlice';
 
 
-const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionToggle,setOpenMenuActionToggle  }) => {
+const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionToggle,setOpenMenuActionToggle,OpenActionEditTable  }) => {
 
 
-    const [openAction, setOpenAction] = useState(null)
+    const [openAction, setOpenAction] = useState(false)
     const [EditTableData, setEditTableData] = useState([])
 
     const [viewKotPopup,setViewKotPopup]= useState(false)
@@ -43,8 +43,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
     const ManageOrderTableSelectorData = useSelector((state) => state.ManageOrderTableApiData);
     const QrDownloadSelectorData = useSelector((state) => state.QrCodeApiData);
 
-    const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
-    const dispatch = useDispatch()
+     const dispatch = useDispatch()
 
     let BearerToken = reactLocalStorage.get("Token", false);
     let restaurantId = reactLocalStorage.get("RestaurantId", false);
@@ -91,7 +90,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
 
     }
     const PopUpEditCategoriesToggleFun = () => {
-        popUpCategoriesHookFun(true);
+         setOpenAction(true)
     }
 
     // useEffect(() => {
@@ -124,8 +123,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
 
 
 
-        console.log("mzngfndncdsc",OpenMenuActionToggle)
-
+ 
         if (OpenMenuActionToggle === item?.table_id) {
             setOpenMenuActionToggle(null);
         } else {
@@ -144,8 +142,14 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
         setEditTableData(items)
         setOpenMenuActionToggle(null);
         setOpenAction(o => !o)
+        OpenActionEditTable(true)
 
     }
+    useEffect(()=>{
+
+        OpenActionEditTable(openAction)
+
+    },[openAction])
 
     const DownloadQrFun = async (e, item) => {
         await dispatch(LoadingSpinner(false))
@@ -177,7 +181,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
     const ViewOrderFun = async (e, item) => {
         await dispatch(LoadingSpinner(true))
         let responseData = await dispatch(GetKdsSlice({ restaurant_id: restaurantId, token: BearerToken, tableId: item?.table_id }));
-        //    console.log
+        //    console.log 
 
         if (responseData?.payload?.status === 200) {
             await dispatch(LoadingSpinner(false))
@@ -260,9 +264,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
 
 
             {openAction && <CreateEditTable BookingTable
-                translaterFun={translaterFun}
-                openPopup={popUpcategoriesHook}
-                closePopup={popUpCategoriesHookFun}
+                translaterFun={translaterFun} 
                 tableProperty={"edit-table"}
                 EditTableData={[EditTableData]}
                 OpenActionFun={setOpenAction}

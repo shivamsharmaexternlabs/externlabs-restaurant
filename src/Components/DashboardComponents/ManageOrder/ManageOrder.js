@@ -1,5 +1,5 @@
 // Importing necessary dependencies and assets
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import "./ManageOrder.css"
 import "./ManageOrder.js"
 import DashboardLayout from '../DashboardLayout/DashboardLayout';
@@ -8,9 +8,7 @@ import LodingSpiner from '../../LoadingSpinner/LoadingSpinner';
 import { Helmet } from "react-helmet";
 import TableStatus from '../../../ReusableComponents/TableStatus/TableStatus.js';
 import BookingTable from '../../../ReusableComponents/BookingTable/BookingTable.js';
-import { TableStatusData, TableTypeData } from "./TableStatusColor.js";
-import usePopUpHook from '../../../CustomHooks/usePopUpHook/usePopUpHook.js';
-import CreateEditTable from './CreateEditTable.js';
+  import CreateEditTable from './CreateEditTable.js';
 import { GetQrCodeSlice } from '../../../Redux/slices/qrCodeSlice.js';
 import { useDispatch } from 'react-redux';
 import useDownloadQr from '../../../CustomHooks/useDownloadQr.js';
@@ -30,12 +28,12 @@ const ManageOrder = ({ translaterFun }) => {
     const [AllTableData, setAllTableData] = useState([]);
 
 
-    const [popUpcategoriesHook, popUpCategoriesHookFun] = usePopUpHook("");
-    const [ItemData, setItemData] = useState([])
+     const [ItemData, setItemData] = useState([])
     const [SelectToggleValue, setSelectToggleSelectTogglealue] = useState(false)
     const [DownloadQrHook, DownloadQrSetFun] = useDownloadQr("");
     const inputRefBulkTableUpload = useRef(null);
-    const [openAction, setOpenAction] = useState(true)
+    const [openAction, setOpenAction] = useState(false)
+    const [openActionEditTable, setOpenActionEditTable] = useState(false)
     const [OpenMenuActionToggle, setOpenMenuActionToggle] = useState()
     const dotButtonRef = useRef(null);
 
@@ -59,8 +57,7 @@ const ManageOrder = ({ translaterFun }) => {
 
 
     const AddTableFun = () => {
-        setOpenAction(true);
-        popUpCategoriesHookFun(true);
+        setOpenAction(true); 
     }
 
     const TableTypeFun = (e, item) => {
@@ -92,20 +89,27 @@ const ManageOrder = ({ translaterFun }) => {
         })()
     }, [])
 
+
+    const timeInterval = useCallback(() => {
+        if (  !openAction && !openActionEditTable) {
+            dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }))
+        }
+    }, [openAction,openActionEditTable])
+
+ 
+ 
     useEffect(() => {
         let interval
         (async () => {
-            interval = setInterval(() => {
-                dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }));
-
-            }, 10000);
+            interval = setInterval(timeInterval, 5000); //timeInterval ,setInterval will take call back Function and timeInterval is a call backFun , if you want pass normal fun then you have to change like ,()=>funcname(parameter) ,only if you have to pass parameter , if you don't want to pass paramter the you can write "funcname".
         })()
-
         return () => {
             clearInterval(interval)
-        };
 
-    }, [])
+        }
+    }, [timeInterval])
+
+
 
 
 
@@ -238,9 +242,8 @@ const ManageOrder = ({ translaterFun }) => {
 
     useEffect(() => {
 
-        const handleOutsideClick = (e) => {
-            console.log("dmvsdsds", e.target)
-            // if (dotButtonRef.current.contains(e.target)) { 
+        const handleOutsideClick = (e) => { 
+             // if (dotButtonRef.current.contains(e.target)) { 
             //     setOpenMenuActionToggle(null)
             // } 
 
@@ -356,6 +359,7 @@ const ManageOrder = ({ translaterFun }) => {
                                             currentSelectedCategory={item}
                                             OpenMenuActionToggle={OpenMenuActionToggle}
                                             setOpenMenuActionToggle={setOpenMenuActionToggle}
+                                            OpenActionEditTable={setOpenActionEditTable}
                                         />
                                     </ul>
                                 </div>
@@ -372,12 +376,9 @@ const ManageOrder = ({ translaterFun }) => {
                 {/* add table start*/}
                 {openAction &&
                     <CreateEditTable
-                        translaterFun={translaterFun}
-                        openPopup={popUpcategoriesHook}
-                        closePopup={popUpCategoriesHookFun}
+                        translaterFun={translaterFun} 
                         tableProperty={"add-new-table"}
-                        OpenActionFun={setOpenAction}
-
+                        OpenActionFun={setOpenAction} 
                         ManageOrderTableSelectorDataProp={ManageOrderTableSelectorData?.GetManageOrderTableData?.data}
                     />
                 }
