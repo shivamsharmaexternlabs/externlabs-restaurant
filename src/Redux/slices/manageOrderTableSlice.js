@@ -41,7 +41,7 @@ export const PostBulkTableUploadSlice = createAsyncThunk("PostBulkTableUploadSli
       {
         headers: {
           Authorization: `Bearer ${body?.BearerToken}`,
-          "Accept-Language": languageSet
+          "Accept-Language": body?.languageSet
         },
       }
 
@@ -51,7 +51,7 @@ export const PostBulkTableUploadSlice = createAsyncThunk("PostBulkTableUploadSli
     return response;
 
   } catch (err) {
-    toast.error(err?.response?.data?.error);
+    toast.error(err?.response?.data?.error?.[0]);
     return rejectWithValue(err);
   }
 });
@@ -59,7 +59,7 @@ export const PostBulkTableUploadSlice = createAsyncThunk("PostBulkTableUploadSli
 
 // Update Manage Order Table
 export const UpdateManageOrderTableSlice = createAsyncThunk("UpdateManageOrderTableSlice", async (body, { rejectWithValue }) => {
-console.log("body", body)
+  console.log("body", body)
   try {
     const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}restaurant_app/restaurant_table/${body?.table_id}/`,
       body,
@@ -120,7 +120,7 @@ export const GetManageOrderTableSlice = createAsyncThunk("GetManageOrderTableSli
 
 
 export const GetCategoryTableSlice = createAsyncThunk("GetCategoryTableSlice", async (body, { rejectWithValue }) => {
-   
+
   try {
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/category_table/?restaurant_id=${body?.RestaurantId}`,
       {
@@ -144,7 +144,7 @@ export const GetCategoryTableSlice = createAsyncThunk("GetCategoryTableSlice", a
 
 // download sample bulk sheet 
 export const GetSampleTableDownloadSlice = createAsyncThunk("GetSampleTableDownloadSlice", async (body, { rejectWithValue }) => {
-   
+
   try {
     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}restaurant_app/sample_table/`,
       {
@@ -173,8 +173,8 @@ export const ManageOrderTableReducer = createSlice({
   initialState: {
     data: [],
     GetManageOrderTableData: [],
-    GetCategoryTableData:[],
-    UpdateManageOrderTableData : [],
+    GetCategoryTableData: [],
+    UpdateManageOrderTableData: [],
     loading: false,
     error: null,
   },
