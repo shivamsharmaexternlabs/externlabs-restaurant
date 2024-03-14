@@ -54,6 +54,7 @@ const ManageOrder = ({ translaterFun }) => {
     // JSX structure for the ManageOrder component
 
     let BearerToken = reactLocalStorage.get("Token", false);
+    let languageSet = reactLocalStorage.get("languageSet", false);
     let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
 
@@ -194,7 +195,8 @@ const ManageOrder = ({ translaterFun }) => {
 
         const UploadPayload = {
             formData,
-            BearerToken
+            BearerToken,
+            languageSet
         }
 
         try {
