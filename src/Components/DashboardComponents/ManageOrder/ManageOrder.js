@@ -72,8 +72,10 @@ const ManageOrder = ({ translaterFun }) => {
     useEffect(() => {
 
         (async () => {
+          await  dispatch(LoadingSpinner(true))
             let responseTableData = await dispatch(GetManageOrderTableSlice({ RestaurantId, BearerToken }));
             if (responseTableData?.payload?.status === 200) {
+                await  dispatch(LoadingSpinner(false))
                 setAllTableData(responseTableData?.payload?.data);
                 let options = [];
                 let SelectedData = [];
@@ -84,6 +86,9 @@ const ManageOrder = ({ translaterFun }) => {
                 setOptions(options);
                 // // By default all category is selected...
                 setSelected(SelectedData);
+            }
+            else{
+                await  dispatch(LoadingSpinner(false))
             }
 
         })()
