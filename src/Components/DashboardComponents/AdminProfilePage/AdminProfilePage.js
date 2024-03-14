@@ -340,6 +340,7 @@ const AdminProfilePage = ({ translaterFun }) => {
     else {
       //  if(!HandleFormData==true){
       let UpdateRestroPayload = {
+        languageSet : languageData,
         restaurant_name: values?.restaurant_name,
         shop_no: values?.shop_no,
         street: values?.street,

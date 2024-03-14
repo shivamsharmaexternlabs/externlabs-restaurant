@@ -53,6 +53,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
 
 
     let BearerToken = reactLocalStorage.get("Token", false);
+    let languageSet = reactLocalStorage.get("languageSet", false);
     let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
     const dispatch = useDispatch();
@@ -333,6 +334,7 @@ const CreateLeadOnBoardPopUpComponent = ({ translaterFun }) => {
             window.location.reload(false)
             setSuccessPopup(false)
             let LeadsRestaurantSlicePayload = {
+                languageSet,
                 Token: BearerToken,
                 RestaurantId: RestaurantId,
                 pagination: 1,

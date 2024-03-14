@@ -24,6 +24,7 @@ const {RESTAURANT_DETAIL}=routes
   const [popUpHook, popUpHookFun] = usePopUpHook("")
 
   let BearerToken = reactLocalStorage.get("Token", false);
+  let languageSet = reactLocalStorage.get("languageSet", false);
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const {RESTAURANT_DETAIL}=routes
         await dispatch(LoadingSpinner(true))
         try {
           let LeadsRestaurantSlicePayload = {
+            languageSet,
             Token: BearerToken,
             RestaurantId: RestaurantId,
             pagination: 1,
@@ -62,6 +64,7 @@ const {RESTAURANT_DETAIL}=routes
   const handlePageClick = (selectedPage) => {
     const page = selectedPage.selected + 1; // React-paginate uses 0-based indexing.
     let LeadsRestaurantSlicePayload = {
+      languageSet,
       Token: BearerToken,
       RestaurantId: RestaurantId,
       pagination: page,

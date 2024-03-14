@@ -57,6 +57,7 @@ const RestaurantDetail = ({ translaterFun }) => {
   let RestaurantId = reactLocalStorage.get("RestaurantId", false);
 
   let BearerToken = reactLocalStorage.get("Token", false);
+  let languageSet = reactLocalStorage.get("languageSet", false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -248,6 +249,7 @@ const RestaurantDetail = ({ translaterFun }) => {
     setSuccessPopup(false)
 
     let LeadsRestaurantSlicePayload = {
+      languageSet,
       Token: BearerToken,
       RestaurantId: RestaurantId,
       pagination: 1,
@@ -346,6 +348,7 @@ const RestaurantDetail = ({ translaterFun }) => {
       console.log("jhgfhjk valuesslug", values)
 
       let UpdateRestroPayload = {
+        languageSet,
         restaurant_name: values?.restaurant_name,
         shop_no: values?.shop_no,
         street: values?.street,

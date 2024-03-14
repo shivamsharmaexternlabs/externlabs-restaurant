@@ -16,7 +16,7 @@ export const LeadsRestaurantSlice = createAsyncThunk("LeadsRestaurantSlice", asy
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,
-          "Accept-Language": languageSet
+          "Accept-Language": body?.languageSet
         },
       }
     );
@@ -156,7 +156,7 @@ export const UpdateRestaurantSlice = createAsyncThunk("UpdateRestaurantSlice", a
       {
         headers: {
           Authorization: `Bearer ${body?.Token}`,
-          "Accept-Language": languageSet
+          "Accept-Language": body?.languageSet
         },
       });
 
