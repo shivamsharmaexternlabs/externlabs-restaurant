@@ -218,9 +218,11 @@ const ManageOrder = ({ translaterFun }) => {
 
                 // }, 2000)
             }
-            // else{
-
-            // }
+            else {
+                setTimeout(async () => {
+                    window.location.reload()
+                }, 2000)
+            }
 
             await dispatch(LoadingSpinner(false))
         } catch (error) {
@@ -236,14 +238,14 @@ const ManageOrder = ({ translaterFun }) => {
 
     useEffect(() => {
 
-        const handleOutsideClick = (e) => { 
-            console.log("dmvsdsds",e.target)
+        const handleOutsideClick = (e) => {
+            console.log("dmvsdsds", e.target)
             // if (dotButtonRef.current.contains(e.target)) { 
             //     setOpenMenuActionToggle(null)
             // } 
 
-            if(e.target.id !== "stopeToggle"){
-                setOpenMenuActionToggle(null) 
+            if (e.target.id !== "stopeToggle") {
+                setOpenMenuActionToggle(null)
             }
         };
 
@@ -252,7 +254,7 @@ const ManageOrder = ({ translaterFun }) => {
             document.removeEventListener('mousedown', handleOutsideClick);
         };
 
-    },[]);
+    }, []);
 
 
 
