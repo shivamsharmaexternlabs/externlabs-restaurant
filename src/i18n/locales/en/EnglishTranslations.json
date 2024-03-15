@@ -317,6 +317,10 @@
   "order":"Order",
   "total-amount":"Total Amount",
   "kot-history":"Kot History",
-  "kds-screen":"Kds Screen"
+  "kds-screen":"Kds Screen",
+  "quanitity":"Quantity",
+  "customer-name":"Customer Name",
+  "sort-by-date":"Sort By Date",
+  "apply":"Apply"
 
 }

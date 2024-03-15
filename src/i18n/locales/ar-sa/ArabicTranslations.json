@@ -315,7 +315,13 @@
   "order":"طلب",
   "total-amount":"المبلغ الإجمالي",
   "kot-history":"تاريخ كوت",
-  "kds-screen":"شاشة كي دي اس"
+  "kds-screen":"شاشة كي دي اس",
+  "quanitity":"كمية",
+  "customer-name":"اسم الزبون",
+  "sort-by-date":"رتب حسب التاريخ",
+  "apply":"يتقدم"
+
+
 
 
 
