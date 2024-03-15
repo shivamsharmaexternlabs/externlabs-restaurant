@@ -45,6 +45,7 @@
   margin-top: 12px;
     position: absolute;
     height: 16px;
+    z-index: 9;
 }
 
 .sort-btn {
