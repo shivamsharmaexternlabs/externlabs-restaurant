@@ -373,6 +373,19 @@
   color: #787878;
 }
 
+.dropdownhistory {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  color: #000;
+}
+.dropdownhistory > .dropdown-row {
+  padding: 0 5px;
+}
 
 /***************  Arabic css  *****************/
 
