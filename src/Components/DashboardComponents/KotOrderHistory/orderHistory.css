@@ -1,3 +1,138 @@
+/* .date-range-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+.right {
+  display: flex;
+}
+
+.order-history-input {
+  width: 368px;
+  height: 40px;
+  padding: 15px;
+  border: 1px solid #EA6A12;
+  border-radius: 6px;
+  outline: none;
+}
+
+.order-history-input:focus {
+  border-color: #EA6A12;
+
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  margin-left: 11px;
+  margin-right: 6px;
+}
+
+/* .waiter-input {
+  width: 368px;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid #EA6A12;
+  border-radius: 6px;
+  outline: none;
+}
+
+.waiter-input:focus {
+  border-color: #EA6A12;
+} */
+
+.search-icon {
+  margin-top: 12px;
+    position: absolute;
+    height: 16px;
+}
+
+.sort-btn {
+  display: flex;
+  background-color: white;
+  color: #EA6A12;
+  margin-left: 15px;
+  width: 152px;
+  border: 1px solid #EA6A12;
+  flex-direction: row;
+  border-radius: 6px;
+  align-items: center;
+}
+
+.date-btn {
+  display: flex;
+  background-color: white;
+  color: #EA6A12;
+  margin-left: 15px;
+  width: 191px;
+  border: 1px solid #EA6A12;
+  flex-direction: row;
+  border-radius: 6px;
+  align-items: center;
+  padding: 4px;
+}
+
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0;
+}
+
+.date-range-popup .DateRangePicker {
+  display: flex;
+}
+
+/* Adjust other styles as necessary */
+
+.cal-img {
+  height: 13px;
+  width: 13px;
+  margin: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.cal-btn {
+  height: 36px;
+  width: 120px;
+  margin: 5px;
+  border: none;
+  background-color: #B7B7B7CC;
+  color: white;
+  border-radius: 21px;
+}
+
+.apply-btn {
+  height: 36px;
+  width: 120px;
+  margin: 5px;
+  border: none;
+  background-color: #EA6A12;
+  color: white;
+  border-radius: 21px;
+}
+
 .ordertitle {
   display: flex;
   align-items: center;
@@ -198,7 +333,7 @@
 }
 
 
-.addmanagerpopup .popupinnerbox {
+.dateRange-picker .popupinnerbox {
   position: static;
   transform: none;
   /* height: 90%; */
@@ -206,20 +341,20 @@
   height: auto;
 }
 
-.addmanagerpopup .popuptitle h2 {
+.dateRange-picker .popuptitle h2 {
   color: #000;
   font-size: 30px;
   line-height: 1.2;
   margin-bottom: 50px;
 }
 
-.addmanagerpopup .popupbody {
+.dateRange-picker .popupbody {
   position: relative;
 
 }
 
 
-.addmanagerpopup .popupbody form {
+.dateRange-picker .popupbody form {
   position: relative;
   /* height: calc(100vh - 270px); */
   height: auto;
@@ -233,7 +368,7 @@
   float: right;
 }
 
-.addmanagerpopup .popupbody .managerimg {
+.dateRange-picker .popupbody .managerimg {
   position: absolute;
   top: -85px;
   right: 20px;
@@ -276,7 +411,7 @@
 
 }
 
-.addmanagerpopup .popupinner button {
+.dateRange-picker .popupinner button {
   padding: 8px 25px;
 }
 
@@ -302,7 +437,7 @@
   margin-right: 50px;
 }
 
-.addmanagerpopup .react-tel-input .form-control,
+.dateRange-picker .react-tel-input .form-control,
 .leadpopup .react-tel-input .form-control {
   width: 100%;
 }
@@ -393,7 +528,7 @@
   direction: ltr;
 }
 
-.arabic .addmanagerpopup .popupbody .managerimg {
+.arabic .dateRange-picker .popupbody .managerimg {
   right: auto;
   left: 20px;
 }
@@ -414,7 +549,7 @@
 /* scrollbar css start  */
 
 .ordertable::-webkit-scrollbar,
-.addmanagerpopup .popupbody::-webkit-scrollbar {
+.dateRange-picker .popupbody::-webkit-scrollbar {
   height: 5px;
   width: 3px;
   background-color: #ef9456b2;
@@ -422,7 +557,7 @@
 }
 
 .ordertable::-webkit-scrollbar-thumb,
-.addmanagerpopup .popupbody::-webkit-scrollbar-thumb {
+.dateRange-picker .popupbody::-webkit-scrollbar-thumb {
   height: 5px;
   width: 3px;
   background-color: #c65b13b2;
@@ -449,4 +584,19 @@
   border-radius: 25px;
   color: white;
   outline: none;
+}
+
+
+.dropdownhistory {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  color: #000;
+}
+.dropdownhistory > .dropdown-row {
+  padding: 0 5px;
 }
