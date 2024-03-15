@@ -2,6 +2,16 @@
     height: 58px;
     width: 51px;
 }
+.history-btn{
+    color: white;
+    background-color: #EA6A12;
+    width: 127px;
+    height: 38px;
+    border-radius: 20px;
+    border: none;
+    margin: 8px;
+}
+
 .kot-status{
     display: flex;
     width: 100%;

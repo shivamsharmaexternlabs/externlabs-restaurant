@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-const SelectAndSearchComponent = ({ ManageOrderTableSelectorDataProp, newFun, EditTableData }) => {
+const SelectAndSearchComponent = ({ ManageOrderTableSelectorDataProp, newFun, EditTableData ,placeholder,translaterFun}) => {
 
   // search functionality
   const [value, setValue] = useState("");
@@ -27,7 +27,8 @@ const SelectAndSearchComponent = ({ ManageOrderTableSelectorDataProp, newFun, Ed
     setHighlightedIndex(-1);
     let array = [];
 
-console.log("hsdfhgsd",e.target.value)
+    console.log("hsdfhgsd",e.target.value)
+
     ManageOrderTableSelectorDataProp?.filter((item) => {
 
       const searchTerm = e.target.value.toLowerCase();
@@ -147,20 +148,20 @@ console.log("hsdfhgsd",e.target.value)
 console.log("CompanyFilterDataCompanyFilterData", CompanyFilterData)
 
   return (
-    <div>
+    <div style={{position:'relative'}}>
 
       <input
-        className="form-control check-box"
+        className={placeholder===translaterFun("waiter-name") ?"order-history-input":"form-control check-box"}
         type="text"
         value={CompanyName ?? value}
         onChange={onChange}
-        placeholder={"Search"}
+        placeholder={placeholder}
         onKeyDown={onKeyDown}
       />
       
       {isOpen ? (
         <div
-          className={`dropdown companyDropDown`}
+          className={`dropdown companyDropDown dropdownhistory`}
           ref={dropdownRef}
         >
           {CompanyFilterData.length > 0 ? (

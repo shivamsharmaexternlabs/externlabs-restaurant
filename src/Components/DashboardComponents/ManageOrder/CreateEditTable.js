@@ -232,6 +232,8 @@ const CreateEditTable = ({ translaterFun, tableProperty, EditTableData, OpenActi
                                         EditTableData={EditTableData}
                                         newFun={newfunC}
                                         ManageOrderTableSelectorDataProp={ManageOrderTableSelectorDataProp}
+                                        placeholder={translaterFun("search")}
+                                        translaterFun={translaterFun}
                                     // ManageOrderTableSelectorDataProp1={ManageOrderTableSelectorDataProp1}
 
 
@@ -251,15 +253,15 @@ const CreateEditTable = ({ translaterFun, tableProperty, EditTableData, OpenActi
                                         className={`form-control `}
                                         autoComplete="off"
                                         placeholder={translaterFun("no-of-persons")}
-                                    />
-
+                                    /> 
+                                                                        
                                     <p className="text-danger small mb-0">
                                         <ErrorMessage name="Capacity" />
-                                    </p>
+                                    </p> 
                                 </div>
                                 <div className="formbox mb-3 col-sm-6"  >
-                                    <label>{translaterFun("table-number")} </label>
-                                    <Field
+                                    <label>{translaterFun("table-number")} </label>  
+                                    <Field 
                                         name="TableNo"
                                         type="text"
                                         className={`form-control `}
@@ -267,14 +269,14 @@ const CreateEditTable = ({ translaterFun, tableProperty, EditTableData, OpenActi
                                         placeholder={translaterFun("table-number")}
                                     />
                                     <p className="text-danger small mb-0">
-                                        <ErrorMessage name="TableNo" />
+                                        <ErrorMessage name="TableNo" /> 
                                     </p>
                                 </div>
 
 
 
                                 <div className="col-12  submitcategorybox mt-3 text-center">
-                                    <button
+                                    <button 
                                         type="button"
                                         className="btn3"
                                         onClick={(e) => CancelCategoryBtnFun(e)}

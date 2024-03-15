@@ -15,6 +15,7 @@ import PaymentReducer from "./slices/paymentSlice";
 import mediaLibraryReducer from "./slices/mediaLibrarySlice";
 import  ManageOrderTableReducer  from "./slices/manageOrderTableSlice";
 import  kdsReducer  from "./slices/KdsSlice";
+import  OrdersHistoryReducer  from "./slices/KotOrdersHistorySlice";
 
 export const store = configureStore({
   reducer: {
@@ -34,5 +35,6 @@ export const store = configureStore({
     MediaLibraryApiData : mediaLibraryReducer,
     ManageOrderTableApiData:ManageOrderTableReducer,
     KdsApiData:kdsReducer,
+    OrdersApiData:OrdersHistoryReducer,
   },
 });

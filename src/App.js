@@ -37,6 +37,8 @@ import AdminProfilePage from "./Components/DashboardComponents/AdminProfilePage/
 import { GetRestaurantsOnBoardSlice } from "./Redux/slices/leadsRestaurantSlice.js";
 import { useDispatch } from "react-redux";
 import KdsScreen from "./Components/DashboardComponents/KDS/KdsScreen.js";
+import KotOrderHistory from "./Components/DashboardComponents/KotOrderHistory/KotOrderHistory.js";
+import OrderHistoryBox from "./Components/DashboardComponents/KotOrderHistory/OrderHistoryBox.js";
 import { roles, routes } from "./Utils/constants.js";
 
 /* import i18n from 'i18next';
@@ -66,7 +68,7 @@ i18n.languages = ['en', 'ar']; */
  * @subcategory App
  */
 function App() {
-  const { ROOT, DASHBOARD, RESET_PASSWORD, CATEGORIES, MANAGE_ORDER, MANAGER, ADMIN_PROFILE, PAYMENT_HISTORY, LEADS, RESTAURANT, RESTAURANT_DETAIL, KDS_SCREEN, SUBSCRIPTION,REORDER ,ADMIN} = routes
+  const { ROOT, DASHBOARD, RESET_PASSWORD, CATEGORIES, MANAGE_ORDER, MANAGER, ADMIN_PROFILE, PAYMENT_HISTORY, LEADS, RESTAURANT, RESTAURANT_DETAIL, KDS_SCREEN, SUBSCRIPTION,REORDER ,ADMIN,ORDERS_HISTORY,KDS_ORDER_HISTORY} = routes
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
   const locationData = useLocation()
@@ -167,6 +169,8 @@ function App() {
             <Route path={`${RESTAURANT}`} element={<Restaurant translaterFun={t} />}></Route>
             <Route path={`${RESTAURANT_DETAIL}:id`} element={<RestaurantDetail translaterFun={t} />}></Route>
             <Route path={`/:id${KDS_SCREEN}`} element={<KdsScreen translaterFun={t}/>}></Route>
+            <Route path={`/:id${ORDERS_HISTORY}`} element={<KotOrderHistory translaterFun={t}/>}></Route>
+            <Route path={`/:id${KDS_ORDER_HISTORY}`} element={<OrderHistoryBox translaterFun={t}/>}></Route>
             {payment_status == "false" && <Route path={`${SUBSCRIPTION}`} element={<Subscription translaterFun={t} />}></Route>}
           </Routes>
         }

@@ -17,6 +17,8 @@ import icon14h from '../../../images/icon14h.svg'
 import icon15 from '../../../images/icon15.svg'
 import managerorder  from "../../../images/managerorder.png"
 import managerOrderDArk  from "../../../images/managerOrderDArk.png"
+import OrderHistoryLight from '../../../images/orderdetail.svg'
+import OrderHistoryDark from  '../../../images/orderdetail1.svg'
 
 import { ToggleBar } from '../../../Redux/slices/sideBarToggle'  
 import { useDispatch, useSelector } from 'react-redux'
@@ -28,7 +30,7 @@ import {  routes } from "../../../Utils/constants";
 
 const DashboardSidebar = () => {
 
-  const {  DASHBOARD, CATEGORIES, MANAGE_ORDER, MANAGER,  PAYMENT_HISTORY, LEADS, RESTAURANT ,ADMIN} = routes
+  const {  DASHBOARD, CATEGORIES, MANAGE_ORDER, MANAGER,  PAYMENT_HISTORY, LEADS, RESTAURANT ,ADMIN,ORDERS_HISTORY} = routes
   const { t, i18n } = useTranslation()
 
   let UserTypeData = reactLocalStorage.get("Type", false);
@@ -163,6 +165,20 @@ const DashboardSidebar = () => {
                 </NavLink>
               </li>
 
+              <li>
+                <NavLink to={`/${RestaurantId}${ORDERS_HISTORY}`} className={` ${param.pathname === `:id${ORDERS_HISTORY}` ? "active" : ""
+                  } `}>
+
+                  <div className='normalicon'>
+                    <img src={OrderHistoryLight} alt='img' /> <span className='text'>{t("orders-history")}</span>
+                  </div>
+
+                  <div className='activeicon'>
+                    <img src={OrderHistoryDark} alt='icon8h img' /> <span className='text'>{t("orders-history")}</span>
+                  </div>
+                </NavLink>
+              </li>
+
               {/* <li>
                 <NavLink
                   to="#/admin/categories"
@@ -178,7 +194,7 @@ const DashboardSidebar = () => {
           {UserTypeData === "sales" && <>  <li>
             <NavLink
               to={`${LEADS}`}
-              className={` ${param.pathname === `${LEADS}` || param?.state?.currentData?.lead_id ? "active" : ""
+              className={` ${param.pathname === `${LEADS}` || param?.state?.currentData?.lead_id ? "active" : ""  
                 } `}
 
             >

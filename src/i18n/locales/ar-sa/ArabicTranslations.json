@@ -350,18 +350,20 @@
   "start-cooking":"ابدأ الطهي",
   "mark-as-done":"اعتبره منته",
   "yes":"نعم",
-  "view-order":"مشاهدة الطلب"
-
-
-
-  
-
-
-
-
-
-
-
+  "view-order":"مشاهدة الطلب",
+  "orders-history":"تاريخ الطلبات",
+  "order-type":"نوع الطلب",
+  "item-name":"اسم العنصر",
+  "quantity":"كمية",
+  "waiter-name":"اسم النادل",
+  "order":"طلب",
+  "total-amount":"المبلغ الإجمالي",
+  "kot-history":"تاريخ كوت",
+  "kds-screen":"شاشة كي دي اس",
+  "quanitity":"كمية",
+  "customer-name":"اسم الزبون",
+  "sort-by-date":"رتب حسب التاريخ",
+  "apply":"يتقدم"
 
 
 

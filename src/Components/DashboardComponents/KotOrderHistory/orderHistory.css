@@ -1,20 +1,158 @@
-.managertitle {
+/* .date-range-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+.right {
+  display: flex;
+}
+
+.order-history-input {
+  width: 368px;
+  height: 40px;
+  padding: 15px;
+  border: 1px solid #EA6A12;
+  border-radius: 6px;
+  outline: none;
+}
+
+.order-history-input:focus {
+  border-color: #EA6A12;
+
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  margin-left: 11px;
+  margin-right: 6px;
+}
+
+/* .waiter-input {
+  width: 368px;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid #EA6A12;
+  border-radius: 6px;
+  outline: none;
+}
+
+.waiter-input:focus {
+  border-color: #EA6A12;
+} */
+
+.search-icon {
+  margin-top: 12px;
+    position: absolute;
+    height: 16px;
+}
+
+.sort-btn {
+  display: flex;
+  background-color: white;
+  color: #EA6A12;
+  margin-left: 15px;
+  width: 152px;
+  border: 1px solid #EA6A12;
+  flex-direction: row;
+  border-radius: 6px;
+  align-items: center;
+}
+
+.date-btn {
+  display: flex;
+  background-color: white;
+  color: #EA6A12;
+  margin-left: 15px;
+  width: 191px;
+  border: 1px solid #EA6A12;
+  flex-direction: row;
+  border-radius: 6px;
+  align-items: center;
+  padding: 4px;
+}
+
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0;
+}
+
+.date-range-popup .DateRangePicker {
+  display: flex;
+}
+
+/* Adjust other styles as necessary */
+
+.cal-img {
+  height: 13px;
+  width: 13px;
+  margin: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.cal-btn {
+  height: 36px;
+  width: 120px;
+  margin: 5px;
+  border: none;
+  background-color: #B7B7B7CC;
+  color: white;
+  border-radius: 21px;
+}
+
+.apply-btn {
+  height: 36px;
+  width: 120px;
+  margin: 5px;
+  border: none;
+  background-color: #EA6A12;
+  color: white;
+  border-radius: 21px;
+}
+
+.ordertitle {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 15px;
 }
 
-.managertitle h2 {
+.order-type-dot {
+  margin-right: 5px;
+}
+
+.ordertitle h2 {
   color: #000;
   font-size: 32px;
   margin-bottom: 0px;
   font-family: "NeuzeitGro-Bol";
   font-weight: normal;
 }
- 
 
-.managertitle .mangerbtn {
+.ordertitle .mangerbtn {
   border-radius: 100px;
   color: #fff;
   background: #ea6a12;
@@ -27,25 +165,25 @@
   padding: 8px 18px;
 }
 
-.managertitle .mangerbtn > img {
+.ordertitle .mangerbtn>img {
   margin: -3px 2px 0 0px;
   display: inline-block;
 }
 
-.managertable {
+.ordertable {
   width: 100%;
   overflow: auto;
   padding: 5px 0;
 }
 
-.managertable table {
+.ordertable table {
   width: 100%;
   border-collapse: collapse;
   min-width: 950px;
   margin-bottom: 10px;
 }
 
-.managertable table th {
+.ordertable table th {
   font-size: 18px;
   color: #000;
   font-family: "NeuzeitGro-Reg";
@@ -54,69 +192,76 @@
   line-height: 1.2;
 }
 
-.managertable table th:first-child,
-.managertable table td:first-child {
-  min-width: 80px;
+.ordertable table th:first-child,
+.ordertable table td:first-child {
+  min-width: 110px;
   text-align: center;
 }
 
-.managertable table th:nth-child(2),
-.managertable table td:nth-child(2) {
+.ordertable table th:nth-child(2),
+.ordertable table td:nth-child(2) {
   min-width: 170px;
   width: 25%;
 }
 
-.managertable table th:nth-child(3),
-.managertable table td:nth-child(3) {
+.ordertable table th:nth-child(3),
+.ordertable table td:nth-child(3) {
   min-width: 240px;
   width: 25%;
+  text-align: center;
 }
 
-.managertable table th:nth-child(4),
-.managertable table td:nth-child(4) {
+.ordertable table th:nth-child(4),
+.ordertable table td:nth-child(4) {
   min-width: 200px;
   width: 25%;
 }
 
-.managertable table th:nth-child(5),
-.managertable table td:nth-child(5) {
+.ordertable table th:nth-child(5),
+.ordertable table td:nth-child(5) {
   min-width: 200px;
   width: 20%;
 }
 
-.managertable table th:nth-child(6),
-.managertable table td:nth-child(6) {
-  min-width: 400px;
+.ordertable table th:nth-child(6),
+.ordertable table td:nth-child(6) {
+  min-width: 350px;
   word-wrap: break-word;
 }
 
-.managertable table th:last-child,
-.managertable table td:last-child {
+.ordertable table th:nth-child(7),
+.ordertable table td:nth-child(7) {
+  min-width: 250px;
+  word-wrap: break-word;
+}
+
+.ordertable table th:last-child,
+.ordertable table td:last-child {
   min-width: 140px;
   text-align: center;
 }
 
-.managertable table th:last-child {
+.ordertable table th:last-child {
   text-align: center;
 }
 
-.managertable table tr + tr {
+.ordertable table tr+tr {
   margin-top: 15px;
 }
 
-.managertable table .userimg {
+.ordertable table .userimg {
   width: 39px;
   height: 39px;
   border-radius: 50%;
 }
 
-.managertable table .userimg img {
+.ordertable table .userimg img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
 
-.managertable table td {
+.ordertable table td {
   font-size: 16px;
   color: #000;
   font-family: "NeuzeitGro-Reg";
@@ -127,18 +272,18 @@
   font-weight: normal;
 }
 
-.managertable table tr {
+.ordertable table tr {
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: 12px;
 }
 
-.managertable table tr:first-child {
+.ordertable table tr:first-child {
   background-color: rgba(239, 148, 86, 0.7);
 }
 
-.managertable table tr:not(:first-child) {
+.ordertable table tr:not(:first-child) {
   background: rgba(255, 255, 255, 0.6);
 }
 
@@ -165,7 +310,7 @@
   color: #ea6a12;
 }
 
-.asbtn + .asbtn {
+.asbtn+.asbtn {
   margin-left: 10px;
 }
 
@@ -178,7 +323,7 @@
   width: 100%;
   height: 100%;
   /* background: rgba(0, 0, 0, 0.4); */
-  background-color:   rgb(199 199 199 / 40%);
+  background-color: rgb(199 199 199 / 40%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -188,7 +333,7 @@
 }
 
 
-.addmanagerpopup .popupinnerbox {
+.dateRange-picker .popupinnerbox {
   position: static;
   transform: none;
   /* height: 90%; */
@@ -196,32 +341,34 @@
   height: auto;
 }
 
-.addmanagerpopup .popuptitle h2 {
+.dateRange-picker .popuptitle h2 {
   color: #000;
   font-size: 30px;
   line-height: 1.2;
   margin-bottom: 50px;
 }
-.addmanagerpopup .popupbody {
+
+.dateRange-picker .popupbody {
   position: relative;
- 
+
 }
 
 
-.addmanagerpopup .popupbody form {
+.dateRange-picker .popupbody form {
   position: relative;
   /* height: calc(100vh - 270px); */
   height: auto;
   overflow: auto;
   width: 100%;
- 
+
   /* overflow: auto; */
 }
-.arabicnumber{
+
+.arabicnumber {
   float: right;
 }
 
-.addmanagerpopup .popupbody .managerimg {
+.dateRange-picker .popupbody .managerimg {
   position: absolute;
   top: -85px;
   right: 20px;
@@ -235,9 +382,10 @@
   line-height: 1.2;
   margin-bottom: 8px;
 }
+
 .formbox .form-control {
   font-size: 16px;
-  padding: 10px 15px; 
+  padding: 10px 15px;
   font-family: "NeuzeitGro-Reg";
   font-weight: normal;
   color: #000;
@@ -247,9 +395,9 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.roleselectbox select{
+.roleselectbox select {
   font-size: 16px;
-  padding: 10px 15px; 
+  padding: 10px 15px;
   font-family: "NeuzeitGro-Reg";
   font-weight: normal;
   color: #000;
@@ -260,10 +408,10 @@
   height: 40px;
   width: 100%;
   border-radius: 3px;
-  
+
 }
 
-.addmanagerpopup .popupinner button {
+.dateRange-picker .popupinner button {
   padding: 8px 25px;
 }
 
@@ -280,17 +428,17 @@
   border: 1px solid transparent;
 }
 
-.submitbtnbox .submitbtn  { 
+.submitbtnbox .submitbtn {
   background: #EA6A12;
 }
 
 .submitbtnbox .cancelbtn {
-  background:rgba(183, 183, 183, 0.8);
+  background: rgba(183, 183, 183, 0.8);
   margin-right: 50px;
 }
 
-.addmanagerpopup .react-tel-input .form-control ,
-.leadpopup  .react-tel-input .form-control {
+.dateRange-picker .react-tel-input .form-control,
+.leadpopup .react-tel-input .form-control {
   width: 100%;
 }
 
@@ -329,7 +477,7 @@
   background: #ea6a12;
 }
 
-.managertable .pagination {
+.ordertable .pagination {
   margin-top: 20px;
   position: relative;
   display: flex;
@@ -337,20 +485,20 @@
   justify-content: center;
 }
 
-.managertable .pagination .page-item a {
+.ordertable .pagination .page-item a {
   color: #000;
   box-shadow: none;
   cursor: pointer;
 }
 
-.managertable .pagination .active > .page-link {
+.ordertable .pagination .active>.page-link {
   border: 1px solid #c65b13b2;
   background-color: #c65b13b2;
   color: white;
 }
 
-.managertable .pagination .page-item:first-child a,
-.managertable .pagination .page-item:last-child a {
+.ordertable .pagination .page-item:first-child a,
+.ordertable .pagination .page-item:last-child a {
   padding: 6px 16px;
   border-radius: 8px;
   border-radius: 8px;
@@ -358,48 +506,35 @@
   background-color: #fff;
 }
 
-.managertable .pagination .page-item:first-child {
+.ordertable .pagination .page-item:first-child {
   position: absolute;
   left: 0;
 }
 
-.managertable .pagination .page-item:last-child {
+.ordertable .pagination .page-item:last-child {
   position: absolute;
   right: 0;
 }
 
-.managertable .pagination .page-item.disabled a {
+.ordertable .pagination .page-item.disabled a {
   border: 1px solid #e8e8e8;
   color: #787878;
 }
 
-.dropdownhistory {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  width: 100%;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #ffffff;
-  color: #000;
-}
-.dropdownhistory > .dropdown-row {
-  padding: 0 5px;
-}
 
 /***************  Arabic css  *****************/
 
-.arabic .managertable .pagination .page-item:not(:first-child){
+.arabic .ordertable .pagination .page-item:not(:first-child) {
   direction: ltr;
 }
 
-.arabic .addmanagerpopup .popupbody .managerimg {
-right: auto;
-left: 20px;
+.arabic .dateRange-picker .popupbody .managerimg {
+  right: auto;
+  left: 20px;
 }
 
 .arabic .react-tel-input.input_filed {
-direction: ltr;
+  direction: ltr;
 }
 
 .arabic .submitbtnbox .cancelbtn {
@@ -413,16 +548,16 @@ direction: ltr;
 
 /* scrollbar css start  */
 
-.managertable::-webkit-scrollbar,
-.addmanagerpopup .popupbody::-webkit-scrollbar {
+.ordertable::-webkit-scrollbar,
+.dateRange-picker .popupbody::-webkit-scrollbar {
   height: 5px;
   width: 3px;
   background-color: #ef9456b2;
   border-radius: 100px;
 }
 
-.managertable::-webkit-scrollbar-thumb,
-.addmanagerpopup .popupbody::-webkit-scrollbar-thumb {
+.ordertable::-webkit-scrollbar-thumb,
+.dateRange-picker .popupbody::-webkit-scrollbar-thumb {
   height: 5px;
   width: 3px;
   background-color: #c65b13b2;
@@ -432,9 +567,36 @@ direction: ltr;
 /* scrollbar css end  */
 
 
-@media(min-width:768px) {
+@media(min-width:768px) {}
+
+.custom-select {
+  appearance: none;
+  padding: 8px 20px 8px 40px;
+  /* Adjust padding as needed */
+  background-image: url('../../../images/filtericon.svg');
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  /* Adjust position of the image */
+  background-size: 20px;
+  /* Adjust image size as needed */
+  background-color: #EA6A12;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  outline: none;
+}
 
 
-
-
+.dropdownhistory {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  color: #000;
+}
+.dropdownhistory > .dropdown-row {
+  padding: 0 5px;
 }
