@@ -249,15 +249,14 @@ function OrderHistoryBox({ translaterFun }) {
                     {GetOrdersHistoryData?.data?.results && GetOrdersHistoryData?.data?.results?.map((bill, billId) => (
                         <tr key={billId} className={`${bill.kot.length - 1 && "lastlength"}`}>
                             <td>
-                                <div>{bill.restaurant_table.category}</div>
-                                <div>{bill.restaurant_table.table_number}</div>
+                                <div>{`${bill.restaurant_table.category}   ${bill.restaurant_table.table_number}`}</div>
                             </td>
 
                             <td>{bill.customer_name}</td>
 
                             <td>
                                 {bill.kot.map((kotItem, kotId) => (
-                                    <div key={kotId} className={bill.kot.length > 1 ? 'mb-5' : "mb-1"}>
+                                    <div key={kotId} className={bill.kot.length > 1 ? '' : ""}>
                                         {kotItem.quantity}
                                     </div>
                                 ))}
@@ -265,15 +264,40 @@ function OrderHistoryBox({ translaterFun }) {
 
                             <td>
                                 {bill.kot.map((kotItem, kotId) => (
-                                    <div key={kotId} className={bill.kot.length > 1 ? 'mb-5' : "mb-1"}>
-                                        {language === "en" ? kotItem.item.item_name_en : kotItem.item.item_name_native}
+                                    <div key={kotId} className={`${bill.kot.length > 1 ? '' : ""} nowrap`}>
+                                        {
+                                            (language === "en") ?
+                                                <div className="text-container">
+                                                    {kotItem?.item?.item_name_en?.length > 25 ?
+                                                        <>
+                                                            {kotItem?.item?.item_name_en?.slice(0, 30) + "..."}
+                                                            <span className='more-text'><b>{translaterFun("more")}</b></span>
+                                                            <div className="full-text">{kotItem?.item?.item_name_en}</div>
+                                                        </> :
+                                                        kotItem?.item?.item_name_en
+                                                    }
+                                                </div>
+                                                :
+                                                <div className="text-container">
+                                                    {kotItem?.item?.item_name_native?.length > 30 ?
+                                                        <>
+                                                            {kotItem?.item?.item_name_native?.slice(0, 30) + "..."}
+                                                            <span className='more-text'><b>{translaterFun("more")}</b></span>
+                                                            <div className="full-text">{kotItem?.item?.item_name_native}</div>
+                                                        </> :
+                                                        kotItem?.item?.item_name_native
+                                                    }
+                                                </div>
+                                        }
+
                                     </div>
                                 ))}
                             </td>
 
+
                             <td>
                                 {bill.kot.map((kotItem, kotId) => (
-                                    <div key={kotId} className={bill.kot.length > 1 ? 'mb-5' : "mb-1"}>
+                                    <div key={kotId} className={bill.kot.length > 1 ? '' : ""}>
                                         {language === "en" ?
                                             (kotItem.variant.variant_name_en !== "" ? kotItem.variant.variant_name_en : '_')
                                             :
@@ -286,7 +310,7 @@ function OrderHistoryBox({ translaterFun }) {
 
                             <td>
                                 {bill.kot.map((kotItem, kotId) => (
-                                    <div key={kotId} className={bill.kot.length > 1 ? 'mb-5' : "mb-1"}>
+                                    <div key={kotId} className={bill.kot.length > 1 ? '' : ""}>
                                         {kotItem.order_type === 'take_away' ? (
                                             <>
                                                 <img src={takeAway} alt='takeaway' className='order-type-dot' />
@@ -338,6 +362,8 @@ function OrderHistoryBox({ translaterFun }) {
                 )}
 
             </div>
+
+
             <LodingSpiner />
         </div>
     )
