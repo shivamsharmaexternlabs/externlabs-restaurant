@@ -337,9 +337,8 @@
 .dateRange-picker .popupinnerbox {
   position: static;
   transform: none;
-  /* height: 90%; */
-  /* max-height: 790px; */
   height: auto;
+  max-width: 650px;
 }
 
 .dateRange-picker .popuptitle h2 {
