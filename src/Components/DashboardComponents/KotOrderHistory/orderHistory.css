@@ -10,7 +10,7 @@
 .order-history-input {
   width: 368px;
   height: 40px;
-  padding: 15px;
+  padding: 5px 15px;
   border: 1px solid #EA6A12;
   border-radius: 6px;
   outline: none;
@@ -43,9 +43,9 @@
 
 .search-icon {
   margin-top: 12px;
-    position: absolute;
-    height: 16px;
-    z-index: 9;
+  position: absolute;
+  height: 16px;
+  z-index: 9;
 }
 
 .sort-btn {
@@ -142,7 +142,7 @@
 }
 
 .order-type-dot {
-  margin-right: 5px;
+  margin: 5px;
 }
 
 .ordertitle h2 {
@@ -194,51 +194,63 @@
 }
 
 .ordertable table th:first-child,
-.ordertable table td:first-child {
-  min-width: 110px;
+.ordertable table td:first-child,
+.orderboxtableinner>ul>.headerlist div:first-child,
+.orderitemlist>ul>li:first-child {
+  width: 110px;
   text-align: center;
 }
 
 .ordertable table th:nth-child(2),
-.ordertable table td:nth-child(2) {
-  min-width: 170px;
-  width: 25%;
+.ordertable table td:nth-child(2),
+.orderboxtableinner>ul>.headerlist div:nth-child(2),
+.orderitemlist>ul>li:nth-child(2) {
+  width: 170px;
 }
 
 .ordertable table th:nth-child(3),
-.ordertable table td:nth-child(3) {
-  min-width: 240px;
-  width: 25%;
+.ordertable table td:nth-child(3),
+.orderboxtableinner>ul>.headerlist div:nth-child(3),
+.orderitemlist>ul>li:nth-child(3) {
+  width: 150px;
   text-align: center;
 }
 
 .ordertable table th:nth-child(4),
-.ordertable table td:nth-child(4) {
-  min-width: 200px;
-  width: 25%;
+.ordertable table td:nth-child(4),
+.orderboxtableinner>ul>.headerlist div:nth-child(4),
+.orderitemlist>ul>li:nth-child(4) {
+  width: 262px;
 }
 
 .ordertable table th:nth-child(5),
-.ordertable table td:nth-child(5) {
-  min-width: 200px;
-  width: 20%;
+.ordertable table td:nth-child(5),
+.orderboxtableinner>ul>.headerlist div:nth-child(5),
+.orderitemlist>ul>li:nth-child(5) {
+  width: 200px;
 }
 
 .ordertable table th:nth-child(6),
-.ordertable table td:nth-child(6) {
-  min-width: 350px;
+.ordertable table td:nth-child(6),
+.orderboxtableinner>ul>.headerlist div:nth-child(6),
+.orderitemlist>ul>li:nth-child(6) {
+  width: 150px;
   word-wrap: break-word;
 }
 
 .ordertable table th:nth-child(7),
-.ordertable table td:nth-child(7) {
-  min-width: 250px;
+.ordertable table td:nth-child(7),
+.orderboxtableinner>ul>.headerlist div:nth-child(7),
+.orderitemlist>ul>li:nth-child(7) {
+  width: 160px;
   word-wrap: break-word;
 }
 
 .ordertable table th:last-child,
-.ordertable table td:last-child {
-  min-width: 140px;
+.ordertable table td:last-child,
+.orderboxtableinner>ul>.headerlist div:last-child,
+.orderitemlist>ul>li:last-child {
+  width: 140px;
   text-align: center;
 }
 
@@ -262,7 +274,8 @@
   border-radius: 50%;
 }
 
-.ordertable table td {
+.ordertable table td,
+.orderitemlist>ul>li {
   font-size: 16px;
   color: #000;
   font-family: "NeuzeitGro-Reg";
@@ -273,9 +286,25 @@
   font-weight: normal;
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
+.ordertable table td>div {
+  min-height: 25px;
+}
+
+.ordertable table td>div+div {
+  margin-top: 30px;
+}
+
+.ordertable table td:first-child>div+div {
+  margin-top: 0;
+}
+
 .ordertable table tr {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   border-radius: 12px;
 }
@@ -597,6 +626,84 @@
   background: #ffffff;
   color: #000;
 }
-.dropdownhistory > .dropdown-row {
+
+.dropdownhistory>.dropdown-row {
   padding: 0 5px;
 }
+
+
+/*  orderboxtable  */
+
+.orderboxtable {}
+
+.orderboxtableinner>ul>li {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.orderboxtableinner>ul>.headerlist {
+  border-radius: 12px;
+  background-color: #ef9356b3;
+
+}
+
+.orderboxtableinner>ul>.headerlist div {
+  font-size: 18px;
+  color: #000;
+  font-family: "NeuzeitGro-Reg";
+  font-weight: normal;
+  padding: 10px 5px;
+  line-height: 1.2;
+}
+
+
+.orderitemlist {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 19px;
+  margin-top: 15px;
+}
+
+.orderitemlist>ul {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.orderitemlist>ul+ul {
+  margin-top: 25px;
+}
+
+
+
+
+.text-container {
+  position: relative;
+  display: inline-block;
+}
+
+.more-text {
+  font-weight: 400;
+  color: #ea6a12;
+}
+
+.full-text {
+  position: absolute;
+  padding: 8px;
+  border-radius: 6px;
+  background: #f8e0cf;
+  width: 260px; 
+  max-width: 100%; 
+  color: #000;
+  display: none;
+  z-index: 9;
+  white-space: normal; 
+}
+
+.text-container:hover .full-text {
+  display: block;
+  background-color: #f8e0cf;
+}
+
