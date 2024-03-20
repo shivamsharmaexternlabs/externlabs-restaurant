@@ -687,6 +687,7 @@
 .more-text {
   font-weight: 400;
   color: #ea6a12;
+  cursor: pointer;
 }
 
 .full-text {

@@ -33,6 +33,16 @@ function OrderHistoryBox({ translaterFun }) {
     const token = localStorage.getItem('Token')
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
+    const [translaterText, setTranslaterText] = useState("more");
+
+    const translaterFunction = (text) => {
+        if (text === "more") {
+            setTranslaterText("less");
+        } else {
+            setTranslaterText("more");
+        }
+    };
+
 
     const handleDateRangeChange = (dateRange) => {
         setSelectedDateRange(dateRange);
@@ -271,7 +281,10 @@ function OrderHistoryBox({ translaterFun }) {
                                                     {kotItem?.item?.item_name_en?.length > 25 ?
                                                         <>
                                                             {kotItem?.item?.item_name_en?.slice(0, 30) + "..."}
-                                                            <span className='more-text'><b>{translaterFun("more")}</b></span>
+                                                            <span className='more-text' onMouseEnter={() => translaterFunction("more")} onMouseLeave={() => translaterFunction("less")}>
+                                                                <b>{translaterFun(translaterText)}</b>
+                                                            </span>
+
                                                             <div className="full-text">{kotItem?.item?.item_name_en}</div>
                                                         </> :
                                                         kotItem?.item?.item_name_en
@@ -282,7 +295,9 @@ function OrderHistoryBox({ translaterFun }) {
                                                     {kotItem?.item?.item_name_native?.length > 30 ?
                                                         <>
                                                             {kotItem?.item?.item_name_native?.slice(0, 30) + "..."}
-                                                            <span className='more-text'><b>{translaterFun("more")}</b></span>
+                                                            <span className='more-text' onMouseEnter={() => translaterFunction("more")} onMouseLeave={() => translaterFunction("less")}>
+                                                                <b>{translaterFun(translaterText)}</b>
+                                                            </span>
                                                             <div className="full-text">{kotItem?.item?.item_name_native}</div>
                                                         </> :
                                                         kotItem?.item?.item_name_native
