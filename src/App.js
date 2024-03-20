@@ -126,8 +126,13 @@ function App() {
   useEffect(() => {
     let splitOrderId = locationData?.pathname?.split?.("/");
     if (locationData?.pathname !== "/" && locationData?.pathname !== `/${splitOrderId[1]}`) {
-      i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
-    }
+      try {
+        i18n.changeLanguage(ManagerApiSelectorData?.languagechange)
+        
+      } catch (error) {
+        
+      }
+     }
   }, [ManagerApiSelectorData?.languagechange])
 
 

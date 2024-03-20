@@ -48,27 +48,10 @@ const CreateEditTable = ({ translaterFun, tableProperty, EditTableData, OpenActi
 
     const handleCreateEditTableSubmit = async (values) => {
 
-        let valueData = /^[A-Za-z\s_-]*$/
+        let valueData = /^[\u0621-\u064A-A-Za-z\s_-]*$/
 
          
-        // if (!valueData.test(SearchCategoryData)) {
-        //     setCategoryDataError("enter valid category")
-
-
-        // }
-        // else if(SearchCategoryData==null || SearchCategoryData==""){
-        //     setCategoryDataError("please enter category")
-
-        // }
-        // else {
-        //     setCategoryDataError("")
-
-        // }
-
-
-
-
-        //  
+       
 
         if (tableProperty === "add-new-table") {
             try {

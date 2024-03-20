@@ -4,12 +4,12 @@ import closeicon from '../../../images/close.svg'
 import { useSelector } from 'react-redux';
 
 const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue, translaterFun }) => {
-  const { GetKdsReducerData } = useSelector((state) => state.KdsApiData);
 
-  // console.log("sdgvjsdcsd", GetKdsReducerData?.data?.[0]?.kds)
+  const GetKdsReducerData = useSelector((state) => state.ManageOrderTableApiData?.GetOrderKotData);
+
   const language = localStorage.getItem('languageSet');
 
-
+  console.log("nbzvsdsd", GetKdsReducerData)
 
 
   function processKdsData(kdsData) {
@@ -18,38 +18,41 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue, translaterFun }) =
     let sumDineInData = []
     let sumTakeAwayData = []
 
-    if (kdsData && kdsData.data) {
-      for (let i = 0; i < kdsData.data.length; i++) {
+
+    if (kdsData && kdsData.data?.results?.[0]) {
+      for (let i = 0; i < kdsData?.data.results[0].kot.length; i++) {
         dineIn.push({
-          tableName: kdsData.data[i].kds[0].restaurant_table.table_number,
-          tableId: kdsData.data[i].kds[0].restaurant_table.table_id,
+          tableName: kdsData.data?.results[i]?.restaurant_table?.table_number,
+          tableId: kdsData.data?.results[i]?.kot[0]?.restaurant_table?.table_id,
           items: [],
         });
         takeAway.push({
-          tableName: kdsData.data[i].kds[0].restaurant_table.table_number,
-          tableId: kdsData.data[i].kds[0].restaurant_table.table_id,
+          tableName: kdsData.data?.results[i]?.restaurant_table?.table_number,
+          tableId: kdsData.data?.results[i]?.kot[0]?.restaurant_table?.table_id,
           items: [],
         });
       }
 
-      for (let table of kdsData.data) {
-        for (let item of table.kds) {
-          dineIn.forEach((insideTable) => {
+      for (let table of kdsData.data?.results) {
+        console.log("hjvssdsd",table)
+
+         for (let item of table?.kot) {
+           dineIn.forEach((insideTable) => {
+            console.log("hjvssdsd1",insideTable)
             if (
-              item.restaurant_table.table_number === insideTable.tableName &&
+              table.restaurant_table?.table_number === insideTable.tableName &&
               item.order_type === "dine_in"
-            ) {
-              
-              console.log("nbxccsd", item)
-              // sumDineInData.push( item?.item.item_price * item?.quantity)
+            ) { 
+               
               sumDineInData.push(item?.variant?.amount !== null ? item?.variant?.amount * item?.quantity
                 : item?.quantity * item?.item?.item_price)
+
               insideTable.items.push(item);
             }
           });
           takeAway.forEach((insideTable) => {
             if (
-              item.restaurant_table.table_number === insideTable.tableName &&
+              table.restaurant_table?.table_number === insideTable.tableName &&
               item.order_type === "take_away"
             ) {
               // sumTakeAwayData.push(item?.item.item_price * item?.quantity)
@@ -84,14 +87,14 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue, translaterFun }) =
     ViewKotPopupState(false)
   }
 
-  console.log("sngsdsddhsd", dineInTakeAwayData?.[1]?.items)
+  console.log("sngsdsddhsd", dineInTakeAwayData)
   return (
     <>
 
       {viewKotPopupStateValue && <PopUpComponent classNameValue="itemtablepopup">
         <span className='closebtn' onClick={() => closePopupFun()}> <img src={closeicon} alt='img' /> </span>
         <div className='popuptitle'>
-          <h3>{translaterFun("table-no")} {GetKdsReducerData?.data?.[0]?.kds?.[0]?.restaurant_table?.table_number}</h3>
+          <h3>{translaterFun("table-no")} {GetKdsReducerData?.data?.results?.[0]?.restaurant_table?.table_number}</h3>
         </div>
 
         <div className='popupbody scroller'>
@@ -133,7 +136,7 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue, translaterFun }) =
               {dineInTakeAwayData?.[1]?.items?.order_type !== 'take_away' ? translaterFun("take-away") : translaterFun("dine-in")}
             </h4>
 
-            <div className='itemtable  '>
+            <div className='itemtable  w-100 '>
               <table  >
                 <tr>
                   <th>{translaterFun("items")} </th>
@@ -162,7 +165,7 @@ const ViewKot = ({ ViewKotPopupState, viewKotPopupStateValue, translaterFun }) =
             <ul>
               {/* <li> <span> Sub Total </span> <span> Sar 480  </span>  </li> */}
               {/* <li> <span>Tax </span> <span> </span> Sar 480 </li> */}
-              <li> <span> <b> {translaterFun("total-payment")} </b></span> <span> <b> {sum}</b> </span> </li>
+              <li> <span> <b> {translaterFun("total-payment")} </b></span> <span> <b> {GetKdsReducerData?.data?.results?.[0]?.amount}</b> </span> </li>
             </ul>
           </div>
         </div>

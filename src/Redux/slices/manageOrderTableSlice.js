@@ -81,6 +81,24 @@ export const UpdateManageOrderTableSlice = createAsyncThunk("UpdateManageOrderTa
   }
 });
 
+export const GetOrderKotSlice = createAsyncThunk( "GetKdsSlice", async (body, { rejectWithValue }) => { 
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}kds/order_history/?restaurant_id=${body.restaurant_id}&table_id=${body?.tableId ? body?.tableId : ""}`,
+        {
+          headers: {
+            Authorization: `Bearer ${body.token}`
+          },
+        }
+      );
+      // toast.success("Successful");
+      return response;
+    } catch (err) {
+      // toast.error(err?.response?.data?.message);
+      return rejectWithValue(err);
+    }
+  }
+);
 
 
 
@@ -175,6 +193,7 @@ export const ManageOrderTableReducer = createSlice({
     GetManageOrderTableData: [],
     GetCategoryTableData: [],
     UpdateManageOrderTableData: [],
+    GetOrderKotData:[],
     loading: false,
     error: null,
   },
@@ -225,6 +244,7 @@ export const ManageOrderTableReducer = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
+
       .addCase(UpdateManageOrderTableSlice.pending, (state) => {
         state.loading = true;
       })
@@ -236,6 +256,21 @@ export const ManageOrderTableReducer = createSlice({
       )
 
       .addCase(UpdateManageOrderTableSlice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(GetOrderKotSlice.pending, (state) => {
+        state.loading = true;
+      })
+
+      .addCase(GetOrderKotSlice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.GetOrderKotData = action.payload;
+      }
+      )
+
+      .addCase(GetOrderKotSlice.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
