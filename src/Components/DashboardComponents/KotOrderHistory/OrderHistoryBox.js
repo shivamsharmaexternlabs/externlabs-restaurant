@@ -292,7 +292,7 @@ function OrderHistoryBox({ translaterFun }) {
                                                 </div>
                                                 :
                                                 <div className="text-container">
-                                                    {kotItem?.item?.item_name_native?.length > 30 ?
+                                                    {kotItem?.item?.item_name_native?.length > 25 ?
                                                         <>
                                                             {kotItem?.item?.item_name_native?.slice(0, 30) + "..."}
                                                             <span className='more-text' onMouseEnter={() => translaterFunction("more")} onMouseLeave={() => translaterFunction("less")}>
