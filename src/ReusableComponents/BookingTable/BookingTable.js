@@ -8,12 +8,13 @@ import usePopUpHook from '../../CustomHooks/usePopUpHook/usePopUpHook';
 import CreateEditTable from '../../Components/DashboardComponents/ManageOrder/CreateEditTable';
 import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { GetManageOrderTableSlice, GetOrderKotSlice, UpdateManageOrderTableSlice } from '../../Redux/slices/manageOrderTableSlice';
+import { GetManageOrderTableSlice, UpdateManageOrderTableSlice } from '../../Redux/slices/manageOrderTableSlice';
 import { GetQrCodeSlice } from '../../Redux/slices/qrCodeSlice';
 import { useSelector } from 'react-redux';
 import { LoadingSpinner } from '../../Redux/slices/sideBarToggle';
 import useDownloadQr from '../../CustomHooks/useDownloadQr';
-import ViewKot from '../../Components/DashboardComponents/ManageOrder/ViewKot'; 
+import ViewKot from '../../Components/DashboardComponents/ManageOrder/ViewKot';
+import { GetKdsSlice } from '../../Redux/slices/KdsSlice';
 
 
 const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionToggle,setOpenMenuActionToggle,OpenActionEditTable  }) => {
@@ -179,7 +180,7 @@ const BookingTable = ({ translaterFun, currentSelectedCategory,OpenMenuActionTog
 
     const ViewOrderFun = async (e, item) => {
         await dispatch(LoadingSpinner(true))
-        let responseData = await dispatch(GetOrderKotSlice({ restaurant_id: restaurantId, token: BearerToken, tableId: item?.table_id }));
+        let responseData = await dispatch(GetKdsSlice({ restaurant_id: restaurantId, token: BearerToken, tableId: item?.table_id }));
         //    console.log 
 
         if (responseData?.payload?.status === 200) {
